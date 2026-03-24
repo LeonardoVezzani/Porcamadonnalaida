@@ -1,0 +1,266 @@
+Skip to Main Content
+
+    IEEE.org
+    IEEE Xplore
+    IEEE SA
+    IEEE Spectrum
+    More Sites 
+
+        Donate 
+        Cart
+        Create Account
+        Personal Sign In 
+
+IEEE Xplore logo - Link to home
+
+    Browse
+    My Settings
+    Help
+
+Access provided by:
+Politecnico di Torino
+Sign Out Attention Authors
+IEEE logo - Link to IEEE main site homepage
+ADVANCED SEARCH
+Conferences > 2024 IEEE International Confe...
+JaywalkerVR: A VR System for Collecting Safety-Critical Pedestrian-Vehicle Interactions
+Publisher: IEEE
+Cite This
+PDF
+Kenta Mukoya ; Erica Weng ; Rohan Choudhury ; Kris Kitani
+All Authors
+37
+Full
+Text Views
+
+    Alerts
+
+Abstract
+Document Sections
+
+    I.
+    Introduction
+    II.
+    Related Work
+    III.
+    VR Simulator For Vehicle-Pedestrian Interaction Data Generation
+    IV.
+    CARLA-VR Dataset
+    V.
+    Experiments
+
+Show Full Outline
+Authors
+Figures
+References
+Keywords
+Metrics
+Supplemental Items
+Footnotes
+Abstract:
+Developing autonomous vehicles that can safely interact with pedestrians requires large amounts of pedestrian and vehicle data in order to learn accurate pedestrian-vehicle interaction models. However, gathering data that include crucial but rare scenarios - such as pedestrians jaywalking into heavy traffic - can be costly and unsafe to collect. We propose a virtual reality human-in-the-loop simulator, JaywalkerVR, to obtain vehicle-pedestrian interaction data to address these challenges. Our system enables efficient, affordable, and safe collection of long-tail pedestrian-vehicle interaction data. Using our proposed simulator, we create a high-quality dataset with vehicle-pedestrian interaction data from safety critical scenarios called CARLA-VR. The CARLA-VR dataset addresses the lack of long-tail data samples in commonly used real world autonomous driving datasets. We demonstrate that models trained with CARLA-VR improve displacement error and collision rate by 10.7% and 4.9%, respectively, and are more robust in rare vehicle-pedestrian scenarios.
+Published in: 2024 IEEE International Conference on Robotics and Automation (ICRA)
+Date of Conference: 13-17 May 2024
+Date Added to IEEE Xplore : 08 August 2024
+ISBN Information:
+DOI: 10.1109/ICRA57147.2024.10610819
+Publisher: IEEE
+Conference Location: Yokohama, Japan
+Funding Agency:
+SECTION I.
+Introduction
+
+Safe autonomous vehicles require precise, multi-modal trajectory prediction systems, especially in highly interactive environments with pedestrians. A major issue for such learning-based prediction or planning systems is the lack of data in complex and dangerous scenes, especially as data-hungry models like Transformers [1] have become the standard. Collecting data from such scenes is challenging from public roads and public datasets in particular lack such scenarios. Structured data collection, in which human subjects carry out long-tail behaviors, can be dangerous. For example, asking children to jaywalk across a busy road is unsafe.
+
+Several methods have been proposed to collect synthetic data using virtual environments to compensate for this gap. For example, Gustavo [2] proposes a real-time simulator with a steering controller to acquire driving data in interactive scenarios, and Junwei [3] proposes to collect behavior and trajectory data of pedestrians using a keyboard controller. These methods pre-define interactive scenes of vehicles and pedestrians in the simulator to generate datasets. However, these systems suffer from a large sim-to-real gap as the subject uses a keyboard controller or joystick to control pedestrians while watching the screen. These controllers cannot accurately reproduce walking behaviors because of the restriction of control freedom. For example, behaviors like waiting for the right time to jaywalk while watching for oncoming vehicles are difficult to reproduce with such input devices due to a lack of head-yaw angle data. Body tracking with virtual reality (VR) has been proposed to solve this issue [4] . Since VR headsets have an immersive 360-degree field of view, tracking the headset allows the collection of head rotation and yaw data.
+
+We introduce a human-in-the-loop pedestrian VR simulator for autonomous driving which can replicate real pedestrian behaviors and interactions called JaywalkerVR based on CARLA [5] . Using our system, we generate a large, high-quality dataset of vehicle-pedestrian interactions called CARLA-VR. We then demonstrate the benefit of this data by training several prediction models with this data and find significant improvements, especially in highly interactive scenes.
+
+To summarize, our key contributions are:
+
+    We develop a virtual reality-based autonomous driving simulator, JaywalkerVR, that can realistically simulate vehicle-pedestrian interaction in long-tail scenarios.
+
+    We collect a high-quality vehicle-pedestrian interaction dataset, CARLA-VR, obtained from real human subjects using our proposed VR simulator.
+
+    We provide experimental results supporting the benefit of our new CARLA-VR dataset for improving trajectory prediction performance in long-tail pedestrian-vehicle interaction scenarios.
+
+SECTION II.
+Related Work
+
+In this section, we summarize the most relevant works related to a) trajectory prediction for autonomous driving, b) datasets for train/test trajectory prediction model, and c) autonomous driving simulators for simulating vehiclepedestrian interaction.
+A. Trajectory Forecasting
+
+Modern trajectory forecasting models are deep, data-driven prediction models that predict futures for multiple interacting vehicles and pedestrians [6] , [7] . Some popular trajectory forecasting methods from recent years include methods built on deep generative architectures [8] –​ [18] , conditional variational autoencoders (CVAEs) [19] –​ [23] , hierarchical architectures [24] –​ [36] , and transformers [21] , [37] –​ [51] . Though there is much variety among architectures, one commonality they all share is that they rely on training on ample amounts of good quality data to produce accurate prediction results,
+B. Trajectory Datasets
+
+Public datasets such as nuScenes [52] , the Waymo Open Motion Dataset [53] , Argoverse [54] , and KITTI [55] are often used for training and testing of trajectory prediction models. These datasets are collected in the real world by real vehicles driving in public traffic environments. These datasets are dominated by commonly-occurring environments and scenes; there is little variety in available scenes, and there is a particular lack of uncommon environments such as narrow roads or alleyways, and uncommon scenarios such as pedestrian jaywalking, pedestrians walking alongside vehicles on the road, or dangerous or close contacts between pedestrians and vehicles. One method that is used to supplement real datasets is with more data from uncommon scenes is by generating synthetic data using traffic and pedestrian simulators [56] –​ [59] . With simulators, it is possible to generate data in many scenarios with low cost. However, in terms of collecting the pedestrian behavior data, most synthetic dataset generation methods use rudimentary autonomous policies [60] –​ [62] to generate pedestrian agent behavior. Other methods solicit input from real pedestrians via data-collection participants using mouse clicks or keyboard controls to control a pedestrian avatar in a virtual environment shown on a display screen [63] . These methods also have limitations, as clicks and keyboard controls fall short of the full degree of control pedestrians have over their movements and trajectories during navigation in real urban experiences.
+Fig. 1. - JaywalkerVR System Overview. People wearing VR headsets can experience 360-degree immersive simulator images and interact with vehicles and pedestrians in the same way they would in the real world. Simultaneously, the pedestrian avatar moves according to their movement in real world. Vehicles are controlled by CARLA AI agent (automatic control function) or manually using steering controller.
+Fig. 1.
+
+JaywalkerVR System Overview. People wearing VR headsets can experience 360-degree immersive simulator images and interact with vehicles and pedestrians in the same way they would in the real world. Simultaneously, the pedestrian avatar moves according to their movement in real world. Vehicles are controlled by CARLA AI agent (automatic control function) or manually using steering controller.
+
+Show All
+Fig. 2. - Example of JaywalkerVR simulation. Left: Subject’s avatar in the JaywalkerVR from a third-person perspective. Right: Captured image of a subject wearing the VR headset in the data collection environment in the real world.
+Fig. 2.
+
+Example of JaywalkerVR simulation. Left: Subject’s avatar in the JaywalkerVR from a third-person perspective. Right: Captured image of a subject wearing the VR headset in the data collection environment in the real world.
+
+Show All
+C. VR Pedestrian and Vehicle Simulators
+
+Some works have proposed using scenario simulators with VR headsets to collect pedestrian behavior data more accurate than that found in autonomous simulators or to study pedestrian responses to vehicle motion. For example, Dosovitskiy et al. (2017) and Schmitt et al. (2022) both created VR simulators where pedestrians are asked to click a button when they decide to cross the street in VR, and Silver et al. (2022) create VR driving simulators to record driver trajectory information [64] .
+
+However, these works focus only on verifying pedestrian behavior rather than recording pedestrian trajectory and body pose data. To our knowledge, no prior work has collected data from human trajectories in uncommon but safety-critical scenarios, such as jaywalking, vulnerable road users, or pedestrian behavior in infrequently-seen urban environments.
+SECTION III.
+VR Simulator For Vehicle-Pedestrian Interaction Data Generation
+A. System Overview
+
+We developed our VR human-in-the-loop pedestrian simulator based on CARLA [65] , a popular open-source driving simulator for autonomous driving based on Unreal Engine 4 that includes convenient map and agent assets which we use for defining scenarios.
+
+An overview of our simulator, JaywalkerVR, is shown in Fig. 1 . We use a VR headset so that the human subjects interact with agents as realistically as possible compared to prior work. Since we need annotated interaction data between vehicles and pedestrians, especially pedestrian trajectory and head rotation data, our system simulates the walker avatar’s motion according to actual human motion. To synchronize the motion between real human and pedestrian avatars in the simulation world, we use the tracking information from the headset such as 3D location and rotation angle.
+B. Walker Control & Tracking
+
+We use the tracking function of the VR headset to control the pedestrian avatar. This function relies on the HTC BaseStation 2.0, an "Outside-In" tracking system which employs a lighthouse tracking method to accurately determine the position of the headset within the tracking range. The official tracking range extends up to approximately 10 meters in both dimensions, shown in Fig. 3 .
+
+We synchronize the real-world sensor values of the headset and apply them to the entire skeleton mesh to obtain pedestrian positions then calibration the headset using the room size and position. Using this information, we use the SteamVR plugin in Unreal Engine to obtain the 3D position [ x,y,z ] of VR headset and use it to control the position of pedestrian skeletal mesh in CARLA. In each scenario, we synchronize the pre-defined start position of the pedestrian avatar with the standing position of the human subject, and control the skeletal mesh model to follow the real human’s movement. We use the headset’s yaw angle to adjust the yaw angle of the whole skeleton mesh. Finally, we update the pedestrian’s movement animation to match their actual walking speed, enabling a person wearing a VR headset to control and move the avatar freely within the experimental setup.
+Fig. 3. - Room and equipment setting. (I) VIVE Pro 2: used for 1.visualizing simulator images and 2.tracking human position/rotation in the room (II) VIVE Wireless Adapter: used for allowing VIVE Pro 2 completely wireless (III) BaseStation 2.0: Track VR headset’s position/rotation based on lighthouse tracking algorithm (IV) Simulator PC: Execute CARLA based VR simulator.
+Fig. 3.
+
+Room and equipment setting. (I) VIVE Pro 2: used for 1.visualizing simulator images and 2.tracking human position/rotation in the room (II) VIVE Wireless Adapter: used for allowing VIVE Pro 2 completely wireless (III) BaseStation 2.0: Track VR headset’s position/rotation based on lighthouse tracking algorithm (IV) Simulator PC: Execute CARLA based VR simulator.
+
+Show All
+C. Pedestrian Model
+
+The walker skeleton model is provided in CARLA by default, and the movement of this skeleton model can be controlled by keyboard or joystick input devices. However, there are no native functions that control that skeleton model according to the movement of a VR headset. We modified the walker blueprint to control the skeleton model by synchronizing it with the motion the VR headset. The virtual camera module is attached to the walker’s head, and the walker’s blueprint is modified in order to get a first-person feel. The camera module acts as the avatar’s virtual eyes, and the skeletal mesh defines the walker’s appearance.
+
+In addition, we developed an IK setup (inverse kinematics) for the representation of walking animation. The skeleton model is designed to make walking motions in response to the movement speed of the VR headset.
+D. Scenario Generation & Data Recording
+
+In order to define arbitrary scenarios for data collection, we implemented a scenario generation function using the CARLA Python API, in particular, the TrafficManager components. First, the CARLA AI Agent, which is the driving policy for autopilot implemented in the CARLA standard, was used to control the vehicle agent of CARLA, and the traffic flow was generated after the Autopilot function was enabled in each spawned vehicle. In terms of route planning, desired routes automatically run according to the route plan determined by the AI Agent by creating a route plan in which vehicle spawn points are arranged. In addition, the behavior of the AI Agent is used with the default setting and stops when a pedestrian is detected. Also, each agent’s data, such as position and size, are collected at 20 Hz.
+E. Simulation Settings
+
+We used the HTC Vive Pro 2 VR headset which has SteamVR support. We used four HTC BaseStation 2.0 units for tracking the headset. We also installed the VIVE Wireless adapter, allowing the headset to be used completely wirelessly. We used a desktop PC which contains a PCI express slot to install the image emitter module of the VIVE Wireless adapter for the simulator, with an Intel core i9-12900KF CPU, NVIDIA GeForce RTX 3080 GPU, and 64GB RAM.
+
+Since VIVE Wireless is only supported by Windows 10 or 11, we set up our CARLA-based VR pedestrian simulator on the Windows 11 desktop PC. We used Unreal Engine UE 4.26.2 and CARLA 0.9.13.
+SECTION IV.
+CARLA-VR Dataset
+A. Interactive Scenarios
+
+We defined four pedestrian-vehicle interaction scenarios in CARLA for collecting VR human data as shown in Fig. 4 .
+
+Jaywalk: Pedestrians jaywalk across a road while yielding to vehicles coming from both directions on a two-lane road. In this scenario, we expect the subjects to try to interact with oncoming vehicles, such as yielding to vehicles. And they cross the street on their own timing and with their own decision-making. For example, some subjects behave aggressively, but others will behave nervously and miss the opportunity to walk. Then, we obtain a variety of behaviors in each subject, such as different speeds of walking and different timings of crossing.
+
+Parked Cars: Pedestrians walk along the edge of the road, avoiding parked vehicles and moving to a position one car ahead while paying attention to vehicles approaching from behind. In this scenario, we also expect subjects to start walking on their own timing.
+Fig. 4. - Experimental scenarios. (1) Jaywalk: Pedestrians jaywalk toward a bus stop while avoiding vehicles. (2) Parked Cars: Pedestrians avoid parked vehicles and move along the road. (3) 4-Way Stop: Pedestrians cross the crosswalk, avoiding cars at a four-way stop. (4) Parking Lot Entrance: Pedestrians walk through the entrance or a parking lot paying attention to cars.
+Fig. 4.
+
+Experimental scenarios. (1) Jaywalk: Pedestrians jaywalk toward a bus stop while avoiding vehicles. (2) Parked Cars: Pedestrians avoid parked vehicles and move along the road. (3) 4-Way Stop: Pedestrians cross the crosswalk, avoiding cars at a four-way stop. (4) Parking Lot Entrance: Pedestrians walk through the entrance or a parking lot paying attention to cars.
+
+Show All
+
+4-Way Stop: Pedestrians cross the crosswalk while paying attention to cars coming from four directions at a four-way stop. In this scenario, we expect subjects to cross the crosswalk at various times as decided by each of them for vehicles coming at them from different directions.
+
+Parking Lot Entrance: Pedestrians walk through the entrance to a parking lot while paying attention to and avoiding any entering and exiting vehicles. In this scenario, we expect subjects to behave by yielding or not yielding to the vehicles at various decisions.
+B. Dataset Details
+
+We collected data from 80 participants in each of the four scenarios. In the Jaywalk, Parked Cars and 4-Way Stop scenarios, the surrounding vehicles are controlled by a CARLA AI agent and in completely autonomous driving mode. In the Parking Lot Entrance scenario, the vehicles are controlled by a human driver using a steering controller, as CARLA did not support implementing a route plan for the vehicle to enter and exit the parking lot. We collected a total of 572 scenes comprising 12702 frames. The data contains position [ x, y, z ][m], rotation [ θ, ϕ, ψ ][deg], velocity [ v x , v y , v z ][m / s], acceleration [ a x , a y , a z ][m / s 2 ] in global coordinates in CARLA’s map, object type (car, pedestrian) and object shape information [length, width, height]. Each scene data is between 10 and 30s long and was recorded at 20Hz.
+SECTION V.
+Experiments
+
+We demonstrate that the realism of our data improves the performance of learned prediction models in long-tail interaction scenarios.
+A. Baseline model
+
+We use AgentFormer [66] in all experiments for measuring trajectory forecasting performance. AgentFormer is a Transformer-based model that jointly models the time and social dimensions with an agent-aware attention mechanism. The model leverages a sequence representation of multi-agent trajectories by flattening trajectory features across time and agents and using the resulting spatiotemporal attention-based features for trajectory prediction. More details, such as the model architecture and training setup, are available in the original paper. In our experiments, we generate 10 sample 2D trajectories for each agent by using past trajectories, yaw angle information, and a semantic segmentation image of a bird’s eye view obtained from CARLA as inputs.
+B. Datasets
+
+We use the following datasets in our experiments:
+
+nuScenes: nuScenes is a widely used public autonomous driving dataset with annotated data, such as position in global coordinates in nuScenes’s map, rotation, and bounding box size at 2Hz. nuScenes also provides HD semantic maps with 11 semantic classes.
+
+nuScenes-prediction: We extract the nuScenes prediction dataset from annotated data for the nuScenes prediction challenge. This is used for pre-training of the trajectory prediction model and also for evaluation of prediction performance in the general scenes.
+TABLE I Evaluation Result
+Table I- Evaluation Result
+
+nuScenes-interaction: To check the prediction model’s performance in rare scenes, we extract interactive scenes from similar situations to our simulation scenarios (e.g. jaywalking) from annotated data on the nuScenes dataset, following the filtering method of [67] . Since this dataset contains only vehicle-pedestrian interaction data that actually occurred in the real world, testing the prediction model with this dataset allows us to evaluate the model’s performance in real-world interactive scenes. This dataset is used for the evaluation of prediction performance in interactive scenes in the real world.
+
+CARLA-VR dataset: Our collected dataset contains rare vehicle-pedestrian interactive scene data from the VR simulator described in Section IV . We use it for pre-training of the trajectory prediction model and also for evaluation of prediction performance in the interactive scenes in the simulator world. To align the sampling rate, CARLA-VR dataset is also resampled from 20Hz to 2Hz.
+C. Experiment settings and evaluation metrics
+
+Our baseline is state-of-the-art AgentFormer trained on the nuScenes prediction dataset, denoted AgentFormer-B. To demonstrate the utility of our proposed dataset, we further train AgentFormer-B on CARLA-VR to get AgentFormer-VR. We then evaluate both models’ performance on nuScenes-prediction, CARLA-VR interaction, and nuScenes-interaction. We use the following metrics to measure performance:
+
+Marginal XDE: XDE encompasses Marginal Average Displacement Error (ADE) and Marginal Final Displacement Error (FDE), and these are commonly used for evaluating how the predicted trajectory is close to ground truth(GT) trajectory. Since AgentFormer generates 10 sample trajectory sets, we evaluate minXDE, the top-K minimum error.
+
+Joint XDE: Unlike XDE, Joint XDE(JXDE) evaluates scene-level ADE/FDE [68] . Since this metrics calculate the average error over all agents within a sample before we select the best one, we cannot mix-and-match agents between different samples. This means we can evaluate how the prediction result (top-K sample) is close to GT trajectory with considering social-interaction at scene-level. Same as XDE, we evaluate minJXDE (top-K minimum error).
+
+Collision Rate: Collision Rate (CR) evaluates whether the predicted trajectories of each agent collide with each other within the same prediction timestep.
+D. Experimental results
+
+The results of the experiments are listed in Table. I . In terms of the evaluation result of CARLA-VR dataset and nuScenes interaction dataset, all metrics improve when incorporating our CARLA-VR dataset. Marginal XDE performance improves by 10.7-12.8%, and Joint XDE also improves by 12.6-16.9%. Further, the most important metric for safety - collision rate - improves by 4.9%.
+
+In Fig. 5 , we show predicted trajectories from AgentFormer-B (left) and AgentFormer-VR (right). The GT trajectories are drawn in red, and the best predicted trajectories are shown with time-varying color. We find that AgentFormer-B, only trained on nuScenes prediction dataset, often predicts trajectories for pedestrians that lead them into direct collision with vehicles. We attribute this to the rarity of dangerous pedestrian-vehicle interactions in the real-world nuScenes dataset. On the other hand, when AgentFormer leverages our safety-critical interaction dataset, we see in the right figure that the pedestrian is predicted to yield to the incoming vehicle, better matching the ground truth trajectory. These qualitative visualizations corroborate our quantitative results that the proposed CARLA-VR dataset, containing safety-critical pedestrian-vehicle interactions, better enables trajectory prediction models to model agent behavior in dangerous and rare scenarios.
+Fig. 5. - Visualization result. Left figure: predicted trajectories of AgentFormer-B, Right figure: predicted trajectories of AgentFormer-VR. Light gray areas indicate the drivable area and dark gray areas indicate pedestrian crossings.
+Fig. 5.
+
+Visualization result. Left figure: predicted trajectories of AgentFormer-B, Right figure: predicted trajectories of AgentFormer-VR. Light gray areas indicate the drivable area and dark gray areas indicate pedestrian crossings.
+
+Show All
+E. Discussion
+
+Our results show that the prediction model becomes more robust in real-world interactive scenes through fine-tuning on the CARLA-VR dataset. In particular, minJXDE and CR decreases substantially for nuScenes-interaction - the most safety-critical and difficult scenarios in the nuScenes dataset. Furthermore, AgentFormer-VR improves collision rates across all datasets. This is particularly crucial in evaluating trajectory forecasting models, as the ability to predict plausible trajectories with minimal collisions important for autonomous driving applications. While performance in the minJXDE metric drops for the nuScenes-prediction test set, we emphasize that that the full nuScenes dataset mostly consists of common or simpler driving scenarios [53] , and that evaluation on the more complex and interactive driving subset - nuScenes-interaction - is more critical. For these more safety-critical and dynamic scenarios, leveraging our CARLA-VR dataset substantially improves the robustness of interaction-aware motion predictions.
+SECTION VI.
+Conclusions
+
+We present JaywalkerVR, a human-in-the-loop VR pedestrian simulator enabling the collection of realistic long-tail vehicle-pedestrian interaction scenario data. We also present the new CARLA-VR dataset, which contains rich, interactive vehicle-pedestrian scenario data from actual humans. In particular, our use of VR in data collection enables accurate trajectory and head angle annotations. Finally, we demonstrate the effectiveness of this dataset for training trajectory forecasting models. Fine-tuning on the CARLA-VR dataset improved XDE, JXDE and CR, especially in highly interactive scenes. Our experiments show that our dataset and data collection pipeline will be effective tools for developing more robust prediction algorithms moving forward.
+ACKNOWLEDGMENTS
+
+This research was supported in part by DENSO International America, Inc., the Ford Fellowship and the NSF Graduate Research Fellowship Program.
+
+Authors
+Figures
+References
+Keywords
+Metrics
+Supplemental Items
+Footnotes
+More Like This
+Human in the Loop for XR Training: Theory, Practice and Recommendations for Effective and Safe Training Environments
+
+2023 IEEE International Conference on Metrology for eXtended Reality, Artificial Intelligence and Neural Engineering (MetroXRAINE)
+
+Published: 2023
+HiLoTEL: Virtual Reality Robot Interface-Based Human-in-the-Loop Task Execution and Learning in the Physical World Through Its Digital Twin
+
+2024 IEEE Conference on Virtual Reality and 3D User Interfaces Abstracts and Workshops (VRW)
+
+Published: 2024
+Show More
+References
+References is not available for this document.
+IEEE Personal Account
+
+    Change username/password 
+
+Purchase Details
+
+    Payment Options
+    View Purchased Documents 
+
+Profile Information
+
+    Communications Preferences
+    Profession and Education
+    Technical interests 
+
+Need Help?
+
+    US & Canada: +1 800 678 4333
+    Worldwide: +1 732 981 0060
+    Contact & Support 
+
+Follow
+
+About IEEE Xplore | Contact Us | Help | Accessibility | Terms of Use | Nondiscrimination Policy | IEEE Ethics Reporting | Sitemap | IEEE Privacy Policy
+
+A not-for-profit organization, IEEE is the world's largest technical professional organization dedicated to advancing technology for the benefit of humanity.
+
+© Copyright 2024 IEEE - All rights reserved, including rights for text and data mining and training of artificial intelligence and similar technologies.

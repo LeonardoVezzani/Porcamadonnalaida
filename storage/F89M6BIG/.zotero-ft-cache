@@ -1,0 +1,476 @@
+
+Close this dialog
+This website utilises technologies such as cookies to enable essential site functionality, as well as for analytics, personalisation, and targeted advertising. You may change your settings at any time or accept the default settings. You may close this banner to continue with only essential cookies. Privacy Policy
+Manage Preferences Accept All Reject Non-Essential
+
+Close Cookie Preferences
+
+    Skip to Article Content
+    Skip to Article Information
+
+Wiley Online Library
+Politecnico Di Torino Sist. Bibl Del Polit Di Torino
+Search within
+
+    Search term
+
+Login / Register
+Mobile Information Systems
+Volume 2021, Issue 1 5802658 Mobile Information Systems
+Research Article
+Open Access
+Analyzing Drivers’ Distractions due to Smartphone Usage: Evidence from AutoLog Dataset
+Inayat Khan , 
+Sanam Shahla Rizvi , 
+Shah Khusro , 
+Shaukat Ali , 
+Tae-Sun Chung , 
+First published: 06 September 2021
+https://doi.org/10.1155/2021/5802658
+view metrics
+OpenURL Politecnico Di Torino Sist. Bibl Del Polit Di Torino
+Academic Editor: Sikandar Ali
+This article is part of Special Issue:
+
+    Novel Approaches to Mobile Application Testing 
+
+Sections
+PDF
+Tools
+Share
+Abstract
+
+The usage of a smartphone while driving has been declared a global portent and has been admitted as a leading cause of crashes and accidents. Numerous solutions, such as Android Auto and CarPlay, are used to facilitate for the drivers by minimizing driver distractions. However, these solutions restrict smartphone usage, which is impractical in real driving scenarios. This research paper presents a comprehensive analysis of the available solutions to identify issues in smartphone activities. We have used empirical evaluation and dataset-based evaluation to investigate the issues in the existing smartphone user interfaces. The results show that using smartphones while driving can disrupt normal driving and may lead to change the steering wheel abruptly, focus off the road, and increases cognitive load, which could collectively result in a devastating situation. To justify the arguments, we have conducted an empirical study by collecting data using maxed mode survey, i.e., questionnaires and interviews from 98 drivers. The results show that existing smartphone-based solutions are least suitable due to numerous issues (e.g., complex and rich interfaces, redundant and time-consuming activities, requiring much visual and mental attention, and contextual constraints), making their effectiveness less viable for the drivers. Based on findings obtained from Ordinal Logistic Regression (OLR) models, it is recommended that the interactions between the drivers and smartphone could be minimized by developing context-aware adaptive user interfaces to overcome the chances of accidents.
+1. Introduction
+
+According to the world health organization, road accidents are the ninth leading cause of death and are expected to become seventh by 2030. [ 1 ]. Each year, more than one million deaths and 50 million damages are caused due to road crashes [ 1 , 2 ]. The main reason for this depredation is the driver repeated engagements in nondriving activities [ 1 , 3 ]. Driver engagements with nondriving or distracting activities caused 25% of crashes reported to the police [ 4 ]. These distractions disturb the normal driving activity and interrupt the drivers’ attention, leading to accidents [ 4 , 5 ]. There are different types of distracting activities, including interacting inside and outside objects, eating and drinking, operating the radio or music system, communicating with commuters in the vehicle, and particularly operating smartphones [ 6 ].
+
+The use of a smartphone while driving made driving activity more unsafe as performing concurrent activities requires fine-grained cognitive, physical, and mental skills [ 6 , 7 ]. Various studies reveal that smartphone usage while driving is a global issue and the main source of accidents [ 8 ]. Despite the known calamities, drivers are still using their smartphones, which is evident from the fact that at a particular instant of time, about 0.66 million people are using their phones while driving [ 8 , 9 ]. However, most countries have discouraged this activity and proposed high penalties [ 10 ]. According to the National Safety Council, it has been reported that 1.6 million accidents and 0.39 million deaths were caused by smartphone usage [ 11 ]. Along with other smartphone activities, texting activity is very dangerous and has attracted public and media attention [ 12 , 13 ]. Similarly, it has been investigated that novice drivers engaged with smartphones can spend more than 400% time not focusing on the road [ 14 ].
+
+Reducing drivers’ distractions is the researcher’s prime interest and has tried different solutions, including Android Auto, CarPlay, and other infotainment systems, to combat the issue. The main objective of these solutions is to minimize the interaction between the vehicle and drivers for the secondary tasks. The available solutions are merely three basics concepts, i.e., blocking the smartphone’s dangerous activities, changing interaction mode, and providing simplified interaction [ 8 , 15 ]. Several solutions have been proposed to reduce drivers’ interactions with smartphones [ 16 ] and suggest blocking smartphone features while driving [ 8 , 15 ]. Blocking the smartphone features is found encouraging in some recent studies and has argued that it will significantly reduce the risks of crashes as many features of the phone will be stopped during driving. However, this approach is strongly discouraged by the people who have developed their habitual contact with their phones. Similarly, it has low adequacy among the drivers as the blocking approach is against the espousal of technology [ 17 , 18 ]. Besides, no strong evidence has been found to investigate the effectiveness of this approach [ 8 ].
+Another group of researchers has proposed changes in interaction with the smartphone using voice commands instead of visual interaction. Performing smartphone activities using voice commands will assist the drivers by minimizing physical and visual interactions [ 19 ]. Various solutions are using these voice-based interfaces for communication, including Do Not Disturb while Driving, CarPlay, Android Auto, and DriveSafe.ly [ 20 ]. This approach has shown comparatively more benefits over the visual interfaces [ 21 , 22 ]. However, the researchers have claimed that drivers are still facing numerous issues as it is difficult to comprehend properly in noisy environments. Similarly, these still require interior glance time and higher cognitive overload. [ 8 , 15 , 23 – 25 ]. Technically, these solutions may reduce visual-manual interaction but increase cognitive overload [ 8 , 26 – 28 ]. By considering the heap of limitations in the previous two approaches, the researchers have claimed that simplifying the smartphone functionalities will minimize the driver’s distractions. [ 8 , 15 ]. Following this idea, numerous applications have been designed that provides simplified interfaces in term of voice commands and shortcuts to the apps [ 2 ]. However, as discussed earlier, operating the smartphone through voice interfaces can increase cognitive overload, off-road visual engagements, and navigational complexities [ 29 – 31 ]. Certainly, the approach can be potentially advantageous and effective over the others, but empirically, no evidence is found supporting the applications in minimizing the risks of crashes [ 10 ]. The researcher’s interests in this area are broader and have a high volume of success if proper attention is paid to come up with suitable solutions by recognizing the fact that driver status while driving is changed from his status while not driving. Therefore, the available solutions need to be redesigned more intelligently so that most of the smartphone activities should be accomplished automatically. This paper is aimed to provide recommended interfaces to the drivers after analyzing (i.e., empirically and through AutoLog [ 32 ] dataset) the existing issues and challenges faced by the drivers. We have defined three research questions in this study:
+
+    (1)
+
+    Are the Smartphone Native Interfaces complex, time-consuming, require excessive visual, mental, and physical attention and lead to a change in vehicle dynamics (e.g., speed, acceleration, steering wheel) ?
+    (2)
+
+    Are the Voice Interfaces (i.e., performing smartphone activities via text-to-speech and speech-to-text) lead to increased cognitive overload and affect vehicle dynamics?
+    (3)
+
+    What type of recommended interfaces will be needed for drivers to overcome these issues and challenges?
+
+The rest of the paper is organized as follows. Methods are presented in Section 2 . Results are presented in Section 3 , and their discussion is presented in Section 4 . Finally, the conclusion is discussed in Section 5 .
+2. Materials and Methods
+2.1. Participants
+
+A total of 98 drivers participated in this study. Among these, 18.37% ( n  = 18) were female and 81.63% ( n  = 80) were male participants. The selection of the participants was based on the condition of having more than a year of driving experience with a valid driving license. Similarly, the participants were filtered with the condition of having a smartphone in use for the last three years. Ages ranged from 19 to 49 and above years. Participants have been categorized accordingly in four different age groups: 19–28 years ( n  = 32), 29–48 years ( n  = 43), 39–48 years ( n  = 17), and 49 and above ( n  = 06). The participants are normally habitual of performing common smartphone activities while driving using different metaphors, i.e., 79.6% ( n  = 78) are using native smartphone interfaces, 15.33% ( n  = 15) are using voice interfaces (. e.g., Google Assistant, etc.), and 5.11% ( n  = 5) are using HUDs. The participant’s frequency of travel daily was 34.69% ( n  = 34), and on a random or sometimes basis was 65.31% ( n  = 64). Normally, the traveling purpose was modeled as workplace mostly, business mostly, and shopping mostly. The number of participants who participated according to traveling type is: employee mostly ( n  = 51), business mostly ( n  = 22), and shopping mostly ( n  = 25).
+2.2. Procedure and Instrument
+
+A two-level methodology is proposed to investigate the drivers’ distractions due to performing smartphone activities.
+
+In the first level, our real-time Android app, namely “AutoLog,” was installed on participants’ smartphones (see Figure 1 ) [ 32 ]. As shown in Figure 1 , the AutoLog is developed with the intention of a multimodal data acquisition platform to capture data related to the vehicle, drivers’ smartphone activities, and environmental contextual data for finding latent distractions and their effects on driving performance. The participants are instructed that the application will be running in the background to log smartphone activities (i.e., keystrokes, missed touches, wrong touches, easiness, etc., are also captured to calculate perfect touch with less time), and their effect on vehicle dynamics irrespective of their privacy violation. The AutoLog uses built-in smartphone sensors and a simple plug-in-play module ELM327 to be inserted into the OBD2 port to obtain the required data. We have used built-in smartphone sensors (including accelerometer sensor, gyroscope sensor, location sensors, etc. [ 33 , 34 ]) and OBD2 not to overburden and disturb the participant’s drivers. The modalities captured and recorded by AutoLog are driver smartphone activities, location, weather information, and vehicle dynamics (engine RPM, brake status, accelerator status, and speed).
+Details are in the caption following the image
+Figure 1
+Open in figure viewer PowerPoint
+Screenshots of the autoLog application.
+
+In the second level, to further strengthen our argument, a quantitative study was carried out to obtain data from different participants for the detailed investigation. The participants have completed an online questionnaire about their preferences and opinion regarding the usage of native smartphone interfaces, usage of voice interfaces, recommended interfaces, and their effect on vehicle dynamics. The average time for questionnaire completion was 20 minutes. The questionnaire contains different items, including driver demographics (i.e., age, gender, the purpose of traveling (mostly), travel frequency, etc.), usage of smartphone native interfaces (i.e., visual-manual interaction for texting, emailing, phone calls, and their effect on driving performance), usage of smartphone activities via voice interfaces (i.e., hands-free interaction including conversation and their effect on driving performance), and usage of recommended interfaces. Questions are organized in a way where participants will be asked to select an answer from a Likert-Scales, having Definitely to Definitely Not. We have informed the participants about the question’s nature, purpose, the procedure of the data collection, and system evaluation.
+
+To answer the first research question, participants were asked to answer 17 questions. For example, “Performing activities using native smartphone interfaces lead to change in speed/brake/accelerator/steering wheel variations?,” “accessing and taping a specific area on smartphone screen and linking it with common tasks are time-consuming and difficult,” and “is composing a text message and search for contact is time-consuming?” To answer the second research question, the participants were asked, “have you ever experienced an increase in cognitive overload when using a smartphone through voice commands?” “do you feel that performing smartphone activities via voice commands incurs extra burden for memorizing the commands?,” “Are you satisfied and comfortable when doing basic smartphone activities via voice instructions?.”
+
+To answer the third question, participants were provided a list of recommended interfaces and were asked to select the options that they would prefer or feel comfortable. The functions were determined based on our future context-aware adaptive interfaces for drivers to minimize driver distraction. For example, the participants were asked, “do you agree to update the smartphone′s existing User Interface (UI) to be easy to use and driver-friendly?” “Will you agree to convert the interaction to an automatic mode where the interface will be changed to a simplified interface?” “Do you agree if the most frequent applications are to be placed on the main screen while driving,” and “will you be happy to cancel unknown and lengthy messages while driving at higher speed?”
+2.3. Data Analysis
+
+We have performed numerous tests in this study and used STATA and Microsoft Excel to analyze the data statistically. For this reason, we have used descriptive tabulation to report frequencies and percentages of the variables. We have also performed the Cronbach alpha test to investigate the internal consistency and reliability of the measurement items. It is concluded that the items used in the study were found reliable and internally consistent. Further, to check multicollinearity, we have used Kendall’s tau-b rank correlation matrix and found it satisfactory. Finally, for distraction-free recommended interfaces, four OLR models have been estimated.
+3. Results
+3.1. Smartphone Use While Driving
+
+The responses of the participants have been compiled and showed descriptive statistics of frequencies and their percentages. Text messaging, phone calling, and emailing activities performed on Smartphone Native Interfaces (SNI) showed higher scales. This means that performing these activities while driving will lead to a change in vehicle dynamics, including variations in speed, lane deviation, and abrupt changes in braking. However, many participants have answered that variations are due to time-consuming, complex, rich interfaces. These applications have very low suitability for drivers as these are mainly designed with the perspective of ordinary smartphone users. Similarly, it has also been reported that operating smartphones via Voice Interfaces (VI) may increase cognitive overload. Furthermore, it has also been reported that sometimes performing smartphone activities using VIs is also not feasibly in a noisy environment.
+3.2. Managing Text Messaging
+
+One of the most tedious and dangerous smartphone activities while driving is text messaging, which many researchers have been acknowledged as a major source of accidents. According to our analysis, maximum participants have selected higher scales 3, 4, and 5, which means that text messaging leads to speed variations, changes in lane variations, abrupt changes in braking, wrong tapping the screen, and particularly focusing off the road (see Figure 2 ). Similarly, some of the participants reported that texting is a difficult and time-consuming task.
+Details are in the caption following the image
+Figure 2
+Open in figure viewer PowerPoint
+Issues in performing texting activities while driving.
+3.2.1. Managing Phone Calls
+
+It has been reported that managing phone calls while driving is complex and leads to vehicle dynamic variations due to changes in vehicle dynamics due to the intricate nature of searching phone numbers and dialing a number. Participants reported that the common reasons behind the complexity of making phone calls are small buttons, small interfaces, and complex navigational patterns. The results are summarized and depicted in Figure 3 .
+Details are in the caption following the image
+Figure 3
+Open in figure viewer PowerPoint
+Participants responses for issues caused due to phone calls.
+3.2.2. Managing Emails
+
+Emails management while driving is not a much frequently used activity as compared to texting and calling. Performing emailing activity while driving is somewhat less usable as compared to texting and phone calling activities. Similarly, as per our analysis, the participants have stated that they usually ignore the emails while driving due to difficulties in reading and replying to emails. The participants also stated that in different varying contexts (i.e., variations in speed), complex interfaces, and smaller font size, they are ignoring the emails. Similarly, some of the participants have reported that they are ignoring emails while driving due to changes in vehicle dynamics, speed, lane variations, and abrupt changes in braking.
+3.2.3. Voice Interfaces
+
+Physical and visual engagement is not only enough for safe driving; minds need to be on-road as well. Mind engagement may increase while operating smartphones through voice interfaces. According to our statistics, performing smartphone activities while driving can overload the human brain as higher scales; i.e., Figures 4 and 5 show that cognitive overload will increase. The participants also reported that voice interfaces might disclose privacy to some extent. Similarly, some participants reported scales, i.e., 3 & 4, showing that they are not using voice interfaces due to noise, language barrier, and extra efforts. Some participants reported that they do not feel comfortable performing smartphones using voice interfaces (see Figure 5 ).
+Details are in the caption following the image
+Figure 4
+Open in figure viewer PowerPoint
+Participants responses for issues caused due to emailing.
+Details are in the caption following the image
+Figure 5
+Open in figure viewer PowerPoint
+Operating smartphone using voice interfaces.
+3.3. Multicollinearity and Data Reliability Checking
+
+We have used Cronbach Alpha to check the reliability of the items. The scales are internally consistent and reliable (see Table 1 ). As shown in Table 2 , we have also performed Kendall’s correlation matrix to investigate the relationship between the independent variables. The values having an asterisk (  ∗ ) in Table 2 show that the correlation is significant. The results reflected that the correlation coefficient value is lower than 0.5, which means that there is no issue with multicollinearity.
+Table 1. Measuring Data Reliability using Cronbach Alpha.
+Measurement Items 	Correlation 	Cronbach alpha
+Item-test 	Item-rest 	Average inter-item
+SN1Txt 	0.7424 	0.7050 	0.4235 	0.9520
+SN2Txt 	0.7380 	0.7008 	0.4237 	0.9520
+SN3Txt 	0.7303 	0.7036 	0.4235 	0.9520
+SN4Txt 	0.6308 	0.5449 	0.4314 	0.9535
+SN5Txt 	0.6915 	0.6181 	0.4278 	0.9528
+SN6Txt 	0.6110 	0.5550 	0.4309 	0.9534
+SN7Txt 	0.8327 	0.7848 	0.4196 	0.9513
+SN8PCall 	0.7621 	0.7482 	0.4214 	0.9516
+SN9PCall 	0.7911 	0.7468 	0.4214 	0.9516
+SN10PCall 	0.7867 	0.7697 	0.4203 	0.9526
+SN11PCall 	0.6652 	0.6338 	0.4270 	0.9527
+SN1Mail 	0.6885 	0.6588 	0.4258 	0.9524
+SN2Mail 	0.6655 	0.6341 	0.4270 	0.9527
+SN3Mail 	0.7923 	0.7710 	0.4203 	0.9514
+SN4Mail 	0.6033 	0.5675 	0.4304 	0.9533
+SN5Mail 	0.5943 	0.5579 	0.4309 	0.9534
+SN6Mail 	0.6130 	0.5779 	0.4299 	0.9532
+Visual interface-1 	0.7235 	0.6965 	0.4239 	0.9521
+Visual interface-2 	0.6476 	0.6149 	0.4280 	0.9528
+Visual interface-3 	0.7051 	0.6766 	0.4249 	0.9523
+Visual interface-4 	0.5465 	0.5074 	0.4333 	0.9538
+Visual interface-5 	0.5481 	0.5091 	0.4333 	0.9538
+Visual interface-6 	0.3752 	0.3280 	0.4425 	0.9554
+Visual interface-7 	0.6682 	0.6368 	0.4267 	0.9526
+Recommended Interface-1 	0.6295 	0.5956 	0.4287 	0.9530
+Recommended Interface-2 	0.7643 	0.7406 	0.4216 	0.9516
+Recommended Interface-3 	0.7153 	0.6875 	0.4242 	0.9521
+Recommended Interface-4 	0.6273 	0.5931 	0.4289 	0.9530
+Observations 98 	Test scale 	0.4268 	0.9542
+Table 2. Kendal Tau-b rank correlation matrix.
+  	SNI1T 	SNI2T 	SNI3T 	SNI4T 	SNI5C 	SNI6C 	SNI1E 	SNI2E 	SNI3E 	VI1 	VI2 	VI3 	VI4 	VI5
+SNI1T 	1.0000 	  	  	  	  	  	  	  	  	  	  	  	  	 
+SNI2T 	0.3501  ∗ 	1.0000 	  	  	  	  	  	  	  	  	  	  	  	 
+SNI3T 	0.4386  ∗ 	0.5290  ∗ 	1.0000 	  	  	  	  	  	  	  	  	  	  	 
+SNI4T 	0.3956  ∗ 	0.4349  ∗ 	0.5118  ∗ 	1.0000 	  	  	  	  	  	  	  	  	  	 
+SNI5C 	0.5183 	0.4127  ∗ 	0.5341  ∗ 	0.3505  ∗ 	1.0000 	  	  	  	  	  	  	  	  	 
+SNI6C 	0.2839  ∗ 	0.5696  ∗ 	0.4138  ∗ 	0.2847  ∗ 	0.5572  ∗ 	1.0000 	  	  	  	  	  	  	  	 
+SNI1E 	0.4878  ∗ 	0.2081  ∗ 	0.3005  ∗ 	0.2633  ∗ 	0.3624  ∗ 	0.3008  ∗ 	1.0000 	  	  	  	  	  	  	 
+SNI2E 	0.4014  ∗ 	0.3571  ∗ 	0.1667 	0.1968  ∗ 	0.2611  ∗ 	0.3348  ∗ 	0.4766  ∗ 	1.0000 	  	  	  	  	  	 
+SNI3E 	0.3717  ∗ 	0.5319  ∗ 	0.4527  ∗ 	0.3996  ∗ 	0.3882  ∗ 	0.4163  ∗ 	0.3867  ∗ 	0.5926  ∗ 	1.0000 	  	  	  	  	 
+VI1 	0.2278  ∗ 	0.2679  ∗ 	0.4597  ∗ 	0.4357  ∗ 	0.4577  ∗ 	0.4080  ∗ 	0.1532 	0.0794 	0.2507  ∗ 	1.0000 	  	  	  	 
+VI2 	0.2534  ∗ 	0.5066  ∗ 	0.2630  ∗ 	0.2329  ∗ 	0.3167  ∗ 	0.5460  ∗ 	0.3480  ∗ 	0.3423  ∗ 	0.3530  ∗ 	0.3599  ∗ 	1.0000 	  	  	 
+VI3 	.2057  ∗ 	0.5176  ∗ 	0.3639  ∗ 	0.2660  ∗ 	0.4725  ∗ 	0.6667  ∗ 	0.2046  ∗ 	0.2003  ∗ 	0.4032  ∗ 	0.4699  ∗ 	0.5957  ∗ 	1.0000 	  	 
+VI4 	0.2482  ∗ 	0.1605 	0.1004 	0.0324 	0.1572 	0.1746  ∗ 	0.1513 	0.1918  ∗ 	0.1894  ∗ 	0.1244 	0.2156  ∗ 	0.2075  ∗ 	1.0000 	 
+VI5 	0.3433  ∗ 	0.5159  ∗ 	0.3754  ∗ 	0.2973  ∗ 	0.3067  ∗ 	0.4052  ∗ 	0.2051  ∗ 	0.3385  ∗ 	0.4048  ∗ 	0.3754  ∗ 	0.4935  ∗ 	0.4378  ∗ 	0.073 	1.0000
+3.4. Distraction Analysis Using Dataset
+
+The dataset generated by the “AutoLog” application also contains valuable information, which could significantly add to the findings of distractions and issues discussed earlier. Analyzing the dataset will strengthen our recommendations and future directions for minimizing the drivers’ distractions caused due to using a smartphone. Using a smartphone while driving could result in changes in vehicle dynamics, steering wheel movements, unwise usage of gas and brake pedals, and vehicle speed. The findings extracted from the dataset are discussed in the following sections.
+3.4.1. Speed Variations
+
+We have used the AutoLog application to capture and store the speed variations when performing common activities on smartphones while driving. After analyzing the AutoLog dataset, we have noticed speed variables in different situations like attending the phone calls, reading the text messages, and replying to text messages. Speed variations can be seen in Figure 6 as it has been degraded from 80 km/h to 55 km/h while attending the phone call and 80 km/h to 30 km/h during texting activity while driving. These variations can lead to catastrophes of different kinds, such as on a highway, a vehicle following high speed may hit a vehicle ahead due to a sudden decrease in the speed. In Figure 6 , X -axis shows the driving time, and Y -axis shows the speed of the vehicle.
+Details are in the caption following the image
+Figure 6
+Open in figure viewer PowerPoint
+Speed variations during call and SMS [ 1 ].
+3.4.2. Variations in Steering Wheel
+
+Apart from speed data, the dataset also captured steering wheel information from the drivers. The control on the steering wheel w.r.t. speed shows the driving performance of a driver. Like speed, analyzing the dataset showed clear variations on the steering wheel control of the drivers, especially while attending phone calls, as shown in Figure 7 . The variations in the steering wheel angle regarding speed are noticeable, and a significant variation is from 106 degrees to 121 degrees as the speed is decreased.
+Details are in the caption following the image
+Figure 7
+Open in figure viewer PowerPoint
+Steering wheel angle and speed variations during receiving calls.
+
+This shows a significantly large and consistent angle shift with a sudden decrease in the speed due to attending a call on a smartphone. Therefore, requiring drivers to be sharper in steering when attending phone calls while driving compared to other conditions. These abrupt changes in the steering wheel could be catastrophic and could result in lane deviation and an accident.
+3.4.3. Distraction Analysis Using Dataset
+
+To come up with optimum solution, data is collected from participant’s drivers for recommended solutions. As shown in Figure 8 , the categorized tabulation for the four dependent variables has been constructed for Recommended Interfaces. Participants selected higher scales responses that show that the existing interfaces’ changes would be viable and fruitful. Cross-tabulation of the four dependent variables, i.e., Recommended Interfaces (RI) have been performed whereas RI1 shows Automatic and Contextual Mode of Interaction, RI2: Change the existing Interface, RI3: Automatically avoiding lengthy messages, and RI4: Priorities the Activities) as shown in Table 3 . These variables have been analyzed concerning driver’s demographics, i.e., age, experience, and traveling mode.
+Details are in the caption following the image
+Figure 8
+Open in figure viewer PowerPoint
+Recommendations for changing the existing interfaces.
+Table 3. Cross-tabulation.
+Variable Label 	Variable category 	Definitely Not 	Possibly 	Probably 	Very Probably 	Definitely
+RI1 	RI2 	RI3 	RI4 	RI1 	RI2 	RI3 	RI4 	RI1 	RI2 	RI3 	RI4 	RI1 	RI2 	RI3 	RI4 	RI1 	RI2 	RI3 	RI4
+Age 	19–28 years 	06 	06 	06 	01 	02 	01 	00 	07 	04 	01 	03 	00 	04 	08 	09 	10 	15 	16 	14 	14
+29–38 years 	00 	00 	00 	00 	02 	02 	01 	02 	01 	05 	06 	16 	18 	14 	15 	13 	22 	22 	21 	12
+39–48 years 	00 	00 	00 	00 	00 	00 	00 	00 	00 	00 	00 	02 	04 	06 	09 	06 	13 	11 	08 	09
+49 and above 	00 	00 	00 	00 	00 	00 	00 	01 	00 	02 	00 	01 	05 	02 	04 	04 	01 	02 	02 	00
+Education level 	Literate 	00 	00 	00 	00 	00 	00 	00 	00 	01 	01 	01 	07 	07 	10 	12 	09 	10 	07 	05 	02
+Educated 	06 	06 	06 	01 	04 	03 	01 	10 	04 	07 	09 	12 	24 	20 	25 	27 	41 	44 	44 	30
+Drive mode 	Inner city 	01 	00 	00 	01 	00 	01 	00 	03 	01 	01 	02 	06 	09 	09 	12 	07 	13 	14 	11 	08
+Long drive 	00 	00 	00 	00 	00 	00 	00 	00 	01 	01 	01 	01 	01 	01 	00 	01 	00 	00 	01 	00
+Both 	05 	06 	06 	00 	04 	02 	01 	07 	03 	06 	06 	12 	21 	20 	25 	28 	38 	37 	33 	24
+Travel frequency 	Random 	06 	06 	06 	00 	04 	02 	00 	08 	02 	03 	05 	07 	10 	09 	13 	09 	11 	14 	10 	10
+Daily 	00 	00 	00 	01 	00 	01 	01 	02 	03 	05 	04 	12 	21 	21 	24 	27 	40 	37 	35 	22
+Travel purpose 	Business 	00 	00 	00 	00 	01 	01 	00 	00 	02 	01 	02 	04 	07 	11 	14 	13 	12 	09 	06 	05
+Employee 	00 	00 	00 	01 	02 	02 	01 	03 	03 	07 	06 	10 	16 	12 	14 	17 	30 	30 	30 	20
+Shopping 	06 	06 	06 	00 	01 	00 	00 	07 	00 	00 	01 	05 	08 	07 	09 	06 	09 	12 	09 	07
+
+The young participants (65%) and educated participants (i.e., 80%) have provided their positive back (i.e., mostly agree) about changing the existing smartphone user interfaces to most driver-friendly interfaces. The new driver-friendly interfaces will automatically change the driving mode and will prioritize the communication activities. Similarly, drivers with driving inner city and outer city were also having a positive attitude for new proposes driver-friendly interfaces. In addition, the participants who are driving for business purposes, work purposes, or shopping purposes also wanted new driver-friendly interfaces.
+3.5. Regression Analysis
+
+Logistic regression models have been estimated (see Tables 4 – 7 ) to investigate the effect and cause of the four variables of “Recommended Interfaces.” The independent variables for all models are the same, including drivers’ demographics, i.e., age, experience, traveling and driving mode, and perception about the existing interfaces. A correlation test has been conducted and found satisfied to check the multicollinearity problem between the independent variables.
+Table 4. Ordinal Logistic Regression Model for the perception about changing the smartphone interactions to an automatic contextual interface.
+Automatic and contextual mode of interaction 	Coefficient 	Standard error 	Z -Value 	P > | z |
+Exp 	−0.949624 	0.3103208 	−3.06 	0.002
+Sex 	12.3117 	5.185264 	2.57 	0.010
+Age 	3.11290 	1.955462 	1.08 	0.280
+Qualification 	5.54612 	4.530418 	1.00 	0.316
+Driving-mode 	−3.83377 	2.334614 	−2.07 	0.038
+Traveling mode 	19.5984 	9.046204 	2.39 	0.017
+Purpose of travel 	4.57517 	2.315121 	1.54 	0.123
+Valid license 	−2.75837 	1.960209 	−0.90 	0.370
+SN1Txt 	5.67337 	3.337954 	2.00 	0.046
+SN2Txt 	4.59828 	2.382641 	2.77 	0.006
+SN3Txt 	−4.37022 	2.185859 	−1.54 	0.123
+SN4Txt 	6.46458 	3.378782 	2.21 	0.027
+SN5Txt 	−12.24350 	4.894838 	−2.28 	0.023
+SN6Txt 	5.386821 	1.979122 	2.27 	0.023
+SN7Txt 	5.860908 	3.351189 	2.08 	0.038
+SN8PCall 	−13.53108 	5.295263 	−3.10 	0.002
+SN9PCall 	−6.506811 	2.111559 	−2.18 	0.029
+SN10PCall 	14.71013 	6.223496 	2.70 	0.007
+SN11PCall 	−4.453164 	1.480809 	−2.27 	0.023
+SN1Mail 	−10.44832 	4.444549 	−2.60 	0.009
+SN2Mail 	8.524289 	3.6931 	2.55 	0.011
+SN3Mail 	4.654765 	4.396298 	0.85 	0.393
+SN4Mail 	−4.82445 	4.444212 	−0.89 	0.376
+SN5Mail 	4.610155 	2.380717 	1.56 	0.119
+SN6Mail 	13.546052 	3.431265 	3.34 	0.001
+Visual interface-1 	1.15801 	1.823014 	1.12 	0.261
+Visual interface-2 	4.33807 	3.231024 	1.00 	0.316
+Visual interface-3 	7.233364 	2.518425 	3.23 	0.001
+Visual interface-4 	−7.513761 	3.553192 	−2.42 	0.015
+Visual interface-5 	2.850426 	2.449121 	0.80 	0.423
+Visual interface-6 	−5.291706 	2.012937 	−2.63 	0.009
+Visual interface-7 	−1.172993 	1.066752 	−1.10 	0.272
+/cut1 	125.2839 	39.44332 	  	 
+/cut2 	152.8744 	48.8225 	  	 
+/cut3 	170.321 	53.83508 	  	 
+No of observations = 59
+Wald chi 2 (32) = 57.29
+P ≤ 0.001
+Pseudo R 2  = 0.6730
+Log pseudolikelihood = −19.236206
+Table 5. Ordinal Logistic Regression Model for the perception about changing the existing interfaces.
+Change the existing interfaces 	Coefficient 	Standard error 	Z -Value 	P > | z |
+Exp 	−18.4540 	2.501872 	−8.22 	0.001
+Sex 	140.753 	17.5606 	8.42 	0.001
+Age 	−189.627 	23.15696 	−8.41 	0.001
+Qualification 	350.8052 	41.60189 	8.24 	0.001
+Driving-mode 	49.33828 	6.043952 	8.51 	0.001
+Traveling mode 	439.1332 	54.95374 	8.08 	0.001
+Purpose of travel 	−149.5421 	18.40198 	−8.45 	0.001
+Valid license 	−529.6207 	62.55927 	−8.55 	0.001
+SN1Txt 	−29.5140 	6.452717 	−5.52 	0.001
+SN2Txt 	−59.1540 	7.291356 	−8.68 	0.001
+SN3Txt 	−321.28643965 	37.88391 	−8.38 	0.001
+SN4Txt 	171.4605 	20.69075 	8.04 	0.001
+SN5Txt 	−481.4669 	56.75089 	−8.40 	0.001
+SN6Txt 	409.5528 	49.32636 	8.33 	0.001
+SN7Txt 	79.18007 	10.35985 	7.83 	0.001
+SN8PCall 	−281.5654 	34.61485 	−7.99 	0.001
+SN9PCall 	211.8213 	25.08761 	8.33 	0.001
+SN10PCall 	274.8012 	33.12115 	8.30 	0.001
+SN11PCall 	−295.5953 	35.57816 	−8.31 	0.001
+SN1Mail 	−802.6423 	96.33161 	−8.33 	0.001
+SN2Mail 	−72.61328 	8.316154 	−8.73 	0.001
+SN3Mail 	761.8761 	90.95409 	8.38 	0.001
+SN4Mail 	−64.51524 	12.22568 	−5.28 	0.001
+SN5Mail 	222.3784 	26.50356 	8.39 	0.001
+SN6Mail 	173.682 	21.2409 	8.18 	0.001
+Visual interface-1 	−620.495 	74.42446 	−8.34 	0.001
+Visual interface-2 	607.7279 	71.93654 	8.45 	0.001
+Visual interface-3 	239.8945 	29.78239 	8.05 	0.001
+Visual interface-4 	−83.16526 	10.5197 	−7.91 	0.001
+Visual interface-5 	248.1227 	31.36583 	7.91 	0.001
+Visual interface-6 	−156.7105 	19.25008 	−8.14 	0.001
+Visual interface-7 	180.2639 	21.36577 	8.44 	0.001
+/cut1 	1527.27 	188.7543 	  	 
+/cut2 	1531.154 	189.2725 	  	 
+/cut3 	2242.325 	274.1231 	  	 
+No of observations = 59
+Wald chi 2 (32) = 235.44
+P ≤ 0.001
+Pseudo R 2  = 0.9149
+Log pseudolikelihood = -4.8564726
+Table 6. Ordinal Logistic Regression Model for the perception about avoiding lengthy messages automatically.
+Avoiding lengthy messages 	Coefficient 	Standard error 	Z -alue 	P > | z |
+Exp 	0.0450562 	0.1648833 	0.95 	0.344
+Sex 	−2.720471 	1.855887 	−0.99 	0.324
+Age 	−.858536 	1.097658 	−0.78 	0.434
+Qualification 	2.16993 	1.426154 	1.52 	0.128
+Driving-mode 	0.1544981 	.9879131 	0.16 	0.876
+Traveling mode 	5.649868 	2.11949 	2.67 	0.008
+Purpose of travel 	2.612008 	.9911119 	2.64 	0.008
+Valid license 	−9.216121 	3.564899 	−2.59 	0.010
+SN1Txt 	1.230921 	1.199268 	1.03 	0.305
+SN2Txt 	−0.8629046 	.7964669 	−1.08 	0.279
+SN3Txt 	−0.1809369 	.8859942 	−0.20 	0.838
+SN4Txt 	−2.107618 	1.672393 	−1.26 	0.208
+SN5Txt 	0.0972826 	1.644342 	0.06 	0.953
+SN6Txt 	0.4282987 	1.053603 	0.41 	0.684
+SN7Txt 	3.022207 	1.158804 	2.61 	0.009
+SN8PCall 	0.0371694 	1.116448 	0.03 	0.973
+SN9PCall 	1.053618 	0.9636646 	1.09 	0.274
+SN10PCall 	−2.579661 	1.381452 	−1.87 	0.062
+SN11PCall 	2.130834 	0.9951324 	2.14 	0.032
+SN1Mail 	−0.3561978 	1.167004 	−0.31 	0.760
+SN2Mail 	−0.1387213 	1.004044 	−0.14 	0.890
+SN3Mail 	0.6601901 	1.316659 	0.50 	0.616
+SN4Mail 	0.478997 	1.206689 	0.40 	0.691
+SN5Mail 	1.257184 	.7716569 	1.63 	0.103
+SN6Mail 	2.536931 	.9134279 	2.78 	0.005
+Visual interface-1 	3.161218 	1.353173 	2.34 	0.019
+Visual interface-2 	−3.132817 	1.248298 	−2.51 	0.012
+Visual interface-3 	0.5081588 	1.088503 	0.47 	0.641
+Visual interface-4 	0.7872293 	1.161302 	0.68 	0.498
+Visual interface-5 	0.6762423 	1.361247 	0.50 	0.619
+Visual interface-6 	−0.5132211 	0.4750714 	−1.08 	0.280
+Visual interface-7 	1.142862 	0.9429931 	1.21 	0.226
+/cut1 	35.82099 	10.84208 	  	 
+/cut2 	40.25627 	10.84055 	  	 
+/cut3 	47.22419 	11.72782 	  	 
+No of observations = 59
+Wald chi 2 (32) = 102.30
+P ≤ 0.001
+Pseudo R 2  = 0.5730
+Log pseudolikelihood = −26.674877
+Table 7. Ordinal Logistic Regression Model for the perception about prioritizing the activities.
+Prioritizing the activities 	Coefficient 	Standard Error 	Z- Value 	P > | z |
+Exp 	−0.1707440 	0.2771559 	−1.02 	0.309
+Sex 	4.718558 	2.275798 	2.55 	0.011
+Age 	3.153012 	3.05413 	0.68 	0.499
+Qualification 	2.512767 	1.262127 	1.29 	0.198
+Driving-mode 	4.540853 	1.918299 	1.90 	0.057
+Traveling mode 	5.018110 	5.80873 	1.06 	0.291
+Purpose of travel 	0.04787 	1.637832 	2.54 	0.011
+Valid license 	−26.44864 	6.38875 	−4.31 	0.001
+SN1Txt 	−1.23716 	3.183147 	−0.74 	0.461
+SN2Txt 	3.726827 	1.077125 	2.63 	0.008
+SN3Txt 	−0.1621387 	1.191217 	−0.21 	0.832
+SN4Txt 	5.560123 	3.639498 	2.11 	0.035
+SN5Txt 	−2.977216 	1.827565 	−1.63 	0.103
+SN6Txt 	−1.143575 	1.831291 	−0.62 	0.532
+SN7Txt 	4.834982 	1.776108 	2.72 	0.006
+SN8PCall 	−2.064167 	1.490176 	−1.39 	0.166
+SN9PCall 	1.947548 	1.866658 	1.04 	0.297
+SN10PCall 	3.446161 	2.5194 	1.37 	0.171
+SN11PCall 	−.0341503 	.8400654 	−0.04 	0.968
+SN1Mail 	−2.567933 	1.660064 	−1.55 	0.122
+SN2Mail 	−0.7192782 	1.000074 	−0.72 	0.472
+SN3Mail 	6.967619 	2.517348 	2.77 	0.006
+SN4Mail 	−6.613736 	2.012419 	−3.29 	0.001
+SN5Mail 	3.321731 	1.112994 	2.98 	0.003
+SN6Mail 	6.209074 	1.705888 	3.64 	0.001
+Visual interface-1 	−0.2021435 	1.745629 	−0.12 	0.908
+Visual interface-2 	0.4624554 	1.873938 	0.25 	0.805
+Visual interface-3 	−3.252232 	0.8262406 	−3.94 	0.001
+Visual interface-4 	3.591892 	1.214865 	2.96 	0.003
+Visual interface-5 	−4.300956 	1.502282 	−2.86 	0.004
+Visual interface-6 	0.3914871 	0.5097102 	0.77 	0.442
+Visual interface-7 	3.478623 	1.882344 	1.85 	0.065
+/cut1 	71.77695 	  	  	 
+/cut2 	87.23475 	  	  	 
+/cut3 	100.2217 	  	  	 
+No of observations = 59
+Wald chi 2 (32) = 62.16
+P ≤ 0.001
+Pseudo R 2  = 0.7205
+Log pseudolikelihood = −20.036181
+4. Discussion
+
+Minimizing smartphone distracted driving has been identified as a fundamental issue for the 2018–2020 National Road Safety Action Plane [ 2 ]. This study makes an effective contribution to investigate the issues in smartphone technology and recommended a driver-friendly solution for the development of countermeasures.
+
+In this study, we have identified that 80% of the sample uses smartphone native interfaces, 15% sample are using supportive voice interfaces (e.g., Google Assistant), and only 5% are using Head-Up-Display (HUDs). This means that the drivers are habitual of using smartphone native interfaces. The current smartphone native interfaces require much visual, manual, and mental attention. It has been concluded that smartphone activities either on smartphone native interfaces or other infotainment systems could create serious driving distractions. It has been investigated that usage of smartphones while driving could distract drivers both physically and visually. For example, performing a textual activity for 2 sec can increase accidents 24 times [ 3 ].
+
+Our results revealed that smartphone activities while driving lead to abrupt variations in speed, braking, lane position, wrong touches, and spelling mistakes, and diverting focus off the road. These issues are due to the small interface size, containing small icons with small font sizes. For example, the small size of a button most often leads to the wrong button/widget and requires much visual and mental attention. According to our results, using smartphone native interfaces for performing activities is difficult as it requires much time, effort, and concentration; even passengers cannot manage properly in a moving vehicle. It has been investigated that accessing a particular area on a smartphone screen for touching or tapping is time-consuming and difficult for drivers. Unfortunately, drivers are familiar with the smartphone native interfaces as they use the same in their normal routine life. These results further highlighted that the drivers are uncomfortable using supportive voice interfaces for many reasons, including privacy issues, language barriers, and noise.
+
+We have estimated OLR models for the four different variables representing recommended interfaces. Model 1 represents the question about updating the existing UIs to more easy-to-use UIs. Model 2 is about knowing the driver perception regarding switching to an automatic mode of interaction. Model 3 is about prioritizing the applications in a way to looks less distractive and more efficient. Similarly, model 4 is about the perception of automatically ignoring and canceling lengthy messages. According to our results, the models are significant statistically as the p -value is less than 0.05, values of all coefficients are equal to zero, and the chi 2 value is greater than 2.0. Hence, therefore, the null hypothesis has been rejected. It has been concluded that all the models are significant. RI2 values represent the percentage (%) variations with values 0.721, 0.673, 0.573, and 0.925 as elucidated by the independent variables for the four models in the dependent variables. The estimated probability value is less than 0.05, and the z -statistics value is greater than 2, which seems that the coefficients of independent variables are significant. The variables that hold negative coefficients will reduce the probability (log odds) while positive coefficients increase the log odds.
+
+In conclusion, 82% of participants have selected the scale “Definitely” and “Very Probably” that the existing mode of interaction between driver and smartphone needs to be changed to more simplified and easy-to-use interfaces. In terms of “Switching to automatic interactions,” 80% of participants selected the scale “Definitely” and “Very Probably.” Similarly, more than 75% of participants reported prioritizing the activities to more relevant and less distractive interfaces. However, avoiding lengthy and unknown messages automatically while driving was reported by about 60% of participants.
+
+There are several methodological limitations noted in this study. Firstly, although diverse recruitment strategies were adopted, still limited participants’ drivers participated in this study. Similarly, it observed that certain groups of people might have been less likely to participate due to the online nature of this study (e.g., lack of Internet accessibility, lack of education, remote areas, etc.). Secondly, due to some privacy issues about self-reported data, it is possible that participants may have been influenced by biases and recorded incorrect responses. Thirdly, most participants who participated in this study were teenagers; the reason may be that the number of drivers that use a smartphone while driving belongs to the younger population. Future research should consider some more methods to investigate the activities that may increase risky driving behaviors. In the current study, all the participants’ drivers were healthy, and future studies could examine the drivers, the low vision drivers, or those affected due to ocular pathologies issues. Furthermore, in the future, we intend to develop a solution that will use different sensors to identify the context and generate user interfaces in real-time for driver’s smartphone users. It is expected that the context-aware adaptive solution will improve driver safety by minimizing physical, mental, and visual distractions.
+5. Conclusion
+
+Smartphone usage while driving has got considerable attention globally as it requires full attention, enough physical engagements, and high psychological skills to perform concurrent activities. Using smartphones while driving is a dangerous activity and was found to be a significant source of crashes and accidents. In ordinary daily life, a person is free to operate a smartphone despite concurrent activities. However, a person while driving has certain issues due to his physical limitations, visual limitations, and psychological limitations. The current smartphone technologies and their rich and complex nature are designed for ordinary users who might not be efficient for the drivers to be used while driving. However, researchers have developed some solutions to cope with the issues and facilitate drivers with easy-to-use interfaces to minimizing distractions and issues. However, there is no empirical evidence found regarding the minimization of distractions and accidents crashes. Therefore, the existing solutions are not viable for the drivers. This paper investigated the existing issues in the state of the art smartphone and their interfaces and proposed the recommended mode of interaction and interfaces for the drivers to minimize distractions. Based on our analysis and investigation, it has been concluded that a context-aware adaptive solution could be an optimal solution to reduce the driver’s limitations.
+Conflicts of Interest
+
+The authors declare that they have no conflicts of interest.
+Acknowledgments
+
+This work was supported by Institute for Information & Communications Technology Promotion (IITP) grant funded by the Korea government (MSIP) (2021-0-01592, ITRC).
+
+Data Availability
+
+The data that support the findings of this study are available upon request from the corresponding author.
+References
+Citing Literature
+
+    All articles
+    All articles   >
+
+    Figures
+    References
+    Related
+    Information
+
+Recommended
+
+    How many times do young drivers actually touch their smartphone screens while driving?
+    Gila Albert ,  Tsippy Lotan , 
+    IET Intelligent Transport Systems
+
+    Drivers’ Perceptions of Smartphone Applications for Real‐Time Route Planning and Distracted Driving Prevention
+    Khaled Shaaban , 
+    Journal of Advanced Transportation
+
+    EVIDENCE SUPPORTING THE NEED FOR REGULAR VISUAL ACUITY TESTS BY LICENSED DRIVERS AND RIDERS IN N.S.W.
+    BRIAN LAYLAND , 
+    The Australian Journal of Optometry
+
+    The influence of technology on academic distraction: A review
+    Alexander J. Dontre , 
+    Human Behavior and Emerging Technologies
+
+    Analyzing the Influence of Mobile Phone Use of Drivers on Traffic Flow Based on an Improved Cellular Automaton Model
+    Yao Xiao ,  Jing Shi , 
+    Discrete Dynamics in Nature and Society
+
+Download PDF
+back
+Additional links
+About Wiley Online Library
+
+    Privacy Policy
+    Terms of Use
+    About Cookies
+    Manage Cookies
+    Accessibility
+    Wiley Research DE&I Statement and Publishing Policies
+
+Help & Support
+
+    Contact Us
+    Training and Support
+    DMCA & Reporting Piracy
+    Sitemap
+
+Opportunities
+
+    Subscription Agents
+    Advertisers & Corporate Partners
+
+Connect with Wiley
+
+    The Wiley Network
+    Wiley Press Room
+
+Copyright © 1999-2025 John Wiley & Sons, Inc or related companies. All rights reserved, including rights for text and data mining and training of artificial intelligence technologies or similar technologies.
+
+Wiley Home Page
+

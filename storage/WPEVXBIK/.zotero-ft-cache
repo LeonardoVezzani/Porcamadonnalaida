@@ -1,0 +1,271 @@
+Research Article
+
+Vol. 31, No. 22 / 23 Oct 2023 / Optics Express 35922
+
+Compact dual-focal augmented reality head-up display using a single picture generation unit with polarization multiplexing
+YI LIU, JIAQI DONG, YUQING QIU, BO-RU YANG, AND ZONG QIN*
+School of Electronics and Information Technology, Guangdong Province Key Laboratory of Display Material and Technology, State Key Laboratory of Optoelectronic Materials and Technologies, Sun Yat-Sen University, 132 East Waihuan Rd., Guangzhou 510006, China *qinzong@mail.sysu.edu.cn
+Abstract: The augmented reality head-up display (AR-HUD) attracts increasing attention. It features multiple focal planes to display basic and AR information, as well as a wider field of view (FOV). Using two picture generation units (PGUs) to create dual-focal AR-HUDs leads to expanded size, increased cost, and reduced reliability. Thus, we previously proposed an improved solution by dividing one PGU into two partitions that were separately imaged into two virtual images with an optical relay system. However, the resolution of the PGU was halved for either virtual image. Regarding the drawbacks, this paper proposes a dual-focal AR-HUD using one PGU and one freeform mirror. Either virtual image utilizes the full resolution of the PGU through polarization-multiplexing. By performing optical design optimization, high image quality, except for the distortion, is achieved in an eyebox of 130 by 60 mm for far (10 m, 13° by 4°) and near (2.5 m, 10° by 1°) images. Next, we propose a distortion correction method by directly inputting the distorted but clear images acquired in the design stage into the real HUD with an inversed optical path. The proposed optical architecture enables a compact system volume of 9.5 L, close to traditional single-focal HUDs. Finally, we build an AR-HUD prototype, where a polarizing reflective film and a twisted nematic liquid crystal cell achieve polarization-multiplexing. The expected image quality of the two virtual images is experimentally verified.
+© 2023 Optica Publishing Group under the terms of the Optica Open Access Publishing Agreement
+1. Introduction
+Automotive head-up displays (HUDs) project a variety of in-vehicle information into a driver’s eyes through a combiner or windshield, significantly improving driving safety by keeping the driver’s eyes on the road [1,2] and providing visual assistance features [3]. In particular, windshield-type HUDs (W-HUDs) are more attractive because of the potential to carry more information and facilitate collision safety without additional components on the dashboard [4].
+Conventional W-HUDs show basic driving information, such as speed and fuel, in a small field of view (FOV) (typically 6° by 3°) at one virtual image distance (VID) of approximately 2.5 m. The optics to achieve such conventional W-HUDs usually use a picture generation unit (PGU) and a curved mirror, as shown in Fig. 1. However, the small FOV and the fixed VID limit the functionalities of HUDs. Thus, the augmented reality head-up display (AR-HUD) concept is emerging to enable richer information, such as navigation, traffic sign recognition, lane-changing assistance, etc., and even interact with the real world [5,6]. It has been widely discussed that AR-HUDs should have a larger FOV and multiple VIDs to realize the above features [7–9]. The larger FOV, usually wider than 10° horizontally, can contain more information. The multiple VIDs can avoid the visual fatigue and cognition degradation caused by depth mismatch between virtual images and the real world. Typically, AR-HUDs require at least two focal planes for the
+
+#502617 Journal © 2023
+
+https://doi.org/10.1364/OE.502617 Received 7 Aug 2023; revised 23 Sep 2023; accepted 27 Sep 2023; published 11 Oct 2023
+
+Research Article
+
+Vol. 31, No. 22 / 23 Oct 2023 / Optics Express 35923
+
+VIDs: a near one (e.g., still 2.5 m) to show basic driving information and another farther one (> 6 m) to display augmented information [10].
+
+Fig. 1. Typical architecture of the conventional windshield-type head-up display.
+However, concerning the limited room under the car dashboard, the HUD system must be compact, usually no larger than approximately 10 L. Achieving a compact dual-focal AR-HUD with a large FOV as well as a sufficient eyebox is challenging. Generally, three solutions are possible: mirror-based, waveguide-based, and holographic display [7,8,11–15]. The mirror-based HUD can realize two VIDs by creating different object distances, complying with geometrical optics. The waveguide-type HUD can easily achieve a compact size with a large eyebox. However, the diffraction-induced color dispersion and low efficiency still need to be addressed for full-color display [14]. Besides, a focus-tunable device is required to alter the collimated light propagating in the waveguide for varying VIDs. Digital holography allows computationally adjusting the VID using a phase-type spatial light modulator (SLM) [16–18]. The working manner, i.e., the SLM diffracts coherent light, induces several long-standing problems, e.g., full color, calculation time, speckle noise, and viewing angle limitation. Although recent works [19,20] have proposed practical solutions regarding VR/AR, the expensive hardware based on an SLM and coherent sources hinders the commercialization of digital holography for HUDs. Therefore, of these technologies, the reflective HUD gains widespread commercial interest because of its high feasibility, reasonable cost, and robustness. In particular, the freeform mirror, the critical component in mirror-based HUDs, is mature for mass production.
+Using freeform mirrors, a straightforward way to achieve dual-focal AR-HUDs is to place two PGUs at different object distances [21]. However, the system volume must be increased, although extra flat mirrors can non-substantially fold the light path [7,22], as well as lower reliability and higher cost induced by the two PGUs. Concerning the drawbacks of using two PGUs, we previously proposed to divide a single PGU into two logically separated parts and optically relay one of them to a new position with a flat mirror [7], creating two object distances for one freeform mirror and, consequently, two VIDs. That study using one PGU achieved a dual-focal AR-HUD with a significantly reduced volume of 8.5 L; however, the two parts of the PGU were separately used for the two VIDs, halving the PGU’s resolution for either VID. In addition, optical crosstalk between the two PGU partitions must be addressed.
+Another approach to multi-focal reflective HUDs utilizes varifocal components (e.g., liquid crystal lens and liquid lens) to achieve a dynamically tunable VID [12,23]. However, due to the large eyebox and long eye relief, optical components in a HUD must span for a large aperture (typically, dozens of centimeters). In contrast, it is usually difficult for those varifocal components to keep reasonable imaging performance at such a large aperture. Response fast enough for time-multiplexing is also challenging. Therefore, the varifocal solution is rarely applied in commercial AR-HUDs compared with head-mounted displays.
+
+Research Article
+
+Vol. 31, No. 22 / 23 Oct 2023 / Optics Express 35924
+
+From the above discussion about the drawbacks of current AR-HUDs, this study aims to provide a dual-focal AR-HUD with sufficient FOV and eyebox based on the freeform mirror architecture. A single PGU with a single freeform mirror is used for compactness and practicability. Concerning the previous resolution loss from dividing the PGU into partitions, we propose a polarization-multiplexing method. A commercial polarization rotator fast switches the PGU’s polarization state, and a polarization-sensitive film creates different optical paths for p- and s-light. Thus, for either polarization corresponding to one of the VIDs, the PGU’s full resolution is utilized. The high requirement of FOV and eyebox is challenging for the only freeform mirror to satisfy with acceptably slight aberration when a commercial windshield introduces significant aberrations. Therefore, this study further proposes a pre-correction method in the design stage because the optical design optimization has to trade the distortion with other aberrations. As a result, the AR-HUD with a compact volume of 9.5 L achieves the desired two VIDs with good image quality, experimentally verified by a prototype assembled with the commercial windshield.
+2. Method
+2.1. System architecture
+Figure 2 illustrates the proposed AR-HUD, where a polarization rotator is attached to a PGU L emitting p-polarized light. The rotator is marked TN as we adopt a twisted nematic liquid crystal (TN LC) cell, which is responsible for switching the polarization state of the light from the PGU. Specifically, the p-light from the PGU is maintained when the TN is applied with a driving voltage (usually bipolar ±24 V); the p-light is converted to s-light when no voltage is applied. TN LC cells are widely-used components for such polarization rotation with a refresh rate of up to 200 Hz [24,25].
+
+Fig. 2. Proposed dual-focal AR-HUD architecture using a PGU L, a polarization rotator TN, and a polarization-sensitive element PRF.
+With fast alternant polarization states, the light is then directed into different light paths through a polarization-sensitive element, which lets p-light transmit through, and s-light be reflected. Usual components with such a function include polarizing beamsplitters (PBS) and polarizing reflective film (PRF). Considering the bulky volume of PBS, we choose PRF in this study. In this manner, p-light, whose polarization direction is parallel to the PRF’s transmission axis, is directly reflected by a primary freeform mirror M0; s-light undergoes reflections by the PRF and a flat mirror M1, then also reaches M0. As a result of the two additional reflections, s-light has a
+
+Research Article
+
+Vol. 31, No. 22 / 23 Oct 2023 / Optics Express 35925
+
+longer object distance. We denote equivalent object positions corresponding to p- and s-light as the blue L and yellow L’, respectively, in Fig. 2.
+When the TN is applied with a voltage, images for the far VID are presented on the PGU; the other TN state corresponds to the near VID. By doing so, either VID can utilize the PGU’s full resolution through time-multiplexing with a sufficient refresh rate (e.g., 120 Hz). In addition, using the single PGU and folding the longer light path by the two reflections can minimize the system volume.
+Previous studies demonstrated that a single freeform mirror could effectively suppress aberrations for a single-focal HUD [4] (namely, the architecture in Fig. 1), where the aberrations induced by the off-axis light path and a commercial windshield with an irregular profile should be paid attention to. However, while still using one freeform mirror, aberration suppression becomes more challenging in this study because the two highly off-axis light paths corresponding to the two VIDs share the same freeform mirror M0. Moreover, the larger FOV further makes the aberration suppression harder. This study does not consider using more curved mirrors because it will remarkably complicate the HUD system, not meeting our goal of practical AR-HUDs. Instead, the two light paths can use different spatial positions of one continuous freeform mirror. Note that under such a highly off-axis setup, using the same mirror region to suppress aberrations simultaneously for two very different VIDs is too challenging [26]; thus, an expanded freeform mirror is a necessary cost for multiple VIDs. Considering the difficulty of aberration suppression using one freeform mirror, distortion can be somewhat sacrificed in the design stage to guarantee the suppression of other aberrations [7]. Distortions can then be addressed by an in-house proposed digital pre-correction method. Besides the pre-correction, actual HUD products may be further calibrated by capturing virtual images and applying a post-processing algorithm [27]. Nevertheless, this study will not discuss post-processing as it is a universal measure for various HUDs.
+
+2.2. Design specifications
+As mentioned in Sec. 1, AR-HUDs present particular requirements of system specifications such as VID, FOV, eyebox, etc. Complying with mainstream commercial requirements, Table 1 shows the specifications for the following optical design.
+
+Table 1. Specification of the proposed dual-focal AR-HUD
+
+Item VID (m) Horizontal FOV (degree) Lookdown angle (degree) Eyebox (mm) Eye relief (driver to the windshield, in mm) Pupil diameter (mm)
+
+Far virtual image
+
+Near virtual image
+
+10
+
+2.5
+
+13 by 4
+
+10 by 1
+
+3.5
+
+7
+
+130 by 60
+
+800
+
+5
+
+The farther virtual image interacts with the real scene and may be aligned with it, thus requiring a larger VID of 10 m and a wider FOV of 13° by 4°. The near virtual image should be presented approximately at the engine hood with a VID of 2.5 m to avoid overlapping with vehicles ahead, the same as traditional HUDs. The FOV of the near image is 10° by 1° to show basic driving information, following mainstream HUD user interfaces. At the same time, an empty FOV of 1° in the vertical direction is inserted between the two images. Considering the HUD should normally work both day and night, the diameter of the human pupil is set to 5 mm. The eyebox refers to the area where the driver can see the entire picture clearly, which is set to 130 by 60 mm to accommodate eye movements during driving. Note that the FOV, the eyebox, and the
+
+Research Article
+
+Vol. 31, No. 22 / 23 Oct 2023 / Optics Express 35926
+
+long eye relief of 800 mm generally determine the aperture of the optical components inside the HUD. Hence, compared with conventional HUDs, AR-HUDs with larger FOV and eyebox further invalidates those small-aperture varifocal devices.
+We adopt a 5-inch liquid crystal display (LCD) with a resolution of 1920 by 1080 as the PGU (HL050T27-02 from Hello Lighting). The high resolution prevents the pixel size from limiting the entire system’s image quality beyond the imaging optics. The windshield is another critical component because it produces non-negligible aberration when the light is reflected by it with a large angle of reflection (approximately 60°) [26]. The windshield we use is a HUD-compatible one (CLW25082VGTN from Fuyao Glass) manufactured through press bending with good repeatability and tight tolerance, as shown in Fig. 3(a). 3D scanning is performed on the windshield to know the precise optical profile of the glass, as shown in Fig. 3(b). Previous studies on traditional HUDs [4] modeled the windshield using ordinary shapes (e.g., the bi-conic surface); however, the windshield area used for optical imaging in AR-HUDs is larger due to the wider FOV. Hence, a precise freeform profile acquired through 3D scanning is necessary concerning the irregularity of the windshield’s shape. The obtained CAD model will be imported into optical design software as a freeform reflector in the following optical design.
+
+Fig. 3. (a) The windshield and (b) its CAD model obtained from 3D scanning.
+
+Furthermore, the windshield’s interior and exterior surfaces create two virtual images with a slight deviation, also known as ghost images [4]. The standard practice to mitigate this issue is incorporating a wedge film between laminated glass [28], also adopted by our windshield.
+
+2.3. Optical design optimization
+We perform optical design optimization in Zemax OpticStudio. The HUD system is modeled with an inversed light path from the virtual images to the PGU, as Fig. 4 shows. For either virtual image, nine fields cover the entire FOV, i.e., F1 to F9 for the far virtual image and F10 to F18 for the near virtual image. Five eye pupils, E1 to E5, with a diameter of 5 mm, cover the entire eyebox. In addition, the TN LC for polarization rotating is modeled as a flat plate made of the B270 material with a thickness of 3.65 mm, complying with the specification of the TN LC, X-FPM(L)-AR from LC-Tec.
+As the off-axis light path of a W-type HUD introduces significant aberration, it is essential to select an initial structure to suppress aberrations primarily. This study adopts a previous dual-focal AR-HUD design using a single PGU and one freeform mirror [7]. However, the structure in [7] was designed for a smaller FOV (10° by 3° and 6° by 2°), so more work on aberration suppression is needed. Similar to [7], due to the irregularity of the windshield profile, especially its different radii in the horizontal and vertical directions, the freeform mirror M0 should be adjusted in the x and y directions independently. So, we adopt the biconical surface with added x and y polynomial terms for the freeform mirror, as given by Eq. (1).
+
+Z(x, y) = √︂
+
+cxx2 + cyy2
+
+N
+
+N
+
++ ∑︂ αixi+ ∑︂ βiyi,
+
+(1)
+
+1 + 1 − (1 + kx)cxx2 − (1 + ky)cyy2 i=1
+
+i=1
+
+Research Article
+
+Vol. 31, No. 22 / 23 Oct 2023 / Optics Express 35927
+
+Fig. 4. The modeled AR-HUD optical system in Zemax OpticStudio, where the five eye pupils E1 to E5 and the 18 fields F1 to F18 are labeled.
+
+where c is the curvature, k is the conic constant, αi and βi are the coefficients on powers of x and y.
+First, based on the initial optical structure, preliminary optimization is performed to correct the primary aberrations resulting from replacing the windshield in the initial structure with the current windshield and modifying the basic mechanical structure (e.g., eye-relief and windshield-mirror distance). In this step, the positions and orientations of optical elements and low-order coefficients of the freeform mirror are optimized, allowing the subsequent addition of higher-order terms to refine image quality. Next, the weight assigned to geometric distortion is reduced, and finer optimization is executed regarding the higher-order coefficients of the freeform mirror. As mentioned before, lowering the priority of distortion can help eliminate other aberrations that are hard to be digitally compensated. Correspondingly, pre-correction for the unsolved distortion is necessary in the following step.
+The above optical design uses sequential raytracing. Thus, the interference between the light paths and the components, as well as the crosstalk between the two paths, is not considered, which will be verified by non-sequential raytracing using LightTools.
+
+3. Result
+
+3.1. Optimization results and pre-correction
+
+After the optimization, the HUD system achieves sufficient image quality across the entire eyebox
+
+and FOV. Figure 5(a) and (b) present the tangent and sagittal modulation transfer functions
+
+(MTFs) of the nine fields for the five eye pupils, corresponding to the far and near virtual images,
+
+respectively. Here, the spatial frequency is counted in pixels per degree (PPD) to align with
+
+the convention in the display area, which is converted from the spatial frequency in cycles per
+
+millimeter on the PGU, as given by Eq. (2). All MTFs are near-diffraction-limited and are beyond
+
+approximately 0.5 at the frequency of 60 PPD, i.e., the human resolution limit [29]. As the
+
+threshold MTF for visual resolution is about 0.2 [30], this design leaves adequate redundancy for
+
+fabrication and assembly errors. Meanwhile, Fig. 6 shows spot diagrams, which are approximately
+
+within the Airy disk, also supporting the sufficient image quality. The aberration that easily
+
+appears in such a rotationally asymmetrical system is astigmatism, which has been addressed
+
+in the optimization, as demonstrated by the close tangent and sagittal MTF curves in Fig. 5.
+
+In addition, as the FOV increases from the initial structure, the coma at outer fields is also
+
+suppressed.
+
+PPD = 2fx · D/A,
+
+(2)
+
+Research Article
+
+Vol. 31, No. 22 / 23 Oct 2023 / Optics Express 35928
+
+where fx is the spatial frequency in cycles per millimeter on the PGU, D is the lateral PGU size in millimeters, and A is the lateral FOV in degrees. The vertical direction can be used instead.
+
+Fig. 5. Tangent (solid lines) and sagittal (dashed lines) MTFs of the nine fields for the five eye pupils corresponding to (a) the far (F1-F9) and (b) the near (F10-F18) virtual images. The abscissa and ordinate of each plot are the spatial frequency in PPD and the MTF value, respectively.
+In addition to the image clarity, the vertical binocular disparity (a.k.a. dipvergence) should be carefully examined because the windshield’s axis of symmetry does not coincide with that of the eyes [7,31]. A dipvergence must be smaller than 2.5 mrad for a binocular system to avoid visual fatigue [7,31]. By assuming an interpupillary distance of 65 mm, Figs. 7(a) and (b) show the dipvergence varying with the field corresponding to the near and far virtual images. As a result, the dipvergence is always smaller than 2.5 mrad.
+By adopting two pictures, Zemax uses the “image simulation” function to obtain the final images, as Fig. 8(a) shows. Despite clear images obeying the above MTF and spot diagram performance, significant distortions can be seen, which is expected because the weight of distortion was intentionally reduced in the above design optimization.
+Note that Zemax performs raytracing with inverted light paths, so the simulated images are real images on the PGU but not virtual images, which may cause inconvenience for conventional HUD design. However, we propose that such backward simulation can be utilized to correct the
+
+Research Article
+
+Vol. 31, No. 22 / 23 Oct 2023 / Optics Express 35929
+
+Fig. 6. Spot diagrams of the 18 fields for the five eye pupils E1 to E5 corresponding to (a) the far (F1-F9) and (b) the near (F10-F18) virtual images. Every subfigure occupies 200 µm by 200 µm, and the black circle denotes the Airy disk. See Fig. 4 for details of E1 to E5 and F1 to F18.
+Fig. 7. Vertical binocular disparity (dipvergence) varying with the field: (a) the far and (b) the near virtual images.
+
+Research Article
+
+Vol. 31, No. 22 / 23 Oct 2023 / Optics Express 35930
+
+Fig. 8. (a) The image with distortions acquired by backward Zemax simulation. (b) The LightTools model of the HUD. (c) The clear and distortion-free images obtained by forward LightTools simulation, where the Zemax-generated distorted images are inputted into the PGU in LightTools as a pre-correction measure.
+distortion. In the optical design in Zemax, ideal pictures emanate light as virtual images and finally be imaged on the PGU with distortions. Thus, if inputting the distorted images provided by Zemax to the PGU, the light propagating from the PGU to the virtual images can restore the ideal pictures. In other words, the Zemax image simulation in the design stage can be a pre-correction measure for distortion.
+The HUD system is modeled in LightTools to verify the proposed pre-correction method. As shown in Fig. 8(b), the freeform mirror M0 is precisely exported from Zemax, and a planar source is set as the PGU L. The folding mirror M1 in the far-image path is parallel to the PRF with a separation of 29.06 mm. The separation directly creates the total track difference between the two light paths, determining the two VIDs.
+The distorted images simulated by Zemax (Fig. 8(a)) are saved and inputted into the PGU in LightTools. The virtual images are observed by setting a receiver imitating the eye and inversely tracing the rays reaching the receiver to the expected VIDs (namely, the “defocused receiver” function in LightTools). As a result, Fig. 8(c) shows simulated near and far images, which are clear and almost distortion-free. Expected FOVs are marked with yellow squares, also matching the simulated images. In addition, no visible crosstalk between the two images is verified in the non-sequential simulation.
+3.2. Experimental verification
+After achieving the expected simulation results, we built the HUD prototype. A mechanical housing is designed to fix all components, as shown in Fig. 9(a). Benefiting from using a single PGU and one single freeform mirror, the volume of the entire housing is only 9.5 L, comparable to conventional single-focal HUDs. The freeform mirror with an aperture of 350 by 110 mm is machined by the single-point diamond turning process. A polarizing reflective film DBEF-Qv2 from 3 M is adopted as the PRF. The TN LC is X-FPM(L)-AR from LC-Tec, whose polarization-keeping state is driven by a 1K-Hz ±24 V bipolar square wave with a duty cycle of 50% at zero bias; the polarization-rotating state uses no voltage. An arbitrary waveform generator
+
+Research Article
+
+Vol. 31, No. 22 / 23 Oct 2023 / Optics Express 35931
+
+(DG5072 from Rigol) sends the driving waveforms. Finally, we assemble all components in the housing and put them under the windshield (CLW25082VGTN from Fuyao Glass) at the designed position with the help of an in-house designed frame, as Fig. 9(b) shows.
+
+Fig. 9. (a) The mechanical housing accommodating all optical components; (b) the AR-HUD prototype and the windshield on the frame.
+A camera (Fujifilm X-A7 with a CA-Dreamer Macro 2X 65 mm/F2.8 lens from LAOWA) captures virtual images to verify our design experimentally. As signal synchronization between the TN LC and the PGU is not available now, we manually switch the TN LC between the polarization-keeping and rotating states, along with near and far pictures shown on the PGU correspondingly.
+
+Fig. 10. A checkerboard chart presented at (a) the far and (b) near VIDs to measure MTFs. Measured MTFs of the central eye pupil for (c) the far and (d) near VIDs (abscissa: spatial frequency in PPD; ordinate: MTF value). The experimental image quality of more eye pupils can be conveniently observed in the video in Fig. 12.
+
+Research Article
+
+Vol. 31, No. 22 / 23 Oct 2023 / Optics Express 35932
+
+First, a checkerboard chart is presented in the FOVs to test MTFs using the slanted-edge method [30], as Figs. 10(a) and (b) show. As a result, almost all fields have a modulation value larger than 0.2 at 60 PPD, as Figs. 10(c) and (d) show. Although the measured MTFs degrade concerning the design due to fabrication and assembly errors, we consider the degradation acceptable because 0.2 is regarded as the minimum acceptable MTF [30], benefitting from our design with sufficient redundancy.
+
+Fig. 11. The virtual images for the five eye pupils E1 to E5 when the camera is focused at (a) 10 m and (b) 2.5 m, respectively.
+Next, to verify the FOVs and VIDs, we set two signages at 10 and 2.5 m from the eyebox. The camera focuses on either signage and then the focusing state is maintained to take pictures of the virtual images. Figures 11(a) and (b) show captured far and near virtual images. At the five eye positions E1 to E5 covering the entire eyebox of 130 by 60 mm, the virtual images exhibit expected FOVs. The VIDs can be verified through the camera’s depth of field (DOF) and motion parallax. First, when the camera focuses on the signage of 10 m, the far virtual images are clear,
+
+Research Article
+
+Vol. 31, No. 22 / 23 Oct 2023 / Optics Express 35933
+
+while the signage of 2.5 m is blurred due to the camera’s DOF, as Fig. 11(a) shows, and similar for the near virtual image in Fig. 11(b). Secondly, in Fig. 11(a), when the camera moves from left to right, namely, from E1 to E2, the positional relationship between the far virtual image and the signage of 10 m is nearly constant, but that with the signage of 2.5 m changes significantly. Such motion parallax demonstrates the virtual image and the signage of 10 m are located at the same depth. A similar motion parallax can be observed in Fig. 11(b) to prove a VID of 2.5 m of the near virtual image.
+We also provide a video clip (see Visualization 1 and a screenshot in Fig. 12), in which the camera is moved throughout the entire eyebox and switched between the two images, i.e., smooth transitions across the eye positions and virtual images in Fig. 11. In addition to observing the image sharpness, compared with the still photographs, clearer motion parallaxes between the virtual images and the signages and DOF-induced blurring switching between the two virtual images can be seen in the video to verify the VIDs.
+
+Fig. 12. Video screenshot when the camera is moved throughout the eyebox to observe the DOF-induced blurring switching between the two virtual images and motion parallaxes between the virtual images and the signages (see Visualization 1).
+4. Discussions
+The above experiment verifies our design of the dual-focal AR-HUD; however, several issues still need to be discussed and overcome in the future.
+(i) Residual distortion. Although the proposed pre-correction method has primarily compensated for the native distortions, residual distortions in the form of picture inclinations can still be observed in Figs. 11 and 12. Such residual distortion is hard to eliminate due to the inevitable assembly error, especially considering the entry-level housing of the prototype. Fortunately, post-correction (not covered by this study) is standard in the HUD industry by capturing a test chart, e.g., gird lines, to quantitatively evaluate the residual distortion across the eyebox. In particular, our HUD has similar residual distortions at all eye positions, so a fixed post-correction algorithm works for the entire eyebox. If the distortion significantly changes as the driver moves within the eyebox, different correction algorithms can be prepared for different eye positions in advance. An eye tracker can know the eye position to apply the corresponding algorithm. (ii) Crosstalk. When showing the far virtual image individually, visible crosstalk can be seen at the near image’s position, as shown in E3 and E4 of Fig. 11(a). Similarly, the near image induces crosstalk at the far image’s position, as shown in E1 and E2 of Fig. 11(b). In the previous LightTools simulation, in which no crosstalk was seen, we assumed ideal polarization contrasts of the PRF and TN. In addition, the polarization contrast of the adopted TN is as high as 1800:1@24 V from the commercial specification. Thus, we infer the crosstalk in the experiment comes from the imperfect PRF, which is a commercial DBEF for LCDs with a sub-optimal polarization contrast
+
+Research Article
+
+Vol. 31, No. 22 / 23 Oct 2023 / Optics Express 35934
+
+of approximately 50:1. Besides such static crosstalk, a driver will merge the crosstalk into the clear image at the same position when the two images switch at a video rate (e.g., residual far image merged into the clear near image). In this manner, the imperfect PRF will also decrease image contrast and sharpness at the dynamic switching state. Both artifacts require a PRF with a higher polarization contrast (e.g., 500:1) in the future.
+(iii) Color cast. In Fig. 11(a), color casts can be seen in the far image by comparing the road sign at the right of the picture across E1 to E5. The mirrors in the HUD are wavelength-independent, but the phase retardation induced by the TN-LC cell and the consequent polarization output depends on the wavelength and the incident angle of light. Therefore, it should be the TN that causes the color to vary with the eye position, which produces different incident angles. In particular, the specification of the TN shows that it has the most uniform angular and spectral performance at the middle wavelength (i.e., green), which perfectly explains that only the green content remains unaffected while moving the camera across E1 to E5. For this issue, in addition to selecting a TN with better spectral and angular performance, the color around the middle wavelength can be utilized more in the user interface (UI) design stage. (iv) Signal synchronization. This study did not develop a controller to synchronize the waveforms for the TN and the video signals to the PGU but manually switched between the two virtual images. For future development of a synchronization controller, the electro-optical response of the TN should be noted. Figure 13 shows the driving waveform and the corresponding optical outputs, complying with the TN’s specification [25]. The p- to s-light conversion, corresponding to the relaxation time up to 1.8 ms, is slower than the opposite. Nevertheless, the switching is still invisible to human vision because the critical flicker frequency to perceive is no higher than 100 Hz [32]. In addition, the trigger of the PGU should match the TN’s response to avoid crosstalk. For instance, a black gap of one to two milliseconds can be inserted while converting from the near to the far image on the PGU (i.e., p- to s-light) so that the TN can fully relax. Doing the above can help develop a video-rate system for an industrial-grade experiment. (v) Ghost image. As shown in Figs. 11, 12, and in the video, the ghost image was largely suppressed for the near virtual image but visible for the far image. The adopted wedge-glass windshield was designed for conventional HUDs generating near images at approximately 2.5 m. Previous studies [4] demonstrated that the wedge film with a specific wedge angle can only eliminate the ghost image for one VID. How to eliminate ghost images for multiple VIDs is a crucial topic for the HUD area to solve in the next stage.
+
+Fig. 13. Driving waveform of the TN LC (magenta) and the corresponding polarization output (blue). Response and relaxation times of the TN LC are marked.
+
+Research Article
+
+Vol. 31, No. 22 / 23 Oct 2023 / Optics Express 35935
+
+5. Conclusion
+Regarding the emerging requirement of AR-HUDs with multiple VIDs, larger FOV, and compact volume, previous studies used two PGUs to create two focal planes or divided one PGU into two partitions separately corresponding to the VIDs, inducing expanded volume, reduced reliability, or reduced resolution. Concerning these issues, this study proposed a dual-focal AR-HUD using polarization multiplexing, with which each virtual image utilized the full resolution of one PGU. Optical design optimization achieved satisfactory image quality in the entire FOV and eyebox, except for the distortion. We proposed that the distorted image acquired by sequential raytracing in the design stage can be directly used to pre-correct the distortion in the real system with an inversed light path. Finally, the desired specifications were experimentally verified. Furthermore, the volume of the entire system was only 9.5 L, close to conventional single-focal HUDs. Therefore, our AR-HUD is compatible with compact cars.
+Funding. National Key Research and Development Program of China (2022YFB3602803, 2021YFB2802300); Natural Science Foundation of Guangdong Province (2021A1515011449).
+Disclosures. The authors declare no conflicts of interest.
+Data availability. Data underlying the results presented in this paper are not publicly available at this time but may be obtained from the authors upon reasonable request.
+References
+1. Y.-C. Liu and M.-H. Wen, “Comparison of head-up display (HUD) vs. head-down display (HDD): driving performance of commercial vehicle operators in Taiwan,” Int. J. Hum. Comput. Stud. 61(5), 679–697 (2004).
+2. M. Smith, L. Jordan, and K. Bagalkotkar, et al., “Hit the brakes! Augmented reality head-up display impact on driver responses to unexpected events,” in 12th International Conference on Automotive User Interfaces and Interactive Vehicular Applications (AutomotiveUI ‘20) (ACM, 2020), pp. 46–49.
+3. C. Maag, N. Schneider, and T. Lübbeke, et al., “Car Gestures–Advisory warning using additional steering wheel angles,” Accid. Anal. Prev. 83, 143–153 (2015).
+4. Z. Qin, F.-C. Lin, and Y.-P. Huang, et al., “Maximal acceptable ghost images for designing a legible windshield-type vehicle head-up display,” IEEE Photonics J. 9(6), 1–12 (2017).
+5. P. George, I. Thouvenin, and V. Fremont, et al., “DAARIA: Driver assistance by augmented reality for intelligent automobile,” in 2012 IEEE Intelligent Vehicles Symposium (IEEE, 2012), pp. 1043–1048.
+6. J. Park and Y. Im, “Visual enhancements for the driver’s information search on automotive head-up display,” Int. J. Hum. Comput. Int. 37(18), 1737–1748 (2021).
+7. Z. Qin, S.-M. Lin, and K.-T. Luo, et al., “Dual-focal-plane augmented reality head-up display using a single picture generation unit and a single freeform mirror,” Appl. Opt. 58(20), 5366–5374 (2019).
+8. J. H. Seo, C. Y. Yoon, and J. H. Oh, et al., “59-4: A study on multi-depth head-up display,” Dig. Tech. Pap. - Soc. Inf. Disp. Int. Symp. 48(1), 883–885 (2017).
+9. U. Y. Başak, S. Kazempourradi, and E. Ulusoy, et al., “Wide field-of-view dual-focal-plane augmented reality display,” Proc. SPIE 10942, 1094209 (2019).
+10. M. Firth, “Turning automotive windows into the ultimate HMIs,” Inf. Disp. 36(4), 16–20 (2020). 11. C. T. Draper, C. M. Bigler, and M. S. Mann, et al., “Holographic waveguide head-up display with 2-D pupil expansion
+and longitudinal image magnification,” Appl. Opt. 58(5), A251–A257 (2019). 12. T. Zhan, Y. H. Lee, and J. Xiong, et al., “High-efficiency switchable optical elements for advanced head-up displays,”
+J. Soc. Inf. Disp. 27(4), 223–231 (2019). 13. P. Richter, W. von Spiegel, and J. Waldern, “55-2: Volume optimized and mirror-less holographic waveguide
+augmented reality head-up display,” Dig. Tech. Pap. - Soc. Inf. Disp. Int. Symp. 49(1), 725–728 (2018). 14. N. Zhang, J. Liu, and J. Han, et al., “Improved holographic waveguide display system,” Appl. Opt. 54(12), 3645–3649
+(2015). 15. C.-T. Mu, W.-T. Lin, and C.-H. Chen, “Zoomable head-up display with the integration of holographic and geometrical
+imaging,” Opt. Express 28(24), 35716–35723 (2020). 16. K. Wakunami, P.-Y. Hsieh, and R. Oi, et al., “Projection-type see-through holographic three-dimensional display,”
+Nat. Commun. 7(1), 12954 (2016). 17. J. Christmas and N. Collings, “75-2: Realizing automotive holographic head up displays,” Dig. Tech. Pap. - Soc. Inf.
+Disp. Int. Symp. 47(1), 1017–1020 (2016). 18. J. Skirnewskaja, Y. Montelongo, and P. Wilkes, et al., “LiDAR-derived digital holograms for automotive head-up
+displays,” Opt. Express 29(9), 13681–13695 (2021). 19. D. Wang, Z.-S. Li, and Y.-W. Zheng, et al., “High-quality holographic 3D display system based on virtual splicing of
+spatial light modulator,” ACS Photonics 10(7), 2297–2307 (2023).
+
+Research Article
+
+Vol. 31, No. 22 / 23 Oct 2023 / Optics Express 35936
+
+20. D. Wang, N.-N. Li, and Y.-L. Li, et al., “Large viewing angle holographic 3D display system based on maximum diffraction modulation,” Light: Advanced Manufacturing 4(2), 18 (2023).
+21. B. Shi, T. Hong, and W. Wei, et al., “34.3: A dual depth head up display system for vehicle,” Dig. Tech. Pap. - Soc. Inf. Disp. Int. Symp. 49(S1), 371–374 (2018).
+22. S. Wei, Z. Fan, and Z. Zhu, et al., “Design of a head-up display based on freeform reflective systems for automotive applications,” Appl. Opt. 58(7), 1675–1681 (2019).
+23. K. Li, Y. Geng, and AÖ Yöntem, et al., “Head-up display with dynamic depth-variable viewing effect,” Optik 221, 165319 (2020).
+24. C. Y. Fan, T. J. Chuang, and K. H. Wu, et al., “Electrically modulated varifocal metalens combined with twisted nematic liquid crystals,” Opt. Express 28(7), 10609–10617 (2020).
+25. P. Y. Chou, J. Y. Wu, and S. H. Huang, et al., “Hybrid light field head-mounted display using time-multiplexed liquid crystal lens array for resolution enhancement,” Opt. Express 27(2), 1164–1177 (2019).
+26. J. P. Rolland, “Wide-angle, off-axis, see-through head-mounted display,” Opt. Eng. 39(7), 1760–1767 (2000). 27. T. Yang, H. Xu, and D. Cheng, et al., “Design of compact off-axis freeform imaging systems based on optical-digital
+joint optimization,” Opt. Express 31(12), 19491–19509 (2023). 28. L. L. Spangler, J. Hurlbut, and D. Cashen, et al., “Next generation PVB interlayer for improved HUD image clarity,”
+SAE Int. J. Passenger Cars Mech. Syst. 9(1), 360–365 (2016). 29. M. Yanoff and J. S. Duker, Ophthalmology (Elsevier Health Sciences, 2008). 30. Z. Qin, P.-J. Wong, and W.-C. Chao, et al., “Contrast-sensitivity-based evaluation method of a surveillance camera’s
+visual resolution: improvement from the conventional slanted-edge spatial frequency response method,” Appl. Opt. 56(5), 1464–1471 (2017). 31. K. W. Gish and L. Staplin, “Human factors aspects of using head up displays in automobiles: A review of the literature,” Interim Rep. no. DOT HS 808 320 (U.S. Department of Transportation, National Highway Traffic Safety Administration [NHTSA], 1995). 32. A. Eisen-Enosh, N. Farah, and Z. Burgansky-Eliash, et al., “Evaluation of critical flicker-fusion frequency measurement methods for the investigation of visual temporal resolution,” Sci. Rep. 7(1), 15621 (2017).
+

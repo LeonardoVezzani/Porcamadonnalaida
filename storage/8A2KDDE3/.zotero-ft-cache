@@ -1,0 +1,417 @@
+Virtual Reality (2017) 21:19–29 DOI 10.1007/s10055-016-0296-6
+ORIGINAL ARTICLE
+A virtual reality keyboard with realistic haptic feedback in a fully immersive virtual environment
+Chien-Min Wu1 • Chih-Wen Hsu1 • Tzu-Kuei Lee1 • Shana Smith1
+
+Received: 28 August 2015 / Accepted: 5 September 2016 / Published online: 17 September 2016 Ó Springer-Verlag London 2016
+
+Abstract This study presents a 3D virtual reality (VR) keyboard system with realistic haptic feedback. The system uses two ﬁve-ﬁngered data gloves to track ﬁnger positions and postures, uses micro-speakers to create simulated vibrations, and uses a head-mounted display (HMD) for 3D display. When users press a virtual key in the VR environment, the system can provide realistic simulated key click haptic feedback to users. The results of this study show that the advantages of the haptic VR keyboard are that users can use it when wearing HMDs (users do not need to remove HMDs to use the VR keyboard), the haptic VR keyboard can pop-up display at any location in the VR environments (users do not need to go to a speciﬁc location to use an actual physical keyboard), and the haptic VR keyboard can be used to provide realistic key click haptic feedback (which other studies have shown enhances user performance). The results also show that the haptic VR keyboard system can be used to create complex vibrations that simulate measured vibrations from a real keyboard and enhance keyboard interaction in a fully immersive VR environment.
+Keywords Virtual reality haptic keyboard Á Realistic haptic feedback Á Simulated vibrations
+& Shana Smith ssmith@ntu.edu.tw
+1 Department of Mechanical Engineering, National Taiwan University, Taipei City, Taiwan
+
+1 Introduction
+Virtual reality (VR) technologies are increasingly used in engineering and entertainment applications. As a result, many studies focus on enhancing the sensory feedback provided to users, to help them feel more immersed in a VR environment. In particular, many studies use both visual feedback and haptic feedback to increase the realism.
+Head-mounted displays (HMDs) are often used to display virtual scenes. However, most commercial HMDs are closed, not see-through. Therefore, if users need to change or input some data in a fully immersive VR environment, they need to take off the closed HMD to access a physical keyboard. Thus, the sensation of immersion and realism of the VR applications will be interrupted.
+In order to solve the above-mentioned problems, virtual keyboards were developed to allow users to directly input data. For example, Du and Charbon (2008) developed a virtual keyboard system based on multi-level feature matching. However, previous studies showed that keyboards without haptic feedback have higher typing error rates than keyboards with haptic feedback (Markov-Vetter et al. 2012; Chaparro et al. 2014). Haptic feedback has been proven to be able to improve work efﬁciency, work accuracy, and user pleasure (Fukumoto and Sugimura 2001; Koskinen et al. 2008; Tzafestas et al. 2008). Furthermore, haptic feedback can help with skill training in VR. For example, Choi and Lo (2014) developed a VR system with haptic device to help disabled children to acquire skills in activities of daily living.
+Prior research used different kinds of actuators to create haptic feedback. For example, Wu et al. (2012) used pneumatic actuators in VR environments. Pneumatic actuators have slow impulse responses which make them
+
+123
+
+20
+
+Virtual Reality (2017) 21:19–29
+
+unsuitable for realistic fast-reaction feedback. Romano and Kuchenbecker (2012) mounted two voice coil actuators on a stylus. They built a lookup table and used a linear predictive model to reproduce vibrations resulting from impacts against a surface. Other studies used microspeakers, piezo-electric actuators, and vibration motors to create high-frequency 50–200 Hz vibrations for haptic feedback (Hayward and Cruz-Hernandez 2000; Kyung et al. 2004; Minamizawa et al. 2007; Aoki et al. 2009; Hashimoto et al. 2009; Sziebig et al. 2009; Olsson et al. 2012).
+Therefore, in order to improve human–computer interaction, virtual keyboards with haptic feedback offer the best overall experience (Markov-Vetter et al. 2012). Kim and Kim (2004) overlaid a virtual keyboard on a real keyboard to obtain haptic feedback from the physical keyboard. Markov-Vetter et al. (2012) overlaid a virtual keyboard on a physical surface. However, virtual keyboards overlaid on physical keyboards or physical surfaces limit the workspace for interacting with virtual objects. Users can only use VR haptic keyboards at ﬁxed locations. Even if users hold a physical keyboard or a physical surface at hands and move around, they might lack of extra pair of hands for typing task. De Pra et al. (2014) designed a virtual piano keyboard and a magnetic glove. They used Leap Motion and ultrasound to track ﬁnger positions. Haptic feedback can be provided using magnets when a virtual key was pressed.
+Lylykangas et al. (2011) controlled different durations and delay times to create button-click sensations using piezo actuators. Park et al. (2011) chose different vibration parameters (amplitude, duration, carrier signal, envelope function, and actuator) to create button-click vibrations using micro-speakers. Park et al. also conducted user tests to identify vibrations that were most realistic. Prior studies provided users with different simulated haptic feedback. However, none of them created realistic haptic feedback using actual vibration patterns from physical keyboards. In addition, most prior haptic virtual keyboard devices were cumbersome, slow to response, and expensive.
+This study creates a portable haptic virtual keyboard system for fully immersive VR environments based on our prior pilot work (Wu et al. 2012). The main purpose of this study is to help users better interact with a keyboard in a fully immersive VR environment, without taking off the HMDs. If a user needs a keyboard in a fully immersive VR environment, most cases are to change some data or parameters, not for conventional long documentary typing task. Therefore, in this research, the virtual keyboard is developed mainly for typing short commands in a fully immersive VR environment.
+There are two research questions in this study. The ﬁrst question is that does a virtual keyboard perform better than
+
+a physical keyboard in a fully immersive VR environment? The second question is that does a virtual keyboard with haptic feedback perform better than the one without haptic feedback? The organization of the paper is as follows. Section 2 describes different keyboards, the measurement of a physical keystroke, and the method for creating realistic simulated haptic feedback. Section 3 provides the system implementation. Section 4 describes the user test and test results. Section 5 offers conclusions and discussions.
+2 Haptic feedback of realistic keystroke
+2.1 Different keyboards
+Based on different mechanisms, keyboards can be classiﬁed into four kinds: mechanical, membrane, conductive rubber, and capacitive keyboards. The most popular ones in the market are membrane keyboards and mechanical keyboards. Membrane keyboards use rubber domes as switch design, and when a key is pressed, the corresponding rubber dome will buckle, so the front layer and back layer of the membrane connect to close a circuit. Mechanical keyboards use springs and stems as switch design, and when a key is pressed, the stem pushes the spring down, so the two metal contacts connect. In this study, a standard membrane laptop keyboard with 1.5-mm keystroke was used to measure the haptic feedback.
+2.2 Keystroke measurement
+To create realistic simulated keyboard haptic feedback, real haptic feedback from a physical keyboard needs to be measured ﬁrst. In this study, a key press device with a high torque servo motor was used to stably press and release a physical key from a physical keyboard. A non-contact laser interferometer (Polytec OFV-502) was used to measure the displacement and velocity of a key press. A pressure sensor (FSR402) was used to measure the force on a key. Figure 1 shows the key press device and a pressure sensor placed on top of a key.
+Prior studies show that the ‘‘clicks’’ that users feel when they press and release a key are caused by buckling and restitution forces (Tashiro et al. 2009). The buckling and restitution forces are caused by the rubber dome that is used to support the key. When the key is pressed, the rubber dome buckles at the buckling force. When the key is released, the rubber dome is restored at the restitution force.
+The acceleration data of both buckling and restitution were found by taking the ﬁrst derivative of the measured velocity of the keystroke. Figure 2 shows the measured
+
+123
+
+Virtual Reality (2017) 21:19–29
+
+buckling
+
+21 restitution
+
+Fig. 1 A key press device
+velocity and corresponding acceleration (G value) of a key click, which includes both buckling phase and restitution phase. The ﬁrst half of Fig. 2 is buckling phase, and the second half is restitution phase. The results show that the buckling and restitution cause dramatic vibrations and acceleration changes. Figure 3 shows the measured force from a complete keystroke. After the acceleration data of the keystroke were obtained, the next step was to drive micro-speakers to produce simulated vibration feedback to users.
+2.3 Realistic vibration creation
+In order to create realistic simulated haptic feedback using micro-speakers, the corresponding driving signals for the
+
+Fig. 3 Measured force of a complete keystroke
+
+micro-speakers need to be determined. A neural network
+
+developed by Smith et al. (2015) was used to obtain a transfer
+
+function from a measured vibration to driving signals for the
+
+micro-speakers to output similar vibrations. The vibrations
+
+measured in Sect. 2.2 were used to train the neural network.
+
+The method for creating driving signals for the micro-
+
+speakers to create realistic haptic feedback is as follows. For an actual vibration V (meters/second2), and a mea-
+sured vibration Y1 (meters/second2) of the keystroke,
+
+Y1 ¼ VST1
+
+ð1Þ
+
+S is the transfer function of the sensor, and T1 is the transfer function of sensor installation effects for the key.
+
+For an actuator vibration IA, and a measured vibration
+
+Y2 of the actuator,
+
+Y2 ¼ IAST2
+
+ð2Þ
+
+I (volt/second) is the input signal for the actuator, A is the transfer function of the actuator, T2 is the transfer function of sensor installation effects for the actuator.
+
+Fig. 2 Measured velocity and corresponding acceleration
+
+123
+
+22
+
+Virtual Reality (2017) 21:19–29
+
+Ideally, V = IA, the actual vibration is the same as the actuator vibration, Y1 = Y2, the measured vibration of the key is the same as the measured vibration of the actuator, and
+
+VST1 ¼ IAST2
+
+ð3Þ
+
+Solving for V gives
+
+V ¼ IAðT2=T1Þ
+
+ð4Þ
+
+If T2 = T1, the sensor installation effects for the key are the same as the sensor installation effects for the actuator, V = IA, the actual vibration matches the actuator vibration. Substituting Eq. (4) into Eq. (1) gives
+
+Y1 ¼ IAST2
+
+ð5Þ
+
+Solving Eq. (5) for I gives
+
+I ¼ Y1ðAST2ÞÀ1
+
+ð6Þ
+
+Equation (6) shows that a trained neural network with transfer function can be used to transform Y1 into I. The neural network transfer function can be deﬁned as
+
+TNN ¼ ðAST2ÞÀ1
+
+ð7Þ
+
+Therefore, the neural network was trained by using known input signals I to create actuator vibrations IA and measuring actuator vibrations to create Y2. Y2 and I can be sampled to create input and output training vectors to train the neural network:
+
+ðIÞi ¼ ðY2ÞiTNN
+
+ð8Þ
+
+where i = 1, 2, …, n, for n training vector data points. In this study, training signals were created for the
+buckling phase and restitution phase of the keystroke, as shown in Fig. 4. It is clear that both parts of signals are like damping waves. Therefore, damped sine-wave signals were used to train the neural network. Equation (9) was used to create 300 different sine-wave signals by choosing different amplitudes, damping constants, frequencies, and phases.
+
+IðtÞ ¼ AeÀatðcosðxt À hÞ À sinðxt À hÞÞ
+
+ð9Þ
+
+where A is the amplitude, a is the damping constant, x is the frequency, and h is the phase.
+The MATLAB neural network toolbox was used to train the neural network. The average root–mean-square training error was calculated automatically by comparing the neural network output samples to the known input signals. The average root-mean-square training error for all 300 training signals was 4.91 %. The results show that the neural network was well trained. Figure 5 shows one input signal and the corresponding neural network output samples.
+After the transfer function was modeled, the acceleration data of the keystroke were used as the input signal for the neural network. Then, the neural network created the input signals for the micro-speakers. Therefore, the microspeakers can create vibrations that matched the vibrations of the keystroke.
+Figure 6 shows a micro-speaker used in this study. Inside a micro-speaker, an electromagnet is placed in front of a permanent magnet. The permanent magnet is ﬁxed, but the electromagnet is movable. Electricity pulses pass through the coil of the electromagnet to change its magnetic direction, which will in turn attract and repel the permanent magnet, causing vibration.
+Figure 7 shows the original acceleration from a real key and the simulated acceleration from a micro-speaker. The acceleration can be divided into two phases: buckling phase and restitution phase. According to Bensma¨ıa et al. (2005), human perception of frequency vibrations relies on the spectral content of the signals. In other words, two vibrations might have different waveforms, but they might cause similar tactile perception if their spectral content of the signals is similar. Therefore, spectrum analysis was used to compare the vibrotactile effects. By using Fourier Transform, the frequency spectrums of the two phases can be obtained. Figure 8 shows the normalized frequency spectrums of the two phases of the original vibration and the simulated vibration. The peaks of the frequency
+
+Fig. 4 Two phases of the acceleration of the keystroke
+
+Buckling
+
+Restitution
+
+123
+
+Virtual Reality (2017) 21:19–29
+
+23
+
+Fig. 5 One input signal and the corresponding output samples
+
+Fig. 6 Micro-speaker used as haptic actuator
+
+spectrums of the two phases of the original vibration and the simulated vibration are all about 50 Hz. In addition, the original vibration and the simulated vibration have similar waveform characteristics, i.e., they are like damping waves. As a result, the neural network can be used to create vibrotactile feedback that simulates the vibrotactile feedback of the real keystroke.
+3 System implementation
+The 3D hand model was created using 3ds Max. The hand model, haptic feedback, hand tracking, and the HMD were integrated using Unity3D. Unity3D is an open-source game development tool, and it provides collision and physics engine. Unity3D inbuilt collider was used to detect collisions.
+
+Fig. 7 Acceleration of a the real keystroke and b the micro-speaker
+
+123
+
+24
+
+Virtual Reality (2017) 21:19–29
+
+Fig. 8 Normalized frequency spectrums of a Buckling phase and b Restitution phase
+
+The haptic virtual keyboard system used an ASUS personal computer (ROG CG8580) and a Sony HMD Z1 closed HMD to display virtual objects (including virtual keyboard, virtual hands, and virtual objects), one pair of P5 data gloves (from Essential Reality Inc.) to track hand movement and detect key presses, and ten microspeakers (CDM-20008, from CUI Inc.) to create haptic feedback.
+The micro-speakers were mounted on each ﬁnger of the P5 glove, as shown in Fig. 9. The micro-speakers have wide frequency band with low driving voltage (2 V), and the DC resistance is 8 X. They are small (3.1 mm in height, 20 mm in diameter) and light (2.3 g in weight).
+The system was able to provide real-time control, and feedback. Unity3D was used to determine whether the virtual hands were in contact with virtual objects. The infrared sensors in the P5 data glove unit were used to track
+
+Fig. 9 P5 data gloves and micro-speakers attached to the user’s hand
+real-time hand movements. The P5 data glove built-in ﬁnger sensors detected the bending angle of the user’s ﬁnger. If the bending angle was larger than the preset threshold and the shadow dot was upon a virtual key, the
+
+123
+
+Virtual Reality (2017) 21:19–29
+
+25
+
+virtual key was determined to be pressed, and the system immediately provided real-time haptic feedback.
+The refresh rate of the VR environment was 60 Hz. After the two P5 data gloves were integrated into the virtual keyboard system, the refresh rate lowered to around 22 FPS. Although 30 FPS is so-called real time, in our system, since users’ typing speed was not as fast as regular documentary typing task in the physical world using a physical keyboard, users could still experience smooth operation in the VR environment at 22FPS.
+Figure 10 shows an image of the implementation environment. In addition to the HMD, the virtual environments were also displayed on a computer screen to provide the investigator with real-time imagery, to ensure the system was operated as expected. The device in the middle of the desk is a custom-built circuit used to drive the micro-speakers. When Unity3D sends out commands through RS232 to the haptic circuit, the circuit will drive the corresponding micro-speakers to provide real-time vibrotactile feedback.
+
+college or graduate students with ages between 18 and 24 years. All of the subjects were right-handed with no haptic limitations.
+4.2 Test conditions
+As shown in Table 1, three different data input conditions were tested in the user test. All three conditions used a Sony closed HMD and a pair of P5 data glove. In Condition (P), a physical keyboard was used as the data input device. In Condition (V), a virtual keyboard without haptic feedback was used. In Condition (VH), a virtual keyboard with haptic feedback was used. For each test condition, the participants were asked to change the dimension of a virtual object using the number keys and enter a string of predeﬁned characters using the character keys. After completing the task, the participants were asked to touch the virtual bar to examine the changes made by the keyboard.
+
+4 User test In the experiment, the participants needed to complete three steps for all three conditions. Step 1, the participants changed the size of a virtual rectangular bar by typing number keys. Step 2, the participants entered the text ‘‘block’’ by typing character keys. Step 3, the participants pressed the ‘‘Switch’’ key to hide the virtual keyboard and touched the virtual bar to examine the changes made by the virtual keyboard. 4.1 Participants Twenty-ﬁve subjects participated in the user test. Fifteen subjects were male, and ten subjects were female. All were
+Fig. 10 Implementation environment
+
+4.3 User test
+Before the formal test, a practice session was provided for all participants. Participants were given three minutes to familiarize with the three test conditions. After the practice session, participants took the formal test for each test condition. The completion time for each condition was recorded.
+During the practice session, subjects went through the three conditions in sequence in order to be familiar with the system. During the formal session, the three conditions were randomized to reduce any bias.
+4.3.1 Practice session
+During the practice session, the participants were asked to change the radius of a sphere from 80 to 200 mm and input ‘‘sphere’’ in the text input area. Figure 11 shows the practice interface for condition ‘‘P’’. Figure 11a shows the virtual hands do not touch the virtual object. Figure 11b shows the virtual hands touch the virtual object. Since a physical keyboard was used, the on-screen virtual keyboard was disabled. However, the virtual hands, corresponding to the movement of the P5 gloves, remained on the screen.
+Figure 12 shows the interface for conditions ‘‘V’’ and ‘‘VH.’’ The virtual keyboard was enabled. Conditions ‘‘V’’ and ‘‘VH’’ required users to change the radius of the virtual ball using the virtual keyboard. The 3D effect provided by the HMD can enhance the participants’ depth perception and increase typing accuracy. Shadow dots, projected on top of the keys at which the virtual hands were hovering above, were used as a visual cue to help participants press the correct keys. When a virtual key was pressed, the key
+
+123
+
+26 Table 1 Test conditions
+
+Condition
+P V VH
+
+Input device
+physical keyboard virtual keyboard virtual keyboard with haptic
+
+Virtual Reality (2017) 21:19–29
+Equipment HMD ? data gloves HMD ? data gloves HMD ? data gloves ? micro-speakers
+
+Fig. 11 Virtual hands touch the virtual object. a Not touch the virtual object, b Touch the virtual object
+
+Fig. 12 Practice session for conditions ‘‘V’’ and ‘‘VH’’
+would sink to indicate a successful key press. When a virtual key was released, the key would restitute back. In addition, when the virtual hands touched a virtual object, the object would turn red. When the virtual hands left a virtual object, the object would return to its original color.
+4.3.2 Formal session
+During the formal user test session, the participants were asked to use the three different data input conditions (P, V, and VH) to change the dimensions of the virtual rectangular bar from (80, 40, 40) to (800, 80, 45). After the size of the bar was changed, the participants typed ‘‘block’’ in the text input ﬁeld.
+After completing the task, the participants were asked to press the ‘‘Switch’’ key on the virtual keyboard to hide the virtual keyboard and touched the virtual bar to examine the changes made by the virtual keyboard. When the virtual hands touched the virtual object, it turned red and the
+
+Fig. 13 Users examine the changes by touching the virtual object
+system provided haptic feedback to users, as shown in Fig. 13. A video of the user test can be checked at: https:// youtu.be/9NZxLCCah-s.
+Since the system used shadow dots to help participants to press the correct keys in the virtual space, most of the participants did not make mistake. However, it took time to locate the virtual hands so that the shadow dots could be projected on top of the right key. Therefore, the tests recorded the completion time, instead of how many mistakes the subjects made. The participants were asked to ﬁll out a questionnaire at the end of the formal session.
+4.4 User test results
+Each of the participant completed a questionnaire using a 7-point Likert scale (1 = strongly disagree, 4 = neutral,
+
+123
+
+Virtual Reality (2017) 21:19–29
+
+27
+
+7 = strongly agree). The mean value and the standard deviation for each test condition are shown in Table 2.
+Condition ‘‘P’’ had a mean completion time of 41.4 s (r = 10.9). Condition ‘‘V’’ had a mean completions time of 99.4 s (r = 36.3). Condition ‘‘VH’’ had a mean completion time of 82.4 s (r = 37.5). Even if the participants needed to take off the HMD to use a physical keyboard, participants spent the least time to complete the task. It might be because some of the participants input the correct information using the physical keyboard even without looking at the keys. On the other hand, when the participants used the virtual keyboard, it took time for them to locate the virtual hands on top of the right key.
+Furthermore, one-way ANOVA was conducted to analyze the differences among the three test conditions. The p value of the one-way ANOVA for all questions is shown in Table 3. The bold value in Table 3 means that there is no signiﬁcant difference among the three test conditions. In this study, real-time performance means that when users press a key, they can immediately receive haptic feedback. Results show that except the comparison of real-time, all other questions show signiﬁcant differences in at least one comparison. Thus, a post hoc analysis was conducted.
+The p value of the Scheffe post hoc test for all questions is shown in Table 4. Table 4 shows that there is no signiﬁcant difference in real-time performance for the three conditions, indicating that both VR keyboards offer similar real-time performance compared to the physical keyboard. However, the average score of condition VH is slightly higher than
+
+condition P. It might be because participants needed to take off the HMD when they used the physical keyboard. As a result, they might feel inconvenient and thus rated the ‘‘realtime’’ performance of the physical keyboard lower.
+Concerning comfort, intuitiveness, convenience, smoothness, and willingness to use again, both VR keyboards with and without haptic feedback all show signiﬁcant differences compared with the physical keyboard. The results show that participants preferred to use the VR keyboard in a fully immersive virtual environment because they did not need to take off the HMD to use a physical key board. Therefore, the sensation of immersion and realism was not interrupted. The results answered the ﬁrst research question that a virtual keyboard performs better than a physical keyboard in a fully immersive VR environment.
+Concerning comfort, intuitiveness, convenience, smoothness, and willingness to use again, there is no signiﬁcant difference between the virtual keyboard with and without haptic feedback. In addition, a t test was conducted to compare the realism between conditions ‘‘V’’ and ‘‘VH.’’ The results show that there is signiﬁcant difference between virtual keyboard with and without haptic feedback (p = .035). It indicates that the virtual keyboard with haptic feedback offers better realistic effect. In addition, participants spent 16.7 % less time on condition ‘‘VH’’ than condition ‘‘V.’’ It indicates that the addition of a haptic interface increases the efﬁciency of the system. Haptic feedback gave participants more conﬁdence in successfully pressing a correct key in a fully immersive VR
+
+Table 2 Average score for each test condition
+
+Conditions
+Physical keyboard
+P
+
+Comfort: I feel the usage of the physical/virtual keyboard in the virtual environment is comfortable Mean 3.32
+
+SD 1.73
+
+Intuitive: I feel the usage of the physical/virtual keyboard in the virtual environment is intuitive Mean 3.4
+
+SD 1.91
+
+Real-time: I feel the physical/virtual keyboard in the virtual environment provides real-time feedback Mean 4.72
+
+SD 2.03
+
+Convenient: I feel the usage of the physical/virtual keyboard in the virtual environment is convenient Mean 3.08
+
+SD 1.82
+
+Smooth: I feel the usage of the physical/virtual keyboard in the virtual environment is smooth
+
+Mean 3.12
+
+SD 1.62
+
+Willing: I am willing to use the physical/virtual keyboard in the virtual environment in the future Mean 3.96
+
+SD 1.7
+
+Realistic: I feel the usage of the virtual keyboard in the virtual environment is realistic
+
+Mean
+
+SD
+
+Virtual keyboard
+V VH
+4.68 5.12 1.6 1.2 5.24 5.4 1.23 1.26 4.64 5.04 1.29 1.21 4.84 5.08 1.31 1.29 4.48 4.68 1.48 1.77 4.96 5.44 1.27 1.19 4.36 5.16 1.47 1.11
+
+123
+
+28
+Table 3 Results of one-way ANOVA for all questions (a = .05)
+
+p value
+
+Questions Comfort .00
+
+Intuitive .00
+
+Real-time .74
+
+Virtual Reality (2017) 21:19–29
+
+Convenient .00
+
+Smooth .00
+
+Willing .02
+
+Table 4 p value of the Scheffe post hoc test for all questions (a = .05)
+
+Condition
+
+P
+
+V
+
+VH
+
+Comfort
+
+P
+
+V
+
+VH
+
+Intuitiveness
+
+P
+
+V
+
+VH
+
+Real-time
+
+P
+
+V
+
+VH
+
+Convenience
+
+P
+
+V
+
+VH
+
+Smoothness
+
+P
+
+V
+
+VH
+
+Willingness to use again P
+
+V
+
+VH
+
+.010 .000 .597
+.000 .000 .932
+.984 .768 .662
+.000 .000 .852
+.016 .005 .910
+.048 .002 .486
+
+environment. The results answer the second research question that a virtual keyboard with haptic feedback performs better than the one without.
+
+physical keyboard in a fully immersive VR environment, and a virtual keyboard with haptic feedback performs better than the one without. There is no signiﬁcant difference in real-time performance for the three keyboards, indicating that both VR keyboards with and without haptic feedback offer similar real-time performance compared to the physical keyboard. However, study results show that even if the participants needed to take off the HMD to use a physical keyboard, participants spent the least time to complete the task. In addition, virtual keyboard with haptic feedback offers better realistic effect than the one without. Haptic feedback gave participants more conﬁdence in successfully pressing a correct key in a fully immersive VR environment.
+The study used two P5 data gloves as the input device. When two P5 data gloves were too close, tracking might cause errors. P5 data gloves were too cumbersome for long-time operation. In the future, more advanced tracking device can be adopted. In addition, the current study only evaluated typing short words. In the future, typing longer sentences will be investigated.
+Acknowledgments The authors would like to thank the Ministry of Science and Technology of Taiwan for providing support for this research under Contract MOST 104-2221-E-002 -066 -MY2.
+References
+
+5 Conclusions
+It is inconvenient for users to use a physical keyboard with a closed HMD worn in a fully immersive VR environment because users often need to remove the HMD to reach a physical keyboard. This research used data gloves and micro-speakers to provide users with a portable VR haptic keyboard, which allows users to type short data or commands while walking around in a fully immersive VR environment. The system uses sensors to measure vibrations from a physical keyboard and uses micro-speakers to create complex vibrations that simulate measured vibrations, using a trained neural network. Using the developed haptic VR keyboard system, users do not need to take off the HMD.
+In this study, a user test was conducted to evaluate the system. The user test shows that both virtual keyboards with and without haptic feedback perform better than a
+
+Aoki T, Mitake H, Keoki D, Hasegawa S, Sato M (2009) Wearable haptic device to present contact sensation based on cutaneous sensation using thin wire. Proceedings of the International Conference on advances in computer entertainment technology, Athens, Greece, 29–31 October, pp 115–122
+Bensma¨ıa S, Hollins M, Yau J (2005) Vibrotactile intensity and frequency information in the Pacinian system. A psychophysical model. Percept Psychophys 67(5):828–841
+Chaparro BS, Phan MH, Siu C, Jardina JR (2014) User performance and satisfaction of tablet physical keyboards. J Usability Stud 9(2):70–80
+Choi K-S, Lo K-H (2014) A virtual reality training system for helping disabled children to acquire skills in activities of daily living. The 14th International Conference on computers helping people with special needs (ICCHP 2014), Paris, France, 9–11 July, pp 244–251
+De Pra Y, Fontana F, Tao L (2014) Infrared vs. ultrasonic ﬁnger detection on a virtual piano keyboard. Proceedings of the 2014 international computer music conference (ICMC), Athens, Greece, 14–20 September, pp 654–658
+Du H, Charbon E (2008) A virtual keyboard system based on multilevel feature matching. Conference on human system interactions, Krakow, Republic of Poland, 25–27 May, pp 176–181
+
+123
+
+Virtual Reality (2017) 21:19–29
+
+29
+
+Fukumoto M, Sugimura T (2001) Active click: haptic feedback for touch panels. Proceedings of Extended Abstracts on human factors in computing systems, Seattle, Washington, USA, 31 March–5 April, pp 121–122
+Hashimoto Y, Nakata S, and Kajimot H (2009) Novel haptic display for emotional haptic experience. Proceedings of the International Conference on advances in computer entertainment technology, Athens, Greece, 29–31 October, pp 124–131
+Hayward V, Cruz-Hernandez M (2000) Haptic display device using distributed lateral skin stretch. Proceedings of the haptic interfaces for virtual environment and teleoperator systems symposium, 5–10 November, pp 1309–1314
+Kim S, Kim GJ (2004) Using keyboards with head mounted displays. Proceedings of the 2004 ACM SIGGRAPH, Singapore, Singapore, 16–18 June, pp 336–343
+Koskinen E, Kaaresoja T, Laitinen P (2008) Feel-good touch: ﬁnding the most pleasant haptic feedback for a mobile touch screen button. Proceedings of the 10th International Conference on multimodal interfaces, Chania, Crete, Greece, 20–22 October, pp 297–304
+Kyung K-U, Son S-W, Kwon D-S, Kim M-S (2004) Design of an integrated haptic display system. IEEE International Conference on robotics and automation, New Orleans, LA, USA, 26 April–1 May, pp 7766–7781
+Lylykangas J, Surakka V, Salminen K, Raisamo J, Laitinen P, Ro¨nning K, Raisamo R (2011) Designing haptic feedback for piezo buttons. Proceedings of the SIGCHI Conference on human factors in computing system, Vancouver, BC, CANADA, 7–12 May, pp 3281–3284
+Markov-Vetter D, Moll E, Staadt O (2012) Evaluation of 3D selection tasks in parabolic ﬂight conditions: pointing task in augmented reality user interfaces. The 11th ACM SIGGRAPH International Conference on virtual-reality continuum and its applications in industry, Singapore, 2–4 December, pp 287–294
+Minamizawa K, Fukamachi S, KajimotoH, Kawakami N, Tachi S (2007) Wearable haptic display to present virtual mass sensation. Proceedings of ACM SIGGRAPH 2007, San Diego, California, USA, 5–9 August, Article No 43
+
+Olsson P, Johansson S, Nysjo¨ F, Carlbom I (2012) Rendering stiffness with a prototype haptic glove actuated by an integrated piezoelectric motor. International Conference, EuroHaptics 2012, Tampere, Finland, 13–15 June, pp 361–372
+Park G, Choi S, Hwang K, Kim S, Sa J, Joung M (2011) Haptic effect design and evaluation for virtual buttons on a mobile device touchscreen. Proceedings of the 13th International Conference on human computer interaction with mobile devices and services, Stockholm, Sweden, 30 August–2 September, pp 11–20
+Romano JM, Kuchenbecker KJ (2012) Creating realistic virtual textures from contact acceleration data. IEEE Trans Haptics 5(2):109–119
+Smith S, Smith GC, Lee JL (2015) The effects of realistic tactile haptic feedback on user surface texture perception. J Vibro Eng 17(2):1004–1016
+Sziebig G, Solvang B, Kiss C, Korondi P (2009) Vibro-haptic feedback for VR systems. Proceedings of the 2nd conference on human system interactions, Catania, Italy, 21–23 May, pp 403–407
+Tashiro K, Shiokawa Y, Maeno T (2009) Realization of button click feeling by use of ultrasonic vibration and force feedback. EuroHaptics Conference and Symposium on haptic interfaces for virtual environment and teleoperator systems. World Haptics 2009, Third Joint, Salt Lake City, UT, USA, 18–20 March, pp 1–6
+Tzafestas C, Birbas K, Koumpouros Y, Christopoulos D (2008) Pilot evaluation study of a virtual paracentesis simulator for skill training and assessment: the beneﬁcial effect of haptic display. Presence: Teleoper Virtual Environ 17(2):212–229
+Wu Y, Schmidt L, Parker M, Strong J, Bruns M, Ramani VK (2012) Active-hand: automatic conﬁgurable haptic interaction in virtual environment. IDETC/CIE 2012, Chicago, IL, USA, 12–15 August, pp 1481–1490
+Smith, S., Smith, G.C., Lee, J.L. (2015) The effects of realistic tactile haptic feedback on user surface texture perception. Journal of Vibroengineering 17(2):1004-1016
+
+123
+

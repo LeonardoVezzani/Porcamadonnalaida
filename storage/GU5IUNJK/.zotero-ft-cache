@@ -1,0 +1,753 @@
+19342
+
+IEEE TRANSACTIONS ON INTELLIGENT TRANSPORTATION SYSTEMS, VOL. 25, NO. 12, DECEMBER 2024
+
+Explainable AI for Safe and Trustworthy Autonomous Driving: A Systematic Review
+Anton Kuznietsov , Balint Gyevnar , Cheng Wang , Member, IEEE, Steven Peters , and Stefano V. Albrecht
+
+Abstract— Artificial Intelligence (AI) shows promising applications for the perception and planning tasks in autonomous driving (AD) due to its superior performance compared to conventional methods. However, highly complex AI systems exacerbate the existing challenge of safety assurance of AD. One way to mitigate this challenge is to utilize explainable AI (XAI) techniques. To this end, we present the first comprehensive systematic literature review of explainable methods for safe and trustworthy AD. We begin by analyzing the requirements for AI in the context of AD, focusing on three key aspects: data, model, and agency. We find that XAI is fundamental to meeting these requirements. Based on this, we explain the sources of explanations in AI and describe a taxonomy of XAI. We then identify five key contributions of XAI for safe and trustworthy AI in AD, which are interpretable design, interpretable surrogate models, interpretable monitoring, auxiliary explanations, and interpretable validation. Finally, we propose a conceptual modular framework called SafeX to integrate the reviewed methods, enabling explanation delivery to users while simultaneously ensuring the safety of AI models.
+Index Terms— Autonomous driving, autonomous vehicle, explainable AI, trustworthy AI, AI safety.
+I. INTRODUCTION
+ARTIFICIAL intelligence (AI) has gained a lot of attention in various technical fields in the last decades. Particularly,
+deep learning (DL) based on deep neural networks (DNNs)
+provides human-comparable or potentially even better perfor-
+mance for some tasks due to its data-driven high-dimensional
+learning ability [1], [2], so it has naturally emerged as a vital
+component in the field of autonomous driving (AD).
+Nevertheless, deep learning suffers from a lack of trans-
+parency. It exhibits black-box behaviour, obscuring insights
+Received 31 January 2024; revised 2 July 2024; accepted 1 October 2024. Date of publication 14 October 2024; date of current version 27 November 2024. This work was supported by the Project by the Federal Ministry of Education and Research of Germany (BMBF). The work of Anton Kuznietsov was supported by the Project “AUTOtech.agil” under Grant FKZ 01IS22088S. The work of Balint Gyevnar was supported in part by the United Kingdom Research and Innovation (UKRI) Centre for Doctoral Training in Natural Language Processing under Grant EP/S022481/1. The Associate Editor for this article was M. A. Khan. (Anton Kuznietsov and Balint Gyevnar contributed equally to this work.) (Corresponding author: Cheng Wang.)
+Anton Kuznietsov and Steven Peters are with the Institute of Automotive Engineering, Technical University (TU) of Darmstadt, 64287 Darmstadt, Germany (e-mail: anton.kuznietsov@tu-darmstadt.de; steven.peters@ tu-darmstadt.de).
+Balint Gyevnar and Stefano V. Albrecht are with the School of Informatics, University of Edinburgh, EH8 9AB Edinburgh, U.K. (e-mail: balint.gyevnar@ed.ac.uk; s.albrecht@ed.ac.uk).
+Cheng Wang is with the School of Engineering and Physical Sciences, Heriot-Watt University, EH14 4AS Edinburgh, U.K. (e-mail: Cheng.Wang@hw.ac.uk).
+Digital Object Identifier 10.1109/TITS.2024.3474469
+
+into its internal workings. This opacity makes it harder to identify issues and to determine which applications of AI are admissible in the real world. However, in safety-relevant domains such as AD, it is crucial to develop safe and trustworthy AI. Although there are several mitigation processes to handle safety concerns in AI, such as well-justified data acquisition [3], the adequacy of these measures in ensuring sufficient safety remains an open question, highlighting the need for further approaches.
+Moreover, no standards currently explicitly address the use of data-driven AI in AD. The existing safety standard ISO 26262 - Road Vehicles - Functional safety [4] was not explicitly developed for data-driven AI systems and their unique characteristics [5]. The standard ISO 21448 - Safety of the Intended Functionality (SOTIF) [6] aims at ensuring the absence of unreasonable risk due to hazards from functional insufficiencies of the system and requires quantitative acceptance criteria or validation targets for each hazard. The concept can be applied to AI-based functions, but these acceptance criteria are not explicitly defined [7]. Moreover, specific guidance for designing AI-based functionality is missing.
+As a result, these standards face challenges in addressing safety requirements for data-driven deep learning systems [8]. Although there is ongoing work on the ISO/AWI PAS 8800 Road Vehicles - Safety and Artificial Intelligence [9], its scope and guidance remain unclear due to it still being in a development phase. In general, there is also a relatively high level of mistrust in society regarding AD. The American Automobile Association’s survey on autonomous vehicles (AV) indicates that 68% of drivers in the United States are wary of AVs [10], and AI has been identified as one of the key factors contributing to the non-acceptance of AVs in society [11].
+A promising approach to address these problems is explainable AI (XAI). XAI aims to provide human-understandable insights into the behaviour of the AI and the development of XAI methods could be beneficial for different kinds of stakeholders [12]. First, it may become an essential tool for AI developers to identify and debug malfunctions [13]. Second, XAI could help users calibrate their trust in automated systems in line with the actual capabilities of AVs [14], thereby preventing misuse. Lastly, assurance companies and regulatory bodies may also benefit, as the increased transparency due to XAI could enable traceability that allows for a more accurate assessment of due diligence and liability in case of accidents [15]. Muhammad et al. [16] go as far as to say that in the future XAI could be necessary in terms of regulatory
+
+1558-0016 © 2024 IEEE. Personal use is permitted, but republication/redistribution requires IEEE permission. See https://www.ieee.org/publications/rights/index.html for more information.
+
+Authorized licensed use limited to: Politecnico di Torino. Downloaded on May 09,2025 at 07:41:00 UTC from IEEE Xplore. Restrictions apply.
+
+KUZNIETSOV et al.: EXPLAINABLE AI FOR SAFE AND TRUSTWORTHY AD: A SYSTEMATIC REVIEW
+
+19343
+
+Fig. 1. The structure of our survey. We present foundations into why we need trustworthy AI, an XAI taxonomy, and AD terminology. We then describe our survey methodology in detail so that our review is reproducible. In the analysis, we categorize existing XAI for AD approaches into five branches based on their different applications for AD: interpretable design, interpretable monitoring, interpretable surrogate models, auxiliary explanations and interpretable validation. A new conceptual framework is presented called SafeX based on our analysis. Finally, we discuss challenges and future directions.
+
+compliance including fairness, accountability and transparency in DL for AD. Given the increasing size of literature on XAI specifically for AD, it is necessary to systematically review which XAI techniques exist and how they are applied to enhance the safety and trustworthiness of AD.
+A. Previous Reviews on XAI for AD
+Indeed some reviews of XAI for AD already exist and we give a brief overview of each in this subsection. These works provide a good overview of the challenges and stakeholders of the field but have some crucial shortcomings:
+1) Lack of a systematic literature review methodology, leading to potential bias and incomplete coverage;
+2) No focus on the specific benefits and drawbacks of XAI on the safety and trustworthiness of AD;
+3) No review of frameworks for integrating XAI with AD. The work of Omeiza et al. [17] was the first notable survey in the field. They provide a holistic look at XAI for AD, covering the different needs for explanations, regulations, standards, and stakeholders, and an overview of some explainability methods applied in AD. They review the challenges involved in designing useful XAI systems for AD and the associated literature, however, this review is neither reproducible nor complete, especially for the perception and planning tasks. In addition, Atakishiyev et al. [18] covered very similar topics to Omeiza et al. with a slightly broader coverage of recent XAI technologies for AV perception and planning. They propose an end-to-end (E2E) framework for integrating XAI with existing AD technologies, however, they did not elaborate how different XAI techniques can be integrated into the framework. Their literature review was also not described in sufficient detail to be repeatable. Finally, the literature review of Zablocki et al. [19] identified potential stakeholders and why they might need explanations, the type of explanations useful for them, and when explanations need to be delivered. Based on that, they examine the different methods in the literature. However, they do not focus on the impact of XAI in meeting the requirements for safe and trustworthy AI. Furthermore, the survey has some shortcomings regarding completeness, since they only focus on vision-based methods for E2E systems. Accordingly, they do not consider XAI methods for planning and perception that can be applied to modular AD pipelines.
+
+B. Main Contributions
+In light of the existing works and the increasing importance of XAI for AD, we make the following contributions:
+1) We discuss detailed requirements for AI in AD and highlight the importance of XAI in fulfilling them;
+2) Using a structured, systematic, and repeatable review methodology, we survey XAI methods applied for AD with a focus on environmental perception, planning and prediction, and control;
+3) Based on our review, we identify five paradigms of XAI techniques applied for safe and trustworthy AD which include interpretable design, interpretable surrogate models, interpretable monitoring, auxiliary explanations, and interpretable validation. Moreover, we discuss each paradigm using concrete examples;
+4) We analyse the limitations of existing modular XAI frameworks for AD and then propose a conceptual framework called SafeX that is designed to be readily used with the summarized XAI techniques.
+C. Scope and Structure
+Our study gives a comprehensive view of the current state-of-the-art XAI approaches for AD encompassing both modular and E2E pipelines, focusing on perception, planning and prediction, and control. We also present a conceptual modular framework to incorporate XAI into the design of AVs. Our survey does not identify stakeholders nor aims to give background on mathematical foundations such as DNNs or reinforcement learning as existing surveys in Section I-A provide good coverage of these topics.
+The structure of our survey is illustrated in Figure 1. In Section II, we provide foundations, where we define trustworthy AI and identify requirements corresponding to the application of AI in AD. Moreover, we describe the various sources of explanations for AI systems and introduce a taxonomy of XAI concepts as well as terminology for AD components. Section III describes our research questions and the methodology for the survey, assuring reproducibility. Section IV surveys the literature divided into interpretable design, interpretable monitoring, interpretable surrogate models, auxiliary explanations, and interpretable validation. In Section V, we review existing XAI frameworks in AD and propose our framework SafeX. In Section VI
+
+Authorized licensed use limited to: Politecnico di Torino. Downloaded on May 09,2025 at 07:41:00 UTC from IEEE Xplore. Restrictions apply.
+
+19344
+
+IEEE TRANSACTIONS ON INTELLIGENT TRANSPORTATION SYSTEMS, VOL. 25, NO. 12, DECEMBER 2024
+
+TABLE I
+SUMMARY OF THE DEFINED REQUIREMENTS IN THE ETHICS GUIDELINES (EU) AND THE AI RISK MANAGEMENT FRAMEWORK (USA) AND DISCUSSION OF THEIR APPLICABILITY TO AD. THE REQUIREMENTS ARE CLASSIFIED INTO THREE SOURCES: DATA, MODEL AND AGENCY
+
+and Section VII, we discuss our findings and identify future directions in light of the results of our survey.
+II. FOUNDATIONS
+We begin in this section with an exploration of the need for trustworthy AI. We then examine the requirements for applying trustworthy AI in AD. Our analysis highlights the critical role of XAI in fulfilling these requirements and identifies the sources of explanations in AI systems. We conclude by reviewing a taxonomy of XAI along with a detailed terminology of AD components.
+A. Trustworthy AI
+Historically, AI was based on symbolic representations, where information was encoded using well-defined mathematical symbols, such as propositional logic or program induction. The first instances of successful AI applications were expert systems [20] which relied on such symbolic representations, lending themselves to varying degrees of inherent interpretability, that usually manifested in the form of causal chains of reasoning.
+In contrast, current neural AI methods rely on sub-symbolic representations. Under this paradigm, input data is mathematically transformed into output via the learning of millions of parameters from large swathes of training data. This approach allows the modelling of highly complex multi-dimensional relationships which results in high performance. Still, the outputs of sub-symbolic systems are not interpretable due to their sheer size and high levels of abstraction. Therefore, they are often likened to black boxes that lack transparency.
+While this efficiency versus transparency trade-off is sometimes acceptable (arguably, even non-existent [21]), highly complex safety-relevant systems such as AD cannot fully rely on black box systems, as they are not currently certifiable for safety. This is in addition to the countless ethical, social, and legal reasons why neural methods may also be suspect [22].
+Symptomatic of these issues is the lack of trust by users of AI systems. To alleviate the many problems that stem from a lack of transparency, methods that automatically explain predictions and decisions to users have become popular [23], forming the field of XAI. However, achieving trustworthy AI is a much more complex issue than could be solved by merely imbuing AI systems with explainability. Instead, trustworthy AI must consider a complex set of socio-technical
+
+requirements, among others, human agency, technical robustness and safety, privacy and data governance, diversity, non-discrimination, fairness, and societal and environmental well-being [24]. Our focus on XAI is not to suggest that we can achieve trustworthy AI just via explainable methods but as a necessary element among the many approaches that support human-centric AI which strives to ensure that human values are central to how AI systems are developed, deployed, used, and monitored by ensuring respect for basic human rights.
+In the following subsection, we explore in detail these requirements for trustworthy AI specifically for AD. Subsequently, we discuss from which sources and to what extent current AI methods are amenable to explanation and overview a taxonomy of XAI to organise our discussion.
+B. Requirements For Safe and Trustworthy AI in AD
+Owing to the superior performance in high-dimensional tasks like image processing and object detection [25], black box sub-symbolic methods are now the predominant approach to solving challenges in AD. Unlike many other robotic domains, incorrect behaviour by AVs can cause serious injury or death to humans, meaning safety is a top priority for all stakeholders. Designing safe and trustworthy AI is, thus, becoming urgent for AVs, necessitating the definition of safety and trustworthiness requirements.
+Unfortunately, no requirements are published specifically for AI in AD. Instead, we need to take more general requirements for safe and trustworthy AI as a starting point. We discuss whether these map to AI systems in AD and whether new requirements for AI in AD should be defined in Table I.
+Fortunately, several guidelines have been developed for safe and trustworthy AI which are well-suited to address the transparent and safety-critical operation of AVs. One of the well-known AI regulations is the ethics guidelines released by the European Commission [26], in which seven key requirements for trustworthy AI were defined. These are (i) human agency and oversight; (ii) technical robustness and safety; (iii) privacy and data governance; (iv) transparency; (v) diversity, non-discrimination and fairness; (vi) societal and environmental well-being; (vii) accountability.
+Another AI risk management framework was developed by the American National Institute of Standards and Technology (NIST) [27]. This also defined seven key characteristics so that trustworthy AI should be (i) valid and reliable; (ii) safe;
+
+Authorized licensed use limited to: Politecnico di Torino. Downloaded on May 09,2025 at 07:41:00 UTC from IEEE Xplore. Restrictions apply.
+
+KUZNIETSOV et al.: EXPLAINABLE AI FOR SAFE AND TRUSTWORTHY AD: A SYSTEMATIC REVIEW
+
+19345
+
+(iii) secure and resilient; (iv) accountable and transparent; (v) explainable and interpretable; (vi) privacy-enhanced; (vii) fair with harmful bias management. According to this framework, validity and reliability are the bases for other characteristics, while accountability and transparency are overarching concepts related to all characteristics.
+The requirements defined in these two proposals are derived from three main sources: data-, model-, and agencyrelated requirements. We synthesise them in Table I. First, diverse data and data governance are essential to avoid unbiased decisions and protect privacy. Second, an AI model itself ought to be, among others, robust, safe, and accountable. Third, the deployed AI models must be overseen by humans for which human agency is required. Similar requirements are proposed by other individual researchers. For instance, Alzubaidi et al. [28] defined similar requirements for trustworthy AI. They considered accuracy and reproducibility as separate requirements while the EU assigned those requirements to robustness. To avoid unnecessarily conflating conflicting definitions, we take the requirements derived from the two national-level proposals as our starting point, noting that other conceptions of trustworthy AI may be fit to these frameworks.
+1) Requirements From Data: Proper data governance is necessary for AD since privacy- and quality-sensitive data from drivers and external environments need to be processed. For instance, ML-based perception typically uses vision systems to perceive and understand the surroundings, where highly personal data such as pedestrian faces and license plates also appear. However, it is not necessarily the case that technical data must be classified as non-personal [29]. Under EU jurisdiction, for instance, the General Data Protection Regulation (GDPR) [30] may provide a legal basis for processing personal data when using AI-based functionalities, though it is unclear to what extent the unilateral and fully automated processing of personal data in AVs is covered by the GDPR. Moreover, to avoid, among others, unfair bias, we should rely on diverse data to train AI models. Particularly, the nondiscrimination of pedestrians is an important requirement for ML-based systems in AD. Despite this, Li et al. [31] showed a bias for missing pedestrians who are children or have darker skin tones. In general, the elicitation of safety-related requirements should be seen as a process that includes multiple stakeholder perspectives to increase diversity [7].
+2) Requirements From AI Models: AD is a safety-critical application where a lack of robustness could lead to traffic accidents. The environment in which an AV operates is complex, uncertain, and changes over time and space. DLbased models need to be robust not only to variations in the physical driving condition (e.g., differing weather conditions, and changes to the car behaviour due to component wear) but also to variations in the behaviours of other drivers, including the possibility that adversarial road users may try to exploit AV systems [32]. In addition, adversarial perturbations can fool deep learning-based neural networks [33], leading to implausible results. Therefore, AI needs to be robust against, among others, noise, distribution shift, and adversarial attacks [16] and must demonstrate safe decisions
+
+even in uncertain environments. Moreover, AVs need to be sufficiently transparent for the involved stakeholders such that the decisions of the AV can be understood. For instance, developers need transparency to debug models and thus improve system robustness, while regulators need transparency to audit and certify systems. Furthermore, deployed AI models should be user-centric and designed in a way that all people can benefit from their services regardless of their situation. Finally, establishing accountability for AD systems is important for determining liability in case of accidents [17].
+3) Requirements For Agency: For level 3 AVs [34], human drivers are allowed to do non-driving-related activities while the AV undertakes dynamic driving tasks (DDTs) as long as it remains within the predefined operational design domain (ODD). Nevertheless, a driver should be prepared to take over control at any moment if the system fails or when the ODD is exceeded. In contrast, for more advanced level 4 and 5 systems, human drivers no longer need to stay in the loop which diminishes their oversight, especially when the AI systems are inscrutable. Without additional measures, human agency will suffer due to the use of black box systems. In particular, the users of AVs may have very little insight into the decisionmaking processes of AVs and could never hope to contest the decisions that may directly impact their bodily integrity. However, obtaining recourse in these situations may not just be a matter of enabling intervention on the AD systems, but rather the provision of explanations that calibrate users’ trust according to the system’s capabilities. Therefore, depending on the automation level of the system, the requirements for agency may or may not be addressed by existing systems.
+In addition to the above three categories of requirements, safety assurance is imperative for AD [35], [36]. Safety is fundamentally important, underpinning and complementing the above three high-level requirements of trustworthy AI for AD. While requirements for trustworthy AI often include safety, safety assurance imposes strict constraints on the behaviour of AI systems as opposed to the more high-level criteria of other aspects of trustworthy AI. Therefore, safety could be viewed as a distinct set of requirements.
+However, providing a comprehensive account of safety requirements would mandate its own publication, so instead we focus on one way of ensuring certain safety requirements that also align with many of the recommendations for trustworthy AI, namely explainable AI. First, XAI contributes to transparency by delivering (intelligible) explanations of AI models’ decisions. To show compliance with data protection regulations, one may call on XAI to provide evidence that AD systems do not process personal data and that they can function without personally identifying features in the data. Second, accountability through inquiry and traceability may be achieved, which is essential to show non-discrimination, determine failure cases, and establish a holistic case of their workings for legal proceedings or regulatory conformity. Third, XAI is beneficial for the inspection, debugging, and auditing of AI models, which can contribute to improved robustness and better-calibrated trust in AVs [37]. Therefore, we must conclude, that XAI is an essential tool in meeting the requirements of safe and trustworthy AI for AD.
+
+Authorized licensed use limited to: Politecnico di Torino. Downloaded on May 09,2025 at 07:41:00 UTC from IEEE Xplore. Restrictions apply.
+
+19346
+
+IEEE TRANSACTIONS ON INTELLIGENT TRANSPORTATION SYSTEMS, VOL. 25, NO. 12, DECEMBER 2024
+
+C. Sources of Explanation in AI
+There are many ways in which an AI system may be amenable to revealing its decision-making process through explanation. Crucially, how information is represented and then used in the AI system directly influences the ways we can generate explanations for them. Understanding these different sources of explanation is essential to effectively discussing various methods of XAI because it helps not only to build a consistent vocabulary for XAI but also to understand the applicability of various XAI systems to AD and how they address the various requirements for safe and trustworthy AD.
+We discuss here five sources of explanation from the XAI literature. These are: interpretability, explainability, justifiability, traceability, and transparency. These terms are related and not necessarily mutually exclusive properties of AI systems, however, they are often (incorrectly) used interchangeably. Our discussion here is informed by [24], [38], and [39].
+Interpretability: we call an AI system interpretable if it is sufficiently low in complexity such that a reasonably experienced user can understand the output of the system and the causal process that produced that output from the input [40]. Therefore, interpretability is an inherent quality of a system. Interpretable systems are often argued to be better suited for safety-relevant applications due to the observable chain of causality that led to a decision [21].
+Explainability: we call an AI system explainable if the output of the system is accompanied by an additional output that takes the syntactic form of an explanation. The explanation should intelligibly communicate the reasoning process behind how the output was derived [41]. Explainability is not necessarily an inherent quality of the AI system, and may not accurately reflect the causal chain that produced the output.
+Justifiability: an AI system’s decision is justifiable if one can explain why an output was good without necessarily explaining how the output was computed [39]. This property depends on a definition of goodness that will inherently depend on the application domain and the ethical framework the designers of the system see fit for use.
+Traceability: an AI system is traceable if an external auditor can follow the causal chain of the full decision-making process from input to output. Any system that relies on a black box is not traceable since causality is obscured by design. A system might also only rely on white box systems but still be untraceable due to the sheer size of the models.
+Transparency is a broad term that is often used (incorrectly) to mean any of the above definitions. As discussed in Section II-A, transparency is not solely the property of the AI system achievable via XAI but the result of a range of measures that enable the understanding and informed use of the system through a combination of, among others, documentation, XAI, standardisation, and risk assessments [24].
+D. Taxonomy of XAI
+We now provide a taxonomy of XAI visualised in Figure 2 which is used later to describe the reviewed methods in Section IV. Our six taxonomic categories are based on Speith [42].
+
+Fig. 2. A taxonomy of XAI covering the most important concepts occurring in the literature of XAI for AD with terminology borrowed from Speith [42].
+Representation of information within the decision-making model has a significant effect on the working of the XAI system. We can differentiate between symbolic (e.g., rulebased system, decision tree, etc.) and sub-symbolic systems (e.g., deep learning), as well as mixed systems that utilise both. Note that this category is usually determined by the design of the decision-making system, not the XAI system. As discussed in Section II-A, it is more difficult to explain sub-symbolic systems and it may be more difficult to build trustworthy and safe systems that utilise such a representation.
+Stage relates to when during the decision-making process an explanation is generated and from what representations. Post-hoc XAI systems are run after a decision has been made and are widely applicable to any AI method regardless of representation. These methods are usually assumed to have access only to the decision-making system and its input and output. In contrast, ante-hoc XAI systems are constrained to AI methods with symbolic or mixed representations as these XAI systems generate explanations directly from the information represented in the decision-making process which would not be possible with a black box system. These systems have more constrained applicability but are generally more trustworthy and verifiable.
+Mode determines the syntactic and semantic form of the explanation. While there is a large range of explanatory modes, three are particularly popular in XAI. Surrogate systems condense the overall workings of a more complex method into an interpretable model, however, it is difficult to quantify to what extent these models can faithfully represent their parent models. In addition, representative and counterfactual examples are a mode to explain some aspect of the decisionmaking process in terms of an input example, but these rely on the assumption that the user can understand and interpret the example correctly. Importance-based explanations explain which features of the input representations are most influential for the model when it makes a prediction. These models provide a way to shed some light on black box decision making but importance must not be conflated with actual causality as they can often be altered without affecting the output prediction [43], [44]. Finally, for interpretable ante-hoc methods the system itself inherently serves as the mode of explanation, though understanding a model as the explanation itself requires significant cognitive processing and is unlikely to contribute to trustworthiness in most stakeholders.
+Scope determines whether the explanation applies to a given input instance only (local), to a group of instances (cohort), or to the entire model as a whole (global). The scope of the explanation is tightly connected to its mode. Example- and
+
+Authorized licensed use limited to: Politecnico di Torino. Downloaded on May 09,2025 at 07:41:00 UTC from IEEE Xplore. Restrictions apply.
+
+KUZNIETSOV et al.: EXPLAINABLE AI FOR SAFE AND TRUSTWORTHY AD: A SYSTEMATIC REVIEW
+
+19347
+
+Fig. 3. A typical system overview of autonomous driving systems [45]. Arrows denote the flow of information. Orange boxes are hardware, grey boxes are software components. (V2V: vehicle-to-vehicle communication.)
+importance-based explanations are more suited for local and cohort explanations while surrogate models represent the entire decision-making process and are, thus, global explainers.
+Medium is the channel through which the explanations are intelligibly delivered to the stakeholders. How explanations are delivered has a profound influence on efficacy and intelligibility. It is a crucial design consideration and should complement a correct understanding of stakeholder requirements. Unfortunately, it is a prevailing trend in XAI to offer an explanation “as is” (e.g., feature importance plots, decision tree visualisations, etc.) without further regard to how it should be communicated.
+E. Terminology of AD Components
+Although different divisions of AD components exist depending on the level of detail [46], the core competencies of an AV can be generally categorized into three components, which are perception, planning and prediction, and control [45], [47], as illustrated in Figure 3. Perception is the capability to gather data from the surroundings and derive meaningful insights or knowledge from that environmental information. Specifically, environmental perception refers to the development of a contextual understanding of the environment, which encompasses the identification of obstacles, detection of road signs and markings, and classification of data based on their semantic significance. Localisation refers to the ability of the AV to determine its position within the environment.
+Planning and prediction involve the strategic process of making informed decisions based on predicted future trajectories of obstacles to achieve the vehicle’s higher-order goals. This typically includes navigating the vehicle from a starting point to a desired destination, while simultaneously avoiding obstacles and optimizing performance based on predesigned constraints. According to [48], planning can be further divided into mission planning, behaviour planning and motion planning. Mission planning represents the selection of a route from its current position to the predefined destination based on the road network. Behavior planning is responsible for determining the appropriate driving behaviour at any point of time along the selected route, given the perceived behaviour
+
+of other traffic participants and road conditions, etc. Lastly, motion planning aims to find a collision-free, comfortable, and dynamically feasible path or trajectory once the behaviour layer signals a driving behaviour in the current driving context.
+Finally, control competency denotes its proficiency in executing planned actions, which are formulated by its higherlevel processing modules. In path tracking, the vehicle is required to converge to and follow a path generated by motion planning without including a temporal law [49]. In contrast, Trajectory tracking refers to the following feasible “statespace” trajectories, which specify the time evolution of the potion, orientation, and linear and angular velocities [50].
+The above modular system description enables the separate development of each component. In addition to modular approaches, there are E2E systems that replace the AD architecture with a single neural network [19], though often the control part is separated and the E2E network only comprises the planning and perception components. The motivation for E2E architectures relies on its simple design by avoiding the consideration of different interconnections between different modules and instead focusing on joint feature optimization of individual modules [51]. In contrast to modular pipelines, E2E networks are much less interpretable, so ensuring their safety is more challenging. It is easier to trace the source of errors in modular approaches [52].
+III. REVIEW METHODOLOGY
+Considering the requirements and challenges in implementing XAI for AD, the field has been growing in popularity. To comprehensively explore the published methods, we perform a systematic literature review following the recommendations of Kitchenham and Charters [53] and the review methodology section of Stepin et al. [54]. A structured review allows us to systematically explore the field by combining increasingly more fine-grained queries with online indexing databases, while our description of this process enables the repeatability of our search which can verify the validity of our work and help obtain an updated look of the field in the future.
+To give an overview of the review process, first, we defined two primary research questions based on which we developed a query hierarchy. We used the resulting queries to search three indexing databases – Scopus, Web of Science, and IEEE Xplore – and applied a three-step process to arrive at a final set of 84 publications. We describe the full process below.
+A. Research Questions
+RQ1 What are the current methods of XAI that address requirements of safety and/or trustworthiness, and what are their key contributions to meeting these requirements?
+RQ2 What concrete general frameworks are proposed for integrating XAI with autonomous driving?
+B. Search Process
+We chose the Scopus, Web of Science (WoS), and IEEE Xplore online indexing databases to perform our review,
+
+Authorized licensed use limited to: Politecnico di Torino. Downloaded on May 09,2025 at 07:41:00 UTC from IEEE Xplore. Restrictions apply.
+
+19348
+
+IEEE TRANSACTIONS ON INTELLIGENT TRANSPORTATION SYSTEMS, VOL. 25, NO. 12, DECEMBER 2024
+
+Fig. 5. Overview of the review process as a flowchart. First, papers were retrieved according to the query hierarchy (blue box), then twice filtered by content (orange boxes). Numbers in parentheses show papers at the end of each step.
+TABLE II
+THE NUMBER OF PAPERS COLLECTED FOR QUERIES CORRESPONDING TO RQ1 (q6) AND RQ2 (q5), WHILE NOT SHOWING q1−4 AS THESE QUERIES HAD MULTIPLE THOUSANDS OF PAPERS
+
+Fig. 4. The query hierarchy used for the survey with a representative list of keywords corresponding to each query. Colours signal various depths of the search hierarchy.
+as these platforms provide extensive coverage of both technical and non-technical venues as well as the ability to construct and refine detailed queries. To obtain a list of candidate papers, we constructed a search hierarchy as shown in Figure 4. Each level of depth in this tree corresponds to increasingly more refined search terms such that the final list of candidate papers was a set of highly relevant publications with manageable counts. The queries are shown below in the WoS notation, and equivalent queries were constructed for both Scopus and IEEE Xplore. The queries were applied to the title, author keywords, and abstract field of each indexed publication, and the search was carried out between 22 to 26 September 2023.
+• q1: expla* OR interp* or XAI • q2: q1 AND (auto* AND (driv* OR vehicle* OR car*)
+OR self driving); • q3: q2 AND safe*; • q4: q2 AND trust*; • q5: (q3 OR q4) AND (pipeline OR architecture OR
+framework); • q6: (q3 OR q4) AND . . .
+– q6a: sense OR perception OR computer vision OR object detection OR semantic segmentation;
+– q6b: prediction OR plan*; – q6c: control*.
+Our choice for q1 selects all papers that are related to explaining, interpretation, or any papers that mention XAI. At this point, we did not constrain our search with keywords relating to a particular subject area (e.g., autonomous driving) to build a large foundation of papers to select from. We narrowed our search to focus on autonomous driving (and related keywords) using q2, and then further filtered papers based on whether they contain keywords relating to trust or safety. To answer RQ1, we take this set of papers and sort them based on whether they relate to a particular subsystem of the AD stack as shown in Figure 3. To answer RQ2, we filter the collected set of papers based on keywords that relate to frameworks or architectures.
+The search and selection process was conducted as indicated in Figure 5 and explained below. The total numbers of papers
+
+retrieved for the research questions are shown in Table II. After querying for papers we have removed all duplicate papers. The remaining set was then filtered based on our exclusion and inclusion criteria (detailed in Section III-C). We then proceeded to filter the remaining papers based on their full text and re-applied the same exclusion and inclusion criteria to determine which papers to include in our final list.
+C. Inclusion and Exclusion Criteria
+We now describe the inclusion and exclusion criteria that were used for both research questions at each stage of the search process to arrive at the final list. At each stage in the filtering process, we first applied a list of inclusion criteria to determine which papers to keep at that stage. All of these inclusion criteria must have been fulfilled by the paper to pass this stage. We included papers where:
+• The paper was – in part or fully – motivated by a need for safer or more trustworthy technologies; AND
+• The paper proposed a concrete system, algorithm, framework, or novel artefact related to artificial intelligence;
+After the inclusion process, we applied a list of exclusion criteria which specified more detailed requirements on the papers. We filtered out papers if they met at least one of the exclusion criteria. We excluded papers where:
+• It showed no attempt to address any of the sources of explanations (as described in Section II-C); OR
+• The main domain of application or evaluation was not autonomous driving; OR
+• The paper did not address perception, planning, prediction, or control for autonomous driving;
+IV. XAI FOR SAFE AND TRUSTWORTHY AD
+We found five main categories into which we sorted the reviewed papers. These are interpretable design, interpretable surrogate models, interpretable monitoring, auxiliary explanations, and interpretable validation.1 An overview of the advantages and disadvantages of methods for each category
+1In contrast to our definitions of the sources of explanation in Section II-C, Du et al. [55] grouped interpretable machine learning into intrinsic and posthoc interpretability. Our collected publications include both types of methods.
+
+Authorized licensed use limited to: Politecnico di Torino. Downloaded on May 09,2025 at 07:41:00 UTC from IEEE Xplore. Restrictions apply.
+
+KUZNIETSOV et al.: EXPLAINABLE AI FOR SAFE AND TRUSTWORTHY AD: A SYSTEMATIC REVIEW
+TABLE III DEFINITION, ADVANTAGES (+), AND DISADVANTAGES (−) OF EACH OF THE FIVE CATEGORIES OF REVIEWED METHODS
+
+19349
+
+is given in Table III and visual illustrations of these categories are shown in Figure 6. In this section, we present an overview of different methods in each category and analyse their relevance to achieving safer and more trustworthy AD. For each category – except interpretable validation which has only five works – we present a table of summary (Tables IV to VII) of methods according to the XAI taxonomy presented in Section II-D.
+A. Interpretable By Design
+Definition 1 (Interpretable By Design): We call an algorithm interpretable by design if it is inherently interpretable such that its design reveals the explicit causal relationship between its input(s) and output(s) [40].
+1) Interpretable By Design – Perception: Chaghazardi et al. [56] introduced an inductive logic programming approach for traffic sign classification where firstly high-level features such as colour, shape, etc. are extracted and then a hypothesis is learned. The design increases transparency and reliability. Moreover, a higher robustness against adversarial attacks compared to other state-of-the-art algorithms was shown. In [57], Feifel et al. proposed a structured interpretable latent space in a DNN for pedestrian detection which learns to extract specific prototypes. The learned prototypes in the latent space can be clustered in a projected 2D-plane via a principal
+
+component analysis [89] or a t-SNE projection [90]. Due to the interpretably designed DNN, an ante-hoc analysis is possible which supports the safety argumentation. Plebe et al. [60] developed a temporal autoencoder for lane and car detections in semantic segmentation consisting of an organized latent space where semantic concepts of lane and car segments are learned. Similarly, Losch et al. [59] proposed semantic bottleneck models for semantic segmentation tasks which aligned every channel with a human interpretable visual concept. The introduction of semantic concepts in the latent space additionally increases transparency in the prediction by the DNN. Oltramari et al. [62] developed a hybrid AI framework for perceptual scene understanding via instructing the latent space of DNNs with knowledge graphs that are extracted from clustering the labelled training data. Martinez et al. [64] developed an interpretable latent space in the DNN by using capsule networks [91] to predict eye fixations in AD scenarios and contextual conditions. With these capsules, it is possible to express interpretable relationships between features and contextual conditions on frame-level and pixel-level. In [66], Yoneda et al. trained a CNN to identify the presence of sunglare in the AD environment. Subsequently, heat maps with a Gradient-weighted activation map approach (Grad-CAM) [92] were calculated to identify the regions of sun glare in the image. The developed heat map approach increases transparency in the decision-making process.
+
+Authorized licensed use limited to: Politecnico di Torino. Downloaded on May 09,2025 at 07:41:00 UTC from IEEE Xplore. Restrictions apply.
+
+19350
+
+IEEE TRANSACTIONS ON INTELLIGENT TRANSPORTATION SYSTEMS, VOL. 25, NO. 12, DECEMBER 2024
+
+Fig. 6. Types of XAI methods for AD as grouped by the sources of explanations (Section II-C). (A) the AI algorithm is inherently interpretable (white box); (B) surrogate models are used to approximate opaque AI models (black box) and generate explanations for their outputs; (C) a transformed input is fed into an interpretable monitor system (white box) to runtime check the safety of opaque AI models (black box); (D) the AI model can deliver some intermediate information as explanation of its designed functions (gray box); (E) interpretable (white box) algorithms are employed to control agents for validating AVs.
+TABLE IV
+SUMMARY OF INTERPRETABLE-BY-DESIGN METHODS USING THE XAI TAXONOMY OF SECTION II-D. ALL METHODS IN THIS CATEGORY ARE ANTEHOC (STAGE). EVALUATION METHODS ARE BASED ON FIXED SIMULATED SCENARIOS, RANDOMISED SIMULATIONS, OR DATASETS (NAMES LISTED). MISSING ENTRY (—) MEANS NOT APPLICABLE. NO E2E METHODS WERE FOUND FOR THIS CATEGORY. * CONCEPTUAL FRAMEWORK
+
+2) Interpretable By Design – Planning & Prediction: Methods in this category create explanations for mainly three purposes: goal/trajectory prediction, lane-change intention prediction, and motion planning. One of the most common design choices is the use of high-level, interpretable driving maneuvers [67], [68], [71], [72], [83], [85]. These maneuvers provide a convenient abstraction over lower-level state variables (e.g., acceleration and steering) and render the decision-making process tractable and interpretable.
+However, interpretable-by-design approaches rely on extensive domain knowledge which may not be scalable to more complex decision-making. Moreover, some methods rely on BNs to define probabilistic models of the decision-making process [78], [83], [85], which needs a good understanding of and assumptions about the causal processes behind driving decisions. The benefit of BNs is that they provide a principled mathematical framework to reason about causality, however, the relience on expert knowledge has the potential to introduce human modelling errors and biases.
+
+Another approach for motion planning is to rely on Monte Carlo Tree Search (MCTS) over high-level driving maneuvers to create a shallow search tree via simulations that is interpretable [67], [68], [78]. MCTS has the benefit of covering only relevant parts of the search space while avoiding unsafe actions, however, it relies on trajectory predictions for other traffic participants and is computationally expensive.
+Interpretable goal and trajectory prediction have also received attention. These methods rely either on rational (Bayesian) inverse planning [67], [69], decision trees [71], [72], or discrete choice models [76]. There is significant work on explaining lane change (LC) predictions using a variety of methods which include time-series motifs [81], rule extraction [87], and interpretable variational auto-encoders [86]. One work stands out for predicting pedestrian intentions [85] using a dynamic BN derived from annotated real-world image data.
+Only three papers ran a user study [79], [80], [83] and only one of those provided a more thorough investigation of the effects of explanations on users [79]. This latter work is
+
+Authorized licensed use limited to: Politecnico di Torino. Downloaded on May 09,2025 at 07:41:00 UTC from IEEE Xplore. Restrictions apply.
+
+KUZNIETSOV et al.: EXPLAINABLE AI FOR SAFE AND TRUSTWORTHY AD: A SYSTEMATIC REVIEW
+
+19351
+
+TABLE V
+SUMMARY OF INTERPRETABLE SURROGATE METHODS USING IN PART THE TAXONOMY OF SECTION II-D. ALL METHODS IN THIS CATEGORY ARE POST-HOC (STAGE) AND SUBSYMBOLIC (REPRESENTATION). THE SURROGATE FIELD REFERS TO THE SPECIFIC SURROGATE METHOD USED TO APPROXIMATE THE UNDERLYING BLACK BOX. MISSING ENTRY (—) MEANS NOT APPLICABLE
+
+TABLE VI
+SUMMARY OF INTERPRETABLE MONITORING METHODS USING THE TAXONOMY OF SECTION II-D. NO USER STUDIES WERE DONE IN THIS CATEGORY. MISSING ENTRY (—) MEANS NOT APPLICABLE. NO CONTROL AND E2E METHODS WERE IDENTIFIED IN THIS CATEGORY
+
+also one of the only methods in this category which elicited stakeholders’ requirements in detail along the axes of intelligibility, accountability, and trust. However, a major limitation of their proposed method is the use of a highly specialised dataset with annotations for high-level semantic and structured explanations which may not be readily available.
+3) Interpretable By Design – Control: Zheng et al. [88] proposed an ante-hoc explainable controller in which the output of a neural network-based controller with control barrier function filters is projected onto a safe set in an interpretable manner via quadratic programs and a gauge map. Their method provides good traceability of the control process and discusses in-depth the effects of interpretable control on safety validation.
+4) Interpretable By Design – Summary: In the field of perception, the majority of algorithms that are interpretable by design rely on the construction of an interpretable latent space within the DNN. By compelling the algorithm to learn semantic concepts, the automatic feature extraction becomes more interpretable. Another possibility is to modularize the perception algorithm into multiple algorithms that learn to identify different semantic concepts. By training the perception algorithm to extract semantic concepts, the algorithm is forced to learn an interpretable feature extraction. However, it is challenging to define the concepts. Additionally, a dataset which
+
+contains semantic concepts of an object as a label is often required. Lastly, it is also possible to use the interpretability of a classifier to localize objects [66].
+In planning and prediction, it is common to hand-craft high-level interpretable features or maneuvers to abstract the low-level state space. These abstractions may then be used in various algorithms for decision-making, such as Monte Carlo Tree Search (MCTS), Bayesian networks (BN), or decision trees. However, creating these abstractions requires significant domain knowledge and careful engineering. For the control task, constraint-satisfaction algorithms can be applied to map the output of a DNN onto a safe-by-construction control domain in an interpretable way.
+These methods are intrinsic explainable and have the potential to improve both the trustworthiness and the safety of AD. Interpretable algorithms provide a clear causal link between the input and the output of the algorithm which may enable safety validation, while meaningful high-level abstractions may be easily understood by people which can contribute to accurate trust calibration. Unfortunately, very few methods investigate the algorithms’ efficacy with actual stakeholders leaving many of the motivating claims of these works unaddressed. This is especially clear from the lack of methods that generate concrete, intelligible explanations
+
+Authorized licensed use limited to: Politecnico di Torino. Downloaded on May 09,2025 at 07:41:00 UTC from IEEE Xplore. Restrictions apply.
+
+19352
+
+IEEE TRANSACTIONS ON INTELLIGENT TRANSPORTATION SYSTEMS, VOL. 25, NO. 12, DECEMBER 2024
+
+TABLE VII
+SUMMARY OF AUXILIARY EXPLANATION METHODS USING THE TAXONOMY OF SECTION II-D. NO USER STUDIES WERE PERFORMED IN THIS CATEGORY. NO CONTROL METHODS WERE IDENTIFIED IN THIS CATEGORY
+
+(i.e., explainable systems as defined in Section II-C). Instead, papers usually offer scientific analyses of the interpretable components of their systems, but these are impossible to scale for varied stakeholders and do not consider the requirements for achieving more trustworthy AD (cf. Section II-B). The missing motivation for trustworthiness is also clear from the lack of user studies that evaluate the benefit of explanations on stakeholders.
+B. Interpretable Surrogate Models
+Definition 2 (Interpretable Surrogate Models): We call a system an interpretable surrogate model if an interpretableby-design model approximates the behaviour of a black box algorithm such that this provides intelligible explanations of the black box algorithm [41].
+1) Interpretable Surrogate Models – Perception: Ponn et al. [93] introduced a model-agnostic surrogate model for camerabased object detectors. A random forest is trained to predict a detection score according to meta-information about the environment in the training data. Afterwards, Shapley values are calculated to measure the impact of different features from the meta-information which helps interpret the results, such
+
+that the behaviour of the object detector under influencing factors in the environment can be estimated.
+2) Interpretable Surrogate Models – Planning & Prediction: Cui et al. [94] combined SHAP and random forests to increase the transparency of decision-making driven by a deep reinforcement learning (DRL) algorithm. In their framework, SHAP determines the important features associated with the decision made by the DRL algorithm and an RF model is trained using these features to explain the decisions of the original DRL model. In addition, Li et al. [95] also relied on SHAP to understand the importance of features for LC predictions. They propose a modified version of SHAP called Maximum Entropy SHAP (ME-SHAP) that they use to explain an XGBoost-based LC decision model. Their evaluation shows that the ME-SHAP feature contributions may be rationalised in terms of intuitive driving actions, but the qualitative benefits of ME-SHAP for human understanding are not substantiated.
+Three works stand out which avoid using SHAP while also carrying out significant user studies. First, Mishra et al. [97] used a decision tree to explain an RL agent’s actions based on states and corresponding actions determined by the optimal policy. They created a visual explanation interface and evaluated it with both students and experts using a wide range of
+
+Authorized licensed use limited to: Politecnico di Torino. Downloaded on May 09,2025 at 07:41:00 UTC from IEEE Xplore. Restrictions apply.
+
+KUZNIETSOV et al.: EXPLAINABLE AI FOR SAFE AND TRUSTWORTHY AD: A SYSTEMATIC REVIEW
+
+19353
+
+qualitative and quantitative analyses. They showed that their method is effective, applicable with experts, and more effective than textual explanations.
+Second, Omeiza et al. [17] created natural language explanations by deriving decision trees from scene graphs. Their algorithm is based on pre-defined meaningful features but their method description is limited which makes it difficult assess how well it would work in unseen scenarios. An extensive user study was used to measure the effects of explanations on the perceived accountability of the AD system and on users’ understanding of how the AD system works.
+Finally, Gyevnar et al. [98] proposed a method called CEMA which is based on a cognitive model of how people select causes for explanations. They also generated natural language explanations, but unlike the previous methods which used a decision tree, their method relied on simulations based on a probabilistic planner. They generated counterfactual worlds that were used to analyse the causal relationships affecting the motion planning of the AV. They evaluated their explanations with more than 200 online participants against a baseline of human-written explanations called HEADD [99].
+3) Interpretable Surrogate Models – Control: Surrogate models of control should be strongly focused on safety given their safety-critical hardware-level application. We identified here one work [100] in which the authors analysed the behaviour of a DNN-based controller that stabilizes the dynamic position of an AV under disturbing environmental conditions. A cross-comparable clustering method for the time series data was introduced to interpret a response signal from a neural network, such that the internal model understanding and transparency were increased. However, the specifications of the underlying neural network is not explained, which makes their claims hard to reproduce and generalise.
+4) Interpretable Surrogate Models – End-to-end: Zemni et al. [101] proposed an object-centric framework which generates counterfactual explanations for E2E decision models. The E2E decision model was designed to have an instancebased latent representation. Thereby, the generative model was able to produce new images with slightly changed objects from the original input image. By analyzing changes in the output, the framework helps to understand the influence of objects in the environment on the decisions of the network. Shi et al. [104] proposed a self-supervised interpretable framework to produce an attention mask corresponding to the importance assigned to each pixel, which constitutes the most evidence for an agent’s decisions. The core concept of the framework is a separate explanation model trained for vision-based RL.
+5) Interpretable Surrogate Models – Summary: An interpretable surrogate model consists of a meta-model with interpretability capabilities that approximates the behaviour of a black box model and thus supports understanding the internal working principle of a black box model. For perception, this may be done by training a different ML model, such as a random forest that can be interpreted by inspection or via, for example, Shapley values [93]. This type of interpretable surrogate model has the potential to increase the transparency and reliability of the network, as detection errors can be analyzed more thoroughly, thereby enhancing the understanding of the
+
+model’s behaviour. It is similarly common to use Shapley values in planning and prediction, especially as implemented by SHAP [105], and only three works did not rely on SHAP.
+Unfortunately, blindly relying on SHAP-based interpretability may not help achieve safer AD as this method is susceptible to a variety of issues that lead to inconsistent explanations when compared with other feature saliency methods [106], [107]. This also means that care must be taken in their use when trying to improve the trustworthiness of AVs, and user studies with relevant stakeholders are essential to validate claims about trustworthiness.
+For the control task, the output of a DNN can be interpreted in a post-hoc manner by analyzing the data over time with a clustering approach [100]. In E2E learning, a separate generative model can be trained via the black box model [101]. The generative model can then be used to provide counterfactual explanations of the model. Moreover, it is possible to train a separate explanation module of the E2E network [104].
+C. Interpretable Monitoring
+Definition 3 (Interpretable Monitoring): We call a system an interpretable monitoring system if an interpretable-bydesign model is used to verify a decision-making algorithm’s output such that this ensures safer deployment of AVs.
+1) Interpretable Monitoring – Perception: In [108], Kronenberger et al. examined interpretable DNNs for traffic sign recognition. They introduced additional explanations of visual concepts such as colours, shapes and numbers or symbols. These visual concepts are used to verify the decision of the network. Hacker et al. [110] also proposed a monitor for traffic sign recognition. The monitor consists of various mechanisms including an interpretable saliency detector. During operation, the saliency map is computed via occlusion sensitivity [128] and is compared by computing the Euclidean distance to an offline computed saliency map for each traffic sign category. Keser et al. [111] proposed an interpretable and model-agnostic monitor by introducing a concept bottleneck model (CBM) which is used for a plausibility check with the original DNN-based object detector. The interpretability of CBM is achieved by learning human-interpretable labels. Fang et al. [115] constructed a fault diagnosis framework to monitor a system’s operational status, while the interpretability of the fault diagnosis is achieved by calculating the contribution of each input feature to the anomaly detection results. The perceptual monitors enhance the reliability of the decision process for the detection algorithm in an interpretable manner. Moreover, robustness is increased. Besides detecting anomalous behaviour of the network, the monitor is also able to detect unsafe inputs.
+2) Interpretable Monitoring – Planning & Prediction: Interpretable monitoring of AD planning and prediction systems are primarily concerned with two tasks: accident/collision prediction and safe action selection. A majority of methods here rely on symbolic representations, predominantly decision trees [118], [119], [120], [122], [125] to predict either a binary or scalar safety score for a fixed set of high-level actions. These methods are useful to assess the safety of potential
+
+Authorized licensed use limited to: Politecnico di Torino. Downloaded on May 09,2025 at 07:41:00 UTC from IEEE Xplore. Restrictions apply.
+
+19354
+
+IEEE TRANSACTIONS ON INTELLIGENT TRANSPORTATION SYSTEMS, VOL. 25, NO. 12, DECEMBER 2024
+
+actions before they are executed, however, they rely only on the state description without considering other visual cues.
+This shortcoming is addressed in other works that rely on raw perception data to assess the safety of driving maneuvers, for example by Karim et al. [123] who used GradCAM [92] to extract visual explanations for accident prediction. More uniquely, Bao et al. [116] proposed a two-stage design for traffic accident prediction based on visual attention informed by a Markov decision process designed based on humanlike visual attention fixation. Stage 1 uses saliency maps to show visual attention for both top-down (focus on a particular region) and bottom-up (consider everything) vision, while stage 2 is a stochastic Markov decision process in which an agent predicts the probability of an accident as well as the visual fixation area, such that this setup balances exploration through visual fixation with exploitation for more accurate accident prediction.
+In contrast to predicting the safety of a single action, Schmidt et al. [127] proposed a decision tree-based monitoring pipeline for full motion planning. They used imitation learning to train a decision tree based on an RL teacher policy that was trained for safe driving under a constrained MDP. The method was shown to be verifiable and easily interpretable, although their evaluation was limited only to lane-change decisions.
+Rather than monitoring the safety of motion planning on its own, Gilpin et al. [121] designed a high-level explanatory framework for holistic anomaly detection within the AV that can also create explanations for end-users using natural language. They proposed a hierarchy of systems to first select explanations generated by lower-level systems (e.g., control and perception modules), and then synthesise higherlevel explanations using first-order logic rules and common sense knowledge. Unfortunately, they did not run a user study, so their explanations’ practical usefulness was not assessed.
+3) Interpretable Monitoring – Summary: For the perception task, surrogate models that are interpretable by design can be used to verify the decision of a perception algorithm through their interpretable extraction of semantic concepts. Moreover, the internal workings of a perception algorithm can be monitored via a heat map monitor or an interpretable metamodel can be developed as a monitor to identify anomalies and their causes in the perception algorithm.
+For prediction and planning, most methods rely on decision trees to predict a binary safety label or scalar risk score for the ego vehicle’s actions. These methods only utilise the state description of the environment. However, two methods were proposed that consider visual cues from image data as well.
+Monitoring methods are well suited to post-hoc address the safety concerns of AD, but they are not designed to calibrate trust. A huge challenge in interpretable monitoring systems is the trade-off between the computational complexity and the performance of the monitoring algorithm, since the monitor should not take too much time to operate and should not avoid consuming the main system’s resources [129].
+
+D. Auxiliary Explanations
+Definition 4 (Auxiliary Explanations): We say that an algorithm can provide auxiliary explanations if the execution of the algorithm creates auxiliary information that provides information about how the algorithm produced its output.
+1) Auxiliary Explanations – Perception: In perception tasks, heat maps are often created to explain the prediction results by highlighting regions that influence the network’s decision. A widely used model-specific approach is Grad-CAM [92] which visualizes the activation, typically in the last layer. Kolekar et al. [130] applied Grad-CAM to a DNN for camerabased semantic segmentation. Saravanarajan et al. [132] also inspected the behaviour of a DNN for semantic segmentation via Grad-CAM under the synthetically generated haze. In addition to the last layer, Grad-CAM was also applied to two layers in the encoder and one in the decoder resulting in four different heat maps, thus increasing transparency in the decision understanding of the DNN.
+Abukmeil et al. [134] proposed a variational autoencoder for a semantic segmentation task and generated multiple heat maps by computing the second-order derivatives between the encoder layers and the latent space. The resulting attention maps are aggregated and fused with the last decoder layer to improve the results. Mankodiya et al. [136] defined a framework to determine the important area of an image contributing to the outcomes of semantic road segmentation, while the XAI methods used here were Grad-CAM and saliency maps.
+In [137], Nowak et al. computed attention heat maps for a DNN-based bus charger detection. Additionally, these heat maps are used to identify spurious predictions and are further used for training via data augmentation to increase robustness. Besides providing transparency due to the heat maps, the robustness of the DNN is also increased. The aforementioned approaches only focused on camera-based perception tasks. Schinagl et al. [138] proposed a model-agnostic attribution map generation method for LiDAR-based 3D object detection. The heat maps are generated perturbation-based via systematically removing LiDAR points and observing the output changes. They also propose various visual analysis tools which help identify potential misbehaviour of a DNN-based perception system in an interpretable manner. This way, more transparency in the model working is given and the whole development process of the ML system becomes safer.
+Gou et al. [140] developed the framework Vatld to examine traffic light detection algorithms by analyzing input-output data as well as intermediate representations. Disentangled representation learning was used to extract semantic concepts in the latent representation such as color, background, rotation etc.. Therefore, the analysis tool heavily relies on DNNs that are based on representation learning.
+In [142], Schorr et al. developed a toolbox with various state-of-the-art visualisation algorithms of a CNN for image classification and semantic segmentation including GradCAM and its extensions, saliency maps [178] and guided back-propagation [179]. Wang et al. [143] proposed a framework to interpret 3D-object detection failures by combining macro-level spatiotemporal information and micro-level CNN
+
+Authorized licensed use limited to: Politecnico di Torino. Downloaded on May 09,2025 at 07:41:00 UTC from IEEE Xplore. Restrictions apply.
+
+KUZNIETSOV et al.: EXPLAINABLE AI FOR SAFE AND TRUSTWORTHY AD: A SYSTEMATIC REVIEW
+
+19355
+
+features. For the micro-level feature extraction, the heat map algorithm Grad-CAM and the aforementioned Vatld framework were used. Haedecke et al. [144] introduced the analysis toolbox ScrutinAI for semantic segmentation and object detection tasks by offering several visualisation tools. Particularly, ScrutinAI may distinguish between metadata in the input (e.g., different observable body parts in an image for pedestrian detection) to explicitly identify model weaknesses related to semantic concepts of objects.
+2) Auxiliary Explanations – Planning & Prediction: The overwhelming majority of methods generating auxiliary explanations rely on the attention mechanism to gain some insight into how the algorithms reached their output. The recurring design pattern here is that a recurrent neural network (RNN) is proposed onto which an auxiliary attention mechanism is bolted. Alternatively, instead of an RNN, a transformer architecture is proposed, in which case the attention mechanism is built into the neural network from the start. The explainability analyses of these methods are then performed by looking at the attention scores that the model assigns to either the input or some interpretable input embedding. Finally, the attention scores are sometimes visualised using heat maps or bar graphs.
+For example, Jiang et al. [145] proposed a transformerbased method for inter-vehicle trajectory interaction analysis. Their evaluation showed that the proposed model is significantly faster than similar methods and performs competitively as compared to baselines, with the added benefit of some interpretability analysis. In addition, Kochakarn et al. [146] designed an algorithm with spatial and temporal attention for road scene understanding. A self-supervised scene-graph learning algorithm is used to create spatiotemporal embeddings of scene graphs based on graph contrastive learning, which is then used for driver action prediction as a downstream task. As the final stage of graph embedding, an attention layer is used to highlight the most important spatial and temporal factors in the scene graph sequence as a form of post-hoc explainability. Yu et al. [152] also used an attention mechanism with scene graph embeddings as well as image data to predict binary risk prediction. However, no quantitative evaluation is given and only one qualitatively interesting example is presented of the impact of attention mechanisms on explainability on safety prediction. Finally, explainable trajectory prediction has also received some attention along the similar neuralattention methodology [151], [154].
+However, due to the unreliability of attention-based explanations, it is interesting to look at methods which do not rely on attention weights. Liu et al. [149] used a post-hoc heatmap to infer different potential goals on a map, which then guides a neural network-based planner to capture planning uncertainties. Additionally, Wang et al. [150] combined bidirectional long short-term memory with a conditional random field (CRF) predictor to provide scores for interpretable handcrafted features in LC scenarios. Their model also enforces interpretable hard and soft rules that the system must satisfy. However, their evaluation is limited and no qualitative discussion is given of how the CRF improves the interpretability of the system as a whole.
+
+3) Auxiliary Explanations – End-to-end: Kim et al. [155] proposed the generation of textual explanations for E2E driving tasks. They introduced a dataset called BDD-X (Berkeley DeepDrive eXplanation) with driving videos annotated with driving descriptions and action explanations. In addition to the E2E control system, a second attention-based model was trained to predict textual explanations from video sequences. The attention maps of both models were aligned to create a dependency between the controller and the explanations. Based on that, Kühn et al. [156] evaluated the developed baseline on a new dataset called SAX [162] and proposed some improvements over the baseline. They utilized video frames as input and generated natural language action descriptions and explanations using an opaque neural network. Building on this architecture, Mori et al. [163] incorporated throttle into the control in addition to steering and developed an attention map for visual explanations of AV decisions. Xu et al. [103] introduced the dataset BDD-OIA (object-induced actions) which extracted complicated scenarios from BDD-X and annotated them with new explanations focusing on objects which influence the decision. Additionally, they proposed a DNN architecture which jointly learns action prediction and textual generation. Dong et al. [157] extended the approach by introducing a transformer architecture for the E2E network. In this way, the decision and reason generator could include the feature extractor and the attention zones of the transformer architecture. For the decision and reason generator task, Zhang et al. [158] introduced an additional interrelation module in the network expressing interrelationships among the ego vehicle and other traffic-related objects. This module is then combined with global features of the E2E network to provide more reliable actions and explanations.
+Feng et al. [159] proposed to expand the textual reasoning about the driving actions with explanations including the surrounding environment based on semantic segmentation by extending the BDD-OIA dataset with additional annotations, although they did not qualitatively show the added benefit of the new annotations. In [160], Zhang et al. extended the BDD dataset by BDD-3AA by providing explanations and corresponding object segmentations. The interpretation was provided by importance value scores for the objects on the image. Human evaluation showed that object-level explanations are more persuasive than pixel-level explanations while the additional textual explanations increased trust for users and manufacturers. However, the decisions and explanations do not necessarily correlate, and the explanations need to be validated for reliability.
+Wang et al. [164] proposed intermediate outputs in the E2E design to improve interoperability. Besides the planned trajectory as an output, they also provide future semantic maps from the intermediate perception part in Birds-Eye-View (BEV). A similar approach was proposed by Chen et al. [165] where a semantic BEV mask containing a map, ego state, surrounding objects and routing was delivered. Yang et al. [166] proposed two frameworks generating attention maps of E2E controllers to better understand scenes. The first one was model-specific and produced feature maps from the convolutional layer. In contrast, a second model-agnostic approach was
+
+Authorized licensed use limited to: Politecnico di Torino. Downloaded on May 09,2025 at 07:41:00 UTC from IEEE Xplore. Restrictions apply.
+
+19356
+
+IEEE TRANSACTIONS ON INTELLIGENT TRANSPORTATION SYSTEMS, VOL. 25, NO. 12, DECEMBER 2024
+
+proposed which compared the controller outputs between the raw input images and occluded ones. By examining changes in the output, a pixel-wise heat map was created.
+Cultrera et al. [167] proposed attention blocks in the DNNbased E2E controller to create attention maps. Aksoy and Yazici [169] developed an E2E controller which explicitly provided a saliency map prediction as an intermediate output and as an input for the action prediction. Chitta et al. [172] proposed an E2E system which provides a trajectory and a BEV semantic prediction as an output. Moreover, attention maps of the DNN are computed to increase interpretability. Similarly, Sadat et al. [173] introduced an E2E motion planner that provides semantic occupancy forecasting as an interpretable intermediate representation resulting from the perception and prediction task. The intermediate output consists of a semantic occupancy map including, motion predictions of different agents. Moreover, the cost function of the motion planner takes occupancy forecasting as an additional input to increase safety of the generated trajectories.
+Wei et al. [174] trained an E2E method that directly plans the future trajectory for the ego vehicle. Their method includes an attention mask over a CNN backbone that they claim can increase the safety and interpretability of the system by allowing the inspection of the LiDAR input data. However, their evaluation does not analyse the benefits of this system. Tashiro et al. [175] also produced heat maps as an intermediate output for an E2E controller. For the heat map generation, they quantised the network activations to pay limited attention to specific bits and showed improved performance to other attention map generation methods. In addition, the visual intermediate outputs lead to a similar transparency that modular AD architectures can provide. This could also help identify errors in complex E2E systems more accurately. However, the reliability of the intermediate output is not guaranteed and the intermediate explanations do not necessarily help in understanding the behaviour of the E2E system.
+Teng et al. [177] leveraged a Bird’s Eye View (BEV) mask, which provided scene semantic information. They argued that the BEV mask can demonstrate how an AV understands the scenarios and thus promote interoperability.
+4) Auxiliary Explanations – Summary: A prominent approach in perception is generating heat maps, which visually explain the regions in the input that the black box algorithm has focused on. The heat maps can be utilized for local posthoc explanations. However, heat maps can be fragile and unreliable. Moreover, it is difficult to evaluate the correctness of the provided explanation [40]. Planning and prediction algorithms that generate auxiliary explanations all rely on an attention mechanism either as part of the transformer architecture or in conjunction with a recurrent neural network (RNN). Attention weights are then manually interpreted giving some insight into how the algorithm transformed the input into a decision.
+The benefit of attention-based methods is that their results are interpretable through the analysis of the attention weights, but the proposed systems are highly model-specific and require detailed knowledge of the underlying architecture of the neural network. In addition, attention weights are widely known to
+
+be inconsistent and difficult to interpret as explanations [43], [180]. The major problem here is that attention weights may provide a “plausible” – i.e., intuitively correct – explanation of the decision-making algorithm despite not being “faithful”, i.e., factually correct. This may then wrongly calibrate people’s trust in the system leading to over- or under-reliance.
+For E2E learning, there are various possibilities to provide auxiliary explanations. As in perception, heat maps can be provided which highlight important regions for the algorithm’s action in the input. These visual explanations can be expanded by textual explanations, that generate reasons based on the input for the chosen action. Lastly, one can also provide intermediate outputs which visualise the perception or prediction part inside the E2E network. This gives a better insight into the internal workings of the E2E network, but the intermediate outputs cannot directly explain the network’s decisions.
+E. Interpretable Safety Validation
+Definition 5 (Interpretable Safety Validation): We say that an algorithm provides interpretable safety validation if it uses an interpretable algorithm to generate adversarial behaviours of other traffic participants for the validation of an AV.
+1) Interpretable Safety Validation – Summary: These interpretable methods focus on supporting safety assurance via post-hoc explainability by either generating failure cases or by extracting accident scenarios to be used in safety assessments. Safety validation also differs from the standard perception, planning, and other runtime functions as it is executed during the verification and validation phase (offline). For reinforcement learning, temporal logic can be inserted into policies to ensure safe behaviour. For critical scenarios in prediction and perception, heat maps can be further analyzed to extract and interpret critical factors in the corresponding scenarios.
+Corso and Kochenderfer [181] utilized signal temporal logic (STL) to generate high-likelihood failures for AVs, while they argued STL is easily understood because of its logical description between temporal variables. DeCastro et al. [182] leveraged parametric STL (pSTL) to construct an interpretable view on modeling a relationship between policy parameters to the emergent behaviours from deploying that policy, while the behaviour outcome is expressed by pSTL formulas. As pSTL provides a way to construct formulas that describe the relationships between spatial and temporal properties of a signal, the formally-specifiable outcome can be obtained by configuring the parameters, allowing proactively generating various desired behaviour of an agent for testing AVs.
+Kang et al. [183] proposed a visual transformer to predict collisions supplemented by attention maps. Subsequently, a time series of attention maps is further analysed to identify spatiotemporal characteristics and based on the situation interpretation, accident scenarios for safety assessment are extracted. The extraction is based on the definition of functional scenarios by the PEGASUS project [184] on 6-layer information including road levels, traffic infrastructure, events, objects, environments, and digital information.
+In [185], Li et al. introduced a risk assessment phase for the perception and prediction of dangerous vehicles as well as
+
+Authorized licensed use limited to: Politecnico di Torino. Downloaded on May 09,2025 at 07:41:00 UTC from IEEE Xplore. Restrictions apply.
+
+KUZNIETSOV et al.: EXPLAINABLE AI FOR SAFE AND TRUSTWORTHY AD: A SYSTEMATIC REVIEW
+
+19357
+
+Fig. 7. Reproduction of the framework from [17] with three main components: the user interface, the explainer, and the AD modules. The explainer serves as a middleware between users and AD modules and interacts with them.
+traffic lights. A visual explanation for the classification is provided by computing saliency maps via RISE algorithm [186], which supports safety assurance in the risk assessment phase. Shao et al. [187] also output the intermediate interpretable features for semantic explanation, aiming to enhance safety for the downstream controller.
+V. XAI FRAMEWORK FOR AD
+We now provide an overview of existing XAI frameworks for AD and analyze their limitations. As part of our systematic review, we identified three relevant XAI frameworks, which illustrate high-level AD modules and describe various ways to integrate them. Subsequently, we propose our XAI framework for AD – SafeX: a framework for safe and explainable AD – based on the concrete XAI methods summarized in Section IV.
+A. Existing XAI Frameworks
+Omeiza et al. [17] defined an explainer as the bridge between an AV and users, allowing explanations to users’ queries based on the information from AD modules, as shown in Figure 7. Instead of focusing on a specific AV function, their framework remains at a high level to illustrate the general role of XAI in AD. Atakishiyev et al. [18] introduced a similar conceptual framework for E2E autonomous control systems by including XAI components that realise safetyregulatory compliance. In this framework, an XAI component aims to provide explanations of each driving action taken in the given environment. Regulatory compliance is confirmed by simulation and real-world testing based on these explanations.
+The framework defined by Brajovic et al. [188] consists of four steps for the entire development cycle of AI. These are use case definition, data collection, model development, and model operation. The use case describes the task that the AI aims to solve, while the data affects whether the AI is biased and robust. The developed model is aimed to achieve an appropriate level of accuracy, robustness, explainability, and other desirable requirements. Finally, the model operation shall be equipped with a monitoring system that is proportionate to the nature of the AI and its associated risks. Although this framework provides useful guidance, its application to AVs is not addressed and users’ queries are not considered.
+B. Conceptual Framework: SafeX
+We propose a novel conceptual framework for safe and explainable AD shown in Figure 8, which we call SafeX.
+
+Different from the frameworks proposed in previous work, we present a more fine-grained application of XAI to AD, focusing on the integration of the concrete surveyed methods within the full AD stack in a way that also enables safety monitoring and intelligible explanation delivery.
+The overall structure of SafeX is shown in Figure 8a. We define an explainable monitoring system (EMS) as a bridge between users and an AV. On one hand, the EMS generates intelligible explanations to users based on their queries by extracting the necessary information from the AV. On the other hand, it includes a monitor for each AD module to deliver safety feedback regarding the module’s output. These two functions of the EMS are not only aimed at increasing a user’s understanding and trust in the AV but also at providing a safer AV for the user. To accomplish the two roles of the EMS, each AD module must be carefully designed. Figure 8b uses the four identified XAI categories from our survey to deliver explanatory and monitoring information to the upstream EMS for each AD module. For black boxes in an AD module, interpretable monitors, interpretable surrogate models, and auxiliary explanations can be applied. In addition, the functions in the module can also be inherently interpretable to deliver traceable explanatory information if the interpretable functions meet the performance requirements. They may also serve as a fallback if the monitoring systems report unexpected and unverifiable behaviour from the black box systems.
+In contrast to existing frameworks, SafeX is based on concrete state-of-the-art methods, and we design SafeX according to the modular components identified in Section IV. We display two variants of how SafeX could be realized.
+Variant 1: all three units in Figure 8a are deep learningbased black box modules. For camera-based perception, heat maps can be generated as an auxiliary explanation [143], highlighting pixels in the camera image that are relevant to the black box model’s prediction. Moreover, a random forest can be applied to identify perception errors based on meta-information from the environment [93]. With the corresponding Shapley values, an interpretable surrogate model can be applied. Additionally, the concept-bottleneck model for pedestrian detection can be used for the EMS as proposed in [111]. The perception monitor can verify the predictions of the object detector for the safety-relevant object class pedestrians. Regarding deep learning-based motion planning algorithms, they take the environmental representation provided by the object detector as an input and provide a planned trajectory of the AV as an output. Similarly to the perception unit, a heat map highlighting different potential goals on the map [149] can be generated as an auxiliary explanation. As a surrogate model, the cognitive model introduced by Gyevnar et. al. [98] based on the planning and prediction model [67] can be utilized to provide causal explanations for decisionmaking. For the EMS, an inherently interpretable decision tree can be trained to verify the decisions of the black box motion planner, as proposed in [127]. Lastly, a DNN-based controller can be applied, which can be combined with crosscomparable clustering as a surrogate to aid in interpreting the control signals.
+
+Authorized licensed use limited to: Politecnico di Torino. Downloaded on May 09,2025 at 07:41:00 UTC from IEEE Xplore. Restrictions apply.
+
+19358
+
+IEEE TRANSACTIONS ON INTELLIGENT TRANSPORTATION SYSTEMS, VOL. 25, NO. 12, DECEMBER 2024
+
+Fig. 8. SafeX: our framework for safe and explainable AI for AD integrates concrete XAI techniques with AD in an actionable way. (a) Explainable monitoring generates intelligible explanations to users’ queries using information from AD modules to achieve trustworthiness while monitoring the output of each module by providing safety feedback to ensure safety; (b) Each unit in SafeX may contain interpretable surrogate monitors and models, while auxiliary explanations can be applied for the black boxes in each AD module. Alternatively, the functions in AD modules are designed to be inherently interpretable.
+
+Variant 2: AD modules are inherently interpretable. The perception module could be trained as a concept-bottleneck model [59]. Extracting semantic concepts in the segmented environment makes the algorithm more interpretable and reliable. For the subsequent planning unit, a Monte Carlo Tree Search over high-level driving maneuvres can be applied [67]. The resulting search tree helps in interpreting the planner’s decision. Lastly, a neural network-based controller with an interpretable projection mechanism [88] can be used as an explainable control unit in the framework.
+The resulting modular design allows future research and development to focus on deeply investigating and refining specific components independently. By stacking multiple forms of XAI methods, we can enable developers to integrate the appropriate methods with their AD stack based on specific stakeholder and regulatory requirements, and the desired degree of safety. Moreover, the proposed EMS can simultaneously achieve both the safety monitoring of the AV and the delivery of intelligible explanations to users’ queries.
+VI. DISCUSSION
+We set out to answer two research questions based on a systematic literature review. In closely scrutinising the retrieved publications for RQ1, we found that state-of-theart literature is trying to resolve the challenge of safe and trustworthy AI in AD by focusing on five core XAI design paradigms, namely interpretable design, interpretable surrogate models, interpretable monitoring, auxiliary explanations, and interpretable validation.
+It is interesting to note that there is a significant imbalance in the number of publications among each of the driving tasks of perception, planning and prediction, and control. Control is consistently more neglected across all five XAI design paradigms than perception and planning, despite the intensive research into neural network-based safe RL control methods [189]. Furthermore, XAI for LiDAR-based perception
+
+and various fusion approaches remains highly unexplored compared to camera-based detectors. This is noteworthy even though the majority of state-of-the-art perception architectures incorporate LiDAR sensors due to their provision of accurate depth information [25]. In contrast, E2E methods enjoy significant attention from the field, however, most methods for these systems are constrained to auxiliary explanations.
+However, herein lies an important challenge. It has been shown many times, that the post-hoc analysis methods of auxiliary explanations based on Shapley values, attention maps, or saliency maps are neither consistent nor necessarily correct (see for some examples [43], [44], [190]). While these methods are undoubtedly useful for building explanations, they are also not sufficient, if our requirements of trustworthy and safe AI are to be upheld in, for example, regulations and courts. This challenge is then further exacerbated by the fact that the evaluation of auxiliary methods is usually cursory with hardto-interpret quantitative metrics and no qualitative insights at all. One way to increase safety for AD is to integrate multiple XAI techniques into one framework in a “Swiss cheese” model of safety that assures that malfunctions do not go unnoticed through the AD stack.
+This is why our analysis of RQ2 is relevant, and why we propose a new framework called SafeX to integrate concrete XAI methods with AD. We found that the number of existing works about frameworks or pipelines is limited and these provide only a very high-level overview of the ways XAI may be integrated with AD on a lower level of the AD stack. Given these limitations and the urgent need for safe and trustworthy AI for the AD stack, our framework SafeX modularly integrates the identified techniques of XAI with each AD module. A modular approach in SafeX allows the combination of multiple sources of explanations in a way that may reduce the risks of using AI for AD. One may also combine multiple modalities of predictions which, when used with our proposed explainable monitoring system, can act both
+
+Authorized licensed use limited to: Politecnico di Torino. Downloaded on May 09,2025 at 07:41:00 UTC from IEEE Xplore. Restrictions apply.
+
+KUZNIETSOV et al.: EXPLAINABLE AI FOR SAFE AND TRUSTWORTHY AD: A SYSTEMATIC REVIEW
+
+19359
+
+as a bridge between users and the AD system and as a tool for comprehensive safety guarantees. The EMS is, thus, designed to enable the delivery of explanations to users while ensuring the safety of each AD module through runtime monitoring.
+We also observed that interpretable safety validation, one of the five XAI design paradigms, has received less attention in the field. This is relevant because the safety testing of AVs is one of the most pertinent and difficult challenges that currently faces the AD field due to the heavy-tailed distribution of driving scenarios [191]. As we saw in Section IV-E, one way to mitigate this problem is the extraction of varied scenarios from real driving data that is achieved through an interpretability analysis uncovering the relevant factors of the environment in the scenario. Through interpretability, we can also understand the causal factors in the scenarios so that we can manipulate them and extract new scenarios.
+In our study, we narrowed our focus on perception, planning and prediction, and control, while not considering studies about data diversity, ethics, or AI model oversight. This is because the former three are arguably the most pressing if we aim to address the requirements of safe and trustworthy AI in a way that also translates to more deployable and reliable AVs. While the latter three are undoubtedly important, their solution may present less of a stride towards creating real-world AVs.
+In addition, natural language understanding and generation for interacting with users and delivering intelligible explanations were not considered, though our review has picked up on a few methods [17], [83], [98] that directly consider humanrobot interactions as a significant part of the explanatory process. What this suggests, is that there exists a disconnect between research that focuses on the needs of end users and research that addresses explainability of the driving stack. The problem with this gap is that explanations ought to change depending on the requirements of the user and the design of explanations need to take this dependency into account otherwise risking invoking mistrust or confusion in users. This necessitates the study of evaluating methods for explainability with humans as actual stakeholders, for example, as summarized by Vilone and Longo [192].
+Furthermore, our focus on XAI is only a partial measure of how safe and trustworthy AI should be achieved. As discussed in Section II-A, trustworthiness, safety, and transparency are overarching concepts that require the cross-disciplinary collaboration of people. Other measures such as uncertainty quantification, rigorous testing, thorough documentation, standardisation, etc. are also necessary. Still, we have also seen that XAI is a diverse and popular field that addresses some of the key requirements of trustworthy and safe AI.
+Finally, it is worth noting that generative methods did not appear prominently in our review, even though our systematic search did not exclude these papers. On one hand, this is not surprising because generative methods further exacerbate the issues around black-box decision-making algorithms such that existing XAI algorithms cannot be applied to them. On the other hand, generative methods, especially multimodal methods which combine sensing, control, and language (e.g., [193]), have the potential to self-explain their decisions. In addition, the issue of the long-tail disttribution of critical
+
+scenarios may also be aleviated by generative methods, though their efficacy at this is yet to be verified. At the very least, generative modelling is an area that requires further investigation and may be a promising direction for future research.
+To summarise, we identify the following challenges and recommendations for the field of XAI for AD:
+• Explainable perception architecture: investigate more explainable approaches for other sensors such as LiDAR and Radar not just camera-based perception; explore XAI for various fusion architectures, particularly combining XAI methods for different sensors that are integrated;
+• Rigorous testing for auxiliary methods: auxiliary explanations methods like Shapley values, saliency and attention maps are prone to gaming, inaccuracies, and misinterpretation. It is necessary to thoroughly evaluate these methods not just quantitatively but also with extensive qualitative insights that focus especially on the failure cases of the methods;
+• Modular and layered monitoring: to improve the safety of AD, one method does not suffice. Our proposed framework, SafeX, instead suggests that multiple layers of independent and co-supervisory explanatory functions should verify and monitor the workings of underlying black box systems and each other, potentially providing fallback options in emergencies;
+• Cross-disciplinary collaboration: XAI methods are usually developed in isolation. To better understand stakeholder requirements and to adapt explanations to the varied socio-technical interactions of the real world, it is crucial to develop methods that are rooted in actual problems and not merely motivated by a vague sense of need for safety and trustworthiness.
+• Generative methods: generative methods are a promising direction for future research in XAI for AD. They have the potential to self-explain their decisions and may be able to alleviate the issue of the long-tail distribution of critical scenarios. However, their efficacy at this is yet to be verified.
+VII. CONCLUSION
+In this paper, we investigated the applications of XAI for safe and trustworthy AD. We began the survey by defining requirements for trustworthy AI in AD, noting that XAI is a promising field for addressing several of these requirements. Subsequently, we gave an overview of the sources of explanations in AI and presented the taxonomy of XAI. Based on a systematic literature survey founded on two research questions, we derived five key applications of XAI for safe and trustworthy AI in AD and an appropriate framework to integrate these applications into AD. Our key findings are:
+• Actual XAI for AD research can be sorted into five categories: interpretable design, interpretable surrogate models, interpretable monitoring, auxiliary explanations, and interpretable validation;
+• There is a lack of detailed general XAI for AD frameworks that address safety requirements and are also rooted in concrete research. We propose to fill this gap with a
+
+Authorized licensed use limited to: Politecnico di Torino. Downloaded on May 09,2025 at 07:41:00 UTC from IEEE Xplore. Restrictions apply.
+
+19360
+
+IEEE TRANSACTIONS ON INTELLIGENT TRANSPORTATION SYSTEMS, VOL. 25, NO. 12, DECEMBER 2024
+
+new framework SafeX that can incorporate all categories of XAI methods designed for AD; • XAI for AD, as an emerging topic, is gaining increasing attention according to the published literature per year. We expect that the number of studies will further increase with the development of AI. Looking to the future, we can expect legal and social pressures to increase on the development of AD. Growing up to this challenge will require joined initiatives from multiple disciplines and the involvement of various stakeholders. Here, we expect XAI to act as a bridge that could connect cross-disciplinary gaps. Emerging fields will also continue to influence the field. With the advent of large language model-based (LLM) systems, there will be a pronounced need for XAI more than ever, as models continue to improve and emergent behaviour is discovered every day. Calls for this in other fields are already emerging (e.g., mechanistic interpretability [194]), however, the use of LLMs in AD further complicates the black box problem. In addition, LLMs themselves could one day become the explainers, but it will only be through the involvement of various stakeholders and disciplines that this may become a reality for safe and trustworthy AD.
+REFERENCES
+[1] A. Mathew, P. Amudha, and S. Sivakumari, “Deep learning techniques: An overview,” in Advanced Machine Learning Technologies and Applications. Springer, 2021, pp. 599–608.
+[2] A. A. Jammal et al., “Human versus machine: Comparing a deep learning algorithm to human gradings for detecting glaucoma on fundus photographs,” Amer. J. Ophthalmol., vol. 211, pp. 123–131, Mar. 2020.
+[3] O. Willers, S. Sudholt, S. Raafatnia, and S. Abrecht, “Safety concerns and mitigation approaches regarding the use of deep learning in safetycritical perception tasks,” in Proc. Int. Conf. Comput. Saf., Rel., Secur., 2020, pp. 336–350.
+[4] ISO. (2018). ISO 26262-1:2018(en), Road Vehicles—Functional Safety. [Online]. Available: https://www.iso.org/standard/43464.html
+[5] R. Salay and K. Czarnecki, “Using machine learning safely in automotive software: An assessment and adaption of software process requirements in ISO 26262,” 2018, arXiv:1808.01614.
+[6] ISO. (2022). ISO 21448:2022: Road Vehicles-Safety of the Intended Functionality. [Online]. Available: https://www.iso.org/standard/ 77490.html
+[7] S. Burton, C. Hellert, F. Hüger, M. Mock, and A. Rohatschek, “Safety assurance of machine learning for perception functions,” in Deep Neural Networks and Data for Automated Driving: Robustness, Uncertainty Quantification, and Insights Towards Safety. Cham, Switzerlad: Springer, 2022, pp. 335–358.
+[8] D. Gesmann-Nuissl and I. Tacke, “Funktionale sicherheit ki-basierter systeme im automobilsektor,” in Proc. 14th Workshop Fahrerassistenz Automatisiertes Fahren, 2022, pp. 85–98.
+[9] ISO. (2023). ISO/CD PAS 8800: Road Vehicles—safety and Artificial Intelligence. [Online]. Available: https://www.iso.org/standard/ 83303.html
+[10] B. Moye. (2023). AAA: Fear Self-Driving Cars Rise. [Online]. Available: https://newsroom.aaa.com/2023/03/aaa-fear-of-self-drivingcars-on-the-rise/
+[11] S. Reig, S. Norman, C. G. Morales, S. Das, A. Steinfeld, and J. Forlizzi, “A field study of pedestrians and autonomous vehicles,” in Proc. 10th Int. Conf. Automot. User Interface Interact. Veh. Appl., Sep. 2018, pp. 198–209.
+[12] M. Langer et al., “What do we want from explainable artificial intelligence (XAI)?—A stakeholder perspective on XAI and a conceptual model guiding interdisciplinary XAI research,” Artif. Intell., vol. 296, Jul. 2021, Art. no. 103473.
+[13] R. Dwivedi et al., “Explainable AI (XAI): Core ideas, techniques, and solutions,” ACM Comput. Surveys, vol. 55, no. 9, pp. 1–33, Sep. 2023.
+
+[14] K. Weitz, D. Schiller, R. Schlagowski, T. Huber, and E. André, “‘Do
+
+you trust me?’: Increasing user-trust by integrating virtual agents in
+
+explainable AI interaction design,” in Proc. 19th ACM Int. Conf. Intell.
+
+Virtual Agents, Jul. 2019, pp. 7–9.
+
+[15] A. Deeks, “The judicial demand for explainable artificial intelligence,”
+
+Columbia Law Rev., vol. 117, no. 7, pp. 1829–1850, Nov. 2019.
+
+[16] K. Muhammad, A. Ullah, J. Lloret, J. Del Ser, and
+
+V. H. C. de Albuquerque, “Deep learning for safe autonomous
+
+driving: Current challenges and future directions,” IEEE Trans. Intell. Transp. Syst., vol. 22, no. 7, pp. 4316–4336, Jul. 2021.
+
+[17] D. Omeiza, H. Webb, M. Jirotka, and L. Kunze, “Explanations in
+
+autonomous driving: A survey,” IEEE Trans. Intell. Transp. Syst., vol. 23,
+
+no. 8, pp. 10142–10162, Aug. 2022.
+
+[18] S. Atakishiyev, M. Salameh, H. Yao, and R. Goebel, “Explainable
+
+artificial intelligence for autonomous driving: A comprehensive overview
+
+and field guide for future research directions,” 2021, arXiv:2112.11561.
+
+[19] É. Zablocki, H. Ben-Younes, P. Pérez, and M. Cord, “Explainability of
+
+deep vision-based autonomous driving systems: Review and challenges,”
+
+Int. J. Comput. Vis., vol. 130, pp. 2425–2452, Aug. 2022.
+
+[20] B. G. Buchanan and R. G. Smith, “Fundamentals of expert systems,”
+
+in Annual Review of Computer Science, vol. 3. San Mateo, CA, USA:
+
+Annual Reviews Inc., Sep. 1988, pp. 23–58.
+
+[21] C. Rudin, “Stop explaining black box machine learning models for
+
+high stakes decisions and use interpretable models instead,” Nature
+
+Mach. Intell., vol. 1, no. 5, pp. 206–215, May 2019.
+
+[22] D. Kaur, S. Uslu, K. J. Rittichier, and A. Durresi, “Trustworthy artificial intelligence: A review,” ACM Comput. Surv., vol. 55, no. 2,
+
+pp. 39:1–39:38, Jan. 2022.
+
+[23] N. Burkart and M. F. Huber, “A survey on the explainability of
+
+supervised machine learning,” J. Artif. Intell. Res., vol. 70, pp. 245–317,
+
+Mar. 2021.
+
+[24] B. Gyevnar, N. Ferguson, and B. Schafer, “Bridging the transparency
+
+gap: What can explainable AI learn from the AI act?” in Proc. 26th Eur.
+
+Conf. Artif. Intell. (ECAI), Oct. 2023, pp. 1–12.
+
+[25] D. Feng, A. Harakeh, S. L. Waslander, and K. Dietmayer, “A review
+
+and comparative study on probabilistic object detection in autonomous
+
+driving,” IEEE Trans. Intell. Transp. Syst., vol. 23, no. 8, pp. 9961–9980,
+
+Aug. 2021.
+
+[26] Eur. Comission. (2019). Ethics Guidelines for Trustworthy AI. [Online].
+
+Available:
+
+https://digital-strategy.ec.europa.eu/en/library/ethics-
+
+guidelines-trustworthy-ai
+
+[27] NIST AI. (2023). Artificial Intelligence Risk Management Framework (AI RMF 1.0). [Online]. Available: https://airc.nist.gov/
+
+AI_RMF_Knowledge_Base/Playbook
+
+[28] L. Alzubaidi et al., “Towards risk-free trustworthy artificial intelligence:
+
+Significance and requirements,” Int. J. Intell. Syst., vol. 2023, pp. 1–41,
+
+Oct. 2023.
+
+[29] J. Andraško, O. Hamulák, M. Mesarcˇ ík, T. Kerikmäe, and A. Kajander,
+
+“Sustainable data governance for cooperative, connected and automated
+
+mobility in the European Union,” Sustainability, vol. 13, no. 19,
+
+p. 10610, Sep. 2021.
+
+[30] Eur. Parliament. (2016). Regulation (EU) 2016/679 of the European Parliament and of the Council of 27 April 2016 on the Protection
+
+of Natural Persons With Regard to the Processing of Personal Data
+
+and on the Free Movement of Such Data and Repealing Directive
+
+95/46/EC (General Data Protection Regulation). [Online]. Available:
+
+https://data.europa.eu/eli/reg/2016/679/oj
+
+[31] X. Li, Z. Chen, J. M. Zhang, F. Sarro, Y. Zhang, and X. Liu, “Bias
+
+behind the wheel: Fairness analysis of autonomous driving systems,” 2023, arXiv:2308.02935.
+
+[32] K. Eykholt et al., “Robust physical-world attacks on deep learning visual
+
+classification,” in Proc. IEEE/CVF Conf. Comput. Vis. Pattern Recognit.,
+
+Jun. 2018, pp. 1625–1634.
+
+[33] X. Yuan, P. He, Q. Zhu, and X. Li, “Adversarial examples: Attacks
+
+and defenses for deep learning,” IEEE Trans. Neural Netw. Learn. Syst.,
+
+vol. 30, no. 9, pp. 2805–2824, Sep. 2019.
+
+[34] Taxonomy and Definitions for Terms Related to Driving Automation
+
+Systems for on-Road Motor Vehicles, Standard SAE J3016, Apr. 2021,
+
+doi: 10.4271/J3016_202104.
+
+[35] A. M. Nascimento et al., “A systematic literature review about the impact
+
+of artificial intelligence on autonomous vehicle safety,” IEEE Trans.
+
+Intell. Transp. Syst., vol. 21, no. 12, pp. 4928–4946, Dec. 2020.
+
+[36] Q. A. D. S. Ribeiro, M. Ribeiro, and J. Castro, “Requirements engineer-
+
+ing for autonomous vehicles: A systematic literature review,” in Proc.
+
+37th ACM/SIGAPP Symp. Appl. Comput., Apr. 2022, pp. 1299–1308.
+
+Authorized licensed use limited to: Politecnico di Torino. Downloaded on May 09,2025 at 07:41:00 UTC from IEEE Xplore. Restrictions apply.
+
+KUZNIETSOV et al.: EXPLAINABLE AI FOR SAFE AND TRUSTWORTHY AD: A SYSTEMATIC REVIEW
+
+19361
+
+[37] R. Sheh, “Explainable artificial intelligence requirements for safe, intelligent robots,” in Proc. IEEE Int. Conf. Intell. Saf. Robot. (ISR), Mar. 2021, pp. 382–387.
+[38] P. P. Angelov, E. A. Soares, R. Jiang, N. I. Arnold, and P. M. Atkinson, “Explainable artificial intelligence: An analytical review,” Wiley Interdiscipl. Rev., Data Mining Knowl. Discovery, vol. 11, no. 5, p. e1424, 2021.
+[39] T. Miller, “Explanation in artificial intelligence: Insights from the social sciences,” Artif. Intell., vol. 267, pp. 1–38, Feb. 2019.
+[40] C. Molnar. (2023). Interpretable Machine Learning. [Online]. Available: https://christophm.github.io/interpretable-ml-book/
+[41] G. Schwalbe and B. Finzel, “A comprehensive taxonomy for explainable artificial intelligence: A systematic survey of surveys on methods and concepts,” Data Mining Knowl. Discovery, vol. 38, no. 5, pp. 3043–3101, Sep. 2024.
+[42] T. Speith, “A review of taxonomies of explainable artificial intelligence (XAI) methods,” in Proc. ACM Conf. Fairness, Accountability, Transparency, Jun. 2022, pp. 2239–2250.
+[43] S. Jain and B. C. Wallace, “Attention is not explanation,” 2019, arXiv:1902.10186.
+[44] I. E. Kumar, S. Venkatasubramanian, C. Scheidegger, and S. Friedler, “Problems with Shapley-value-based explanations as feature importance measures,” in Proc. 37th Int. Conf. Mach. Learn., Nov. 2020, pp. 5491–5500.
+[45] S. Pendleton et al., “Perception, planning, control, and coordination for autonomous vehicles,” Machines, vol. 5, no. 1, p. 6, Feb. 2017.
+[46] J. Van Brummelen, M. O’Brien, D. Gruyer, and H. Najjaran, “Autonomous vehicle perception: The technology of today and tomorrow,” Transp. Res. C, Emerg. Technol., vol. 89, pp. 384–406, Apr. 2018.
+[47] C. E. Tuncali, G. Fainekos, D. Prokhorov, H. Ito, and J. Kapinski, “Requirements-driven test generation for autonomous vehicles with machine learning components,” IEEE Trans. Intell. Vehicles, vol. 5, no. 2, pp. 265–280, Jun. 2020.
+[48] B. Paden, M. Cˇ áp, S. Z. Yong, D. Yershov, and E. Frazzoli, “A survey of motion planning and control techniques for self-driving urban vehicles,” IEEE Trans. Intell. Vehicles, vol. 1, no. 1, pp. 33–55, Mar. 2016.
+[49] C. Altafini, “Following a path of varying curvature as an output regulation problem,” IEEE Trans. Autom. Control, vol. 47, no. 9, pp. 1551–1556, Sep. 2002.
+[50] E. Frazzoli, M. Dahleh, and E. Feron, “Trajectory tracking control design for autonomous helicopters using a backstepping algorithm,” in Proc. Amer. Control Conf., vol. 6, 2000, pp. 4102–4107.
+[51] L. Chen, P. Wu, K. Chitta, B. Jaeger, A. Geiger, and H. Li, “End-to-end autonomous driving: Challenges and frontiers,” 2023, arXiv:2306.16927.
+[52] A. Tampuu, T. Matiisen, M. Semikin, D. Fishman, and N. Muhammad, “A survey of end-to-end driving: Architectures and training methods,” IEEE Trans. Neural Netw. Learn. Syst., vol. 33, no. 4, pp. 1364–1384, Apr. 2022.
+[53] B. Kitchenham and S. Charters, “Guidelines for performing systematic literature reviews in software engineering,” Dept. School of Computer Science and Mathematics, Keele Univ., Keele, U.K., EBSE Tech. Rep. EBSE-2007-01, Jul. 2007.
+[54] I. Stepin, J. M. Alonso, A. Catala, and M. Pereira-Fariña, “A survey of contrastive and counterfactual explanation generation methods for explainable artificial intelligence,” IEEE Access, vol. 9, pp. 11974–12001, 2021.
+[55] M. Du, N. Liu, and X. Hu, “Techniques for interpretable machine learning,” Commun. ACM, vol. 63, no. 1, pp. 68–77, 2019, doi: 10.1145/3359786.
+[56] Z. Chaghazardi, S. Fallah, and A. Tamaddoni-Nezhad, “Explainable and trustworthy traffic sign detection for safe autonomous driving: An inductive logic programming approach,” Electron. Proc. Theor. Comput. Sci., vol. 385, pp. 201–212, Sep. 2023.
+[57] P. Feifel, F. Bonarens, and F. Köster, “Reevaluating the safety impact of inherent interpretability on deep neural networks for pedestrian detection,” in Proc. IEEE/CVF Conf. Comput. Vis. Pattern Recognit. Workshops (CVPRW), Jun. 2021, pp. 29–37.
+[58] M. Cordts et al., “The cityscapes dataset for semantic urban scene understanding,” in Proc. IEEE Conf. Comput. Vis. Pattern Recognit. (CVPR), Jun. 2016, pp. 3213–3223.
+[59] M. Losch, M. Fritz, and B. Schiele, “Semantic bottlenecks: Quantifying and improving inspectability of deep representations,” Int. J. Comput. Vis., vol. 129, no. 11, pp. 3136–3153, Nov. 2021.
+
+[60] A. Plebe and M. D. Lio, “On the road with 16 neurons: Towards interpretable and manipulable latent representations for visual predictions in driving scenarios,” IEEE Access, vol. 8, pp. 179716–179734, 2020.
+[61] G. Ros, L. Sellart, J. Materzynska, D. Vazquez, and A. M. Lopez, “The SYNTHIA dataset: A large collection of synthetic images for semantic segmentation of urban scenes,” in Proc. IEEE Conf. Comput. Vis. Pattern Recognit. (CVPR), Jun. 2016, pp. 3234–3243.
+[62] A. Oltramari, J. Francis, C. Henson, K. Ma, and R. Wickramarachchi, “Neuro-symbolic architectures for context understanding,” in Knowledge Graphs for EXplainable Artificial Intelligence: Foundations, Applications and Challenges. Amsterdam, The Netherlands: IOS Press, 2020, pp. 143–160.
+[63] H. Caesar et al., “NuScenes: A multimodal dataset for autonomous driving,” 2019, arXiv:1903.11027.
+[64] J. Martínez-Cebrián, M.-Á. Fernández-Torres, and F. Díaz-De-María, “Interpretable global-local dynamics for the prediction of eye fixations in autonomous driving scenarios,” IEEE Access, vol. 8, pp. 217068–217085, 2020.
+[65] A. Palazzi, D. Abati, S. Calderara, F. Solera, and R. Cucchiara, “Predicting the driver’s focus of attention: The DR(eye)VE project,” IEEE Trans. Pattern Anal. Mach. Intell., vol. 41, no. 7, pp. 1720–1733, Jul. 2019.
+[66] K. Yoneda, N. Ichihara, H. Kawanishi, T. Okuno, L. Cao, and N. Suganuma, “Sun-glare region recognition using visual explanations for traffic light detection,” in Proc. IEEE Intell. Vehicles Symp. (IV), Jul. 2021, pp. 1464–1469.
+[67] S. V. Albrecht et al., “Interpretable goal-based prediction and planning for autonomous driving,” in Proc. IEEE Int. Conf. Robot. Autom. (ICRA), May 2021, pp. 1043–1049.
+[68] J. P. Hanna et al., “Interpretable goal recognition in the presence of occluded factors for autonomous vehicles,” in Proc. IEEE/RSJ Int. Conf. Intell. Robots Syst. (IROS), Sep. 2021, pp. 7044–7051.
+[69] M. Antonello, M. Dobre, S. V. Albrecht, J. Redford, and S. Ramamoorthy, “Flash: Fast and light motion prediction for autonomous driving with Bayesian inverse planning and learned motion profiles,” in Proc. IEEE/RSJ Int. Conf. Intell. Robots Syst. (IROS), Oct. 2022, pp. 9829–9836.
+[70] Next Generation Simulation (NGSIM) Vehicle Trajectories and Supporting Data, U.S. Dept. Transp. Federal Highway Admin., Washington, DC, USA, 2017.
+[71] C. Brewitt, B. Gyevnar, S. Garcin, and S. V. Albrecht, “GRIT: Fast, interpretable, and verifiable goal recognition with learned decision trees for autonomous driving,” in Proc. IEEE/RSJ Int. Conf. Intell. Robots Syst. (IROS), Sep. 2021, pp. 1023–1030.
+[72] C. Brewitt, M. Tamborski, C. Wang, and S. V. Albrecht, “Verifiable goal recognition for autonomous driving with occlusions,” in Proc. IEEE/RSJ Int. Conf. Intell. Robots Syst. (IROS), Oct. 2023, pp. 11210–11217.
+[73] J. Bock, R. Krajewski, T. Moers, S. Runde, L. Vater, and L. Eckstein, “The inD dataset: A drone dataset of naturalistic road user trajectories at German intersections,” in Proc. IEEE Intell. Vehicles Symp. (IV), Oct. 2020, pp. 1929–1934.
+[74] R. Krajewski, T. Moers, J. Bock, L. Vater, and L. Eckstein, “The round dataset: A drone dataset of road user trajectories at roundabouts in Germany,” in Proc. IEEE 23rd Int. Conf. Intell. Transp. Syst. (ITSC), Sep. 2020, pp. 1–6.
+[75] A. Breuer, J.-A. Termöhlen, S. Homoceanu, and T. Fingscheidt, “OpenDD: A large-scale roundabout drone dataset,” in Proc. IEEE 23rd Int. Conf. Intell. Transp. Syst. (ITSC), Sep. 2020, pp. 1–6.
+[76] A. Ghoul, I. Yahiaoui, A. Verroust-Blondet, and F. Nashashibi, “Interpretable goal-based model for vehicle trajectory prediction in interactive scenarios,” in Proc. IEEE Intell. Vehicles Symp. (IV), vol. 30, Jun. 2023, pp. 1–6.
+[77] W. Zhan et al., “INTERACTION dataset: An international, adversarial and cooperative moTION dataset in interactive driving scenarios with semantic maps,” 2019, arXiv:1910.03088.
+[78] B. Gyevnar, M. Tamborski, C. Wang, C. G. Lucas, S. B. Cohen, and S. V. Albrecht, “A human-centric method for generating causal explanations in natural language for autonomous vehicle motion planning,” in Proc. IJCAI Workshop Artif. Intell. Auton. Driving, 2022, pp. 1–10.
+[79] D. Omeiza, S. Anjomshoae, H. Webb, M. Jirotka, and L. Kunze, “From spoken thoughts to automated driving commentary: Predicting and explaining intelligent vehicles’ actions,” in Proc. IEEE Intell. Vehicles Symp. (IV), Jun. 2022, pp. 1040–1047.
+
+Authorized licensed use limited to: Politecnico di Torino. Downloaded on May 09,2025 at 07:41:00 UTC from IEEE Xplore. Restrictions apply.
+
+19362
+
+IEEE TRANSACTIONS ON INTELLIGENT TRANSPORTATION SYSTEMS, VOL. 25, NO. 12, DECEMBER 2024
+
+[80] F. Henze, D. Faßbender, and C. Stiller, “How can automated vehicles explain their driving decisions? Generating clarifying summaries automatically,” in Proc. IEEE Intell. Vehicles Symp. (IV), Jun. 2022, pp. 935–942.
+[81] K. Klein, O. D. Candido, and W. Utschick, “Interpretable classifiers based on time-series motifs for lane change prediction,” IEEE Trans. Intell. Vehicles, vol. 8, no. 7, pp. 3954–3961, Jul. 2023.
+[82] R. Krajewski, J. Bock, L. Kloeker, and L. Eckstein, “The highD dataset: A drone dataset of naturalistic vehicle trajectories on German highways for validation of highly automated driving systems,” in Proc. 21st Int. Conf. Intell. Transp. Syst. (ITSC), Nov. 2018, pp. 2118–2125.
+[83] R. Kridalukmana, H. Lu, and M. Naderpour, “Self-explaining abilities of an intelligent agent for transparency in a collaborative driving context,” IEEE Trans. Hum.-Mach. Syst., vol. 52, no. 6, pp. 1155–1165, Dec. 2022.
+[84] A. Dosovitskiy, G. Ros, F. Codevilla, A. Lopez, and V. Koltun, “CARLA: An open urban driving simulator,” in Proc. 1st Annu. Conf. Robot Learn., 2017, pp. 1–16.
+[85] N. Muscholl, M. Klusch, P. Gebhard, and T. Schneeberger, “EMIDAS: Explainable social interaction-based pedestrian intention detection across street,” in Proc. 36th Annu. ACM Symp. Appl. Comput., Mar. 2021, pp. 107–115.
+[86] M. Neumeier, M. Botsch, A. Tollkühn, and T. Berberich, “Variational autoencoder-based vehicle trajectory prediction with an interpretable latent space,” in Proc. IEEE Int. Intell. Transp. Syst. Conf. (ITSC), Sep. 2021, pp. 820–827.
+[87] M. Wu, F. R. Yu, P. X. Liu, and Y. He, “A hybrid driving decisionmaking system integrating Markov logic networks and connectionist AI,” IEEE Trans. Intell. Transp. Syst., vol. 24, no. 3, pp. 3514–3527, Mar. 2023.
+[88] H. Zheng, Z. Zang, S. Yang, and R. Mangharam, “Towards explainability in modular autonomous system software,” in Proc. IEEE Intell. Vehicles Symp. (IV), vol. 32, Jun. 2023, pp. 1–8.
+[89] M. E. Tipping and C. M. Bishop, “Probabilistic principal component analysis,” J. Roy. Statist. Soc. B, Stat. Methodol., vol. 61, no. 3, pp. 611–622, Jan. 1999.
+[90] L. Van der Maaten and G. Hinton, “Visualizing data using t-SNE,” J. Mach. Learn. Res., vol. 9, no. 11, pp. 2579–2605, 2008.
+[91] G. E. Hinton, A. Krizhevsky, and S. D. Wang, “Transforming autoencoders,” in Artificial Neural Networks and Machine Learning—ICANN 2011, T. Honkela, W. Duch, M. Girolami, and S. Kaski, Eds., Berlin, Germany: Springer, 2011, pp. 44–51.
+[92] R. R. Selvaraju, M. Cogswell, A. Das, R. Vedantam, D. Parikh, and D. Batra, “Grad-CAM: Visual explanations from deep networks via gradient-based localization,” in Proc. IEEE Int. Conf. Comput. Vis. (ICCV), Oct. 2017, pp. 618–626.
+[93] T. Ponn, T. Kröger, and F. Diermeyer, “Identification and explanation of challenging conditions for camera-based object detection of automated vehicles,” Sensors, vol. 20, no. 13, p. 3699, Jul. 2020.
+[94] Z. Cui, M. Li, Y. Huang, Y. Wang, and H. Chen, “An interpretation framework for autonomous vehicles decision-making via SHAP and RF,” in Proc. 6th CAA Int. Conf. Veh. Control Intell. (CVCI), 2022, pp. 1–7.
+[95] M. Li, Y. Wang, H. Sun, Z. Cui, Y. Huang, and H. Chen, “Explaining a machine-learning lane change model with maximum entropy Shapley values,” IEEE Trans. Intell. Vehicles, vol. 8, no. 6, pp. 3620–3628, Apr. 2023.
+[96] Y. Ma, S. Song, L. Zhang, L. Xiong, and J. Chen, “Lane change analysis and prediction using mean impact value method and logistic regression model,” in Proc. IEEE Int. Intell. Transp. Syst. Conf. (ITSC), Sep. 2021, pp. 1346–1352.
+[97] A. Mishra, U. Soni, J. Huang, and C. Bryan, “Why? Why not? When? Visual explanations of agent behaviour in reinforcement learning,” in Proc. IEEE 15th Pacific Visualizat. Symp. (PacificVis), Apr. 2022, pp. 111–120.
+[98] B. Gyevnar, C. Wang, C. G. Lucas, S. B. Cohen, and S. V. Albrecht, “Causal explanations for sequential decision-making in multi-agent systems,” in Proc. Int. Conf. Auto. Agents Multi-Agent Syst. (AAMAS), 2024, pp. 771–779.
+[99] B. Gyevnar et al., “People attribute purpose to autonomous vehicles when explaining their behavior,” 2024, arXiv:2403.08828.
+[100] P. M. Dassanayake, A. Anjum, A. K. Bashir, J. Bacon, R. Saleem, and W. Manning, “A deep learning based explainable control system for reconfigurable networks of edge devices,” IEEE Trans. Netw. Sci. Eng., vol. 9, no. 1, pp. 7–19, Jan./Feb. 2022.
+
+[101] M. Zemni, M. Chen, É. Zablocki, H. Ben-Younes, P. Pérez, and M. Cord, “OCTET: Object-aware counterfactual explanations,” in Proc. IEEE/CVF Conf. Comput. Vis. Pattern Recognit. (CVPR), Jun. 2023, pp. 15062–15071.
+[102] F. Yu et al., “BDD100K: A diverse driving dataset for heterogeneous multitask learning,” in Proc. IEEE/CVF Conf. Comput. Vis. Pattern Recognit. (CVPR), Jun. 2020, pp. 2636–2645.
+[103] Y. Xu et al., “Explainable object-induced action decision for autonomous vehicles,” in Proc. IEEE/CVF Conf. Comput. Vis. Pattern Recognit. (CVPR), Jun. 2020, pp. 9520–9529.
+[104] W. Shi, G. Huang, S. Song, Z. Wang, T. Lin, and C. Wu, “Selfsupervised discovering of interpretable features for reinforcement learning,” IEEE Trans. Pattern Anal. Mach. Intell., vol. 44, no. 5, pp. 2712–2724, May 2022.
+[105] S. M. Lundberg and S. Lee, “A unified approach to interpreting model predictions,” in Proc. 31st Int. Conf. Neural Inf. Process. Syst. (NeurIPS), 2017, pp. 4765–4774.
+[106] D. Fryer, I. Strumke, and H. Nguyen, “Shapley values for feature selection: The good, the bad, and the axioms,” IEEE Access, vol. 9, pp. 144352–144360, 2021.
+[107] B. Bilodeau, N. Jaques, P. W. Koh, and B. Kim, “Impossibility theorems for feature attribution,” Proc. Nat. Acad. Sci. USA, vol. 121, no. 2, Jan. 2024, Art. no. e2304406120.
+[108] J. Kronenberger and A. Haselhoff, “Dependency decomposition and a reject option for explainable models,” 2020, arXiv:2012.06523.
+[109] S. Houben, J. Stallkamp, J. Salmen, M. Schlipsing, and C. Igel, “Detection of traffic signs in real-world images: The German traffic sign detection benchmark,” in Proc. Int. Joint Conf. Neural Netw. (IJCNN), Aug. 2013, pp. 1–8.
+[110] L. Hacker and J. Seewig, “Insufficiency-driven DNN error detection in the context of SOTIF on traffic sign recognition use case,” IEEE Open J. Intell. Transp. Syst., vol. 4, pp. 58–70, 2023.
+[111] M. Keser, G. Schwalbe, A. Nowzad, and A. Knoll, “Interpretable model-agnostic plausibility verification for 2D object detectors using domain-invariant concept bottleneck models,” in Proc. IEEE/CVF Conf. Comput. Vis. Pattern Recognit. Workshops (CVPRW), Jun. 2023, pp. 3891–3900.
+[112] T. Lin et al., “Microsoft COCO: Common objects in context,” in Proc. Eur. Conf. Comput. Vis. Cham, Switzerland: Springer, 2014, pp. 740–755.
+[113] D. Bau, B. Zhou, A. Khosla, A. Oliva, and A. Torralba, “Network dissection: Quantifying interpretability of deep visual representations,” in Proc. IEEE Conf. Comput. Vis. Pattern Recognit., Jun. 2017, pp. 6541–6549.
+[114] J. Fritsch, T. Kühnl, and A. Geiger, “A new performance measure and evaluation benchmark for road detection algorithms,” in Proc. 16th Int. IEEE Conf. Intell. Transp. Syst. (ITSC), Oct. 2013, pp. 1693–1700.
+[115] Y. Fang et al., “Toward interpretability in fault diagnosis for autonomous vehicles: Interpretation of sensor data anomalies,” IEEE Sensors J., vol. 23, no. 5, pp. 5014–5027, Mar. 2023.
+[116] W. Bao, Q. Yu, and Y. Kong, “DRIVE: Deep reinforced accident anticipation with visual explanation,” in Proc. IEEE/CVF Int. Conf. Comput. Vis. (ICCV), Oct. 2021, pp. 7599–7608.
+[117] J. Fang, D. Yan, J. Qiao, J. Xue, and H. Yu, “DADA: Driver attention prediction in driving accident scenarios,” IEEE Trans. Intell. Transp. Syst., vol. 23, no. 6, pp. 4959–4971, Jun. 2022.
+[118] G. Chen, Y. Zhang, and X. Li, “Attention-based highway safety planner for autonomous driving via deep reinforcement learning,” IEEE Trans. Veh. Technol., vol. 73, no. 1, pp. 162–175, Jan. 2024.
+[119] C. D. Franco and N. Bezzo, “Interpretable run-time monitoring and replanning for safe autonomous systems operations,” IEEE Robot. Autom. Lett., vol. 5, no. 2, pp. 2427–2434, Apr. 2020.
+[120] C. Gall and N. Bezzo, “Gaussian process-based interpretable runtime adaptation for safe autonomous systems operations in unstructured environments,” in Proc. IEEE/RSJ Int. Conf. Intell. Robots Syst. (IROS), Sep. 2021, pp. 123–129.
+[121] L. H. Gilpin, V. Penubarthi, and L. Kagal, “Explaining multimodal errors in autonomous vehicles,” in Proc. IEEE 8th Int. Conf. Data Sci. Adv. Anal. (DSAA), Oct. 2021, pp. 1–10.
+[122] J. Gorospe, S. Hasan, M. R. Islam, A. A. Gómez, S. Girs, and E. Uhlemann, “Analyzing inter-vehicle collision predictions during emergency braking with automated vehicles,” in Proc. 19th Int. Conf. Wireless Mobile Comput., Netw. Commun. (WiMob), vol. 12, Jun. 2023, pp. 411–418.
+
+Authorized licensed use limited to: Politecnico di Torino. Downloaded on May 09,2025 at 07:41:00 UTC from IEEE Xplore. Restrictions apply.
+
+KUZNIETSOV et al.: EXPLAINABLE AI FOR SAFE AND TRUSTWORTHY AD: A SYSTEMATIC REVIEW
+
+19363
+
+[123] M. M. Karim, Y. Li, and R. Qin, “Toward explainable artificial intelligence for early anticipation of traffic accidents,” Transp. Res. Rec., J. Transp. Res. Board, vol. 2676, no. 6, pp. 743–755, Jun. 2022.
+[124] W. Bao, Q. Yu, and Y. Kong, “Uncertainty-based traffic accident anticipation with spatio-temporal relational learning,” in Proc. 28th ACM Int. Conf. Multimedia, Oct. 2020, pp. 2682–2690.
+[125] R. Nahata, D. Omeiza, R. Howard, and L. Kunze, “Assessing and explaining collision risk in dynamic environments for autonomous driving safety,” in Proc. IEEE Int. Intell. Transp. Syst. Conf. (ITSC), Sep. 2021, pp. 223–230.
+[126] J. Houston et al., “One thousand and one hours: Self-driving motion prediction dataset,” in Proc. Conf. Robot Learn., Nov. 2021, pp. 409–418.
+[127] L. M. Schmidt, G. Kontes, A. Plinge, and C. Mutschler, “Can you trust your autonomous car? Interpretable and verifiably safe reinforcement learning,” in Proc. IEEE Intell. Vehicles Symp. (IV), Jul. 2021, pp. 171–178.
+[128] M. D. Zeiler and R. Fergus, “Visualizing and understanding convolutional networks,” in Computer Vision—ECCV 2014, D. Fleet, T. Pajdla, B. Schiele, and T. Tuytelaars, Eds., Cham, Switzerland: Springer, 2014, pp. 818–833.
+[129] H. Y. Yatbaz, M. Dianati, and R. Woodman, “Introspection of DNNbased perception functions in automated driving systems: State-of-theArt and open research challenges,” IEEE Trans. Intell. Transp. Syst., vol. 25, no. 2, pp. 1112–1130, Feb. 2024.
+[130] S. Kolekar, S. Gite, B. Pradhan, and A. Alamri, “Explainable AI in scene understanding for autonomous vehicles in unstructured traffic environments on Indian roads using the inception U-Net model with grad-CAM visualization,” Sensors, vol. 22, no. 24, p. 9677, Dec. 2022.
+[131] G. Varma, A. Subramanian, A. Namboodiri, M. Chandraker, and C. V. Jawahar, “IDD: A dataset for exploring problems of autonomous navigation in unconstrained environments,” in Proc. IEEE Winter Conf. Appl. Comput. Vis. (WACV), Jan. 2019, pp. 1743–1751.
+[132] V. S. Saravanarajan, R.-C. Chen, C.-H. Hsieh, and L.-S. Chen, “Improving semantic segmentation under hazy weather for autonomous vehicles using explainable artificial intelligence and adaptive dehazing approach,” IEEE Access, vol. 11, pp. 38194–38207, 2023.
+[133] G. J. Brostow, J. Fauqueur, and R. Cipolla, “Semantic object classes in video: A high-definition ground truth database,” Pattern Recognit. Lett., vol. 30, no. 2, pp. 88–97, Jan. 2009, doi: 10.1016/j.patrec.2008.04.005.
+[134] M. Abukmeil, A. Genovese, V. Piuri, F. Rundo, and F. Scotti, “Towards explainable semantic segmentation for autonomous driving systems by multi-scale variational attention,” in Proc. IEEE Int. Conf. Auton. Syst. (ICAS), Aug. 2021, pp. 1–5.
+[135] J. Geyer et al., “A2D2: Audi autonomous driving dataset,” 2020, arXiv:2004.06320.
+[136] H. Mankodiya, D. Jadav, R. Gupta, S. Tanwar, W.-C. Hong, and R. Sharma, “OD-XAI: Explainable AI-based semantic object detection for autonomous vehicles,” Appl. Sci., vol. 12, no. 11, p. 5310, May 2022.
+[137] T. Nowak, M. R. Nowicki, K. Cwian, and P. Skrzypczynski, “How to improve object detection in a driver assistance system applying explainable deep learning,” in Proc. IEEE Intell. Vehicles Symp. (IV), Jun. 2019, pp. 226–231.
+[138] D. Schinagl, G. Krispel, H. Possegger, P. M. Roth, and H. Bischof, “OccAM’s laser: Occlusion-based attribution maps for 3D object detectors on LiDAR data,” in Proc. IEEE/CVF Conf. Comput. Vis. Pattern Recognit. (CVPR), Jun. 2022, pp. 1131–1140.
+[139] A. Geiger, P. Lenz, and R. Urtasun, “Are we ready for autonomous driving? The KITTI vision benchmark suite,” in Proc. IEEE Conf. Comput. Vis. Pattern Recognit., Jun. 2012, pp. 3354–3361.
+[140] L. Gou et al., “VATLD: A visual analytics system to assess, understand and improve traffic light detection,” IEEE Trans. Vis. Comput. Graph., vol. 27, no. 2, pp. 261–271, Feb. 2021.
+[141] K. Behrendt, L. Novak, and R. Botros, “A deep learning approach to traffic lights: Detection, tracking, and classification,” in Proc. IEEE Int. Conf. Robot. Autom. (ICRA), May 2017, pp. 1370–1377.
+[142] C. Schorr, P. Goodarzi, F. Chen, and T. Dahmen, “Neuroscope: An explainable AI toolbox for semantic segmentation and image classification of convolutional neural nets,” Appl. Sci., vol. 11, no. 5, p. 2199, Mar. 2021.
+[143] J. Wang et al., “When, where and how does it fail? A spatial–temporal visual analytics approach for interpretable object detection in autonomous driving,” IEEE Trans. Vis. Comput. Graphics, vol. 29, no. 12, pp. 5033–5049, May 2023.
+
+[144] E. Haedecke, M. Mock, and M. Akila, “ScrutinAI: A visual analytics approach for the semantic analysis of deep neural network predictions,” in Proc. EuroVis Workshop Vis. Anal. (EuroVA), J. Bernard and M. Angelini, Eds., 2022, pp. 1–5.
+[145] T. Jiang, Y. Liu, Q. Dong, and T. Xu, “Intention-aware interactive transformer for real-time vehicle trajectory prediction in dense traffic,” Transp. Res. Rec., J. Transp. Res. Board, vol. 2677, no. 3, pp. 946–960, Mar. 2023.
+[146] P. Kochakarn, D. De Martini, D. Omeiza, and L. Kunze, “Explainable action prediction through self-supervision on scene graphs,” in Proc. IEEE Int. Conf. Robot. Autom. (ICRA), May 2023, pp. 1479–1485.
+[147] G. Singh et al., “ROAD: The road event awareness dataset for autonomous driving,” IEEE Trans. Pattern Anal. Mach. Intell., vol. 45, no. 1, pp. 1036–1054, Jan. 2023.
+[148] W. Maddern, G. Pascoe, C. Linegar, and P. Newman, “1 year, 1000 km: The Oxford RobotCar dataset,” Int. J. Robot. Res., vol. 36, no. 1, pp. 3–15, Jan. 2017, doi: 10.1177/0278364916679498.
+[149] H. Liu, J. Zhao, and L. Zhang, “Interpretable and flexible targetconditioned neural planners for autonomous vehicles,” in Proc. IEEE Int. Conf. Robot. Autom. (ICRA), May 2023, pp. 10076–10082.
+[150] K. Wang, J. Hou, and X. Zeng, “Lane-change intention prediction of surrounding vehicles using BiLSTM-CRF models with rule embedding,” in Proc. China Autom. Congr. (CAC), Nov. 2022, pp. 2764–2769.
+[151] H. Hu, Q. Wang, M. Cheng, and Z. Gao, “Trajectory prediction neural network and model interpretation based on temporal pattern attention,” IEEE Trans. Intell. Transp. Syst., vol. 24, no. 3, pp. 2746–2759, Mar. 2023.
+[152] S.-Y. Yu, A. V. Malawade, D. Muthirayan, P. P. Khargonekar, and M. A. A. Faruque, “Scene-graph augmented data-driven risk assessment of autonomous vehicle decisions,” IEEE Trans. Intell. Transp. Syst., vol. 23, no. 7, pp. 7941–7951, Jul. 2022.
+[153] V. Ramanishka, Y.-T. Chen, T. Misu, and K. Saenko, “Toward driving scene understanding: A dataset for learning driver behavior and causal reasoning,” in Proc. IEEE/CVF Conf. Comput. Vis. Pattern Recognit., Jun. 2018, pp. 7699–7707.
+[154] K. Zhang and L. Li, “Explainable multimodal trajectory prediction using attention models,” Transp. Res. C, Emerg. Technol., vol. 143, Oct. 2022, Art. no. 103829.
+[155] J. Kim et al., “Textual explanations for self-driving vehicles,” in Proc. Eur. Conf. Comput. Vis. (ECCV), 2018, pp. 563–578.
+[156] M. A. Kühn, D. Omeiza, and L. Kunze, “Textual explanations for automated commentary driving,” 2023, arXiv:2304.08178.
+[157] J. Dong, S. Chen, M. Miralinaghi, T. Chen, and S. Labi, “Development and testing of an image transformer for explainable autonomous driving systems,” J. Intell. Connected Vehicles, vol. 5, no. 3, pp. 235–249, 2022.
+[158] Z. Zhang, R. Tian, R. Sherony, J. Domeyer, and Z. Ding, “Attentionbased interrelation modeling for explainable automated driving,” IEEE Trans. Intell. Vehicles, vol. 8, no. 2, pp. 1564–1573, Feb. 2023.
+[159] Y. Feng, W. Hua, and Y. Sun, “NLE-DM: Natural-language explanations for decision making of autonomous driving based on semantic scene understanding,” IEEE Trans. Intell. Transp. Syst., vol. 24, no. 9, pp. 9780–9791, Sep. 2023.
+[160] Y. Zhang, W. Wang, X. Zhou, Q. Wang, and X. Sun, “Tactical-level explanation is not enough: Effect of explaining AV’s lane-changing decisions on drivers’ decision-making, trust, and emotional experience,” Int. J. Hum.-Comput. Interact., vol. 39, no. 7, pp. 1438–1454, Apr. 2023.
+[161] T. Chen et al., “PSI: A pedestrian behavior dataset for socially intelligent autonomous car,” 2021, arXiv:2112.02604.
+[162] M. Gadd, D. de Martini, L. Marchegiani, P. Newman, and L. Kunze, “Sense–Assess–eXplain (SAX): Building trust in autonomous vehicles in challenging real-world driving scenarios,” in Proc. IEEE Intell. Vehicles Symp. (IV), vol. abs 1911 1207, Oct. 2020, pp. 150–155.
+[163] K. Mori, H. Fukui, T. Murase, T. Hirakawa, T. Yamashita, and H. Fujiyoshi, “Visual explanation by attention branch network for endto-end learning-based self-driving,” in Proc. IEEE Intell. Vehicles Symp. (IV), Jun. 2019, pp. 1577–1582.
+[164] H. Wang, P. Cai, Y. Sun, L. Wang, and M. Liu, “Learning interpretable end-to-end vision-based motion planning for autonomous driving with optical flow distillation,” in Proc. IEEE Int. Conf. Robot. Autom. (ICRA), May 2021, pp. 13731–13737.
+[165] J. Chen, S. E. Li, and M. Tomizuka, “Interpretable end-to-end urban autonomous driving with latent deep reinforcement learning,” IEEE Trans. Intell. Transp. Syst., vol. 23, no. 6, pp. 5068–5078, Jun. 2022.
+
+Authorized licensed use limited to: Politecnico di Torino. Downloaded on May 09,2025 at 07:41:00 UTC from IEEE Xplore. Restrictions apply.
+
+19364
+
+IEEE TRANSACTIONS ON INTELLIGENT TRANSPORTATION SYSTEMS, VOL. 25, NO. 12, DECEMBER 2024
+
+[166] 001 S. Yang, W. Wang, C. Liu, and W. Deng, “Scene understanding in deep learning-based end-to-end controllers for autonomous vehicles,” IEEE Trans. Syst., Man, Cybern., Syst., vol. 49, no. 1, pp. 53–63, Jan. 2019.
+[167] L. Cultrera, L. Seidenari, F. Becattini, P. Pala, and A. D. Bimbo, “Explaining autonomous driving by learning end-to-end visual attention,” in Proc. IEEE/CVF Conf. Comput. Vis. Pattern Recognit. Workshops (CVPRW), Jun. 2020, pp. 340–341.
+[168] B. Wymann, E. Espié, C. Guionneau, C. Dimitrakakis, R. Coulom, and A. Sumner. (2000). Torcs, the Open Racing Car Simulator. [Online]. Available: http://torcs.sourceforge.net
+[169] E. Aksoy and A. Yazici, “Attention model for extracting saliency map in driving videos,” in Proc. 28th Signal Process. Commun. Appl. Conf. (SIU), Oct. 2020, pp. 1–4.
+[170] Y. Xia, D. Zhang, J. Kim, K. Nakayama, K. Zipser, and D. Whitney, “Predicting driver attention in critical situations,” 2017, arXiv:1711.06406.
+[171] A. Borji and L. Itti, “CAT2000: A large scale fixation dataset for boosting saliency research,” 2015, arXiv:1505.03581.
+[172] K. Chitta, A. Prakash, and A. Geiger, “NEAT: Neural attention fields for end-to-end autonomous driving,” in Proc. IEEE/CVF Int. Conf. Comput. Vis. (ICCV), Oct. 2021, pp. 15773–15783.
+[173] A. Sadat, S. Casas, M. Ren, X. Wu, P. Dhawan, and R. Urtasun, “Perceive, predict, and plan: Safe motion planning through interpretable semantic representations,” in Proc. Eur. Conf. Comput. Vis. Cham, Switzerland: Springer, 2020, pp. 414–430.
+[174] B. Wei, M. Ren, W. Zeng, M. Liang, B. Yang, and R. Urtasun, “Perceive, attend, and drive: Learning spatial attention for safe selfdriving,” in Proc. IEEE Int. Conf. Robot. Autom. (ICRA), May 2021, pp. 4875–4881.
+[175] Y. Tashiro and H. Awano, “Pay attention via quantization: Enhancing explainability of neural networks via quantized activation,” IEEE Access, vol. 11, pp. 34431–34439, 2023.
+[176] Udacity. (Jun. 2020). Udacity Self-Driving Car Driving Data. [Online]. Available: https://github.com/udacity/self-driving-car
+[177] S. Teng, L. Chen, Y. Ai, Y. Zhou, Z. Xuanyuan, and X. Hu, “Hierarchical interpretable imitation learning for end-to-end autonomous driving,” IEEE Trans. Intell. Vehicles, vol. 8, no. 1, pp. 673–683, Jan. 2023.
+[178] T. Kadir and M. Brady, “Saliency, scale and image description,” Int. J. Comput. Vis., vol. 45, no. 2, pp. 83–105, 2001.
+[179] J. T. Springenberg, A. Dosovitskiy, T. Brox, and M. A. Riedmiller, “Striving for simplicity: The all convolutional net,” in Proc. 3rd Int. Conf. Learn. Represent., San Diego, CA, USA, May 2015, pp. 1–14.
+[180] S. Wiegreffe and Y. Pinter, “Attention is not not explanation,” in Proc. Conf. Empirical Methods Natural Lang. Process. 9th Int. Joint Conf. Natural Lang. Process. (EMNLP-IJCNLP), K. Inui, J. Jiang, V. Ng, and X. Wan, Eds., 2019, pp. 11–20.
+[181] A. Corso and M. J. Kochenderfer, “Interpretable safety validation for autonomous vehicles,” in Proc. IEEE 23rd Int. Conf. Intell. Transp. Syst. (ITSC), Sep. 2020, pp. 1–6.
+[182] J. DeCastro, K. Leung, N. Aréchiga, and M. Pavone, “Interpretable policies from formally-specified temporal properties,” in Proc. IEEE 23rd Int. Conf. Intell. Transp. Syst. (ITSC), Sep. 2020, pp. 1–7.
+[183] M. Kang, W. Lee, K. Hwang, and Y. Yoon, “Vision transformer for detecting critical situations and extracting functional scenario for automated vehicle safety assessment,” Sustainability, vol. 14, no. 15, p. 9680, Aug. 2022.
+[184] T. Menzel, G. Bagschik, L. Isensee, A. Schomburg, and M. Maurer, “From functional to logical scenarios: Detailing a keyword-based scenario description for execution in a simulation environment,” in Proc. IEEE Intell. Vehicles Symp. (IV), Jun. 2019, pp. 2383–2390.
+[185] Y. Li et al., “A deep learning-based hybrid framework for object detection and recognition in autonomous driving,” IEEE Access, vol. 8, pp. 194228–194239, 2020.
+[186] V. Petsiuk, A. Das, and K. Saenko, “RISE: Randomized input sampling for explanation of black-box models,” 2018, arXiv:1806.07421.
+[187] H. Shao, L. Wang, R. Chen, H. Li, and Y. Liu, “Safety-enhanced autonomous driving using interpretable sensor fusion transformer,” in Proc. Conf. Robot Learn., 2023, pp. 726–737.
+[188] D. Brajovic et al., “Model reporting for certifiable AI: A proposal from merging EU regulation into AI development,” 2023, arXiv:2307.11525.
+[189] M. Wäschle, F. Thaler, A. Berres, F. Pölzlbauer, and A. Albers, “A review on AI safety in highly automated driving,” Frontiers Artif. Intell., vol. 5, pp. 1–22, Oct. 2022.
+[190] J. Wang and R. Jia, “Data Banzhaf: A robust data valuation framework for machine learning,” in Proc. Int. Conf. Artif. Intell. Statist., vol. 206, 2023, pp. 6388–6421.
+
+[191] C. Wang, F. Guo, R. Yu, L. Wang, and Y. Zhang, “The application of driver models in the safety assessment of autonomous vehicles: Perspectives, insights, prospects,” IEEE Trans. Intell. Vehicles, vol. 9, no. 1, pp. 2364–2381, Jan. 2024.
+[192] G. Vilone and L. Longo, “Explainable artificial intelligence: A systematic review,” 2020, arXiv:2006.00093.
+[193] A.-M. Marcu et al., “LingoQA: Visual question answering for autonomous driving,” 2023, arXiv:2312.14115.
+[194] N. Elhage et al., “A mathematical framework for transformer circuits,” Transformer Circuits Thread, vol. 1, no. 1, p. 12, 2021.
+Anton Kuznietsov received the B.Sc. and M.Sc. degrees in computational engineering from the Technical University of Darmstadt, Darmstadt, Germany, in 2020 and 2022, respectively. Since 2023, he has been a Research Associate with the Institute of Automotive Engineering, Technical University of Darmstadt. His research interests include explainable AI and AI safety in autonomous driving.
+Balint Gyevnar received the Master of Informatics degree (Hons.) from the University of Edinburgh in 2021, where he is currently pursuing the Ph.D. degree with the Autonomous Agents Research Group, under the supervision of Stefano Albrecht, Shay Cohen, and Christopher Lucas. His research interests include human-centred explainable methods for multi-agent systems, focusing on causality, conversational agents, and AI safety for human-aligned trust calibration.
+Cheng Wang (Member, IEEE) received the B.Sc. degree from the School of Automotive Engineering, Wuhan University of Technology, Wuhan, China, in 2014, the M.Sc. degree from the School of Automotive Studies, Tongji University, Shanghai, China, in 2017, and the Ph.D. degree from the Institute of Automotive Engineering, Technical University of Darmstadt, Darmstadt, Germany, in 2021. From 2022 to 2024, he was a Research Associate with the University of Edinburgh. He is currently an Assistant Professor with Heriot-Watt University, Edinburgh. His research interests include explainable AI and safety verification and validation of autonomous vehicles.
+Steven Peters was born in 1987. He received the Ph.D. (Dr.-Ing.) degree from Karlsruhe Institute of Technology, Karlsruhe, Baden-Württemberg, Germany, in 2013. From 2016 to 2022, he was the Manager of Artificial Intelligence Research with Mercedes-Benz AG, Germany. He has been a Full Professor with the Technical University of Darmstadt, Darmstadt, Germany, and heads the Institute of Automotive Engineering, Department of Mechanical Engineering, since 2022.
+Stefano V. Albrecht received the B.Sc. degree in computer science from the Technical University of Darmstadt and the M.Sc. and Ph.D. degrees in AI from the University of Edinburgh. He is currently an Associate Professor in artificial intelligence with the School of Informatics, University of Edinburgh. He leads the Autonomous Agents Research Group (https://agents.inf.ed.ac.uk/) which develops machine learning algorithms for autonomous systems, including applications in autonomous driving. Previously, he was a Post-Doctoral Researcher with The University of Texas at Austin.
+
+Authorized licensed use limited to: Politecnico di Torino. Downloaded on May 09,2025 at 07:41:00 UTC from IEEE Xplore. Restrictions apply.
+

@@ -1,0 +1,723 @@
+Available online at www.sciencedirect.com
+^ĐŝĞŶĐĞ ŝƌĞĐƚ
+Available online at www.sciencedirect.com Procedia Computer Science 00 (2022) 000–000
+ScienceDirect
+Procedia Computer Science 214 (2022) 1568–1580
+
+www.elsevier.com/locate/procedia
+
+9th International Conference on Information Technology and Quantitative Management
+AR HUD Interface Optimization Model for Balancing Driver’s Visual Sensitivity and Fatigue
+Jinzhen Doua, Chang Xub, Shanguang Chena, Chengqi Xuea,*, Xingsen Lic
+aSchool of mechanical engineering, Southeast University, Nanjing, China, 211189 bCollege of mechanical engineering, Donghua University, Shanghai, China, 201620 cResearch Institute Extenics and Innovative Methods, Guangdong University of Technology, Guangzhou, China, 510006
+
+Abstract
+With the wide application of intelligent driving assistance system, the augmented reality head-up display (AR HUD) interface plays an increasingly important role in drivers' real-time perception of traffic environment. As the AR HUD is vulnerable to be affected by changed ambient light, it weakens the legibility of the virtual interface and driver’s visual comfort to a certain extent. The content color, as one of interface visual design elements, directly affects the performance of driver, which include the visual sensitivity and fatigue and further influences the vehicle safety. The selection between luminance contrast (affects sensitive and number of applicable environments) and driver performance (affects fatigue) are contradictory issues. In order to solve this contradictory problem in the design of AR HUD interface, and balance the cognitive load and situation awareness of driver, an extended analysis and optimization method of interface element was proposed. This method quantifies the discrete interface elements and makes the opposition problem consistent. The content color selection models under two conditions are constructed, which describe the distance from the chosen color to the optimal interval. It has been proved to be effective in finding the best answer for driver performance in interface design. Other interface elements in AR HUD can also be further optimized based on this method.
+©TP©TPQehehue2eii2assrr00n--i2irtr2ssei2e2tvaaavTnintiTeiehvowhweoepepAeuMuenAnunndutaahdentcaoehraccrrgoersceser.resssmePsp.asuseorPpbntnauoiltscirnbisltbehsliiciiesulbldhienitleydbiutdeyoynrfbEdottyhelfhsereeEthvCtLsheicSCeeirEesBCcnVBiYtCIe.iVEf-niNB.RctYiCcfBi-o-cN.NmVcCD.mo-mNliitDctmeeenliitcsoteeefne(thhsoteetfp9(stthh:h/te/tIcpnr9esttea:hr/tni/vIcanertcietoeoanrmtnaivmlaeCtocioononnsm.faoemlrrgCeo/nolnicncseef.enoorsnreegIsn/n/lcbifceoyer-onnmncsa-etnIsindo/f/bno4yT.r0-men)cach-tnnioodnl/o4g.y0)and Technology and Quantitative Management Keywords: AR HUD; interface optimization design; human factor; content color; dependent function; Extenics
+
+* Corresponding author. E-mail address: ipd_xcq@seu.edu.cn
+1877-0509 © 2022 The Authors. Published by ELSEVIER B.V. This is an open access article under the CC BY-NC-ND license (https://creativecommons.org/licenses/by-nc-nd/4.0) Peer-review under responsibility of the scientific committee of the 9th International Conference on Information Technology and Quantitative Management
+1877-0509 © 2022 The Authors. Published by Elsevier B.V. This is an open access article under the CC BY-NC-ND license (https://creativecommons.org/licenses/by-nc-nd/4.0) Peer-review under responsibility of the scientific committee of the 9th International Conference on Information Technology and Quantitative Management 10.1016/j.procs.2022.11.345
+
+2
+
+J.JDinozuh,eent Dalo/uPreotcaeld.i/aPCroomcepduiateCr Socmiepnucteer0S0ci(e2n0c2e2)210400(–2000202) 1568–1580 
+
+1569
+
+1. Introduction
+
+The AR HUD could enhance driving-related information (such as speed, warning signals, navigation arrows) to the windshield of the vehicle to maximize the use of visual resources and allow the driver to focus on safe driving (See Fig.1). It represents the most innovative development direction of intelligent vehicles and becomes an important HMI in the era of the Internet of Things. With the wide application of intelligent driving assistance system, the demand of AR HUD is rising rapidly, and its market space has a fast expansion. As the main connection points between the driver and the vehicle, these in-vehicle HMI demand great care and attention from manufacturers, designers and human factor engineers [1].
+
+Fig. 1. AR HUD interface.
+The AR HUD interface is an essential way to exchange information between drivers and automatic systems. It is also the terminal for information collection and output in intelligent vehicles. Consequently, the drivers execute and complete a different kind of tasks, such as perceive surrounding situation, navigation guidance [2], road recognition [3], and decision-making analysis [4] based on the real time graphical and text information displayed in AR HUD interface. But unlike the traditional displays, the virtual contents on the AR HUD are superimposed displayed optically superimposed on the real word though special optical system, which causes it to be transparent. As a result, the changeable environmental context and complex ambient light weaken the legibility of AR contents. And it also reduced the visual comfort and cognitive performance of drivers [5].
+Based on the design principles of human-vehicle interaction system, AR HUD interface needs to meet drivers' recognition and reading of visual information efficiently, and reduce drivers' distraction and cognitive load during driving as well [6-7]. The AR system which poorly designed or ignored the principle of human factors is likely to fail to achieve its goal of helping human beings, and may even seriously damage human performance. As an ergonomics factor, content color directly affects driver performance, including visual sensitivity and fatigue. On the one hand, the dark color, such as violet, can achieves high luminance contrast, which means driver’s information sensitivity improved, but just perform well in a short time. On the other hand, the light color, such as yellow, has low luminance contrast for driver while gazing at AR HUD. They achieve better performance with low visual fatigue during a long time, but less sensitivity. Therefore, this paper is devoted to find the content color value that can comprehensively consider the driver’s visual sensitivity and fatigue, and quantify the selection process. This study also has reference significance for balancing situation awareness and cognitive load of drivers.
+The paper is organized as follows. First, the main theories and methods which supporting the interface optimization model are introduced in Section 2. Then, the content color and its extended matter-elements of AR HUD interface are modeled and analysis in the Section 3. Section 4 describes two mathematical color selection model under two condition. An simple engineering application is proposed to show its application. Finally, section 5 summarizes the main conclusions and future works.
+
+1570
+
+AJuinthzohrennaDmoeu /ePt raol.c/edPiraoCceodmiapuCtoemr SpcuiteenrcSec0ie0n(c2e021194) 0(20002–20)010568–1580
+
+3
+
+2. Methods
+
+2.1. Basic element theory
+
+Extenics is a new subject founded by Chinese scholars which solves contradictory problems. It uses formal models to study the possibility of things extending and the rules and methods of development and innovation [8].
+The basic-element theory in Extenics divides things into three parts: matter, affair and relation. By establishing matter-element, affair-element and relation-element, the general characteristics of matters, the interaction between affairs (i.e., an action or a behavior) and the mutual relations between affairs are described respectively [9]. The three elements of a basic-element are represented by object (O), characteristic (C), and value (V). The general expression of basic-element is denoted as:
+
+𝑂𝑂𝑂𝑂𝑂𝑂𝑂𝑂𝑂𝑂𝑂𝑂, 𝑐𝑐1, 𝑣𝑣1
+
+𝐵𝐵 = (𝑂𝑂, 𝐶𝐶, 𝑉𝑉) = [
+
+𝑐𝑐2 ···
+
+𝑣𝑣2 ···
+
+]
+
+(1)
+
+𝑐𝑐𝑛𝑛 𝑣𝑣𝑛𝑛
+
+In Formula (1), B is the name of matter-element M, affair-element A and relation-element R. O is the research object, which specifically corresponding to matter Om, affair Oa and relation Or. The  𝐶𝐶 = {𝑐𝑐1, 𝑐𝑐2, … , 𝑐𝑐𝑛𝑛} is a collection containing various characteristics of research object. The 𝑉𝑉 = {𝑣𝑣1, 𝑣𝑣2, … , 𝑣𝑣𝑛𝑛} is the characteristic value of the corresponding Ci. The establishment of matter-element, affair-element and relation-element are the process of
+modeling general problems. In this process, problems are recognized from different angles through the classification
+of basic-elements systematically [10], and the understanding of the essence of the problem is deepened in the
+process of mining the characteristics and value of object [9]. Another major advantage of the establishment of the
+base-element model is that it makes it possible to solve general problems through calculation, which is also the prominent advantage of Extenics in the rapid rise of artificial intelligence today [11].
+
+2.2. The Extension Set and Dependent function
+
+The Extenics usually focus on contradictory problems, transforming antithetical problems (or the discrete
+characteristics of an object) into consistent (or continuous) through extension transformation. Different from Cantor
+set and Fuzzy set which only consider quantitative relations, the extension set introduces matters and characteristics
+into mathematics, formalizes the process of solving contradiction problems and establishes corresponding
+mathematical tools to make it quantified. It discusses the research objects with certain properties and changes from
+the perspective of transformation. The dependent function often used to measure these changes of classification and
+the transformation of contradictory problems quantitatively [12]. Let the 𝑈𝑈 be the domain. P(𝑈𝑈) is the power set of 𝑈𝑈, Ω ∈ P(𝑈𝑈). For any element 𝑝𝑝 in Ω, if there is a real
+number K(𝑝𝑝) ∈ (−∞, +∞) corresponding to it, then we call is an extension set of the subset Ω over the 𝑈𝑈. Where, 𝑦𝑦 = 𝐾𝐾(𝑝𝑝) is the dependent function of 𝐴̃𝐴, which reflects the relevance of 𝑝𝑝 and 𝑦𝑦, that is, the transformation ability from 𝑝𝑝 to 𝑦𝑦.
+
+𝐴̃𝐴 = {(𝑝𝑝，𝑦𝑦)|𝑝𝑝 ∈ 𝛺𝛺, 𝑦𝑦 = 𝐾𝐾(𝑝𝑝)}
+
+(2)
+
+An object in the domain U usually has an expected interval about the degree to which the value of a characteristic conforms to the requirements. It is called standard positive field (𝑋𝑋0 = 〈𝑎𝑎0, 𝑏𝑏0〉) and belongs to positive field (𝑋𝑋 = 〈𝑎𝑎, 𝑏𝑏〉, 𝑋𝑋0 ⊆ 𝑋𝑋) which is the interval including all possible values of 𝒙𝒙.
+The concept of interval distance and place value are defined to establish the elementary dependent function. As shown in formular (3-4), the interval distance describes the distance between a point 𝑥𝑥 to interval 𝑋𝑋0 = 〈𝑎𝑎0, 𝑏𝑏0〉 in field of real numbers. And the place value describes the distance from a point 𝑥𝑥 to the interval 𝑋𝑋0 and 𝑋𝑋. The computing formulars of dependent function can be seen in formular (5).
+
+4
+
+J.JDinozuh,eent Dalo/uPreotcaeld.i/aPCroomcepduiateCr Socmiepnucteer0S0ci(e2n0c2e2)210400(–2000202) 1568–1580 
+
+𝜌𝜌(𝑥𝑥,
+
+𝑋𝑋0)
+
+=
+
+|𝑥𝑥
+
+−
+
+𝑎𝑎0+2 𝑏𝑏0 |
+
+−
+
+𝑏𝑏0−𝑎𝑎0 2
+
+𝐷𝐷(𝑥𝑥, 𝑋𝑋0, 𝑋𝑋) = {−𝜌𝜌(1𝑥,𝑥, 𝑋𝑋) − 𝜌𝜌(𝑥𝑥, 𝑋𝑋0),
+
+𝑥𝑥 ∉ 𝑋𝑋0 𝑥𝑥 ∈ 𝑋𝑋0
+
+𝐾𝐾(𝑥𝑥)
+
+=
+
+𝜌𝜌(𝑥𝑥,𝑋𝑋0) 𝐷𝐷(𝑥𝑥,𝑋𝑋0,𝑋𝑋)
+
+3. Matter-element modeling in AR HUD Interface
+
+1571
+(3) (4) (5)
+
+There are many interface factors that affect the visual comfort and performance of driver, such as color combination, complexity of graphic, information density, layout and display contrast, etc. Individual or conjoint analysis can be conducted among those factors by one-dimensional or multi-dimensional matter-element. Since color combination is the most significant characteristic that affects visual comfort of the AR HUD interface [13], we analyze the color combination independently in this paper.
+The virtual contents presented on the AR HUD are superimposed on the physical environment through complex optical systems, making it being transparent. Therefore, ambient light, AR content color and background color will also influence the color combination of the AR HUD interface perceived by drivers. The variation of ambient light mean that accurate color and consistently high contrast ratio should be maintained to adapt to the different driving conditions in any AR HUD solutions [14].
+In this section, we will conduct modeling and extended analysis on the following matter elements from the perspective of man-machine-environment: content color (machine), brightness (machine), number of applicable environments(environment) and driver performance over time (man).
+
+3.1. Content color
+
+The colors of visual elements such as numbers, text, graphics and symbols on the AR HUD interface are defined as the content color.
+First, the basic element of content color is described as below:
+
+𝑀𝑀1 = (𝐶𝐶𝐶𝐶𝐶𝐶𝐶𝐶𝐶𝐶𝐶𝐶𝐶𝐶 𝐶𝐶𝐶𝐶𝐶𝐶𝐶𝐶𝐶𝐶, 𝑅𝑅𝑅𝑅𝑅𝑅 𝑐𝑐𝑐𝑐𝑐𝑐𝑐𝑐𝑐𝑐 𝑚𝑚𝑚𝑚𝑚𝑚𝑚𝑚𝑚𝑚, 𝑅𝑅𝑅𝑅𝑅𝑅)
+
+(6)
+
+in which the content color is characteristic, blue is value. Furthermore, the matter element matrix can be described as formula (7):
+
+𝑀𝑀1′ = [𝐶𝐶𝐶𝐶𝐶𝐶𝐶𝐶𝐶𝐶𝐶𝐶𝐶𝐶 𝐶𝐶𝐶𝐶𝐶𝐶𝐶𝐶𝐶𝐶, 𝑅𝑅𝑅𝑅𝑅𝑅 𝑐𝑐𝑐𝑐𝑐𝑐𝑐𝑐𝑐𝑐 𝑚𝑚𝑚𝑚𝑚𝑚𝑚𝑚𝑚𝑚, {𝑅𝑅𝑅𝑅𝑅𝑅, 𝐺𝐺𝐺𝐺𝐺𝐺𝐺𝐺𝐺𝐺, 𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝐵}]
+
+(7)
+
+The value of content color is discontinuous and discrete. Consequently, an effective method is proposed based on the Extenics to settle the limitation.
+
+3.2. Brightness
+
+There are many kinds of color models including RGB, HSB, Lab and so on. HSB color model is more consistent with human visual perception, and is widely used in the field of computer vision. The correlation between the color components (H/S/B) is low and the independence is strong, which is quite suitable for the scientific calculations. And the sensitivity of human senses to brightness information is much higher than chroma [15]. Then, the computation function is defined in formula (8)-(12):
+
+𝑅𝑅′ = 𝑅𝑅⁄255
+
+(8)
+
+𝐺𝐺′ = 𝐺𝐺⁄255
+
+(9)
+
+1572
+
+AJuinthzohrennaDmoeu /ePt raol.c/edPiraoCceodmiapuCtoemr SpcuiteenrcSec0ie0n(c2e021194) 0(20002–20)010568–1580
+
+5
+
+𝐵𝐵′ = 𝐵𝐵⁄255
+
+(10)
+
+𝐶𝐶𝑚𝑚𝑚𝑚𝑚𝑚 = 𝑚𝑚𝑚𝑚𝑚𝑚(𝑅𝑅′, 𝐺𝐺′, 𝐵𝐵′)
+
+(11)
+
+𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝐵ℎ𝑡𝑡𝑡𝑡𝑒𝑒𝑠𝑠𝑠𝑠 = 𝐶𝐶𝑚𝑚𝑚𝑚𝑚𝑚
+
+(12)
+
+According to the above conversion relationship, the brightness of white is 100% while black is 0%. Then, an extended matter-element model based on content color is established as follows.
+
+𝑀𝑀2 = (𝐶𝐶𝐶𝐶𝐶𝐶𝐶𝐶𝐶𝐶𝐶𝐶𝐶𝐶 𝑐𝑐𝑐𝑐𝑐𝑐𝑐𝑐𝑐𝑐, 𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝐵ℎ𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡, 𝑥𝑥%)
+
+(13)
+
+𝑀𝑀2′ = [𝐶𝐶𝐶𝐶𝐶𝐶𝐶𝐶𝐶𝐶𝐶𝐶𝐶𝐶 𝐶𝐶𝐶𝐶𝐶𝐶𝐶𝐶𝐶𝐶, 𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝐵ℎ𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡, {100%, 90%, … , 𝑥𝑥%}]
+
+(14)
+
+Now, the brightness is consistent and continuum.
+
+3.3. Number of applicable environments
+
+The display effect of the AR HUD projection perceived by human eyes is determined by the brightness of projected light and ambient light [16]. In AR HUD, the virtual image is viewed through transparent windshield, and the luminance contrast between the image and the background is a very critical factor which can affect visual performance and subjective preference [17]. Many articles have proposed that visual search performance improves with the increase of luminance contrast [18-20]. H.C. Weston's results show that the effect of luminance contrast in visual performance has always been critical, and no matter how high the brightness, poor contrast performance can never be compared with good contrast performance [21]. Ya-Hsien Ko also found that legibility was significantly impacted by luminance contrast, with low contrast sensitivity making it difficult to perceive faces, objects, or road signs [22].
+Previous researches suggested that the visual display terminals should have a luminance contrast of at least 1:3 [2325]. For example, we suppose the brightness units are ranged from 0 to 100. When the content color has a brightness unit of 30, the environment should have a brightness unit within 0-10 and 90-100 (3 times unit difference) to ensure the readability in ambient light. We define the number of applicable environments as the number of ambient brightness unit that meet the display contrast requirements for a given content color brightness. Thus, the number of applicable environments is 22. In the same way, if the brightness unit of content color is 90, the number of applicable environments is 31(0-30).
+Within a certain range, the AR content with high brightness can be applied to more environments, which means that drivers are more sensitive to the information presented by the AR HUD interface and have better driving performance in a short time. On the contrary, AR content with low brightness can be applied to fewer environments, resulting in lower driver sensitivity and poor driving performance in a short time. Therefore, if only the number of applicable environments is considered, content color with high brightness can achieve better driving performance in a short while than those with low brightness.
+Then, the number of applicable environments is expanded to quantify the brightness, and its matter-element model is constructed as M3 and M3′ .
+
+𝑀𝑀3 = (𝐸𝐸𝐸𝐸𝐸𝐸𝐸𝐸𝐸𝐸𝐸𝐸𝐸𝐸𝐸𝐸𝐸𝐸𝐸𝐸𝐸𝐸, 𝑁𝑁𝑁𝑁𝑁𝑁𝑁𝑁𝑁𝑁𝑁𝑁 𝑜𝑜𝑜𝑜 𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎 𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒, 𝑛𝑛)
+
+(15)
+
+𝐸𝐸𝐸𝐸𝐸𝐸𝐸𝐸𝐸𝐸𝐸𝐸𝐸𝐸𝐸𝐸𝐸𝐸𝐸𝐸𝐸𝐸, 𝑁𝑁𝑁𝑁𝑁𝑁𝑁𝑁𝑁𝑁𝑁𝑁 𝑜𝑜𝑜𝑜 𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎 𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒, 1
+
+𝑀𝑀3′ = (𝐸𝐸𝐸𝐸𝐸𝐸𝐸𝐸𝐸𝐸𝐸…𝐸𝐸𝐸𝐸𝐸𝐸𝐸𝐸𝐸𝐸𝐸, ,
+
+𝑁𝑁𝑁𝑁𝑁𝑁𝑁𝑁𝑁𝑁𝑁𝑁 𝑜𝑜𝑜𝑜 𝑎𝑎𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝 𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒, …
+
+2 …
+
+)
+
+(16)
+
+𝐸𝐸𝐸𝐸𝐸𝐸𝐸𝐸𝐸𝐸𝐸𝐸𝐸𝐸𝐸𝐸𝐸𝐸𝐸𝐸𝐸𝐸, , 𝑁𝑁𝑁𝑁𝑁𝑁𝑁𝑁𝑁𝑁𝑁𝑁 𝑜𝑜𝑜𝑜 𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎 𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒, 𝑛𝑛
+
+6
+
+J.JDinozuh,eent Dalo/uPreotcaeld.i/aPCroomcepduiateCr Socmiepnucteer0S0ci(e2n0c2e2)210400(–2000202) 1568–1580 
+
+1573
+
+3.4. Driver performance over time
+
+However, there are also many studies have suggested that working with high screen brightness for long periods of time may cause visual fatigue. Simone et al. studied the interaction effect of screen brightness and ambient illuminance on visual fatigue and arousal during prolonged digital reading (1 hour). The results showed that both visual fatigue and arousal increased simultaneously under high screen brightness [26]. While the rise of arousal has a good connotation for improving reading performance, an upsurge in visual fatigue might be a bad new for our eyes. Wang et al. found that there was a negative correlation between the roadside landscape color and drivers' EEG δ wave components, that is, the higher the brightness of the landscape color, the more effective it was to avoid visual fatigue [27]. Joseph L. Gabbard and his colleagues indicated that repeatedly performing context switching and focal distance switching between a real and AR environment can cause the visual fatigue steadily increase and significantly reduce performance [28].
+According to the literature review above, we conducted a qualitative analysis on brightness and visual fatigue degree. That is, the greater the luminance contrast, the stronger the stimulation to human eyes, prolonged viewing exacerbates visual fatigue. While the lower luminance contrast could reduce the sensitivity of the eye to flicker, leading to better fatigue resistance. Thus, if only driver performance over time (DOT) is considered, content colors with low brightness achieve better over long periods of time than the high one.
+
+Fig. 2. Driver performance over time at different brightness (x1>x2>x3).
+
+As shown in Fig.2, DP at different brightness will decline at different speed when eyes viewing on the AR HUD interface over time (x1, x2, x3 ∈ [50,100], x1 > x2 > x3). The Formula (17) describes the calculation function for DOT, which is the performance integral over time, approximated as a curve T (Fig. 2).
+
+DOT=∫0𝑇𝑇 𝑓𝑓(𝑡𝑡)𝑑𝑑𝑑𝑑
+
+(17)
+
+The matter-element can be described as M5:
+
+𝑀𝑀5 = (𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷, 𝑃𝑃𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒 𝑜𝑜𝑜𝑜𝑜𝑜𝑜𝑜 𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡, 𝑡𝑡)
+
+(18)
+
+The matter-element array of brightness on DOT can be described as M′5:
+
+1574
+
+Jinzhen Dou et al. / Procedia Computer Science 214 (2022) 1568–1580 Author name / Procedia Computer Science 00 (2019) 000–000
+
+𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷, 𝑃𝑃𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒 𝑜𝑜𝑜𝑜𝑜𝑜𝑜𝑜 𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡, 1
+
+𝑀𝑀5′ = (𝐷𝐷𝐷𝐷𝐷…𝐷𝐷𝐷𝐷𝐷𝐷𝐷,
+
+𝑃𝑃𝑃𝑃𝑃𝑃𝑃𝑃𝑃𝑃𝑃𝑃𝑃𝑃𝑃𝑃𝑃𝑃𝑃𝑃𝑃𝑃 𝑜𝑜𝑜𝑜𝑜𝑜𝑜𝑜 𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡, …
+
+2 …
+
+)
+
+𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷, 𝑃𝑃𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒 𝑜𝑜𝑜𝑜𝑜𝑜𝑜𝑜 𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡, 𝑡𝑡
+
+7
+(19)
+
+To sum up, the contradiction in color design of AR HUD interface is that if content colors with high brightness are selected, the visual sensitivity of drivers is improved, but only perform well in a short time. If the content color with low brightness is selected, the visual fatigue degree of long-term driving is reduced, but the sensitivity is sacrificed.
+
+3.5. Mapping relation and matter-element transformation
+
+The process of matter-element transformation based on Extension analysis is shown in Fig.3. Firstly, the correlation analysis of content color is carried out, and the related characteristic-color model-is mined. Then, according to the divergence analysis method of ‘one characteristic has multiple values’, the HSB model is diverged from the RGB model, and the brightness component which can quantitatively describe the content color is obtained. Since the optimal solution of the brightness value of the content color is not always known, the driver and environment characteristics that can quantitatively describe the brightness of the AR HUD interface are further expanded from the perspective of man-machine-environment. Among these characteristics, content color and brightness can be converted into each other, brightness and NAE, DOT can be converted into each other. It means that discrete and opposing variable are transformed into continuous and consistent ones.
+
+Fig. 3. The process of matter-element transformation.
+The relationships among brightness, NAE and DOT are shown in Fig. 4. The NAE at different brightness are summarized as curve N by satisfying luminance contrast requirements, and the DOT are approximately draw as curve T by time integration.
+• When brightness approach 0% or 100%, the NAE is best, that is, both lower and higher brightness can theoretically be applicable in more environments.
+• When the brightness close to a%, the NAE is the worst, due to the low luminance contrast between the AR interface and the environment.
+• When brightness approach to b%, the DOT is best, which means only the appropriate brightness can ensure the long driving performance.
+
+8
+
+J.JDinozuh,eent Dalo/uPreotcaeld.i/aPCroomcepduiateCr Socmiepnucteer0S0ci(e2n0c2e2)210400(–2000202) 1568–1580 
+
+1575
+
+Fig. 4. The relationship between brightness and NAE, DOT.
+Now, the dilemma problem in AR HUD interface design has been transformed into finding a proper brightness that balance the NAE and DOT, so that the driver comprehensive visual performance to achieve the best. In the next section, we will establish the color selection model, helping engineers and designers to design graphics or character colors more scientifically and systematically. 4. Color selection models for AR HUD interface
+For the optimal solution of content color, the distance function from the selected matter-element to optimal value is constructed in this chapter.
+In Fig. 5, the given standard positive fields of NAE and DOT are N0 and T0 respectively (N0 and T0 are determined by the engineering). The positive field of the brightness is X = 〈0%, 100%〉, where the expected interval that meet the requirements of NAE and DOT is X0 = 〈p0, q0〉 and x is the selected brightness value.
+When the optimal value of brightness has been given, it is only required to verify whether x is within the interval X0 and how relevant is it to the best value. The calculation model based on the brightness is established in the first section of this chapter. If the optimal value is uncertain, the x needs to be evaluated by NAE and DOT. The calculation model based on the NAE and DOT is established in the second section of this chapter.
+Fig.5. Color selection model for AR HUD interface.
+
+1576
+
+AJuinthzohrennaDmoeu /ePt raol.c/edPiraoCceodmiapuCtoemr SpcuiteenrcSec0ie0n(c2e021194) 0(20002–20)010568–1580
+
+9
+
+4.1. Color select model based on the brightness
+
+The x0 is defined as the optimal value in the X0. When the content color is selected, BL = x will be mapped in X0, the distance from x to X0 can be described as ρ = (x, X0), the relevancy between x and x0 is K(x). The calculation formula of K(x) is described as follows (20-23).
+
+𝜌𝜌(𝑥𝑥,
+
+𝑋𝑋0)
+
+=
+
+|𝑥𝑥
+
+−
+
+1 2
+
+(𝑝𝑝0
+
++
+
+𝑞𝑞0)|
+
+−
+
+1 2
+
+(𝑞𝑞0
+
+−
+
+𝑝𝑝0)
+
+𝜌𝜌(𝑥𝑥,
+
+𝑋𝑋)
+
+=
+
+|𝑥𝑥
+
+−
+
+1 2
+
+(0%
+
++
+
+100%)|
+
+−
+
+1 2
+
+(100%
+
+−
+
+0%)
+
+=
+
+{𝑥𝑥𝑥𝑥−,
+
+100%
+
+, 𝑥𝑥 ≥ 50% 𝑥𝑥 < 50%
+
+𝐷𝐷(𝑥𝑥,
+
+𝑋𝑋0,
+
+𝑋𝑋)
+
+=
+
+{𝜌𝜌(𝑥𝑥,
+
+𝑋𝑋)
+
+−
+
+𝜌𝜌(𝑥𝑥,
+
+𝑋𝑋0), −1,
+
+𝑥𝑥𝑋𝑋0 𝑥𝑥𝑋𝑋0
+
+𝐾𝐾(𝑥𝑥)
+
+=
+
+𝜌𝜌(𝑥𝑥,𝑋𝑋0) 𝐷𝐷(𝑥𝑥,𝑋𝑋0,𝑋𝑋)
+
+=
+
+|𝑥𝑥−12(𝑝𝑝0+𝑞𝑞0)|−12(𝑞𝑞0−𝑝𝑝0) 𝐷𝐷(𝑥𝑥,𝑋𝑋0,𝑋𝑋)
+
+=
+
+|𝑥𝑥−12(𝑝𝑝0+𝑞𝑞0)|−12(𝑞𝑞0−𝑝𝑝0)
+{|𝑥𝑥−12(𝑝𝑝0+𝑞𝑞−0)1|−12(𝑞𝑞0−𝑝𝑝0)
+𝜌𝜌(𝑥𝑥,𝑋𝑋)−𝜌𝜌(𝑥𝑥,𝑋𝑋0)
+
+, ,
+
+𝑥𝑥𝑋𝑋0 𝑥𝑥𝑋𝑋0
+
+=
+
+|𝑥𝑥−12(𝑝𝑝0+𝑞𝑞0)|−12(𝑞𝑞0−𝑝𝑝0) −1
+
+,
+
+|𝑥𝑥−12(𝑝𝑝0+𝑞𝑞0)|−12(𝑞𝑞0−𝑝𝑝0)
+
+{{𝑥𝑥𝑥𝑥,−100% ,𝑥𝑥𝑥𝑥<≥5500%%−(|𝑥𝑥−12(𝑝𝑝0+𝑞𝑞0)|−12(𝑞𝑞0−𝑝𝑝0))
+
+,
+
+𝑥𝑥𝑋𝑋0 𝑥𝑥𝑋𝑋0
+
+(23)
+
+(20)
+(21) (22)
+
+If K(x) < 0, then x is not in X0, and the selected color does not satisfy the required NAE and DOT. If K(x) > 0, it means that x is in the interval of X0, and the closer K(x) is to 0, the better the selection. The optimal solution for
+
+K(x)is
+
+n
+
+−
+
+x0
+
+(if
+
+x0
+
+>
+
+1 2
+
+(p0
+
++
+
+q0))
+
+or
+
+x0 − m (if
+
+x0
+
+<
+
+1 2
+
+(p0
+
++
+
+q0)).
+
+The formula indicates that the correlation between mapped matter-element m and the optimal value of mapped
+
+matter-element m0 when BL = x.
+
+4.2. Color select model based on the NAE and DOT
+
+If x0 is unknown, then x should be evaluated by the best values of NAE and DOT respectively. The calculation model in this case can be formulated as:
+
+𝐾𝐾(𝑚𝑚)|𝐵𝐵𝐵𝐵=𝑥𝑥
+
+=
+
+𝜌𝜌(𝑚𝑚,𝑀𝑀0) 𝐷𝐷(𝑚𝑚,𝑀𝑀0,𝑀𝑀)
+
+|𝐵𝐵𝐵𝐵=𝑥𝑥
+
+(24)
+
+The formula indicates that the correlation between mapped matter-element m and the optimal value of mapped matter-element m0 when BL = x.
+
+10
+
+J.JDinozuh,eent Dalo/uPreotcaeld.i/aPCroomcepduiateCr Socmiepnucteer0S0ci(e2n0c2e2)210400(–2000202) 1568–1580 
+
+1577
+
+The optimal value of NAE is defined as n0, the whole interval of NML is N = [n1, n3], and the expected interval is N0 = [n2, n3]. The distance between n and N0 is ρ(n，n3) = |n − n3|. The correlation between brightness and the optimal value of its mapped-element NAE is described in (25-26).
+
+𝐷𝐷(𝑛𝑛,
+
+𝑁𝑁0,
+
+𝑁𝑁)
+
+=
+
+{𝜌−𝜌(1𝑛𝑛,
+
+𝑁𝑁)
+
+−
+
+𝜌𝜌(𝑛𝑛,
+
+𝑁𝑁0), ,
+
+𝑛𝑛 𝑛𝑛
+
+∉ ∈
+
+𝑁𝑁0 𝑁𝑁0
+
+(25)
+
+𝐾𝐾(𝑛𝑛)|𝐵𝐵𝐵𝐵=𝑥𝑥
+
+=
+
+𝜌𝜌(𝑛𝑛,𝑛𝑛3) 𝐷𝐷(𝑛𝑛,𝑁𝑁0,𝑁𝑁)
+
+|𝐵𝐵𝐵𝐵=𝑥𝑥
+
+(26)
+
+The optimal value of DOT is defined as t0, the whole interval of DOT is T = [t1, t3], and the expected interval is T0 = [t2, t3]. The distance between t and t3 is ρ(t，t3) = |t − t3|. The correlation between brightness and the optimal value of its mapped-element DOT is described in (27-28).
+
+𝐷𝐷(𝑡𝑡,
+
+𝑇𝑇0,
+
+𝑇𝑇)
+
+=
+
+{−𝜌𝜌1(𝑡,𝑡,
+
+𝑇𝑇)
+
+−
+
+𝜌𝜌(𝑡𝑡,
+
+𝑇𝑇0),
+
+𝑡𝑡 ∉ 𝑡𝑡 ∈
+
+𝐷𝐷0 𝐷𝐷0
+
+(27)
+
+𝐾𝐾(𝑡𝑡)|𝐵𝐵𝐵𝐵=𝑥𝑥
+
+=
+
+𝜌𝜌(𝑡𝑡,𝑡𝑡3) 𝐷𝐷(𝑡𝑡,𝑇𝑇0,𝑇𝑇)
+
+|𝐵𝐵𝐵𝐵=𝑥𝑥
+
+(28)
+
+When K(n) and K(t) are both closer to 0, the solution is better. The calculation formula of K(x) can be defined as follows:
+
+𝐾𝐾(𝑛𝑛)|𝐵𝐵𝐵𝐵=𝑥𝑥
+
+=
+
+𝜌𝜌(𝑛𝑛,𝑛𝑛3) 𝐷𝐷(𝑛𝑛,𝑁𝑁0,𝑁𝑁)
+
+|𝐵𝐵𝐵𝐵=𝑥𝑥
+
+=
+
+|𝑛𝑛−𝑛𝑛3| 𝐷𝐷(𝑛𝑛,𝑁𝑁0,𝑁𝑁)
+
+|𝐵𝐵𝐵𝐵=𝑥𝑥
+
+=
+
+{|𝑛𝑛−−1𝑛𝑛3||𝑛|𝑛𝐵−𝐵𝐵𝑛𝐵𝑛=3𝑥|𝑥 ,
+𝜌𝜌(𝑛𝑛,𝑁𝑁)−𝜌𝜌(𝑛𝑛,𝑁𝑁0)
+
+,
+
+𝑛𝑛 ∈ 𝑁𝑁0 𝑛𝑛 ∉ 𝑁𝑁0
+
+=
+
+{
+
+|𝑛𝑛−𝑛𝑛3| −1
+
+|𝐵𝐵𝐵𝐵=𝑥𝑥
+
+,
+
+|𝑛𝑛−𝑛𝑛3|
+
+(|𝑛𝑛−𝑛𝑛1 +2 𝑛𝑛3 |−𝑛𝑛3 −2 𝑛𝑛1 )−(|𝑛𝑛−𝑛𝑛3 +2 𝑛𝑛2 |−𝑛𝑛3 −2 𝑛𝑛2 )
+
+𝑛𝑛 ∈ 𝑁𝑁0 , 𝑛𝑛 ∉ 𝑁𝑁0
+
+𝐾𝐾(𝑡𝑡)|𝐵𝐵𝐵𝐵=𝑥𝑥
+
+=
+
+𝜌𝜌(𝑡𝑡,𝑡𝑡3) 𝐷𝐷(𝑡𝑡,𝑇𝑇0,𝑇𝑇)
+
+|𝐵𝐵𝐵𝐵=𝑥𝑥
+
+=
+
+|𝑡𝑡−𝑡𝑡3| 𝐷𝐷(𝑡𝑡,𝑇𝑇0,𝑇𝑇)
+
+|𝐵𝐵𝐵𝐵=𝑥𝑥
+
+=
+
+|𝑡𝑡−𝑡𝑡3|
+{ −1
+
+|𝐵𝐵𝐵𝐵=𝑥𝑥 ,
+|𝑡𝑡−𝑡𝑡3|
+
+𝜌𝜌(𝑡𝑡,𝑇𝑇)−𝜌𝜌(𝑡𝑡,𝑇𝑇0)
+
+,
+
+𝑡𝑡 ∈ 𝑁𝑁𝑁𝑁0 𝑡𝑡 ∉ 𝑇𝑇0
+
+=
+
+{
+
+|𝑡𝑡−𝑡𝑡3| −1
+
+|𝐵𝐵𝐵𝐵=𝑥𝑥
+
+,
+
+|𝑡𝑡−𝑡𝑡3|
+
+(|𝑡𝑡−𝑡𝑡1+2 𝑡𝑡3 |−𝑡𝑡3 −2 𝑡𝑡1)−(|𝑡𝑡−𝑡𝑡3 +2 𝑡𝑡2 |−𝑡𝑡3 −2 𝑡𝑡2 )
+
+𝑡𝑡 ∈ 𝑇𝑇0 , 𝑡𝑡 ∉ 𝑇𝑇0
+
+(29) (30)
+
+𝐾𝐾(𝑥𝑥) = 𝐾𝐾(𝑛𝑛)|𝐵𝐵𝐵𝐵=𝑥𝑥 + 𝐾𝐾(𝑡𝑡)|𝐵𝐵𝐵𝐵=𝑥𝑥
+
+(31)
+
+4.3. Weighted color select model
+
+As shown in Fig. 6, the driver performance over time varies with the brightness of the content color.
+
+1578
+
+AJuinthzohrennaDmoeu /ePt raol.c/edPiraoCceodmiapuCtoemr SpcuiteenrcSec0ie0n(c2e021194) 0(20002–20)010568–1580
+
+11
+
+The information on x1% brightness has a higher sensitivity at the beginning, and the driver performance is better than other brightness, but decreased after t0 due to increased visual fatigue.
+The x2% brightness is lower than x1%, so the driver performance is not as good as it at the beginning, but after t0, the drop rate in driver performance due to fatigue is lower than x1%, resulting in better driving performance.
+The driver performance on x3% brightness changed slowest with the lapse of time, showing the best fatigue defense.
+In the AR HUD interface design, the color should be selected according to the attributes of content information,
+such as viewing time, priority, state variation, etc. For example, the content with low priority and long viewing time
+can choose content color with lower brightness. And for content with high priority and short viewing time, a content
+color with higher brightness can be selected. Consequently, different weights can be assigned to the indicators affecting color selection to build a weighted color selection model. In this section, we define the weight of NAE (K(n)) as w% , and the weight of DOT (K(t)) as 1 − w%. The preliminary model can be optimized as formula (32). Similarly, the closer the value of K'(x) is to 0, the smaller distance from the selected value x to the optimal solution.
+
+𝐾𝐾′(𝑥𝑥) = 𝑤𝑤% ∗ 𝐾𝐾(𝑛𝑛)|𝐵𝐵𝐵𝐵=𝑥𝑥 + (1 − 𝑤𝑤%) ∗ 𝐾𝐾(𝑡𝑡)|𝐵𝐵𝐵𝐵=𝑥𝑥
+
+(32)
+
+Fig.6. Performance over time (DP: Driver performance).
+4.4. Engineering application
+Considering that different luminance contrasts have positive and negative effects on driver performance, the application of this model in design engineering is discussed in this section. For the content with low information priority and long viewing time, anti-fatigue should be considered first, which is reflected in the model as increasing the weight of DOT and reflected in the color as low brightness. If choose w% ≈ 20%, BL ≈ 65, then K(n) ≈ 2, K(t) ≈ 0, K′(x) = 20% ∗ K(n) + 80% ∗ K(t) = 0.4.
+On the contrary, for the content with high information priority and short viewing time, reaction speed should be considered first, which is reflected in the model as increasing the weight of NAE, and reflected in the color as high brightness. If choose w% ≈ 100%, BL ≈ 100, then K(n) ≈ 0, K(t) ≈ 4, K′(x) = 1 ∗ K(n) + 0 ∗ K(t) = 0.
+According to this model, optimization suggestions are proposed for the design application of AR HUD in the intelligent cockpit. The AR HUD interface content mainly consists of basic driving information, safety information and multimedia entertainment information. Basic driving information (including average speed, remaining fuel, map navigation, etc.) will be displayed continuously during driving, and a brightness of 65% is selected as the content color (w% ≈ 20%). Multimedia entertainment information (including weather, music, video, communication, etc.) is only viewed during operation, so this type of information has a short viewing time and low priority, and a brightness of 75% is selected as the content color (w% ≈ 30%). As for the safety information (including obstacle information, lane track information and traffic sign information), 100% brightness (w% ≈ 0%) is selected as the content color because
+
+12
+
+J.JDinozuh,eent Dalo/uPreotcaeld.i/aPCroomcepduiateCr Socmiepnucteer0S0ci(e2n0c2e2)210400(–2000202) 1568–1580 
+
+1579
+
+of its short viewing time and high demand for reaction speed. In addition, a certain information type can be further subdivided, for example, pedestrian and obstacle information are high weight information, and lane trajectory and traffic sign information are secondary weight information, so the brightness of obstacle information should be larger than traffic sign information.
+
+5. Conclusions
+
+The AR HUD will provide advanced information on security and entertainment in intelligent vehicles in the near future. By visualizing lanes, cars, pedestrians, and predicting the expected path of cars, it can build public trust in autonomous driving. Based on the matter element analysis and dependent function, the paper transforms the discrete problem into continuous one, and provides a solution about the content color selection in AR HUD interface design. The mapping relationship between the content color and brightness of AR HUD is analyzed qualitatively, and a quantitative weighted color selection model is established to reflect the tendency towards selected elements to the optimal interval by constructing dependent functions. Finally, a simple evaluation method and an application case are given.
+In future studies, we will conduct series human factors experiments by driving simulators, and collect more engineering data to conduct a more accurate and specific quantitative analysis of the relationship between brightness and DOT and NML. Through continuous modification of matter-element relationship, change curve, optimal interval and weight value, the final calculation result is more scientific and reasonable, and provides effective support for the optimization of AR HUD interface design in intelligent vehicle.
+
+Acknowledgements
+This work is supported in part by the National Natural Science Foundation of China (Nos. 72071049 and 71871056).
+References
+[1] Guo W, Yan D, Liu T, Zhang Z, editors. Technical Challenge and Solution for Vehicle-Mounted AR-HUD Mass commercial Application. International Conference on Optoelectronic and Microelectronic Technology and Application; 2020 Oct 20-22; Nanjing, PEOPLES R CHINA2020.
+[2] Shen Z, Zhang L, Li R, Hou J, Liu C, Hu W. The effects of color combinations, luminance contrast, and area ratio on icon visual search performance. Displays. 2021;67.
+[3] Wolf F, Kuber R. Developing a head-mounted tactile prototype to support situational awareness. International Journal of Human-Computer Studies. 2018;109:54-67.
+[4] Li W-C, Zhang J, Tam Le M, Cao J, Wang L. Visual scan patterns reflect to human-computer interactions on processing different types of messages in the flight deck. International Journal of Industrial Ergonomics. 2019;72:54-60.
+[5] Blankenbach K. Requirements and System Aspects of AR-Head-Up Displays. Ieee Consumer Electronics Magazine. 2019;8(5):62-7. [6] Ma XD, Jia MT, Hong ZC, Kwok APK, Yan MA. Does Augmented-Reality Head-Up Display Help? A Preliminary Study on Driving
+Performance Through a VR-Simulated Eye Movement Analysis. Ieee Access. 2021;9:129951-64. [7] Ward NJ, Parkes A. HEAD-UP DISPLAYS AND THEIR AUTOMOTIVE APPLICATION - AN OVERVIEW OF HUMAN-FACTORS
+ISSUES AFFECTING SAFETY. Accident Analysis and Prevention. 1994;26(6):703-17. [8] Wu W J LYP. The appraisal for ”Extension theory and its applications”. 2004 [Available from: https://extenics.gdut.edu.cn/info/1030/1131.htm. [9] Cai W, Yang C. Basic theory and methodology on Extenics. Chinese Science Bulletin. 2013;58(13):1190-9. [10] Dou J, Li H, Li X, editors. Problem-oriented Industrial Designing Method on Extenics. 6th International Conference on Information
+Technology and Quantitative Management, ITQM 2018, October 20, 2018 - October 21, 2018; 2018; Omaha, NE, United states: Elsevier B.V. [11] Li X, Wu W, Wang H, Pi H, editors. How to solve Ill-defined problems Intelligently in the Big Data Environment. IEEE/WIC/ACM
+International Joint Conference on Web Intelligence and Intelligent Agent Technology (WI-IAT); 2020 Dec 14-17; Electr Network2020. [12] Yang C, Cai W. Extenics and Intelligent Processing of Contradictory Problems. Science & Technology Review. 2014;32(36):21-5. [13] Jimenez R, Redondo B, Molina R, Angel Martinez-Domingo M, Hernandez-Andres J, Vera J. Short-term effects of text-background color
+combinations on the dynamics of the accommodative response. Vision Research. 2020;166:33-42. [14] Hassani N. Modeling Color Appearance in Augmented Reality [Ph.D.]. Ann Arbor: Rochester Institute of Technology; 2019.
+
+1580
+
+Jinzhen Dou et al. / Procedia Computer Science 214 (2022) 1568–1580
+
+Author name / Procedia Computer Science 00 (2019) 000–000
+
+13
+
+[15] Li Y, Huang Y, Li X, Ma J, Zhang J, Li J. The influence of brightness combinations and background colour on legibility and subjective preference under negative polarity. Ergonomics. 2022.
+[16] Yin K, He Z, Xiong J, Zou J, Li K, Wu S-T. Virtual reality and augmented reality displays: advances and future perspectives. Journal of Physics-Photonics. 2021;3(2).
+[17] Eisenberg E, Jensen J, editors. Measuring & Qualifying Optical Performance of AR/VR/MR Device Displays and Addressing the Unique Visual Requirements of Transparent AR/MR Displays. Conference on Optical Architectures for Displays and Sensing in Augmented, Virtual, and Mixed Reality (AR, VR, MR) (SPIE AR/VR/MR); 2020 Feb 02; San Francisco, CA2020.
+[18] Na N, Suk H-J. Adaptive luminance contrast for enhancing reading performance and visual comfort on smartphone displays. Optical Engineering. 2014;53(11).
+[19] Lin C-C, Huang K-C. EFFECTS OF COLOR COMBINATION AND AMBIENT ILLUMINATION ON VISUAL PERCEPTION TIME WITH TFT-LCD. Perceptual and Motor Skills. 2009;109(2):607-25.
+[20] Ling J, van Schaik P. The effect of text and background colour on visual search of Web pages. Displays. 2002;23(5):223-30.
+[21] Weston HC. BRIGHTNESS, WELL-BEING AND WORK. British Journal of Industrial Medicine. 1944;1(3):180-96.
+[22] Ko Y-H. The effects of luminance contrast, colour combinations, font, and search time on brand icon legibility. Applied Ergonomics. 2017;65:33-40.
+[23] Iso B, Standard B. Ergonomics of human-system interaction. 2010.
+[24] Helander MG. Handbook of human-computer interaction: Elsevier; 2014.
+[25] Caldwell B, Cooper M, Reid LG, Vanderheiden G, Chisholm W, Slatin J, et al. Web content accessibility guidelines (WCAG) 2.0. WWW Consortium (W3C). 2008;290:1-34.
+[26] Benedetto S, Carbone A, Drai-Zerbib V, Pedrotti M, Baccino T. Effects of luminance and illuminance on visual fatigue and arousal during digital reading. Computers in Human Behavior. 2014;41:112-9.
+[27] linhong Wang, Shiwu Li, Zhenhai Gao. Linhong Wang, Shiwu Li, Zhenhai Gao. College of Automotive Engineering, Jilin University. Effect of highway landscape color on δ wave composition of drivers' EEG. Journal of Harbin Institute of Technology. 2016;48(09):35-40 %@ 0367-6234 %L 23-1235/T %U https://kns.cnki.net/kcms/detail/23..t.20161008.0931.046.html %W CNKI.
+[28] Vera J, Diaz-Piedra C, Jimenez R, Morales JM, Catena A, Cardenas D, et al. Driving time modulates accommodative response and intraocular pressure. Physiology & Behavior. 2016;164:47-53.
+

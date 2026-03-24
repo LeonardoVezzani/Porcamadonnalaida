@@ -1,0 +1,487 @@
+Skip to Main Content
+
+    IEEE.org
+    IEEE Xplore
+    IEEE SA
+    IEEE Spectrum
+    More Sites 
+
+        Cart 
+        Create Account
+        Personal Sign In 
+
+IEEE Xplore logo - Link to home
+
+    Browse
+    My Settings
+    Help
+
+Access provided by:
+Politecnico di Torino
+Sign Out
+IEEE logo - Link to IEEE main site homepage
+ADVANCED SEARCH
+Journals & Magazines > IEEE Transactions on Intellig... > Volume: 13 Issue: 2
+Making Vehicles Transparent Through V2V Video Streaming
+Publisher: IEEE
+Cite This
+PDF
+Pedro Gomes ; Cristina Olaverri-Monreal ; Michel Ferreira
+All Authors
+79
+Paper
+Citations
+6
+Patent
+Citations
+2445
+Full
+Text Views
+
+    Alerts
+
+Abstract
+Document Sections
+
+    I.
+    Introduction
+    II.
+    State of the Art of Related Technologies
+    III.
+    Cooperative Protocol and Augmented Reality Generation
+    IV.
+    Network Performance for the Video Streaming
+    V.
+    Simulation-Based Implementation
+
+Show Full Outline
+Authors
+Figures
+References
+Citations
+Keywords
+Metrics
+Abstract:
+The advent of infrastructureless vehicle-to-vehicle (V2V) communication has opened the opportunity to design driver-assistance systems that collect information from sensors residing in neighboring vehicles. Windshield-installed cameras are one example of a sensor that is becoming common in modern vehicles. Remotely accessing real-time images of these cameras using V2V communication enables a significant increase in the visual awareness of each driver. In this paper, we propose and evaluate the performance of a driver-assistance system that leverages on V2V communication and windshield-installed cameras to transform vision-obstructing vehicles into transparent tubular objects. This cooperative system is able to increase the visibility of drivers intending to overtake, thus making such critical maneuvers safer. Our system uses an augmented reality human–machine interface that is able to convey the increased visibility perspective in a straightforward fashion. We also show that the required latency for this intervehicle communication can be obtained using the Dedicated Short-Range Communications (DSRC) proposed for vehicular environments.
+Published in: IEEE Transactions on Intelligent Transportation Systems ( Volume: 13 , Issue: 2 , June 2012 )
+Page(s): 930 - 938
+Date of Publication: 16 March 2012
+ISSN Information:
+INSPEC Accession Number: 12761783
+DOI: 10.1109/TITS.2012.2188289
+Publisher: IEEE
+SECTION I.
+Introduction
+
+Road traffic injuries have become a global health and development problem of epidemic proportions. According to the World Health Organization Global Burden of Disease Project for 2004 [1] , road traffic crashes caused over 1.27 million deaths that year. In 2004, these crashes constituted the ninth leading cause of death, and it was estimated that they would rise to the fifth leading cause of death by 2030 [1] . If we account mortality in terms of years of life lost, then the significance of road crashes is even much more relevant, as they are the second, first, and third leading causes of death in the 5–14, 15–29, and 30–44 age groups, respectively [1] .
+
+One of the most severe types of road crashes occurs when a vehicle shifts into an opposing traffic lane and crashes head on with an oncoming vehicle. In the United States alone, there were 3986 fatal head-on crashes in 2003, killing 5063 people [2] . The Fatal Analysis Reporting System indicates that the vast majority of these crashes occur on rural undivided two-lane roads and are the result of an inadvertent action of a driver, causing a run-off-road, or of a deliberate action, i.e., executing a passing maneuver [3] .
+
+Focusing on driver-assistance technologies of modern vehicles, it is clear that a lane-keeping system is an efficient approach to mitigate head-on crashes caused by the inadvertent actions of drivers. Regarding passing maneuvers, however, there are no available systems that help drivers on the decision of whether it is safe to engage on such maneuvers. Evaluating the safety conditions to initiate a passing maneuver is difficult, particularly when the vehicle in front has no transparent surfaces at a level that allows to see through it and perceive incoming traffic. This is the case with trucks and buses, whose length constitutes an additional challenge and that typically travel at slower speeds, being the main subjects of overtaking.
+
+In this paper, we propose a cooperative driver-assistance system for the passing of vision-obstructing vehicles, which combines several technologies that are available for next-generation vehicles, i.e., windshield cameras, computer vision, vehicle-to-vehicle (V2V) communication, and laser holographic projection.
+
+Our system is able to transform large and vision-blocking vehicles into transparent objects that simplify the driver's task of evaluating the safety of a passing maneuver. Using unicast V2V communication based on Dedicated Short-Range Communication (DSRC), the vehicle in front transmits a video streaming of its windshield camera, with the required low delay that is only available through DSRC, to the overtaking vehicle. The overtaking vehicle uses distance sensors and computer vision to determine the geometry of a partially translucent image that is displayed on its windshield, using laser holographic projection [4] and overlapping the vision-obstructing vehicle.
+Fig. 1. - In-vehicle perspective of the functioning of the passing assistant. (a) Driver's view of the road when driving behind a vision-obstructing truck. (b) The driver activates the STS to assist on the passing maneuver. This system will negotiate with the truck the video transmission over DSRC of the truck's windshield camera. Based on the relative position of both vehicles and on the reported dimensions of the truck, the system will generate a 3-D-looking texture framing the real-time video obtained from the truck, transforming this truck into a transparent tubular object. This texture is projected on the windshield, overlapping the rear of the truck.
+Fig. 1.
+
+In-vehicle perspective of the functioning of the passing assistant. (a) Driver's view of the road when driving behind a vision-obstructing truck. (b) The driver activates the STS to assist on the passing maneuver. This system will negotiate with the truck the video transmission over DSRC of the truck's windshield camera. Based on the relative position of both vehicles and on the reported dimensions of the truck, the system will generate a 3-D-looking texture framing the real-time video obtained from the truck, transforming this truck into a transparent tubular object. This texture is projected on the windshield, overlapping the rear of the truck.
+
+Show All
+
+The key contributions on this paper are given here.
+
+    We design a novel cooperative driver-assistance system for passing maneuvers, mitigating the occurrence of one of the most severe types of road crashes by increasing the visibility conditions of drivers traveling behind vision-obstructing vehicles. Our system is a good example of next-generation driver-assistance systems that will collect real-time data from sensors residing in other vehicles, augmenting the sensing range of each individual vehicle. Our passing assistant also provides a very good example of a safety application that motivates the wide adoption of intervehicle DSRC. The required latency and bandwidth usage of this application disable its implementation through infrastructure-based networks, as we show. Its traffic density and geographical context are also totally compatible with the interference and capacity constraints of vehicular networks, as the system can only be activated in areas that are suitable for passing and relies only on unicast one-hop communication. As a safety-related application, our passing assistant is also interesting in an early deployment phase of DSRC, when a reduced number of vehicles are equipped with the technology. Being video based, all incoming vehicles are perceived, regardless of being equipped with DSRC radios. Our system is also fail-safe as it just provides the driver a nondelay-tolerant video streaming, similar to a rear-view mirror, leaving any critical decision to the driver.
+
+    We complement the V2V video streaming aiding the passing maneuver originally presented in [5] with a correct human–machine interface that relies on computer vision, distance sensors, and augmented reality (AR) that is created on the windshield to compute and display a partially transparent image that is superimposed on the windshield to overlay the vision-obstructing vehicle. The novel interface provides a very intuitive message, essentially transforming the vision-obstructing vehicles in transparent tubular objects with the correct length. In particular, it conveys the critical notion of blind spot, which is absent if we simply display the video streaming on a screen in the dashboard. This novel human–machine interface is a critical aspect of the proposed passing assistant, using AR to simplify the reasoning of drivers on the interaction with the system.
+
+    We perform a complete on-the-road evaluation of the performance of the DSRC links for our low-latency video-streaming application, using hardware that is compliant to the WAVE standard [6] at 5.9 GHz. In addition, we compare such performance with cellular-based links, providing evidence that it cannot be implemented with such infrastructure-based networks in terms of the required end-to-end delay.
+
+    We develop a complex driver-centric simulator for the evaluation of applications based on vehicular ad hoc networking (VANET), coupling a realistic driving simulator to a VANET simulator, which tightly interconnects a microscopic traffic simulation engine with the NS-3 network simulator [7] . This novel framework allows evaluating the usability of the driver-assistance systems that leverage on intervehicular networking.
+
+The reminder of this paper is organized as follows: In the next section, we review the state of the art of the in-vehicle technologies required for the implementation of our passing assistant, i.e., windshield cameras and computer vision, V2V communication, and AR generation. Then, in Section III , we describe in detail the cooperative protocol and the generation of the AR perspective. Section IV presents the results for an on-road evaluation of the performance of the DSRC links for this application and compares this performance with that from cellular-based links, focusing on the delay metric, which is critical for the system that we propose. In Section V , we describe the driver-centric simulator developed for the evaluation of the usability of our DSRC-based passing assistant. Finally, Section VI concludes this paper.
+SECTION II.
+State of the Art of Related Technologies
+
+Fig. 1 shows a preview of the functioning of our passing assistant for the typical situation for which it has been designed. We will later describe in detail the passing assistant, but we anticipate the in-vehicle perspective of the system to better motivate the description of the state of the art of the involved technologies that is given next.
+
+The See-Through System (STS) that we propose as a passing maneuver assistant is based on three main technologies: 1) windshield-installed cameras and computer vision; 2) one-hop DSRC-based V2V communication; and 3) AR generation.
+A. Windshield Cameras and Computer Vision
+
+The automotive industry is increasingly equipping vehicles with windshield cameras that provide data to computer-vision-based systems. Some examples of these systems are automatic car following, object classification, and vehicle detection and tracking [8] , [9] . Image-based object detection methods have been proposed in various research projects. In some cases, synchronized cameras were combined to extend the number of parameters such as camera shot angle or camera focal length, combining visual fields in the image-based object detection [10] . Sun et al. [11] conducted an exhaustive review about the most recent vision-based vehicle detection systems that use cameras mounted on the vehicle. The visual processing of those detection systems is based on vision algorithms that focus, for example, on neural networks, temporal-spatial modeling, and fuzzy logic and are useful in the context of the visual-based vehicle guidance for applications such as road following or traffic sign recognition [12] . In this context, Gavrila and Philomin [13] presented a shape-based object detection method based on distance transforms, where object shapes are captured, classified, and used for real-time vision onboard vehicles. Related to this, calculation approaches for obtaining the distance between the driven car and the vehicle ahead can vary, depending on the technology that is used to develop the algorithm. Most of adaptive cruise control (ACC) systems use laser beams or radar to measure the distance [14] , relying, for example, on methods such as the geometrical reasoning method [15] .
+
+The precise localization of the vehicles involved in the overtaking maneuver is crucial in performing coordinate transformation of the video between the vehicles. While cooperative localization is an important technique used for this purpose in wireless sensor networks [16] , the specific characteristics of the overtaking assistant make visual odometry [17] a more suitable technique for obtaining the precise distance between the two vehicles.
+
+Vision-based driver-assistance systems for the overtaking maneuver require low data transmission delay to achieve reliable detection of vehicles coming from the opposite direction. Thus, it is important to obtain motion estimation against image noise to detect the image. In this context, Zhu et al. [18] developed a robust detection method based on variable bandwidth density fusion.
+B. DSRC-Based V2V Communication
+
+V2V and vehicle-to-infrastructure (V2I) communication and its communication standard DSRC enable the design of novel advanced driver-assistance system (ADAS) applications [19] . This kind of communication makes it possible for any ADAS to use data collected by sensors located in other vehicles, thus considerably improving the sensing capabilities of individual vehicles [20] , [21] . A high amount of research projects aim to address intervehicle communication issues. The feasibility of cooperative services using existent technology in the field of wireless mobile communication has been proven in several studies related to different kinds of applications to support the driver, such as crossroad-approaching and lane-changing maneuvers [22] , [23] . In addition, most recent projects deal with the cooperative approach in the context of road transport safety through tests under real conditions [24] , and V2V communication plays a decisive role in several of these projects.
+C. In-Vehicle AR Generation
+
+The use of head-up displays to present information to the driver is rapidly increasing since this kind of representation augments the driver's ability to adapt the visualized data to the real world. However, most of the head-up displays using the windshield cannot be deployed as see-through windows [25] . To overcome this, some navigation system frameworks intend to merge components of the real and the digital world through AR. The technical approach consists of superimposing the route data coming from a conventional navigation system on a livestream video showing the road ahead on the navigation [26] . A similar approach that was particularly designed for low-visibility conditions was implemented to provide the driver with lane boundary information [27] .
+
+Research related to the holographic projection technology is being conducted to reach a higher degree of realism in the images. Projections based on laser technology provide high-brightness images that are not affected by the windshield curvature [28] . Further computational approaches for displaying dynamic holographic images describing instruments that reconstruct real and virtual images are discussed in [29] . In addition to navigational content displayed on the windshield, the virtualization of traffic signs also uses AR to create such traffic signs on the windshield. For instance, virtual traffic lights [30] , [31] have been proposed for the replacement of roadside traffic control infrastructures, resulting in significant increases in traffic flow and important reductions in carbon emissions [32] . There is a significant progress in the emerging field of designing transparent devices. Thus, we apply the AR technology to provide the driver with a tool that enables transparency in the vehicle ahead. A proposal with some similarities to that presented in this paper has been done by one of the leading design studios in Russia: Art Lebedev [33] . The idea consists of locating cameras on the front of a truck, having the cars equipped with WiFi projectors, and projecting the image in a huge canvas on the rear doors of a truck. The vehicles behind can then see what is in front of the truck.
+D. Related Assistance Systems
+
+In the last decades, much effort has been put into developing innovative ADASs to enhance driving safety and comfort [34] –​ [36] . Examples of such systems are Global Positioning System navigation, ACC, night vision, or blind spot detection. Increasing the driver's awareness of the surrounding environment is what all these systems have in common. In particular, cooperative ADASs that detect the existence of other vehicles in the vicinity enable the driver to improve this awareness under low-visibility conditions. The goal of our system is to increase the visual field of the driver in overtaking maneuvers. Few works have been dedicated to this particular issue: For example, the system in [37] assists the driver in avoiding collision through a Smart Dashboard system at a very low cost based on video-based analysis. Other works address overtaking in the intelligent vehicle [38] , [39] or different detection approaches based on technologies such as optical flow [40] . Most of them focus on the blind-spot issue [41] , [42] and lane-departure warning [43] –​ [45] , alerting the driver of a potential hazard and, thus, preventing accidents.
+
+Our passing assistant intends to cover a more general aspect, providing the driver with an additional tool to extend his/her visual perspective in overtaking maneuvers. In the next section, we describe our passing assistant in detail.
+SECTION III.
+Cooperative Protocol and Augmented Reality Generation
+
+We next describe the intervehicle communication protocol for the STS assistant and the generation of the projected image that creates the AR perspective.
+A. Cooperative Communication Protocol
+
+Fig. 2 shows a flowchart with the description of the communication protocol between the two vehicles cooperating on the overtaking maneuver.
+Fig. 2. - Flowchart describing the communication protocol between vehicles A and B.
+Fig. 2.
+
+Flowchart describing the communication protocol between vehicles A and B.
+
+Show All
+
+Periodic beacons sent by each vehicle enabled with DSRC equipment are part of the WAVE standard [6] . These beacons typically carry information with the location, heading, and speed of the beaconing vehicle. In suitable areas for overtaking (detected by onboard road cartography or through the automatic recognition of road signs), the beacons can advertise that vision obstructing (see vehicle B in Fig. 2 ) is enabled with the STS cooperative system. This advertising can be activated by the detection of vehicles traveling behind, based on the same beacons.
+
+If the vehicle intending to overtake (see A in Fig. 2 ) receives the “STS-enabled” beacons and is within a predefined distance of vehicle B (e.g., 50 m), then a “STS Available” sign is displayed to its driver. If the driver decides to activate the STS system, the cooperative protocol between the two vehicles is initiated, with vehicle A asking vehicle B for its relevant dimensions (length, height, and width) and camera parameters (mounting point and viewing angles). Vehicle B then sends these data to vehicle A, which computes the necessary video resolution, accounting as well with the distance to vehicle B.
+
+Currently, we implement the video streaming based on two levels of resolution, which are associated with two distance intervals. The degradation of the wireless link performance as a function of the intervehicle distance is thus balanced through a reduction in the bandwidth requirements for streaming video with a resolution that reduces as the intervehicle distance increases. Vehicle A then asks vehicle B for the video streaming with a specific resolution and updates this resolution request if the intervehicle distance changes to a different interval. During this stage of the STS protocol, vehicle B just sends the video streaming with the required resolution.
+
+The STS protocol can be automatically terminated, based on the relative position and heading of the vehicles, or manually deactivated by the driver of vehicle A.
+B. AR Generation
+
+As the vehicle intending to overtake receives the video streaming from the preceding vehicle, it will have to generate a 3-D-looking image that merges the video with a computed frame, representing the preceding vehicle as a transparent tubular object. This image has to be projected in a specific area of the windshield, overlaying the rear of the preceding vehicle. We do not address in this paper the hardware technology that would support the display of this image, which could, for example, be based on laser holographic projection or transparent liquid-crystal displays embedded on the windshield. We next describe how this image is computed.
+Fig. 3. - Box A represents the vehicle that intends to pursue with the overtaking maneuver, and the preceding vehicle is represented by the dashed box B. The nondashed object displays a transparent tubular object with the shape that best conveys the visual perspective of the driver in vehicle A.
+Fig. 3.
+
+Box A represents the vehicle that intends to pursue with the overtaking maneuver, and the preceding vehicle is represented by the dashed box B. The nondashed object displays a transparent tubular object with the shape that best conveys the visual perspective of the driver in vehicle A.
+
+Show All
+
+Fig. 3 shows the scheme behind the generation of the 3-D-looking image. Box A represents the vehicle that intends to pursue with the overtaking maneuver, and the preceding vehicle is represented by the dashed box B. The nondashed object displays a transparent tubular object with a shape that best conveys the visual perspective of the driver in vehicle A. Fig. 3 shows several variables, such as intervehicle distance, intervehicle angles, and vehicle dimensions, which are used for the computation of the 3-D-looking frame that will be superimposed over the rear of the truck seen through the windshield. The description of these variables can be found in Table I .
+Table I Description of the Variables Used for Framing the Video
+Table - Description of the Variables Used for Framing the Video
+
+The 3-D-looking image grounds on two elements: 1) the video streaming and 2) the shape of the parent tubular object. Angles α and β allow us to compute the distance at which the camera can see the road, i.e., e . Adding the computed e and the length of vehicle B l , we can generate a tubular object with a more realistic length that reflects a more accurate distance at which the objects are captured by the camera. We can thus provide the driver with better depth perception of the video streaming transmitted by vehicle B. Furthermore, the image conveyed to the driver needs to not only give a real depth perception of the real distance of the objects in the video streaming but exhibit possible limitations that can arise from this system as well, such as the blind spot. This limitation emerges as a consequence of the fact that the video streaming only displays the view beyond the distance at which the camera starts to capture the road.
+
+Fig. 4 shows the schematics of the computed image representing the 3-D-looking frame on which the video streaming is superimposed, where we can observe two distinct panels: first, the outside frame that overlays the rear of the preceding vehicle and, second, the inside frame that reproduces the front view of the tubular object by rendering the video streaming. This image needs to be placed in the windshield in a way that overlays the rear of the preceding vehicle. Computer-vision algorithms allow us to define this windshield area, making it possible to outline the outside frame. However, to properly overlay the image, it needs to be shifted, considering the relative position between the driver's eye point and the center of the windshield. This is similar to the calibration of rear-view mirrors and could be set up accordingly.
+Fig. 4. - Schematic of the computed image representing the 3-D-looking frame on which the video streaming is superimposed.
+Fig. 4.
+
+Schematic of the computed image representing the 3-D-looking frame on which the video streaming is superimposed.
+
+Show All
+
+The key in computing the image grounds on ratio r between the computed width/height of the area ( w 0 , h 0 ) and the real width/height of the preceding vehicle ( w , h ) . As the proportions of the image's dimensions are still the same, we can use either ( h 0 , h ) or ( w 0 , w ) , respectively, to calculate the ratio. In (1) , we use ( h 0 , h ) . This ratio will continuously reflect the current distance not only to the rear of the preceding vehicle ( d ) but to the camera's ground capturing point ( d + l + e ) as well. Equations (2) and (3) reflect constant recomputation of the outside frame ( w o , h o ) , and (4) and (5) reflect that of the inside frame ( w i , h i ) . Moreover, this image changes according to the relative position between the driver and the camera given by angles ω and ρ . This will not affect the size of both frames; it just horizontally ( ω ) or vertically ( ρ ) shifts the inside frame. However, if these angles are too wide, the inside frame needs to be cropped to fit the outside frame. Finally, we link the correspondent vertex of each frame, resulting in a 3-D-looking image that displays the video streaming of the preceding vehicle with a realistic depth perception, i.e., r = h o = w o = h i = w i = h h 0 d 0 h d ∗ r w d ∗ r h ( d + l + e ) ∗ r w f ( d + l + e ) ∗ r . (1) (2) (3) (4) (5) View Source Right-click on figure for MathML and additional features. \eqalignno{r =&\, {{h \over h_{0}} \over d_{0}}& \hbox{(1)}\cr h_{o} =&\, {h \over d\ast r}&\hbox{(2)}\cr w_{o} = &\, {w \over d\ast r}&\hbox{(3)}\cr h_{i} =&\, {h \over (d + l + e)\ast r}&\hbox{(4)}\cr w_{i} =&\, {w_{f} \over (d + l + e)\ast r}.& \hbox{(5)}}
+
+To be more accurate, we use a system that uses the camera placed in the windshield to compute the distance between vehicles [17] . It focuses on the point of contact of the vehicle and the road, which combined with the horizontal field of view and the height at which the camera is. Therefore, the computation can be performed with a relative smaller percentage error. The following equations reflect the distance and the percentage error, respectively: Z = Z e r r = Z e r r Z f H n Z 2 f H + n Z . (6) (7) View Source Right-click on figure for MathML and additional features. \eqalignno{Z = &\, {Z_{\rm err} \over Z}fH&\hbox{(6)}\cr Z_{\rm err} = &\, {nZ^{2} \over fH + nZ}.& \hbox{(7)}}
+SECTION IV.
+Network Performance for the Video Streaming
+
+We measured the performance of the overtaking assistant, showing whether and how the packet delay values for a given set of road-based experiments change over the transmission process using both DSRC and Third-Generation (3G) technology. 3G is becoming a common technology that enables connected vehicles, and it is thus important to evaluate the feasibility of our passing assistant based on this communication technology. We have thus performed several field tests using two experimental vehicles on the road.
+A. On-Road Evaluation Results
+
+Our first evaluation uses a one-hop ad hoc approach with the DSRC protocol, in which both vehicles directly communicate. Our second evaluation uses an infrastructure-based approach using 3G technology. These evaluation tests were performed in a countryside scenario, where this type of assistant is more useful and can prevent head-on collisions.
+1. Transmission Process with DSRC: 802.11p Technology
+
+The 802.11p standard defines enhancements to 802.11 required to support wireless local area networks in a vehicular environment, and it operates in the frequency band of 5.9 GHz. The testing platform is constituted by the following elements:
+
+    two LinkBirds MX V3 from NEC Electronics that provide DSRC connectivity;
+
+    high-gain antennas Mobile Mark ECOM6-5500 (5–6 dBi) mounted on the vehicle roof;
+
+    enhanced wireless drivers for establishing connectivity between vehicles;
+
+    one Logitech webcam located on the windshield;
+
+    two laptops running the Ubuntu 10.10 system.
+
+The results in Fig. 5 show that, during the transmission process, 802.11p had a stable behavior in terms of packet delay. This behavior, coupled with low packet delay, enables the support for real-time video streaming over VANET. With DSRC, the driver sees the image with approximately 100 ms of delay. This value is practically unperceptive to the driver and thus enables safe usage of this cooperative assistant to help in the decision to engage in an overtaking maneuver.
+Fig. 5. - Packet delay observed during 1 min of the road experiment with DSRC and 3G.
+Fig. 5.
+
+Packet delay observed during 1 min of the road experiment with DSRC and 3G.
+
+Show All
+
+2. Transmission Process with 3G Technology
+
+Cellular-based connectivity in vehicles is becoming very common, supporting real-time traffic information systems, remote diagnostics, or emergency-related messages. Considering this reality, we decided to evaluate the feasibility of our passing assistant using 3G networking and evaluating the associated packet delay.
+
+The testing platform is constituted by the following elements:
+
+    two 3G network adapters;
+
+    one Logitech webcam located on the windshield;
+
+    two laptops running the Ubuntu 10.10 system.
+
+As shown in Fig. 5 , the results using the 3G cellular infrastructure, which report a delay higher than half a second, are not compatible with the requirements for an overtaking assistant. This type of delay would translate into a gap of several meters between the real position of incoming vehicles and the position perceived through the video streaming.
+
+While 3G can enable several applications relying on connected vehicles, it cannot support the low-latency video streaming required for the passing assistant. DSRC, on the other hand, is able to provide the necessary communication latency and is also, based on its ad hoc nature, compatible with bandwidth constraints that could arise from the use of 3G networking. In Fig. 6 , we can see the difference between the locations of an oncoming vehicle with 0- and 100-ms delay transmission.
+Fig. 6. - Comparison of the video streaming (a) without delay and (b) with 100-ms delay.
+Fig. 6.
+
+Comparison of the video streaming (a) without delay and (b) with 100-ms delay.
+
+Show All
+
+SECTION V.
+Simulation-Based Implementation
+
+The simulation platform integrates both a VANET simulator and an in-vehicle driving simulator for realistic simulation of different traffic situations. In addition, it provides a suitable environment for validating VANET-based applications in the intervehicle communication context because the driver is immersed in a VANET environment [46] . The driver-centric VANET simulation permits to test the utility of systems such as the DSRC-based passing assistant, as well as the communication capabilities between the simulated vehicles.
+
+A key element of our simulation-based implementation is an in-vehicle environment; therefore, we use a SMART car to build the physical simulator platform, which consists of the following components:
+
+    cockpit with all controls;
+
+    steering wheel;
+
+    acceleration and braking pedals;
+
+    driver and passenger's car seat;
+
+    dashboard with instruments;
+
+    windshield for projecting information;
+
+    a 7 × 4 portable display system for easy assembly at any location;
+
+    head-up display (simulated based on the projected image);
+
+    sound system.
+
+The interaction with the system takes place through a manual press control that can be activated or deactivated, depending on the need. Fig. 7 shows the interaction between the in-vehicle simulator that consists of a cockpit-level simulator and a VANET simulator incorporating the physical real car frame and the virtual scenarios stored in a database.
+Fig. 7. - Diagram illustrating the virtual scenario, the VANET, and the cockpit-level simulator and their interaction with the real car frame.
+Fig. 7.
+
+Diagram illustrating the virtual scenario, the VANET, and the cockpit-level simulator and their interaction with the real car frame.
+
+Show All
+
+The simulated scenario consists of a circuit with four curves, with a total length of approximately 5 km, in which each straight line has approximately 1 km. It represents two lanes: 1) the cruising lane (on the right side) and 2) the passing lane or lane for overtaking (on the left side). Fig. 8 shows the circuit used for the simulation and a partial view of the 3-D scenario without vehicles.
+Fig. 8. - Circuit used for the usability evaluation of the passing assistant.
+Fig. 8.
+
+Circuit used for the usability evaluation of the passing assistant.
+
+Show All
+
+We use realistic graphics to implement the 3-D road scenario that includes traffic signs, such as speed limits and permission/prohibition of overtaking vehicles. In addition, the simulator is able to render potential damage and offers the ability to change the vehicles and the scenario. The simulated vehicles include motorbikes, cars, and trucks of different sizes. The average speed of the simulated vehicles varies from 50 to 90 km/h, with the average distance between cars being 50–50 m. We run some preliminary tests on our system to evaluate the usability of the passing assistant. We chose a sample of five people to run the experiment. Every person drove in the simulated circuit for 10 min while activating the passing assistant when necessary and 10 min without activating it. Log files recorded the time spent by the experiment's participant behind a vision-obstructing vehicle, a record of possible crashes, and metrics related to the distance that the participant covered. The threshold value to the time spent behind such vehicle was 100 m, which is precisely the distance at which the driver can activate the passing assistant.
+
+Preliminary results show that the average time that the participants spent behind a vision-obstructing vehicle is 45% smaller when the passing assistant was activated than when it was not. The system was active for an average of 1.6 s. All participants reported that they consider the passing assistant very helpful in the overtaking maneuver.
+SECTION VI.
+Conclusion
+
+In this paper, we have presented a cooperative ADAS for the passing maneuvers of large and vision-obstructing vehicles, leveraging the unique characteristics of DSRC that enable very low latency video streaming between two vehicles. We have also designed a sophisticated human–machine interface based on AR, which seamlessly transforms the vehicles being overtaken into transparent tubular objects. Our system is a good example of the emergent driver-assistance systems that will collect information from sensors residing in neighbor vehicles, through intervehicle communication, greatly increasing the capacity of sensing the road of each individual vehicle. Our overtaking assistant and the performance of DSRC for the required video streaming have been thoroughly evaluated, based on road tests using 802.11p radios and a simulation-based framework to test its usability. This type of DSRC-based assistance system also has an additional characteristic, which is important for the early stages of deployment of intervehicle communication: To function, it requires that only the two vehicles involved in the overtaking maneuver are equipped with the system, providing a significant advantage if this is the case while bringing no disadvantages if it is not the case.
+
+Authors
+Figures
+References
+Citations
+Keywords
+Metrics
+More Like This
+Real-time on-road vehicle and motorcycle detection using a single camera
+
+2009 IEEE International Conference on Industrial Technology
+
+Published: 2009
+Improving Camera Pose Estimation for Indoor Marker-less Augmented Reality
+
+2015 IEEE International Conference on Computer and Information Technology; Ubiquitous Computing and Communications; Dependable, Autonomic and Secure Computing; Pervasive Intelligence and Computing
+
+Published: 2015
+Show More
+References
+1.
+Global Status Report on Road Safety , 2009.
+Show in Context Google Scholar
+2.
+Strategic Highway Safety Plan: A Comprehensive Plan to Substantially Reduce Vehicle-Related Fatalities and Injuries on the Nations Highways , 2005.
+Show in Context Google Scholar
+3.
+T. Neuman, R. Pfefer, K. Slack, K. Hardy, H. McGee, L. Prothe, et al., Guidance for implementation of the AASHTO strategic highway safety plan. Volume 4: A guide for addressing head-on collisions , 2003.
+Show in Context Google Scholar
+4.
+E. Buckley, "Holographic laser projection technology", Proc. Inf. Display , vol. 8, pp. 1074-1079, 2008-Dec.
+Show in Context CrossRef Google Scholar
+5.
+C. Olaverri-Monreal, P. Gomes, R. Fernandes, F. Vieira and M. Ferreira, "The see-through system: A VANET-enabled assistant for overtaking maneuvers", Proc. IEEE IV Symp. , pp. 123-128, 2010.
+Show in Context View Article
+Google Scholar
+6.
+D. Jiang and L. Delgrossi, "IEEE 802.11 p: Towards an international standard for wireless access in vehicular environments", Proc. IEEE VTC Spring , pp. 2036-2040, 2008.
+Show in Context View Article
+Google Scholar
+7.
+R. Fernandes, P. M. d'Orey and M. Ferreira, "DIVERT for realistic simulation of heterogeneous vehicular networks", Proc. IEEE 7th Int. Conf. MASS , pp. 721-726.
+Show in Context View Article
+Google Scholar
+8.
+M. Schwarzinger, T. Zielke, D. Noll, M. Brauckmann and W. Von Seelen, "Vision-based car-following: Detection tracking and identification", Proc. Intell. Veh. Symp. , pp. 24-29, 2002.
+Show in Context View Article
+Google Scholar
+9.
+X. Clady, F. Collange, F. Jurie and P. Martinet, "Cars detection and tracking with a vision sensor", Proc. Intell. Veh. Symp , pp. 593-598, 2003.
+Show in Context View Article
+Google Scholar
+10.
+X. Zheng and Y. Zhang, "An image-based object detection method using two cameras", Proc. Int. Conf. LEITS , pp. 1-5, 2010.
+Show in Context View Article
+Google Scholar
+11.
+Z. Sun, G. Bebis and R. Miller, "On-road vehicle detection: A review", IEEE Trans. Pattern Anal. Mach. Intell. , vol. 28, no. 5, pp. 694-711, May 2006.
+Show in Context View Article
+Google Scholar
+12.
+I. Masaki, "Vision-based vehicle guidance", Proc. 1992 Int. Conf. Ind. Electron. Control Instrum. Autom. Power Electron. Motion Control , pp. 862-867, 2002.
+Show in Context Google Scholar
+13.
+D. Gavrila and V. Philomin, "Real-time object detection for smart vehicles", Proc. 7th IEEE Int. Conf. Comput. Vis. , pp. 87-93, 1999.
+Show in Context View Article
+Google Scholar
+14.
+W. Jones, "Keeping cars from crashing", IEEE Spectr. , vol. 38, no. 9, pp. 40-45, Sep. 2001.
+Show in Context View Article
+Google Scholar
+15.
+D. Anderson and T. Chang, "Geometric reasoning in feature-based design and process planning", Comput. Graph. , vol. 14, no. 2, pp. 225-235, 1990.
+Show in Context CrossRef Google Scholar
+16.
+N. Patwari, J. Ash, S. Kyperountas, A. Hero, R. Moses and N. Correal, "Locating the nodes: Cooperative localization in wireless sensor networks", IEEE Signal Process. Mag. , vol. 22, no. 4, pp. 54-69, Jul. 2005.
+Show in Context View Article
+Google Scholar
+17.
+G. Stein, O. Mano and A. Shashua, "Vision-based ACC with a single camera: Bounds on range and range rate accuracy", Proc. IEEE Intell. Veh. Symp. , pp. 120-125, 2003.
+Show in Context View Article
+Google Scholar
+18.
+Y. Zhu, D. Comaniciu, M. Pellkofer and T. Koehler, "Reliable detection of overtaking vehicles using robust information fusion", IEEE Trans. Intell. Transp. Syst. , vol. 7, no. 4, pp. 401-414, Dec. 2006.
+Show in Context View Article
+Google Scholar
+19.
+R. Penazzi, P. Capozio, M. Duncan, A. Scuderi, M. Siti and E. Merli, "Cooperative safety: A combination of multiple technologies", Proc. Conf. Des. Autom. Test Europe , pp. 959-961, 2008.
+Show in Context View Article
+Google Scholar
+20.
+D. Reichardt, M. Miglietta, L. Moretti, P. Morsink and W. Schulz, "CarTALK 2000: Safe and comfortable driving based upon inter-vehicle-communication", Proc. IEEE Intell. Veh. Symp. , vol. 2, pp. 545-550, 2002.
+Show in Context View Article
+Google Scholar
+21.
+C. Stiller, G. Farber and S. Kammel, "Cooperative cognitive automobiles", Proc. IEEE Intell. Veh. Symp. , pp. 215-220, 2007.
+Show in Context View Article
+Google Scholar
+22.
+S. Tsugawa, S. Kato, K. Tokuda, T. Matsui and H. Fujii, "A cooperative driving system with automated vehicles and inter-vehicle communications in Demo 2000", Proc. IEEE Intell. Transp. Syst. , pp. 918-923, 2001.
+Show in Context View Article
+Google Scholar
+23.
+S. Ammoun and F. Nashashibi, "Design and efficiency measurement of cooperative driver-assistance system based on wireless communication devices", Transp. Res. Part C Emerging Technol. , vol. 18, no. 3, pp. 408-428, 2010.
+Show in Context CrossRef Google Scholar
+24.
+G. Vivo, "The SAFESPOT integrated project: An overview", Proc. IEEE Intell. Veh. Symp. , pp. 14, 2007.
+Show in Context View Article
+Google Scholar
+25.
+G. Burnett, "A road-based evaluation of a head-up display for presenting navigation information", Proc. HCI Int. Conf. , vol. 3, pp. 180-184, 2003.
+Show in Context Google Scholar
+26.
+W. Narzt, G. Pomberger, A. Ferscha, D. Kolb, R. Mller, J. Wieghardt, et al., "A new visualization concept for navigation systems", Proc. 8th ERCIM WorkshopUI4All , pp. 440-451, 2004.
+Show in Context CrossRef Google Scholar
+27.
+H. Lim, B. Newstrom, C. Shankwitz and M. Donath, "A heads up display based on a DGPS and real time accessible geo-spatial database for low visibility driving", Proc. 12th Int. Meeting Satellite Division Inst. Navig. ION GPS , pp. 469-478, 1999.
+Show in Context Google Scholar
+28.
+E. Buckley and D. Stindt, "Full colour holographic laser projector HUD", Proc. SID Annu. Symp. Veh. Displays , vol. 15, pp. 131-135, 2008.
+Show in Context Google Scholar
+29.
+M. Huebschman, B. Munjuluri and H. Garner, "Dynamic holographic 3-D image projection", Opt. Exp. , vol. 11, no. 5, pp. 437-445, Mar. 2003.
+Show in Context CrossRef Google Scholar
+30.
+M. Ferreira, R. Fernandes, H. Conceio, W. Viriyasitavat and O. Tonguz, "Self-organized traffic control", Proc. 7th ACM Int. Workshop Veh. InterNETworking , pp. 85-90, 2010.
+Show in Context CrossRef Google Scholar
+31.
+M. Brown, S. Gilbert, N. Lynch, C. Newport, T. Nolte and M. Spindel, "The virtual node layer: A programming abstraction for wireless sensor networks", ACM SIGBED Rev. , vol. 4, no. 3, pp. 7-12, Jul. 2007.
+Show in Context CrossRef Google Scholar
+32.
+M. Ferreira and P. M. d'Orey, "On the impact of virtual traffic lights on carbon emissions mitigation", IEEE Trans. Intell. Transp. Syst. , vol. 13, no. 1, pp. 284-295, Mar. 2012.
+Show in Context View Article
+Google Scholar
+33.
+Transparent Trucks Show the Road Ahead , 2009.
+Show in Context Google Scholar
+34.
+A. Gallet, M. Spigai and M. Hamidi, "Use of vehicle navigation in driver-assistance systems", Proc. IEEE Intell. Veh. Symp. , pp. 492-497, 2000.
+Show in Context View Article
+Google Scholar
+35.
+K. Brookhuis, D. De Waard and W. Janssen, "Behavioural impacts of advanced driver-assistance systems—An overview", EJTIR , vol. 1, no. 3, pp. 245-253, 2001.
+Show in Context Google Scholar
+36.
+E. Molin and V. Marchau, "User perceptions and preferences of advanced driver-assistance systems", Transp. Res. Rec. J. Transp. Res. Board , vol. 1886, no. 1, pp. 119-125, 2004.
+Show in Context CrossRef Google Scholar
+37.
+M. Akhlaq, A Smart-Dashboard Augmenting Safe & Smooth Driving, Sweden, Karlskrona:Sch. Comput., Blekinge Inst. Technol., 2010.
+Show in Context Google Scholar
+38.
+F. Wang, M. Yang and R. Yang, "Conflict-probability-estimation-based overtaking for intelligent vehicles", IEEE Trans. Intell. Transp. Syst. , vol. 10, no. 2, pp. 366-370, Jun. 2009.
+Show in Context View Article
+Google Scholar
+39.
+J. Naranjo, C. Gonzlez, R. Garca and T. de Pedro, "Lane-change fuzzy control in autonomous vehicles for the overtaking maneuver", IEEE Trans. Intell. Transp. Syst. , vol. 9, no. 3, pp. 438-450, Sep. 2008.
+Show in Context View Article
+Google Scholar
+40.
+P. Batavia, D. Pomerleau and C. Thorpe, "Overtaking vehicle detection using implicit optical flow", Proc. IEEE Conf. ITSC , pp. 729-734, 2002.
+Show in Context Google Scholar
+41.
+D. Ngai and N. Yung, "Automated vehicle overtaking based on a multiple-goal reinforcement learning framework", Proc. Intell. Transp. Syst. Conf. , pp. 818-823, 2007.
+Show in Context View Article
+Google Scholar
+42.
+S. Mota, E. Ros, E. Ortigosa and F. Pelayo, "Bio-inspired motion detection for a blind spot overtaking monitor", Int. J. Robot. Autom. , vol. 19, no. 4, pp. 190-196, 2004.
+Show in Context CrossRef Google Scholar
+43.
+J. Clanton, D. Bevly and A. Hodel, "A low-cost solution for an integrated multisensor lane departure warning system", IEEE Trans. Intell. Transp. Syst. , vol. 10, no. 1, pp. 47-59, Mar. 2009.
+Show in Context View Article
+Google Scholar
+44.
+P. Angkititrakul, R. Terashima and T. Wakita, "On the use of stochastic driver behavior model in lane departure warning", IEEE Trans. Intell. Transp. Syst. , vol. 12, no. 1, pp. 174-183, Mar. 2011.
+Show in Context View Article
+Google Scholar
+45.
+A. Amditis, M. Bimpas, G. Thomaidis, M. Tsogas, M. Netto, S. Mammar, et al., "A situation-adaptive lane-keeping support system: Overview of the SAFELANE approach", IEEE Trans. Intell. Transp. Syst. , vol. 11, no. 3, pp. 617-629, Sep. 2010.
+Show in Context View Article
+Google Scholar
+46.
+P. Gomes, C. Olaverri Monreal, M. Ferreira and L. Damas, "Driver-centric VANET simulation", Proc. Nets4Cars Int. Workshop Commun. Technol. Veh. German Aerosp. Center (DLR) , pp. 143-154, 2011.
+Show in Context CrossRef Google Scholar
+IEEE Personal Account
+
+    Change username/password 
+
+Purchase Details
+
+    Payment Options
+    View Purchased Documents 
+
+Profile Information
+
+    Communications Preferences
+    Profession and Education
+    Technical interests 
+
+Need Help?
+
+    US & Canada: +1 800 678 4333
+    Worldwide: +1 732 981 0060
+    Contact & Support 
+
+Follow
+
+About IEEE Xplore | Contact Us | Help | Accessibility | Terms of Use | Nondiscrimination Policy | IEEE Ethics Reporting | Sitemap | IEEE Privacy Policy
+
+A not-for-profit organization, IEEE is the world's largest technical professional organization dedicated to advancing technology for the benefit of humanity.
+
+© Copyright 2023 IEEE - All rights reserved.
+PDF Help

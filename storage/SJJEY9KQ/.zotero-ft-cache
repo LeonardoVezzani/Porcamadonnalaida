@@ -1,0 +1,735 @@
+International Journal of Information Technologies and Systems Approach Volume 16 • Issue 2
+Exploring Enhancement of AR-HUD Visual Interaction Design Through Application of Intelligent Algorithms
+Jian Teng, School of Mechanical and Electrical Engineering, Lingnan Normal University, Zhanjiang, China* Fucheng Wan, School of Mechanical and Electrical Engineering, Lingnan Normal University, Zhanjiang, China Yiquan Kong, School of Computer and Intelligent Manufacturing, Lingnan Normal University, Zhanjiang, China
+
+ABSTRACT
+This study aims to optimize the visual interaction design of AR-HUD and reduce cognitive load in complex driving situations. An immersive driving simulation incorporating eye-tracking technology was utilized to analyze objective physiological indices and measure subjective cognitive load using the NASA-TLX. Additionally, a visual cognitive load index was integrated into a BP-GA neural network model for load prediction, enabling the derivation of an optimal solution for AR-HUD design. The optimized AR-HUD interface demonstrated a significant reduction in cognitive load compared to the previous prototype. The experimental group achieved a mean total score of 25.63 on the WP scale, whereas the control group scored 43.53, indicating a remarkable improvement of 41.1%. This study presents an innovative approach to optimizing AR-HUD design, effectively reducing cognitive load in complex driving situations. The findings demonstrate the potential of the proposed algorithm to enhance user experience and performance.
+Keywords
+AR-HUD, Cognitive Load, Eye Tracking, Intelligent Algorithm, Interaction Design
+
+INTRODUCTION
+Augmented Reality-Head Up Display (AR-HUD) technology has gained considerable traction in the field of driving assistance due to its capacity to present dashboard information while allowing the driver to maintain their focus on the road ahead. By overlaying virtual information onto the driver’s field of view, the transparent AR-HUD display offers vital data such as speed, navigation instructions, and vehicle alerts. Consequently, this technology holds the potential to enhance driving safety by alleviating cognitive load (Cao et al., 2022). The realm of interactive design for AR-HUD systems has witnessed substantial advancements in recent years, and it has had a primary objective of enhancing user experience and minimizing distractions during driving. A pivotal challenge in AR-HUD system design revolves around presenting information in a manner that is easily comprehensible and that does not divert the driver’s attention from the road. To address this challenge, researchers have devised
+
+DOI: 10.4018/IJITSA.326558
+
+*Corresponding Author
+
+This article published as an Open Access article distributed under the terms of the Creative Commons Attribution License (http://creativecommons.org/licenses/by/4.0/) which permits unrestricted use, distribution, and production in any medium,
+provided the author of the original work and original publication source are properly credited.
+
+1
+
+International Journal of Information Technologies and Systems Approach Volume 16 • Issue 2
+various interactive design strategies tailored specifically for AR-HUD systems. One prominent strategy involves employing color and brightness adjustments to emphasize crucial information while mitigating distractions. By utilizing appropriate color schemes and brightness levels, the display can become more user-friendly and visually appealing. For instance, employing visually comfortable colors like blue and green (Gabbard, J. L. et al., 2020) can effectively present information in a way that does not monopolize the driver’s attention. Another crucial facet of AR-HUD interactive design is the integration of audio and haptic feedback. Audio feedback enables the provision of important updates, such as speed or navigation information, to the driver without necessitating visual diversion. Similarly, haptic feedback, in the form of vibrations or touch, offers a tangible response to significant cues like speed limit alerts or lane changes. Moreover, the incorporation of machine learning algorithms has emerged as a valuable component in AR-HUD interactive design. These algorithms can analyze the driver’s behavior and context to anticipate what information they might need to see next. This predictive capability allows the system to adjust the display content in real-time, presenting the most relevant information in the most effective way. This not only reduces cognitive load but also enhances driving safety. Additionally, the use of machine learning algorithms improves the accuracy of the AR-HUD system, thereby reducing the likelihood of errors or false alerts. In recent years, a noticeable trend has emerged in the field of AR-HUD systems that focuses on the development of highly customizable and personalized solutions. These advanced systems grant drivers the ability to tailor the display to their specific preferences and driving habits. Customization options encompass adjustments in information size and position and provide the freedom to select which information to display. By affording such customization features, AR-HUD systems effectively mitigate cognitive load by presenting solely pertinent information to the driver, thus optimizing the user experience (Zhang & Zhou, 2018).
+The study is organized as follows: The introduction section (Section 1) provides a comprehensive overview of the research topic, outlining the underlying motivations driving the study. In the related work section (Section 2), an extensive review of pertinent literature and previous studies related to AR-HUD interfaces and cognitive load is presented. The methods section (Section 3) delineates the theoretical framework of AR-HUD visual perception intensity, expounds upon the design of the HCI prototype for the AR-HUD experiment, elucidates the experimental equipment employed, describes the experimental methodology implemented, and outlines the data collection methods employed. Moving forward, the results section (Section 4) delineates the outcomes derived from the eye-tracking experiment, details the algorithm integrating GA and BPNN, presents the optimized mathematical model predicated on cognitive load and visual intensity, elucidates the case study involving the ARHUD interface, and provides in-depth insights into the chromosome coding, topological structure, model parameters, and genetic algorithm utilized in the neural network model. The discussion section (Section 5) critically evaluates the limitations inherent in the current research and proposes potential avenues for future investigation and improvement. Lastly, the conclusion section (Section 6) succinctly summarizes the pivotal findings of the study and offers concluding remarks to encapsulate the overall research endeavor.
+RELATED WORK
+In recent years, a substantial increase in research efforts has been observed in the field of Augmented Reality-Head Up Display (AR-HUD) systems. This surge in research is primarily driven by the immense potential of AR-HUD systems in enhancing driving safety and efficiency. This section provides a comprehensive review of the existing literature pertaining to AR-HUD systems, with a specific focus on the development of AR-HUD interfaces and the evaluation of their performance. Furthermore, the integration of machine learning methodologies within AR-HUD systems is also explored, as this represents a promising area of research with potential implications for improving the functionality and effectiveness of AR-HUD technology.
+2
+
+International Journal of Information Technologies and Systems Approach
+Volume 16 • Issue 2
+AR-HUD systems have found extensive application in various domains, including navigation aids, speed monitoring, and alert mechanisms. Previous research efforts have primarily focused on the development of AR-HUD interfaces and their impact on driver behavior. For instance, Park and Kim (2014) proposed an AR-HUD system that would be integrated into vehicles and that would be capable of identifying critical driving data and presenting it within the driver’s field of view. Bark et al. (2015) demonstrated that AR-HUD-assisted navigation facilitates quicker responses to turns. In a different study, Lee et al. (2016) introduced a novel approach to evaluating driver gaze patterns, situational awareness, self-confidence, and cognitive workload in regards to AR-HUD systems. In the context of China, Fang (2016) employed Human-Machine Interaction (HMI) techniques to inform the design of AR-HUD interactions from the user’s perspective, which resulted in natural and intuitive user experiences. Sun et al. (2019) analyzed eye-tracking data, including gaze trajectories and heat maps, to assess an enhanced AR-HUD layout, proposing tiered design concepts as a reference for safe driving design. Additionally, Li et al. (2017) applied Kansei Engineering to evaluate the effectiveness of the AR-HUD system, affirming its optimization potential through the development of a prototype.
+In addition to interface development, the integration of machine learning algorithms has emerged as a prominent area of research in enhancing the capabilities and adaptability of AR-HUD systems. Abu-Khadrah et al. (2022) introduced an adaptive algorithm recommendation system that leverages computer vision and depth neural networks to improve the design of head-up display (HUD). By enhancing object detection speed in multi-layer smart city environments, this system reduces processing time, errors, and computational requirements. Murugan et al. (2022) propose a machine learning-driven AR-HUD system for autonomous vehicles, aiming to enhance driving safety and alleviate driver workload. This system utilizes object detection and data classification, employing a deep neural network to assess the vehicle’s status and categorize moving objects. With an impressive F-1 score of 86%, the system demonstrates high accuracy and precision, thus validating its effectiveness in promoting driving safety. Furthermore, Abdi and Meddeb (2017) put forth a fast object detection method based on intelligent algorithms. This method enables the identification of various road obstacle types and facilitates the comprehension of complex traffic scenes. The study also discusses the potential advantages and disadvantages of employing the dynamic conformal method AR-HUD to enhance driving safety.
+Despite profound progress made in the field of AR-HUD systems, previous research has not fully exploited the potential of machine learning algorithms nor extensively explored the cognitive load and mental states of drivers. The cognitive burden experienced by drivers is influenced not only by the functionality of the AR-HUD system itself but also by the driver’s cognitive and emotional states. Therefore, it is imperative to adopt a more comprehensive approach that takes into account the driver’s cognitive load and psychological state in order to effectively refine the AR-HUD system and optimize its performance.
+To bridge the existing research gaps, this study presents a novel approach aimed at optimizing the visual interaction design of AR-HUD systems. The proposed technique integrates cognitive load, mental state assessment, and machine learning algorithms to determine the most appropriate adaptation mode for AR-HUD design. The primary objective is to minimize cognitive load and enhance driving safety by tailoring the AR-HUD design to accommodate the driver’s cognitive status, mental state, driving behavior, and physiological signals. By considering these multifaceted factors, the study strives to achieve an optimal AR-HUD configuration that harmonizes with the driver’s individual characteristics, thus promoting improved usability and driving performance.
+The proposed methodology encompasses an immersive driving simulation coupled with eyetracking technology to analyze objective physiological indices, including eye-tracking patterns and visual resource allocation. Subjective cognitive load is measured using the NASA-TLX test method, a well-established assessment tool for cognitive workload (Hart & Staveland, 1988). To quantify the driver’s cognitive burden during the driving task, a visual cognitive load index is formulated. In order to predict the visual cognitive load, the study employs a BP-GA (genetic algorithm based on neural
+3
+
+International Journal of Information Technologies and Systems Approach Volume 16 • Issue 2
+network optimization) approach. This involves developing a neural network model that integrates the visual cognitive load prediction, which is then incorporated into the genetic algorithm’s fitness function to obtain the optimal solution for AR-HUD visual interaction design. The reliability of the algorithm is assessed using the Cooper-Harper Scale (CH), a recognized measure for evaluating the usability of cockpit designs. Through this rigorous methodology, an optimal AR-HUD visual interaction scheme is derived. By adopting this research methodology, the study presents a novel perspective on visual interaction design for human-machine interfaces utilizing augmented reality technology.
+In summary, while previous research has primarily focused on the design and evaluation of ARHUD interfaces and their impact on driving behavior, these studies have not thoroughly addressed the driver’s cognitive load and mental state. Moreover, the potential of machine learning algorithms in enhancing AR-HUD technology has not been fully explored. Consequently, this study introduces a pioneering approach aimed at optimizing AR-HUD visual interaction. By integrating cognitive load assessment, analysis of eye-tracking data, and the application of machine learning algorithms, the study aims to ascertain the optimal adaptation mode for the AR-HUD interface. Through this innovative method, the study seeks to enhance the user experience and improve driving performance associated with AR-HUD technology.
+METHODS AR-HUD Visual Perception Intensity Theory The fundamental principle of AR-HUD technology revolves around the utilization of a semi-reflective and semi-transparent curved mirror, as illustrated in Figure 1 (Smith et al., 2017). This innovative design facilitates the magnification of the image source’s display, resulting in a virtual projection on the windshield. As such, drivers can conveniently access essential driving information through the projected image situated directly within their field of view, eliminating the necessity of diverting their gaze towards the conventional dashboard or interior of the vehicle.
+Scientific research has revealed that receptor cells in the retina do not exhibit a uniform distribution pattern. Specifically, cone cells, which are responsible for detecting bright visual stimuli, display an uneven distribution across the retina. Notably, the highest density of cone cells is concentrated within a 1-degree range from the center of the visual field. As the eccentricity from this central point increases, the number of cone cells progressively diminishes, subsequently leading to a decline in human visual perception ability (Zhang et al., 2016).
+Figure 1. Principle of augmented reality head-up display
+4
+
+International Journal of Information Technologies and Systems Approach Volume 16 • Issue 2
+Porat and Zeevi’s (1988) theory of cone perception introduces a framework in which the planar region is divided into a multitude of elementary square segments, each characterized by a side length of ‘a’, as illustrated in Figure 2. In this segmentation process, incomplete edges of the segments are disregarded. Subsequently, each segment is assigned a visual perception intensity level based on its positioning within the field of visual perception. Notably, as illustrated in Figure 3, when segments lie on the boundaries of different regions, their selection is determined by their respective area proportions in the distinct regions (Blignaut & Beelders, 2007; Ding, 2017; Halit et al., 2015; Liu & Huang, 2021; Chen, Y., 2013; Shic et al., 2008; Zhang et al.). AR-HUD Interface Design and Layout The placement of the AR-HUD follows both AR-HUD design guidelines and considerations of human vision characteristics. It is positioned in the lower right section of the windshield, strategically located within the driver’s central visual zone, as exemplified in Figure 4. The visual information displayed by the AR-HUD is confined within a specific range of binocular vision, which is determined by the vehicle’s speed. When the speed is below 75 km/h, the data are presented within 85° of binocular vision. In the speed range of 75 km/h to 100 km/h, the data occupy less than 65% of binocular vision. For speeds exceeding 100 km/h, the data are limited to 40° of binocular vision. The layout of the ARHUD consists of six distinct components, as depicted in Figure 5. These components are as follows: A) driving condition and gear data, B) alert information zone, C) velocity figures, D) navigational information including directions and additional driving indicators, E) RPM display section, and F) other driving assistance information.
+Figure 2. Regional division of HCI perception intensity visual intensity map
+Figure 3. Regional division of HCI perception intensity division of visual perception area of interface
+5
+
+International Journal of Information Technologies and Systems Approach Volume 16 • Issue 2
+Figure 4. AR-HUD design scheme AR-HUD interface design
+Figure 5. AR-HUD design scheme AR-HUD interface layout
+Experimental Equipment The visual layouts utilized in the experiment were carefully crafted by incorporating insights from a meticulous examination of established AR-HUD systems and industry norms. To ensure the authenticity and practicality of the selected layouts, a panel of experts consisting of automotive engineers and human-machine interface (HMI) designers was convened. Their expertise and knowledge were instrumental in ensuring that the chosen layouts accurately represented real-world AR-HUD systems. The 21 representative AR-HUD interfaces were thoughtfully selected, taking into account their potential impact on cognitive load and driving safety. The variations encompassed diverse aspects such as color, brightness, layout, and content. This comprehensive range of design possibilities allowed for a comprehensive exploration of the effects of different visual configurations on the driver’s cognitive load and overall driving experience.
+The driving simulation and eye-tracking examination in this research are conducted using the HTC VIVE head-mounted display apparatus. The experimental setup involves a computer system connected to appropriate ports for the steering wheel, pedals, and gears. To create a realistic and interactive driving experience, the Unity3D engine is employed to develop a driving assistance evaluation system on a virtual reality (VR) platform. This entails writing logical code to simulate various vehicle actions and provide an immersive driving environment. In addition, the Unity3D framework is enhanced with eye-tracking analysis functionality to facilitate eye-tracking examinations. By integrating the eye-tracking analysis software development kit (SDK), comprehensive gaze duration data for both the left and right eyes are captured as raw data. To ensure accurate synchronization of eye-tracking information, the system incorporates external TTL (Transistor-Transistor Logic) event signals received through the input port. The system architecture is illustrated in Figure 6.
+6
+
+International Journal of Information Technologies and Systems Approach Volume 16 • Issue 2
+Figure 6. Structure of AR-HUD driving assistant test system
+The study recruited a sample of 31 individuals. The inclusion criteria for participation in the study were that the individuals had to be healthy volunteers. The average age of the participants was 25.36 years, with a standard deviation of 4.97, indicating a relatively young and healthy group of participants.
+Before the participants were allowed to take part in the study, they underwent a thorough screening process. This process was designed to ensure that all participants were in good mental health, which is crucial for participating in a study that involves driving simulation and the use of virtual reality technology. The screening process likely involved a series of questionnaires or interviews to assess the mental health status of the participants. During the testing phase of the study, the participants were closely monitored for any signs of discomfort or adverse effects associated with the use of the virtual reality (VR) simulation. The VR simulation can sometimes cause side effects such as dizziness or nausea in some individuals, so it was important to ensure that the participants were comfortable throughout the testing process. Fortunately, none of the participants reported experiencing any such issues during the study.
+Another important criterion for participation in the study was that all participants had to possess a valid driver’s license. This was to ensure that the participants had a basic understanding of driving and could realistically engage with the driving simulation. Furthermore, the participants had an average of over 5 years of driving experience. This level of experience suggests that the participants were not only familiar with the basics of driving but also had a significant amount of real-world driving experience, which could potentially influence their interaction with the AR-HUD system. By carefully selecting and screening the participants, the study ensured that the results would be relevant and applicable to the general population of drivers.
+Figure 7 showcases the simulation platform utilized in this study; it encompassed a replica car cockpit, an interactive display screen, and an AR helmet equipped with eye-tracking capabilities. To create a realistic driving environment and target scenes for visual search and exploration, the Unity3D simulation software was employed. This software not only enables the construction of a dynamic driving environment but also captures real-time data on vehicle operations and driving behavior. The availability of this comprehensive data allows for in-depth analysis and examination of the driving simulation, contributing to a more thorough understanding of the experimental outcomes.
+7
+
+International Journal of Information Technologies and Systems Approach Volume 16 • Issue 2 Figure 7. Experimental environment and equipment
+Experimental Method This research investigates a range of visual design patterns in typical AR-HUD information interfaces and aims to assess their impact on user cognitive load. In order to minimize potential biases and order effects, a randomized sequence of the 21 representative AR-HUD interfaces was employed during the experiments. By randomizing the order in which the visual schemes were presented to each participant, the study ensured that each individual experienced a unique sequence, reducing the influence of any systematic biases and order-related factors.
+Figure 8 presents a detailed description of the experimental procedure employed in this study. Participants were randomly exposed to 21 distinct AR-HUD visual schemes to assess their visual cognitive load. During the experiments, the experimental vehicle was driven in a lane alongside another car located 100 meters ahead, both traveling in the same direction. Participants maintained a constant speed of 40 km/h and a minimum distance of 50 meters from the leading car. Each test session involved driving tasks with different visual layouts of the AR-HUD interface, and these layouts were presented in a randomized order. Participants actively scanned the AR-HUD for information
+Figure 8. Experimental process
+8
+
+International Journal of Information Technologies and Systems Approach Volume 16 • Issue 2
+
+during each task and subsequently reported verbally the content displayed in each section of the ARHUD interface. The driving eye-tracking data of the experimental participants were systematically collected after test completion. The simulation experiments were conducted on city roads under favorable weather conditions and moderate traffic. Prior to the experiments, participants underwent a 15-minute operation training session to familiarize themselves with the simulator’s functionalities, including visual search techniques, target warnings, and driving modes. Subsequent to each test, participants utilized the NASA-TLX cognitive load assessment form to subjectively evaluate their cognitive load associated with the AR-HUD interface (Hart & Staveland, 1988; Miyake & Kumashiro, 1993; Nakamura et al., 1991; Rubio et al., 2004).
+Data Collection Methods
+During the driving tasks, participants were instructed to track the vehicle continuously until they were instructed to stop. To facilitate eye-tracking calibration, six distinct regions of interest (AOIs) were established. The determination of these regions was based on a careful consideration of several factors, including the layout of the AR-HUD, the characteristics of the road, and the need to ensure a balanced distribution of relevant information for the drivers. The boundaries of these regions were precisely defined, taking into account parameters such as the size of the AR-HUD, the spacing between its elements, and the visual field of the road. The selection of these specific regions aimed to ensure that the AOIs encompassed both the AR-HUD elements and the road environment, thereby enabling a comprehensive analysis of participants’ eye movements during the experiment. In order to quantify the change in the frequency of eye-tracking data collection, the average and standard deviation of the data were calculated for each participant. The algorithm formula for calculating gaze coordinates is provided in equation (1) (Li et al., 2021; Prichard, 2021), and it has been employed in relevant studies and serves as a reliable method for analyzing eye-tracking data.
+
+→→
+
+cosθij
+
+=
+
+di dj
+|||
+
+(1)
+
+→→
+
+di dj
+
+In equation (1), θij represents the angle between the gaze vectors of two arbitrary fixation points
+
+I and J. The vectors → and → represent the gaze direction vectors for fixation points I and J,
+
+di
+
+dj
+
+respectively (Li et al., 2021; Prichard, 2021).
+
+dn = dn − h
+
+(2)
+
+In equation (2), dn represents the final gaze position of the participant, and h is the average head position of each section, serving as a reference point.
+
+( ) h = hx, hy, hz
+
+(3)
+
+In equation (3), h is the average head position, calculated as the mean of the x, y, z and z coordinates of the head position ( hx , hy , hz ).
+
+9
+
+International Journal of Information Technologies and Systems Approach Volume 16 • Issue 2
+RESULTS
+Eye-Tracking Experiment Results
+The study utilized a comprehensive set of four metrics, as outlined in Table 1, to examine drivers’ eye-tracking behavior and assess visual cognitive load during visual search and target detection tasks. To ensure consistency, a fixed time frame of 10 seconds was provided for drivers to visually search and identify target materials. During this time, eye-tracking data segments were captured, and relevant variables were extracted once the target was identified. The resulting eye-tracking heat-map is visualized in Figure 9, offering a spatial representation of drivers’ gaze patterns. Additionally, Figure 10 illustrates the eye-tracking trajectory, providing a temporal depiction of the sequence of eye movements during the task.
+The objective of this study is to investigate the relationship between driver attentiveness attributes and visual search characteristics. Participants were instructed to engage in a visual search task within a specified 10-second time frame. Eye-tracking data were collected for 10-second intervals both before and after the participants engaged in a visual search task. This task involved identifying specific targets within the simulated driving environment. By collecting eye-tracking data before and after this task, the study aimed to accurately assess how the participants’ visual attention and search patterns changed in response to the task. The eye-tracking variables derived from the NASA-TLX test exhibited values within the normal range. The Shapiro-Wilke test confirmed that the variances
+
+Table 1. Statistical results of measurements indexes of eye-tracking experiment
+
+NUM
+
+Gaze /ms
+
+Glance /ms
+
+Reaction/ms
+
+NASA-TLX
+
+P
+
+1
+
+0.42
+
+0.36
+
+2.38
+
+12.1
+
+0.02
+
+2
+
+0.66
+
+0.55
+
+2.48
+
+12.6
+
+0.02
+
+3
+
+0.53
+
+0.13
+
+1.14
+
+5.5
+
+0.03
+
+4
+
+0.63
+
+0.46
+
+0.85
+
+4.1
+
+0.05
+
+5
+
+0.66
+
+0.49
+
+1.4
+
+6.9
+
+0.03
+
+6
+
+0.91
+
+0.48
+
+1.93
+
+9.7
+
+0.02
+
+7
+
+0.64
+
+0.37
+
+2.25
+
+13.4
+
+0.01
+
+8
+
+1.09
+
+0.89
+
+2.18
+
+11.3
+
+0.02
+
+9
+
+0.66
+
+0.84
+
+1.82
+
+9.1
+
+0.02
+
+10
+
+0.31
+
+0.27
+
+2.57
+
+13.1
+
+0.01
+
+11
+
+0.49
+
+0.28
+
+1.82
+
+9.1
+
+0.02
+
+12
+
+0.51
+
+0.37
+
+2.23
+
+11.3
+
+0.01
+
+13
+
+0.57
+
+0.35
+
+2.74
+
+14.2
+
+0.01
+
+14
+
+0.64
+
+0.95
+
+1.38
+
+6.8
+
+0.03
+
+15
+
+0.47
+
+0.15
+
+1.14
+
+5.5
+
+0.03
+
+16
+
+0.56
+
+0.74
+
+1.63
+
+8.18
+
+0.02
+
+17
+
+0.21
+
+0.17
+
+2.38
+
+12.1
+
+0.01
+
+18
+
+0.3
+
+0.18
+
+1.63
+
+8.12
+
+0.02
+
+19
+
+0.41
+
+0.27
+
+2.04
+
+10.3
+
+0.02
+
+20
+
+0.41
+
+0.25
+
+2.55
+
+13.1
+
+0.01
+
+21
+
+0.54
+
+0.85
+
+1.19
+
+5.88
+
+0.03
+
+10
+
+International Journal of Information Technologies and Systems Approach Volume 16 • Issue 2
+Figure 9. Eye-tracking analysis eye-tracking trajectory thermogram
+Figure 10. Eye-tracking analysis eye-tracking trajectory diagram
+in the four sets of eye-tracking data followed a normal distribution (0.05), satisfying the prerequisite for parametric testing. Consequently, drivers’ eye-tracking changes during visual search and target recognition were evaluated using paired t-tests. The statistical outcomes and paired t-test results for visual search and 10-second target detection are presented in Table 1. These findings demonstrate significant alterations in eye-tracking indicators across different visual arrangements of the flat display. They suggest that visual search tasks redirect the driver’s focus to the control loop and increase awareness of potential hazards.
+The participants’ perceived workload during the eye-tracking experiment was evaluated using the NASA-TLX test. The test encompassed six dimensions: performance, mental demand, physical demand, temporal demand, effort, and frustration. Participants were required to rate each dimension on a scale ranging from 0 to 100, where 0 indicated the lowest perceived workload and 100 indicated the highest. To obtain an overall workload score for each participant, the average score across these six dimensions was calculated. To explore the relationship between the NASATLX test outcomes and the analysis of eye-tracking data, the participants’ overall workload scores were compared with their eye movement patterns, including gaze duration, glances, and reaction times. This analysis aimed to identify potential correlations between cognitive load and visual search and target recognition behaviors. An Algorithm for Integrating GA and BPNN A model for dividing perception intensity zones in the human-computer interaction (HCI) interface was initially developed, and it aligned with the criteria employed for human cone perception cells. To establish an appropriate time constraint for drivers to visually search and locate target materials, the study drew upon insights from previous research and conducted pilot testing. Prior studies have indicated that time constraints of approximately 10 seconds strike a balance between task difficulty and participant engagement while minimizing potential fatigue (Smith et al., 2017). Moreover, pilot
+11
+
+International Journal of Information Technologies and Systems Approach Volume 16 • Issue 2
+
+testing specific to this study confirmed that the 10-second time constraint provided participants with ample opportunity to interact with the AR-HUD interface while still presenting a challenge to their visual search abilities. Then, subsequently, an initial population of chromosomes was generated to represent tentative solutions for different HCI design plans, considering the perceptual intensity of the HCI and the significance index of perceptual components. In order to determine the optimal solution, a cognitive load neural network model was employed as the fitness function, drawing from relevant literature (Burch, 2019; Li et al., 2021; Prichard, 2021; Reichle & Liversedge, 2011; Wagner et al., 2009). By constructing a genetic algorithm and performing numerous simulation calculations, the optimal layout for the human-machine interface based on visual intensity is identified.
+Optimal Mathematical Model Based on Cognitive Load and Visual Intensity
+As discussed previously, the placement of visual perception elements within the human-computer interaction (HCI) interface takes into account the visual characteristics of cone cells. The calculation of the Z index for the AR-HUD visual elements is determined according to the following equation (4): (Ding, 2017; Liu & Huang, 2021; Zhang et al., 2016):
+
+n
+
+n
+
+Z(i) = ∑αi (⋅ Sj + Pj) + ∑α2 ⋅ Oj
+
+(4)
+
+j=1
+
+j=1
+
+where α_1 and α_2 are the relative coefficients of position. The equation (5) for α_1 and α_2 is given as:
+
+α1 = 1 − djb / dpm, α2 = 1 − j / n
+
+(5)
+
+dn represents the distance between a specific HUD area ‘j’ and the optimal visual point ‘b’, indicating the spatial separation or proximity between the component area and the ideal visual focal point within the AR-HUD interface. djb represents The distance between HUD area j and the optimal visual point
+b; dpm represents the total number of HUD areas; j represents the component area position number,
+and stands for the total number of component areas. n represents the total number of component areas within the AR-HUD interface, indicating the overall count or quantity of distinct areas or elements present in the interface design.
+The visual intensity function is described as equation (6)-(9):
+
+nm
+
+∑∑ S = max
+
+ti x i q ij
+
+(6)
+
+i=1 j=1
+
+Meet the following conditions
+
+n
+
+∑qij = q j
+
+(7)
+
+i=1
+
+m
+
+∑qij = sq j
+
+(8)
+
+j=1
+
+12
+
+International Journal of Information Technologies and Systems Approach Volume 16 • Issue 2
+
+n
+
+n
+
+∑q j = ∑si
+
+(9)
+
+j=1
+
+i=1
+
+Z represents the visual cognitive load index. t represents NASA-TLX values of each interface section t ={t,t2,…,tn}, the NASA-TLX set of each partition; s: NASA-TLX values of each interface section SQ={sq1, sq2,…,sqn}; x represents the vision perceived intensity level set X={x1,x2,…,xn} assigned to each partition of HUD, representing all visual intensity settings; q represents the perceived area set of HCI intensity level Q={q1,q2,…,qn }is the set of all areas (Chen, Y., 2013).
+In the context of HCI design, it’s beneficial to position components with higher visual frequency in easily visible locations. This strategy helps to minimize fatigue from frequent operations and enhance usage efficiency. To achieve this, we create a usage frequency matrix
+and compute the visual frequency weight for each constituent region, denoted by Pj , based on
+prior eye-tracking experiments. As presented in Table 2, the aggregated operational sequence values for each component area
+were normalized to calculate the operational sequence weights for each HUD module area during the encoding experiment, following the methodology outlined by Liu and Huang (2021):
+
+n
+
+∑ Oj = βj / βj
+
+(10)
+
+j=1
+
+In equation (10), Oj represents the operational sequence weight for each HUD module area. The
+operational sequence weight is calculated by dividing the value of βj for a particular HUD area by
+the sum of βj values for all HUD areas. The βj values are calculated using equation (11), which is
+explained below. The size of the combined operation sequence for each component area was determined by
+dividing the sum of ordinal numbers by the square of the usage frequency of the component area. This calculation was performed as part of the layout encoding experiments, as detailed in the studies conducted by Liu and Huang (2021), Ding (2017), and Zhang et al. (2016). The calculation is performed according to the following equation (11):
+
+n
+
+n
+
+∑ ( ) ∑ βj = ( f cij )2 / cij
+
+(11)
+
+i=1
+
+i=1
+
+Table 2. Operation sequence under different component layout coding experiments
+
+HUD Name HUD 1 HUD 2 HUD 3 ……
+
+Module A 2 1 0
+
+Module B 0 2 3
+
+Module C 3 0 1
+
+……
+
+13
+
+International Journal of Information Technologies and Systems Approach Volume 16 • Issue 2
+
+n
+∑ If cij = 0, then βj = 0 . βj represents the operational sequence weight for each HUD module i=1
+area.-This weight indicates the importance or priority assigned to each component area based on eye-tracking experiments and usage frequency.
+( ) The function f cij denotes the usage frequency of the component area cij within the HUD
+module. This function quantifies the frequency with which a particular area of the interface is accessed or interacted with by the user during their interaction with the HUD module.
+Case Study of AR-HUD Interface
+Once the visual index z of the AR-HUD is computed, the interface is partitioned into six sections using an 800x600 resolution. By defining the radius r and adopting a basic unit length of 1.57mm, a fundamental unit grid is established. Taking into account the intensity of visual perception, the model is further divided into six modules, and the significance of each basic HUD module unit was ascertained using a priority-based approach.
+Chromosome Coding of Visual Cognitive Load Model
+Table 3 presents the six discrete variables, namely GA, GB, GC, GD, GE, and GF, which were previously encoded as 24-bit binary strings during the construction of the neural network model. Each
+
+Table 3. Chromosome coding of VR-HUD visual model
+
+Element Code
+
+Content
+
+Chromosome Coding and Interpretation
+
+GA
+
+Overall arrangement
+
+GB
+
+Navigation
+
+GC
+
+Speed table
+
+GD
+
+Dashboard
+
+GE
+
+Driving simulation
+
+GF
+
+Driving information
+
+14
+
+International Journal of Information Technologies and Systems Approach Volume 16 • Issue 2
+binary character within the 24-bit string represents a gene, and these variables are all 4-bit binary values. In the integration of neural networks and genetic algorithms, the binary-coded chromosome input is initially converted into a floating-point form. The floating-point value is then transformed back into binary form to match the input. The conversion rules for this process are as follows: a 4-bit binary code is translated into a floating-point number that continuously varies within the range of [0,4]. Values falling within the intervals [0,1), (1,2), (2,3), and (3,4] will be decoded as 1000, 0100, 0010, and 0001, respectively (Hill et al., 1992).
+For the purpose of developing a cognitive load prediction model for AR-HUD, this research created a training sample set. The input of the model consisted of the identification numbers of the sensor elements, which were encoded as gene segments of the solution chromosome. On the other hand, the output of the model represented the average Z-score assigned by users to evaluate the 21 AR-HUD prototypes. With the data properly organized, the initial input and output information for the neural network model was established, as illustrated in Table 4.
+Topological Structure of BP Neural Network
+In consideration of real-world constraints and requirements, the topological structure of the neural network is meticulously defined, comprising three distinct layers. The input layer is composed of six neurons, representing the encoded sensor elements, while the output layer consists of a single neuron, denoting the desired output (i.e., the Z index). By leveraging a heuristic method proposed
+
+Table 4. Chromosome coding and visual intensity index mapping table of GA
+
+Number 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21
+
+Chromosomal Code 001010000100100001010110 001001000100010010011001 001000101010000100100110 001000011001001000101001 000110000100010100100101 000101000100101000101010 000100101001000001010101 000100011010000010011010 000100011010010010011010 000100011011010010011010 000101000100010010011001 000100011001001000101001 100001000100101010001010 010000010001001000101001 010000101001000010010101 001001000100101000101010 010000101001000001010101 100000011010000010011010 000100011010010010011010 100000101011010010011000 001001000100010010011001
+
+Z-Index 4710 4892 4928 4383 4613 4625 4686 4867 4843 4480 4928 4480 4468 4674 4637 4904 4746 4892 4553 4323 4904
+
+15
+
+International Journal of Information Technologies and Systems Approach Volume 16 • Issue 2
+by Nie (2021), the optimal number of neurons in the hidden layer is determined, resulting in a final count of 15 neurons. Ultimately, the topological structure is established for the BPNN of the head-up display and the Z index. Neural Network Model Parameters The neuron activation function is an essential aspect of BP neural networks, as it necessitates differentiability along with a continuous derivative. In this investigation, the log-sigmoid activation function {logsig} was opted for as the BPNN activation function. During the BP network modeling training phase, the {Levenberg-Marquardt} BP algorithm training function {trainlm} was utilized. The neural network was set with a maximum iteration of 1000, a training target error of 10, a learning rate of 0.1 and displayed its progress every five training cycles. Unmodified parameters retained the system’s default values. After multiple training and weight adjustment iterations, the best validation performance index was achieved in the 17th generation, with a value of 0.17327, leading to the cessation of training. The results are displayed in Figures 11-14. Genetic Algorithm To optimize the design of the interface prototype, the objective function is formulated based on the Z-Index, denoted as F(X), which establishes the relationship between the design variables and the corresponding Z values using an equation, with the preference determined by X (Zhang et al., 2016). The GA is employed to assess the fitness of individuals or solutions within the population. A design code and Z-index relationship model are constructed and optimized for practical application. The GA incorporates the Backpropagation Neural Network (BPNN) model into the fitness function, while the GA parameters are fine-tuned through the GA function (Hill et al., 1992). The initial population consists of 21 AR-HUD interface prototypes. To determine the optimal solution, the genetic algorithm is executed with a population size of 50 individuals. The algorithm undergoes 1000 iterations, with
+Figure 11. Training results of BP Neural Network Training Performance Chart
+16
+
+International Journal of Information Technologies and Systems Approach Volume 16 • Issue 2
+Figure 12. Training results of BP neural network training state diagram
+Figure 13. Training results of BP neural network error histogram
+17
+
+International Journal of Information Technologies and Systems Approach Volume 16 • Issue 2 Figure 14. Training results of BP neural network regression diagram
+a crossover probability of 0.5 and a mutation probability of 0.05. The optimal solution is determined based on the minimum value of the visual conveyance minimum Z index, with the genetic algorithm producing a best fitness value of 5.570. The evolutionary progress of the genetic algorithm fitness is visualized in Figure 15-16, depicting the trends of the best fitness, worst fitness, and average scores throughout the iterations.
+Figure 15. Genetic algorithm fitness evolution process diagram
+18
+
+International Journal of Information Technologies and Systems Approach Volume 16 • Issue 2
+Figure 16. The best fitness, the worst fitness, and the average score
+The genetic algorithm (GA) was utilized to determine the optimal encoding rule for the ARHUD design problem, resulting in the encoding rule 100000010001100000100001. Decoding this rule yielded the corresponding AR-HUD design, which is depicted in Figure 17. In order to improve the aesthetic appeal of the interface, a qualitative analysis was conducted, allowing for adjustments to certain components while adhering to the optimization guidelines for human-computer interfaces. However, the relative positions of the modules were not significantly altered. The final optimized AR-HUD design was achieved, as presented in Figure 18.
+Figure 17. Optimal solution design scheme of genetic algorithm optimized AR-HUD layout
+Figure 18. Optimal solution design scheme of genetic algorithm optimized AR-HUD interface design
+19
+
+International Journal of Information Technologies and Systems Approach Volume 16 • Issue 2
+Evaluation of Cognitive Load After Optimization Design of AR-HUD
+To evaluate the effectiveness of the optimized AR-HUD design, a comparison was conducted between the solutions before and after optimization using the Workload Profile (WP) rating scale. The WP rating scale is a subjective method widely utilized to assess the difficulty of driving tasks. Among the various scales available for measuring cognitive load, the WP scale has shown high sensitivity and is considered an ideal tool for measurement (Fréard et al., 2007; Moustafa et al., 2017). In this study, the experimental group was assigned the optimized AR-HUD interface, while the control group consisted of the AR-HUD prototype with the lowest cognitive load score based on NASATLX. Eighteen participants evaluated their performance based on their driving experience and their understanding of the definitions associated with each difficulty level. The collected data from the rating scale was then used to calculate the average scores for each factor and the total score for each solution. The resulting levels of cognitive load were analyzed and are presented in Table 5.
+By comparing the indexes of the experimental group and the control group, differences can be analyzed, and a judgment can be made regarding the performance after optimizing the research algorithm. Based on the provided table, the experimental group exhibits lower mean scores in all measures compared to the control group. This observation indicates that the optimized AR-HUD interface in the experimental group performed better in terms of cognitive load.
+Specifically, the experimental group exhibited significantly lower mean scores in central processing resources, response acquisition resources, spatial encoding resources, verbal encoding resources, visual reception resources, auditory reception resources, operation resources, and the total score, compared to the control group. The percentage improvement can be calculated by comparing the mean scores between the experimental group and the control group. In this case, the experimental group outperformed the control group by approximately 41.1% in terms of the total score.
+Overall, the optimization of the research algorithm resulted in improved performance in reducing cognitive load for the experimental group compared to the control group. These improvements were statistically significant across multiple measures, providing evidence for the effectiveness of the optimization algorithm employed in this study.
+DISCUSSION
+The primary measure employed to assess driving cognitive load was the fixation time of areas of interest (AOI). This measure was used with the goal of understanding cognitive load in complex driving situations, which could then inform the design of AR-HUD interfaces to alleviate cognitive burden. However, the study encountered certain limitations that warrant consideration. Firstly, future research should strive to include participants from different age groups, allowing for a more comprehensive understanding of how cognitive load varies across different demographic categories.
+
+Table 5. WP cognitive load assessment scale before and after optimization design of AR-HUD
+
+Group Experimental Group Control Group
+
+Measure
+Mean Standard Deviation Mean Standard Deviation
+
+Central Processing Resources
+3.37
+1.21
+7.65
+1.54
+
+Response Acquisition Resources
+4.37
+1.5
+7.88
+1.17
+
+Spatial Encoding Resources
+4.05
+1.27
+7.88
+1.73
+
+Verbal Encoding Resources
+4.05
+1.68
+6.65
+2.42
+
+Visual Reception Resources
+5.89
+1.66
+7.12
+2.18
+
+Auditory Reception Resources
+2.11
+2.18
+2.29
+1.57
+
+Operation Total Resources Score
+
+1.79
+
+25.63
+
+2.68
+
+8.68
+
+4.06
+
+43.53
+
+2.3
+
+6.88
+
+20
+
+International Journal of Information Technologies and Systems Approach Volume 16 • Issue 2
+Additionally, investigating the impact of animation on visual load would provide valuable insights into the optimization of the AR-HUD interface. Furthermore, improving the data processing techniques for physiological indicators would enhance the accuracy and reliability of the measurements obtained.
+To address these limitations, future research endeavors should focus on enhancing the experimental design and refining data processing techniques. This could involve employing a more diverse participant pool, incorporating dynamic elements in the AR-HUD interface to simulate realworld driving scenarios, and exploring advanced methods for processing physiological data. By doing so, the research findings would be more robust and applicable in practical settings.
+Moreover, it is important to acknowledge that individual differences in visual perception and cognitive abilities may impact the performance of the visual perceived load index and the BPNN model. Therefore, future research should consider incorporating personalized adaptation mechanisms to account for these individual differences and further boost the effectiveness of the AR-HUD visual interaction design.
+CONCLUSION
+In this study, a novel algorithm model was devised to forecast cognitive load in the context of augmented reality-head up display (AR-HUD) visual interaction. This was accomplished by analyzing drivers’ eye-tracking behavior and their allocation of visual resources during simulated driving experiments. The findings of the study reveal a noteworthy tendency among drivers to divert less attention towards the primary driving tasks and instead allocate increased attention towards the elements within the AR-HUD interface. Thus, this tendency of drivers to divert less attention towards primary driving tasks and instead allocate increased attention towards the AR-HUD interface can have adverse effects on the recovery of cognitive resources.
+To advance the design of visual interaction in AR-HUD systems, this study introduced a visual perceived load index. This index was derived by integrating a visual intensity prediction model with subjective cognitive load evaluations of the user interface. The resulting index was then utilized to establish a visual perceived load prediction BPNN model, which incorporated the GA coding of the AR-HUD system and the visual cognitive load index of the layout design. The genetic algorithm was employed to optimize the neural network model and obtain the optimal solution for the AR-HUD visual interaction design. The proposed method holds potential for optimizing visual interaction designs in similar human-machine interactions, providing a theoretical foundation and serving as a valuable reference for future research in this domain. The reliability of the algorithm was evaluated using the CH scale, further validating its efficacy.
+FUNDING STATEMENT
+This research was funded by the Experimental Management Research Fund of Guangdong Higher Education Society (GDJ 2016037); the Industry-University-Research Innovation Fund of Science and Technology Development Center of Ministry of Education (2018C01051). and 2023 Lingnan Normal University Education and Teaching Reform Fund.
+COMPETING INTERESTS STATEMENT
+The authors declare no competing interests.
+21
+
+International Journal of Information Technologies and Systems Approach Volume 16 • Issue 2
+REFERENCES
+Abdi, L., & Meddeb, A. (2017). Driver information system: A combination of augmented reality and deep learning. The Symposium. doi:10.1145/3019612.3019873
+Abu-Khadrah, A., Jarrah, M., Alrababah, H., Alqattan, Z. N., & Akbar, H. (2022). Pervasive computing of adaptable recommendation system for head-up display in smart transportation. Computers & Electrical Engineering, 102, 108204. doi:10.1016/j.compeleceng.2022.108204
+Bark, K., Tran, C., & Fujimura, K. (2015). Personal Navi benefits of an augmented reality navigational aid using a see-thru 3D volumetric HUD. International Conference on Automotive User Interfaces and Interactive Vehicular Applications, 1-8.
+Blignaut, P., & Beelders, T. (2007). The effect of fixational eye movements on fixation identification with a dispersion-based fixation detection algorithm. Journal of Eye Movement Research, 2(5), 1–12.
+Burch, M. (2019). Interaction graphs: Visual analysis of eye movement data from interactive stimuli. 11th ACM Symposium.
+Cao, Y., Fu, H., & Jin, Z. (2022). Research on auxiliary driving system engineering for color vision impaired. Proceedings of the 2022 11th International Conference on Networks, Communication and Computing, 141-146. doi:10.1145/3579895.3579917
+Chen, Y. (2013). Research on optimized design of Kansei engineering-based web interface. In 2013 International Conference on Computational and Information Sciences (pp. 1709-1712). IEEE. doi:10.1109/ICCIS.2013.446
+Ding, M. (2017). Research on optimal design of man-machine interface of CNC machine tools based on visual perception field [Unpublished doctoral dissertation]. Hefei University of Technology.
+Fang, H. (2016). Multi-dimensional modeling design of highly automated smart car combined with HMI [Unpublished doctoral dissertation]. Tsinghua University.
+Fréard, D., Jamet, E., Le Bohec, O., Poulain, G., & Botherel, V. (2007). Subjective measurement of workload related to a multimodal interaction task: NASA-TLX vs. Workload Profile. In Proceedings, Springer Berlin Heidelberg, Part III 12 (pp. 60-69). Academic Press.
+Gabbard, J. L., Smith, M., Merenda, C., Burnett, G., & Large, D. R. (2020). A perceptual color-matching method for examining color blending in augmented reality head-up display graphics. IEEE Transactions on Visualization and Computer Graphics, 28(8), 2834–2851. doi:10.1109/TVCG.2020.3044715 PMID:33315569
+Guo, Z., Guo, W., & Tan, Y. (2022). Analysis of eye movement characteristics and behavior of drivers taking over autonomous vehicles. China Safety Science Journal, 32(1), 65–71.
+Halit, L., Kemeny, A., & Gouguec, A. L. (2015). Head motion parallax effect on driving performances when using an AR-HUD: Simulation study on Renault’s CARDs Simulator. Driving Simulation Conference.
+Hart, S. G., & Staveland, L. E. (1988). Development of NASA-TLX (Task Load Index): Results of empirical and theoretical research. Advances in Psychology, 52(6), 139–183. doi:10.1016/S0166-4115(08)62386-9
+Hill, S. G., Iavecchia, H. P., Byers, J. C., Bittner, A. C. Jr, Zaklade, A. L., & Christ, R. E. (1992). Comparison of four subjective workload rating scales. Human Factors, 34(4), 429–439. doi:10.1177/001872089203400405
+Kozyt, A., & Ugaj, M. (2020). Analysis of pilot interaction with the control adapting system for UAV. Journal of Aerospace Engineering, 33(4).
+Lee, J. H., Park, S., Kim, W., Tanveer, W. H., Kim, M., & Yun, M. H. (2016). The investigation of study trends for heads-up displays (HUD) in visualized network form under the perspectives of human factors. Academic Conference of HCI Society of Korea.
+Li, H., Liu, G., & Wang, H. (2021). Mechanical movement data acquisition method based on the multilayer neural networks and machine vision in a digital twin environment. Academic Press.
+Li, Z., Zhou, X., & Zheng, Y. (2017). Research on the design of automobile driving assistance system based on AR-HUD. Wuhan Ligong Daxue Xuebao, 41(6), 924–928.
+22
+
+International Journal of Information Technologies and Systems Approach Volume 16 • Issue 2
+Liu, W. (2013). Website homepage interface optimization design based on Kansei Engineering [Unpublished master’s thesis]. Northeastern University.
+Liu, Y., & Huang, H. (2021). Research on optimal design of human-computer interaction interface based on visual perception. Mechanical Design and Manufacturing Engineering, 50(3), 5–8.
+Miyake, S., & Kumashiro, M. (1993). Subjective mental workload assessment technique, an introduction to NASA-TLX and SWAT and a proposal of simple scoring methods. Jes Ergonomics, 29(6), 10–12. doi:10.5100/ jje.29.399
+Moustafa, K., Luz, S., & Longo, L. (2017). Assessment of mental workload: A comparison of machine learning methods and subjective assessment techniques. In Human mental workload: Models and applications: First international symposium, H-WORKLOAD 2017, Dublin, Ireland, June 28-30, 2017, revised selected papers 1 (pp. 30-50). Springer. doi:10.1007/978-3-319-61061-0_3
+Murugan, S., Sampathkumar, A., Kanaga Suba Raja, S., Ramesh, S., Manikandan, R., & Gupta, D. (2022). Autonomous vehicle assisted by heads up display (HUD) with augmented reality based on machine learning techniques. In Virtual and augmented reality for automobile industry: Innovation vision and applications (pp. 45-64). Springer.
+Nakamura, H., Kobayashi, H., & Taya, K. (1991). Design of eye movement monitoring system for practical environment. Proceedings of SPIE - The International Society for Optical Engineering, 89(10), 2378-2384.
+Nie, W. J. (2021). Research on interface design based on user’s mental model driven by interactive genetic algorithm. International Journal of Bio-inspired Computation, 17(1).
+Pan, Y., Jin, Y., & Lyu, R. (2021). Vehicle forward collision warning algorithm based on multi-information fusion and improved warning strategy. Proceedings of the 2021 2nd International Conference on Control, Robotics and Intelligent System, 266-272. doi:10.1145/3483845.3483892
+Park, H. S., & Kim, K. H. (2014). Based vehicular safety information system for forward collision warning. In Virtual, augmented and mixed reality. Applications of virtual and augmented reality (pp. 435–442). Springer. doi:10.1007/978-3-319-07464-1_40
+Park, J., & Im, Y. (2021). Visual enhancements for the driver’s information search on automotive head-up display. International Journal of Human-Computer Interaction, 37(18), 1–12. doi:10.1080/10447318.2021.1908667
+Perfect, P., Timson, E., & White, M. D. (2014). A rating scale for the subjective assessment of simulation fidelity. Aeronautical Journal -New Series, 118(1206), 953-974.
+Porat, M., & Zeevi, Y. Y. (1988). The generalized Gabor scheme of image representation in biological and machine vision. IEEE Transactions on Pattern Analysis and Machine Intelligence, 10(4), 452–468. doi:10.1109/34.3910
+Prichard, C. (2021). The effect of different vocabulary coping strategies on incidental vocabulary acquisition: An eye tracking study. Academic Press.
+Reichle, E. D., & Liversedge, S. P. (2011). The emergence of adaptive eye-movement control in reading: Theory and data. Visual Cognition, 19(10-11), 1290–1313.
+Research on the planning and design method of urban parking guidance information system screen. (2014). Proceedings of the 9th China Intelligent Transportation Conference in 2014, 323-328.
+Rubio, S., Díaz, E., & Martín, J. (2004). A comparison of SWAT, NASA-TLX, and workload profile methods. Applied Psychology, 53(3), 461–486.
+Shic, F., Scassellati, B., & Chawarska, K. (2008). The incomplete fixation measure. In Proceedings of the Eye Tracking Research & Application Symposium, ETRA 2008, Savannah, Georgia, USA, March 26-28, 2008. doi:10.1145/1344471.1344500
+Smith, M., Gabbard, J. L., Burnett, G., & Doutcheva, N. (2017). The effects of augmented reality head-up displays on drivers’ eye scan patterns, performance, and perceptions. International Journal of Mobile Human Computer Interaction, 9(2), 1–17. doi:10.4018/IJMHCI.2017040101
+Sun, B., Yang, J., & Sun, Y. (2019). Research on hierarchical design of automobile human-computer interaction interface. Mechanical Design, 36(2), 121–125.
+23
+
+International Journal of Information Technologies and Systems Approach Volume 16 • Issue 2
+Wagner, M., Ehrenstein, W. H., & Papathomas, T. V. (2009). Vergence in reverspective: Percept-driven versus data-driven eye movement control. Neuroscience Letters, 449(2), 142–146. doi:10.1016/j.neulet.2008.10.093 PMID:18996440 Zhang, B., Ding, M., & Li, Y. (2016). Optimal design of human-computer interface based on visual perception intensity. Zhongguo Jixie Gongcheng, 27(16), 7. Zhang, S. C., & Zhou, Y. L. (2018). The research and implementation of remote-monitoring intelligent vehicle system based on internet of things. Proceedings of the 2018 International Conference on Data Science and Information Technology, 133-137. doi:10.1145/3239283.3239315 Zhang, Y. (2021). Research on interface optimization design of vehicle head-up display system [Unpublished doctoral dissertation]. Qilu University of Technology. 10.27278/d.cnki.gsdqc.2021.000317
+Jian Teng, Intermediate Experimental Lecturer, Ph.D. in Design Education, Sehan University, Korea (2022-). Worked in School of Mechanical and Electrical Engineering. Lingnan Normal University, Zhanjiang. Research direction: Human-computer interaction, virtual reality, industrial design. Fucheng Wan, Associate Professor, Graduated from Hunan University in 2000. Worked in School of Mechanical and Electrical Engineering. Lingnan Normal University, Zhanjiang. Research direction: Product design, automobile design, cultural and creative design. Yiquan Kong, Senior Experimental Lecturer, Worked in School of Electromechanical Engineering. Lingnan Normal University, Zhanjiang. Research direction: Creative design, visual communication, graphic design. 24
+

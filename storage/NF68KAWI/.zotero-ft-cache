@@ -1,0 +1,197 @@
+Providing Explainability in Safety-Critical Automated Driving Situations through Augmented Reality Windshield HMIs
+
+Carina Manger
+carina.manger@thi.de Technische Hochschule Ingolstadt
+Ingolstadt, Germany Johannes Kepler Universität Linz
+Linz, Austria
+Mirella Probst
+mip2602@thi.de Technische Hochschule Ingolstadt
+Ingolstadt, Germany
+
+Jakob Peintner
+jakob.peintner@thi.de Technische Hochschule Ingolstadt
+Ingolstadt, Germany Johannes Kepler Universität Linz
+Linz, Austria
+Raphael Wennmacher
+raphael@wennmacher.eu Technische Hochschule Ingolstadt
+Ingolstadt, Germany
+
+Marion Hoffmann
+mah5523@thi.de Technische Hochschule Ingolstadt
+Ingolstadt, Germany
+Andreas Riener
+andreas.riener@thi.de Technische Hochschule Ingolstadt
+Ingolstadt, Germany
+
+Figure 1: AR windshield concepts A (baseline / no information), B (how information) and C (how & why information)
+
+ABSTRACT
+Research on automotive user interfaces has highlighted the importance of transparent and explainable user interfaces, especially in safety-critical situations where automation failures can lead to (fatal) accidents. In this work, we investigated the use of augmented reality (AR) windshield displays as a means to improve explainability in safety-critical driving situations. To this end, we conducted a mixed-methods study (VR-based driving simulation combined with a semi-structured interview) with N = 24 participants and evaluated two concepts, containing (1) first-person information about vehicle behavior and (2) additional information about other traffic objects. Results showed that confidence and situational awareness were significantly higher when additional information was presented. The highest scores were achieved when participants were shown "how & why" information.
+CCS CONCEPTS
+• Human-centered computing → Empirical studies in HCI.
+Permission to make digital or hard copies of part or all of this work for personal or classroom use is granted without fee provided that copies are not made or distributed for profit or commercial advantage and that copies bear this notice and the full citation on the first page. Copyrights for third-party components of this work must be honored. For all other uses, contact the owner/author(s). AutomotiveUI ’23 Adjunct, September 18–22, 2023, Ingolstadt, Germany © 2023 Copyright held by the owner/author(s). ACM ISBN 979-8-4007-0112-2/23/09. https://doi.org/10.1145/3581961.3609874
+
+KEYWORDS
+Automated Driving, Augmented Reality, User Interfaces, User Study, Windshield Displays
+ACM Reference Format: Carina Manger, Jakob Peintner, Marion Hoffmann, Mirella Probst, Raphael Wennmacher, and Andreas Riener. 2023. Providing Explainability in SafetyCritical Automated Driving Situations through Augmented Reality Windshield HMIs. In 15th International Conference on Automotive User Interfaces and Interactive Vehicular Applications (AutomotiveUI ’23 Adjunct), September 18–22, 2023, Ingolstadt, Germany. ACM, New York, NY, USA, 6 pages. https://doi.org/10.1145/3581961.3609874
+1 INTRODUCTION
+In recent years, driver assistance systems have undergone significant development. It is predicted that in the next decades, sensor technology and information processing capacity will advance to a level that allows highly (SAE Level 4) [17], and even fully automated driving (SAE Level 5) [14]. At these levels, driver intervention is no longer required, which means the best possible user experience and comfort for passengers, who can use the time during the journey for activities such as working or sleeping [20]. It also ensures greater safety in the long term by preventing traffic accidents, and fatalities caused by human error [7, 21]. However, automated driving is accompanied by multiple human factors and challenges, such as loss of the passenger’s situation awareness or the basic challenge of establishing trust in the automated vehicle [13]. Transparency and
+
+174
+
+AutomotiveUI ’23 Adjunct, September 18–22, 2023, Ingolstadt, Germany
+explainability of the AV’s behavior have been shown to be effective tools to foster trust and situation awareness in automated driving modes, which in turn can be seen as a prerequisite to a positive user experience and the establishment of the general acceptance of automated driving [28].
+In this paper, we focus on the context of high safety- and timecritical situations, where trust in automation and situation awareness are of particular importance, as wrong decisions or automation failures can lead to (fatal) accidents [24]. To ensure trust, effective and reassuring communication between the human and the automated vehicle is essential. Passengers must be provided with sufficient information about the state of the vehicle, its environment, and perceptions, as well as its current and planned behavior at all times [15]. To support this, we investigated the influence of visual feedback on trust in automation and situation awareness in a safety-critical and unexpected driving situation in a mixed-method user study (N = 24).
+2 RELATED WORK
+2.1 Trust and Situation Awareness as Human Factor Challenges of Automated Driving
+Trust in automation is a central human factor that will affect the willingness of users to adapt to automated vehicles. Lee and See [13] defined trust in automation as’ the attitude that an agent will help achieve an individual’s goals in a situation characterized by uncertainty and vulnerability’. Research has shown that users tend to fail to rely on automation on an appropriate level and often either assume the automation’s capabilities as too high (overtrust) or too low (distrust) [13]. In the context of automated driving, especially overtrust has already led to multiple accidents in which users overestimated the capabilities of automated driving functions[24]. Situation awareness is another important aspect in regard to automated vehicles and defined as “a sufficient knowledge about the vehicle‘s surroundings, the current state of the automation, the system‘s task performance, and the driver‘s own tasks and responsibilities” [8]. Although situation awareness is of particular relevance in the case of an upcoming authority transition as in level 3 automation [17], it is also crucial in situations of continuous automation (level 4 and 5), as unexpected driving maneuvers can startle the human passenger and lead to irritation, anxiety, and a negative impact on trust in the automated vehicle [25].
+2.2 The Importance of Transparency and Explainability in Automated Driving
+The most promising approach to taking up the presented human factor challenges of automated driving is to provide transparency and explainability of the AV’s behavior. Existing research on explainable automotive interfaces already provided an overview of explanations in autonomous driving [16] and highlighted the basic need for providing explanations about automated vehicle behavior [25] and the positive impact on situation awareness [26]. In terms of critical situations, collected data suggests that with fully automated vehicles (level 5), visualization of intention and explanation is useful and necessary, at least in the initial phase [3]. Existing research on explainable interfaces is often based on driving situations in which
+
+Manger et al.
+it is suitable to provide the explanation in a linguistically expressed manner as voice alerts [6, 10]. However, in highly-critical and unexpected driving situations like automated braking, there might not be enough time to provide the explanation within a sufficient time frame that allows the human driver to cognitively process the given information.
+2.3 Augmented Reality Displays as a Means to Provide Information
+Head-up displays (HUDs) are increasingly used as a solution to provide drivers with information without making them glance away from the road. Compared to in-car displays, they offer a higher situation awareness by remaining low in cognitive load [2]. Although the majority of research resulted in positive evaluations for AR displays and visualizations, recent research also found the possibility of negative results for AR visualizations, where they negatively impacted the impression of the AV’s capabilities and also supported overtrust [4]. Not only the timing, but also the amount of information and the way they are presented have to be carefully considered [1], as interpersonal differences in the desire for feedback and explanations were identified and some drivers can be annoyed [22] or cognitively overloaded, which in terms lead to lower acceptance and usability [18]. This highlights the importance of the AR concept evaluation for a variety of different driving contexts- and situations.
+3 RESEARCH QUESTIONS AND HYPOTHESES
+To address the research gap for time- and safety-critical driving situations, we built on the existing literature and aimed to test what kind of explainable interfaces are comprehensible enough to convey trust and situation awareness yet can be processed cognitively in a short time. To do this, we explored the research question of how much information should be presented in a safety-critical and unexpected situation to (1) generate trust in automation and (2) maintain and increase situation awareness. To this end, we derived the following hypotheses:
+H1 Trust in automation is affected by displaying explainable information in the AR windshield display in safety-critical situations.
+H2 Situation awareness is affected by displaying explainable information in the AR windshield display in safety-critical situations.
+4 METHOD
+4.1 Scenario and HMI Design
+In order to investigate the formulated research question, a mixedmethod user study was conducted, consisting of a short virtual reality (VR) driving simulation experiment and a semi-structured interview. Participants experienced two windshield display concepts in a safety-critical highway traffic scene in the form of short 360° videos and a baseline condition without any information (see Figure 1). The VR videos had a duration of 20 seconds and were made with the free open-source 3D computer graphics software toolset Blender and presented with the HTC Vive VR headset. In
+
+175
+
+Providing Explainability in Safety-Critical Automated Driving Situations through AR WSD
+
+AutomotiveUI ’23 Adjunct, September 18–22, 2023, Ingolstadt, Germany
+
+the videos, the ego vehicle is driving in the middle lane of a threelane highway in an activated automation mode and the participant didn’t need to intervene in the driving task and had no interaction option to do so. Another car next to the ego vehicle on the right lane then tries to overtake a truck and pulls over into the ego vehicle’s lane without indicating the lane change. The ego-vehicle brakes and changes to the left lane in order to avoid a collision. This scenario was chosen since situations like these frequently occur in highway traffic. The high speed and the unpredictability of other traffic actors’ behavior make this a suitable representative of unexpected and safety-critical driving situations. Due to the dynamic nature of the scene, with the high speeds involved, we chose the visual modality for communication between automation and human. Using an AR windshield display allows for displaying information in the line of sight of the driver, thus not diverting his gaze away from the traffic scene in front. For the participants, this method makes it possible to parse and process the presented information fast enough in the dynamic scene. AR windshield displays have the potential to improve user trust, and acceptance in AVs [27] and also support the driver in anticipating lane change maneuvers [12]. To define the appropriate level of information, two concepts with different levels of information were visualized as shown in Figure 2. We categorized the amount of presented information into how and why information as used by Koo et al. [10]. In the first concept (concept B) only information about the vehicle’s own behavior is displayed. For this, the vehicle’s planned trajectory is visualized by a white line. In the second concept (concept C) the vehicle’s planned trajectory is visualized together with the trajectory of the overtaking vehicle from the right, which is highlighted in red to refer to the situation’s criticality. To convey safety, the left lane is marked in blue. This indicates that the lane is free and a lane change is possible without any risk (see Figure 2). To compare these HMI concepts to a baseline condition, a scenario with no AR visualizations (concept A) was implemented as well. In regard to the level of driving automation and the vehicle’s capabilities, automation according to SAE level 4 or 5 was chosen for the study, where the automation would handle the situation on itself and no take-over or intervention would be requested from the driver [17].
+4.2 Dependent Variables
+Trust in automation was measured with the Situational Trust Scale for Automated Driving (STS-AD) by Holthausen and Wintersberger et al. [9]. We chose this 7-point Likert scale questionnaire since it is specifically designed for the context of automated driving and addresses various aspects of situational trust. Situation awareness was measured with the Subjective Information Processing Awareness Scale (SIPAS) by Schrills [23]. This 6-point Likert scale is intended for contexts in which people work together with intelligent systems. Furthermore, the SIPA scale is particularly suitable for comparing different user interfaces with each other as intended in this study [23]. In the second part of the study, a semi-structured interview was conducted to allow for a detailed discussion and evaluation of the presented concepts and to gain further insight into the influencing factors of trust and situation awareness in critical traffic situations. To assess the understandability of the concepts, the participants were asked to assign the meaning of each object in the
+
+Figure 2: Concept B (left) providing how information. The white line indicates the ego vehicle’s planned trajectory. Concept C (right) provides how and why information. The white line also indicates the ego vehicle’s planned trajectory. Additionally, the blue area visualizes a free lane and indicates a safe lane change. The red highlight box is representing the object from which the danger emanates. The red line is the estimated trajectory of this object. The concepts were compared to a baseline condition without any visual information (Concept A).
+visualization (e.g. the blue line), which concept they prefer in regard to understandability and trust in the automated vehicle, and also which information they missed and how the concepts could be improved.
+4.3 Procedure
+
+Pre Test
+
+Setup & Brieﬁng
+
+Driving Scenario
+
+Questionnaires No
+
+All Scenarios Finished?
+
+Yes
+
+Post Test
+
+Figure 3: Procedure of the study
+We chose a within-subject design for the experiment. Thus, each participant experienced all three concepts in randomized order. The procedure of the study is shown in Fig. 3. In the beginning, participants were informed about the background and procedure of the study and gave informed consent. The study itself started by filling in a demographic questionnaire that also included questions about the participant’s experience with automated driving functions and their usage behavior in regard to their own vehicle. Before the 360° videos of the concepts were presented to the participants through the VR headset, a generic video was shown to help familiarize them with the VR environment and the study setup. After each concept, the participants were instructed to evaluate the concepts by filling in the STS-AD and SIPA questionnaires. In the second part of the study, a semi-standardized interview was conducted. The whole study lasted about 30-40 minutes.
+4.4 Sample
+We recruited 24 participants (14 male, 10 female; age range 16 to 49 years, M = 24.54, SD = 7.33). 12 of our participants were students, 6 were employed and one was not employed. All participants owned a driver’s license and participated voluntarily in the study without receiving any compensation.
+
+176
+
+AutomotiveUI ’23 Adjunct, September 18–22, 2023, Ingolstadt, Germany
+
+5 RESULTS
+5.1 Quantitative Results (VR driving simulation)
+
+8
+
+***
+
+**
+
+ns
+
+6
+
+STS−AD score
+
+4
+
+2
+
+Concept A (Baseline)
+
+Concept B
+
+Concept C
+
+(How Information) (How & Why Information)
+
+Concept
+
+(a) STS-AD score for each concept
+****
+****
+***
+6
+
+SIPA score
+
+4
+
+2
+
+Concept A (Baseline)
+
+Concept B
+
+Concept C
+
+(How Information) (How & Why Information)
+
+Concept
+
+(b) SIPA score for each concept
+
+Figure 4: STS-AD and SIPA scores plotted for each of the three concepts
+
+5.1.1 Trust in Automation. The effect on trust (Fig. 4, left) was analyzed using a repeated measures ANOVA. For all analyses, the level of significance was set at 𝛼 = .05. The calculations were conducted using R. The results show that the concept had a significant effect on situational trust, F(2,23) = 9.456, p < .001. The post-hoc t-test show that trust in automation is significantly different between concept A (no additional information, M=3.799, SD=1.281) and concept C (highest amount of information, M=4.632, SD=1.064) (p < .001), while there was no significant difference between concept A and concept B (additional information regarding the ego-vehicle, M=4.160, SD=1.128) (p = .39). There was also a significant difference between concept B and concept C (p = .01). All p-values were adjusted using the Bonferroni method.
+5.1.2 Situation Awareness. Similarly, situation awareness (Fig. 4, right) was analyzed using a repeated measures ANOVA. The results
+
+Manger et al.
+show that situation awareness is significantly different between the concepts, F=36.959, p=.44. Using t-tests as post-hoc tests, significant differences between all three concepts could be found. Situation awareness was significantly lower in concept A (M=2.354, SD=1.098) , compared to concept B (M=3.347, SD=1.006, p<.001), and concept C (M=4.563, SD=1.018,p<.001).
+5.2 Qualitative Results (Interview)
+In the Interview, the two explainable concepts were shown to the participants again and then discussed in detail. Most of the participants (>75%) understood the meaning of the white, red, and blue lines in the concepts. Concept C (how & why information) was rated as the most understandable concept by a clear majority of the participants (96%) and also was reported to induce the highest trust in automation (95%). Some participants (8.7%) also noted that being aware of all the recognized objects increases their trust in the automated vehicle. All participants stated that the baseline concept A, with no information at all, was not understandable enough and didn’t support trust. For daily usage, n = 19 participants would prefer using concept C, and n = 5 participants using concept B.
+6 DISCUSSION
+The results show that communicating information about the egovehicle, as well as other involved traffic objects can have a positive impact on the human’s trust in the automated vehicle (H1) and also the situation awareness (H2). Thus both hypotheses can be accepted. In regard to trust in automation, the STS-AD questionnaire and the results of the interview were consistent and revealed a strong preference for concept C (how & why information) in comparison with concept B (how information) and also the baseline concept A with no information. From a descriptive perspective, we can conclude that in this study, the more information was visualized, the higher the participants rated their trust in the automated vehicle. The same effect was shown for situation awareness. All concepts differ significantly in their ability to raise situation awareness, with concept C achieving the highest scores. As pointed out in section 2, situation awareness is of particular importance in contexts that require the authority to transition from the vehicle to the driver. This raises the question if we even need to consider situation awareness in full automation modes, where the driver has no obligation or even chance of intervening in the driving task. Although maybe not necessary when considered in isolation, situation awareness must be evaluated in the context of other human factor constructs and their dependencies. Previous research showed that situation awareness promotes and also moderates the impact of trust in automation [19], which is in line with the results in this work, where a clear correlation between the two constructs was revealed. Therefore, we recommend promoting situation awareness even in highly and fully automated driving and encouraging the use of augmented reality windshield displays as a suitable medium. Furthermore, it can be discussed how the driver’s engagement in a non-driving-related task might have influenced the results. When reading or using mobile devices, the driver is distracted, and a visual-only HMI concept might be overseen. On the other side, an auditory concept can be perceived as disturbing as well, so we would recommend, when accompanying the visual information with cues of other modalities,
+
+177
+
+Providing Explainability in Safety-Critical Automated Driving Situations through AR WSD
+
+AutomotiveUI ’23 Adjunct, September 18–22, 2023, Ingolstadt, Germany
+
+to do this only in a supplementary and unobtrusive way. While the results of this study might lead towards the conclusion that more explainable information is beneficial and will, in any case, improve situation awareness and trust, we have to interpret our work in the context of existing literature. Contrary to our results, other studies showed a higher level of information could also lead to a cognitive overload, and a negative user experience [5, 11, 18].
+7 FUTURE WORK
+The captured measures in this study showed strong results, yet they refer to the specific evaluation of two windshield concept in one example situation. Therefore, these findings cannot be generalized to the multitude of safety-critical situations that can occur in automated driving scenarios. Similar concepts may hold great potential, but future research should explore ways to increase the scalability of such concepts. Also, the short duration (22 seconds) of the presented scenarios could be seen as a limitation of this study. The participants’ immersion in the driving scene might have been higher if there would have been an extension of the driving scene before and after the critical situation. While the short scenarios didn’t seem to influence the subjective evaluation of the concepts, for future studies we recommend extending the driving scene and including non-driving related tasks to ensure validity and a more realistic driving experience.
+8 CONCLUSION
+The presented study investigated the use of AR windshield visualizations as a means to provide transparency and explainability in safety-critical automated driving situations in order to raise trust in automation and situation awareness. We chose a common yet critical highway overtaking scenario and conducted a mixed-methods user study consisting of a VR driving simulation experiment and a semi-structured interview. Two explainable concepts with varying degrees of information were compared against a baseline condition with no information. The results showed significantly higher trust and situation awareness scores under the presentation of the explainable concepts with the highest rating and preference for the concept with both information about the ego vehicle’s behavior as well as other affected traffic objects. In the presented study, AR windshield visualizations were an accepted and unobtrusive means of assisting drivers in the safety-critical situation and we encourage the research community to investigate similar concepts in other situations of unexpecting driving behavior to allow for safe and enjoyable automated driving experiences.
+ACKNOWLEDGMENTS
+We applied the SDC approach for the sequence of authors. This work is supported under the FH-Impuls program of the German Federal Ministry of Education and Research (BMBF) under Grant No. 13FH7I06IA (SAFIR IP6).
+REFERENCES
+[1] Oliver Carsten and Marieke Martens. 2019. How can humans understand their automated cars? HMI principles, problems and solutions. Cognition, Technology & Work 21 (02 2019). https://doi.org/10.1007/s10111-018-0484-0
+[2] Mark Colley, Benjamin Eder, Jan Ole Rixen, and Enrico Rukzio. 2021. Effects of Semantic Segmentation Visualization on Trust, Situation Awareness, and
+
+Cognitive Load in Highly Automated Vehicles. In Proceedings of the 2021 CHI Conference on Human Factors in Computing Systems (Yokohama, Japan) (CHI ’21). Association for Computing Machinery, New York, NY, USA, Article 155, 11 pages. https://doi.org/10.1145/3411764.3445351 [3] Mark Colley, Svenja Krauss, Mirjam Lanzer, and Enrico Rukzio. 2021. How Should Automated Vehicles Communicate Critical Situations? A Comparative Analysis of Visualization Concepts. Proc. ACM Interact. Mob. Wearable Ubiquitous Technol. 5, 3, Article 94 (sep 2021), 23 pages. https://doi.org/10.1145/3478111 [4] Mark Colley, Max Rädler, Jonas Glimmann, and Enrico Rukzio. 2022. Effects of Scene Detection, Scene Prediction, and Maneuver Planning Visualizations on Trust, Situation Awareness, and Cognitive Load in Highly Automated Vehicles. Proc. ACM Interact. Mob. Wearable Ubiquitous Technol. 6, 2, Article 49 (jul 2022), 21 pages. https://doi.org/10.1145/3534609 [5] Simon Danner, Alexander Feierle, Carina Manger, and Klaus Bengler. 2021. Context-Adaptive Availability Notifications for an SAE Level 3 Automation. Multimodal Technologies and Interaction 5 (03 2021), 16. https://doi.org/10.3390/ mti5040016 [6] Na Du, Jacob Haspiel, Qiaoning Zhang, Dawn Tilbury, Anuj Pradhan, X. Jessie Yang, and Lionel Robert. 2019. Look Who’s Talking Now: Implications of AV’s Explanations on Driver’s Trust, AV Preference, Anxiety and Mental Workload. Transportation Research Part C Emerging Technologies 104 (05 2019), 428–442. https://doi.org/10.1016/j.trc.2019.05.025 [7] David W. Eby, Lisa J. Molnar, Liang Zhang, Renée M. St. Louis, Nicole Zanier, Lidia P. Kostyniuk, and Sergiu C Stanciu. 2016. Use, perceptions, and benefits of automotive technologies among aging drivers. [8] Mica Endsley. 1995. Endsley, M.R.: Toward a Theory of Situation Awareness in Dynamic Systems. Human Factors Journal 37(1), 32-64. Human Factors: The Journal of the Human Factors and Ergonomics Society 37 (03 1995), 32–64. https: //doi.org/10.1518/001872095779049543 [9] Brittany E. Holthausen, Philipp Wintersberger, Bruce N. Walker, and Andreas Riener. 2020. Situational Trust Scale for Automated Driving (STS-AD): Development and Initial Validation. In 12th International Conference on Automotive User Interfaces and Interactive Vehicular Applications (Virtual Event, DC, USA) (AutomotiveUI ’20). Association for Computing Machinery, New York, NY, USA, 40–47. https://doi.org/10.1145/3409120.3410637 [10] Jeamin Koo, Jungsuk Kwac, Martin Steinert, Larry Leifer, and Clifford Nass. 2014. Why did my car just do that? Explaining semi-autonomous driving actions to improve driver understanding, trust, and performance. International Journal on Interactive Design and Manufacturing (IJIDeM) 9 (01 2014). https://doi.org/10. 1007/s12008- 014- 0227- 2 [11] Alexander Kunze, Steve J. Summerskill, Russell Marshall, and Ashleigh J. Filtness. 2019. Automation transparency: implications of uncertainty communication for human-automation interaction and interfaces. Ergonomics 62 (2019), 345 – 360. [12] S. Langlois and B. Soualmi. 2016. Augmented Reality versus Classical HUD to Take over from Automated Driving: An Aid to Smooth Reactions and to Anticipate Maneuvers. In 2016 IEEE 19th International Conference on Intelligent Transportation Systems (ITSC) (Rio de Janeiro, Brazil). IEEE Press, New York City, NY, USA, 8 pages. https://doi.org/10.1109/ITSC.2016.7795767 [13] John D. Lee and Katrina A. See. 2004. Trust in Automation: Designing for Appropriate Reliance. Human Factors 46, 1 (2004), 50–80. https://doi.org/10. 1518/hfes.46.1.50_30392 PMID: 15151155. [14] Todd Litman. 2020. Autonomous Vehicle Implementation Predictions: Implications for Transport Planning. Technical Report. Victoria Transport Policy Institute. http://www.vtpi.org/avip.pdf [15] Lia Morra, Fabrizio Lamberti, F. Gabriele Pratticó, Salvatore La Rosa, and Paolo Montuschi. 2019. Building Trust in Autonomous Vehicles: Role of Virtual Reality Driving Simulators in HMI Design. IEEE Transactions on Vehicular Technology 68, 10 (2019), 9438–9450. https://doi.org/10.1109/TVT.2019.2933601 [16] D Omeiza, H Webb, M Jirotka, and L Kunze. 2021. Explanations in autonomous driving: a survey. IEEE Transactions on Intelligent Transportation Systems 23, 8 (2021), 10142 – 10162. [17] On-Road Automated Driving (ORAD) committee. 2018. Taxonomy and Definitions for Terms Related to Driving Automation Systems for On-Road Motor Vehicles. [18] Jakob Benedikt Peintner, Carina Manger, and Andreas Riener. 2022. “Can You Rely on Me?” Evaluating a Confidence HMI for Cooperative, Automated Driving. In Proceedings of the 14th International Conference on Automotive User Interfaces and Interactive Vehicular Applications (Seoul, Republic of Korea) (AutomotiveUI ’22). Association for Computing Machinery, New York, NY, USA, 340–348. https: //doi.org/10.1145/3543174.3546976 [19] Luke Petersen, Lionel Robert, X. Jessie Yang, and Dawn Tilbury. 2019. Situational Awareness, Driver’s Trust in Automated Driving Systems and Secondary Task Performance. https://doi.org/10.2139/ssrn.3345543 [20] Bastian Pfleging, Maurice Rang, and Nora Broy. 2016. Investigating User Needs for Non-Driving-Related Activities during Automated Driving. In Proceedings of the 15th International Conference on Mobile and Ubiquitous Multimedia (Rovaniemi, Finland) (MUM ’16). Association for Computing Machinery, New York, NY, USA, 91–99. https://doi.org/10.1145/3012709.3012735
+
+178
+
+AutomotiveUI ’23 Adjunct, September 18–22, 2023, Ingolstadt, Germany
+[21] L.P. Robert. 2019. Are automated vehicles safer than manually driven cars? , 687–688 pages. https://doi.org/10.1007/s00146-019-00894-y
+[22] Tobias Schneider, Joana Hois, Alischa Rosenstein, Sabiha Ghellal, Dimitra Theofanou-Fülbier, and Ansgar R.S. Gerlicher. 2021. ExplAIn Yourself! Transparency for Positive UX in Autonomous Driving. In Proceedings of the 2021 CHI Conference on Human Factors in Computing Systems (Yokohama, Japan) (CHI ’21). Association for Computing Machinery, New York, NY, USA, Article 161, 12 pages. https://doi.org/10.1145/3411764.3446647
+[23] Tim Schrills, Mourad Zoubir, Mona Bickel, Susanne Kargl, and Thomas Franke. 2021. Are Users in the Loop? Development of the Subjective Information Processing Awareness Scale to Assess XAI.
+[24] Brad Templeton. 2021. Fatal Tesla Crash In Texas: What We Know And What We Don’t. YouTube. https://www.forbes.com/sites/bradtempleton/2021/04/22/fataltesla-crash-in-texas-what-we-know-and-what-we-dont/?sh=69c6b6a634bb Retrieved: 2022-05-09.
+[25] Gesa Wiegand, Malin Eiband, Maximilian Haubelt, and Heinrich Hussmann. 2020. “I’d like an Explanation for That!”Exploring Reactions to Unexpected Autonomous Driving. In 22nd International Conference on Human-Computer Interaction with
+
+Manger et al.
+Mobile Devices and Services. Association for Computing Machinery, New York, NY, USA, Article 36, 11 pages. https://doi.org/10.1145/3379503.3403554 [26] Gesa Wiegand, Matthias Schmidmaier, Thomas Weber, Yuanting Liu, and Heinrich Hussmann. 2019. I Drive - You Trust: Explaining Driving Behavior Of Autonomous Cars. In Extended Abstracts of the 2019 CHI Conference on Human Factors in Computing Systems (Glasgow, Scotland Uk) (CHI EA ’19). Association for Computing Machinery, New York, NY, USA, 1–6. https://doi.org/10.1145/ 3290607.3312817 [27] Philipp Wintersberger, Tamara von Sawitzky, Anna-Katharina Frison, and Andreas Riener. 2017. Traffic Augmentation as a Means to Increase Trust in Automated Driving Systems. In Proceedings of the 12th Biannual Conference on Italian SIGCHI Chapter (Cagliari, Italy) (CHItaly ’17). Association for Computing Machinery, New York, NY, USA, Article 17, 7 pages. https://doi.org/10.1145/3125571. 3125600 [28] Ingo Wolf. 2016. The Interaction Between Humans and Autonomous Agents. Springer Berlin Heidelberg, Berlin, Heidelberg, 103–124. https://doi.org/10. 1007/978- 3- 662- 48847- 8_6
+
+179
+

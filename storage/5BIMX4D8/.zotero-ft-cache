@@ -1,0 +1,3625 @@
+A Vehicle Dynamics Model for Driving Simulators
+Master’s Thesis
+JORGE GÓMEZ FERNÁNDEZ
+Department of Applied Mechanics Division of Vehicle Engineering and Autonomous Systems Vehicle Dynamics CHALMERS UNIVERSITY OF TECHNOLOGY Göteborg, Sweden 2012 Master’s thesis 2012:26
+
+MASTER’S THESIS
+A Vehicle Dynamics Model for Driving Simulators
+JORGE GÓMEZ FERNÁNDEZ
+Department of Applied Mechanics Division of Vehicle Engineering and Autonomous Systems
+Vehicle Dynamics CHALMERS UNIVERSITY OF TECHNOLOGY
+Göteborg, Sweden 2012
+
+A Vehicle Dynamics Model for Driving Simulators JORGE GÓMEZ FERNÁNDEZ © JORGE GÓMEZ FERNÁNDEZ, 2012
+Master’s Thesis 2012:26 ISSN 1652-8557 Department of Applied Mechanics Division of Vehicle Engineering and Autonomous Systems Vehicle Dynamics Chalmers University of Technology SE-412 96 Göteborg Sweden Telephone: + 46 (0)31-772 1000
+Cover: General view of VTI’s driving simulator SimIV, located in Göteborg, Sweden.
+Chalmers Reproservice Göteborg, Sweden 2012
+
+A Vehicle Dynamics Model for Driving Simulators
+Master’s Thesis JORGE GÓMEZ FERNÁNDEZ Department of Applied Mechanics Division of Vehicle Engineering and Autonomous Systems Vehicle Dynamics Chalmers University of Technology
+ABSTRACT Driving simulators play an important role in research concerning mainly human factors and the development of new advanced driver assistance systems. Since the human body is a very sensitive “machine”, driving simulator experiences must be as close as possible to reality, in order to conduct simulator experiments that generate accurate results, so they can be extrapolated to real driving situations. One part of the driving simulator that influences the driver perception is the vehicle dynamics model. This is the part of the simulator software that calculates the physics and motion of a real vehicle according to the driver inputs and environmental conditions. In this Master’s thesis, a new vehicle dynamics model with ten degrees of freedom has been developed, using Modelica® as a programming language. The model is specially designed for Real-time applications, mainly driving simulators. The model is intended to calculate the motion of a passenger vehicle when driving in normal conditions, representing real vehicle behaviour in public roads, since this is a common characteristic in many simulator experiments. In addition, the model must also present a realistic and predictable behaviour in some severe driving conditions such as collision avoidance manoeuvres, which can also be of interest when performing simulator experiments. A very important part of this thesis concerns the model validation. In order to ensure that the vehicle dynamics model behaves like a real car would do in the conditions mentioned above; predefined manoeuvres representing these driving conditions have been performed in a test track with a car equipped with data acquisition systems. Moreover, the model has been tuned in an attempt to match the test data when performing the same predefined manoeuvres. The last part of the model validation consisted in a simulator experiment where different skilled drivers compared the new model against an old version, in order to evaluate the behaviour of the new model.
+Keywords: Vehicle dynamics, driving simulator, real-time simulation, model validation, Modelica®.
+I
+
+II
+
+Contents
+
+ABSTRACT
+
+I
+
+CONTENTS
+
+1
+
+PREFACE
+
+3
+
+NOTATIONS
+
+5
+
+1 INTRODUCTION
+
+9
+
+1.1 The driving simulator and the VDM role
+
+9
+
+1.2 Project definition
+
+11
+
+1.3 Motivation
+
+12
+
+1.4 Model characteristics
+
+12
+
+1.5 Limitations
+
+12
+
+1.6 Programming language
+
+13
+
+2 VEHICLE DYNAMICS MODEL DESCRIPTION
+
+15
+
+2.1 Coordinate system
+
+15
+
+2.2 Model inputs and outputs
+
+16
+
+2.2.1 VDM inputs
+
+16
+
+2.2.2 VDM outputs
+
+18
+
+2.3 VDM structure
+
+19
+
+3 CHASSIS MODEL
+
+21
+
+3.1 Literature review
+
+21
+
+3.2 Chassis model implementation
+
+24
+
+3.2.1 Vehicle motion
+
+24
+
+3.2.2 Wheels rotational dynamics
+
+28
+
+3.2.3 Tire local coordinate systems velocities
+
+29
+
+3.3 Chassis parameters
+
+31
+
+4 TIRE MODEL
+
+33
+
+4.1 Literature review
+
+33
+
+4.2 Semi-empirical model selection
+
+33
+
+4.3 Brush model implementation
+
+35
+
+4.4 Tire model parameters
+
+40
+
+5 SUSPENSION SYSTEM MODEL
+
+41
+
+5.1 Literature review
+
+41
+
+5.2 Suspension implementation
+
+43
+
+CHALMERS, Applied Mechanics, Master’s Thesis 2012:26
+
+1
+
+5.3 Suspension parameters
+
+46
+
+6 STEERING SYSTEM MODEL
+
+47
+
+6.1 Literature review
+
+47
+
+6.2 Steering implementation
+
+51
+
+6.3 Steering system parameters
+
+52
+
+7 DRIVELINE MODEL
+
+53
+
+7.1 Literature review
+
+53
+
+7.2 Driveline implementation
+
+55
+
+7.3 Driveline parameters
+
+57
+
+8 BRAKING SYSTEM MODEL
+
+59
+
+8.1 Literature review
+
+59
+
+8.2 Braking system implementation
+
+61
+
+8.3 Braking system parameters
+
+62
+
+9 VEHICLE DYNAMICS MODEL VALIDATION
+
+63
+
+9.1 Vehicle data acquisition
+
+63
+
+9.1.1 Test vehicles
+
+63
+
+9.1.2 Test procedure
+
+64
+
+9.1.3 Measurement equipment
+
+67
+
+9.2 Model tuning
+
+68
+
+9.3 Simulator experiments
+
+71
+
+10 DISCUSSION
+
+75
+
+11 CONCLUSIONS
+
+79
+
+12 FUTURE WORK
+
+81
+
+13 REFERENCES
+
+83
+
+APPENDICES
+
+85
+
+Appendix A. Model parameters
+
+85
+
+Appendix B. VDM validation results
+
+89
+
+Appendix C. Simulator test procedure
+
+105
+
+2
+
+CHALMERS, Applied Mechanics, Master’s Thesis 2012:26
+
+Preface
+This Master’s thesis has been performed from January to June 2012 at VTI’s Göteborg office, and it is done in collaboration between VTI and Chalmers University of Technology.
+During the thesis, a new vehicle dynamics model for driving simulators has been developed and validated with test track experiments at Stora Holm Test Track, Göteborg, and also with simulator experiments performed at VTI’s newest simulator SimIV.
+I would like to thank all VTI’s personnel for their friendship and their Swedish lessons. Special mention must be done for my supervisor, Fredrik Bruzelius, for the great support and being so friendly and also to Bruno Augusto, for all those evenings working late to get everything running.
+Finally I also would like to thank the following for volunteer for the simulator experiments: Arne Nåbo, Bengt Jacobson, Derong Yang, Eva Åström, Jesper Sandin, Morteza Hassanzadeh and Ulrich Sander. Thank you all.
+Göteborg, June 2012.
+Jorge Gómez Fernández
+
+CHALMERS, Applied Mechanics, Master’s Thesis 2012:26
+
+3
+
+4
+
+CHALMERS, Applied Mechanics, Master’s Thesis 2012:26
+
+Notations
+
+Roman upper case letters
+
+𝐴𝐴𝑓𝑓
+
+Vehicle´s frontal area
+
+𝐵𝐵𝑖𝑖𝑖𝑖𝑖𝑖𝑖𝑖𝑖𝑖
+
+Brake pressure at master cylinder.
+
+𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝐵 𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑓𝑓
+
+Brake pressure front callipers
+
+Brake pressure rear 𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝐵 𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑟𝑟 callipers
+
+𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝑖𝑖 Brake torque wheel 𝑖𝑖
+
+𝐶𝐶
+
+Tire normalized thread stiffness
+
+𝐶𝐶𝑑𝑑𝑑𝑑𝑑𝑑𝑑𝑑
+
+Vehicle’s drag coefficient
+
+𝐶𝐶𝑓𝑓 𝑝𝑝𝑝𝑝𝑝𝑝
+
+Disc-pad friction coefficient
+
+𝐶𝐶input 𝐶𝐶𝐶𝐶𝐶𝐶𝐶𝐶 𝐹𝐹𝑦𝑦 𝑓𝑓
+
+Clutch position
+Lateral force compliance front
+
+𝐶𝐶𝐶𝐶𝐶𝐶𝑧𝑧 𝐶𝐶𝐶𝐶𝐶𝐶𝐶𝐶 𝐹𝐹𝑦𝑦 𝑟𝑟
+
+Centre of gravity height
+Lateral force compliance rear
+
+𝐶𝐶𝐶𝐶𝐶𝐶𝐶𝐶 𝑀𝑀𝑧𝑧 𝑓𝑓
+
+Aligning torque compliance front
+
+𝐶𝐶𝐶𝐶𝐶𝐶𝐶𝐶 𝑀𝑀𝑧𝑧 𝑟𝑟
+
+Aligning torque compliance rear
+
+𝐶𝐶𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠
+
+Steering servo assistance coefficient
+
+𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷d
+
+Steer wheel angle damped
+
+𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷i
+
+Steer angle wheel 𝑖𝑖
+
+𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷int
+
+Intermediate variable. Steering system
+
+𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷sw
+
+Steering wheel input
+
+𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷 𝑑𝑑𝑓𝑓
+
+Front brake disc diameter
+
+𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷 𝑑𝑑𝑟𝑟
+
+Rear brake disc diameter
+
+𝐷𝐷𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝 ℎ
+
+Pitch rotation damper characteristic
+
+𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝑖𝑖 Driving torque wheel 𝑖𝑖
+
+𝐷𝐷𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟 𝑓𝑓
+
+Roll front rotation damper characteristic
+
+𝐷𝐷𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟 𝑟𝑟
+
+Roll rear rotation damper characteristic
+
+𝐷𝐷𝑠𝑠ℎ𝑜𝑜𝑜𝑜𝑜𝑜 𝑓𝑓
+
+Front suspension shock absorber damping coefficient
+
+𝐷𝐷𝑠𝑠ℎ𝑜𝑜𝑜𝑜𝑜𝑜 𝑟𝑟
+
+Rear suspension shock absorber damping coefficient
+
+𝐷𝐷𝑠𝑠𝑠𝑠
+
+Steering column damping coefficient
+
+CHALMERS, Applied Mechanics, Master’s Thesis 2012:26
+
+5
+
+𝐹𝐹𝑑𝑑𝑑𝑑𝑑𝑑𝑑𝑑
+
+Drag resistance force
+
+𝐹𝐹𝑒𝑒𝑒𝑒𝑒𝑒 .𝑦𝑦 𝐹𝐹𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟 .
+𝐹𝐹𝑥𝑥 𝑖𝑖 𝐹𝐹𝑧𝑧 𝑖𝑖
+
+External force applied to COG, y direction
+Rolling resistance force
+Longitudinal force, wheel 𝑖𝑖
+Vertical force, wheel 𝑖𝑖
+
+𝐼𝐼𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎 𝑓𝑓 𝐼𝐼𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡
+
+Front antiroll bar inertia Tire and wheel inertia
+
+𝐼𝐼𝑦𝑦
+
+Vehicle´s moment of
+
+inertia with respect to y
+
+axis
+
+𝐾𝐾𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎 𝑓𝑓
+
+Front antiroll bar torsion stiffness
+
+𝐾𝐾𝑑𝑑 𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟
+
+Road inputs damping coefficient
+
+𝐾𝐾𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟 𝑓𝑓 𝐾𝐾𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠 𝑓𝑓
+
+Front axle roll stiffness
+Front suspension springs stiffness
+
+𝐿𝐿𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎 𝑓𝑓 𝐿𝐿𝑙𝑙𝑙𝑙𝑙𝑙𝑙𝑙𝑙𝑙 𝑓𝑓
+
+Front antiroll bar length
+Front antiroll bar lever arm
+
+𝐿𝐿1
+
+Distance between COG and front axle
+
+𝑅𝑅𝑅𝑅𝑅𝑅𝑅𝑅 𝑠𝑠𝑠𝑠𝑓𝑓
+
+Roll steer compliance front
+
+𝑃𝑃𝑃𝑃𝑃𝑃𝑃𝑃𝑃𝑃𝑃𝑃𝑃𝑃𝑃𝑃𝑙𝑙𝑙𝑙𝑙𝑙𝑙𝑙𝑙𝑙 𝑟𝑟 Limit pressure valve set
+
+𝑆𝑆𝑆𝑆𝑆𝑆𝑓𝑓𝑓𝑓𝑓𝑓𝑓𝑓𝑓𝑓𝑓𝑓𝑓𝑓𝑓𝑓
+
+Steering wheel friction torque
+
+𝐹𝐹𝑒𝑒𝑒𝑒𝑒𝑒 .𝑥𝑥 𝐹𝐹𝑒𝑒𝑒𝑒𝑒𝑒 .𝑧𝑧 𝐹𝐹𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠 𝐹𝐹𝑦𝑦 𝑖𝑖
+𝐺𝐺
+𝐼𝐼𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎 𝑓𝑓 𝐼𝐼𝑥𝑥
+𝐼𝐼𝑧𝑧
+𝐾𝐾𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎 𝑟𝑟 𝐾𝐾𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝 ℎ 𝐾𝐾𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟 𝑟𝑟
+𝐾𝐾𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠 𝑟𝑟 𝐿𝐿𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎 𝑟𝑟 𝐿𝐿𝑙𝑙𝑙𝑙𝑙𝑙𝑙𝑙𝑙𝑙 𝑟𝑟
+𝐿𝐿2 𝑅𝑅𝑅𝑅𝑅𝑅𝑅𝑅 𝑠𝑠𝑠𝑠𝑟𝑟 𝑆𝑆𝑆𝑆𝑆𝑆𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡
+
+External force applied to COG, x direction
+External force applied to COG, z direction
+Slope resistance force
+Lateral force, wheel 𝑖𝑖
+Antiroll bar material transverse displacement module
+Rear antiroll bar inertia
+Vehicle´s moment of inertia with respect to x axis
+Vehicle´s moment of inertia with respect to z axis
+Rear antiroll bar torsion stiffness
+Pitch axis torsion stiffness
+Rear axle roll stiffness
+Rear suspension springs stiffness
+Rear antiroll bar length
+Rear antiroll bar lever arm
+Distance between COG and rear axle
+Roll steer compliance rear
+Steering wheel torque
+
+6
+
+CHALMERS, Applied Mechanics, Master’s Thesis 2012:26
+
+Roman lower case letters
+
+a
+
+Tire contact patch length
+
+𝑎𝑎𝑥𝑥
+
+Vehicle longitudinal acceleration
+
+𝑎𝑎𝑦𝑦
+
+Vehicle lateral acceleration
+
+𝑎𝑎𝑧𝑧
+
+Vehicle vertical acceleration
+
+𝑏𝑏𝑏𝑏𝑏𝑏𝑏𝑏 𝑑𝑑𝑓𝑓
+
+Road banking
+Front antiroll bar diameter
+
+𝑏𝑏𝑏𝑏𝑏𝑏𝑏𝑏𝑑𝑑 𝑑𝑑𝑟𝑟
+
+Road damped banking
+Rear antiroll bar diameter
+
+𝑑𝑑𝑑𝑑
+
+Tire caster offset
+
+𝑑𝑑𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝 ℎ
+
+Vertical distance between COG and pitch axis
+
+Vertical distance
+
+Engine maximum
+
+𝑑𝑑𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟
+
+between COG and 𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡 𝑚𝑚𝑚𝑚𝑚𝑚 torque for a given
+
+roll axis
+
+engine speed
+
+Engine minimum
+𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡 𝑚𝑚𝑚𝑚𝑚𝑚 torque for a given engine speed
+
+𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡
+
+Torque output from the engine
+
+𝑓𝑓𝑟𝑟
+
+Rolling resistance coefficient
+
+𝑓𝑓𝑠𝑠𝑠𝑠
+
+Steering column filtering coefficient
+
+𝑔𝑔
+
+Gravity acceleration
+
+𝑖𝑖𝑇𝑇
+
+Total transmission ratio
+
+𝑖𝑖𝑖𝑖
+
+Gear ratio of gear 𝑖𝑖
+
+𝑡𝑡𝑡𝑡𝑡𝑡𝑓𝑓
+
+Front wheel toe angle
+
+𝑚𝑚
+
+Vehicle mass
+
+𝑡𝑡𝑡𝑡𝑡𝑡𝑟𝑟
+
+Rear wheel toe angle
+
+𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝ℎ𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎
+
+Vehicle cabin pitch angle
+
+𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟 Steering pinion radius
+
+𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑑𝑑
+
+Calliper piston diameter
+
+𝑝𝑝𝑝𝑝𝑝𝑝𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎
+
+Brake pad area
+
+rnom
+
+Tire nominal radius
+
+𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎
+
+Vehicle cabin roll angle
+
+𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠 𝑠𝑠𝑠𝑠 𝑎𝑎𝑎𝑎𝑎𝑎𝑙𝑙𝑙𝑙𝑙𝑙𝑙𝑙𝑙𝑙
+
+Road slope Steering arm lever
+
+𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑑𝑑
+
+Road damped slope
+
+CHALMERS, Applied Mechanics, Master’s Thesis 2012:26
+
+7
+
+Greek upper case letters
+
+∆𝐹𝐹𝑧𝑧 𝑓𝑓
+
+Front axle lateral load transfer
+
+∆𝐹𝐹𝑧𝑧 𝑓𝑓
+
+Rear axle lateral load transfer
+
+Greek lower case letters
+
+𝛼𝛼𝑤𝑤ℎ𝑒𝑒𝑒𝑒𝑒𝑒 𝑖𝑖 𝛼𝛼𝑦𝑦
+𝜂𝜂𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡 𝜔𝜔𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒
+𝜔𝜔𝑠𝑠𝑠𝑠 𝜔𝜔𝑥𝑥 𝜔𝜔𝑧𝑧
+
+Wheel 𝑖𝑖 rotational acceleration
+Vehicle cabin pitch acceleration
+Transmission efficiency
+Engine rotational speed, [rad/s]
+Steering wheel rotational velocity
+Vehicle roll rate
+Vehicle yaw rate
+
+𝛼𝛼𝑥𝑥
+
+Vehicle cabin roll acceleration
+
+𝛼𝛼𝑧𝑧
+
+Vehicle cabin yaw acceleration
+
+𝜌𝜌𝑎𝑎𝑎𝑎𝑎𝑎
+
+Air density
+
+𝜔𝜔𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒 𝑅𝑅𝑅𝑅𝑅𝑅 𝜔𝜔𝑤𝑤ℎ𝑒𝑒𝑒𝑒𝑒𝑒 𝑖𝑖 𝜔𝜔𝑦𝑦
+
+Engine rotational speed, [RPM]
+Wheel 𝑖𝑖 rotational velocity
+Vehicle pitch rate
+
+8
+
+CHALMERS, Applied Mechanics, Master’s Thesis 2012:26
+
+1 Introduction
+This report describes the development and validation of a new mathematical model (Vehicle dynamics model or VDM) to calculate in Real-time the dynamics of a passenger car. This new VDM will be implemented in an advanced driving simulator at the Swedish Road and Traffic Research Institute, also known as VTI.
+VTI is an independent and internationally prominent research institute in the transport sector. The institute is a government agency under the Ministry of Enterprise, Energy and Communications.
+VTI has more than forty years of experience using simulators and is a leading authority in conducting simulator experiments and developing simulator technology. The newest VTI simulator, SimIV, is located at VTI’s Göteborg office and is the simulator used in the development of this project.
+Driving simulator experiments are very useful for understanding the influence of factors like new technologies, road designs, drugs and alcohol or driver support systems in the driver response and behaviour.
+Since the simulator is developed to analyse mainly the driver behaviour, the driving experience has to be as close as possible to reality, in order to produce accurate results that may be extrapolated to real driving situations.
+1.1 The driving simulator and the VDM role
+In order to understand the VDM role in the simulator it is important to understand how the simulator works. VTI’s driving simulator can be divided into 5 main subsystems, as shown in Figure 1.1.
+
+SIMULATOR
+
+Vehicle cabin Graphic system Sound system
+
+VDM
+
+Motion platform
+
+Main interface with driver
+
+Represent the environment
+
+Calculate vehicle motion
+
+Simulate vehicle motion
+
+Figure 1.1 Main subsystems of the simulator and their main function.
+The first subsystem of the simulator, the vehicle cabin, is the main interface between the driver and the simulator. The vehicle cabin in SimIV uses part of a Volvo XC-60 body, and it has been conveniently modified and wired for this application, as shown in Figure 1.2.
+
+CHALMERS, Applied Mechanics, Master’s Thesis 2012:26
+
+9
+
+Figure 1.2 Simulator cabin from a Volvo XC60.
+The second subsystem of the simulator, the graphic system, consists of a 180º screen surrounding the vehicle cabin and covering the entire driver’s vision field. The graphics are represented in the screen using several projectors. In addition, the rear view mirrors in the cabin have been replaced by LCD screens to represent the part of the environment behind the vehicle. Figure 1.2 illustrates how the screen is placed surrounding the vehicle cabin and also the LCD from the left side mirror.
+Another relevant part of representing the environment in the simulator is the sound system, which is composed by several speakers in the cabin. The sound reproduced by these speakers is controlled by a complex sound model that considers several factors like vehicle velocity, working conditions of the engine or type and characteristics of the road, among others.
+In the simulator all the subsystems work together to provide a realistic driving experience, but probably the most important part of this realism is generated by the motion of the vehicle cabin. In SimIV the vehicle cabin is mounted in a motion platform, so that the vehicle dynamic states present in real driving can be also generated in the simulator, providing a more realistic driving experience. The motion platform in SimIV, shown in Figure 1.3, can be moved over rails in both longitudinal and lateral directions to generate longitudinal and lateral accelerations. In addition, roll, pitch and yaw angles can be generated and also some vertical displacement can be generated by the hexapod. With all the movements described, lateral and longitudinal accelerations up to0.6𝑔𝑔can be simulated.
+
+10
+
+CHALMERS, Applied Mechanics, Master’s Thesis 2012:26
+
+Figure 1.3 Simulator motion platform. Hexapod mounted over rails.
+Finally, the VDM plays one of the most important roles in the simulator. Since the simulator can represent the motion of a vehicle, it is necessary to calculate how a real vehicle will behave, so that behaviour can be represented by the motion platform, and this is exactly what the VDM does.
+It is important to note the difference between the VDM and the motion cueing algorithms. The VDM is focus on the physics of the vehicle motion, trying to describe the motion according to the known information regarding the vehicle, driver and environment. The motion cueing is the software that controls the motion platform and is focus on mimic the motion the driver should perceive when driving the simulator.
+1.2 Project definition
+The main goal of this Thesis is to develop a new vehicle dynamics model and implement it in the newest VTI simulator, SimIV, using Modelica® as a programming language.
+The project should define, as a starting point, the level of detail needed in the VDM and the wanted characteristics and features for the new VDM, by consulting VTI’s simulator experts.
+The VDM developed during the project must be conveniently validated, to ensure that it actually behaves like a real would do.
+
+CHALMERS, Applied Mechanics, Master’s Thesis 2012:26
+
+11
+
+1.3 Motivation
+This section aims at pinpointing the reasons behind the development of a new VDM for VTI simulators.
+The VDM presently in use in the simulator was developed in 1984 and it was implemented using FORTRAN as a programming language. The use of FORTRAN code was probably the best option in 1984 but during the last 25 years a lot of programming languages have been developed. Most of the newer solutions provide simpler languages and more friendly environments than FORTRAN, and using an appropriate solution will improve the flexibility of the VDM.
+Since VTI performs a really wide range of different experiments in its simulators, there is a need for high flexibility in order to adjust different parts of the software to create different experiments. One of the parts of the software that is usually tuned is the VDM, and with the current VDM tuning the model is a complex and highly timeconsuming task.
+It is also noticeable that vehicle’s performance and handling has been improved during the last twenty years. A new VDM representing the handling and performance of a modern vehicle will involve an improvement in the realism of the simulator experience.
+1.4 Model characteristics
+The main characteristics the model must fulfil are listed below:
+1. The model must calculate the vehicle motion considering 6 degrees of freedom (DOF) of the vehicle cabin. These DOF are the 3 displacements and 3 rotations of the cabin when considering a Cartesian system of reference fixed to the vehicle centre of gravity (COG). In addition, other 4 DOF are added defining the wheel rotational dynamics. In total, the VDM will have 10 DOF.
+2. The model must accurately calculate the motion of a vehicle up to longitudinal and lateral accelerations of 0.6𝑔𝑔, since those are realistic limits that an average driver may reach in normal driving conditions.
+3. The model must be parameterized in a realistic way, considering the main design parameters of a real car. This parameterization must provide the flexibility to simulate the response of different cars or different tunings for the same car in the simulator.
+4. The model must be developed in such a way that different features can be edited. Components should be replaceable by new ones with ease.
+5. The model must be able to run in Real-time at 200 Hz or more, in order to be useful in the simulator. This implies that the model must be developed to be stiff and efficient from a numerical point of view.
+1.5 Limitations
+The model is intended to represent passenger car behaviour when driving in public roads, since this is the main and typical range of use of the simulator.
+When a car is driven up to its limits, like it happens in certain applications like motorsports, the vehicle behaviour is influenced by a number of vehicle characteristics that can be disregarded when driving in normal (also called linear)
+
+12
+
+CHALMERS, Applied Mechanics, Master’s Thesis 2012:26
+
+driving conditions. Taking into account the expected range of usage of the simulator, the VDM will be developed and validated to perform in linear conditions, but as a consequence, the model behaviour in non-linear conditions cannot hence be considered reliable.
+Another limitation of this project is related with the steering wheel feeling. When driving a vehicle, the driver perceives a lot of information related with the driving conditions through the steering wheel and it is a well-known fact that this aspect has a direct effect in the perception of realism when driving in the simulator. Due to these reasons the steering wheel feeling has to be studied in deep and it must be simulated with great accuracy. Sadly, due to time restrictions, it was not possible to study this phenomenon with enough detail during this project. The steering wheel feeling will be included in the model and validated through the subjective perception of the developer, but an exhaustive study and validation of this phenomenon must be performed in a future work.
+In parallel with this project, VTI is developing a driveline (engine and transmission) model to be implemented in the simulator. For this reason, just a provisional driveline will be developed for this project, accurate enough to validate the model but not adjustable.
+1.6 Programming language
+Nowadays, there are several options when regarding languages used for Real-time applications. One of the most used software in industry related to Real-time simulation is Matlab Simulink®. Simulink® is a well know tool for multi-domain simulation and Model-Based Design for dynamic and embedded systems, which has complements to run Real-time simulations, like the XPC Target available in SimIV (www.mathworks.com).
+Although Simulink® is one of the most extended tools; its block-oriented programming language has some limitations in terms of flexibility and ease of understanding of the created models. The model implementation requires some initial mathematical work with the system of equations used to describe the model dynamics, in order to obtain the required variables in the proper order. There are some alternatives to avoid the implementation of the model directly in Simulink®, avoiding the disadvantages mentioned above. One of these alternatives is to develop the model using a more appropriate programming language in an environment with a Simulink® interface. Doing this, the model can be developed and modified easier by using the more adequate language and then downloaded to Simulink®for the real-time implementation.
+The alternative programming language used to develop the VDM will be Modelica®, which is a non-proprietary, object-oriented, equation based language to conveniently model complex physical systems. There are several simulation environments running Modelica®, both commercial and free of charge. One of the commercial environments is Dymola, developed by Dassault Systemes, which provides features to export the models developed in Modelica® to Simulink®. This way they can run in Real-time using a XPC Target (modelica.org, dymola.com).
+A physical system can be modelled in Dymola by writing the equations defining the system in the more convenient way, and the software is able to deal internally with the
+
+CHALMERS, Applied Mechanics, Master’s Thesis 2012:26
+
+13
+
+system of equations to obtain a conventional form that can be solved numerically. As a result the code can be developed in a more friendly way, and the equations can be stated in a close to text book format.
+Modelica® presents two different ways of work. A system can be modelled from scratch, by defining all the parameters, variables and equations of interest but there is also the possibility to generate models by putting together components from the available, commercial or free of charge, component libraries. Both options present advantages and disadvantages. When working with predefined components from the libraries, models can be built fast by putting component together but is not always easy to understand how the components are defined internally and what were the assumptions and simplifications done when the component was built. On the other hand, building everything from scratch implies a bigger effort to develop all the components and probably a long debugging process if the system modelled is complex. The main advantage of modelling all the components from scratch is that the components are built especially for the desired application and the problem of the opacity in the development is eliminated.
+In this project it was decided to develop the VDM from scratch. This choice brings about a higher workload. However, the VDM will be easier to understand and therefore easy to adjust than using components from the available libraries.
+Figure 1.4 shows a schematic representation of the software used and the workflow, including the main tasks performed at each phase.
+
+Figure 1.4 Workflow of the project. Software and main tasks used at each phase.
+
+14
+
+CHALMERS, Applied Mechanics, Master’s Thesis 2012:26
+
+2 Vehicle Dynamics Model Description
+In this chapter a full description is done for the VDM implemented in the simulator. In the beginning of the chapter, the main ideas regarding the model organization and considerations of general interest are presented and after that the different components of the model are developed and studied in detail.
+2.1 Coordinate system
+The system of coordinates that will be used during the entire project is shown in Figure 2.1.It is in accordance to the ISO standards, as described in ISO 8855. Using this coordinate system, the forward movement of the vehicle is described in the positive X axis, the lateral movement is described by the Y axis, being positive when oriented to the left (from the driver position) and the vertical movement is represented in the Z axis. The rotations of the vehicle cabin are also included in this system of coordinates. The roll rotation is defined around the X axis, the pitch rotation around the Y axis and the yaw rotation around the Z axis.
+Figure 2.1 System of coordinates fixed to vehicle’s COG. According to ISO 8855:1991
+In addition to this coordinate system, a local coordinate system will be used independently for each tire, also according to ISO 8855. The coordinate system for a single wheel can be seen in Figure 2.2.
+
+CHALMERS, Applied Mechanics, Master’s Thesis 2012:26
+
+15
+
+Figure 2.2 Wheel local coordinate system as defined in ISO 8855.
+2.2 Model inputs and outputs
+One of the first steps needed to develop the model is to identify what information the VDM will receive from other simulator systems to do its calculations (model inputs), and the information the VDM is required to generate (model outputs).
+2.2.1 VDM inputs
+The VDM inputs, listed in Table 2.1 are mainly related to the driver behaviour and the environmental conditions.
+Table 2.1 VDM inputs.
+
+INPUT
+
+DESCRIPTION
+
+Steering wheel angle
+
+Steering wheel position. Positive for left turn. Values between [-6,6], [rad]
+
+Steering wheel rate
+
+Steering wheel angle derivative, [rad/s]
+
+Throttle position
+
+Throttle pedal position. Values between [0,1] being 1 full throttle
+
+Brake pressure at master Pressure generated by the driver when braking. From 0
+
+cylinder
+
+to 17000 kPa.
+
+Clutch position
+
+Clutch pedal position. Values between [0,1] being 1 for pedal fully pressed
+
+Gear shift position
+
+Gear selected by the driver. 0= neutral; 1,...,5= gear selected
+
+Road slope
+
+Measured in radians. Positive when driving uphill
+
+Road banking
+
+Measured in radians. Positive when clockwise
+
+16
+
+CHALMERS, Applied Mechanics, Master’s Thesis 2012:26
+
+Road-tire friction coefficient (4)
+
+Friction coefficient between the tire and the road. Independent for each tire
+
+External forces applied at COG
+
+3 components of the external forces applied to the vehicle COG, according to vehicle’s coordinate
+system
+
+The first six inputs listed above are the parameters controlled by the driver when using the simulator, in the same manner it would be when driving a real car.
+Then there are three parameters describing the road design. They are the road slope and banking, describing the inclinations of the road surface, and friction coefficient between the tire and the road. Regarding the slope and bank inputs, is important to notice that these parameters change in the simulator roads as steps. These abrupt changes could generate some instability in the VDM performance. To prevent this problem some damping has been included for these inputs. Equation 2.1 shows the damping used for the road inputs and Figure 2.3 shows the damped slope generated with this equation, for a step input of 0.2 rad. It is fair to say that this is the simplest way of representing the changes in road inputs and more realistic but complex solutions, for instance vehicle speed dependant, could be implemented. However, the implemented solution is able to solve all the numerical instabilities that may appear with those step inputs without a substantial increment in the computational requirements.
+
+1 𝑑𝑑𝑑𝑑𝑑𝑑(𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑑𝑑 ) = 𝐾𝐾𝑑𝑑 𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟 ∙ (𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠 − 𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑑𝑑 )
+
+1
+
+𝑑𝑑𝑑𝑑𝑑𝑑(𝑏𝑏𝑏𝑏𝑏𝑏𝑏𝑏𝑑𝑑 )
+
+= 𝐾𝐾𝑑𝑑 𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟
+
+∙ (𝑏𝑏𝑏𝑏𝑏𝑏𝑘𝑘 − 𝑏𝑏𝑏𝑏𝑏𝑏𝑏𝑏𝑑𝑑 )
+
+(2.1)
+
+Figure 2.3 Damped response for road slope and bank inputs.
+
+CHALMERS, Applied Mechanics, Master’s Thesis 2012:26
+
+17
+
+The friction coefficient can be used to simulate different tire-road contacts like different asphalt conditions or icy roads. In addition, since the friction coefficient is defined independently for each tire, it can also be used to simulate different driving conditions like a flat tire or an aquaplaning situation in some tires of the vehicle.
+The last VDM input is a vector containing external forces applied to the vehicle’s COG, which can be used to simulate for example lateral winds when driving or an impact with other vehicle.
+2.2.2 VDM outputs
+Regarding the model outputs, Table 2.2shows the minimum required set of outputs needed in the simulator to run an experiment. In addition to these, any variable or parameter of the VDM can be sent as an output, depending on the special requirements of the experiment in progress.
+Table 2.2 VDM necessary outputs
+
+OUTPUT
+
+DESCRIPTION
+
+Vehicle velocities
+
+3 components of the vehicle velocity, according to vehicle’s coordinate system and measured in SI units,
+[m/s]
+
+Vehicle accelerations
+
+3 components of the vehicle acceleration, according to
+vehicle’s coordinate system and measured in SI units, [m/s2]
+
+Vehicle angular velocities or angular rates
+
+3 components of the vehicle angular velocity, according to vehicle’s coordinate system and
+measured in SI units, [rad/s]
+
+Vehicle angular accelerations
+
+3 components of the vehicle angular acceleration,
+according to vehicle’s coordinate system and measured in SI units, [rad/s2]
+
+Steering wheel torque
+
+Torque to be generated in the steering wheel, measured in SI units, [Nm].
+
+Engine speed
+
+Engine rotational speed, measured,[rpm]
+
+Engine torque
+
+Torque generated by the engine, [Nm]
+
+Secondary outputs
+
+Outputs of interest for the experiment in progress. They can be any variable or parameter of the VDM.
+
+All the presented outputs are sent to other subsystems of the simulator. The three vectors containing all the information about the vehicle motion, velocities and accelerations, are used by the software controlling the motion platform, the software controlling the graphic system and also in the sound system. The steering wheel torque is represented in the vehicle cabin using an electric motor connected to the steering column. Finally, the engine speed and torque are used by the sound system to
+
+18
+
+CHALMERS, Applied Mechanics, Master’s Thesis 2012:26
+
+generate the adequate engine sound. The engine speed is also shown in the vehicle dashboard.
+2.3 VDM structure
+Since flexibility has been established as one of the main characteristics of the VDM, its organization is an important point for the project. In order to have a good flexibility the Modelica® program needs to be clear, easy to understand and properly organized, so changes can be done fast.
+Considering these ideas, the decision taken is to divide the model into different subsystems, in the same way that a real vehicle can be divided. Figure 2.4 shows a schematic representation of the model layout.
+
+Chassis
+
+Tire Model
+
+VDM
+
+Suspension
+
+Steering system
+
+Driveline
+
+Brakes
+
+Active safety
+
+ABS
+
+ESC
+
+…
+Figure 2.4 VDM organization in sub-systems.
+As shown in Figure 2.4, the Modelica® VDM is divided in six main interconnected sub-systems, with additional components for different active safety systems like ABS or ESC, for example.
+The main components are:
+1. Chassis model: In here, the system of differential equations used to calculate the vehicle motion is defined and solved.
+2. Tire model: The tire model represents the behaviour of the pneumatic tires of the vehicle.
+3. Suspension system: This component defines the suspension system of the vehicle. The main target of the suspension in the model is to calculate the load transfers generated when driving.
+4. Steering system: The steering system model has as main goal calculating of the steer angle of the wheels as a function of the driver’s input through the steering wheel and driving conditions. The steering wheel torque (output of the model) is also generated by the steering system.
+5. Driveline: The provisional driveline model generates the driving torques of the vehicle. It models the behaviour of the engine and the transmission of a real vehicle.
+6. Braking system: This component is used to calculate the braking torques at each wheel of the vehicle.
+7. Active safety systems: The main active safety systems to be developed are an Anti-lock Brake System or ABS and an electronic stability control or ESC,
+
+CHALMERS, Applied Mechanics, Master’s Thesis 2012:26
+
+19
+
+since these are the most extended and widely used active safety systems nowadays. Unfortunately, due to time restraints no one of these systems has been implemented during this project. Therefore, it is strongly recommended to extend the model with these features.
+Each component is independently defined through a system of equations and it has a series of parameters to adjust its behaviour according to the needs. In addition, one or more entire components can be replaced for new ones to fulfil the special requirements, in order to improve even more the flexibility to perform different simulator experiments.
+Despite the capability to replace components, one should add that this solution should not be done lightly. After a major change in the model, it might not be possible to ensure that it performs as it should, so a re-validation of the full VDM could be needed.
+In conclusion, the flexibility to replace components is mainly oriented to be able to use different tire models and different active safety systems. For the other components of the model, the parameterization should provide enough flexibility. If that is not the case, the new component and its interaction with the VDM should be carefully validated.
+In the next chapters of this report the different components of the VDM will be studied in detail.
+
+20
+
+CHALMERS, Applied Mechanics, Master’s Thesis 2012:26
+
+3 Chassis Model
+The chassis model can be seen as the core of the VDM. It is the component where the motion of the vehicle is calculated by gathering all the information and the states of the different sub-systems of the VDM.
+3.1 Literature review
+There are a lot of different ways of representing a vehicle chassis and its equations of motion, mainly depending on the desired level of detail.
+The bicycle model
+The first and simplest approach to the vehicle motion is to consider a vehicle moving on a horizontal plane with three DOF, the two displacements on the plane (longitudinal and lateral) and the rotation around an axis normal to that plane (yaw rotation). By controlling these three DOF along the time, the vehicle’s trajectory will be known, so the path described by the vehicle can be studied. If additional simplifications are made, considering that the vehicle travels at constant speed and the trajectory radius when turning is much larger than the vehicle’s track width, this model can be represented by a two-wheeled vehicle model, usually known as Bicycle model, as shown in Figure 3.1(Pacejka, 2005).
+
+Figure 3.1 Bicycle model, from Luque, Álvarez (2005).
+The bicycle model is usually the first approach to vehicle dynamics studies due to its easy understanding and simplicity. Moreover it is an appropriate model to study vehicle response in steady-state conditions and the stability of the resulting motion. For further information the reader may be referred to Pacejka (2005) or Luque, Álvarez (2005).
+Even though the Bicycle model is a good tool for understanding the basics of vehicle dynamics, its capabilities and range of application are not advanced enough to fulfil the requirements of this project, so a more complex model is needed.
+
+CHALMERS, Applied Mechanics, Master’s Thesis 2012:26
+
+21
+
+The two track vehicle model
+As mentioned before, the bicycle model is a good approach for studying the vehicle´s motion in steady state conditions. However, for this VDM additional DOF like the roll and pitch motions and the vertical dynamics need to be studied, and the bicycle model is not the most suitable solution. Since a more complex model is needed for this application, the logic solution is to develop a two track vehicle model, based on the existing theory, and include in it the features needed to obtain the necessary level of detail.
+As established in the VDM characteristics, the six DOF of the vehicle cabin must be considered, so the vehicle movement in the plane, defined for the bicycle model, must be completed with the vehicle vertical displacement and the roll and pitch rotations.
+For the vehicle motion in the plane, applying Newton’s equations for equilibrium of forces and momentum, the vehicle velocities and accelerations can be calculated. As shown in Figure 3.2, the main external (longitudinal and lateral) forces on the vehicle are generated by the tire-road contact and must be balanced with the vehicle inertial forces:
+
+4
+� 𝐹𝐹𝑥𝑥𝑖𝑖 + 𝐹𝐹𝑑𝑑𝑑𝑑𝑑𝑑𝑑𝑑 + 𝐹𝐹𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟 . + 𝐹𝐹𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠 + 𝐹𝐹𝑒𝑒𝑒𝑒𝑒𝑒 .𝑥𝑥 = 𝑚𝑚 ∙ 𝑎𝑎𝑥𝑥
+𝑤𝑤ℎ𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒 =1
+
+(3.1)
+
+4
+� 𝐹𝐹𝑦𝑦𝑖𝑖 + 𝐹𝐹𝑒𝑒𝑒𝑒𝑒𝑒 .𝑦𝑦 = 𝑚𝑚 ∙ 𝑎𝑎𝑦𝑦
+𝑤𝑤ℎ𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒 =1
+
+(3.2)
+
+4
+� 𝑇𝑇𝑧𝑧𝑖𝑖 = 𝐼𝐼𝑧𝑧 ∙ 𝛼𝛼𝑧𝑧
+𝑤𝑤ℎ𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒 =1
+
+(3.3)
+
+In addition to the external forces generated by the tire-road contact, some extra external forces may be added, like the rolling resistance, the longitudinal component of the external force input, Table 2.1, and the force due to road slope, which is a resistance when driving uphill but on favour of the motion when driving downhill, all of them acting in the vehicle’s COG in longitudinal direction.
+Other external forces that need to be considered are the aerodynamic forces. The aerodynamic forces depend on the vehicle shape and, if studied in deep, it turns that they have an influence in the vehicle motion in the six DOF. Despite of this fact, for a normal passenger car, the main influence of aerodynamics in the vehicle dynamics is the aerodynamic resistance or drag force. For the sake of simplicity, aerodynamic drag will be the only aerodynamic influence considered in this model, generating a longitudinal resistance that will be applied to the vehicle’s COG. As a result of considering the aerodynamic forces applied to the vehicle’s COG instead of the aerodynamic centre of pressure, these forces will generate just longitudinal force but not vertical displacement or rotations in the cabin.
+
+22
+
+CHALMERS, Applied Mechanics, Master’s Thesis 2012:26
+
+Figure 3.2 Schematic 3D-view of a two track vehicle. Adapted from Luque, Álvarez (2005).
+The equations presented before are suitable to calculate the longitudinal and lateral motion the vehicle and also the yaw motion, as in the bicycle model. In this two track model also the roll motion of the vehicle and the vertical dynamics may be studied. Regarding the vehicle roll motion, it depends mainly on the suspension characteristics. When a vehicle is driven through a corner, a lateral acceleration arises and the vehicle cabin rolls. The vehicle cabin roll motion can be considered as if it happens around a fictitious axis, called the roll axis (see Figure 3.2), which is defined by joining the front and rear roll centres. The roll centres are different for every car and depend on the suspension geometry, but for a passenger car the roll centres and the roll axis are always below the vehicle’s COG. They are also below the equivalent COG for front and rear axles, as shown in Figure 3.2.According to the literature, the most common way to study the roll motion of a vehicle is by calculating the vehicle rotational stiffness. This is done considering the suspension as two torsion springs located in the front and rear roll centres and evaluating the motion as a function of the lateral acceleration. The theory of the roll axis is also a main point of the suspension study in this report so for those readers who are not familiar with this theory it is strongly recommended to read Pacejka (2005), Milliken, Milliken (1994) or Luque, Álvarez (2005).
+Finally, the vehicle’s vertical displacement and the pitch rotations are considered. In the literature these DOF are usually known as Vertical dynamics, and they are mainly related with the isolation of the cabin from the road vibrations and bumps through the vehicle’s suspension. As shown in Figure 3.3, the road profile can be represented in a simplified manner as a periodical function with different wavelengths and, depending on the vehicle’s wheelbase, the road profile will generate vertical displacement and/or pitch rotation in the cabin. Other disturbances of different kinds can appear in the
+
+CHALMERS, Applied Mechanics, Master’s Thesis 2012:26
+
+23
+
+road, generating vertical displacements in the vehicle cabin.
+
+Figure 3.3 Influence of the road profile in the vertical dynamics. Adapted from Luque, Álvarez (2005).
+Despite all the considerations done above, for this project the road will be regarded as a smooth surface. Hence, there will not be vibrations from the road generating vertical displacement in the cabin. The road profile can be seen as a perfectly smooth surface, horizontal or sloped (when going uphill or downhill) and the only considerations needed for the vertical motion of the vehicle will be the influence of vehicle roll and pitch motions.
+Regarding the pitch rotation, this DOF can be studied in a similar way as the roll, by considering a pitch axis with a torsion spring generating pitch stiffness. The position of the pitch axis will depend on the suspension geometry, but due to the lack of information, it will be assumed that this is located at a distance 𝑑𝑑𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝 ℎ below the COG of the vehicle, according to Figure 3.2. With these considerations the pitch rotation of the vehicle will be calculated as a function of the longitudinal acceleration.
+3.2 Chassis model implementation
+3.2.1 Vehicle motion
+With all the considerations done above, it is possible to define the system of differential equations controlling the motion of the vehicle cabin. Developing further Equations 3.1 to 3.3, and based on the representation made in Figure 3.4, the motion in the X-Y plane can be calculated by Equations 3.4 to 3.12.
+From Equation 3.1, considering the longitudinal and lateral forces generated by the tires and the steer angle of each tire (Figure 3.4), the equilibrium of longitudinal forces is:
+
+𝐹𝐹𝑥𝑥1 ∙ cos(𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷1) − 𝐹𝐹𝑦𝑦1 ∙ sin(𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷1) + 𝐹𝐹𝑥𝑥2 ∙ cos(𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷2) − 𝐹𝐹𝑦𝑦2 ∙ sin(𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷2) + 𝐹𝐹𝑥𝑥3 ∙ cos(𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷3) − 𝐹𝐹𝑦𝑦3 ∙ sin(𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷3) + 𝐹𝐹𝑥𝑥4 ∙ cos(𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷4) − 𝐹𝐹𝑦𝑦4 ∙ sin(𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷4) + 𝐹𝐹𝑑𝑑𝑑𝑑𝑑𝑑𝑑𝑑 + 𝐹𝐹𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟 . + 𝐹𝐹𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠 + 𝐹𝐹𝑒𝑒𝑒𝑒𝑒𝑒 .𝑥𝑥 = 𝑚𝑚 ∙ 𝑎𝑎𝑥𝑥
+
+(3.4)
+
+24
+
+CHALMERS, Applied Mechanics, Master’s Thesis 2012:26
+
+Where the longitudinal acceleration of the vehicle can be calculated as:
+
+𝑎𝑎𝑥𝑥 = 𝑑𝑑𝑑𝑑𝑑𝑑(𝑣𝑣𝑥𝑥 ) − 𝑣𝑣𝑦𝑦 ∙ 𝜔𝜔𝑧𝑧
+
+(3.5)
+
+The aerodynamic drag can be calculated as a function of the air density, vehicle parameters like drag coefficient and frontal area and the square of vehicle velocity. In
+addition, Equation 3.6 includes the term �−𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠(𝑣𝑣𝑥𝑥 )�, since the drag is always opposed to vehicle direction of travel.
+
+𝐹𝐹𝑑𝑑𝑑𝑑𝑑𝑑𝑑𝑑
+
+1 = 2 ∙ 𝜌𝜌𝑎𝑎𝑎𝑎𝑎𝑎
+
+∙ 𝐶𝐶𝑑𝑑𝑑𝑑𝑑𝑑𝑑𝑑
+
+∙ 𝐴𝐴𝑓𝑓
+
+∙ 𝑣𝑣𝑥𝑥 2 ∙ �−𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠(𝑣𝑣𝑥𝑥 )�
+
+(3.6)
+
+The rolling resistance can be calculated in a simplified manner as a constant depending on the vehicle mass and the rolling resistance coefficient of the tires. This simplification is acceptable for a vehicle driven in a solid surface like asphalt or concrete, but not for soft surfaces like gravel, mud or sand, where the friction coefficients are more speed dependant. Like in the drag coefficient, the rolling
+resistance is always opposed to the vehicle movement, so the term �−𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠(𝑣𝑣𝑥𝑥 )� is also needed. An additional term 𝑚𝑚𝑚𝑚𝑚𝑚(1, 𝑣𝑣𝑥𝑥 )might be included in this equation, to model that the rolling resistance is vanishing when the vehicle is stopped.
+
+𝐹𝐹𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟 . = 𝑓𝑓𝑟𝑟 ∙ 𝑚𝑚 ∙ 𝑔𝑔 ∙ 𝑚𝑚𝑚𝑚𝑚𝑚(1, 𝑣𝑣𝑥𝑥 ) ∙ �−𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠(𝑣𝑣𝑥𝑥 )�
+
+(3.7)
+
+Regarding the longitudinal force generated when driving the vehicle in a hill, this can be seen as a function of the road slope, as shown in Equation 3.8. Considering that the road slope is positive when driving uphill, a minus sign must be added to this equation.
+
+𝐹𝐹𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠 = −𝑚𝑚 ∙ 𝑔𝑔 ∙ sin(𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑑𝑑 )
+
+(3.8)
+
+Regarding the equilibrium of lateral forces, Equation 3.2 can be extended to Equation 3.9:
+
+𝐹𝐹𝑥𝑥1 ∙ sin(𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷1) + 𝐹𝐹𝑦𝑦1 ∙ cos(𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷1) + 𝐹𝐹𝑥𝑥2 ∙ sin(𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷2) + 𝐹𝐹𝑦𝑦2 ∙ cos(𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷2) + 𝐹𝐹𝑥𝑥3 ∙ sin(𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷3) + 𝐹𝐹𝑦𝑦3 ∙ cos(𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷3) + 𝐹𝐹𝑥𝑥4 ∙ sin(𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷4) + 𝐹𝐹𝑦𝑦4 ∙ cos(𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷4) + 𝑚𝑚 ∙ 𝑔𝑔 ∙ sin(−𝑏𝑏𝑏𝑏𝑏𝑏𝑏𝑏𝑑𝑑 ) + 𝐹𝐹𝑒𝑒𝑒𝑒𝑒𝑒 .𝑦𝑦 = 𝑚𝑚 ∙ 𝑎𝑎𝑦𝑦
+
+(3.9)
+
+And the lateral acceleration of the vehicle can be calculated like in Equation 3.10:
+
+𝑎𝑎𝑦𝑦 = 𝑑𝑑𝑑𝑑𝑑𝑑�𝑣𝑣𝑦𝑦 � + 𝑣𝑣𝑥𝑥 ∙ 𝜔𝜔𝑧𝑧
+
+(3.10)
+
+CHALMERS, Applied Mechanics, Master’s Thesis 2012:26
+
+25
+
+To complete the motion in the X-Y plane, the equilibrium of momentum from Equation 3.3 can be used to calculate the yaw angular acceleration as follows:
+
+�𝐹𝐹𝑥𝑥1 ∙ sin(𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷1) + 𝐹𝐹𝑦𝑦1 ∙ cos(𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷1)� ∙ 𝐿𝐿1
+
++ �𝐹𝐹𝑥𝑥2 ∙ sin(𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷2) + 𝐹𝐹𝑦𝑦2 ∙ cos(𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷2)� ∙ 𝐿𝐿1
+
+− �𝐹𝐹𝑥𝑥3 ∙ sin(𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷3) + 𝐹𝐹𝑦𝑦3 ∙ cos(𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷3)� ∙ 𝐿𝐿2
+
+− �𝐹𝐹𝑥𝑥4 ∙ sin(𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷4) + 𝐹𝐹𝑦𝑦4 ∙ cos(𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷4)� ∙ 𝐿𝐿2
+
+−
+
+�𝐹𝐹𝑥𝑥1
+
+∙
+
+cos(𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷1)
+
+−
+
+𝐹𝐹𝑦𝑦1
+
+∙
+
+sin(𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷1)�
+
+∙
+
+𝑇𝑇𝑇𝑇𝑓𝑓 2
+
++
+
+�𝐹𝐹𝑥𝑥2
+
+∙
+
+cos(𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷2)
+
+−
+
+𝐹𝐹𝑦𝑦2
+
+∙
+
+sin(𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷2)�
+
+∙
+
+𝑇𝑇𝑇𝑇𝑓𝑓 2
+
+−
+
+�𝐹𝐹𝑥𝑥3
+
+∙
+
+cos(𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷3)
+
+−
+
+𝐹𝐹𝑦𝑦3
+
+∙
+
+sin(𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷3)�
+
+∙
+
+𝑇𝑇𝑇𝑇𝑟𝑟 2
+
++
+
+�𝐹𝐹𝑥𝑥4
+
+∙
+
+cos(𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷4)
+
+−
+
+𝐹𝐹𝑦𝑦4
+
+∙
+
+sin(𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷4)�
+
+∙
+
+𝑇𝑇𝑇𝑇𝑟𝑟 2
+
+= 𝐼𝐼𝑧𝑧 ∙ 𝛼𝛼𝑧𝑧
+
+(3.11)
+
+From Equation 3.11 the yaw angular acceleration will be obtained. By knowing the yaw acceleration, the yaw rate can be calculated through interpolation. Since Modelica® is able to internally reorganize the equations, the relationship between yaw acceleration and yaw rate can be defined as follows:
+
+𝛼𝛼𝑧𝑧 = 𝑑𝑑𝑑𝑑𝑑𝑑(𝜔𝜔𝑧𝑧)
+
+(3.12)
+
+26
+
+CHALMERS, Applied Mechanics, Master’s Thesis 2012:26
+
+Figure 3.4 External forces acting in the X-Y plane (in different colours) and inertial forces and momentum (red). All forces and angles represented as positive.
+
+Regarding the vehicle’s roll motion, application of the roll axis theory enables the evaluation of the roll motion as a function of the vehicle’s lateral acceleration. According to this theory, when a lateral acceleration arises the cabin rolls around the roll axis. This roll is compensated by two torsion springs and two torsion dampers, one at each end of the axis and representing front and rear vehicle’s suspension, which generate torques opposed to the roll. The position of the roll axis and the characteristics of the torsion springs and dampers depend on the suspension of the vehicle and will be studied in detail in Chapter 5. Equation 3.13 to 3.15represents the balance between the roll of the cabin due to lateral acceleration and the torques generated by the torsion springs and dampers. The reader must notice that the inertial forces are generated in the vehicle’s COG and the reaction torque is generated in the roll axis, being 𝑑𝑑𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟 the distance between the COG and the roll axis.
+
+�𝐼𝐼𝑥𝑥 + 𝑚𝑚 ∙ 𝑑𝑑𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟 2� ∙ 𝛼𝛼𝑥𝑥 + 𝑚𝑚 ∙ 𝑑𝑑𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟 ∙ 𝑎𝑎𝑦𝑦 + �𝐾𝐾𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟 + 𝐾𝐾𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟 − 𝑚𝑚 ∙ 𝑔𝑔 ∙ 𝑑𝑑𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟 � ∙ 𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎 + �𝐷𝐷𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟 + 𝐷𝐷𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟 � ∙ 𝜔𝜔𝑥𝑥 = 0
+
+(3.13)
+
+𝜔𝜔𝑥𝑥 = 𝑑𝑑𝑑𝑑𝑑𝑑�𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎 � 𝛼𝛼𝑥𝑥 = 𝑑𝑑𝑑𝑑𝑑𝑑(𝜔𝜔𝑥𝑥)
+
+(3.14) (3.15)
+
+CHALMERS, Applied Mechanics, Master’s Thesis 2012:26
+
+27
+
+One can study the pitch motion of the vehicle by applying the same theory used for the roll motion. Again, it is possible to define a pitch axis with a torsion spring and damper reacting to the longitudinal acceleration in this case. The axis characteristics depend on the suspension geometry, being the spring and damping characteristics functions of the suspension springs and shock absorbers, whereas the position of the axis is a function of the geometry. It is fair to say that not enough information about the pitch axis was available for the vehicle used to validate the model, so some assumptions must be done in this field. Due to this the pitch axis will be considered to be in the Y-Z plane, parallel to the Y axis and located a distance 𝑑𝑑𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝 ℎ below the COG of the vehicle. Further details about the torsion spring and damper used for the pitch motion can be found in Chapter 5, and Equations 3.16 to 3.18 are used to calculate the pitch motion of the vehicle.
+
+�𝐼𝐼𝑦𝑦 + 𝑚𝑚 ∙ 𝑑𝑑𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝 ℎ 2� ∙ 𝛼𝛼𝑦𝑦 − 𝑚𝑚 ∙ 𝑑𝑑𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝 ℎ ∙ 𝑎𝑎𝑥𝑥 + �𝐾𝐾𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝 ℎ + 𝑚𝑚 ∙ 𝑔𝑔 ∙ 𝑑𝑑𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝 ℎ � ∙ 𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝ℎ𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎 + 𝐷𝐷𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝 ℎ ∙ 𝜔𝜔𝑦𝑦 = 0
+
+(3.16)
+
+𝜔𝜔𝑦𝑦 = 𝑑𝑑𝑑𝑑𝑑𝑑�𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝ℎ𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎 �
+
+(3.17)
+
+𝛼𝛼𝑦𝑦 = 𝑑𝑑𝑑𝑑𝑑𝑑�𝜔𝜔𝑦𝑦 �
+
+(3.18)
+
+The vertical displacement of the vehicle cabin will be generated for the vertical displacement of the vehicle’s COG when rolling or pitching. Since the roll and pitch axis are located a distance away from the COG, the rotation around these axis will come with a displacement of the COG in the vertical and also longitudinal or lateral position. Equations 3.19 to 3.21 represent the vertical motion of the vehicle.
+
+𝑧𝑧 = 𝐶𝐶𝐶𝐶𝐶𝐶𝑧𝑧 + 𝑑𝑑𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝 ℎ ∙ �cos�𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝ℎ𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎 � − 1� + 𝑑𝑑𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟 ∙ �cos�𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎 � − 1�
+
+(3.19)
+
+𝑣𝑣𝑧𝑧 = 𝑑𝑑𝑑𝑑𝑑𝑑(z)
+
+(3.20)
+
+𝑎𝑎𝑧𝑧 = 𝑑𝑑𝑑𝑑𝑑𝑑(𝑣𝑣𝑧𝑧 )
+
+(3.21)
+
+3.2.2 Wheels rotational dynamics
+Once the equations needed to calculate the motion of the vehicle in the 6 DOF have been presented, the last calculations done in the Chassis system are related with the wheel dynamics and the tire velocities in their local coordinate systems.
+The forces and torques acting on a wheel determines the wheel rotational velocity. Figure 3.5shows a schematic representation of a wheel, where the driving torque generated by the driveline is shown in green, the braking torque generated by the braking system is shown in red and the longitudinal force generated in the contact between the road and the tire is shown in blue. When these forces are not balanced, a rotational acceleration in the wheel arises, according to Equation 3.22.
+
+28
+
+CHALMERS, Applied Mechanics, Master’s Thesis 2012:26
+
+𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝑖𝑖 − 𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝑖𝑖 − 𝐹𝐹𝑥𝑥i ∙ rnom = Itire ∙ 𝛼𝛼𝑤𝑤ℎ𝑒𝑒𝑒𝑒𝑒𝑒 𝑖𝑖 ; i = 1, … ,4
+𝛼𝛼𝑤𝑤ℎ𝑒𝑒𝑒𝑒𝑒𝑒 𝑖𝑖 = 𝑑𝑑𝑑𝑑𝑑𝑑(𝜔𝜔𝑤𝑤ℎ𝑒𝑒𝑒𝑒𝑒𝑒 𝑖𝑖 )
+
+(3.22) (3.23)
+
+Figure 3.5 Forces and torques influencing the wheel rotational velocity and acceleration. All forces and torques represented as positive.
+Regarding Equation 3.23 is interesting to notice that all the calculations related with the tire use the tire nominal radius. A pneumatic tire has a varying radius depending on several parameters like the carcass stiffness; the vertical load; inflation pressure; rotational speed etc. For the sake of simplicity, only constant tire radius will be considered here.
+3.2.3 Tire local coordinate systems velocities
+Finally, in order to calculate the tire forces in the tire model it is necessary to know the longitudinal and lateral velocities at each tire. Since the velocities at each tire depend on the vehicle velocities and the main geometrical parameters of the chassis, it is logical to calculate them in the chassis model.
+Based on the sketch shown in Figure 3.6, it is possible to define the local wheel velocities as:
+
+𝑣𝑣𝑥𝑥1
+
+=
+
+𝑣𝑣𝑥𝑥
+
+−
+
+𝜔𝜔𝑧𝑧
+
+∙
+
+𝑇𝑇𝑇𝑇𝑓𝑓 2
+
+𝑣𝑣𝑥𝑥2
+
+=
+
+𝑣𝑣𝑥𝑥
+
++
+
+𝜔𝜔𝑧𝑧
+
+∙
+
+𝑇𝑇𝑇𝑇𝑓𝑓 2
+
+𝑣𝑣𝑥𝑥3
+
+=
+
+𝑣𝑣𝑥𝑥
+
+−
+
+𝜔𝜔𝑧𝑧
+
+∙
+
+𝑇𝑇𝑇𝑇𝑟𝑟 2
+
+𝑣𝑣𝑥𝑥4
+
+=
+
+𝑣𝑣𝑥𝑥
+
++
+
+𝜔𝜔𝑧𝑧
+
+∙
+
+𝑇𝑇𝑇𝑇𝑟𝑟 2
+
+(3.24) (3.25) (3.26) (3.27)
+
+CHALMERS, Applied Mechanics, Master’s Thesis 2012:26
+
+29
+
+𝑣𝑣𝑦𝑦1 = 𝑣𝑣𝑦𝑦 + 𝜔𝜔𝑧𝑧 ∙ 𝐿𝐿1 𝑣𝑣𝑦𝑦2 = 𝑣𝑣𝑦𝑦 + 𝜔𝜔𝑧𝑧 ∙ 𝐿𝐿1 𝑣𝑣𝑦𝑦3 = 𝜔𝜔𝑧𝑧 ∙ 𝐿𝐿2 − 𝑣𝑣𝑦𝑦 𝑣𝑣𝑦𝑦4 = 𝜔𝜔𝑧𝑧 ∙ 𝐿𝐿2 − 𝑣𝑣𝑦𝑦
+
+(3.28) (3.29) (3.30) (3.31)
+
+Figure 3.6 Relationship between vehicle velocities and wheel velocities. All velocities are shown as positive.
+
+The tire slip velocities, which represent the tire thread velocity for a free rolling wheel in a zero slip condition, are also needed for the slip calculation in the tire model and will be the last calculation done in the chassis model.
+
+𝑣𝑣𝑠𝑠 𝑖𝑖 = 𝜔𝜔𝑤𝑤ℎ𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒 ∙ rnom ; i = 1, … ,4
+
+(3.32)
+
+30
+
+CHALMERS, Applied Mechanics, Master’s Thesis 2012:26
+
+3.3 Chassis parameters
+To sum up, all the parameters used for the chassis model are listed in this section, as an attempt to clarify the model flexibility. For further information regarding the model parameters refer to Appendix A.
+
+𝑚𝑚 Vehicle mass
+
+𝐿𝐿2
+
+Distance between COG and rear axle
+
+𝑇𝑇𝑇𝑇𝑟𝑟 Rear axle track width
+
+𝐼𝐼𝑥𝑥
+
+Vehicle´s moment of inertia with respect to x axis
+
+𝐼𝐼𝑧𝑧
+
+Vehicle´s moment of inertia with respect to z axis
+
+𝐶𝐶𝑑𝑑𝑑𝑑𝑑𝑑𝑑𝑑 Vehicle´s drag coefficient Itire Tire and wheel inertia 𝜌𝜌𝑎𝑎𝑎𝑎𝑎𝑎 ∗ Air density
+
+𝐿𝐿1
+
+Distance between COG and front axle
+
+𝑇𝑇𝑇𝑇𝑓𝑓 Front axle track width
+
+𝐶𝐶𝐶𝐶𝐶𝐶𝑧𝑧 𝐼𝐼𝑦𝑦
+
+COG height from the ground
+Vehicle´s moment of inertia with respect to y axis
+
+𝐴𝐴𝑓𝑓 Vehicle´s frontal area
+
+𝑓𝑓𝑟𝑟 Rolling resistance coefficient rnom Tire nominal radius 𝑔𝑔 ∗ Gravity acceleration
+
+* Environmental constants, not parameters.
+
+CHALMERS, Applied Mechanics, Master’s Thesis 2012:26
+
+31
+
+32
+
+CHALMERS, Applied Mechanics, Master’s Thesis 2012:26
+
+4 Tire Model
+Tires are one of the most important components of vehicles, since they are the only component keeping the vehicle in contact with the ground. Most of the forces describing the path followed by the vehicle are generated by the tires, as can be seen in Equations 3.4, 3.9 and 3.11 from Chapter 3. In addition, the characteristic behaviour of pneumatic tires influences the complete vehicle handling and behaviour.
+4.1 Literature review
+During the last 60 years an impressive amount of research has been done regarding tire behaviour and modelling, ending up with several different types of tire models with different characteristics. An extended classification of tire models is based on the different approaches used to develop the models, which can go from a completely empiric view, mainly fitting full scale tire test data by regression techniques, to fully theoretical tire models, usually based on its structural behaviour study through finite element simulations. Between these two extremes, a bunch of models combining theoretical solutions with empirical measurements in different levels have been developed. It is important to notice that different models have different applications and are useful for different experiments or simulations, so the most accurate model is not necessarily the best option for every application. The starting point is to evaluate the most suitable type of model for the case at hand, real-time simulation of complete vehicle.
+Typically, empirical models are over parameterized and as a consequence it is hard to use them in domains where there are no measurements available, e.g. when using in combined slip situation a tire model fitted with pure lateral and longitudinal measurement data. On the other hand, these models are often very compact, usually some analytical equations, and computationally fast, which can be a great advantage for real-time simulation.
+Theoretical models describe the tire behaviour in great detail, usually including most of the steady-state and transient phenomenon affecting the tire response, but this level of detail means that simulate these models is a computational heavy task. Full theoretical models are often used to develop new tires but they have no practical application for complete vehicle simulation.
+Finally, one can identify the middle ground in the so called Semi-empirical tire models, which include tire models specially developed to represent the tire as a component of a vehicle in a simulation environment. These models are based on measured data but also may contain structures and strategies used in theoretical models, presenting a good balance between accuracy and computation speed (Pacejka, 2005).
+4.2 Semi-empirical model selection
+Once it has been decided to use a semi-empirical tire model, it is necessary to do an evaluation of available semi-empirical tire models in order to find the most suitable one for this application.
+From the literature, mainly Pacejka (2005) and Svendenius (2007), a pre-selection of three tire models has been done, and after that a comparison between these models is performed. It is fair to say that the VDM should be able to work with different tire models, as established in Section 1.4, and the three models pre-selected are adequate
+
+CHALMERS, Applied Mechanics, Master’s Thesis 2012:26
+
+33
+
+for this application, considering their accuracy and level of detail, but due to time restraints only one of them will be implemented in this project. In the opinion of the writer, it could be interesting as a future work to perform an evaluation of VDM behaviour with different tire models.
+Table 4.1 Semi-empirical tire models for Real-time simulation.
+
+Tire Model
+Magic Formula (Pacejka, 2005)
+Similarity Model (Pacejka, 2005)
+Brush Model (Svendenius, 20007)
+
+Advantages
+
+Disadvantages
+
+Accuracy. Widely used.
+
+Too many parameters. Difficult to understand.
+
+Based on Magic Formula but Too many parameters. simpler.
+
+Simplicity.
+
+Camber change not
+
+Good accuracy in normal considered in model.
+
+driving conditions.
+
+The three selected models present both similar characteristics and range of use. All of them are suitable to calculate tire longitudinal and lateral force and self-aligning torque in steady-state conditions and they can also take into account combined slip situations. The three models work in a similar manner, by generating curves of longitudinal force versus longitudinal slip, lateral force versus lateral slip and aligning torque versus lateral slip, being the main differences related with the strategies used to generate those curves and the number of variables affecting the curves changes.
+The Magic Formula, developed initially in collaboration between TU-Delft and Volvo, is a widely used and well known tire model. The model contains a large number of parameters and scaling factors that result in a very flexible model. However, it is regarded as a complex model, difficult to understand and to tune properly to fit the behaviour wanted for the model. It is fair to say that even though the model is complex, many research and development has been done and as a consequence this model is very accurate, and includes a lot of considerations related with tire behaviour, like complex carcass deflexions (Ply-steer and conicity), camber angle change, etc (Pacejka, 2005).
+The Similarity Model is based on observations that the force versus slip curves, in pure slip conditions, remains approximately constant in shape when the tire works in conditions different from the reference condition. Based on this information, reference curves for longitudinal and lateral forces and aligning torque are generated and then re-scaled and shifted depending on the working conditions. These reference curves are generated with Magic Formula, so it still has the complexity and parameters of the Magic Formula. Once the reference curves are generated, the way the curves are rescaled and the mathematics behind the model are simpler and computationally faster than Magic Formula, with an unavoidable reduction of accuracy.
+Finally, the third model considered is based on the well-established theory of the Brush Tire. While the other tire models shown use regression techniques to fit experimental data, the Brush theory is based on physical phenomenon appearing in
+
+34
+
+CHALMERS, Applied Mechanics, Master’s Thesis 2012:26
+
+pneumatic tires. Because of this, the brush model is especially useful for understanding of tire behaviour and for that reason a lot of literature can be found regarding this theory. It consists basically in modelling the tire as a row of elastic thread elements. These thread elements have a compliance representing the carcass and the actual tread elements of the real tire flexibility. As the tire rolls, the elements get in touch with the road and suffer deflections. This deflection generates forces in the contact patch between the tire and the road. This simple theory is the base of a tire model developed by Svendenius (2007), using a simple mathematical representation with just four parameters and fitting tire test data. As a negative point, the model disregards some tire characteristics such as carcass deflection or camber change, limiting its accuracy in severe turning conditions, when these effects play an important role.
+Considering the main advantages and disadvantages of the three models and remarking that all of them fulfil the requirements needed for this application, it was decided to use the Brush Model for this project. The main reason is that, in opinion of the writer, it presents the best ratio between simplicity and accuracy, so it is considered the most efficient model for this application.
+4.3 Brush model implementation
+The Brush model implemented is based on six inputs and four parameters, listed in Table 4.2 and 4.3. With these inputs and parameters, the main outputs generated are: longitudinal force, lateral force and self-aligning torque. In addition, longitudinal and lateral slips are also sent out as model outputs, since they are useful for the understanding of vehicle’s response.
+Table 4.2 Brush tire model inputs and outputs.
+
+MODEL INPUTS
+
+MODEL OUTPUTS
+
+Tire vertical load, 𝐹𝐹𝑧𝑧 𝑖𝑖
+
+Longitudinal force, 𝐹𝐹𝑥𝑥 𝑖𝑖
+
+Tire longitudinal velocity, 𝑣𝑣𝑥𝑥 𝑖𝑖
+
+Lateral force, 𝐹𝐹𝑦𝑦 𝑖𝑖
+
+Tire lateral velocity, 𝑣𝑣𝑦𝑦 𝑖𝑖
+
+Self-aligning torque, 𝑀𝑀𝑧𝑧 𝑖𝑖
+
+Tire slip velocity, 𝑣𝑣𝑠𝑠 𝑖𝑖
+
+Longitudinal slip, 𝑆𝑆𝑥𝑥 𝑖𝑖
+
+Wheel steering angle, 𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝑖𝑖
+
+Lateral slip, 𝑆𝑆𝑦𝑦 𝑖𝑖
+
+Tire-road friction coefficient, 𝑚𝑚𝑚𝑚𝑖𝑖
+
+The first input is the tire vertical load, which is the part of the vehicle weight loaded in the wheel. This is an important variable, since the capability of the tire to generate forces is closely related with its load; a tire with no load cannot generate any force. There are three inputs describing the tire velocities in its local coordinate system, which are used to calculate the longitudinal and lateral slips. The next input is the tire steer angle, which is used to calculate the lateral slip. The tire steer angle is calculated in the Steering system and will be discussed in detail in Chapter 6. Finally, the last
+
+CHALMERS, Applied Mechanics, Master’s Thesis 2012:26
+
+35
+
+input for the tire model is the tire-road friction coefficient, which is an input of the VDM, as established in Section 2 of Chapter 2.
+Table 4.3 Brush tire model parameters, with typical values.
+
+PARAMETER Normalized thread stiffness, 𝐶𝐶
+Contact patch length, 𝑎𝑎 Caster offset, 𝑑𝑑𝑑𝑑
+Sliding friction constant, 𝑚𝑚𝑚𝑚𝑚𝑚𝑖𝑖
+
+TYPICAL VALUES 30 to 80 [N/m] 0.1 [m] 0.03 [m] 0.8
+
+The thread stiffness represents the resistance of the thread elements to be deformed, when the tire rolls. As a simplification, the thread stiffness is the same in longitudinal and lateral directions, even though this would not be the case in a normal road tire. The contact patch length represents the size of the contact patch in the direction of travel of the tire and is used to calculate the aligning torque generated by the tire, along with the caster offset. Finally, the sliding friction constant represents the ratio between the static and sliding friction coefficients, being typically the 80% of the static friction.
+
+Once the model inputs, outputs and parameters are known, the equations defining the model can be presented. The tire model will be implemented in Modelica® using a function model, which will be called from the Chassis model. The reason to use the tire model as an external function is that this will improve the flexibility, making it easier to change between different tire models. At this point is important to notice that two different functions for the tire model must be developed, one for the front tires and one for the rear tires. The reason is that the equations used to calculate the lateral slip of a tire depend on where the tire is mounted in the car, and the signs in the lateral slip equation must be adjusted accordingly.
+
+The first step to calculate forces generated by a tire 𝑖𝑖, is to compute the longitudinal slip 𝑆𝑆𝑥𝑥, and the lateral slip 𝑆𝑆𝑦𝑦 , as shown in Equations 4.1 to 4.4.
+
+𝑆𝑆𝑥𝑥 𝑖𝑖 =
+
+𝑣𝑣𝑠𝑠 𝑖𝑖 − 𝑣𝑣𝑥𝑥 𝑖𝑖 𝑚𝑚𝑚𝑚𝑚𝑚(𝑣𝑣𝑠𝑠 𝑖𝑖, 1)
+
+;
+
+𝑖𝑖 = 1, … ,4
+
+𝑆𝑆𝑦𝑦 𝑖𝑖
+
+=
+
+𝑓𝑓(𝑣𝑣𝑥𝑥
+
+𝑖𝑖 )
+
+∙
+
+�𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝑖𝑖
+
+−
+
+𝑣𝑣𝑦𝑦 𝑖𝑖 𝑚𝑚𝑚𝑚𝑚𝑚(𝑣𝑣𝑠𝑠
+
+𝑖𝑖
+
+,
+
+1)�
+
+;
+
+𝑖𝑖 = 1,2
+
+𝑆𝑆𝑦𝑦 𝑖𝑖 = 𝑓𝑓(𝑣𝑣𝑥𝑥 𝑖𝑖) ∙ �𝑚𝑚𝑚𝑚𝑚𝑚𝑣(𝑣𝑦𝑣𝑦𝑣𝑠𝑖𝑠𝑖 𝑖𝑖, 1) − 𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝑖𝑖� ; 𝑖𝑖 = 3,4
+
+(4.1) (4.2) (4.3)
+
+𝑓𝑓(𝑣𝑣𝑥𝑥
+
+𝑖𝑖 )
+
+=
+
+tanh(10 �
+
+∙
+
+𝑣𝑣𝑥𝑥 2
+
+𝑖𝑖
+
+−
+
+8)
+
++
+
+1 �
+
+;
+
+𝑖𝑖
+
+=
+
+1, … ,4
+
+(4.4)
+
+36
+
+CHALMERS, Applied Mechanics, Master’s Thesis 2012:26
+
+The longitudinal slip of the tire 𝑆𝑆𝑥𝑥, is a function of the difference between tire longitudinal velocity and tire slip velocity, as shown in Equation 4.1. In the denominator of this equation, 𝑚𝑚𝑚𝑚𝑚𝑚(𝑣𝑣𝑠𝑠 𝑖𝑖, 1), there is another solution to prevent a numerical problems when calculating the longitudinal and lateral slips. When the vehicle starts from stopped, the slip velocity is equal to zero, generating a division by zero in the system of equations which is eliminated using the maximum value of 1 and the tire slip velocity.
+Regarding the lateral slip calculations, Equation 4.2 is suitable to calculate the lateral slip in the front tires and Equation 4.3 is suitable to calculate lateral slip in the rear tires. Differences between slip calculation for front and rear tires are related with the calculation of lateral velocities in the local coordinate systems of the tires (Equations 3.28 to 3.31).One should say that in these equations, an angle is added or subtracted to a ratio. The reason to so is that for small steer angles, the angle is a good approximation of its tangent.
+When a vehicle is stopped or driven at very slow speed, the forces generated in the tire-road contact do not correspond to the theory of the slips, which is suitable when the vehicle is moving with enough speed to generate deflections in the tires. For situations where the car has very low speed the tire forces must be evaluated by additional methods like for instance considering Coulomb friction between the tire and the road.
+For the driving simulator purposes, the vehicle dynamics at very low speeds are not an important feature, so no additional method to calculate tire forces at very low speeds was developed. Nevertheless, some problems that appear when using the lateral slip definitions from Equations 4.2 and 4.3 at very slow speed must be dealt with. According to Equations 4.2 and 4.3, if the steering wheel of the vehicle is turned, a lateral slip will appear in the tire model, even if the vehicle is stopped (𝑣𝑣𝑥𝑥 𝑖𝑖 = 𝑣𝑣𝑦𝑦 𝑖𝑖 = 0), and as a consequence a lateral force will arise, generating a lateral velocity in the vehicle, according to Equations 3.4 and 3.9. This is an unrealistic situation, since a real car will not start moving by just turning the steering wheel, and therefore it must be avoided.
+To solve this problem and control the VDM response at low speed, the lateral slip is multiplied by the hyperbolic tangent function defined in Equation 4.4, which depends on the tire longitudinal velocity. This equation is evaluated in the interval [-0.5,2] in Figure 4.1 to explain its behaviour. As shown in Figure 4.1, if 𝑣𝑣𝑥𝑥 𝑖𝑖 is smaller than 0.5 𝑚𝑚/𝑠𝑠, 𝑓𝑓(𝑣𝑣𝑥𝑥 𝑖𝑖)is close to zero and for 𝑣𝑣𝑥𝑥 𝑖𝑖 larger than 1.2 𝑚𝑚/𝑠𝑠𝑠𝑠(𝑣𝑣𝑥𝑥 𝑖𝑖) is close to one, presenting a smooth shape between these two extreme values.
+The result of using this equation is that the lateral slip will always be zero for longitudinal velocities below 0.5 𝑚𝑚/𝑠𝑠, even if the steering wheel is turned, and will reach its adequate value for speeds larger than 1.2 𝑚𝑚/𝑠𝑠.This leads to a smooth transition, which has the great advantage of being numerically stable, something unreachable with typical solutions like if statements or similar, that tend to generate step changes in the signals.
+
+CHALMERS, Applied Mechanics, Master’s Thesis 2012:26
+
+37
+
+Figure 4.1 Solution of Equation 4.4 in the interval [-0.5,2].
+
+Once the longitudinal and lateral slips are known, the combined slip, used to consider the influence of combined slip situations, can be calculated using Equation 4.5.
+
+𝑆𝑆𝑖𝑖 = �𝑆𝑆𝑥𝑥 𝑖𝑖2 + 𝑆𝑆𝑦𝑦 𝑖𝑖2; 𝑖𝑖 = 1, … ,4
+
+(4.5)
+
+The variable𝑝𝑝𝑝𝑝𝑝𝑝𝑖𝑖, calculated in Equation 4.6 is used to evaluate if the tire is working in linear or sliding conditions, being a function of the combined slip. For 𝑝𝑝𝑝𝑝𝑝𝑝𝑖𝑖 < 1 the tire is considered to work in linear conditions and for 𝑝𝑝𝑝𝑝𝑝𝑝𝑖𝑖 ≥ 1 the tire will start to work in the saturation region, so if the thread stiffness is set to 𝐶𝐶 = 30 𝑁𝑁/𝑚𝑚 saturation will start for slips larger than 0.1.
+Once the working conditions of the tire are known, the static forces generated can be calculated with Equations 4.7 to 4.10.
+
+𝐶𝐶 𝑝𝑝𝑝𝑝𝑝𝑝𝑖𝑖 = 3 ∙ 𝑚𝑚𝑚𝑚𝑖𝑖 ∙ 𝑆𝑆𝑖𝑖 ; 𝑖𝑖 = 1, … ,4
+
+2
+
+−𝐶𝐶 ∙ �−1 + 𝑝𝑝𝑝𝑝𝑝𝑝𝑖𝑖 − 𝑝𝑝𝑝𝑝𝑝𝑝𝑖𝑖3� ∙ 𝐹𝐹𝑧𝑧 𝑖𝑖 , 𝑝𝑝𝑝𝑝𝑝𝑝 < 1
+
+𝐹𝐹𝑖𝑖
+
+=
+
+� �𝑚𝑚𝑚𝑚𝑚𝑚𝑖𝑖
+
++
+
+(1
+
+−
+
+𝑚𝑚𝑚𝑚𝑚𝑚𝑖𝑖
+
+)
+
+∙
+
+𝑒𝑒 −0.01 ∙(𝑝𝑝𝑝𝑝𝑝𝑝
+
+−1)2
+
+�
+
+∙
+
+𝑚𝑚𝑚𝑚𝑖𝑖 ∙ 𝑆𝑆𝑖𝑖
+
+𝐹𝐹𝑧𝑧
+
+𝑖𝑖
+
+, 𝑝𝑝𝑝𝑝𝑝𝑝
+
+≥1
+
+𝐹𝐹𝑥𝑥 𝑖𝑖_𝑤𝑤𝑤𝑤 _𝑟𝑟𝑟𝑟𝑟𝑟 = 𝐹𝐹𝑖𝑖 ∙ 𝑆𝑆𝑥𝑥 𝑖𝑖 ; 𝑖𝑖 = 1, … ,4
+
+𝐹𝐹𝑦𝑦 𝑖𝑖_𝑤𝑤𝑤𝑤 _𝑟𝑟𝑟𝑟𝑟𝑟 = 𝐹𝐹𝑖𝑖 ∙ 𝑆𝑆𝑦𝑦 𝑖𝑖 ; 𝑖𝑖 = 1, … ,4
+
+(4.6)
+(4.7) (4.8) (4.9)
+
+38
+
+CHALMERS, Applied Mechanics, Master’s Thesis 2012:26
+
+𝑀𝑀𝑧𝑧 𝑖𝑖_𝑤𝑤𝑤𝑤 _𝑟𝑟𝑟𝑟𝑟𝑟
+
+=
+
+−𝑎𝑎 ∙ 𝐶𝐶 3
+
+∙ 𝑆𝑆𝑦𝑦 𝑖𝑖
+
+∙ (min(0, 𝑝𝑝𝑝𝑝𝑝𝑝 − 1))2
+
+∙ (7 ∙ 𝑝𝑝𝑝𝑝𝑝𝑝 − 1) ∙ 𝐹𝐹𝑧𝑧 𝑖𝑖
+
+− 𝑑𝑑𝑑𝑑 ∙ 𝐹𝐹𝑖𝑖 ∙ 𝑆𝑆𝑦𝑦 𝑖𝑖
+
+(4.10)
+
+To illustrate how the tire model performs, Figure 4.2showsthe longitudinal force generated by the tire as a function of the longitudinal slip. Since this model has the same behaviour for longitudinal and lateral forces, the mentioned figure also could represent the lateral force against lateral slip.
+
+Figure 4.2 Brush model. Longitudinal force versus longitudinal slip, for different combined slip situations.
+The forces calculated in Equations 4.8 to 4.10 are called static because they are not the real forces generated by the tires. To know the real forces generated by the tires a last consideration needs to be introduced in the tire model, the tire relaxation length. Tire relaxation length is an internal property of pneumatic tires that relates to the dynamics that exists in a tire between the introduction of a slip quantity and the time to achieve steady state of the generated forces. Tire relaxation length is important and must be considered in the VDM since it has a great influence in the vehicle handling and the vehicle response. The relaxation length is a complex phenomenon depending on several tire characteristics but it can be calculated in a simplified and approximate fashion considering that the tire needs roll a distance approximately equal to its radius to generate force, when a change in the slips arises. With this simplified way of evaluating the tire relaxation length, the time needed by the tire to generate a force will be a function of the wheel rotational velocity or the tire slip velocity. Equations 4.11 to 4.13 are used to calculate the final forces generated by the tire, which will be used in the chassis model to evaluate the vehicle´s motion.
+
+CHALMERS, Applied Mechanics, Master’s Thesis 2012:26
+
+39
+
+𝑑𝑑𝑑𝑑𝑑𝑑�𝐹𝐹𝑥𝑥 𝑖𝑖� = −𝑚𝑚𝑚𝑚𝑚𝑚 �𝑟𝑟𝑟𝑟𝑣𝑟𝑣𝑟𝑠𝑟𝑠𝑟𝑖𝑟𝑖𝑟𝑟𝑟 , 0.1� ∙ �𝐹𝐹𝑥𝑥 𝑖𝑖 − 𝐹𝐹𝑥𝑥 𝑖𝑖_𝑤𝑤𝑤𝑤 _𝑟𝑟𝑟𝑟𝑟𝑟 �
+
+(4.11)
+
+𝑑𝑑𝑑𝑑𝑑𝑑 �𝐹𝐹𝑦𝑦 𝑖𝑖� = −𝑚𝑚𝑚𝑚𝑚𝑚 �𝑟𝑟𝑟𝑟𝑣𝑟𝑣𝑟𝑠𝑟𝑠𝑟𝑖𝑟𝑖𝑟𝑟𝑟 , 0.1� ∙ �𝐹𝐹𝑦𝑦 𝑖𝑖 − 𝐹𝐹𝑦𝑦 𝑖𝑖_𝑤𝑤𝑤𝑤 _𝑟𝑟𝑟𝑟𝑟𝑟 �
+
+(4.12)
+
+𝑑𝑑𝑑𝑑𝑑𝑑�𝑀𝑀𝑧𝑧 𝑖𝑖� = −𝑚𝑚𝑚𝑚𝑚𝑚 �𝑟𝑟𝑟𝑟𝑣𝑟𝑣𝑟𝑠𝑟𝑠𝑟𝑖𝑟𝑖𝑟𝑟𝑟 , 0.1� ∙ �𝑀𝑀𝑧𝑧 𝑖𝑖 − 𝑀𝑀𝑧𝑧 𝑖𝑖_𝑤𝑤𝑤𝑤 _𝑟𝑟𝑟𝑟𝑟𝑟 �
+
+(4.13)
+
+It is interesting to mention, regarding Equations 4.11 to 4.13, that they are basically a first order filter with time constant 𝑣𝑣𝑠𝑠 𝑖𝑖/𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟 but some additional terms must be added to prevent numerical problems when simulating the model. It is important to consider that the wheel slip velocity will start from zero speed, which would generate a zero time constant in the filter. This situation is eliminated by setting the smaller time constant to 0.1.
+4.4 Tire model parameters
+To sum up, all the parameters related with the tire model are listed in this section. For further information regarding the model parameters refer to Appendix A.
+
+𝐶𝐶 Normalized thread stiffness
+
+𝑎𝑎 Contact patch length
+
+𝑑𝑑𝑑𝑑 Caster offset 𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟 Relaxation length coefficient
+
+𝑚𝑚𝑚𝑚𝑚𝑚𝑖𝑖 Sliding friction constant
+
+40
+
+CHALMERS, Applied Mechanics, Master’s Thesis 2012:26
+
+5 Suspension System Model
+In a road vehicle, the suspension system has two main purposes. The first one is to isolate the vehicle cabin from the road noise, bumps and vibrations in order to provide a comfortable ride to the car. The second purpose is mainly related with the vehicle dynamics and vehicle handling. Regarding the second purpose, the suspension must keep the tires in contact with the road as much as possible and control the wheel kinematics, so the tire is always positioned properly in the road surface. Finally, the load transfers generated when driving, which define the vertical loads at each tire, are also related with the suspension system, since it controls the roll and pitch motion of the vehicle.
+5.1 Literature review
+As established in previous chapters of this report, the road surface is considered as a smooth surface, even if it is sloped or banked. Hence, there is no need for a deep study related to cabin isolation through the suspension.
+In addition, in this VDM, the suspension kinematics has been simplified to the maximum. For the sake of simplicity, the tires are assumed to be in contact with the road surface all the time and no tire vertical displacement is considered. When a tire moves in its bump and rebound displacements, its movement describes a three dimensional displacement, generating changes in camber, caster and toe angles, among others. With this simplification, it is assumed that the tire is always in touch with the road and with ideal camber angle.
+With the assumptions stated above, the main goals of the suspension system in this project will be to calculate the vertical load at each tire and the roll and pitch motions.
+According to the theory of the roll and pitch axis, which has been shortly introduced in Section 3.1, the entire suspension system can be modelled with these two axis. The roll axis will control the roll motion and it is mainly related with the lateral dynamics.
+As shown in Figure 5.1, the roll axis is in the vehicle centre plane, and below the COG.
+
+Figure 5.1 Roll axis representation. Adapted from Gómez, J. Atchinson, D and others (2011).
+
+CHALMERS, Applied Mechanics, Master’s Thesis 2012:26
+
+41
+
+In the front and rear ends of the roll axis, there are the so called front and rear roll centres, where the front and rear torsion springs and dampers are positioned. The height of the front and rear roll centres will be parameters of the suspension system. It is fair to say that in a real suspension system, as the wheels move, the roll centres change their positions. Despite of this fact, since the wheels displacements have been disregarded, the roll centres will be in a fixed position.
+The torsion springs and dampers are defined in such a way that they present the same roll stiffness and damping as the vehicle’s real suspension. Their characteristics will depend on the real suspension dimensions and geometry and also on the real springs and shock absorbers characteristics, both for front and rear suspension.
+Once the torsion springs and dampers characteristics for front and rear suspension are known, the lateral load transfer generated in both axles can be calculated as a function of the lateral acceleration or the roll motion.
+When a vehicle suffers a longitudinal acceleration, a longitudinal load transfer between front and rear axles arises. This longitudinal load transfer can be studied using the pitch axis, in same manner as the roll axis is used to study the lateral load transfer.
+The first step is to find the position of the pitch axis in the vehicle. Again, its position depends on the suspension geometry and will be variable depending on the suspension displacement. Due to the lack of available information, some assumptions will be done in order to place the pitch axis in a realistic position that will be kept fixed. As shown in Figure 5.2, the pitch axis, which is perpendicular to the ground plane centre line, has been positioned below the COG of the vehicle, at a distance 𝑑𝑑𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝 ℎ, which will be a parameter of the VDM.
+There is a noticeable difference between the roll axis and the pitch axis and the load transfer related to them. While in the lateral load transfer it is necessary to distinguish between front and rear load transfer since the front and rear suspension characteristics are different, when working with the longitudinal load transfer, the load is equally distributed between left and right tires since the suspension is ideally symmetric. This means that for the pitch axis, just one rotation spring and one rotation damper are needed.
+The rotation spring and damper characteristics depend on both front and rear vehicle suspensions and, ideally it will have the same pitch stiffness than the real vehicle suspension. Once these characteristics are known, the longitudinal load transfer can be calculated as a function of the longitudinal acceleration or the pitch angle.
+While the roll and pitch axis theory deals with the dynamic load transfer generated when driving, there is also a need for studying the static load transfer. Usually a passenger car will not have its weight equally distributed between its tires, depending mainly on its COG position, and this needs to be considered. In addition, when a car stands in a sloped and/or banked road a load transfer, between front and rear tires if the road is banked or between left and right side tires if the road is banked, will arise.
+
+42
+
+CHALMERS, Applied Mechanics, Master’s Thesis 2012:26
+
+Figure 5.2 Pitch axis representation. Adapted from Gómez, J. Atchinson, D and others (2011).
+In the next section, all the ideas presented here will be translated to a system of equations describing both the suspension system and the load transfer generated when the VDM is driven.
+
+5.2 Suspension implementation
+The first consideration in the suspension implementation is to describe the main variables regarding the roll and pitch axis.
+Starting with the roll, the first quantity to calculate is the vertical distance between the vehicle’s COG and the roll axis 𝑑𝑑𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟 .
+
+𝑑𝑑𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟 = 𝐶𝐶𝐶𝐶𝐶𝐶𝑧𝑧 − �𝑅𝑅𝑅𝑅𝑅𝑅𝑅𝑅 𝑐𝑐𝑐𝑐𝑐𝑐𝑐𝑐𝑐𝑐𝑐𝑐𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟 + 𝐿𝐿2
+
+∙
+
+𝑠𝑠𝑠𝑠𝑠𝑠
+
+𝑅𝑅𝑅𝑅𝑅𝑅𝑅𝑅 �atan⁡�
+
+𝑐𝑐𝑐𝑐𝑐𝑐𝑐𝑐𝑐𝑐𝑐𝑐𝑓𝑓𝑓𝑓𝑓𝑓𝑓𝑓𝑓𝑓 𝐿𝐿1
+
+− 𝑅𝑅𝑅𝑅𝑅𝑅𝑅𝑅 + 𝐿𝐿2
+
+𝑐𝑐𝑐𝑐𝑐𝑐𝑐𝑐𝑐𝑐𝑐𝑐𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟
+
+���
+
+(5.1)
+
+To compute the front and rear torsion spring stiffness, we need to consider the front and rear suspension springs and also the front and rear antiroll bars, since they play an important role in this aspect. The antiroll bars are defined by their diameter, their work length and their lever arms. With these considerations, Equation 5.2 is valid to calculate the front torsion spring stiffness, being the first term the contribution of the suspension springs and the second one the contribution of the antiroll bar to the total front roll stiffness. The antiroll bar contribution is calculated by Equation 5.3, while Equation 5.4 is used to calculate the antiroll bar inertia.
+
+𝐾𝐾𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟 𝑓𝑓
+
+=
+
+𝐾𝐾𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠 𝑓𝑓 ∙𝑇𝑇𝑇𝑇𝑓𝑓 2 2
+
++
+
+𝐾𝐾𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎
+
+𝑓𝑓
+
+(5.2)
+
+CHALMERS, Applied Mechanics, Master’s Thesis 2012:26
+
+43
+
+𝐾𝐾𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎
+
+𝑓𝑓
+
+=
+
+𝐺𝐺
+
+∙
+
+𝐼𝐼𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎 𝑓𝑓 ∙ 𝐿𝐿𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎
+
+𝐿𝐿𝑙𝑙𝑙𝑙𝑙𝑙𝑙𝑙𝑙𝑙
+
+2 𝑓𝑓
+
+𝑓𝑓
+
+𝐼𝐼𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎
+
+𝑓𝑓
+
+= 𝜋𝜋 ∙ 𝑑𝑑𝑓𝑓 4 32
+
+(5.3) (5.4)
+
+The same equations can be used to calculate the rear torsion spring stiffness:
+
+𝐾𝐾𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟 𝑟𝑟
+
+=
+
+𝐾𝐾𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠 𝑟𝑟 ∙𝑇𝑇𝑇𝑇𝑟𝑟 2 2
+
++
+
+𝐾𝐾𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎
+
+𝑟𝑟
+
+𝐾𝐾𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎
+
+𝑟𝑟
+
+=
+
+𝐺𝐺
+
+∙
+
+𝐼𝐼𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎 𝑟𝑟 ∙ 𝐿𝐿𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎
+
+𝐿𝐿𝑙𝑙𝑙𝑙𝑙𝑙𝑙𝑙𝑙𝑙
+
+2 𝑟𝑟
+
+𝑟𝑟
+
+𝐼𝐼𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎
+
+𝑟𝑟
+
+= 𝜋𝜋 ∙ 𝑑𝑑𝑟𝑟 4 32
+
+(5.5) (5.6) (5.7)
+
+Regarding the roll damping, it can be calculated as a function of the shock absorbers damping coefficients for front and rear roll centres:
+
+𝐷𝐷𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟 𝑓𝑓 = 𝐷𝐷𝑠𝑠ℎ𝑜𝑜𝑜𝑜𝑜𝑜 𝑓𝑓 ∙ 𝑇𝑇𝑇𝑇𝑓𝑓 2
+
+(5.8)
+
+𝐷𝐷𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟 𝑟𝑟 = 𝐷𝐷𝑠𝑠ℎ𝑜𝑜𝑜𝑜𝑜𝑜 𝑟𝑟 ∙ 𝑇𝑇𝑇𝑇𝑟𝑟 2
+
+(5.9)
+
+As mentioned before, since the front and rear suspension present different characteristics, is necessary to calculate the amount of lateral load transfer that rest in the front and rear axles, which will be a function of the lateral acceleration:
+
+𝐾𝐾𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟 𝑓𝑓 ∙𝑚𝑚 ∙𝑑𝑑𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟
+
+∆𝐹𝐹𝑧𝑧 𝑓𝑓
+
+=
+
+𝐾𝐾𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟
+
+𝑓𝑓
+
++
+
+𝑇𝑇𝑇𝑇𝑓𝑓
+𝐾𝐾𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟 𝑟𝑟 − 𝑚𝑚
+
+∙
+
+𝑔𝑔
+
+∙
+
+𝑑𝑑𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟
+
+𝐾𝐾𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟 𝑟𝑟 ∙𝑚𝑚 ∙𝑑𝑑𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟
+
+∆𝐹𝐹𝑧𝑧 𝑟𝑟
+
+=
+
+𝐾𝐾𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟
+
+𝑓𝑓
+
++
+
+𝑇𝑇𝑇𝑇𝑟𝑟
+𝐾𝐾𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟 𝑟𝑟 −
+
+𝑚𝑚
+
+∙ 𝑔𝑔
+
+∙
+
+𝑑𝑑𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟
+
+(5.10) (5.11)
+
+Regarding the pitch motion, an equivalent development of equations can be made, but with some particular characteristics related with the pitch motion. In this case, the real suspension of the vehicle is symmetrical, the left and right sides of the suspension are equal, at least ideally. Due to this fact, the pitch stiffness can be represented with just one torsion spring and damper, and the longitudinal load transfer generated will be equally distributed between the left and right tires. It is also fair to mention that the distance between the COG and the pitch axis, 𝑑𝑑𝑝𝑝𝑖𝑖𝑖𝑖𝑖𝑖ℎ, will be considered directly as a parameter instead of calculated due to the lack of information. With these considerations, the pitch torsion spring and damper will have the following characteristics:
+
+𝐾𝐾𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝 ℎ
+
+=
+
+𝐾𝐾𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠
+
+𝑓𝑓
+
+∙ 𝐿𝐿12
+
++ 𝐾𝐾𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠 2
+
+𝑟𝑟
+
+∙
+
+𝐿𝐿2 2
+
+(5.12)
+
+44
+
+CHALMERS, Applied Mechanics, Master’s Thesis 2012:26
+
+𝐷𝐷𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝 ℎ
+
+=
+
+𝐷𝐷𝑠𝑠ℎ𝑜𝑜𝑜𝑜𝑜𝑜
+
+𝑓𝑓
+
+∙
+
+𝐿𝐿12
+
++ 𝐷𝐷𝑠𝑠ℎ𝑜𝑜𝑜𝑜𝑜𝑜 2
+
+𝑟𝑟
+
+∙
+
+𝐿𝐿22
+
+(5.13)
+
+At this point the suspension is fully defined and all the information needed to calculate the vertical load at each tire is known. Equations 5.14 to 5.17 are used to calculate the vertical load.
+
+𝐹𝐹𝑧𝑧 1
+
+=
+
+𝑚𝑚 ∙ 2
+
+𝑔𝑔
+
+∙
+
+𝐿𝐿2
+
+∙
+
+cos
+
+𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑑𝑑
+
++ rnom (𝐿𝐿1 +
+
+∙ sin 𝐿𝐿2) ∙
+
+𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑑𝑑 − 𝐶𝐶𝐶𝐶𝐶𝐶𝑧𝑧 cos 𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑑𝑑
+
+∙
+
+sin
+
+𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑑𝑑
+
+∙
+
+1
+
+−
+
+𝐶𝐶𝐶𝐶𝐶𝐶𝑧𝑧 ∙ tan 𝑇𝑇𝑇𝑇𝑓𝑓
+
+𝑏𝑏𝑏𝑏𝑏𝑏𝑏𝑏𝑑𝑑
+
+−
+
+∆𝐹𝐹𝑧𝑧
+
+𝑓𝑓
+
+∙
+
+𝑎𝑎𝑦𝑦
+
+𝐾𝐾𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠
+−2
+
+𝑓𝑓 ∙ 𝐿𝐿1 ∙ tan 𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝ℎ𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎 2
+
++ 𝐷𝐷𝑠𝑠ℎ𝑜𝑜𝑜𝑜𝑜𝑜 𝑓𝑓
+
+∙ 𝐿𝐿1 ∙ 𝜔𝜔𝑦𝑦
+
+(5.14)
+
+𝐹𝐹𝑧𝑧 2
+
+=
+
+𝑚𝑚 ∙ 2
+
+𝑔𝑔
+
+∙
+
+𝐿𝐿2
+
+∙
+
+cos
+
+𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑑𝑑
+
++ rnom (𝐿𝐿1 +
+
+∙ sin 𝐿𝐿2) ∙
+
+𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑑𝑑 − 𝐶𝐶𝐶𝐶𝐶𝐶𝑧𝑧 cos 𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑑𝑑
+
+∙
+
+sin
+
+𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑑𝑑
+
+∙
+
+1
+
++
+
+𝐶𝐶𝐶𝐶𝐶𝐶𝑧𝑧 ∙ tan 𝑇𝑇𝑇𝑇𝑓𝑓
+
+𝑏𝑏𝑏𝑏𝑏𝑏𝑏𝑏𝑑𝑑
+
++
+
+∆𝐹𝐹𝑧𝑧
+
+𝑓𝑓
+
+∙
+
+𝑎𝑎𝑦𝑦
+
+𝐾𝐾𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠
+−2
+
+𝑓𝑓 ∙ 𝐿𝐿1 ∙ tan 𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝ℎ𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎 2
+
++ 𝐷𝐷𝑠𝑠ℎ𝑜𝑜𝑜𝑜𝑜𝑜 𝑓𝑓 ∙ 𝐿𝐿1 ∙ 𝜔𝜔𝑦𝑦
+
+(5.15)
+
+𝐹𝐹𝑧𝑧 3
+
+=
+
+𝑚𝑚 ∙ 2
+
+𝑔𝑔
+
+∙
+
+�1
+
+−
+
+𝐿𝐿2
+
+∙
+
+cos
+
+𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑑𝑑
+
++ rnom (𝐿𝐿1 +
+
+∙ sin 𝐿𝐿2) ∙
+
+𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑑𝑑 − 𝐶𝐶𝐶𝐶𝐶𝐶𝑧𝑧 cos 𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑑𝑑
+
+∙
+
+sin
+
+𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑑𝑑 �
+
+∙
+
+1
+
+−
+
+𝐶𝐶𝐶𝐶𝐶𝐶𝑧𝑧 ∙ tan 𝑏𝑏𝑏𝑏𝑏𝑏𝑏𝑏𝑑𝑑 𝑇𝑇𝑇𝑇𝑟𝑟
+
+−
+
+∆𝐹𝐹𝑧𝑧
+
+𝑟𝑟
+
+∙
+
+𝑎𝑎𝑦𝑦
+
+𝐾𝐾𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠
++2
+
+𝑟𝑟 ∙ 𝐿𝐿2 ∙ tan 𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝ℎ𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎
+
++ 𝐷𝐷𝑠𝑠ℎ𝑜𝑜𝑜𝑜𝑜𝑜 𝑟𝑟 ∙ 𝐿𝐿2 ∙ 𝜔𝜔𝑦𝑦
+
+2
+
+(5.16)
+
+𝐹𝐹𝑧𝑧 4
+
+=
+
+𝑚𝑚 ∙ 2
+
+𝑔𝑔
+
+∙
+
+�1
+
+−
+
+𝐿𝐿2
+
+∙
+
+cos
+
+𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑑𝑑
+
++ rnom (𝐿𝐿1 +
+
+∙ sin 𝐿𝐿2) ∙
+
+𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑑𝑑 − 𝐶𝐶𝐶𝐶𝐶𝐶𝑧𝑧 cos 𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑑𝑑
+
+∙
+
+sin
+
+𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑑𝑑 �
+
+∙
+
+1
+
++
+
+𝐶𝐶𝐶𝐶𝐶𝐶𝑧𝑧 ∙ tan 𝑏𝑏𝑏𝑏𝑏𝑏𝑏𝑏𝑑𝑑 𝑇𝑇𝑇𝑇𝑟𝑟
+
++
+
+∆𝐹𝐹𝑧𝑧
+
+𝑟𝑟
+
+∙
+
+𝑎𝑎𝑦𝑦
+
+𝐾𝐾𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠
++2
+
+𝑟𝑟 ∙ 𝐿𝐿2 ∙ tan 𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝ℎ𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎
+
++ 𝐷𝐷𝑠𝑠ℎ𝑜𝑜𝑜𝑜𝑜𝑜 𝑟𝑟 ∙ 𝐿𝐿2 ∙ 𝜔𝜔𝑦𝑦
+
+2
+
+(5.17)
+
+In these equations, the first term is used to calculate the static vertical load at each tire, taking into account the road slope and banking. The second term considers the dynamic lateral load transfer, as a function of the lateral acceleration while the last term includes the longitudinal load transfer as a function of the pitch angle, which in the end is a function of the longitudinal acceleration.
+
+CHALMERS, Applied Mechanics, Master’s Thesis 2012:26
+
+45
+
+5.3 Suspension parameters
+To sum up, all the parameters used for the suspension model are listed in this section, as an attempt to clarify the model flexibility. For further information regarding the model parameters refer to Appendix A.
+
+𝑅𝑅𝑅𝑅𝑅𝑅𝑅𝑅 𝑐𝑐𝑐𝑐𝑐𝑐𝑐𝑐𝑐𝑐𝑐𝑐𝑓𝑓𝑓𝑓𝑓𝑓𝑓𝑓𝑓𝑓 Front roll centre height 𝑅𝑅𝑅𝑅𝑅𝑅𝑅𝑅 𝑐𝑐𝑐𝑐𝑐𝑐𝑐𝑐𝑐𝑐𝑐𝑐𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟 Rear roll centre height
+
+𝐾𝐾𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠 𝑓𝑓
+
+Front suspension spring stiffness
+
+𝐾𝐾𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠 𝑟𝑟
+
+Rear suspension spring stiffness
+
+𝐷𝐷𝑠𝑠ℎ𝑜𝑜𝑜𝑜𝑜𝑜 𝑓𝑓
+
+Front suspension shock absorber damping coefficient
+
+𝐷𝐷𝑠𝑠ℎ𝑜𝑜𝑜𝑜𝑜𝑜 𝑟𝑟
+
+Rear suspension shock absorber damping coefficient
+
+𝑑𝑑𝑓𝑓
+
+Front antiroll bar diameter
+
+𝑑𝑑𝑟𝑟
+
+Rear antiroll bar diameter
+
+𝐿𝐿𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎 𝑓𝑓
+
+Front antiroll bar length
+
+𝐿𝐿𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎 𝑟𝑟
+
+Rear antiroll bar length
+
+𝐿𝐿𝑙𝑙𝑙𝑙𝑙𝑙𝑙𝑙𝑙𝑙 𝑓𝑓
+
+Front antiroll bar lever arm
+
+𝐿𝐿𝑙𝑙𝑙𝑙𝑙𝑙𝑙𝑙𝑙𝑙 𝑟𝑟
+
+Rear antiroll bar lever arm
+
+Antiroll bar material
+
+Vertical distance
+
+𝐺𝐺
+
+transverse displacement
+
+𝑑𝑑𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝 ℎ
+
+between COG and
+
+module
+
+pitch axis
+
+46
+
+CHALMERS, Applied Mechanics, Master’s Thesis 2012:26
+
+6 Steering System Model
+The steering system of a vehicle has the main purpose of transmitting the steering inputs done by the driver through the steering wheel to the steerable wheels, in order to control the vehicle´s direction.
+6.1 Literature review
+In a passenger car, the steering wheel angle is transmitted to the steerable wheels through a mechanical system composed by a series of linkages. There are different technical solutions but the most used nowadays in passenger cars is the rack and pinion steering system, which can be seen in Figure 6.1.
+
+Figure 6.1 Rack and pinion steering system. Adapted from Wikipedia.
+As can be seen in the figure, when the driver turns the steering wheel, the rotation is transmitted through the steering column to the pinion and the rotation is then converted to a linear movement through the rack and pinion mechanism. That linear movement is then transferred through the steering linkage, the tie rods, to the uprights, generating a steer angle in the wheels. It is important to notice that the steering mechanism presents a transmission ratio, which means that the steering wheel angle and the wheel steer angle are related via a transmission coefficient.
+Actually, in a real steering system the kinematics of the wheel movement are more complex. When a vehicle is driven through a corner, the inner wheels describe a turn of smaller radius than the outer wheels and that means that the inner wheels in the steerable axis need a larger steering angle than the outer wheels, otherwise the inner wheel will tend to slide over the road. This situation can be seen in Figure 6.2.
+
+CHALMERS, Applied Mechanics, Master’s Thesis 2012:26
+
+47
+
+Figure 6.2 Difference in steer angle between inner and outer wheels in a four wheeled vehicle.
+Despite of the fact that the steerable wheels in a real car turn different angles, for this model it is reasonable to assume that both wheels will turn the same angle, without including big discrepancies in the results.
+A note must be done regarding four wheel steering. Some vehicles are not only steerable via the wheels in the front axle but also in the rear. This improves the steering response in different situations, like for instance reducing the turning radius when manoeuvring at low speeds. Vehicles with rear steering systems have been around for quite a lot time, but usually in big vehicles such as buses or trucks and some large passenger vehicles to improve manoeuvrability. Nowadays it seems that these rear steering systems are becoming increasingly popular even in normal passenger cars. Hence, this was implemented in the VDM, and therefore enables studies of four wheel steering influence to the driver behaviour. The feature was not validated and was switched off and never tested.
+Another property to be considered when modelling a steering system is the static toe angles for front and rear axles. The wheels in a vehicle are set to have an initial steer angle, even when the steering wheel is not turned. In a road car, both front and rear axles are always set with a small toe-in (see Figure 6.3). This characteristic improves the vehicle stability when driving straight and also has an influence in the vehicle response when entering in a turn. Typically, the toe-out is just used for racing purposes, because it can improve the vehicle response when turning but is unstable when driving straight.
+
+48
+
+CHALMERS, Applied Mechanics, Master’s Thesis 2012:26
+
+Figure 6.3
+
+Static toe. Looking at the vehicle from top, toe in when the tire centre lines cross in front of the vehicle and toe out when the tire centre lines cross in the back of the vehicle.
+
+With the ideas presented above, a simple steering system can be modelled by defining static toe-angles and a steering ratio, but the steering response of the model with such a simple steering system will probably not be accurate enough to represent realistic vehicle handling.
+
+To obtain realistic vehicle behaviour it is important to include the suspension and steering compliance to the steering system. The wheels of the car are mounted to the body through the suspension linkage. The suspension linkage is not a completely stiff system, but it presents flexibilities due to the flexion of the suspension arms, the rubber bushes and ball joints used to connect the different links, generating additional (added or subtracted) steering angles in the wheels.
+
+Figure 6.4 Additional steer angle generated due suspension and steering compliance. Adapted from Pacejka (2005).
+An effective way to evaluate the suspension compliance is to consider the steering angles generated by compliance proportional to the forces and aligning torques
+
+CHALMERS, Applied Mechanics, Master’s Thesis 2012:26
+
+49
+
+produced by the tires, and this is the way it is done in this project. An additional term added to the suspension compliance is the usually called Roll steer or bump steer. Roll steer is the change in the steering angle of a wheel when the wheel moves in its 3D movement of bump and rebound. This change in the steering angle with the wheel vertical displacement can be considered as a function of the vehicle´s roll angle and definitely has an influence in the vehicle behaviour.
+Another important consideration to obtain a realistic response of the steering system is the steering column compliance. The flexibility of the steering column has a big effect in the steering system, since it is used to damp and filter road vibrations and bumps and therefore affect the steer angles that actually are transmitted to the wheels.
+All the considerations done above are useful to generate the right steer inputs in the tires. However, the steering system has another task in the VDM which is very important in driving simulators, the steering wheel torque feedback. As established in the project limitations (Section 1.5), the steering wheel feedback will just be partially studied in this project and further development will be needed. Nevertheless, some effort must be put to generate an acceptable feedback from the steering wheel, since this feedback affects the driver perception in such a way that, without it, the driver will not be able to obtain a good feeling about the VDM performance.
+The steering wheel feedback is basically the reaction torque that the driver feels in the steering wheel when trying to turn it. In a simplified manner, this torque can be estimated by generating some friction in the steering system added to the aligning torque generated by the front (steerable) tires. As can be seen in Figure 6.5, where representative curves for lateral force and aligning torque are shown, when the tire reaches its maximum of lateral force generation the aligning torque is vanishing, and the driver can actually feel that in the steering wheel and perceive that the tire limits are close.
+
+Figure 6.5 Tire lateral force and aligning torque generation as a function of lateral slip. Adapted from Pacejka (2005).
+
+50
+
+CHALMERS, Applied Mechanics, Master’s Thesis 2012:26
+
+Finally, some damping must be added to the steering wheel torque generation, like it happens in a real steering system, and also some servo assistance is used to have a softer steering response and help the driver to turn.
+
+6.2 Steering implementation
+
+All the assumptions mentioned in the preceding section are used to generate the following set of equations describing the steering system of the VDM.
+First thing to consider is the steering column compliance, which will provide a relation between the steering wheel input and the steering angle that is transmitted through the rack and pinion to the wheels. The strategy used for this calculation is to apply some filtering and pure damping to the steering wheel input, as can be seen in Equations 6.1 and 6.2. In these equations 𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝑠𝑠𝑠𝑠 represents the steering wheel input and 𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝑑𝑑 is the damped steering input that gets to the steering pinion, while 𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝑖𝑖𝑖𝑖𝑖𝑖 is just an internal variable used for calculations.
+
+1 𝑑𝑑𝑑𝑑𝑑𝑑(𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝑖𝑖𝑖𝑖𝑖𝑖 ) = 𝑓𝑓𝑠𝑠𝑠𝑠 ∙ (𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝑠𝑠𝑠𝑠 − 𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝑖𝑖𝑖𝑖𝑖𝑖 )
+
+(6.1)
+
+𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝑑𝑑 = 𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝑖𝑖𝑖𝑖𝑖𝑖 + 𝐷𝐷𝑠𝑠𝑠𝑠 ∙ 𝜔𝜔𝑠𝑠𝑠𝑠
+
+(6.2)
+
+Once the steering angle transmitted to the steering rack is known, Equation 6.2 to 6.5are used to define the steer angles at each tire. It is important to notice that, according to the wheel local coordinate system, a steer angle will be positive when the wheel turns to the left and negative when it turns to the right.
+
+𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷1
+
+=
+
+−𝑡𝑡𝑡𝑡𝑡𝑡𝑓𝑓
+
++
+
+𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝑑𝑑 𝑆𝑆𝑆𝑆
+
+−
+
+𝐶𝐶𝐶𝐶𝐶𝐶𝐶𝐶
+
+𝐹𝐹𝑦𝑦
+
+𝑓𝑓
+
+∙
+
+𝐹𝐹𝑦𝑦 1
+
++ 𝐶𝐶𝐶𝐶𝐶𝐶𝐶𝐶 𝑀𝑀𝑧𝑧 𝑓𝑓 ∙ 𝑀𝑀𝑧𝑧1 + 𝑅𝑅𝑅𝑅𝑅𝑅𝑅𝑅 𝑠𝑠𝑠𝑠𝑓𝑓 ∙ 𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎
+
+(6.3)
+
+𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷2
+
+=
+
+𝑡𝑡𝑡𝑡𝑡𝑡𝑓𝑓
+
++
+
+𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝑑𝑑 𝑆𝑆𝑆𝑆
+
+−
+
+𝐶𝐶𝐶𝐶𝐶𝐶𝐶𝐶
+
+𝐹𝐹𝑦𝑦
+
+𝑓𝑓
+
+∙
+
+𝐹𝐹𝑦𝑦 2
+
++
+
+𝐶𝐶𝐶𝐶𝐶𝐶𝐶𝐶
+
+𝑀𝑀𝑧𝑧
+
+𝑓𝑓
+
+∙ 𝑀𝑀𝑧𝑧 2 + 𝑅𝑅𝑅𝑅𝑅𝑅𝑅𝑅 𝑠𝑠𝑠𝑠𝑓𝑓 ∙ 𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎
+
+(6.4)
+
+𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷3 = −𝑡𝑡𝑡𝑡𝑡𝑡𝑟𝑟 − 𝐶𝐶𝐶𝐶𝐶𝐶𝐶𝐶 𝐹𝐹𝑦𝑦 𝑟𝑟 ∙ 𝐹𝐹𝑦𝑦 3 + 𝐶𝐶𝐶𝐶𝐶𝐶𝐶𝐶 𝑀𝑀𝑧𝑧 𝑟𝑟 ∙ 𝑀𝑀𝑧𝑧 3 + 𝑅𝑅𝑅𝑅𝑅𝑅𝑅𝑅 𝑠𝑠𝑠𝑠𝑟𝑟 ∙ 𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎
+
+(6.5)
+
+𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷4 = 𝑡𝑡𝑡𝑡𝑡𝑡𝑟𝑟 − 𝐶𝐶𝐶𝐶𝐶𝐶𝐶𝐶 𝐹𝐹𝑦𝑦 𝑟𝑟 ∙ 𝐹𝐹𝑦𝑦 3 + 𝐶𝐶𝐶𝐶𝐶𝐶𝐶𝐶 𝑀𝑀𝑧𝑧 𝑟𝑟 ∙ 𝑀𝑀𝑧𝑧 3 + 𝑅𝑅𝑅𝑅𝑅𝑅𝑅𝑅 𝑠𝑠𝑠𝑠𝑟𝑟 ∙ 𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎
+
+(6.6)
+
+As shown in the equations, the front tires have the static toe angle, the steering angle controlled by the driver and the compliance generated by lateral force, aligning torque and roll steer, while the rear tires just have the terms representing the toe and the compliance. It is also interesting to notice that the compliance in front and rear axles are different (they have different parameters), because the rear axle is typically stiffer from the compliance perspective and support smaller forces than the front axle.
+
+CHALMERS, Applied Mechanics, Master’s Thesis 2012:26
+
+51
+
+Regarding the steering wheel torque, it can be calculated in an approximate fashion by using the following equations:
+
+𝑆𝑆𝑆𝑆𝑆𝑆𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡 = ��𝑀𝑀𝑧𝑧1 + 𝑀𝑀𝑧𝑧 2� ∙ 𝑠𝑠𝑠𝑠 𝑎𝑎𝑎𝑎𝑎𝑎𝑙𝑙𝑙𝑙𝑙𝑙𝑙𝑙𝑙𝑙 ∙ 𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟 − der(𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝑠𝑠𝑠𝑠 ) + 𝑆𝑆𝑆𝑆𝑆𝑆𝑓𝑓𝑓𝑓𝑓𝑓𝑓𝑓𝑓𝑓𝑓𝑓𝑓𝑓𝑓𝑓 � ∙ 𝐶𝐶𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠
+
+(6.7)
+
+𝑆𝑆𝑆𝑆𝑆𝑆𝑓𝑓𝑓𝑓𝑓𝑓𝑓𝑓𝑓𝑓𝑓𝑓𝑓𝑓𝑓𝑓 = −tanh⁡20 ∙ 𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝑠𝑠𝑠𝑠 1.75
+∙ 𝑚𝑚𝑚𝑚𝑚𝑚 �1.75, 0.18 ∙ 𝑎𝑎𝑎𝑎𝑎𝑎(𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝑠𝑠𝑠𝑠 )�
+
+(6.8)
+
+The steering wheel toque is calculated as a function of the front tires aligning torque, steering system friction and steering wheel pure damping, using some parameters related with the steering geometry and also linear servo assistance, 𝐶𝐶𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠 .
+It should be noticed that, even though the torque generated by these equations have not been validated in this work, it has been compared with the results generated by a properly validated steering model at VTI, generating similar results. In addition, the feeling perceived when running the new model in the simulator was realistic under any driving condition.
+6.3 Steering system parameters
+To sum up, all the parameters used for the suspension model are listed in this section, as an attempt to clarify the model flexibility. For further information regarding the model parameters refer to Appendix A.
+
+𝑆𝑆𝑆𝑆
+
+Steering ratio
+
+𝐶𝐶𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠
+
+Servo assistance coefficient
+
+𝑡𝑡𝑡𝑡𝑡𝑡𝑓𝑓
+
+Front wheel toe angle
+
+𝑠𝑠𝑠𝑠 𝑎𝑎𝑎𝑎𝑎𝑎𝑙𝑙𝑙𝑙𝑙𝑙𝑙𝑙𝑙𝑙 Steering arm lever
+
+𝐶𝐶𝐶𝐶𝐶𝐶𝐶𝐶 𝐹𝐹𝑦𝑦 𝑓𝑓
+
+Lateral force compliance front
+
+𝑡𝑡𝑡𝑡𝑡𝑡𝑟𝑟
+
+Rear wheel toe angle
+
+𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟 Steering pinion radius
+
+𝐶𝐶𝐶𝐶𝐶𝐶𝐶𝐶 𝐹𝐹𝑦𝑦 𝑟𝑟
+
+Lateral force compliance rear
+
+𝐶𝐶𝐶𝐶𝐶𝐶𝐶𝐶 𝑀𝑀𝑧𝑧 𝑓𝑓
+
+Aligning torque compliance front
+
+𝐶𝐶𝐶𝐶𝐶𝐶𝐶𝐶 𝑀𝑀𝑧𝑧 𝑟𝑟
+
+Aligning torque compliance rear
+
+𝑅𝑅𝑅𝑅𝑅𝑅𝑅𝑅 𝑠𝑠𝑠𝑠𝑓𝑓 𝐷𝐷𝑠𝑠𝑠𝑠
+
+Roll steer compliance front
+Steering column damping coefficient
+
+𝑅𝑅𝑅𝑅𝑅𝑅𝑅𝑅 𝑠𝑠𝑠𝑠𝑟𝑟 𝑓𝑓𝑠𝑠𝑠𝑠
+
+Roll steer compliance rear
+Steering column filtering coefficient
+
+52
+
+CHALMERS, Applied Mechanics, Master’s Thesis 2012:26
+
+7 Driveline Model
+The driveline model is the part of the VDM that generates the driving torques at the wheels (Equation 3.22). It is mainly composed by the engine and the transmission. As established in Section 1.5(Limitations) just a provisional driveline will be implemented in this VDM, which means that the solution provided will not be as flexible as the other parts of the VDM, using a simplified implementation and parameterization.
+7.1 Literature review
+A basic driveline can be composed by an engine that provides the power needed to move the vehicle and a transmission system to transfer that power from the engine to the wheels.
+For this provisional driveline, an internal combustion engine defined by its torque versus rotational speed will be used. Since all the parameters used to define this VDM are from a Saab 93 series, it is logical to use an engine from the same vehicle. The engine chosen is a 2.0 petrol engine with turbocharger that performs 175 brake horse power. Figure 7.1 shows the curves of maximum torque and minimum torque versus engine rotational speed for the selected engine.
+
+Figure 7.1 Saab 2.0Tengine torque diagram.
+In this graphic, for a given engine speed and throttle position, the engine torque can be calculated in a simplified way through linear interpolation between the curve of maximum torque and the curve of minimum torque.
+Once the engine has been defined, the next step is to define the transmission layout and the transmission system.
+Since the Saab 93 is a front wheel driven car, the VDM will also represent a front wheel driven vehicle. In order to maintain the flexibility of the VDM, the model will be prepared to work with other layouts like rear wheel driven or 4x4.
+The next thing to consider is the use of an automatic or manual gear box. Since most of the vehicles sold in Sweden are fitted with manual transmission, the decision taken
+
+CHALMERS, Applied Mechanics, Master’s Thesis 2012:26
+
+53
+
+was to use a manual gear box for this driveline. The gearbox used is a five gears manual transmission with the same transmission ratios as a Saab 93 2.0T.
+A schematic representation of the complete driveline is shown in Figure 7.2
+
+Figure 7.2 Schematic representation of the VDM driveline.
+As shown in Figure 7.2, the driveline is composed by the engine that provides power in the way of torque and rotational speed. This torque is sent to the gearbox through the clutch, which also provides the possibility of disconnecting the engine from the gear box. In the gearbox, depending on the gear selected by the driver, the rotational velocity and the torque will change proportionally to the gear ratios. Finally, the output of the gearbox is sent to the differential through the end gear, which also has its own transmission ratio (the same as a Saab 2.0T ). The differential considered for this driveline is an ideal differential, since it allows the wheels to rotate with different velocities while sending one half of the available torque to each one, independently of the driving conditions. Finally, the last consideration needed regarding the driveline is to include a transmission efficiency, which will consider the torque loses generated in the driveline.
+The equations defining the driveline, considering the above discussed, will be established in the next section.
+
+54
+
+CHALMERS, Applied Mechanics, Master’s Thesis 2012:26
+
+7.2 Driveline implementation
+An initial consideration regarding the driveline implementation is to obtain simple functions representing the curves from Figure 7.1. The decision taken is to fit those curves using polynomial functions, obtaining the Equations 7.1 and 7.2 to represent engine maximum and minimum torque as a function of engine speed.
+
+𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡 𝑚𝑚𝑚𝑚𝑚𝑚 = 2.1486 ∙ 10−6 ∙ 𝜔𝜔𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒 3 − 3.7390514 ∙ 10−6 ∙ 𝜔𝜔𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒 2
++ 1.8250297732 ∙ 𝜔𝜔𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒
+
+(7.1)
+
+𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡 𝑚𝑚𝑚𝑚𝑚𝑚 = 2.152813 ∙ 10−4 ∙ 𝜔𝜔𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒 2
+− 0.2413794863 ∙ 𝜔𝜔𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒
+
+(7.2)
+
+To know the maximum and minimum torque is necessary to calculate the engine speed. The engine speed must be calculated in two different ways, depending on the position of the clutch.
+If the clutch is engaged, the engine speed is directly related with the wheel speed. The relationship is given by the total transmission ratio, which will be the product of the transmission ratio in the gear box and the final gear. The total transmission ratio can be calculated as follows:
+
+𝑖𝑖𝑇𝑇
+
+=
+
+�𝑖0𝑖𝑔𝑔𝑔,𝑔𝑔𝑔𝑔𝑔
+
+𝑖𝑖 ∙ 𝑖𝑖𝑓𝑓𝑓𝑓𝑓𝑓𝑓𝑓𝑓𝑓 𝑖𝑖𝑔𝑔𝑔𝑔𝑔𝑔𝑔𝑔 0 =
+
+, 0
+
+𝑖𝑖 = 1, … ,5 (𝑛𝑛𝑛𝑛𝑛𝑛𝑛𝑛𝑛𝑛𝑛𝑛𝑛𝑛)
+
+(7.3)
+
+When the clutch pedal is pressed, 𝐶𝐶𝑖𝑖𝑖𝑖𝑖𝑖𝑖𝑖𝑖𝑖 > 0, or the vehicle is in neutral,𝑖𝑖𝑇𝑇 = 0, engine speed will depend on the throttle input and the internal inertia of the engine, but it can be calculated in a simplified way just as a function of the throttle position.
+Considering all these ideas, the engine speed can be calculated as follows:
+First, a secondary variable𝜔𝜔𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒 𝑖𝑖𝑖𝑖𝑖𝑖 will be used to calculate the engine speed when it is engaged to the wheels.
+
+𝜔𝜔𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒
+
+𝑖𝑖𝑖𝑖𝑖𝑖
+
+=
+
+𝑚𝑚𝑚𝑚𝑚𝑚
+
+�𝜔𝜔𝑤𝑤 ℎ 𝑒𝑒𝑒𝑒𝑒𝑒
+
+1
+
++ 2
+
+𝜔𝜔𝑤𝑤 ℎ 𝑒𝑒𝑒𝑒𝑒𝑒
+
+2
+
+∙
+
+𝑖𝑖𝑇𝑇 ,
+
+73�
+
+(7.4)
+
+Finally, the engine speed is calculated as follows, including the clutch and neutral influence:
+
+𝜔𝜔𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒 = 680 − �1 − 𝑇𝑇𝑖𝑖𝑖𝑖𝑖𝑖𝑖𝑖𝑖𝑖 � ∙ (680 − 73) , 𝑖𝑖𝑖𝑖 𝑖𝑖𝑇𝑇 = 0 𝑜𝑜𝑜𝑜 𝐶𝐶𝑖𝑖𝑖𝑖𝑖𝑖𝑖𝑖𝑖𝑖 > 0.5 𝜔𝜔𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒 = 𝑚𝑚𝑚𝑚𝑚𝑚�𝜔𝜔𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒 𝑖𝑖𝑖𝑖𝑖𝑖 , 680� , 𝑖𝑖𝑖𝑖 𝑖𝑖𝑇𝑇 ≠ 0 𝑜𝑜𝑜𝑜 𝐶𝐶𝑖𝑖𝑖𝑖𝑖𝑖𝑖𝑖𝑖𝑖 ≤ 0.5
+
+(7.5)
+
+It is interesting to notice that the engine will be considered disengaged from the gear box for a clutch input larger than 0.3. As a reminder the clutch input can take values from 0 when the pedal is released, to 1 when the pedal is fully pressed. In a real
+
+CHALMERS, Applied Mechanics, Master’s Thesis 2012:26
+
+55
+
+vehicle it is not necessary to press the clutch pedal completely to disconnect the transmission, but the disconnection starts at some point in the middle of the pedal travel. To obtain a realistic feeling in the clutch pedal, the disconnection starts when the pedal is at the 50% of its travel.
+It should be mentioned that Equations 7.4 and 7.5 include features to keep the engine speed in the interval [73,680] 𝑟𝑟𝑟𝑟𝑟𝑟�𝑠𝑠 or equivalent[700,6500] 𝑟𝑟𝑟𝑟𝑟𝑟, since that is the speed range of this engine.
+Finally, for some parts of the VDM is interesting to know the engine speed expressed in revolution per minute:
+
+𝑟𝑟𝑟𝑟𝑟𝑟 1 𝑟𝑟𝑟𝑟𝑟𝑟 60 𝑠𝑠 𝜔𝜔𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒 𝑅𝑅𝑅𝑅𝑅𝑅 = 𝜔𝜔𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒 � 𝑠𝑠 � ∙ 2 ∙ 𝜋𝜋 𝑟𝑟𝑟𝑟𝑟𝑟 ∙ 1 𝑚𝑚𝑚𝑚𝑚𝑚 [𝑟𝑟𝑟𝑟𝑟𝑟]
+
+(7.6)
+
+With the preceding equations, engine speed is known in all the possible situations that may appear when driving the vehicle, and also the engine maximum and minimum torque is then known, since it depends on engine speed.
+The next step is to calculate the total engine torque output or its equivalent gearbox torque input, which will depend, for a given engine speed, on the throttle position and the clutch position. Again a secondary variable 𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡 𝑖𝑖𝑖𝑖𝑖𝑖 is used for the calculations:
+
+𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡 𝑖𝑖𝑖𝑖𝑖𝑖 = 0 , 𝑖𝑖𝑖𝑖 𝐶𝐶𝑖𝑖𝑖𝑖𝑖𝑖𝑖𝑖𝑖𝑖 > 0.5
+
+𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡 𝑖𝑖𝑖𝑖𝑖𝑖
+
+= �1 − 𝐶𝐶𝑖𝑖𝑖𝑖𝑖𝑖𝑖𝑖𝑖𝑖 � ∙ 𝑇𝑇𝑖𝑖𝑖𝑖𝑖𝑖𝑖𝑖𝑖𝑖
+
+∙ �𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡 𝑚𝑚𝑚𝑚𝑚𝑚 − 𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡 𝑚𝑚𝑚𝑚𝑚𝑚 �
+
++ 𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡 𝑚𝑚𝑚𝑚𝑚𝑚
+
+, 𝑖𝑖𝑖𝑖 𝐶𝐶𝑖𝑖𝑖𝑖𝑖𝑖𝑖𝑖 𝑡𝑡 ≤ 0.5
+
+(7.7)
+
+The preceding equation calculates the engine torque but there is a possible situation when running the model in the simulator that needs to be dealt with. According to Figure 7.1 when the throttle pedal is released the engine is generating a negative torque, known as engine braking. If the vehicle velocity 𝑣𝑣𝑥𝑥 turns negative, which happensin for example a spin out situation or reversing, that negative torque increases the vehicle’s negative 𝑣𝑣𝑥𝑥 (according to Equation 3.22).This behaviour is unrealistic.
+To prevent this kind of situation, the engine torque output will be kept positive if the vehicle longitudinal speed turns negative:
+
+𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡
+
+= �ma𝑒x𝑒𝑒�𝑒𝑒0𝑒𝑒,𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑡𝑒𝑡𝑒𝑡𝑡𝑒𝑡𝑒𝑡𝑒𝑡𝑡𝑒𝑡𝑒𝑡𝑡𝑒𝑡𝑡𝑡𝑡𝑖𝑡𝑖𝑡𝑖𝑡𝑖𝑡𝑖𝑡𝑖𝑡𝑡𝑡,𝑡
+
+𝑖𝑖𝑖𝑖𝑖𝑖 � , 𝑖𝑖𝑖𝑖 𝑣𝑣𝑥𝑥 < 0 𝑖𝑖𝑖𝑖 𝑣𝑣𝑥𝑥 ≥ 0
+
+(7.8)
+
+Once the engine torque output is known, it is time to calculate the driving torque at each wheel. As mentioned before, using an ideal differential one half of the final driving torque available will go to each front wheel. The total transmission ratio relates the engine torque with the driving torque and the transmission efficiency is included to consider the losses.
+
+56
+
+CHALMERS, Applied Mechanics, Master’s Thesis 2012:26
+
+𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷1 = 𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡 ∙ 𝜂𝜂𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡 ∙ 𝑖𝑖𝑇𝑇 2
+
+∙
+
+�−
+
+𝑡𝑡𝑡𝑡𝑡𝑡ℎ�𝜔𝜔𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒 2
+
+−
+
+677�
+
++
+
+1 �
+
+(7.9)
+
+𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷2 = 𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷1
+
+(7.10)
+
+𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷3 = 0
+
+(7.11)
+
+𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷4 = 0
+
+(7.12)
+
+It should be noticed in the preceding equations that a change of driveline layout from a front wheel driven car to a real wheel driven or 4x4 is just a matter of adjusting these equations and distribute the available driving torque to other wheels.
+Finally it should also be noticed that a tangent hyperbolic function (See Section 4.3) has been included here to prevent numerical instabilities (sliding mode) that appears when the engine is driven at its maximum speed.
+7.3 Driveline parameters
+To give an overview of the driveline flexibility, the parameters used are listed in this section. Since the engine is not parameterized, the parameters are mainly related with the transmission system. For further information regarding the model parameters refer to Appendix A.
+
+𝜂𝜂𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡 𝑖𝑖𝑔𝑔𝑔𝑔𝑔𝑔𝑔𝑔 1 𝑖𝑖𝑔𝑔𝑔𝑔𝑔𝑔𝑔𝑔 3 𝑖𝑖𝑔𝑔𝑔𝑔𝑔𝑔𝑔𝑔 5
+
+Transmission efficiency 1st gear transmission ratio 3th transmission ratio 5th transmission ratio
+
+𝑖𝑖𝑔𝑔𝑔𝑔𝑔𝑔𝑔𝑔 0 = 0 Neutral transmission ratio
+
+𝑖𝑖𝑔𝑔𝑔𝑔𝑔𝑔𝑔𝑔 2
+
+2nd transmission ratio
+
+𝑖𝑖𝑔𝑔𝑔𝑔𝑔𝑔𝑔𝑔 4
+
+4th transmission ratio
+
+𝑖𝑖𝑓𝑓𝑓𝑓𝑓𝑓𝑓𝑓𝑓𝑓
+
+Final gear transmission ratio
+
+CHALMERS, Applied Mechanics, Master’s Thesis 2012:26
+
+57
+
+58
+
+CHALMERS, Applied Mechanics, Master’s Thesis 2012:26
+
+8 Braking System Model
+The braking system is the last sub-system of the VDM studied in this report and is the one developed to generate the braking torques that allows the VDM to reduce speed and stop.
+8.1 Literature review
+Most of modern passenger cars are fitted with discs brakes in the four wheels, with the exception for some small and low cost cars that still use drum brakes on the rear axle. Figure 8.1 shows a general braking system layout with front disc brakes and rear drum brakes.
+
+Figure 8.1 Typical automotive braking system with front disc brakes and rear drum brakes.
+The main components of the braking system, shown in Figure 8.1, are the brake pedal, the master cylinder, the brake lines and the braking devices, composed by a rotor (disc or drum) and the friction surface(s) (brake pads or shoes). When the driver presses the brake pedal, he moves the master cylinder generating an hydraulic pressure. Typically a boost system is installed between the brake pedal and the master cylinder to increase the brake pressure generation. The brake pressure is transmitted through the brake lines from the master cylinder to the brake callipers or the drum slave cylinders that press the friction surfaces against the rotors, converting the kinetic energy into heat.
+For this project the brake system used will have disc brakes in the four wheels, since this is the solution taken in the Saab 93, so this system will be studied in more detail.
+
+CHALMERS, Applied Mechanics, Master’s Thesis 2012:26
+
+59
+
+Figure 8.2 Brake disc assembly and floating calliper schematic representation.
+As shown in Figure 8.2 a brake disc system is composed by the brake disc, which is attached to the wheel and rotates with it and a brake calliper in a fixed (in rotation) position, mounted to the suspension upright. The brake calliper holds the brake pads in touch with the brake disc and when the brake pressure arises, it presses the pads against the disc generating the braking. In normal passenger cars the most used calliper type is the floating one, where just one piston is used to press the pads, like in the case shown in Figure 8.2.
+In the simulator, the brake pedal, the booster and the master cylinder from the original Volvo XC-60 are still in the cabin and are used to generate the brake pressure that can be measured.
+Since the pressure at the master cylinder is known, the braking system model must able to calculate the braking pressure at each calliper and the calculations to obtain the braking torque from the braking pressure.
+Regarding the braking pressure at each calliper, ideally the pressure at the master cylinder will be the same as the pressure at the calliper pistons, but there is a consideration to do. In a real car, due to the load transfer generated from the rear axle to the front axle when braking, the vertical load at the rear tires is reduced and there is a risk of locking the rear tires when braking. Locking the rear tires is a very dangerous situation, since the motion is unstable in this situation. To prevent rear tires lock and ensure that the front axle will always lock prior than the rear, the hydraulics of the braking system are fitted with control valves that adjust the pressure in the rear brakes. There are several strategies regarding the pressure control, but for the VDM the simplest way to control the rear brakes pressure by using a limiting pressure valve is also the most appropriate.
+Figure 8.3 shows how a limiting pressure valve works, keeping the rear axle brake pressure constant when the pressure at the master cylinder exceeds the set limiting pressure.
+
+60
+
+CHALMERS, Applied Mechanics, Master’s Thesis 2012:26
+
+Figure 8.3
+
+Relationship between master cylinder pressure and brake pressure at callipers, using a rear limiting pressure valve in the rear axle. Reference values according to master cylinder pressure input with limiting pressure valve set to 7.000 kPa.
+
+Once the brake pressure at each calliper is known, the last step is to calculate the braking torque. According to Shigley (2004), using the assumption of even wear out in the brake pads and disc, the braking torque can be calculated as a function of the brake disc inner and outer diameter, the pressure between the brake pads and the discs and the friction coefficient between the pads and the discs, as shown in Equation 8.1.
+
+𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝑖𝑖 = 𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑑𝑑𝑑𝑑𝑑𝑑𝑑𝑑 −𝑝𝑝𝑝𝑝𝑝𝑝 ∙ 𝜋𝜋 ∙ 𝐶𝐶𝑓𝑓 𝑝𝑝𝑝𝑝𝑝𝑝
+∙ (0.58 ∙ 𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷 𝑑𝑑𝑜𝑜𝑜𝑜𝑜𝑜 ) ∙ ∙ �𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷 𝑑𝑑𝑜𝑜𝑜𝑜𝑜𝑜 2 − (0.58 ∙ 𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷 𝑑𝑑𝑜𝑜𝑜𝑜𝑜𝑜 )2�
+
+(8.1)
+
+It is interesting to notice that typically the internal diameter of a brake disc is equal to the 58% of the external diameter, 𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷 𝑑𝑑𝑜𝑜𝑜𝑜𝑜𝑜 , since these dimension maximize the brake torque (Shigley, J. Mischke, C ,2004).
+In order to use the preceding equation it is necessary to obtain the relationship between the pressure at the brake calliper, that pushes the piston and the pressure in the pad-disc contact. This relationship is equivalent to the ratio between the piston area and the brake pad area, so those areas must be parameters of the braking system.
+
+8.2 Braking system implementation
+Based on the theory shown in the preceding section, the first step is to calculate the braking pressure at each calliper. Both callipers at each axle will have the same pressure.
+
+𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝐵 𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑓𝑓 = 𝐵𝐵𝑖𝑖𝑖𝑖𝑖𝑖𝑖𝑖𝑖𝑖
+
+(8.2)
+
+CHALMERS, Applied Mechanics, Master’s Thesis 2012:26
+
+61
+
+𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝐵 𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑟𝑟 = �𝑃𝑃𝑃𝑃𝑃𝑃𝑃𝑃𝐵𝑃𝐵𝑃𝑖𝑃𝑖𝑖𝑃𝑖𝑃𝑖𝑃𝑖𝑖𝑃𝑖𝑃𝑖𝑙𝑖𝑙𝑙𝑙𝑙,𝑙𝑙𝑖𝑙𝑖𝑙𝑖𝑙𝑖𝑟𝑟𝐵𝐵,𝑖𝑖𝑖𝑖𝑖𝑖𝑖𝑖𝑖𝑖𝑖𝑖𝐵𝑖𝑖𝐵𝑖𝑖𝑖<𝑖𝑖𝑖𝑖𝑖𝑃𝑖𝑖𝑃𝑃≥𝑃𝑃𝑃𝑃𝑃𝑃𝑃𝑃𝑃𝑃𝑃𝑃𝑃𝑃𝑃𝑃𝑃𝑃𝑃𝑃𝑃𝑃𝑙𝑙𝑃𝑙𝑃𝑙𝑙𝑃𝑙𝑃𝑙𝑙𝑃𝑙𝑙𝑃𝑃𝑙𝑟𝑙𝑟𝑙𝑙𝑙𝑙𝑙𝑙𝑙𝑙 𝑟𝑟
+
+(8.3)
+
+Once the pressure is known, to calculate the braking torque, the following equations are applied:
+
+𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝑖𝑖
+
+= 2 ∙ �0.58 ∙ 𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷 𝑑𝑑𝑓𝑓 � ∙ 𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝐵 𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑓𝑓 ∙ 10
+
+∙
+
+𝜋𝜋 4
+
+∙ 𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑑𝑑 2 𝑝𝑝𝑝𝑝𝑝𝑝𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎
+
+∙
+
+𝜋𝜋
+
+∙
+
+𝐶𝐶𝑓𝑓
+
+𝑝𝑝𝑝𝑝𝑝𝑝
+
+∙
+
+�𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷
+
+𝑑𝑑𝑓𝑓 2
+
+−
+
+�0.58
+
+∙
+
+𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷
+
+𝑑𝑑𝑓𝑓
+
+2
+��
+
+∙ tanh(𝜔𝜔𝑤𝑤ℎ𝑒𝑒𝑒𝑒𝑒𝑒 𝑖𝑖) , 𝑖𝑖 = 1,2
+
+(8.4)
+
+𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝑖𝑖
+
+=
+𝜋𝜋
+∙4
+
+2 ∙ (0.58 ∙ 𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷 ∙ 𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑑𝑑 2 𝑝𝑝𝑝𝑝𝑝𝑝𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎 ∙ 𝜋𝜋 ∙
+
+𝑑𝑑𝑟𝑟 𝐶𝐶𝑓𝑓
+
+) ∙ 𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝐵𝐵
+𝑝𝑝𝑝𝑝𝑝𝑝
+
+𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑟𝑟
+
+∙
+
+10
+
+∙ �𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷 𝑑𝑑𝑟𝑟 2 − (0.58 ∙ 𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷 𝑑𝑑𝑟𝑟 )2�
+
+∙ tanh(𝜔𝜔𝑤𝑤ℎ𝑒𝑒𝑒𝑒𝑒𝑒 𝑖𝑖) , 𝑖𝑖 = 3,4
+
+(8.5)
+
+The braking torques of Equations 8.3 and 8.4 must always be opposing the wheel rotation, independently of the direction of the rotation. This being said, to prevent numerical instabilities, the transition between positive and negative braking torque must be smooth. To control the sign of the braking torque, one multiplies the torque by a hyperbolic tangent function, in the same manner it has been done in previous sections.
+8.3 Braking system parameters
+The braking system parameters are listed in this section. For further information regarding the model parameters refer to Appendix A.
+
+𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷 𝑑𝑑𝑓𝑓 Front brake disc diameter
+
+𝐶𝐶𝑓𝑓 𝑝𝑝𝑝𝑝𝑝𝑝
+
+Disc-pad friction coefficient
+
+𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑑𝑑 Calliper piston diameter
+
+𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷 𝑑𝑑𝑟𝑟
+
+Rear brake disc diameter
+
+𝑝𝑝𝑝𝑝𝑝𝑝𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎
+
+Brake pad area
+
+𝑃𝑃𝑃𝑃𝑃𝑃𝑃𝑃𝑃𝑃𝑃𝑃𝑃𝑃𝑃𝑃𝑙𝑙𝑙𝑙𝑙𝑙𝑙𝑙𝑙𝑙 𝑟𝑟 Limit pressure valve set
+
+62
+
+CHALMERS, Applied Mechanics, Master’s Thesis 2012:26
+
+9 Vehicle Dynamics Model Validation
+The VDM validation concerns the procedures done in order to adjust the model response such that it behaves similar to the real car that it is trying to represent, a Saab 93 series.
+The validation of a complex vehicle dynamics model, like the one developed in this thesis, is non-trivial, expensive and time consuming task. First one needs to obtain adequate and accurate data, representative of the real vehicle behaviour in different driving conditions. Later on, that data can be compared with the model behaviour and discrepancies may be minimized by tuning the model response, through parameter optimization.
+First, real vehicle data covering a wide range of driving conditions is needed. The different driving conditions that may appear in an open road are infinite, and the resources needed to obtain that data, which may include renting a vehicle, a test track and measurement equipment are quite expensive. This determines a big need to find a balance between the amount of data to collect and the resources required to do so.
+With the idea of finding the mentioned balance, a test procedure must be carefully developed, trying to collect enough representative data with the available resources.
+Once the data is collected, the process of adjusting the VDM behaviour to match this data can start. As has been shown in the preceding chapters of this report, the VDM is parameterized with 75 different parameters that will influence the VDM response. It is quite troublesome and time consuming, so an adequate strategy for adjusting these parameters and tune the model response also needs to be developed.
+Once the parameters are adjusted to the measurements, the model validation may be considered finished. However, taking into account that the VDM is one part of the simulator systems, it needs to work properly as a part of the whole simulator. This implies that the model validation will also include some simulator experiments. The main goals of the simulator experiments will be to compare the new VDM against the currently used model and also validate the interaction between the new VDM and the driving simulator.
+9.1 Vehicle data acquisition
+The process of obtaining the data needed for the model validation starts with the selection of the test vehicles, the definition of the test procedures, and the selection of the appropriate measurement equipment, which must have the accuracy and the capability for measuring all the information needed.
+9.1.1 Test vehicles
+Since the VDM should be able to represent different vehicle´s responses, the best option should be to use more than one vehicle from several car manufacturers for the VDM validation. With this information the VDM can be parameterized for different vehicles and a deep study regarding how the model responds to the parameterisation can be performed. However, due to the lack of resources, it was decided to use just the test vehicle owned by the Vehicle dynamics research group at Chalmers, a Saab 93 series. This test vehicle is prepared to have access to the CAN bus, from which vehicle sensor signals can be recorded at high frequency.
+
+CHALMERS, Applied Mechanics, Master’s Thesis 2012:26
+
+63
+
+9.1.2 Test procedure
+As mentioned before, the test procedure must be carefully designed to collect data representative of the vehicle behaviour in different driving conditions.
+First thing to consider is that the vehicle behaviour is strongly influenced by the driver actions, since both make up a complex closed-loop system. This is a problem from the point of view of the VDM validation, since the main interest here is to evaluate and validate the vehicle response independently of the driver. Therefore, the test procedure must be designed in such a way that the driver influence in the experiments is minimized. On the other hand, as mentioned before, a secondary part of the validation will try to focus on driver´s perception, so some experiments involving driver behaviour and influence are also of interest.
+Moreover, the designed experiments must be performed in a safe environment, representative of the normal conditions that may appear in public roads.For this reason, the experiments will be performed at a test track, and therefore, the experiments also need to be developed keeping in mind the inherent feasibility.
+With these ideas in mind, a set of experiments based on the ISO standards for vehicle dynamics test methods have been developed and performed.
+The test methods can be divided into open-loop and closed-loop tests, where the openloop tests try to disregard the driver’s influence, while the closed-loop test take into account the driver’s behaviour.
+For open-loop tests, the driver needs to place the desired inputs, like certain vehicle speed or certain steering wheel angle and let the vehicle describe a path, while measuring the desired signals. Since the driver does not make corrections in the inputs according to the vehicle behaviour, his influence is minimized in the experiment. On the other hand, closed-loop tests allow the driver to adjust some of the inputs, between predefined limits, according to the vehicle’s response. This way the driver behaviour actually implies a big influence on the experiment results.
+For the validation of the VDM, three open-loop test methods have been considered. The first one is specially designed to study the vehicle’s response in steady-state conditions. It consists of driving the vehicle describing a constant radius circular path, starting from zero speed and slowly increasing until the stability limits are reached. From this experiment, the main vehicle motions that can be studied are the vehicle’s lateral velocity and acceleration and the yaw rate. These mainly describe the path followed by the vehicle in steady state conditions. Figure 9.1 shows a representation of the track used for the first experiment.
+
+64
+
+CHALMERS, Applied Mechanics, Master’s Thesis 2012:26
+
+Figure 9.1 Steady-state test circular track.
+The second considered open-loop test method will evaluate the vehicle’s response in transient conditions. The method consists of driving the vehicle in a straight line at constant speed and introduce sinusoidal steering wheel inputs of different frequencies, from small frequencies around 0.2 Hz to frequencies up to 2.5 Hz, trying to cover the frequency range that may appear in different driving situations. This experiment will allow the validation of the lateral velocity and acceleration in transient conditions (the steady state conditions were considered in the previous experiment).The yaw and roll rates, vertical velocity and acceleration, together with the pitch rate generated when turning, are also evaluated through this experiment.
+
+Figure 9.2 Transient response test overview.
+The two first experiments are mainly related with the lateral response of the vehicle but the longitudinal response also needs to be studied. The third open-loop experiment consists on driving the vehicle in a straight line and perform “random” accelerating and braking manoeuvres, in an attempt to cover all the range of longitudinal accelerations. From this experiment, the power train and braking performance of the model can be studied and the pitch motion can be properly validated.
+Regarding the closed-loop test methods, a double-lane change manoeuvre has been performed at the test track. This manoeuvre is typically used to test vehicle handling and behaviour in extreme conditions, being a widely established test method in vehicle dynamics and safety. In this manoeuvre, the driver must follow a cone track describing the double-lane change at a predefined speed or at the maximum possible
+
+CHALMERS, Applied Mechanics, Master’s Thesis 2012:26
+
+65
+
+speed without touching any cone. It is considered a closed-loop test because the driver is allowed to choose the path within the cones and, typically, also allowed to adjust the gas pedal position, but keeping a constant speed. The main purpose of this test is related with the driver feeling and perception of the manoeuvre, in order to compare the feeling in the real car and the simulator. Figure 9.3 shows a double-lane change track, as defined in the ISO standards.
+
+Figure 9.3 Double lane-change track dimensions. Adapted from ISO 3888-1 (1999).
+Finally, one should mention that every experiment must be performed several times (multiple repetitions), for both left and right turns, due to the possibility of unbalanced or non-symmetrical vehicle response or track imperfections.
+Table 9.1 shows the different experiments performed and the main validations they allow.
+
+66
+
+CHALMERS, Applied Mechanics, Master’s Thesis 2012:26
+
+Table 9.1 Experiments to perform at the test track and their main objectives.
+
+OPEN-LOOP TESTS
+
+STEADY-STATE TRANSIENT RESPONSE STRAIGTH DRIVING
+
+• Lateral velocity (steady state) • Lateral acceleration (steady state) • Yaw rate (steady state)
+• Lateral velocity • Lateral acceleration • Yaw rate • Vertical velocity • Vertical acceleration • Roll rate • Pitch rate (when turning)
+• Longitudinal acceleration when accelerating and braking
+• Pitch rate
+
+• Driver´s feeling and general handling DOUBLE LANE CHANGE
+
+CLOSED-LOOP TESTS
+
+9.1.3 Measurement equipment
+Since this VDM has 6 DOF of cabin motion, it seems reasonable that the motion of the vehicle in these 6 DOF must be measured. Table 9.1 shows the main vehicle´s velocities and accelerations that need to be compared against the model response. In addition, some other variables controlled by the driver like the steering wheel angle need to be measured in order to run the VDM with similar inputs to the ones registered during the experiments.
+A modern vehicle is fitted with several sensors needed for its systems. Measurements of for example the steering wheel angle, lateral acceleration, yaw rate and longitudinal velocity are available from the vehicle CAN. In addition, the used test vehicle was fitted with some extra sensors like, for instance, an aftermarket accelerometer for measuring longitudinal accelerations. Unfortunately, some required variables, such as roll and pitch rates, and vertical velocity and acceleration were not available from CAN.
+
+CHALMERS, Applied Mechanics, Master’s Thesis 2012:26
+
+67
+
+Thus justifying the use of a external measurement equipment used was a Racelogic VBOX, shown in Figure 9.4.It uses high accuracy Doppler enhanced 100 Hz GPS connection and an Internal Measurement Unit (IMU) to calculate the vehicle´s motion in 6 DOF and provide better accuracy than the vehicle´s internal sensors. Once the VBOX was fitted in the vehicle, the only additional required measurement needed from the vehicle CAN was the steering wheel angle.
+
+Figure 9.4 Racelogic VBOX external measurement equipment.
+9.2 Model tuning
+Once the measurements from the test track have been obtained and the long and tedious work of post-processing this data is completed, the process of tuning the model parameters, until it performs like the real car, can begin.
+The first thing to do, regarding the model tuning, is to define an appropriate strategy. As mentioned before, this VDM has 75 different parameters and all of them will affect the vehicle response, even though not all of them should be freely modified. The model has some parameters defining environmental conditions, like gravity or air density that of course should not be modified. It also includes parameters describing general characteristics of the car like its mass, its dimensions, the COG position or drag coefficient. A lot of parameters have been measured with great effort and accuracy and should not be modified. On the other hand, there are several parameters in the VDM related with components modelled in a simplified manner, like for instance the suspension parameters or the steering parameters. It seems to be logical to modify the parameters regarding the VDM components that are modelled in a more approximate way, since they may introduce the biggest discrepancies. It was decided to modify parameters defining the following components: steering system, suspension, braking system and tire model.
+Considering all these ideas, the appropriate adjustable parameters and their realistic ranges of values have been defined, as listed in Table 9.2:
+
+68
+
+CHALMERS, Applied Mechanics, Master’s Thesis 2012:26
+
+Table 9.2 Adjustable VDM parameters for Saab 93, with ranges of variation.
+
+Steering
+
+Front wheel toe angle
+
+𝑡𝑡𝑡𝑡𝑡𝑡𝑓𝑓
+
+[0 º,0.5º] for toe in
+
+[-0.5 º,0] for toe out
+
+Rear wheel toe angle
+
+𝑡𝑡𝑡𝑡𝑡𝑡𝑟𝑟
+
+[0 º,0.5 º] for toe in
+
+[-0.5 º,0 º] for toe out
+
+Steering arm lever 𝑠𝑠𝑠𝑠 𝑎𝑎𝑎𝑎𝑎𝑎𝑙𝑙𝑙𝑙𝑙𝑙𝑙𝑙𝑙𝑙 [0.15,0.30] 𝑚𝑚
+
+Steering pinion radius 𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟 [0.05,0.1] 𝑚𝑚
+
+𝐶𝐶𝐶𝐶𝐶𝐶𝐶𝐶 𝐹𝐹𝑦𝑦 𝑓𝑓
+
+Lateral force compliance front
+
+[1
+
+∙
+
+10−6,
+
+5
+
+∙
+
+10−6]
+
+𝑟𝑟𝑟𝑟𝑟𝑟 𝑁𝑁
+
+𝐶𝐶𝐶𝐶𝐶𝐶𝐶𝐶 𝑀𝑀𝑧𝑧 𝑓𝑓
+
+Aligning torque compliance front
+
+[1
+
+∙
+
+10−5,
+
+5
+
+∙
+
+10−5]
+
+𝑟𝑟𝑟𝑟𝑟𝑟 𝑁𝑁∙𝑚𝑚
+
+𝑅𝑅𝑅𝑅𝑅𝑅𝑅𝑅 𝑠𝑠𝑠𝑠𝑓𝑓
+
+Roll steer compliance front
+[0.05,0.2]
+
+𝐶𝐶𝐶𝐶𝐶𝐶𝐶𝐶 𝐹𝐹𝑦𝑦 𝑟𝑟 𝐶𝐶𝐶𝐶𝐶𝐶𝐶𝐶 𝑀𝑀𝑧𝑧 𝑟𝑟
+𝑅𝑅𝑅𝑅𝑅𝑅𝑅𝑅 𝑠𝑠𝑠𝑠𝑟𝑟
+
+Lateral force compliance rear
+
+[3
+
+∙
+
+10−7,
+
+7
+
+∙
+
+10−7]
+
+𝑟𝑟𝑟𝑟𝑟𝑟 𝑁𝑁
+
+Aligning torque compliance rear
+
+[5
+
+∙
+
+10−6,
+
+9
+
+∙
+
+10−6]
+
+𝑟𝑟𝑟𝑟𝑟𝑟 𝑁𝑁∙𝑚𝑚
+
+Roll steer compliance front
+[0.01,0.1]
+
+Steering column
+
+𝐷𝐷𝑠𝑠𝑠𝑠
+
+damping coefficient
+
+[0.01,0.08]
+
+Steering column
+
+𝑓𝑓𝑠𝑠𝑠𝑠
+
+filtering coefficient
+
+[0.05,0.1]
+
+𝐶𝐶𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠
+
+Servo assistance coefficient
+[0.5,1]
+
+𝐾𝐾𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠 𝑓𝑓 𝐷𝐷𝑠𝑠ℎ𝑜𝑜𝑜𝑜𝑜𝑜 𝑓𝑓
+𝑑𝑑𝑓𝑓
+
+Front suspension spring stiffness
+
+[25
+
+∙
+
+103
+
+,
+
+35
+
+∙
+
+103
+
+] 𝑁𝑁
+𝑚𝑚
+
+Front suspension shock absorber damping coefficient
+
+[3
+
+∙
+
+103 ,
+
+5
+
+∙
+
+103 ]𝑁𝑁∙𝑠𝑠
+𝑚𝑚
+
+Front antiroll bar diameter
+
+[0.08,0.30] 𝑚𝑚
+
+𝐾𝐾𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠 𝑟𝑟 𝐷𝐷𝑠𝑠ℎ𝑜𝑜𝑜𝑜𝑜𝑜 𝑟𝑟
+𝑑𝑑𝑟𝑟
+
+Rear suspension spring stiffness
+
+[20
+
+∙
+
+103
+
+,
+
+30
+
+∙
+
+103
+
+] 𝑁𝑁
+𝑚𝑚
+
+Rear suspension shock absorber damping coefficient
+
+[3
+
+∙
+
+103 ,
+
+5
+
+∙
+
+103 ]𝑁𝑁∙𝑠𝑠
+𝑚𝑚
+
+Rear antiroll bar diameter
+
+[0.05,0.25] 𝑚𝑚
+
+𝐿𝐿𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎 𝑓𝑓 Front antiroll bar length
+
+𝐿𝐿𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎 𝑟𝑟 Rear antiroll bar length
+
+Suspension
+
+CHALMERS, Applied Mechanics, Master’s Thesis 2012:26
+
+69
+
+Brakes
+
+𝐿𝐿𝑙𝑙𝑙𝑙𝑙𝑙𝑙𝑙𝑙𝑙 𝑓𝑓 𝑑𝑑𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝 ℎ 𝐶𝐶𝑓𝑓 𝑝𝑝𝑝𝑝𝑝𝑝 𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑑𝑑
+𝐶𝐶 𝑑𝑑𝑑𝑑 𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟
+
+[0.5,1.1] 𝑚𝑚
+
+[0.5,1.1] 𝑚𝑚
+
+Front antiroll bar lever arm
+[0.1,0.3] 𝑚𝑚
+
+𝐿𝐿𝑙𝑙𝑙𝑙𝑙𝑙𝑙𝑙𝑙𝑙 𝑟𝑟
+
+Rear antiroll bar lever arm
+[0.1,0.3] 𝑚𝑚
+
+Vertical distance between COG and pitch axis
+[0.1,0.5] 𝑚𝑚
+
+Disc-pad friction coefficient
+[0.25,0.5]
+
+𝑝𝑝𝑝𝑝𝑝𝑝𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎
+
+Brake pad area [5 ∙ 10−3, 1 ∙ 10−2]𝑚𝑚2
+
+Calliper piston diameter [0.04,0.1] 𝑚𝑚
+
+Limit pressure valve 𝑃𝑃𝑃𝑃𝑃𝑃𝑃𝑃𝑃𝑃𝑃𝑃𝑃𝑃𝑃𝑃𝑙𝑙𝑙𝑙𝑙𝑙𝑙𝑙𝑙𝑙 𝑟𝑟 set
+[5000,12000] 𝑘𝑘𝑘𝑘𝑘𝑘
+
+Normalized thread stiffness [30,80] 𝑁𝑁
+𝑚𝑚
+Caster offset [0.01,0.05] 𝑚𝑚
+
+𝑎𝑎 𝑚𝑚𝑚𝑚𝑚𝑚𝑖𝑖
+
+Contact patch length [0.05,0.2] 𝑚𝑚
+Sliding friction constant [0.75,0.9]
+
+Relaxation length coefficient
+[0.3,0.5] 𝑚𝑚
+
+Tires
+
+Once the strategy for adjusting the model response has been established, an iterative process can be done, trying to obtain the best balance for the model response in all the different DOF and different situations studied. In this process is very important that the experiments performed at the test track are exactly reproduced in the computer. To do so, the VDM must have the same longitudinal velocity and the same steering wheel angle. The steering wheel angle comes directly from the measurements. To control the VDM speed, two PID controllers will be used to generate the appropriate throttle and brake input signals in the model. These PID controllers will generate the inputs trying to minimize the difference between the measured longitudinal velocity and the VDM longitudinal velocity. The gear shift also will be set equally to the test experiments. In addition, the road will be considered completely flat for these comparison, even though some small discrepancies may appear since the test track road had some small slope and banking in some parts.
+
+70
+
+CHALMERS, Applied Mechanics, Master’s Thesis 2012:26
+
+Appendix A of this report includes all the values of the parameterization of the new VDM while representing a Saab 93. The comparative results of the VDM and the test measurements are shown in Appendix B for the different experiments studied. In the next chapter of this report, a comprehensive discussion of the results obtained will be done.
+
+9.3 Simulator experiments
+The process of tuning the model response described in the precedent section is the main point of the VDM validation. However, it is important to keep in mind that the VDM must work as a part of a bigger system, the driving simulator. During the first part of the validation, the VDM is simulated and tuned up in a standalone computer but when it is downloaded to the simulator and used in real time, problems and numerical instabilities tend to appear. Some of these problems are usually related with combinations of inputs that never appear in the computer simulations. A long debugging process has been done in order to eliminate all these defects and get the VDM running in the simulator in the best possible way.
+When driving a simulator, the main topic that needs to be kept in mind is realism. Driver´s perception needs to be keep in consideration and even though the VDM is only related to the laws of physics of the vehicle motion, it is not possible to analyse the VDM behaviour in the simulator without consider the surrounding systems. In these terms, the most important part is the relationship between the VDM and the motion cueing control software. The motion cueing is the part of the simulator software that controls the motion platform. It is parameterized according to the VDM behaviour, so a new VDM may need adjustments in the motion cueing and other systems, and the best way to find out what modifications are needed is performing simulator experiments.
+The third reason to explain the need of performing simulator experiments is that a comparison between the new VDM model developed and the current used model is also required. This could be done in standalone simulations. However, since both VDMs are not parameterized to represent the same vehicle, the comparison from standalone simulations will not show the differences related with the parameterization and the ones related with VDM performance. The best option to compare the Modelica® VDM against the FORTRAN VDM is then through simulator experiments. One should say that the comparison between VDMs in the simulator will enhance the differences related with driver´s perception and other components of the simulator like the motion and graphic systems will play a role in the results.
+The best option to do this comparison would be standalone simulations rather than simulator experiments but, unfortunately, the option of running the FORTRAN model in a standalone computer was not available, so the only way of comparing the new solution against the old one is in the simulator.
+For the debugging process and the evaluation of the VDM realism, a lot of test runs in the simulator have been performed. Once the results were satisfactory, in order to objectively compare the Modelica® VDM against the FORTRAN one, a simulator experiment performed by different drivers was designed.
+
+CHALMERS, Applied Mechanics, Master’s Thesis 2012:26
+
+71
+
+8 different drivers had the opportunity to drive both VDM in the same environment but without knowing what VDM they were driving. All the drivers tested the models in a test track with very different kinds of turns and high and slow speed sections. The test subjects also had the opportunity to drive both VDMs in a double-lane change manoeuvre like the one performed at the test track. After driving all test scenarios the drivers filled in a questionnaire, show in Appendix C, evaluating both models response in different driving characteristics such as lateral response, accelerating and braking manoeuvres and steering wheel feedback.
+The main results obtained from this experiment are shown in Figure 9.5.
+
+Figure 9.5 Average punctuations obtained by the old and new VDM in the different fields studied.
+As shown in Figure 9.5, in the subjective comparison of the Modelica® VDM against the FORTRAN, the clear winner was FORTRAN, obtaining better punctuations in every field. First thing to consider is that when these experiments were performed, the new VDM was not adjusted to the last specification due to the lack of time generated by some unexpected problems. The second and probably more important is that, as mentioned before in this report, the VDM must work in tune with the motion cueing and the other components of the simulator and all these setups were adjusted to work with FORTRAN in these experiments. The motion platform performance plays a very important role when considering driver perception. If the motion system is not properly adjusted to work with the new VDM, it may introduce some vibrations or rough movements that will affect the driving experience. The driver may perceive this strange behaviour from the motion platform as a lack from the VDM response. The results shown in Figure 9.5 are very influenced by the configuration of the motion, since all the simulator software was adjusted for the FORTAN model.
+
+72
+
+CHALMERS, Applied Mechanics, Master’s Thesis 2012:26
+
+This simulator experiments pointed out how important is to perform a proper adjustment of the simulator when using a new VDM. Once this adjustment is done, the repetition of this experiment should provide better results for the new VDM.
+
+CHALMERS, Applied Mechanics, Master’s Thesis 2012:26
+
+73
+
+74
+
+CHALMERS, Applied Mechanics, Master’s Thesis 2012:26
+
+10 Discussion
+In this chapter, a comprehensive discussion about the results obtained in the project is done. The purpose of this discussion is to determine if all the requirements and desired characteristics of the VDM have been fulfilled. Special attention will be put in the VDM validation.
+The first and probably most important consideration about the results is that the new VDM is able to run in real-time in SimIV without difficulties due to a rigorous debugging process.
+Another noticeable result of the new VDM is related toits flexibility. The organization of the model into different subsystems, the realistic parameterization done, some extra features like the rear wheel steering or different driveline layouts and the great advantage of using Modelica® instead of FORTRAN represent a huge improvement in terms of flexibility
+All these results are very important and have been fulfilled successfully, but once the VDM is working properly in the simulator, the big question is regarding the model accuracy. The requirements for the VDM specified accuracy in normal driving conditions up to 0.6 𝑔𝑔 of longitudinal and lateral acceleration.
+The results obtained in the model validation are included in Appendix B, for the different open-loop tests performed at the test track. It is important to keep in mind that the test measurements will always differ from the VDM results, and there are plenty of reasons for this situation. When driving the test vehicle in the field, there are a lot of variables that may influence the test results, like imperfections or contaminants in the ground surface, wind, unbalanced characteristics in the vehicle, the errors introduces by the measurement equipment, among others. It is important to note that those differences are small and approximately constant for the different experiments.
+Before analysing the results for the different experiments a note must be added. Due to unexpected shortcomings in the VBOX, the lateral velocity was not measured during the test track experiments. Unfortunately, it was not possible to repeat the test experiments, so the results for lateral velocity just have been compared against the ones generated by the FORTRAN model, showing similar results. Even though the lateral velocity is not an essential signal to evaluate the VDM response, a detailed study of the lateral velocity response could be interesting as a further work.
+Steady-state cornering results
+Regarding the steady-state cornering manoeuvres, the main variables to study are the vehicle lateral acceleration and the yaw rate. For the same longitudinal speed, these will define the path followed by the vehicle in steady-state cornering conditions. Figures B.1 to B.3 show the main results obtained for a left hand cornering experiment while Figures B.4 to B.6 show the results for a right hand cornering.
+The lateral acceleration and yaw rate in steady-state cornering present a very good match. For low speed, less than 10 m/s, the match is almost perfect for both lateral acceleration and yaw rate, while for larger velocities the model presents values a bit smaller than the measurements. There are mainly two reasons for these differences. The first one is related with the measurement equipment. As the vehicle speed is increasing and the lateral acceleration goes up, the vehicle tends to have a larger roll angle. The IMU sensor used to measure vehicle accelerations is attached to the vehicle
+
+CHALMERS, Applied Mechanics, Master’s Thesis 2012:26
+
+75
+
+body and when the body rolls, the sensor inclination introduces a component of the gravity in the measurement. A compensation for this may be introduced, for example as a function of the roll angle or lateral acceleration. Despite of this, it was decided to not compensate these discrepancies, because the compensation will also be an approximation and the discrepancies introduced are small.
+The second reason for the differences between the VDM response and the measured response is related with suspension and steering compliance in the VDM. It is necessary to find a balance between steady-state and transient response of the VDM and the compliances play an important role in the transient response, so probably the model presents a slightly more under steer behaviour than the real in steady-state cornering at high speed. Despite of these considerations, the differences between the test vehicle and the model are small and acceptable for this application.
+Finally, the last consideration to make regarding the steady-state cornering is that the experiments done in a right hand turn (Figures B.4 to B.6) present better results when comparing with the model. As can be seen in the figures, the differences between the model and the measures almost vanish for this test. Since the behaviour of the model is perfectly symmetrical, the pointed differences may be related with an unsymmetrical behaviour of the test vehicle, the influence of the environmental conditions (side winds, road changes), imperfections in the IMU mountings etc.
+Transient response results
+In the transient response experiments, as established in Table 9.1 not just the lateral response of the vehicle can be studied but also the roll motion. In addition, the vertical dynamics: vertical velocity and acceleration and pitch can also be studied.
+As can be seen in the Figures from Appendix B, all the transient tests have been performed in the same way, starting with steering wheel inputs of frequencies around 0.2 Hz and constantly increasing the frequency up to approximately 2.5 Hz.
+The differences shown in lateral speed are still there for the transient response, due to the same reasons explained before for the steady state experiments.
+For the lateral acceleration and yaw rate, the VDM presents a very good match with the measurements for small steering frequencies, between 0.2 Hz and 1.5 Hz approximately. For higher steering frequencies, discrepancies between the measurements and the VDM arise for both measurements, being the largest discrepancies in the accelerations. These differences can be explained by two different reasons. As in the steady-state cases, when the steering wheel input increases its frequency the vehicle tends to roll more and a component of the gravity is measured by the sensors, generating larger values of lateral acceleration than reality. This reason can explain why the differences in lateral acceleration are larger than the differences in yaw rate. However, the differences in yaw rate are not explained by this phenomenon, therefore there must be anything else influencing these results. One explanation is related with the fast dynamics situations that may appear in a real car tires and suspension when the steering inputs have high frequencies. The vehicle dynamics model developed in this thesis uses just first order principals of physics to calculate the motion dynamics. For fast manoeuvres like the ones performed in these experiments, there are a lot considerations related with the vehicle behaviour that happens so fast that this VDM is simply not able to reproduce. For example, the tire dynamics considered in this thesis, with a very simple relaxation length model, is not accurate enough to represent the tire behaviour in is high frequency conditions. Also,
+
+76
+
+CHALMERS, Applied Mechanics, Master’s Thesis 2012:26
+
+other vehicle systems like the suspension or the steering play a role in this fast vehicle response the simplifications done in their implementation at the VDM can introduce discrepancies with fast dynamics. Finally, the flexibility of the frame in the real car may introduce differences, especially in this kind of manoeuvres.
+Regarding the vehicle´s roll motion, this is probably the variable that is more sensible to the speed of the experiment, showing the largest discrepancies when comparing the VDM response against the measurements at different vehicle velocities. For slow speed tests, at 40 km/h, the roll motion presents a really got fit with the test measurements for all the different frequencies of steering input, showing even smaller values than the real car for high frequency inputs. At 60 km/h the VDM shows almost a perfect match in the amplitude of the roll rate for all the frequencies, but a small delay in the VDM response appears as the frequency is increased. Finally, at 80 km/h the VDM present a bit larger values than the measurements and also a delay in the signal generation is clearly appreciable for this test.
+The vertical dynamics are the weakest point of this VDM, as can be seen in the figures from Appendix B. The simplifications done in this model, mainly disregarding the wheels vertical motion and consider the road as a smooth surface, ended up, as expected, in a model that is not able to represent the vehicle’s vertical vibrations coming from the road. It is fair to say that there is a good reason for the simplifications done. The simulator has a special part of the software devoted to generate vibrations from the road into the vehicle cabin and the steering wheel, so in this first approach to a new VDM this part could be simplified to the maximum. Despite of this, at this stage of the project, it is clear that there is a big room for improvement in this field and probably is a good recommendation for a further development to implement the road vibrations strategy into this VDM.
+Straight driving tests
+The straight driving experiments had the main purpose of evaluating and adjust the performance of the driveline and braking system, so the VDM can generate the same amount of longitudinal acceleration as a real car. Additionally, the vertical dynamics in accelerating and braking manoeuvres also can be studied, even though the same considerations mentioned above are also suitable here.
+As can be seen in Figures B.25 and B.26 of Appendix B, the VDM is able to generate the same range of longitudinal accelerations when accelerating and braking. It is interesting to notice that, between seconds 5 and 10 of the experiment, which corresponds to an accelerating manoeuvre in 2nd gear, the VDM is not able to generate enough acceleration. Therefore, the measured velocity is larger than the VDM velocity in this part of the experiment. One should add that is not an error or problem related with the VDM, the reason is that the test vehicle had a powerful 3 litre V6 engine with 280 bhp, while the VDM used a 2.0T engine with 175 bhp.
+Special mention must be done regarding the longitudinal acceleration signal generated by the VDM. As established in Section 9.2, for the comparison between the VDM response and test measurements, the throttle and braking inputs were generated using PID controllers. These controllers generate a noisy signal for the throttle and braking inputs and, as a consequence, the longitudinal acceleration signal from the VDM is also noisy. It is fair to say that the VDM driveline and braking systems present a smooth behaviour when these inputs are smooth, like in normal driving conditions.
+
+CHALMERS, Applied Mechanics, Master’s Thesis 2012:26
+
+77
+
+As mentioned before for the transient response experiments, the vertical dynamics also show the largest discrepancies in these straight driving tests. The reasons of these discrepancies are also the ones pointed before.
+
+78
+
+CHALMERS, Applied Mechanics, Master’s Thesis 2012:26
+
+11 Conclusions
+The main conclusions obtained in this project are listed in this chapter.
+• A new vehicle dynamics model has been developed using Modelica®, validated with real vehicle and simulator experiments and successfully implemented in SimIV. This is the first time that a VDM developed in Modelica® is implemented at VTI. In addition, all the connectivity and software problems have been solved successfully.
+• The new VDM has been validated in representative driving conditions and it presents good accuracy, mainly in the DOFs defining the path of the vehicle, which are probably the most important. Also, good accuracy and realistic behaviour in the other components of the motion was achieved.
+• The new VDM represents a huge improvement in terms of flexibility when comparing against the current FORTRAN model and opens the room to perform new simulator experiments.
+• This work represents a very solid and stable base for further development and improvement of the whole simulator system.
+• The VDM has been developed for SimIV but it should be possible to run it directly (or with minor adjustments) in all the driving simulators at VTI and Chalmers University of Technology.
+• Even though this VDM was developed in order to be used in simulators, its flexibility and accuracy also make possible to use this VDM for standalone simulations for different vehicle dynamics studies.
+
+CHALMERS, Applied Mechanics, Master’s Thesis 2012:26
+
+79
+
+80
+
+CHALMERS, Applied Mechanics, Master’s Thesis 2012:26
+
+12 Future Work
+Finally, the author would like to do some recommendations for future work and further development.
+• Deeper study related with the VDM feeling and driver’s perception. Adjust the motion cueing software to perform properly with the new model and if necessary adjust the model behaviour to improve the driver´s perception.
+• Special attention regarding the driver’s perception is needed for the steering wheel feedback, with a deeper study and validation.
+• Further development of the vertical dynamics, probably including 4 new DOF for wheel vertical dynamics and road profile and texture.
+• Perform a complete study regarding the VDM response for high steering input frequencies. Study if a simple solution to this problem can be implemented without increasing the complexity of the VDM.
+• Complete the model validation with different vehicles in order to ensure that the parameters tuning respond in a realistic way, so different cars can be simulated by changing these parameters.
+• Implementation of active safety systems such as ABS and ESC systems, in order to improve the flexibility and the amount of experiments that can be performed.
+
+CHALMERS, Applied Mechanics, Master’s Thesis 2012:26
+
+81
+
+82
+
+CHALMERS, Applied Mechanics, Master’s Thesis 2012:26
+
+13 References
+1. Dynasim (2009): Dymola Multi-Engineering Modeling Laboratory. User Manual, VolI.Dynasim AB, Lund, Sweden.
+2. Dynasim (2009): Dymola Multi-Engineering Modeling Laboratory. User Manual, VolII.Dynasim AB, Lund, Sweden.
+3. ISO 8855 (1991): Road Vehicles. Vehicle Dynamics and Road-holding ability. Vocabulary.
+4. ISO 15037-1 (1998): Road Vehicles. Vehicle Dynamics Test Methods. General Conditions for passenger cars.
+5. ISO 4138 (2004): Road Vehicles. Passenger cars. Steady-state Circular Driving Behaviour. Open-loop Test Methods.
+6. ISO 7401 (2011): Road Vehicles. Passenger cars. Lateral Transient Response Test Methods. Open-loop Test Methods.
+7. ISO 3888-1 (1999): Road Vehicles. Passenger cars. Test Track for a Severe Lane-Change Manoeuvre. Double Lane-Change.
+8. Luque, P. Álvarez, D. (2005): Ingeniería del Automovil .Sistemas y Comportamiento Dinámico (Automotive engineering, systems and dynamic behaviour. In Spanish). Thomson, Madrid, Spain.
+9. Milliken, W.F. Milliken, D.L. (1994): Race Car Vehicle Dynamics. SAE International, Englewood Cliffs, New Jersey.
+10. Modelon (2012): Dymola Introduction Course. Modelon AB, Lund, Sweden.
+11. Nordmark, S. (1984): Mathematical Model of a Four-wheeled Vehicle for Simulation in Real Time. VTI report. Publication no. 267 A 1984, Linköping, Sweden.
+12. Pacejka, H.B. (2005): Tire and Vehicle Dynamics, 2nd edition. SAE International, Englewood Cliffs, New Jersey.
+13. Pacejka, H.B. (1988): Modelling of the Pneumatic Tyre and its Impact on Vehicle Dynamic Behaviour. Technical Report i72B. Technische Universiteit, Delft, Nederlands.
+14. Shigley, J. Mischke, C (2004): Mechanical engineering design, seventh edition. McGrawhill.
+15. Svendenius, J. (2007): Tire Modeling and Friction Estimation. Ph.D. Thesis. Department of Automatic Control, Lund University. Lund, Sweden.
+16. Gómez, J. Atchinson, D and others (2011): Punch 2011. Automotive project report. Chalmers University of Technology. Göteborg, Sweden.
+
+CHALMERS, Applied Mechanics, Master’s Thesis 2012:26
+
+83
+
+84
+
+CHALMERS, Applied Mechanics, Master’s Thesis 2012:26
+
+Appendices
+Appendix A. Model parameters
+In the following list, all the parameters used in the VDM are listed, including final values and units.
+• Chassis parameters
+
+𝑚𝑚 = 1750 𝑘𝑘𝑘𝑘 Vehicle mass
+
+𝐿𝐿1 = 1.07 𝑚𝑚
+
+Distance between COG and front axle
+
+𝐿𝐿2 = 1.605 𝑚𝑚
+
+Distance between COG and rear axle
+
+𝑇𝑇𝑇𝑇𝑓𝑓 = 1.517 𝑚𝑚
+
+Front axle track width
+
+𝑇𝑇𝑇𝑇𝑟𝑟 = 1.505 𝑚𝑚
+
+Rear axle track width
+
+𝐶𝐶𝐶𝐶𝐶𝐶𝑧𝑧 = 0.543 𝑚𝑚
+
+COG height from the ground
+
+Vehicle´s moment of
+
+Vehicle´s moment
+
+𝐼𝐼𝑥𝑥 = 540 𝑘𝑘𝑘𝑘 ∙ 𝑚𝑚2 inertia with respect 𝐼𝐼𝑦𝑦 = 2398 𝑘𝑘𝑘𝑘 ∙ 𝑚𝑚2 of inertia with
+
+to x axis
+
+respect to y axis
+
+Vehicle´s moment of 𝐼𝐼𝑧𝑧 = 2617 𝑘𝑘𝑘𝑘 ∙ 𝑚𝑚2 inertia with respect
+to z axis
+
+𝐴𝐴𝑓𝑓 = 2.17 𝑚𝑚2
+
+Vehicle´s frontal area
+
+𝐶𝐶𝑑𝑑𝑑𝑑𝑑𝑑𝑑𝑑 = 0.3
+
+Vehicle´s drag coefficient
+
+𝑓𝑓𝑟𝑟 = 0.0164
+
+Rolling resistance coefficient
+
+Itire = 1 𝑘𝑘𝑘𝑘 ∙ 𝑚𝑚2
+
+Tire and wheel inertia
+
+rnom = 0.316 𝑚𝑚
+
+Tire nominal radius
+
+𝑘𝑘𝑘𝑘 𝜌𝜌𝑎𝑎𝑎𝑎𝑎𝑎 = 1.225 𝑚𝑚3
+
+Air density
+
+• Tire model parameters
+
+𝑚𝑚 𝑔𝑔 = 9.81 𝑠𝑠2
+
+Gravity acceleration
+
+𝑁𝑁 𝐶𝐶 = 30 𝑚𝑚 𝑑𝑑𝑑𝑑 = 0.03 𝑚𝑚
+𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟 = 0.316
+
+Normalized thread stiffness
+Caster offset
+Relaxation length coefficient
+
+𝑎𝑎 = 0.1 𝑚𝑚 Contact patch length 𝑚𝑚𝑚𝑚𝑚𝑚𝑖𝑖 = 0.8 Sliding friction constant
+
+• Suspension parameters
+
+𝑅𝑅𝑅𝑅𝑅𝑅𝑅𝑅 𝑐𝑐𝑐𝑐𝑐𝑐𝑐𝑐𝑐𝑐𝑐𝑐𝑓𝑓𝑓𝑓𝑓𝑓𝑓𝑓𝑓𝑓 Front roll centre
+
+= 0.045 𝑚𝑚
+
+height
+
+𝑅𝑅𝑅𝑅𝑅𝑅𝑅𝑅 𝑐𝑐𝑐𝑐𝑐𝑐𝑐𝑐𝑐𝑐𝑐𝑐𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟 Rear roll centre
+
+= 0.101 𝑚𝑚
+
+height
+
+CHALMERS, Applied Mechanics, Master’s Thesis 2012:26
+
+85
+
+𝐾𝐾𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠 𝑓𝑓 𝑁𝑁
+= 30800 𝑚𝑚
+
+Front suspension spring stiffness
+
+𝐷𝐷𝑠𝑠ℎ𝑜𝑜𝑜𝑜𝑜𝑜 𝑓𝑓 𝑁𝑁 ∙ 𝑠𝑠
+= 4500 𝑚𝑚
+
+Front suspension shock absorber damping coefficient
+
+𝑑𝑑𝑓𝑓 = 0.022 𝑚𝑚
+
+Front antiroll bar diameter
+
+𝐿𝐿𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎 𝑓𝑓 = 0.9 𝑚𝑚
+
+Front antiroll bar length
+
+𝐿𝐿𝑙𝑙𝑙𝑙𝑙𝑙𝑙𝑙𝑙𝑙 𝑓𝑓 = 0.25 𝑚𝑚
+
+Front antiroll bar lever arm
+
+𝐺𝐺=84∙
+
+109
+
+𝑁𝑁 𝑚𝑚 2
+
+Antiroll bar material transverse displacement module
+
+𝐾𝐾𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠 𝑟𝑟 𝑁𝑁
+= 28900 𝑚𝑚
+
+Rear suspension spring stiffness
+
+𝐷𝐷𝑠𝑠ℎ𝑜𝑜𝑜𝑜𝑜𝑜 𝑟𝑟 𝑁𝑁 ∙ 𝑠𝑠
+= 3500 𝑚𝑚
+
+Rear suspension shock absorber damping coefficient
+
+𝑑𝑑𝑟𝑟 = 0.013 𝑚𝑚
+
+Rear antiroll bar diameter
+
+𝐿𝐿𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎 𝑟𝑟 = 0.8 𝑚𝑚
+
+Rear antiroll bar length
+
+Rear antiroll bar 𝐿𝐿𝑙𝑙𝑙𝑙𝑙𝑙𝑙𝑙𝑙𝑙 𝑟𝑟 = 0.30 𝑚𝑚 lever arm
+
+𝑑𝑑𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝 ℎ = 0.25 𝑚𝑚
+
+Vertical distance between COG and pitch axis
+
+• Steering system parameters
+
+𝑆𝑆𝑆𝑆 = 15.9
+
+𝑡𝑡𝑡𝑡𝑡𝑡𝑓𝑓 = 0.3˚
+
+𝑠𝑠𝑠𝑠 𝑎𝑎𝑎𝑎𝑎𝑎𝑙𝑙𝑙𝑙𝑙𝑙𝑙𝑙𝑙𝑙 = 0.22 𝑚𝑚
+
+𝐶𝐶𝐶𝐶𝐶𝐶𝐶𝐶 𝐹𝐹𝑦𝑦 𝑓𝑓
+
+= 1.2217
+
+∙
+
+10−6
+
+𝑟𝑟𝑟𝑟𝑟𝑟 𝑁𝑁
+
+Steering ratio
+
+𝐶𝐶𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠 = 0.6
+
+Servo assistance coefficient
+
+Front wheel toe angle
+
+𝑡𝑡𝑡𝑡𝑡𝑡𝑟𝑟 = 0.25˚ Rear wheel toe angle
+
+Steering arm lever
+
+𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟𝑟 = 0.05 𝑚𝑚
+
+Steering pinion radius
+
+Lateral force compliance front
+
+𝐶𝐶𝐶𝐶𝐶𝐶𝐶𝐶 𝐹𝐹𝑦𝑦 𝑟𝑟
+
+= 5.2360
+
+∙
+
+10−7
+
+𝑟𝑟𝑟𝑟𝑟𝑟 𝑁𝑁
+
+Lateral force compliance rear
+
+𝐶𝐶𝐶𝐶𝐶𝐶𝐶𝐶 𝑀𝑀𝑧𝑧 𝑓𝑓
+
+= 2.7925
+
+∙
+
+10−5
+
+𝑟𝑟𝑟𝑟𝑟𝑟 𝑁𝑁 ∙ 𝑚𝑚
+
+Aligning torque compliance front
+
+𝐶𝐶𝐶𝐶𝐶𝐶𝐶𝐶 𝑀𝑀𝑧𝑧 𝑟𝑟
+
+= 8.7267
+
+∙
+
+10−6
+
+𝑟𝑟𝑟𝑟𝑟𝑟 𝑁𝑁 ∙ 𝑚𝑚
+
+Aligning torque compliance rear
+
+86
+
+CHALMERS, Applied Mechanics, Master’s Thesis 2012:26
+
+𝑅𝑅𝑅𝑅𝑅𝑅𝑅𝑅 𝑠𝑠𝑠𝑠𝑓𝑓 = 0.1 𝐷𝐷𝑠𝑠𝑠𝑠 = 0.03
+
+Roll steer compliance front
+
+𝑅𝑅𝑅𝑅𝑅𝑅𝑅𝑅 𝑠𝑠𝑠𝑠𝑟𝑟 =0.04
+
+Steering column damping coefficient
+
+𝑓𝑓𝑠𝑠𝑠𝑠 = 0.09
+
+Roll steer compliance front
+Steering column filtering coefficient
+
+• Driveline parameters
+
+𝜂𝜂𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡𝑡 = 0.95
+
+Transmission efficiency
+
+𝑖𝑖𝑔𝑔𝑔𝑔𝑔𝑔𝑔𝑔 1 = 3.26
+
+1st gear transmission ratio
+
+𝑖𝑖𝑔𝑔𝑔𝑔𝑔𝑔𝑔𝑔 3 = 1.179 3th transmission ratio
+
+𝑖𝑖𝑔𝑔𝑔𝑔𝑔𝑔𝑔𝑔 5 = 0.66 5th transmission ratio
+
+𝑖𝑖𝑔𝑔𝑔𝑔𝑔𝑔𝑔𝑔 0 = 0
+
+Neutral transmission ratio
+
+𝑖𝑖𝑔𝑔𝑔𝑔𝑔𝑔𝑔𝑔 2 = 1.76 2nd transmission ratio
+
+𝑖𝑖𝑔𝑔𝑔𝑔𝑔𝑔𝑔𝑔 4 = 0.894 4th transmission ratio
+
+𝑖𝑖𝑓𝑓𝑓𝑓𝑓𝑓𝑓𝑓𝑓𝑓 = 4.05
+
+Final gear transmission ratio
+
+• Braking system parameters
+
+𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷 𝑑𝑑𝑓𝑓
+
+Front brake disc
+
+= 0.302 𝑚𝑚 diameter
+
+𝐶𝐶𝑓𝑓 𝑝𝑝𝑝𝑝𝑝𝑝 = 0.35
+
+Disc-pad friction coefficient
+
+𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑝𝑑𝑑 = 0.06 𝑚𝑚
+
+Calliper piston diameter
+
+𝐷𝐷𝐷𝐷𝐷𝐷𝐷𝐷 𝑑𝑑𝑟𝑟 = 0.292 𝑚𝑚
+
+Rear brake disc diameter
+
+𝑝𝑝𝑝𝑝𝑝𝑝𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎 = 7 ∙ 10−3𝑚𝑚2
+
+Brake pad area
+
+𝑃𝑃𝑃𝑃𝑃𝑃𝑃𝑃𝑃𝑃𝑃𝑃𝑃𝑃𝑃𝑃𝑙𝑙𝑙𝑙𝑙𝑙𝑙𝑙𝑙𝑙 𝑟𝑟 Limit pressure valve
+
+= 7000 𝑘𝑘𝑘𝑘𝑘𝑘
+
+set
+
+CHALMERS, Applied Mechanics, Master’s Thesis 2012:26
+
+87
+
+88
+
+CHALMERS, Applied Mechanics, Master’s Thesis 2012:26
+
+Appendix B. VDM validation results
+Steady-state cornering. Left turn experiment.
+Figure B.1 Steady-state cornering, left turn. Longitudinal velocity. Measurement from the test track (blue) vs. VDM response (red).
+
+Figure B.2 Steady-state cornering, left turn. Lateral acceleration. Measurement from the test track (blue) vs. VDM response (red).
+
+CHALMERS, Applied Mechanics, Master’s Thesis 2012:26
+
+89
+
+Figure B.3 Steady-state cornering, left turn. Yaw rate. Measurement from the test track (blue) vs. VDM response (red).
+
+90
+
+CHALMERS, Applied Mechanics, Master’s Thesis 2012:26
+
+Steady-state cornering. Right turn experiment.
+Figure B.4 Steady-state cornering, Right turn. Longitudinal velocity. Measurement from the test track (blue) vs. VDM response (red).
+
+Figure B.5 Steady-state cornering, Right turn. Lateral acceleration. Measurement from the test track (blue) vs. VDM response (red).
+
+CHALMERS, Applied Mechanics, Master’s Thesis 2012:26
+
+91
+
+Figure B.6 Steady-state cornering, Right turn. Lateral acceleration. Measurement from the test track (blue) vs. VDM response (red).
+
+92
+
+CHALMERS, Applied Mechanics, Master’s Thesis 2012:26
+
+Transient response. Random steering wheel input at 40 km/h.
+Figure B.7 Transient response at 40 km/h. Lateral acceleration. Measurement from the test track (blue) vs. VDM response (red).
+
+Figure B.8 Transient response at 40 km/h. Vertical velocity. Measurement from the test track (blue) vs. VDM response (red).
+
+CHALMERS, Applied Mechanics, Master’s Thesis 2012:26
+
+93
+
+Figure B.9 Transient response at 40 km/h. Lateral acceleration. Measurement from the test track (blue) vs. VDM response (red).
+
+Figure B.10 Transient response at 40 km/h. Yaw rate. Measurement from the test track (blue) vs. VDM response (red).
+
+94
+
+CHALMERS, Applied Mechanics, Master’s Thesis 2012:26
+

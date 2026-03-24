@@ -1,0 +1,269 @@
+Skip to Main Content
+
+    IEEE.org
+    IEEE Xplore
+    IEEE SA
+    IEEE Spectrum
+    More Sites 
+
+        Cart 
+        Create Account
+        Personal Sign In 
+
+IEEE Xplore logo - Link to home
+
+    Browse
+    My Settings
+    Help
+
+Access provided by:
+Politecnico di Torino
+Sign Out
+IEEE logo - Link to IEEE main site homepage
+ADVANCED SEARCH
+Conferences > 2012 5th International Confer...
+Ergonomic design and evaluation of visual coding for aircraft head-up display
+Publisher: IEEE
+Cite This
+PDF
+Xu Xiao ; Xiaoru Wanyan ; Damin Zhuang ; Zongmin Wei
+All Authors
+4
+Paper
+Citations
+412
+Full
+Text Views
+
+    Alerts
+
+Abstract
+Document Sections
+
+    I.
+    Introduction
+    II.
+    Development of Aircraft HUD Layout and Information Display Simulation Model
+    III.
+    Experiment Design
+    IV.
+    Experiment Result and Analysis
+    V.
+    Conclusions
+
+Authors
+Figures
+References
+Citations
+Keywords
+Metrics
+Abstract:
+It is a very important issue to design the head-up display's information display format appropriately, thus to help the pilot identify the targets and understand the external environment efficiently. The present study carries out the ergonomics design and evaluation of visual coding for aircraft head-up display based on the literature analysis. First, using the powerful OpenGL animation processing capability and VS2008 programming platform, the simulation model of aircraft head-up display layout and display are developed, and then the ergonomics experiment and evaluation method based on the operation performance test is designed. The experimental data processing results show that: the bar scale belt is superior to the curved scale belt; when a specific scale value is required, the belt scale display combined with a numeric box is superior to the belt scale display; when the blue sky is set as the background, the stroke width has a significant effect on the information identification; as the color coding of the abnormal messages, red is better than yellow but green is inappropriate; the aircraft symbol tested in the present study shows no insignificant effect on the information identification.
+Published in: 2012 5th International Conference on BioMedical Engineering and Informatics
+Date of Conference: 16-18 October 2012
+Date Added to IEEE Xplore : 04 May 2013
+ISBN Information:
+INSPEC Accession Number: 13781054
+DOI: 10.1109/BMEI.2012.6513107
+Publisher: IEEE
+Conference Location: Chongqing, China
+SECTION I.
+Introduction
+
+Whether the pilot can fly the aircraft safely and efficiently is directly affected by the design of the aircraft information display. The survey analyzing the reasons of the human errors of the pilot shows that: during the aircraft landing process, more than 50% of the flight malignant accidents occur at the moment when the pilot looks down at the instrument and looks up at the surrounding environment, because it leads to the attention shift [1] . Head-up display (HUD) which presents the information and image through the windshield in front of the pilot enables the pilot observe the surrounding environment and the displayed information at the same time, so that the risk of the accident caused by the information loss during the aircraft landing process can be reduced.
+
+As a newly developed primary flight display of the civil aircraft, HUD draws a great attention of the domestic and international airlines, and China is going to apply the HUD technology to C919 aircraft which is being developed. One of the main problems existing in the design of the HUD information display is the humanity of the identifier design, such as the non-standardization of the identifier, limited field of view, as well as failure of error detection and less warning display [2] . Therefore, it is a very critical issue to design the HUD's information display format appropriately, thus to help the pilot identify the targets and understand the external environment efficiently.
+
+In the early 1990s, the U.S. Air Force Instrument Flight Center was assigned to develop a set of standardized HUD symbols together with the Amstrong Laboratory Human System Center and Wright Laboratory Aviation Center. Their purpose was to enhance the flight efficiency and reduce the human errors during the flight [2] . By now, the Boeing and Airbus have formed a relatively complete design system of the HUD information display, and have successfully applied them to the HUD design of A380 and B787.
+
+Peter Chudy and Karol Rydlo from Brno University of Technology presented an idea of applying the curved belt scale to the synthetic vision display on the aircraft [3] . D.S. Lee et al. studied the effect of character size under ambient illuminances and light sources on legibility of electronic paper displays [4] . Xiaochao Guo et al. compared different HUD information display formats of airspeed, height, and heading which affected pilot's cognitive performance [5] . Yuelong Zhu conducted the study on the ergonomics issues of belt scale display in the aircraft cockpit [6] . Kazuhiro Fujikake and Satoshi Hasegawa performed an experiment about the readability of character size on a car navigation system [7] . Lei Zhang studied the information coding including color, position, and language on a flight simulator and measured the subjects' correct rate, reaction time, and eye movement data as the performance evaluation indexes [8] . During Yingwei Zhou's experiment, three character types, three eye distances from the display interface, five character sizes were adopted to verify the humanity of coding design for human-machine display interface [9] .
+
+On the basis of the above literature analysis, the present study carries out the ergonomic design and evaluation of the visual coding for aircraft HUD. Making use of the powerful OpenGL animation processing capability and VS2008 programming platform, the aircraft HUD layout and display simulation model is developed, and then the ergonomics experiment and evaluation method based on the subjects' behavior performance test is designed. The displayed content of the simulation model included the bar belt scale or the curved belt scale, belt scale display combined with a numeric box or not, two stroke widths, three color codes of the error messages, as well as four different aircraft symbols.
+SECTION II.
+Development of Aircraft HUD Layout and Information Display Simulation Model
+
+The present study adopts OpenGL and VS2008 for programming to simulate the HUD information display during the flight, so that the recognition and restoration tasks of the abnormal messages can be achieved [10] .
+A. HUD layout and information interaction simulation
+1) HUD layout and information display
+
+The HUD layout refers to the HUD of A380 and B787, and the main display contents are airspeed, height and attitude, while the attitude includes roll angle, pitch angle and course angle. The information layout adopts the T-shaped layout which is widely accepted, where the airspeed is on the left, the height is on the right, and the roll angle, pitch angle and course angle are presented in the middle of the interface from the top to the bottom. Moreover, the background of the HUD interface is set as the blue sky and the color of the normal information is the widely used green.
+2) Animated simulation
+
+To as close as possible to simulate the real HUD, the belt scale needs to achieve a smooth free move with the numbers in the numeric box changing synchronously. The animated simulation of the HUD interface should realize the animation effects according to the motion law of the belt scale.
+3) Human-machine interaction
+
+Human-machine interaction is the basis of the ergonomics experiment. It can mainly implement the following functions: put the random appearance of the abnormal messages into practice, get the CPU time, and record the subject's key-press response correct rate and the reaction time which can been chosen as the performance evaluation indexes.
+B. The establishment of the Simulation model
+
+The establishment of the simulation model includes the following steps. (1) The establishment of the window: create a new window for the display of the belt scale and data. (2) The drawing of the geometric graphics and the loading of the background picture: the geometric graphics include the belt scale, the rectangular box and the aircraft symbol while the background picture is designed as the blue sky. (3) Geometric coordinate transformation: in order to bring out the 3D visual effects needed by the simulation model, coordinate transformation should be used to fulfill the movement of the shapes and objects. (4) The loading of the flight data: load the airspeed and height data which should be displayed in real time. (5) Real time animation and double buffering mechanism: these two functions guarantee the smooth animation effects of the HUD interface. (6) The achievement of human-machine interaction: it's the basis of the experiment which has three main problems to be considered, as mentioned in A.
+C. The overall effect of simulation
+
+As shown in Fig. 1 , the four aircraft symbols used in the experiment are designed referring to the relevant aircraft symbols of GJB300–87, A380, and B787. They are located in the middle of the HUD interface to help the pilot identify the roll and pitch information.
+
+The contrast of the simulation results for the belt scale, numeric box, stroke width, and color in this experiment are shown as Fig. 2(a) , Fig. 2(b) , Fig. 2(c) , and Fig. 2(d) , among which, a and b are located in both sides of the HUD interface to help the pilot identify the airspeed and height information, while c and d are applied to all of the information displayed on the interface and will affect the subject's identification performance of all the information.
+
+Fig. 3 and Fig. 4 are the overall interfaces of the HUD layout and information display simulation. There are five displayed information including airspeed, height, roll angle, pitch angle and course angle, while the belt scale and color are different between these two interfaces.
+Figure 1. - Four different aircraft symbols
+Figure 1. Four different aircraft symbols
+
+Show All
+Figure 2. - Four main variables
+Figure 2. Four main variables
+
+Show All
+Figure 3. - Curved scale belt with numeric box, thick stroke width, and red
+Figure 3. Curved scale belt with numeric box, thick stroke width, and red
+
+Show All
+Figure 4. - Bar scale belt with numeric box, thick stroke width, and yellow
+Figure 4. Bar scale belt with numeric box, thick stroke width, and yellow
+
+Show All
+
+SECTION III.
+Experiment Design
+A. Experimental apparatus and interface
+
+The experiment is conducted on an IBM PC with 3.30 GHz CPU and 1440×600 display pixel resolution. The subjects use the keyboard to finish the human-machine interaction in normal operation position. Similar as Fig. 3 and Fig. 4 , there are twenty eight experiment interfaces designed in all, twenty four of them consider the interaction effects of belt scale, numeric box, stroke width and color, and the other four interfaces consider the single factor of aircraft symbols.
+B. Experiment tasks
+
+The experiment lasted for eight minutes. Abnormal message corresponding to one of the five types of flight information appears randomly for two seconds and then disappears. The subjects need to recognize, judge and response to the abnormal message as fast and accurately as possible. The computer records the operation performance (including correct detection, wrong detection and failure detection) as well as the reaction time by itself.
+C. Subjects
+
+Eighteen flight cadets (ranging from 21 to 31 years, mean age 23.9 years) from Beihang University participated in the present study. Their vision or corrected visual acuity is normal, and written informed consent was obtained prior to the study.
+D. Experiment method
+
+Eighteen subjects are divided into three groups randomly in the experiment. The factor of color is chosen as the between-subj ect variable, while the belt scale, numeric box, and stroke width are chosen as the within-subject variables. The eight interfaces' order in every group is counterbalanced across the subjects to eliminate the practice effects. In addition, six subjects chosen from the eighteen randomly take the comparative experiment of the four kinds of the aircraft symbols.
+SECTION IV.
+Experiment Result and Analysis
+A. Experiment result and data processing
+
+The collection and the arrangement of the experiment data are completed automatically during the experiment. Further data processing is conducted in the IBM SPSS Statistics data editor. The results of the descriptive statistics and multi-factor variance analysis which is the most suitable variance analysis for the data are shown in Tab. 1 and Tab. 2 .
+
+For the reaction time, the multi-factor variance analysis results show that on the 0.05 significant level, the main effect of the belt scale is significant ( P < 0.001 ) , exhibiting as the reaction time of the bar belt scale is less than the curved one; the main effect of the numeric box is significant ( P = 0.005 ) , exhibiting as the reaction time of the belt with the numeric box is less than the one without it; the main effect of the stroke width is significant ( P < 0.001 ) , exhibiting as the reaction time of the thick stroke width is less than the thin one; the main effect of the color is significant ( P < 0.001 ) , exhibiting as the reaction time of the red is less than yellow, and the yellow is less than the green; the main effect of the aircraft symbol is not significant ( P = 0.915 > 0.05 ) .
+
+For the correct rate, the multi-factor variance analysis results show that on the 0.05 significant level, the main effect of the belt scale is significant ( P < 0.001 ) , manifesting as the correct rate of bar belt scale is higher than the curved one; the main effect of the numeric box is not that significant ( P = 0.084 ) , manifesting as the correct rate of the belt with the numeric box is higher than the one without it; the main effect of the stroke width is significant ( P < 0.001 ) , manifesting as the correct rate of the thick stroke width is higher than the thin one; the main effect of the color is significant ( P < 0.001 ) , and the correct rate of the red is higher than the yellow, and the yellow is higher than the green; the main effect of the aircraft symbol is not significant ( P = 0.862 > 0.05 ) .
+
+According to the above results, the post hoc multiple comparisons of the color need to be performed. As shown in Tab. 3 , for the correct rate, the differences between green and yellow, green and red, as well as yellow and red is significant ( P < 0.05 ) ; for the reaction time, the differences between green and yellow, green and red is significant ( P < 0.051 ) , however, the difference between yellow and red is not significant ( P > 0.05 ) .
+TABLE I. THE REACTION TIME AND CORRECT RATE OF THE VISUAL CODING
+Table I.- THE REACTION TIME AND CORRECT RATE OF THE VISUAL CODING
+
+Multi-factor variance analysis results show that for the correct rate, the interaction effects of belt scale and numeric box, belt scale and color, color and stroke width are significant ( P < 0.05 ) , and the other interactive effects failed to reach significant ( P > 0.05 ) . Fig. 5 shows the different effects of the three groups on identification performance.
+Figure 5. - The interactive effect between two variables
+Figure 5. The interactive effect between two variables
+
+Show All
+TABLE II. THE SIGNIFICANCE OF THE VISUAL CODING
+Table II.- THE SIGNIFICANCE OF THE VISUAL CODING
+TABLE III. AFTER-POSTERIORI MULTIPLE COMPARISON OF THE COLOR CODING
+Table III.- AFTER-POSTERIORI MULTIPLE COMPARISON OF THE COLOR CODING
+
+Fig. 5 (a) and Fig. 5(b) show that the order of the identification performance of belt scale and stroke width is stable under the three color coding conditions, manifesting as the bar belt scale is better than the curved belt scale, and the thick stroke width is better than the thin stroke width. The difference between each level of the belt scale and stroke width is the most insignificant when the color is red, while is the most significant when the color is green. Fig. 5(c) shows that under the situation of using numeric box or not, the trend that the bar belt scale is better than the curved belt scale is obvious; under the situation of the curved belt scale, using numeric box or not shows no difference basically; while under the situation of bar belt scale, the difference between using numeric box and not is significant and shows the trend that using numeric box is better than not using numeric box.
+B. Result analysis and discussion
+1) Belt scale
+
+The experiment results show that the identification performance of bar belt scale is better than curved belt scale. Although the curved belt scale meets the aesthetic requirements better, it is easier to cause the visual vertigo which results in the discomfort of human eye. Furthermore, the visual vertigo can also create a minor adverse mood of the subject to the curved belt scale. Therefore, it is not easy for the subject to accept the curved belt scale both psychologically and physiologically. This experiment result is identical with the fact that the GJB300–87 chooses bar belt scale as the standard [11] .
+2) Numeric box
+
+The experiment results show that the identification performance of using numeric box is better than not. As we all know, the numeric box next to the belt scale only plays an assistant role in helping the pilot to identify the information of speed and height. Thus, without the numeric box, the pilot can also get the information needed directly by observing the belt scale. However, the numeric box can help the pilot to distinguish the accurate value of the information more quickly and more accurately. This result is consistent with Ref. [5] .
+3) Stroke width
+
+The experiment results show that the identification performance of thick stroke width (2 mm) is higher than the thin stroke width (1 mm). It is easier to know that identifying flight information represented by the thin stroke width with the blue sky background is hard. This means that the size of stroke width has a notable effect on the information identification performance for the HUD interface, the present study only gives two different sizes of the stroke width, and more comparative experiments are needed in order to get more suitable size of the stroke width which can apply to the civil aircraft HUD. Ref. [12] has the proposed scope of the stroke width. Nevertheless it suits the Americans and may not be suitable for the Chinese.
+4) Color
+
+The experiment results show that the identification performance of the red is the best, followed by the yellow, and the green is the worst. The current experiment changes the displayed color of the abnormal message to improve the subject's identification performance. The identification performance of the yellow and red is notably higher than green. The probable reason is the different contrast between the target color and the background color. The displayed abnormal message with high color contrast to the background can easily stimulate human's visual receptors and make the pilot identify information faster and accurately. Therefore, changing the displayed color of the information can raise the pilot's alertness when designing the HUD interface. Furthermore the yellow is fit for the visual stimulus of the ordinary abnormal message and the red applies to the visual stimulus of the serious abnormal message.
+5) Aircraft symbol
+
+The experiment results show that the effect of aircraft symbol on the identification performance is insignificant. In fact, the function of the aircraft symbol is to help the pilot identify the roll attitude and pitch attitude, but the pilot can also determine the value of roll angle and pitch angle through the other symbols, therefore the aircraft symbol may play a minor role in assisting the pilot the get the required information. Another reason for the lack of differences among the identification performances is that the design levels of the four kind aircraft symbols are similar.
+6) The interaction effects of different variables
+
+The experiment results show that however the numeric box and the stroke width change, the interaction effects between the belt scale and the color are significant on identification correct rate. The trend of the two kinds of belt scales' identification performances is almost the same under the three colors conditions, the difference is that they are the most significant when the color is green and the most insignificant when the color is red. However the numeric box and the belt scale change, the interaction effects between color and stroke width are significant on the identification correct rate. The trend of the two kinds of stroke widths' identification performances is almost the same under the three colors, their difference is the most significant when the color is green and the most insignificant when the color is red. When the abnormal message is displayed in red, the differences between them are not that obvious, which on the other hand confirms that red is the most suitable color coding method for the abnormal message display.
+SECTION V.
+Conclusions
+
+The ergonomics design and evaluation of HUD visual coding is investigated in the present study. The HUD layout and information display simulation model is developed by OpenGL and VS2008. Based on it, the ergonomics experiment is carried out. According to the results of data processing and analysis, some conclusions about the ergonomics design of the HUD visual coding has been drawn: The bar rather than curved belt scale should be chosen as the information format; when identifying the exact value is needed, the belt scale should be coupled with the numeric box; when the blue sky is the background, the stroke width of information should be appropriately thicker. As the abnormal message appears, the red should be used as the serious abnormal message, the yellow as the ordinary abnormal message, and the green should not be used as the color coding method of the abnormal message; the four aircraft symbols are all suitable for applying to the HUD visual coding.
+
+Authors
+Figures
+References
+Citations
+Keywords
+Metrics
+More Like This
+Development of flight simulation and head-up display system for ergonomics evaluation
+
+2011 4th International Congress on Image and Signal Processing
+
+Published: 2011
+A Comparison of Common Video Game versus Real-World Heads-Up-Display Designs for the Purpose of Target Localization and Identification
+
+2021 IEEE International Symposium on Mixed and Augmented Reality Adjunct (ISMAR-Adjunct)
+
+Published: 2021
+Show More
+References
+1.
+Hongzhe Bi and Damin Zhuang, Computer Simulation for Aviation Man-machine Engineering, Publishing House of Electronics Industry, 2010, pp. 42-47, 213.
+Show in Context Google Scholar
+2.
+Chunxia Ma, "Development of Flight Simulation Program in Virtual Cockpit and Ergonomic Experiment," Beijing: Beihang University, 2011.
+Show in Context Google Scholar
+3.
+Peter Chudy and Karol Rydlo, "Intuitive Flight Display for Light Aircraft," Modeling and Simulation Technologies Conference, AIAA Press, Aug. 2011. pp. 1-10.
+Show in Context CrossRef Google Scholar
+4.
+D. S. Lee, K. K. Shieh, S. C. Jeng, and I. H. Shen, "Effect of Character Size and Lighting on Legibility of Electronic Papers," Displays, vol. 29, Jan. 2008, pp. 10-17, doi:10. 1016/j. displa. 2007. 06. 007.
+Show in Context CrossRef Google Scholar
+5.
+Xiaochao Guo and Duanqin Xiong, "Effects of the Display Formats on Pilots' Cognitive Performance with Head-up Display Velocity, Height and Heading Information in Fighter," Chinese Journal of Aerospace Medicine, vol. 18, Jun. 2007, pp. 84-90.
+Show in Context Google Scholar
+6.
+Yuelong Zhu, "Study on Ergonomics Design of Belt Scale Display in Aircraft Cockpit," Journal of Suzhou University(Natural Science), vol. 12, Jul. 1996, pp. 89-93.
+Show in Context Google Scholar
+7.
+Kazuhiro Fujikake and Satoshi Hasegawa, "Readability of Character Size for Car Navigation Systems," Human Interface, vol. 4558, 2007, pp. 503-509, doi: 10. 1007/978-3-540-73354-6-55.
+Show in Context CrossRef Google Scholar
+8.
+Lei Zhang, "Information Coding for Cockpit Human-Machine Interface," Chinese Journal of Mechanical Engineering, vol. 24, May. 2011, pp. 707-712, doi: 10. 3901/CJME. 2011. 04. 707.
+Show in Context CrossRef Google Scholar
+9.
+Yingwei Zhou, "Study on the Information Coding Design Humanity of Man-Machine Display Interface," Materials Processing Technology, vol. 291-294, Jul. 2011, pp. 2489-2492, doi: 10. 4028/www. scientific. net/AMR. 291-294. 2489.
+Show in Context CrossRef Google Scholar
+10.
+Richard S. Wright and Nicholas Haemel, OpenGL SuperBible, 5th ed., America, 2010, pp. 1-1002.
+Show in Context Google Scholar
+11.
+GJB300-87, Display Symbology for Head-up Display of Aircraft, 1987.
+Show in Context Google Scholar
+12.
+FAA, Human Factors Design Guide, 1996, PP. 249-290.
+Show in Context Google Scholar
+IEEE Personal Account
+
+    Change username/password 
+
+Purchase Details
+
+    Payment Options
+    View Purchased Documents 
+
+Profile Information
+
+    Communications Preferences
+    Profession and Education
+    Technical interests 
+
+Need Help?
+
+    US & Canada: +1 800 678 4333
+    Worldwide: +1 732 981 0060
+    Contact & Support 
+
+Follow
+
+About IEEE Xplore | Contact Us | Help | Accessibility | Terms of Use | Nondiscrimination Policy | IEEE Ethics Reporting | Sitemap | IEEE Privacy Policy
+
+A not-for-profit organization, IEEE is the world's largest technical professional organization dedicated to advancing technology for the benefit of humanity.
+
+© Copyright 2022 IEEE - All rights reserved.
+PDF Help

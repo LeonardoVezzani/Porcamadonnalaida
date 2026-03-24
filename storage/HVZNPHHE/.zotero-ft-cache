@@ -1,0 +1,827 @@
+AdaptiveVoice: Cognitively Adaptive Voice Interface for Driving Assistance
+
+Shaoyue Wen
+Xi’an Jiaotong-Liverpool University Suzhou, China
+New York University New York, USA sw6352@nyu.edu
+
+Songming Ping
+Xi’an Jiaotong-Liverpool University Suzhou, China
+Songming.Ping20@student.xjtlu.edu.cn
+
+Jialin Wang
+Xi’an Jiaotong-Liverpool University Suzhou, China
+University of Liverpool Liverpool, UK
+Jialin.Wang16@student.xjtlu.edu.cn
+
+Hai-Ning Liang∗
+Xi’an Jiaotong-Liverpool University Suzhou, China
+HaiNing.Liang@xjtlu.edu.cn
+
+Xuhai Xu
+Massachusetts Institute of Technology Boston, USA
+orson.xuhai.xu@gmail.com
+
+Yukang Yan∗
+Tsinghua University Beijing, China
+yanyukanglwy@gmail.com
+
+Figure 1: We propose an approach to automatically adapt voice messages to the current users’ cognitive load. For tasks with low cognitive load, our system displays more detailed information (left). Increased cognitive load leads to messages with slower speech voice at lower levels of detail.
+
+ABSTRACT
+Current voice assistants present messages in a predefined format without considering users’ mental states. This paper presents an optimization-based approach to alleviate this issue which adjusts the level of details and speech speed of the voice messages according to the estimated cognitive load of the user. In the first user study (N = 12), we investigated the impact of cognitive load on user
+∗Corresponding authors
+Permission to make digital or hard copies of all or part of this work for personal or classroom use is granted without fee provided that copies are not made or distributed for profit or commercial advantage and that copies bear this notice and the full citation on the first page. Copyrights for components of this work owned by others than the author(s) must be honored. Abstracting with credit is permitted. To copy otherwise, or republish, to post on servers or to redistribute to lists, requires prior specific permission and/or a fee. Request permissions from permissions@acm.org. CHI ’24, May 11–16, 2024, Honolulu, HI, USA © 2024 Copyright held by the owner/author(s). Publication rights licensed to ACM. ACM ISBN 979-8-4007-0330-0/24/05 https://doi.org/10.1145/3613904.3642876
+
+performance. The findings reveal significant differences in preferred message formats across five cognitive load levels, substantiating the need for voice message adaptation. We then implemented AdaptiveVoice, an algorithm based on combinatorial optimization to generate adaptive voice messages in real time. In the second user study (N = 30) conducted in a VR-simulated driving environment, we compare AdaptiveVoice with a fixed format baseline, with and without visual guidance on the Heads-up display (HUD). Results indicate that users benefit from AdaptiveVoice with reduced response time and improved driving performance, particularly when it is augmented with HUD.
+CCS CONCEPTS
+• Human-centered computing → Auditory feedback.
+KEYWORDS
+Voice interface, adaptive user interface, driving assistance, workload
+
+CHI ’24, May 11–16, 2024, Honolulu, HI, USA
+ACM Reference Format: Shaoyue Wen, Songming Ping, Jialin Wang, Hai-Ning Liang, Xuhai Xu, and Yukang Yan. 2024. AdaptiveVoice: Cognitively Adaptive Voice Interface for Driving Assistance. In Proceedings of the CHI Conference on Human Factors in Computing Systems (CHI ’24), May 11–16, 2024, Honolulu, HI, USA. ACM, New York, NY, USA, 18 pages. https://doi.org/10.1145/3613904.3642876
+1 INTRODUCTION
+Voice assistants have become popular and valuable for drivers driving through complex and unfamiliar road networks [22, 33]. According to a recent report [28], the number of adults in the US that have used a voice assistant in their cars rose to 129.7 million in 2020, with 83.8 million monthly users and 29.7 million daily users. Drivers follow instructions (e.g., on where to make a turn) and acquire information (e.g., of the real-time traffic) from voice assistants. Current systems play voice messages in a predefined manner, with fixed content, and at a fixed speed. However, as drivers may encounter different events while driving, which can induce different levels of cognitive load, they may have diverse capabilities or capacities of consuming the information from voice assistants and following their instructions. As a result, the same message can be overwhelming to a driver with a heavy cognitive load (e.g., during an emergency), while more details can be appreciated when the car is at a stop.
+To address this issue, we propose AdaptiveVoice, which presents voice instructions in an adaptive manner. AdaptiveVoice estimates the cognitive load of users and adjusts the level of details, speech speed, and repetition to provide sufficient but not overwhelming information to assist their driving. While considering users’ mental inertia of expecting the voice instructions to be in similar formats as the previous, AdaptiveVoice also maintains temporal consistency when possible.
+Before implementing AdaptiveVoice, we conducted a user study to understand the users’ need for adaptive voice messages when they are at different levels of cognitive load. We apply a dual-task experimental design where the cognitive load of a primary task is affected by the difficulty of a secondary task happening at the same time, i.e., the more difficult the secondary task is, the higher cognitive load users would perceive in the primary task. The primary task is following the voice instructions as the task of interest, and the secondary task is designed to be about memorizing an array of numbers. The selected secondary task requires the user to memorize and compare the digits, creating additional mental loads. We control the task difficulty by the length of the array and the number of digits to memorize. In the primary task, we test voice instructions with five levels of details, three speech speeds, and in the conditions of with or without repetition. Results from twelve participants show that the presentation of voice messages significantly affects users’ reaction time and accuracy in following the instructions. The participants prefer different formats of voice instructions with different levels of cognitive load, and this verifies the need for adaptation.
+Based on the findings and data obtained in the first study, we built an algorithm to optimize the presentation of voice instructions, taking as input the user’s cognitive load and previous presentation formats. The algorithm is prioritized to present instructions close to the preferred formats of users at the corresponding level of
+
+S. Wen, S. Ping, J. Wang, H.-N. Liang, X. Xu, and Y. Yan
+cognitive load and similar to the previous instructions recorded in the interaction history.
+We add HUD as a control variable, as it becomes a common setup in modern vehicles. To be noted, the effects of HUD on driving performance have been studied by previous research [7], and that is not our main focus of the study. We use HUD only to investigate the impacts of adaptive voice interfaces in broader usage scenarios. Results indicate that users benefit from AdaptiveVoice with reduced response time and improved driving performance, particularly when their driving is augmented with HUD. In addition, participants’ subjective ratings and comments support the objective results and confirm their inclination to the use of adaptation for voice messages.
+In summary, we make the following contributions.
+• We introduced AdaptiveVoice, an advanced system designed to estimate users’ cognitive load and adapt the voice instruction presentation of driving assistants in real time. This system provides tailored assistance to drivers, ensuring the voice instructions are sufficient and not overwhelming, thereby optimizing user experience and comprehension.
+• We quantified the effects of different voice instruction formats on users’ task performance while following instructions under varying levels of cognitive load. The study results allow us to extract and understand drivers’ preferences for voice instruction presentation.
+• We assessed the efficacy of AdaptiveVoice through a simulated driving task, comparing it with a fixed-format baseline in a virtual driving environment. This evaluation demonstrates AdaptiveVoice’s ability to significantly reduce response times and improve driving performance, indicating its practical feasibility and effectiveness in real-world driving scenarios.
+2 RELATED WORK
+2.1 Adaptive Voice User Interface
+Voice User Interfaces (VUIs) have gained widespread adoption in various domains such as smart home environments [32], driving assistance systems [25], accessibility applications [37]. However, it is important to acknowledge that VUIs must be calibrated to accommodate the diverse preferences and requirements of individual users. Substantial research has delved into the examination of several pivotal factors influencing the VUI user experience, encompassing voice familiarity [38], speaker gender [9], personality attributes of the voice agent [4], ages [1], voice input methods [51] and the physical capabilities of users [23].
+Even for an individual user, the interaction requirements with Voice User Interfaces (VUIs) can vary depending on the context in which they are used [31]. Therefore, it is often essential for VUIs to adapt to users’ in-situ context, especially when information assimilation is impacted by a primary task. Previous work has primarily focused on adaptive auditory presentation in driving scenarios. Auditory interfaces can be essential in driving scenarios of high risks (e.g., rail crossing [39, 40]) to ensure efficient brake reaction and safe driving speeds. Previous work has explored various formats (e.g., speech vs. sound [53]) to deliver the message or encoding
+
+AdaptiveVoice: Cognitively Adaptive Voice Interface for Driving Assistance
+richer information via spatial auditory displays [3]. For instance, one system is designed to react to drivers’ emotional states using different sound effects to ensure they notice alerts [43]. Another example is Soundsride [26], which explores how to temporally and spatially align high-contrast events on the route, e.g., highway entrances or tunnel exits, with high-contrast events in music, e.g., song transitions or beat drops.
+Nonetheless, instead of changing the sound effects, there is a gap in presenting voice messages in an adaptive manner by adjusting the presentation format while keeping the core information the same. As a starting point, we select the user’s cognitive load as the factor to adapt VUIs to. It is intuitive that users with varied cognitive loads have different capabilities and capacities for perceiving information from VUI. Especially in the driving assistance scenario, where users are focused on the cognition-demanding task of driving while receiving voice messages, adaptive VUIs can be crucial not only to improve the user experience but also to ensure safer performance.
+Motivated by this, we propose AdaptiveVoice, an adaptive VUI for driving assistance, which jointly determines the amount of information to present, the voice speed, and whether to repeat the message, taking as input users’ current cognitive load.
+2.2 Measuring Cognitive Load
+Estimating users’ mental states (e.g., cognitive load) has been a longstanding challenge for researchers in HCI and Psychology [2, 14]. Currently, there are three main measurement methods. The first is collecting subjective measures from questionnaires such as the NASA TLX [20]. In addition, performance metrics such as response time have also been used as indicators of cognitive load. Lastly, physiological measures, such as electromyography (ECG), skin conductance, and respiration [21] also correlate to the cognitive load. Among the physiological estimation methods, the Index of Pupillary Activity (IPA) [11] captures the frequency of users’ pupil diameter oscillation and has been proven effective in discriminating task difficulty-induced cognitive load. Lindlbauer et al. [30] successfully applied IPA in the real-time estimation of users’ cognitive load into three discrete levels (low, medium, high). In a follow-up research, Duchowski et al. [10] derived a wavelet-based method for computing the low/high-frequency ratio of pupil oscillation, which leverages how the human autonomic nervous system functions and yields a hybrid measure based on the ratio of low/high frequencies of pupil oscillation. It was tested to be robust in its sensitivity to the measurement of cognitive load in response to the difficulty of a task.
+In this work, we leverage the HP Omnicept 1 for cognitive load estimation. As reported [46], it provides a robust cognitive load estimation based on behavioural and physiological measurements. In an experiment with 738 participants, it achieved an average classification accuracy of 79.08% with a mean absolute error of 0.1106, which was a normalized score ranging from 0 to 1. The results also align with previous research [12], which shows that people’s pupil size measured by an off-the-shelf VR headset with an integrated eye tracker positively correlates with their self-reported cognitive load.
+1 https://www.hp.com/us-en/vr/reverb-g2-vr-headset-omnicept-edition.html
+
+CHI ’24, May 11–16, 2024, Honolulu, HI, USA
+2.3 Reality Simulation in Virtual Reality
+It has been common to simulate real-world tasks [34, 36] and augmented reality scenarios [5, 6] using virtual reality (VR). It allows researchers to gain complete control over the experimental environment and the tasks while avoiding various risks and inconveniences if the same study is to be conducted in a real-life setting. For example, Shi et al. [45] utilized a multi-user VR system with motion-tracking capabilities to simulate hazardous scenarios and study how social influence affects construction workers’ safety behaviors. Fernandes et al. [13] simulated realistic music concerts to host virtual concerts using VR. Wang et al. [50] used a VR system to simulate a marine environment and establish an ocean current interference model. This method has also been evaluated regarding the effectiveness of the simulation. Mathis et al. [34] evaluated and compared lab research in VR and the real world. Their findings demonstrate VR’s great potential to avoid potential restrictions and risks researchers experience when evaluating authentication schemes [35]. Regarding simulating driving scenarios, using VR as the simulator is also a common practice [47, 54]. As mentioned in previous research [54], VR simulators provide the unique advantages of being more realistic and immersive when compared with fixed-base simulators, and can also provide greater flexibility and safety than on-road testing environments. Goedicke et al. also combines immersive play with on-road haptic feedback to achieve even more realistic simulations. Beyond simulation, Jansen et al. also explored the use of VR as the visualization tool in analyzing users’ driving behaviors in a post-hoc manner. Based on these previous practices, we also decided to evaluate the adaptive algorithm by simulating a driving task in VR because it would allow us to control the experimental environment and minimize any risk to participants.
+3 FIRST USER STUDY: DATA COLLECTION
+The aim of this study was to collect both objective and subjective data from users while they performed tasks based on a dual-task paradigm. With the collected data, we were able to understand whether users’ preferences and behaviours are influenced by different formats of voice messages, including variations in the level of detail (LoD), speech speed (S), and repetition (R), under varying levels of cognitive load (CL).
+3.1 Participants and Apparatus
+We invited twelve participants (7 males, 5 females; ages: " = 22.41, (  = 1.23) with diverse educational backgrounds from the local university. They self-rated their familiarity score with AR/VR devices on a 7-point Likert scale (" = 3.75, (  = 6.46). They all had normal or corrected-to-normal vision and could clearly see the objects in the scene during the experiment.
+We used an HP Reverb G2 Omnicept VR headset for this user study. It has equipped the vertical field-of-view (FoV) of 90◦, a horizontal FoV of 98◦, and 2016×2160 per eye resolution displays. Cognitive load detection sensors that were supplied with the device were integrated into the headset, enabling us to collect data based on users’ mental effort, which reliability has been validated by previous work [46].
+
+CHI ’24, May 11–16, 2024, Honolulu, HI, USA
+
+S. Wen, S. Ping, J. Wang, H.-N. Liang, X. Xu, and Y. Yan
+
+We developed the experimental program with Unity3D 2021.3.12f1 and Omnicept SDK 1.14. The program was run on a computer equipped with the CPU of Core (TM) i9-10900F and NVIDIA GeForce RTX 3090 graphics card. A USB cable was used to connect the computer and headset, allowing the real-time scene rendering in the HMD. Throughout the experiment, participants were seated in a stationary chair and interacted with objects within the VR system through two controllers provided with the headset.
+3.2 Design
+The study contained two sessions. In the first driving simulation session, the interface plays voice instructions in different formats, and participants need to select an operation to take for a driving task based on the information they interpreted from the instructions. At the same time, a secondary task was introduced to induce different levels of cognitive load in the participants. In the second reflection session, they revisited all the voice message formats and selected the best format for each level of cognitive load when they perceived it.
+3.2.1 Voice message formats. Three independent variables were tested regarding the format: level of detail (LoD), repetition (R) and speech speed (S). The level of detail represents the amount of information delivered by the voice messages, varying from the lowest level of only the direction information (e.g., ”Right”), to the main operation (e.g., ”Turn Right”), and the highest level of fully detailed instruction (e.g., ”Switch to the right lane and turn right at the intersection of Fifth Avenue and Liberty Street, and enter the left lane afterwards.”). It naturally varies in length from a single word, a concrete phrase, to a full sentence. The criteria for different LoDs are detailed in Table 1. The exact contents of all voice messages were manually composed by the authors following these criteria, which process we expect to be automatically achieved with more advanced natural language processing technologies [44] in the future.
+We tested three voice speeds while playing the voice messages: slow (145 words per minute), medium (184 words per minute), and fast (266 words per minute) [52]. We used the Pitchshifter functionality of Adobe Premiere Pro to adjust the messages to be at the same level of pitch (400 Hz) so that they were all spoken in a normal voice. We also tested to repeat the voice message without repetition. In total, we tested 5 !>  × 2' × 3( = 30 different formats of voice instructions. All voice messages sent to the participants were generated by a state-of-the-art text-to-speech software 2.
+3.2.2 Primary task in the first driving simulation session. Participants received a voice message and chose a driving operation out of two options based on the information they obtained from the message. For example, as Figure 2 shows a situation when the participant hears ”Turn left at James Street”, they should press the B button on the right motion controller to select the option ”B: Turn left”. The arrangement of option A beneath option B is to maintain the same order as the button arrangement on the controller.
+2 https://azure.microsoft.com/en-us/products/cognitive-services/text-tospeech/#overview
+
+3.2.3 Secondary task in the first driving simulation session. In the VR driving scenario, the participants’ cognitive load would naturally vary due to the complexities and unpredictability of the driving task. By using the adapted secondary task, the study could control for these variations and more accurately assess the impact of cognitive load on the processing of voice messages. The secondary task was designed to be cognitively demanding so that we could alter participants’ cognitive load (CL) by changing the task difficulty. Participants are required to memorize a set of numbers and determine whether the current stimulus is identical to a previous one (recalling a stimulus from n stimuli back. If the number showed up, they needed to press the ”Y” button on the controller; otherwise, they should press the ”X” button. Following each selection of X and Y by the user, a new set of numbers is presented, with each set being independent of the others. We designed the secondary task with short duration and high frequencies. Additionally, we adjusted the task difficulty by modifying the length of the numerical arrays, changed the display speed from showing each number for 0.5 to 2 seconds, and the number from containing a single digit to three digits. Table 2 shows how we adjusted these factors to induce five levels of cognitive load. These modifications enabled us to more precisely control the level of cognitive load, thereby spanning a broader range than traditional n-back (0-0.6), specifically from 0.2 to 0.8. To ensure the validity of the design, we ran a pilot study with five participants and recorded their estimated cognitive loads. We used the score for cognitive load obtained from the headset as the metric, which ranged from 0 to 1. The average scores were 0.28, 0.35, 0.47, 0.58, and 0.69 for different levels, which preliminarily showed the effectiveness.
+3.2.4 Task in the second reflection session. After completing the first driving simulation session, the participants were asked to select the most favoured format for voice messages (i.e., LoD, repetition, speech speed) when they had different levels of cognitive load. To remind them of their previous experiences, we let them review all the formats accompanied by the secondary task inducing the corresponding cognitive load. As depicted in Figure 3, the user on the left is engaged in completing the n-back task, while the user on the right, after listening to all formats, selects the preferred LoD (followed by repetition and speed) deemed appropriate under this n-back context. The order of the presented formats is randomized. During the experiment, users are informed and ensured to listen to each option before making their selection. We collected their ratings and comments for analysis afterward. Here are some questions that are asked:
+(1) While engaging in the secondary task designed to induce varying levels of cognitive load, which format of voice instructions did you find most useful? Could you elaborate on your reasons?
+(2) Do you believe that a specific format of voice instructions is more effective at particular levels of cognitive load? Could you explain?
+(3) Were there any specific formats of voice instructions that led to confusion or uncertainty? If so, could you describe them in detail?
+
+AdaptiveVoice: Cognitively Adaptive Voice Interface for Driving Assistance
+
+CHI ’24, May 11–16, 2024, Honolulu, HI, USA
+
+LoD Description
+
+Example
+
+Level 1
+
+A word containing only the direction to drive towards or ”Stop”.
+
+Right.
+
+Level 2
+
+A phrase containing the operation to take and the direction related to the operation.
+
+Turn Right.
+
+Level 3
+
+A compact sentence with the operation, direction, and location in brief description.
+
+Turn right at James Street.
+
+Level 4
+
+A sentence with the operation, direction, and location in detailed description.
+
+Turn right at James Street in 100 meters.
+
+Level 5
+
+A detailed sentence with the operation, direction, location, and the following operation afterwards
+
+Turn right at James Street in 100 meters, and switch to the right lane afterward.
+
+Table 1: Criteria followed in designing the voice instructions with different levels of detail.
+
+Figure 2: The experimental user interface adopted in this study. The left panel is for the secondary task of memorizing the sequence of digits and the right panel is for the primary task of interpreting voice instructions.
+
+Figure 3: In the second Reflection session, (a), (b), and (c) involve selecting the appropriate level of detail (LoD), repetition (R), and speed (S) under varying cognitive loads.
+
+Cognitive Load level
+
+level 1
+
+level 2
+
+level 3
+
+level 4
+
+level 5
+
+Interval
+
+2
+
+1.5
+
+1
+
+0.8
+
+0.5
+
+Number presented per round 2
+
+3
+
+4
+
+5
+
+6
+
+Number range
+
+single-digit single-digit single-digit two-digit three-digit
+
+Table 2: Second task design that we applied to affect participants’ cognitive load with different difficulty levels.
+
+(4) Under conditions of high cognitive load, what type of action would you be more inclined to take?
+
+(5) Do you think different formats of voice instructions should be employed at different levels of cognitive load? Why or why not?
+
+CHI ’24, May 11–16, 2024, Honolulu, HI, USA
+3.3 Procedure and Measurements
+After participants familiarized themselves with the tasks in a warmup session, they completed two experiment sessions. In the first driving simulation session, they went through the dual-task experiment with 5 CL × 5 LoD × 3S × 2R = 150 conditions. In the second reflection session, participants selected one specific voice message format for each of the five levels of cognitive load, respectively. In both sessions, the sequence of their experience in the secondary task is determined by a Latin square. The task completion time and accuracy in the first driving simulation session and participants’ preferences in the second reflection session were recorded. After the experiment, participants joined a semi-structured interview where their thoughts and needs for voice messages were collected. The experiment lasted for around 45 minutes.
+3.4 Objective Data Results
+We conducted Bartlett’s test to assess the assumption of sphericity for our ANOVA analysis. The results confirmed that the assumption of sphericity had not been violated for the metrics we analyzed. Specifically, for the task completion time, the results were ( j2 = 2.15, ? > 0.05), indicating consistent variance across different conditions. For the accuracy, the test showed ( j2 = 1.87, ? > 0.05). These outcomes supported the use of repeated-measures ANOVA for our data. Further, We conducted repeated-measures ANOVA tests on the effects of four independent variables (CL, LoD, S, R) on the completion time and accuracy. For the independent variables showing significant effects (p < 0.05), we used Bonferroni-corrected post-hoc tests for pairwise comparisons. We performed our data analysis using spss.
+3.4.1 Task completion time. RM-ANOVA results showed significant effects of the cognitive load of participants ( 4,44 = 77.76, ? < 0.05, [ = 0.87), LoD of voice messages ( 4,44 = 12.78, ? < 0.05, [ = 0.53), and speech speed ( 2,22 = 3.42, ? < 0.05, [ = 0.24) on task completion time. No significant interaction effect was found between the independent variables. Figure 4 shows the average completion time of LoD, Repetition, and Speech speed with standard error in different cognitive load levels.
+3.4.2 Task accuracy. RM-ANOVA results showed significant effects of cognitive load ( 4,44 = 18.36, ? < 0.05), LoD of voice messages ( 4,44 = 9.97, ? < 0.05), and speech speed ( 2,22 = 7.93, ? < 0.05) on task accuracy. Figure 5 shows a summary of the results. No significant interaction effect was found between the independent variables.
+3.5 Subjective Results
+3.5.1 Adaptation in Voice Interfaces: Tailoring to Cognitive Load Variations. In our study, we found a distinct preference among participants for varying levels of LoD, repetition, and speech speed in response to different cognitive loads, highlighting the necessity of adaptive voice interfaces. Specifically, under low cognitive loads, 75% (9 out of 12) of participants preferred detailed voice instructions. For instance, during tasks like the 1-back, 5 users selected the highest LoD (level 5) and 4 users selected level 4, indicating a preference for more comprehensive guidance when cognitive demand is minimal. Participant P7 highlighted this preference,
+
+S. Wen, S. Ping, J. Wang, H.-N. Liang, X. Xu, and Y. Yan
+stating, ”When I’m dealing with simpler tasks like 1-back, I find more detailed instructions to be helpful, like Level 5 LoD, as it gives me just the right amount of detail to stay informed and comfortable.” Conversely, as cognitive load increases, the need for concise and clear instructions becomes more pronounced. A significant 83% (10 out 12) of participants favoured brevity in high-pressure situations, with Participant P2 emphasizing this need: ”When I’m busy with secondary tasks, concise and clear voice instructions help me focus better.”
+Moreover, slower speech speeds were preferred under high cognitive loads by 6 participants, who noted the benefit of having more time to process information in complex scenarios. Participants P3 and P9 reflected on this preference, with comments like, ”Slower speech gives me more time to think, especially when I need to multitask.” Additionally, our findings suggest the importance of repetitive voice instructions in scenarios of high cognitive load. This repetition ensures users can confirm crucial details and maintain correct task execution, a feature particularly valued by 8 participants who faced complex multitasking scenarios. Such adaptive features are essential for voice interfaces, especially in contexts where cognitive load and user attention can vary significantly.
+3.5.2 Contextual Constraints on Voice Interface Adaptability. While the adaptive voice interface proved beneficial in many scenarios, our study also identified situations where such adaptability might not be necessary. Six participants preferred a normal speech speed and a single playback mode in low cognitive load (1-back, 2-back), with three of these participants also preferring this mode under medium cognitive load (3-back). This indicates that faster speech speeds or playing the message twice sometimes might be unnecessary. Participant P4 articulated this viewpoint, stating, ”When the task is simpler, like in 1-back or 2-back, hearing the information once at a normal speed is enough for me. Hearing it twice feels a bit redundant.”
+Moreover, some participants displayed a preference for consistency in the format of voice instructions, influenced by their familiarity with traditional voice navigation systems. For instance, Participant P11 remarked,”I’m used to the way Google Maps gives directions, so I prefer voice instructions that don’t deviate too much from that familiarity.” This preference highlights that personal habits and prior experiences with non-adaptive systems can shape user expectations and preferences. In such cases, a static, consistent voice instruction format might be more effective than a constantly adapting one.
+3.6 Discussion: Insights from the First Study
+Based on the study results, we identify the following requirements for optimizing voice message systems in real time, particularly for drivers or individuals in multitasking scenarios. These requirements set the stage for developing an algorithm that can adaptively modulate the voice messages based on the cognitive load and context of the user.
+• R1: Cognitive Load-Sensitive Information The system should adapt the level of detail in the message according to the user’s cognitive load. For instance, when cognitive load is low, the system could offer more elaborate messages. Conversely, when the cognitive load is high, the system should prioritize simplicity and clarity.
+
+AdaptiveVoice: Cognitively Adaptive Voice Interface for Driving Assistance
+
+CHI ’24, May 11–16, 2024, Honolulu, HI, USA
+
+Figure 4: Three plots showing the task completion times for different levels of (a) LoD of voice instructions, (b) repetition, and (c) speech speed with 95% confidence interval.
+
+Figure 5: Three plots showing the accuracy for different levels of (a) LoD of voice instructions, (b) repetition, and (c) speech speed with 95% confidence interval.
+
+• R2: Context-Aware Repetition Repetition should be employed as a feature that can be turned on or off based on the cognitive load and the importance of the message. At higher cognitive loads, the repetition of essential instructions could significantly improve task accuracy.
+• R3 Speech Speed Modulation To enhance comprehension and user performance, the system should adjust the speed of the voice message based on the user’s current cognitive load. Slower speech speeds could be beneficial when the cognitive load is high, while faster speeds could be applied when the cognitive load is low.
+• R4: Consistency with Prior User Interactions To minimize cognitive load, the system should aim to maintain consistency in the presentation format based on prior user interactions and preferences. For example, if a user commonly prefers instructions without repetition, the system should adhere to this format unless cognitive load conditions suggest otherwise.
+These requirements provide a comprehensive framework for the forthcoming algorithmic implementation aimed at optimizing voice message delivery in real-time. By meeting these requirements, the algorithm could offer a personalized, effective, and less cognitively demanding experience for users.
+
+4 IMPLEMENTATION
+Based on the insights obtained from the user study, we implement an optimization-based algorithm to adjust the format (level of details, speech speed, repetition) of the voice messages sent to the users in real-time. Given the information to deliver, the optimization goal is to maximize the utility of voice messages while not reaching the capacity limited by the user’s current cognitive load. As a minor objection, we try to maintain consistency in formats considering previous interaction history if possible. The objectives of our algorithm are informed by key insights from our user study, namely R1, R2, R3, and R4. These insights directly correspond to the elements of the voice messages our algorithm aims to optimize: level of details, speech speed, and repetition. They also align with our considerations for real-time cognitive load estimation and prior interaction history. We next explain the estimation method of cognitive load and formulate the optimization inputs, constraints, and scheme.
+4.1 Cognitive Load Estimation
+We used the HP Reverb G2 headset to estimate the real-time cognitive load, leveraging the built-in gaze tracker and the photoplethysmogram (PPG) sensor. The real-time estimate of cognitive load as a continuous value ranging from 0.0 to 1.0 was obtained from the headset, with a higher score indicating a heavier cognitive load. The
+
+CHI ’24, May 11–16, 2024, Honolulu, HI, USA
+cognitive load prediction is a centered, normalized value, with a standard deviation describing the margin of error of +/− 0.05. The sampling rate is 3 Hz. We applied the Hamper filter [42] to remove outliers before feeding the data into the algorithm model.
+4.2 Input
+We relied on designers to prepare different formats of voice messages as the pre-defined inputs to the model. In addition, we obtained estimates of the user’s cognitive load and their interaction history as real-time inputs while the model was running (see Table 3).
+4.2.1 Pre-defined inputs. We manually designed voice messages with five levels of details (according to the criteria in Table 1), chose the speech speed to be 145, 184, or 266 words per minute, and enabled the message to be repeated after being played once. We defined the utility score (D8,9,; ), and cognitive load estimation score (28,9,; ) for the voice message presented in each format. In addition, we used the data collected from the user study, including !08, !09 , !0; representing the average cognitive load, d08, d09 , d0; denoting the probability distribution for each voice message format.
+4.2.2 Real-time parameters. #8, # 9 , #; is calculated as the cumulative number of (8, 9, ;) level that appeared at the time of optimization. #0;; denotes the total number of all voice types in the system. The real-time cognitive load of users !2A is obtained by HP Reverb G2.
+4.3 Output
+At run time, the algorithm determines the format of the voice message, defined by the combination of (8, 9, ;), at the moment to deliver it to the user, based on the real-time estimates of the user’s current cognitive load and their previous interaction records. The binary decision variables denoted as E8 , 59 , B; , all ranging between 0 and 1, indicate whether the respective levels (8, 9, ;) are rendered. A value of 1 means the level is rendered, while a value of 0 means it is not.
+4.4 Optimization Scheme
+The algorithm optimizes the LoD, repetition, and speech speed of the voice messages to maximize the utility score. We solve the optimization via integer linear programming. Our implementation was inspired by the insights obtained from the user study. When the cognitive load is low, the user appreciates more information at hand, delivered at a relatively slow speed, with potential repetitions to help digest it. When faced with a heavy cognitive load, users find a concrete format that efficiently delivers core information to be more practical. To encode these considerations into our model, we defined three sub-objectives: utility of LoD (D), utility of repetition ( ) and utility of speech speed (F). Our optimization aims to maximize the overall weighted sum of the objective function. We empirically determined the weights _D = 0.48, _  = 0.25, _F = 0.27based on the frequency ?D = 0.58, ?  = 0.25, ?F = 0.16, at which the participants in the user study rated the dimension as the most important. We refined the weightings at a step of 0.01 until the algorithm could generate the top choices that participants made in the second session of Study 1. This can be formulated as follows,
+
+S. Wen, S. Ping, J. Wang, H.-N. Liang, X. Xu, and Y. Yan
+
+where n, m, k denote the number of levels for each factor, which are 5, 2, and 3 in the current format:
+
+=
+
+<
+
+:
+
+Õ
+
+Õ
+
+Õ
+
+<0G (_D E8D8 + _  59  9 + _F B;F; )
+
+(1)
+
+8 =1
+
+9 =1
+
+; =1
+
+The real-time cognitive load is measured and sent to the utility function. The utility function definition assigns low-level utility values to the current cognitive load far away from the average cognitive load of all users and high-level utility values closer to the average cognitive load. In addition to measured and average cognitive load, we discovered that the utility of each level (8, 9, ;) should also be influenced by its corresponding probability of adaptive type and historical information. We calculated the proportion of choices (i, j, l) among the total choices and selected the one with the highest probability. The utility value of each level of the voice element is correlated with the user’s interaction history. We used the #8,9,; to
+#0;;
+calculate the probability of (8, 9, ;) level occurrence. The more the level appears, the greater the probability it will appear later. The utility functions are displayed below:
+
+D8
+
+=
+
+1 4 | 8 −!2A |
+
+−
+
+1
+
++
+
+4
+
+d8
+
++
+
+#8 #0;;
+
+ 9
+
+=
+
+1
+
+4
+
+    
+
+9
+
+−!2A
+
+   
+
+− 1
+
++
+
+4
+
+d
+
+9
+
++
+
+#9 #0;;
+
+(2)
+
+F;
+
+=
+
+1 4 | ; −!2A |
+
+− 1
+
++
+
+4
+
+d;
+
++
+
+#; #0;;
+
+4.5 Constraints
+The following restrictions determine whether items should be displayed and at what level while limiting the range of potential solutions.
+
+4.5.1 Cognitive load constraint. We assumed that the total cognitive capacity !<0G = 0.9 cannot be exceeded by the cognitive cost caused by all exhibited speech parts !385 when combined with the user’s assessed cognitive load !2A , and should leave a minimum remaining capacity X = 0.1.
+
+=
+
+<
+
+:
+
+Õ
+
+Õ
+
+Õ
+
+E82D8 + 59 2 59 + B; 2F; < !38 5
+
+(3)
+
+8 =1
+
+9 =1
+
+; =1
+
+!38 5 = !<0G − !2A − X
+
+(4)
+
+4.5.2 Level presentation constraints. We introduce a set of constraints to avoid duplicate (8, 9, ;) levels and trivial solutions that appear at the same time. (e.g., multiple levels of speech speed assigned to one solution). These formulas ensure that each element is shown at a single level. The constraint is formulated as follows:
+
+=
+
+<
+
+:
+
+Õ
+
+Õ
+
+Õ
+
+E8 = 1 , 59 = 1 , B; = 1
+
+(5)
+
+8 =1
+
+9 =1
+
+; =1
+
+5 EVALUATION: VR-SIMULATED DRIVING
+To evaluate the performance of the adaptation algorithm, we simulated a driving scenario in VR. We compared the proposed method
+
+AdaptiveVoice: Cognitively Adaptive Voice Interface for Driving Assistance
+
+CHI ’24, May 11–16, 2024, Honolulu, HI, USA
+
+Pre-defined inputs
+
+Input
+
+Description
+
++8, 8 ∈ {1, 2, 3, 4, 5} Voice messages with different levels of details
+
++9 , 9 ∈ {1, 2}
+
+Voice messages without or with repetitions
+
++; , ; ∈ {1, 2, 3} D8,9,; ∈ [0, 1]  8,  9 ,  ; ∈ [0, 1] 28,9,; ∈ [0, 1]
+
+Voice messages played at speech speeds of 145, 184, 266 words per minute Utility score for voice messages with i LoD, j repetitions, at l speed Average cognitive load of each 8, 9, ; Cognitive cost estimation of voice messages with i LoD, j repetitions, l speed
+
+d8, d 9 , d;
+
+Probability distribution of preferred LoD, repetition, speed
+
+Real-time inputs
+
+Parameter #8,9,; ∈ / + #0;; ∈ / +
+!2A ∈ [0, 1]
+
+Description Number of voice messages played with i LoD, j repetition, l speed Amount of voice messages sent to the user The estimated cognitive load of the user
+
+Table 3: The symbolic representation and the description of the optimization parameters. System parameters are generated
+
+before the interaction starts, either obtained from Study 1 or determined by application designers. Real-time parameters are
+
+calculated during the interactions with users. Output parameters are optimized by the proposed algorithm.
+
+with a fixed-format baseline, which used the overall favourite format selected by the participants in the previous user study (i.e., level 3 of details, normal speed, no repetition). As a Head-up display (HUD) showing visual guidance is commonly considered effective in driving assistance, we also investigated a secondary control variable with or without visual instructions on the HUD. We simulated thirteen driving events that induced different levels of cognitive load. The participants are instructed to drive a virtual vehicle to a target location while following the guidance provided by the system. We recorded the participants’ response time to each voice instruction, their accuracy in following the instructions as the metrics for task performance, and their estimated cognitive load during the whole experiment to make sure the experimental design worked functionally as expected.
+5.1 Task Design
+In each trial, the participant drove a virtual vehicle through thirteen intersections and received assistive instructions from the system 100 meters before these locations. To alter the task difficulty at each intersection and induce different levels of cognitive load, we change the intersection types (straight roads, turns, Tintersections, crossroads, and overpasses) see in Fig. 6, the level of information (low, high) as shown in Fig. 7 and designed three special cases containing incidents (in total 5 8=C4AB42C8>= C~?4B × 2 8=5 >A<0C8>= ;4E4; 0=6;4B + 3 20B4B = 13 8=C4AB42C8>=B). Three special cases [49] are designed as follows see in Fig. 8:
+• Traffic collision: Two slow cars (’a’ and ’b’) are in the left lane. Car ’a’ suddenly moves into the driver’s lane, while ’b’ stays in the blind spot. The best action is to slow down to avoid a collision.
+• Crossing pedestrian: The driver has a green light, but two people are crossing. One is fast but partially hidden, and the other is slow. The safest move is to brake and wait.
+• Sudden stop. In a narrow street, a pedestrian appears suddenly from the right. The driver has little time to react. The
+
+best action is to steer and brake at the same time to avoid an accident.
+We compared four methods to present assistive instructions to the participants: AdaptiveVoice without HUD (A), Fixed-format baseline without HUD (F ), AdaptiveVoice with HUD (HA), Fixedformat baseline with HUD (HF ). Each participant drove four times with each method, in which the order was randomized.
+
+5.2 Metrics
+We recorded steering wheel angle variance, response time, average speed, and number of collisions to measure the participants’ driving performance. Additionally, we recorded the users’ cognitive load throughout the session and the types of voice instructions issued by the system to facilitate subsequent review and analysis of user behaviour. Among them, a higher variance in steering wheel angle signifies poorer driving performance, which is calculated as:
+
+Variance(f2) =
+
+1
+
+#
+
+Õ (G8
+
+−
+
+`)2
+
+#
+
+8 =1
+
+• # is the number of steering angles, • G8 is the 8-th steering angle, • ` is the mean of the steering angles.
+
+In addition, we also collected subjective feedback through three questionnaires: NASA TLX [19], TAM Model [8], and Emotional appeals (This section is tailored to capture the emotional responses of the users, an aspect often overlooked by other models [48]. It gauges factors like freedom [15], guaranteed [15], advance in technology [29], fun and surprise [15], and convenient [41]. ), which covered the functional and emotional aspects of user experience while performing the tasks. We have incorporated semi-structured interviews into our evaluation to enrich our data further and obtain nuanced insights into user experience. These include:
+
+(1) Ranking the four conditions and explaining the rationale behind the ranking.
+
+CHI ’24, May 11–16, 2024, Honolulu, HI, USA
+
+S. Wen, S. Ping, J. Wang, H.-N. Liang, X. Xu, and Y. Yan
+
+Figure 6: (a) to (e) is five intersection types, (f) is a special case
+
+Figure 7: The high information level (b) was constructed to mimic a busy urban centre, with complex traffic, parked cars, pedestrians, and tall office buildings. In the low level, the scenario (a) was constructed so as to have as little visual information as possible
+Figure 8: Illustrations of three special cases
+(2) How did the presence or absence of HUD affect your driving experience in each condition?
+(3) Did you find any of the conditions distracting? If so, which one and why?
+(4) How would you describe your level of trust and safety in each condition?
+(5) Were there any unexpected benefits or drawbacks you experienced with any of the conditions?
+
+(6) Offering suggestions for improvements to the current four conditions.
+5.3 Apparatus
+We implemented our software in Unity 2021.3.12f1 with Omnicept SDK 1.14 on HP Reverb G2 Omnicept. Gurobi 9.5.2 was used to solve the integer program formulated in the optimization scheme. We used Python 3.7 with Anaconda 2020 to develop the algorithm and process the collected data. The optimization results were sent to Unity through a local socket. We used Adobe Premiere Pro and Adobe Audition to generate different voice instructions. The same voice generation method was used in Section 3 and the evaluation study. We rendered a city-sized virtual environment with Unity for participants to drive around virtually. Participants sat in a simulated car mock-up. We utilized the Moza R9 racing simulation system, which features an R9 Direct Drive Wheel Base 3, RS V2 Steering Wheel 4, and MOZA SR-P Pedal 5.
+5.4 Participants
+We recruited 30 participants (16 males, 14 females; age: " = 23.83, (  = 2.42) from the same local university through email solicitation and word-of-mouth. Among them, 60% were undergraduates and master’s students, 30% were doctoral students, staff, and faculty, and the remaining 10% were from outside the university community and lived near the campus. The 30 participants reported having used AR/VR devices before, rated (" = 3.95, (  = 2.41). 26 participants reported having driving experience before (1 - poor; 4 - neutral; 7 - excellent) rated on a 1 - 7 Likert scale (1 - poor, 4 neutral, 7 - excellent). Two participants rated themselves a 7, and six rated themselves below 3. We also collected data on how frequently participants used voice navigation (" = 4.67, (  = 1.44), which
+3 https://mozaracing.com/wheel-base-r9 4 https://mozaracing.com/product/rs-v2-steering-wheel 5 https://mozaracing.com/product/srp-pedals
+
+AdaptiveVoice: Cognitively Adaptive Voice Interface for Driving Assistance
+Figure 9: Evaluation experiment environment setup: (1) HP Reverb G2 headset, (2) R9 Direct Drive Wheel Base and RS VW Steering wheel, (3) MOZA SR-P Pedal, and (4) Screen monitor and host computer for experimenters to observe the driving performance of users and record them
+averaged with a standard deviation of 4 on a 1 - 7 Likert scale (1 - never, 4 - neutral, 7 - almost every day). Participants reported having normal or corrected-to-normal vision. No participants reported elevated susceptibility to motion sickness when queried using the Motion Sickness Susceptibility Questionnaire Short-form (MSSQ-Short) [17].
+5.5 Procedure
+Participants read and signed an informed consent form. Subsequently, they completed the MSSQ-Short (Motion Sickness Susceptibility Questionnaire - Short), which was later compared with a post-experiment questionnaire to assess the occurrence of motion sickness symptoms such as oculomotor disturbances, disorientation, and nausea [18]. Following this, eye-tracking calibration was performed using the built-in eye-tracking function of the HP Reverb G2. Once calibrated, participants entered the driving simulator and were instructed to sit in the driver’s seat and adjust it for comfort. A 10-minute training session was then provided to familiarize them with driving in the simulator, including driving, braking, and overtaking. The training route was different from the route used in the formal experiment. After they became familiar with the simulator, a brief overview of the city map and their driving route was presented, allowing them to acquaint themselves with the driving tasks, including a city map with road names and a driving route showing the start and end points.
+When participants felt comfortable to proceed, the experiment commenced. Overall, participants underwent the experiment under four different conditions in a within-subject design. After each condition, participants were required to complete an evaluation questionnaire for that specific condition. The study involved a route comprising 13 intersections, each characterized by varying levels of informational complexity of intersection types. These intersections were arranged in a random sequence along the route. Participants
+
+CHI ’24, May 11–16, 2024, Honolulu, HI, USA
+experienced the same route under four conditions. They were informed that potential incidents might occur at certain intersections, necessitating heightened driving caution. However, to emulate a realistic driving environment, specific locations where incidents might occur were not disclosed to the participants.
+The order of conditions was counterbalanced among 28 participants following a Latin Square approach [27], while 2 participants experienced conditions in a random order. Participants were invited for a semi-structured interview after completing all four conditions and the associated questionnaires. The entire study for each participant lasted approximately 60 minutes.
+5.6 Quantitative Results
+Upon collecting the data, preliminary tests were conducted to assess its suitability for advanced statistical methods. Specifically, the normality and homogeneity tests were run for Response time ( j2 = 1.96, ? > 0.05), Steering Variance ( j2 = 2.41, ? > 0.05) and Average speed ( j2 = 0.54, ? > 0.05). The tests confirmed that the data met the assumptions for normality and homogeneity, thus validating its distribution for subsequent analyses. Then, one-way ANOVA was conducted on Response Time, Steering Variance, and Average Speed. These analyses revealed significant main effects across different experimental conditions for key variables. No significant main effect was found for Average Speed. The nonparametric Kruskal-Wallis test finds that the number of collisions does not differ significantly across AdaptiveVoice and the Fixed both in HUD or Voice-only.
+5.6.1 Steering Variance. For Steering Variance, one-way ANOVA revealed a significant main effect for both HUD ( 1,20 = 7.28, ? < 0.05) and Voice-only ( 1,20 = 5.34, ? < 0.05). In the HUD modality, AdaptiveVoice (" = 1103.13, (  = 525.96) had a lower average steering variance compared to the Fixed (" = 1671.14, (  = 910.91), suggesting that AdaptiveVoice led to more consistent and potentially safer steering behavior. This pattern was also observed in the Voice-only modality, where AdaptiveVoice (" = 1472.82, (  = 701.02) exhibited a lower steering variance than the Fixed (" = 2314.67, (  = 1071.54), reinforcing the idea that adaptive method enhances the driver’s ability to maintain steady steering control. The superior performance of AdaptiveVoice in both HUD and Voiceonly modalities underscores the effectiveness of AdaptiveVoicein reducing steering variance, which is a critical factor for safe driving.
+5.6.2 Response Time. For Response Time, One-way ANOVA indicated a significant main effect both across the HUD ( 1,20 = 4.14, ? < 0.05) and Voice-only ( 1,20 = 3.38, ? < 0.05) in Fig. 10. In HUD, AdaptiveVoice (" = 1.60, (  = 0.31) significantly outperformed the Fixed (" = 1.77, (  = 0.22). This result corroborates that AdaptiveVoice mechanisms are superior in minimizing response time, thereby affirming their effectiveness.
+5.6.3 Average Speed. No significant main effect was found in HUD, but in the Voice-only modality, a significant difference was observed ( 1,20 = 2.45, ? < 0.05) in Fig. 10. This indicates that AdaptiveVoice instructions significantly impact average speed compared to the Fixed. This could be attributed to AdaptiveVoice guidance more effectively assisting drivers to maintain appropriate speeds under
+
+CHI ’24, May 11–16, 2024, Honolulu, HI, USA
+
+S. Wen, S. Ping, J. Wang, H.-N. Liang, X. Xu, and Y. Yan
+
+varying road and traffic conditions, thereby enhancing driving safety and efficiency.
+5.7 Qualitative Results
+5.7.1 HA Is the Most Preferred Condition by Users. A series of Friedman tests revealed that among all conditions, AdaptiveVoice combined with HUD exhibited a dominant performance across various metrics, including performance, satisfaction, perceived usefulness, perceived ease of use, attitude toward using, freedom, guaranteed, advanced in technology, fun, and convenience in Figure 11, Figure 12, and Figure 13. Specifically, HA scored higher than a mean of 5.5 in these categories, with the mean score for ”Fun” reaching 6.44. These quantitative insights were corroborated by qualitative user feedback ”I prefer the adapt version with arrows. The AdaptiveVoice is more concise, and the arrows provide clear directions” (P25).
+5.7.2 Enhanced Efficacy and User Engagement through AdaptiveVoice. The superiority of the AdaptiveVoice in our study was markedly evident, with users expressing a distinct preference for its realtime adaptability and precision. This preference was particularly pronounced in scenarios requiring acute awareness of changing road conditions, such as navigating overpasses. One user commented, ”At places like the Overpass, I am not sure about the road conditions after making the turn. A longer message would be useful” (P17). This is backed by the statistical data where AdaptiveVoice had a higher perceived usefulness ("HA+A = 5.95, ( HA+A = 0.81) and convenience ("HA+A = 5.67, ( HA+A = 0.96) compared to the Fixed ("HF+F = 4.63, ( HF+F = 1.37), ("HF+F = 4.96, ( HF+F = 1.45) in Figure 12.
+Additionally, in HUD, AdaptiveVoice was met with positive user reception. This was quantitatively supported by the data, showing that the ’Perceived Ease of Use’ for AdaptiveVoice (HA) scored significantly higher ("HA = 6.12, ( HA = 0.75), compared to the Fixed (HF), which scored ("HF = 4.89, ( HF = 1.22) in Figure 12. Participant 3 stated ”If I had to choose, I’d lean more towards adaptive. It makes navigation tasks more engaging .” The AdaptiveVoice not only met users’ needs for clear and timely information but also markedly enhanced their overall interaction with the system.
+5.7.3 Driving Experience: Safety and Trust. In the realm of driving safety and trust, the Adaptive conditions (HA and A) were frequently cited as providing a ”greater sense of security and trust.” This was due to their real-time adaptability in broadcasting frequency and speaking speed, as well as the provision of more comprehensive and pertinent information. This is quantified by the ’Guaranteed’ metric, where AdaptiveVoice ("HA+A = 5.38, ( HA+A = 0.71) significantly outperforms the Fixed ("HF+F = 4.17, ( HF+F = 1.05) in Figure 13. One participant highlighted, ”Adaptive Voice provides more road information, destination, and distance, reinforcing my confidence that I’m on the correct path” (P28). Furthermore, the Adaptive method’s ability to repeat was noted to be particularly reassuring. As one user added, ”Repeating the broadcast twice makes me feel secure, as I might miss it under certain complex conditions” (P6).
+Conversely, the Fixed often led to concerns about distraction and the accuracy of the information provided, as evidenced by feedback such as, ”During long hours of driving, fixed Voice can be somewhat monotonous, which may scatter my focus” (P7). This
+
+contrast in feedback between the Adaptive and Fixed methods pinpoints the crucial areas for improvement in Fixed Voice conditions, particularly concerning the need to heighten driver attention.
+AdaptiveVoice’s contribution to driving safety and trust is substantial. It enhances the driving experience by aligning with the drivers’ need for dynamic, real-time information, thereby fostering a greater sense of security and reliability. This is a testament to the effectiveness of AdaptiveVoice in enhancing drivers’ sense of safety and trust, a paramount factor in driving scenarios.
+5.7.4 User Preferences and Contextual Relevance. Contextual relevance also played a significant role in determining user preferences between AdaptiveVoice and the Fixed. Participants with rich driving experience (" = 5.35, (  = 1.08) were more familiar with driving operations. For example, they didn’t need to lower their heads to focus on shifting gears or adding gas. In contrast, inexperienced drivers (" = 1.67, (  = 0.81) found it challenging to focus on driving while also paying attention to voice messages with varying information load and presentation styles. Some users noted that their preference for the Fixed was context-dependent. Four participants explicitly favored the Fixed. They liked the fixed mode for situations requiring high concentration, such as driving. However, for more casual, everyday scenarios, these users would lean towards Adaptive Voice for its more interesting and informative nature. The following comments reflect these perspectives: ”In situations where I am in a hurry and highly concentrated, I prefer to hear only the keywords so that I know what immediate action to take. However, when I am more leisurely, I wouldn’t mind hearing more details to consider my next move slowly” (P13).
+5.7.5 Navigating Preferences between HUD and Voice-Only. Participants who had prior experience with racing video games or Virtual Reality (VR) found the arrows to be more familiar and, therefore, easier to adapt to. One participant noted, ”Although the turning arrow doesn’t exist in reality, in games like racing games, the direction is shown on the HUD, so I feel quite familiar with this environment”(P4). On the other hand, some users found the arrows distracting, as they appeared directly within their field of vision and felt ”sudden and not easily ignored.” One participant elaborated, ”Although the arrows guide you to press the direction keys at the junction, they appear too suddenly and you are compelled to look, which I am not used to” (P21).
+6 DISCUSSION
+In this paper, we proposed to assist driving with adaptive voice instructions considering the driver’s cognitive load. We first verified the need for voice instruction adaptation in a user study. Then we implemented an optimization algorithm to determine the format of voice instructions in real time. Finally, we evaluated the performance of the proposed method by comparing it to a fixed-format baseline in a VR-simulated driving task. Based on the findings, we discuss the potential applications that can benefit from adaptive voice instructions beyond driving assistance, additional factors of voice instruction adaptation than those (LoD, repetition, speech speed) considered in this work, and challenges in applying the proposed method in real life. We conclude with a discussion on limitations and future work.
+
+AdaptiveVoice: Cognitively Adaptive Voice Interface for Driving Assistance
+
+CHI ’24, May 11–16, 2024, Honolulu, HI, USA
+
+Figure 10: Quantitative Results for AdaptiveVoice and Fixed in HUD and Voice-only
+
+Figure 11: NASA TLX results of AdaptiveVoice and Fixed in HUD and Voice-only Figure 12: TAM Model results of AdaptiveVoice and Fixed in HUD and Voice-only
+
+Figure 13: Emotional needs results of AdaptiveVoice and Fixed in HUD and Voice-only
+
+6.1 Applications Beyond Driving Assistance
+We demonstrated that adaptive voice instructions help improve driving as the drivers’ cognitive load might cause them to react differently to the events happening on the roads. The differences in
+
+their capability of attending to voice information require adaptation. We expect AdaptiveVoice to be beneficial for a broader range of applications beyond driving assistance, as long as users’ cognitive load dynamically changes when they are immersed in a task and
+
+CHI ’24, May 11–16, 2024, Honolulu, HI, USA
+Figure 14: (a) at leisurely moments, the user’s cognitive load is low and the response from the system is comprehensive. (b) during working time, the user’s cognitive load is high and the system response is concise.
+need voice instructions to be adaptive to changes in their mental load.
+For instance, see Fig. 14, when the user is situated in a relaxed state near the window, the cognitive load can be at a low level. During such leisurely moments, if the user inquires about evening restaurant recommendations and their signature dishes, the smart home system can offer a comprehensive list. For example, it might suggest, ”Certainly, here are some dining options: La Bella Italia is renowned for its authentic pasta and pizzas, with Fettuccine Alfredo as a standout dish”. In contrast, when the user is engrossed in work tasks in the study room and the cognitive load level rises to a high level, a more concise response is appropriate. For instance, if the user queries about the necessity of carrying an umbrella the next day, the system might simply reply ”No.” without providing further information about the current weather.
+Another example is the cooking voice assistant. When the user is engaged in cooking activities, such as preparing a Creamy Mushroom Pasta, they may require the assistance of a voice-activated system to guide them through the entire process. During periods of high activity, such as continuously adding seasoning to the ingredients, the user’s cognitive load can increase. In such instances, the voice assistant can modulate its delivery speed or repeat instructions to ensure clarity. This allows the user to accurately gauge the required amounts of milk and salt, for instance, without the need to consult a recipe manually. Conversely, during periods of lower activity, such as waiting for the microwave to heat the food, the user’s cognitive load may decrease. Under these conditions, the voice assistant can accelerate its delivery speed and provide an overview of the upcoming steps in the cooking process, thereby offering the user a more coherent understanding of the tasks ahead.
+6.2 Extension to Voice Instruction Adaptation
+In this work, we adapted three features of voice instructions: the level of detail, repetition, and speech speed, considering users’ cognitive load and the temporal consistency across messages. In the semi-structured interview, five participants mentioned that voice tone adaptation could be helpful and a useful feature, as they stated they prefer a humorous tone when having low cognitive load, so their driving is more interesting and not so monotonous. Moreover, when having a high cognitive load, they favour a serious and professional tone that can better able to deliver the information akin to an order. In addition, the tone can be useful to provide implicit
+
+S. Wen, S. Ping, J. Wang, H.-N. Liang, X. Xu, and Y. Yan
+information about how much focus and concentration they need to have in anticipation of what they could encounter soon (e.g., nearing a traffic jam or entering the highway). In short, more adaptive features, including volume, tone, and frequency of the voice instructions, can be adjusted in the optimization, and factors, including the users’ driving skills, traffic situations, and the strength of ambient noise, can also influence the optimal manner of presenting voice instructions. It is essential to explore considerations for these features and factors to extend the optimization algorithm in the future. To estimate users’ cognitive load, we used the HP Reverb headset and conducted the studies in VR. There are also alternative sensors and sensing techniques (e.g., Index of Papillary Activity [10]) for estimating cognitive load, and we believe AdaptiveVoice will benefit from more advanced techniques to provide a more accurate estimation.
+6.3 Potential Challenges of Applying AdaptiveVoice in Real Life
+We conducted both user studies in a VR environment as a first step in understanding users’ need for voice instruction adaptation and the effectiveness of the algorithm-optimized voice instructions. However, we acknowledge that applying AdaptiveVoice in a real-life setting may encounter several challenges caused by the difference between driving in VR and in real life. First, users may handle cognitive loads in different ways, which is highly correlated to how skillful they are at driving. More skillful drivers can spare more cognitive resources in consuming information from voice instructions. Therefore, they might prefer a high level of detail, fast speed, and no repetition in most cases. The results of Study 1 showed that only a small proportion of participants selected the more detailed formats. Thus, as a starting point, our current adaptive method follows a one-size-fits-all approach that looks for common behaviours amongst all users to balance performance and simplicity. We believe that it is an important future direction to explore personalization of AdaptiveVoice, taking users’ driving skills and experience together with their cognitive capacity into consideration. Another challenge is the real-time estimation of drivers’ cognitive load. We leveraged the built-in functionality of the VR headset in our user studies to estimate users’ cognitive load. In a real-life setting, we believe that it could be replaced by advanced computer vision-based technologies (e.g., IPA [11], LHIPA [10]), with wearable cameras attached to the glasses or in-car cameras located in front of the driver. We also expect that novel estimation techniques with biophysical sensors will be developed and equipped on cars of the future to further reduce privacy issues.
+6.4 Transferring Headset-Based Cognitive Load Measurement to Behavioral Data-Based Methods
+Currently, we use the HP Reverb G2 headset for real-time cognitive load estimation, leveraging its integrated sensors. However, we recognize the potential in exploring simpler, behaviour-based methods for estimating cognitive load, such as analyzing steering wheel angle as a proxy.
+
+AdaptiveVoice: Cognitively Adaptive Voice Interface for Driving Assistance
+
+CHI ’24, May 11–16, 2024, Honolulu, HI, USA
+
+A future direction of this research could involve correlating headset-based cognitive load measurements with behavioural indicators observable in driving scenarios, like steering wheel movements. This approach might offer a more practical and less intrusive method of assessing cognitive load, especially in real-world driving conditions where the use of specialized headsets might not be feasible. The challenge would be to develop algorithms that accurately interpret these behavioural data to make reliable inferences about the driver’s cognitive state.
+By investigating the relationship between direct cognitive load measurements (from the headset) and indirect behavioural indicators (like steering wheel angle), we could refine the adaptability of voice interfaces. This would not only broaden the applicability of our findings but also enhance the practicality of implementing adaptive voice systems in everyday driving scenarios. The goal would be to maintain the benefits of cognitive load-sensitive system adaptations while simplifying the means of cognitive load assessment.
+7 LIMITATIONS AND FUTURE WORK
+The two observation and evaluation studies were conducted in VR, where we simulated a city-sized environment. The main reason is to provide a controlled environment for the tasks for a fair comparison between AdaptiveVoice and the baseline approach and to keep the participants safe. It is necessary to test AdaptiveVoice in a more realistic setup in the future to have a clearer sense of how it could affect drivers in their daily driving routines.
+Based on the scene complexity, we only simulated some scenarios in our evaluation experiment. Real-world driving tasks and physical surroundings are more complex, and future research could examine more complex environments and driving tasks, with more advanced simulation methods (e.g., VR-OOM [16]) that provide more realistic and coherent experiences. At an elevated circular crossroads, drivers typically have a higher cognitive load and should be given simple and straightforward instructions. Nevertheless, based on participants’ feedback, the voice information should be simplified but more explicit, for example, by signaling at which intersection to exit the roadway. In addition, it is typical to hear other vehicles honking while driving, which can frequently raise stress and cognitive burden. As a result, future work may encompass additional challenges encountered by drivers.
+From the semi-structured interviews, some users suggested adding an adaptive tone feature to the system. They argued that the tone of voice could provide additional information beyond just the speed of speech. For instance, the tone could serve as an immediate indicator of the current situation or environment. If the voice tone is urgent, calm, or anxious, users can make a quick judgment about their circumstances without even needing to listen to the content.
+Current broadcast voice content contains action guidance (go straight, turn left, turn right) and path guidance directions (drive into a particular road). Participants proposed adding additional voice content in the semi-structured interviews, including safety warnings, road condition assistance, and other information (weather, time broadcast, etc.). This aspect represents an interesting line of research and may require incorporating natural language processing technologies that could be explored further in the future.
+
+8 CONCLUSION
+We presented AdaptiveVoice, a novel interaction approach to adapting levels of detail, speech speed, and repetition of voice instructions to assist users when they have various cognitive loads while driving. Through a first study, we verified that different types of voice instructions significantly affect users’ reaction time and accuracy in following instructions. An optimization algorithm was developed to adjust the voice instruction, considering the users’ cognitive load and temporal consistency to previous instructions. To evaluate the proposed method, we compared our adaptive method with a fixedformat baseline in a simulated driving environment in VR. Results show that AdaptiveVoice outperformed the fixed in response time and driving performance and that driving performance improvements were more significant when users’ cognitive load was higher. Overall, we showed that AdaptiveVoice could enhance users’ driving experience and discussed other applications for our approach in other types of assistants, including those for smart speakers at home and on mobile devices.
+ACKNOWLEDGMENTS
+The authors thank the participants who volunteered their time to join the user studies. We also thank the reviewers whose insightful comments and suggestions helped improve our paper. This work is partly supported by the Natural Science Foundation of China (#62102221 and #62272396) and the Suzhou Municipal Key Laboratory for Intelligent Virtual Engineering (#SZS2022004).
+REFERENCES
+[1] Ignacio Alvarez, Miren Karmele López-de Ipiña, and Juan E. Gilbert. 2012. The Voice User Help, a Smart Vehicle Assistant for the Elderly (UCAmI’12). SpringerVerlag, Berlin, Heidelberg, 314–321. https://doi.org/10.1007/978-3-642-353772_43
+[2] Aurélien Appriou, Andrzej Cichocki, and Fabien Lotte. 2018. Towards robust neuroadaptive HCI: exploring modern machine learning methods to estimate mental workload from EEG signals. In Extended Abstracts of the 2018 CHI Conference on Human Factors in Computing Systems. 1–6.
+[3] David Beattie, Lynne Baillie, Martin Halvey, and Rod McCall. 2014. What’s around the corner? Enhancing driver awareness in autonomous vehicles via in-vehicle spatial auditory displays. In Proceedings of the 8th nordic conference on human-computer interaction: fun, fast, foundational. 189–198.
+[4] Michael Braun, Anja Mainz, Ronee Chadowitz, Bastian Pfleging, and Florian Alt. 2019. At Your Service: Designing Voice Assistant Personalities to Improve Automotive User Interfaces. In Proceedings of the 2019 CHI Conference on Human Factors in Computing Systems (Glasgow, Scotland Uk) (CHI ’19). Association for Computing Machinery, New York, NY, USA, 1–11. https://doi.org/10.1145/ 3290605.3300270
+[5] Yifei Cheng, Yukang Yan, Xin Yi, Yuanchun Shi, and David Lindlbauer. 2021. SemanticAdapt: Optimization-Based Adaptation of Mixed Reality Layouts Leveraging Virtual-Physical Semantic Connections. In The 34th Annual ACM Symposium on User Interface Software and Technology (Virtual Event, USA) (UIST ’21). Association for Computing Machinery, New York, NY, USA, 282–297. https://doi.org/10.1145/3472749.3474750
+[6] Yi Fei Cheng, Hang Yin, Yukang Yan, Jan Gugenheimer, and David Lindlbauer. 2022. Towards Understanding Diminished Reality. In Proceedings of the 2022 CHI Conference on Human Factors in Computing Systems (New Orleans, LA, USA) (CHI ’22). Association for Computing Machinery, New York, NY, USA, Article 549, 16 pages. https://doi.org/10.1145/3491102.3517452
+[7] Rebecca Currano, So Yeon Park, Dylan James Moore, Kent Lyons, and David Sirkin. 2021. Little road driving hud: Heads-up display complexity influences drivers’ perceptions of automated vehicles. In Proceedings of the 2021 CHI conference on human factors in computing systems. 1–15.
+[8] Fred D Davis. 1985. A technology acceptance model for empirically testing new enduser information systems: Theory and results. Ph. D. Dissertation. Massachusetts Institute of Technology.
+[9] Tiffany D. Do, Ryan P. McMahan, and Pamela J. Wisniewski. 2022. A New Uncanny Valley? The Effects of Speech Fidelity and Human Listener Gender on Social Perceptions of a Virtual-Human Speaker (CHI ’22). Association for
+
+CHI ’24, May 11–16, 2024, Honolulu, HI, USA
+Computing Machinery, New York, NY, USA, Article 424, 11 pages. https://doi. org/10.1145/3491102.3517564 [10] Andrew T. Duchowski, Krzysztof Krejtz, Nina A. Gehrer, Tanya Bafna, and Per Bækgaard. 2020. The Low/High Index of Pupillary Activity (CHI ’20). Association for Computing Machinery, New York, NY, USA, 1–12. https://doi.org/10.1145/ 3313831.3376394 [11] Andrew T Duchowski, Krzysztof Krejtz, Izabela Krejtz, Cezary Biele, Anna Niedzielska, Peter Kiefer, Martin Raubal, and Ioannis Giannopoulos. 2018. The index of pupillary activity: Measuring cognitive load vis-à-vis task difficulty with pupil oscillation. In Proceedings of the 2018 CHI conference on human factors in computing systems. 1–13. [12] Marie Eckert, Emanuël A. P. Habets, and Olli S. Rummukainen. 2021. Cognitive Load Estimation Based on Pupillometry in Virtual Reality with Uncontrolled Scene Lighting. In 2021 13th International Conference on Quality of Multimedia Experience (QoMEX). 73–76. https://doi.org/10.1109/QoMEX51781.2021.9465417 [13] Roshan Fernandes, Arjun Gaonkar, Pratheek Shenoy, Anisha Rodrigues, Mohan A., and Vijaya Padmanabha. 2021. Efficient Virtual Reality-Based Platform for Virtual Concerts. 148–164. https://doi.org/10.4018/978-1-7998-4703-8.ch008 [14] Lex Fridman, Bryan Reimer, Bruce Mehler, and William T Freeman. 2018. Cognitive load estimation in the wild. In Proceedings of the 2018 chi conference on human factors in computing systems. 1–9. [15] Anna-Katharina Frison, Philipp Wintersberger, Tianjia Liu, and Andreas Riener. 2019. Why do you like to drive automated? a context-dependent analysis of highly automated driving to elaborate requirements for intelligent user interfaces. In Proceedings of the 24th international conference on intelligent user interfaces. 528–537. [16] David Goedicke, Jamy Li, Vanessa Evers, and Wendy Ju. 2018. Vr-oom: Virtual reality on-road driving simulation. In Proceedings of the 2018 CHI Conference on Human Factors in Computing Systems. 1–11. [17] John F Golding. 1998. Motion sickness susceptibility questionnaire revised and its relationship to other forms of sickness. Brain Research Bulletin 47, 5 (1998), 507–516. https://doi.org/10.1016/S0361-9230(98)00091-4 [18] John F Golding. 1998. Motion sickness susceptibility questionnaire revised and its relationship to other forms of sickness. Brain research bulletin 47, 5 (1998), 507–516. [19] Sandra G Hart. 2006. NASA-task load index (NASA-TLX); 20 years later. In Proceedings of the human factors and ergonomics society annual meeting, Vol. 50. Sage publications Sage CA: Los Angeles, CA, 904–908. [20] S. G. Hart and L. E. Staveland. 1988. Development of NASA-TLX (Task Load Index): Results of Empirical and Theoretical Research. Advances in Psychology 52, 6 (1988), 139–183. https://doi.org/10.1016/S0166-4115(08)62386-9. [21] Nina Hollender, Cristian Hofmann, Michael Deneke, and Bernhard Schmitz. 2010. Integrating cognitive load theory and concepts of human–computer interaction. Computers in Human Behavior 26, 6 (2010), 1278–1288. https://doi.org/10.1016/j. chb.2010.05.031. [22] Jizhou Huang, Haifeng Wang, Shiqiang Ding, and Shaolei Wang. 2022. DuIVA: An Intelligent Voice Assistant for Hands-free and Eyes-free Voice Interaction with the Baidu Maps App. In Proceedings of the 28th ACM SIGKDD Conference on Knowledge Discovery and Data Mining. 3040–3050. [23] Jonathan Huyghe, Jan Derboven, and Dirk De Grooff. 2014-10-01. ALADIN: Adaptive Voice Interface for People with Disabilities. [24] Pascal Jansen, Julian Britten, Alexander Häusele, Thilo Segschneider, Mark Colley, and Enrico Rukzio. 2023. AutoVis: Enabling Mixed-Immersive Analysis of Automotive User Interface Interaction Studies. In Proceedings of the 2023 CHI Conference on Human Factors in Computing Systems. 1–23. [25] Jingun Jung, Sangyoon Lee, Jiwoo Hong, Eunhye Youn, and Geehyuk Lee. 2020. Voice+ tactile: Augmenting in-vehicle voice user interface with tactile touchpad interaction. In Proceedings of the 2020 CHI Conference on Human Factors in Computing Systems. 1–12. [26] Mohamed Kari, Tobias Grosse-Puppendahl, Alexander Jagaciak, David Bethge, Reinhard Schütte, and Christian Holz. 2021. SoundsRide: AffordanceSynchronized Music Mixing for In-Car Audio Augmented Reality. In The 34th Annual ACM Symposium on User Interface Software and Technology (Virtual Event, USA) (UIST ’21). Association for Computing Machinery, New York, NY, USA, 118–133. https://doi.org/10.1145/3472749.3474739 [27] A Donald Keedwell and József Dénes. 2015. Latin squares and their applications. Elsevier. [28] Bret Kinsella and Ava Mutchler. 2019. In-car voice assistant consumer adoption report. [29] Patrick Langdon, Ioannis Politis, Mike Bradley, Lee Skrypchuk, Alex Mouzakitis, and John Clarkson. 2018. Obtaining design requirements from the public understanding of driverless technology. Springer, 749–759. [30] David Lindlbauer, Anna Maria Feit, and Otmar Hilliges. 2019. Context-Aware Online Adaptation of Mixed Reality Interfaces. In Proceedings of the 32nd Annual ACM Symposium on User Interface Software and Technology (New Orleans, LA, USA) (UIST ’19). Association for Computing Machinery, New York, NY, USA, 147–160. https://doi.org/10.1145/3332165.3347945
+
+S. Wen, S. Ping, J. Wang, H.-N. Liang, X. Xu, and Y. Yan
+[31] Diane J Litman and Shimei Pan. 2002. Designing and evaluating an adaptive spoken dialogue system. User Modeling and User-Adapted Interaction 12, 2 (2002), 111–137.
+[32] Michal Luria, Guy Hoffman, and Oren Zuckerman. 2017. Comparing social robot, screen and voice interfaces for smart-home control. In Proceedings of the 2017 CHI conference on human factors in computing systems. 580–628.
+[33] Kirti Mahajan, David R Large, Gary Burnett, and Nagendra R Velaga. 2021. Exploring the benefits of conversing with a digital voice assistant during automated driving: A parametric duration model of takeover time. Transportation research part F: traffic psychology and behaviour 80 (2021), 104–126.
+[34] Florian Mathis, Kami Vaniea, and Mohamed Khamis. 2021. Replicueauth: Validating the use of a lab-based virtual reality setup for evaluating authentication systems. In Proceedings of the 2021 chi conference on human factors in computing systems. 1–18.
+[35] Florian Mathis, Kami Vaniea, and Mohamed Khamis. 2022. Can I Borrow Your ATM? Using Virtual Reality for (Simulated) In Situ Authentication Research. In 2022 IEEE Conference on Virtual Reality and 3D User Interfaces (VR). 301–310. https://doi.org/10.1109/VR51125.2022.00049
+[36] Florian Mathis, John Williamson, Kami Vaniea, and Mohamed Khamis. 2020. Rubikauth: Fast and secure authentication in virtual reality. In Extended Abstracts of the 2020 CHI Conference on Human Factors in Computing Systems. 1–9.
+[37] Oussama Metatla, Alison Oldfield, Taimur Ahmed, Antonis Vafeas, and Sunny Miglani. 2019. Voice user interfaces in schools: Co-designing for inclusion with visually-impaired and sighted pupils. In Proceedings of the 2019 CHI Conference on Human Factors in Computing Systems. 1–15.
+[38] Chelsea M. Myers, Anushay Furqan, and Jichen Zhu. 2019. The Impact of User Characteristics and Preferences on Performance with an Unfamiliar Voice User Interface (CHI ’19). Association for Computing Machinery, New York, NY, USA, 1–9. https://doi.org/10.1145/3290605.3300277
+[39] Chihab Nadri, Seul Chan Lee, Siddhant Kekal, Yinjia Li, Xuan Li, Pasi Lautala, David Nelson, and Myounghoon Jeon. 2021. Effects of auditory display types and acoustic variables on subjective driver assessment in a rail crossing context. Transportation research record 2675, 9 (2021), 1457–1468.
+[40] Chihab Nadri, Siddhant Kekal, Yinjia Li, Xuan Li, Seul Chan Lee, David Nelson, Pasi Lautala, and Myounghoon Jeon. 2023. “Slow down. Rail crossing ahead. Look left and right at the crossing”: In-vehicle auditory alerts improve driver behavior at rail crossings. Applied ergonomics 106 (2023), 103912.
+[41] Jakob Nielsen. 1994. Usability engineering. Morgan Kaufmann. [42] Ronald K Pearson, Yrjö Neuvo, Jaakko Astola, and Moncef Gabbouj. 2016. Gener-
+alized hampel filters. EURASIP Journal on Advances in Signal Processing 2016, 1 (2016), 1–18. [43] S.M. Sarala, D.H. Sharath Yadav, and Asadullah Ansari. 2018. Emotionally Adaptive Driver Voice Alert System for Advanced Driver Assistance System (ADAS) Applications. Association for Computing Machinery, Tirunelveli, India. https://doi.org/10.1109/ICSSIT.2018.8748541 [44] Chenhui Shen, Liying Cheng, Ran Zhou, Lidong Bing, Yang You, and Luo Si. 2021. MReD: A Meta-Review Dataset for Controllable Text Generation. arXiv preprint arXiv:2110.07474 (2021). [45] Yangming Shi, Jing Du, Eric Ragan, Kunhee Choi, and Shuo Ma. 2018. Social Influence on Construction Safety Behaviors: A Multi-User Virtual Reality Experiment. 174–183. https://doi.org/10.1061/9780784481288.018 [46] EH Siegel, J Wei, A Gomes, M Oliviera, P Sundaramoorthy, K Smathers, M Vankipuram, S Ghosh, H Horii, J Bailenson, et al. 2021. HP Omnicept Cognitive Load Database (HPO-CLD)–Developing a Multimodal Inference Engine for Detecting Real-time Mental Workload in VR. Technical Report. Technical report, HP Labs, Palo Alto. [47] Gustavo Silvera, Abhijat Biswas, and Henny Admoni. 2022. DReye VR: Democratizing Virtual Reality Driving Simulation for Behavioural & Interaction Research. In 2022 17th ACM/IEEE International Conference on Human-Robot Interaction (HRI). IEEE, 639–643. [48] Hao Tan, Yaqi Zhou, Ruixiang Shen, Xiantao Chen, Xuning Wang, Moli Zhou, Daisong Guan, and Qin Zhang. 2019. A classification framework based on driver’s operations of in-car interaction. In Proceedings of the 11th International Conference on Automotive User Interfaces and Interactive Vehicular Applications: Adjunct Proceedings. 104–108. [49] MinJuan Wang, Sus Lundgren Lyckvi, and Fang Chen. 2016. Why and How Traffic Safety Cultures Matter When Designing Advisory Traffic Information Systems. In Proceedings of the 2016 CHI Conference on Human Factors in Computing Systems (CHI ’16). Association for Computing Machinery, New York, NY, USA, 2808–2818. https://doi.org/10.1145/2858036.2858467 [50] Minghui Wang, Bi Zeng, and Qiujie Wang. 2021. Study of Motion Control and a Virtual Reality System for Autonomous Underwater Vehicles. Algorithms 14, 3 (2021). https://doi.org/10.3390.a14030093 [51] Yukang Yan, Haohua Liu, Yingtian Shi, Jingying Wang, Ruici Guo, Zisu Li, Xuhai Xu, Chun Yu, Yuntao Wang, and Yuanchun Shi. 2023. ConeSpeech: Exploring Directional Speech Interaction for Multi-Person Remote Communication in Virtual Reality. IEEE Transactions on Visualization and Computer Graphics 29, 5 (2023), 2647–2657. https://doi.org/10.1109/TVCG.2023.3247085
+
+AdaptiveVoice: Cognitively Adaptive Voice Interface for Driving Assistance
+[52] Jiahong Yuan, Mark Liberman, and Christopher Cieri. 2006. Towards an integrated understanding of speaking rate in conversation. In Ninth International Conference on Spoken Language Processing.
+[53] NI Mohd Zaki, SM Che Husin, MK Abu Husain, N Abu Husain, A Ma’aram, SN Amilah Marmin, AF Adanan, Y Ahmad, and KA Abu Kassim. 2021. Auditory alert for in-vehicle safety technologies: a review. Journal of the Society of Automotive Engineers Malaysia 5, 1 (2021), 88–102.
+[54] Xin Zou, Steve O’Hern, Barrett Ens, Selby Coxon, Pascal Mater, Raymond Chow, Michael Neylan, and Hai L Vu. 2021. On-road virtual reality autonomous vehicle (VRAV) simulator: An empirical study on user experience. Transportation Research Part C: Emerging Technologies 126 (2021), 103090.
+
+CHI ’24, May 11–16, 2024, Honolulu, HI, USA
+
+CHI ’24, May 11–16, 2024, Honolulu, HI, USA
+
+S. Wen, S. Ping, J. Wang, H.-N. Liang, X. Xu, and Y. Yan
+
+A APPENDIX: ADDITIONAL TABLES
+Here are two more detailed examples of our voice prompts and their corresponding type settings in waypoint2.
+
+type lod 0 1 1 1 2 1 3 1 4 1 5 1 6 2 7 2 8 2 9 2 10 2 11 2 12 3 13 3 14 3 15 3 16 3 17 3 18 4
+19 4
+20 4
+21 4
+22 4
+23 4
+24 5
+25 5
+26 5
+27 5
+28 5
+29 5
+30 5
+
+Rep. speed Waypoint 2 Voice
+
+Waypoint 3 Voice
+
+1 0.5 left
+
+straight
+
+1 1
+
+left
+
+straight
+
+1 2
+
+left
+
+straight
+
+2 0.5 left
+
+straight
+
+2 1
+
+left
+
+straight
+
+2 2
+
+left
+
+1 0.5 Turn left
+
+straight Go straight
+
+1 1
+
+Turn left
+
+Go straight
+
+1 2
+
+Turn left
+
+Go straight
+
+2 0.5 Turn left
+
+Go straight
+
+2 1
+
+Turn left
+
+Go straight
+
+2 2
+
+Turn left
+
+Go straight
+
+1 0.5 Turn left to Victoria Broadway Street
+
+1 1
+
+Turn left to Victoria Broadway Street
+
+Go straight to the Hollywood Overpass Go straight to the Hollywood Overpass
+
+1 2
+
+Turn left to Victoria Broadway Street
+
+2 0.5 Turn left to Victoria Broadway Street
+
+Go straight to the Hollywood Overpass Go straight to the Hollywood Overpass
+
+2 1
+
+Turn left to Victoria Broadway Street
+
+Go straight to the Hollywood Overpass
+
+2 2
+
+Turn left to Victoria Broadway Street
+
+Go straight to the Hollywood Overpass
+
+1 0.5 Turn left to Victoria Broadway Street at the intersection Go straight at the intersection and enter the Hollywood
+
+in 50 meters
+
+Overpass
+
+1 1
+
+Turn left to Victoria Broadway Street at the intersection Go straight at the intersection and enter the Hollywood
+
+in 50 meters
+
+Overpass
+
+1 2
+
+Turn left to Victoria Broadway Street at the intersection Go straight at the intersection and enter the Hollywood
+
+in 50 meters
+
+Overpass
+
+2 0.5 Turn left to Victoria Broadway Street at the intersection Go straight at the intersection and enter the Hollywood
+
+in 50 meters
+
+Overpass
+
+2 1
+
+Turn left to Victoria Broadway Street at the intersection Go straight at the intersection and enter the Hollywood
+
+in 50 meters
+
+Overpass
+
+2 2
+
+Turn left to Victoria Broadway Street at the intersection Go straight at the intersection and enter the Hollywood
+
+in 50 meters
+
+Overpass
+
+1 0.5 Turn left to Victoria Broadway Street at the intersection Go straight at the intersection and enter the Hollywood
+
+in 50 meters, and then change to the left lane
+
+Overpass, there is a slow down due to traffic
+
+1 1
+
+Turn left to Victoria Broadway Street at the intersection Go straight at the intersection and enter the Hollywood
+
+in 50 meters, and then change to the left lane
+
+Overpass, there is a slow down due to traffic
+
+1 2
+
+Turn left to Victoria Broadway Street at the intersection Go straight at the intersection and enter the Hollywood
+
+in 50 meters, and then change to the left lane
+
+Overpass, there is a slow down due to traffic
+
+2 0.5 Turn left to Victoria Broadway Street at the intersection Go straight at the intersection and enter the Hollywood
+
+in 50 meters, and then change to the left lane
+
+Overpass, there is a slow down due to traffic
+
+2 1
+
+Turn left to Victoria Broadway Street at the intersection Go straight at the intersection and enter the Hollywood
+
+in 50 meters, and then change to the left lane
+
+Overpass, there is a slow down due to traffic
+
+2 2
+
+Turn left to Victoria Broadway Street at the intersection Go straight at the intersection and enter the Hollywood
+
+2 2
+
+in 50 meters, and then change to the left lane
+
+Overpass, there is a slow down due to traffic
+
+Turn left to Victoria Broadway Street at the intersection Go straight at the intersection and enter the Hollywood
+
+in 50 meters, and then change to the left lane
+
+Overpass, there is a slow down due to traffic
+
+Table 4: Merged Waypoints
+
+Cognitive Load 0.12 0.15 0.18 0.21 0.26 0.28 0.34 0.32 0.35 0.38 0.40 0.43 0.46
+
+Type
+
+1 14 28 27 26 25 24 23 21 20 19 17 15
+
+Cognitive Load 0.55 0.57 0.60 0.63 0.68 0.73 0.76 0.82 0.85 0.87 0.90 0.92
+
+Type
+
+14 9 8 12 10 6 5 4 3 2 2 1
+
+Table 5: Measured cognitive load and corresponding audio type output by AdaptiveVoice. Note that results vary among
+
+individuals. Displayed here are the results for one participant.
+

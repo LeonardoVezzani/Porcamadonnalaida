@@ -1,0 +1,468 @@
+sensors
+
+Article
+Fidelity Assessment of Motion Platform Cueing: Comparison of Driving Behavior under Various Motion Levels
+Sara El hamdani * , Petr Bouchner *, Tereza Kunclova , Prˇemysl Toman, Josef Svoboda and Stanislav Novotný
+Department of Vehicle Technology, Faculty of Transportation Sciences, Czech Technical University in Prague, Konviktská 20, 110 00 Prague, Czech Republic * Correspondence: saraelhamdani@gmail.com (S.E.h.); xbouchnp@cvut.cz (P.B.)
+Abstract: The present paper focuses on vehicle simulator ﬁdelity, particularly the effect of motion cues intensity on driver performance. The 6-DOF motion platform was used in the experiment; however, we mainly focused on one characteristic of driving behavior. The braking performance of 24 participants in a car simulator was recorded and analyzed. The experiment scenario was composed of acceleration to 120 km/h followed by smooth deceleration to a stop line with prior warning signs at distances of 240, 160, and 80 m to the ﬁnish line. To assess the effect of the motion cues, each driver performed the run three times with different motion platform settings–no motion, moderate motion, and maximal possible response and range. The results from the driving simulator were compared with data acquired in an equivalent driving scenario performed in real conditions on a polygon track and taken as reference data. The driving simulator and real car accelerations were recorded using the Xsens MTi-G sensor. The outcomes conﬁrmed the hypothesis that driving with a higher level of motion cues in the driving simulator brought more natural braking behavior of the experimental drivers, better correlated with the real car driving test data, although exceptions were found.
+Keywords: driving simulator; driving simulator experiment; motion platform; Xsens MTi-G sensor; real car experiment; motion cues ﬁdelity; virtual reality
+
+Citation: El hamdani, S.; Bouchner, P.; Kunclova, T.; Toman, P.; Svoboda, J.; Novotný, S. Fidelity Assessment of Motion Platform Cueing: Comparison of Driving Behavior under Various Motion Levels. Sensors 2023, 23, 5428. https://doi.org/ 10.3390/s23125428
+Academic Editor: Enrico Meli
+Received: 5 May 2023 Revised: 5 June 2023 Accepted: 6 June 2023 Published: 8 June 2023
+Copyright: © 2023 by the authors. Licensee MDPI, Basel, Switzerland. This article is an open access article distributed under the terms and conditions of the Creative Commons Attribution (CC BY) license (https:// creativecommons.org/licenses/by/ 4.0/).
+
+1. Introduction
+Driving simulator technology is one of the most sophisticated applications of computeraided kinematic and dynamic simulations [1] designed to simulate the various physical and visual characteristics of driving [2] and widely employed to explore diverse aspects of the transportation landscape [3]. For instance, simulators can play a signiﬁcant role in testing future innovations such as Autonomous Vehicles (AVs) [4] and evaluating performance as well as passenger experience [5] in different driving scenarios (i.e., road conditions, weather, trafﬁc [6], vulnerable road users [7,8]) which is crucial for the development and validation of these technologies before deploying them in real-world use [9].
+Nonetheless, the motion ﬁdelity aspect is a remaining limitation that the driving simulator research ﬁeld faces [10,11], despite the continuous efforts invested in the enhancement of the motion platform using advanced Artiﬁcial Intelligence techniques, including Machine Learning (ML) algorithms [12–14]. To tackle this challenge, evaluating the realism and accuracy of existing motion platforms is ﬁrst necessary. This could theoretically be done in terms of motion in different axes separately (Pitch, Yaw, Roll) or by evaluating speciﬁc driving performances such as acceleration (separately in longitudinal motion/combination with lateral motion) to precisely deﬁne the remaining limitations compared to realistic motion cues. Previous research used distinct methodologies to assess the ﬁdelity of driving simulators, including subjective and objective evaluations [10]. In addition, particular focus was given to motion sickness as an important parameter evaluating the values of various driving simulator characteristics, among which are vehicle dynamics [15] and motion cues [16,17]. However, few studies have speciﬁcally focused on the assessment of the reliability of physical motion cues of simulators.
+
+Sensors 2023, 23, 5428. https://doi.org/10.3390/s23125428
+
+https://www.mdpi.com/journal/sensors
+
+Sensors 2023, 23, 5428
+
+2 of 16
+Berthoz et al. [18] aimed to assess the effects of motion scaling on the driver’s motion perception and genuine driving performance. The study evaluated the subjective preferences of participants for various scaling factors in three cutting-edge simulator systems as a basis for the assessment. This study concluded that driving performance is greatly impaired when motion cues are either very limited or absent, even though the participants preferred scaling factors below 1. A deeper assessment of the effect of motion cues in distinct axes, namely Yaw and Sway Motion Cues, was conducted in the experiments of Lakerveld et al. [19]. Nonetheless, the evaluation concerned the curve driving simulator, which is widely different from existing Six Degrees-Of-Freedom (6-DOF) motion platforms and hence could not reﬂect this latter’s performance. Salisbury et al. [20] focused on studying the motion cues in high-performance vehicle simulators such as race-car to understand the race drivers’ cueing needs. Thus, the authors designed adapted cueing ﬁlters that were devised to provide the driver with the necessary cues to control the car at its maximum performance level. Yet, the study was limited to 2 and 3-DOF platforms. Contrarily, the research done by Cleij et al. [21] tackled the assessment of motion incongruence in a sophisticated 8-DOF simulator due to mismatches between unrestricted visual motion and restricted inertial motion cues. To avoid the time-invariant ratings of total mismatch yield by traditional assessment methods, the researchers proposed a new evaluation methodology describing physical short-duration cueing errors and consisting of continuous drivers’ rating of motion incongruence during passive driving simulations with consistency, still their method relied entirely on subjective evaluation which is a major limitation of the study. To overcome this weakness, the research conducted previously by El Hamdani et al. [22] applied both objective (i.e., performance in the simulator, eye tracking) and subjective (questionnaire) evaluation methods that showed a positive impact of the feedback given by motion cues on drivers’ braking performance and visual focus on the track. However, the latter paper and the previous surveyed works did not compare the level of the motion platform’s cues with those generated by real cars on the roads.
+Earlier research [23,24] assessed the simulator ﬁdelity compared to a real car by evaluating driver performance in both environments. However, these studies had various limitations, such as a limited number of participants (i.e., one in a real car vs. six in a simulator) [24], and relied on old methodologies, namely primitive eye tracking [24] and subjective ranking [23]. A recent paper by Loreto et al. [25] aimed to tackle the whiplash problem by recording and comparing dynamic ranges of motion of the passengers’ heads made in a simulator versus a real car, although the real car part was left as a perspective. Xsens MTi-G sensor [26] is a sensor that has been extensively used in recent state-of-the-art experiments for various measurements of, e.g., vehicle acceleration and motion [27–29], simulators with motion platforms [30], mobile robots [31–33], pedestrians [34,35], and autonomous vehicles [36], and has proven to be useful and reliable in different use cases.
+In this paper, we aim to assess the motion cues provided by a 6-DOF motion platform, focusing on longitudinal motion, compared to a real car recorded using the Xsens MTi-G sensor. We evaluate the deceleration performance of 24 participants while accomplishing smooth braking from high speed in both virtual and real environments. Based on the outcomes, we expect to explore some of the limitations of the motion platform and intend to obtain open directions to improve the overall simulator ﬁdelity.
+2. Materials and Methods 2.1. Research Design
+The objective of the current study is to investigate how the simulator’s motion cues impact driving behavior, speciﬁcally concerning achieving a smooth braking experience towards a designated point. Therefore, we aim to study driving behavior to assess the simulator ﬁdelity by adjusting the motion platform parameters to various levels of motion cues and comparing the outputs with the performance from a real car test, which serves as a reference.
+
+Sensors 2023, 23, 5428
+
+3 of 16
+2.2. Participants
+A total of 24 drivers participated in the virtual reality experiment, with an age range of 20 to 65 years (average of 29.83 years and a standard deviation of 11.30 years). Out of the 24 participants, 5 were females and 19 were males. They were recruited from various backgrounds, including employees, students from CTU in Prague, and volunteers from non-academic ﬁelds. The recruitment process was conducted through the university’s email service. The participants’ driving experience (requirement of having a valid driver’s license of at least category B) ranged from 1 to 48 years (average of 12.29 years and a standard deviation of 11.24 years). In addition, 58.33% of the participants drove at least four times a week, while the rest drove a few times a month. Of the 24 participants, 54.17% had prior experience with driving simulators. However, one participant had to drop out due to motion sickness; thus, the data of 23 participants were used in the evaluation of the simulator data.
+To obtain real car behavior, two members of our laboratory (an average of 31 years, one female and one male, both active drivers with driver’s licenses) volunteered to replicate the virtual experiment on a real track as ﬂawlessly as feasible in repeated trials. Five records of their drives were used as a reference for comparison and evaluation of virtual driving measurements, as these sensor data showed the most accurate noise-free sensing in the runs.
+2.3. Apparatus 2.3.1. Driving Simulator
+A laboratory simulator (shown in Figure 1) consisting of a Škoda Superb III cabin with automatic transmission was used for the experiment. The dynamics model [37] of the car corresponded to a front-wheel drive European mid-class car and was developed in the Automotive R&D 4.0 LAB at the Czech Institute of Informatics, Robotics and Cybernetics (CIIRC) at the Czech Technical University (CTU) in Prague. The car cabin was placed on a motion platform with the parameters calibrated to match the driving scenario and follow road irregularities, curves, and acceleration [38]. To provide a fully immersive experience, three Full HD displays were installed to fully cover the entire visible area from the front and side windows and project the scenario. These displays were mounted to the structure of the cabin and thus copied the simulator’s motion. The software part of the simulator incorporated a virtual reality (VR) engine to render the scenario and environment using 3D graphics and spatial audio based on the physics engine.
+2.3.2. Motion Platform
+Figure 2a showcases the motion platform assembly utilized in the laboratory, which is comprised of six electric motors and six actuators located between the upper and bottom frames. With a height of approximately 0.8 m (see Figure 2b), this hardware setup allows movement in the pitch, roll, and yaw axes, as illustrated in Figure 2c, granting the simulator six degrees of freedom (6-DOF). The platform is supplied by Pragolet, s.r.o., Praha-východ, Czech Republic [39] and its movements are managed by a specially designed algorithm for optimal motion cues. This algorithm includes a washout ﬁlter and a kinematic transformation of the actuators’ position. The targeted motion and “washout” algorithm are computed on the base of the inner model running on dedicated hardware (PLC). A mathematical and physical model of the vehicle is calculated by separate software on different hardware supplying the control PLC with these target motion data.
+
+Sensors 2023, 23, 5428
+Sensors 2023, 23, x FOR PEER REVIEW Sensors 2023, 23, x FOR PEER REVIEW
+
+4 of 16 4 of 16
+
+4 of 16
+
+FPFiirggauugurreeeF.1ig1. uT. rheTe 1hd.reTivhdinergidvsriiimvniugnlgastsoiimrmuuuslelaadttofororrutsuheesdepfdroersfetohnret sptthuredesyepninrtesRst&uedDnyt4i.sn0tuLRAd&ByDai4tn.t0hReLAC&BIDIRaCt4,t.hC0eTLUCAIiInRBC,aCt TthUeinCIIRC, CTU in PraPgruageu. e.
+
+Sensors 2023, 23, x FOR PEER REVIEW
+
+(a) (a)
+
+5 of 16
+
+(b)
+
+(c)
+
+FigurenFie2gn.utDsreoef2s.tihDgenepsoilgafnttfhoorfemtshifexrosdimxedgtheregereteosepsf;rf(erbee)edtdhooemmcommmoopttoioinonennptplsaltoaffotrfthmoermopflatohtffeotruhmseefdurossmiemdtuhsleiamtsoirud:el(a;a(t)cot)hri:ell(ucaos)tmrtahpteoes-components of the tphleaPtfitocrhm, Rforlol,mYawthaextisopen;a(bbli)ntgh6e-DcoOmF pfoorntheenptslaotffortmhempolvaetmfoernmt. from the side; (c) illustrates the Pitch,
+Roll, Yaw axis enabling 6-DOF for the platform movement. 2.3.3. Xsens Sensor
+A sensor by Xsens that provides accurate and reliable motion data in a compact form factor was used to measure the motion-related parameters during the virtual reality and the real track experiments. The Xsens MTI-G-710 sensor (Figure 3a), connected to the GNSS antenna (Figure 3b), is a high-precision motion tracking device designed for use in a variety of applications. The sensor combines GNSS and inertial data and, by using a Kalman ﬁlter, provides accurate position and velocity data (with the possibility to work
+
+Sensors 2023, 23, 5428
+
+5 of 16
+
+2.3.3. Xsens Sensor
+A sensor by Xsens that provides accurate and reliable motion data in a compact form factor was used to measure the motion-related parameters during the virtual reality and the real track experiments. The Xsens MTI-G-710 sensor (Figure 3a), connected to the GNSS antenna (Figure 3b), is a high-precision motion tracking device designed for use in a variety of applications. The sensor combines GNSS and inertial data and, by using a Kalman ﬁlter, Sensors 2023, 23, x FOR PEER REVIEWprovides accurate position and velocity data (with the possibility to work up to 45 s w6ithofou16t GNSS data). Based on the architecture illustrated in Figure 3c, this device uses advanced inertial measurement technology to accurately measure and track the movement of an object in three-dimensional space [40].
+
+(a)
+
+(b)
+
+(c)
+2FFAiigg8uuGrree4”33;..(IbIlll)luuGsstNtrraaSttSiiooAnnnooteffntthhneae;MM(cTT) iia--rGGchssieetenncsstoourrreuussoeevdderiivnnieoowuurroeefxxtppheeerrMiimmTeeinn-Gttss::sy((aas)t)essmeenn[ss4oo0rr].““XXsseennss MMTTII--GG--771100-2A8G4”; (b) GNSS Antenna; (c) architecture overview of the MTi-G system [40].
+XThseenMs KTaI-lGm-a7n10Fiilsteerq(uXipKpFe-3d) wcoimthpau6te-asxtihseinoreiretniatlamtioenasoufrMemTieunstiunngisti(gInMaUls)ftrhoamt craotnegsiysrtsosocfoape3s-a, xaisccaeclceerloemroemteertse,r,aan3d-amxiasggnyertoosmcoepteer,sa.nIdt apdroigviitdalessiganahlipghrolycesascocruwraitteh t3hDe oarrciehnitteactitounre eislltuimstaratetedwiinthFingourder3ifct afnodr tshteatpicaraanmdetderysndamesiccribmeodvienmTeanbtsle. 1Th[2e6]X. KTFh-i3s acolgmorbiitnhamtioins oafsseennssoorrsfupsrioovnidaelgsohriigthhm-retshoalut tcioonmmpeontsioanteds aftoarwdirtihftloerwrolrastebnycyi,nmteagkriantignigt msueitaasbulreefmorenretsalo-ftigmraevmitoytfioronm-trtahcek3inDgaacpcpelleicraotmioentse.rs and Earth’s magnetic north from the 3D magnetometers. This drift compensation technique is known as attitude and heading reference, and the system is commonly referred to as an Attitude and Heading Reference System (AHRS) [26].
+2.4. Settings 2.4.1. Real Track Setup
+The real car experiment was conducted to obtain reference data to be used as a typical case with an active driver. In addition, it served us to verify that our motion platform does not operate out of the realistic operational domain. For the experiment, the participants drove the hybrid-powered Toyota Prius vehicle. This car was chosen because of its gear-
+
+Sensors 2023, 23, 5428
+
+6 of 16
+
+Table 1. Summary of the main Features and Parameters describing the performance of the MTi-G-710 sensor used in the experiments [26].
+
+Feature Sensor fusion
+Gyroscope Accelerometer
+
+Performance
+
+Parameter
+
+Value
+
+Roll, Pitch
+
+0.2 deg RMS
+
+Yaw/Heading
+
+0.8 deg RMS
+
+Strapdown Integration (SDI)
+
+1.0 m (1σSTD)
+
+Velocity
+
+0.05 m/s (1σSTD)
+
+Standard full range
+
+450 deg/s
+
+In-run bias stability
+
+10 deg/h
+
+Bandwidth (−3 dB) Noise Density
+g-sensitivity (calibr.)
+
+415 Hz 0.01◦/s/√Hz
+0.003◦/s/g
+
+Standard full range
+
+20 g
+
+In-run bias stability
+
+15 µg
+
+Bandwidth (−3 dB) Noise Density
+
+375 Hz √
+60 µg/ Hz
+
+Xsens Kalman Filter (XKF-3) computes the orientation of MTi using signals from rate gyroscopes, accelerometers, and magnetometers. It provides a highly accurate 3D orientation estimate with no drift for static and dynamic movements. The XKF-3 algorithm is a sensor fusion algorithm that compensates for drift errors by integrating measurements of gravity from the 3D accelerometers and Earth’s magnetic north from the 3D magnetometers. This drift compensation technique is known as attitude and heading reference, and the system is commonly referred to as an Attitude and Heading Reference System (AHRS) [26].
+
+2.4. Settings 2.4.1. Real Track Setup
+
+The real car experiment was conducted to obtain reference data to be used as a typical
+
+case with an active driver. In addition, it served us to verify that our motion platform does
+
+not operate out of the realistic operational domain. For the experiment, the participants
+
+drove the hybrid-powered Toyota Prius vehicle. This car was chosen because of its gearless
+
+transmission (e-CVT), which does not introduce any non-linear characteristics into the
+
+engine braking. The Xsens MTi-G-710 sensor was installed close to the center of gravity of
+
+the car, as shown in Figure 4a. The sensor was connected to the GNSS antenna installed on
+
+the top of the vehicle, as presented in Figure 4b. The track consisted of more than 1280 m
+
+situated on a safe straight road of an old airport used for vehicular experiments.
+
+The trafﬁc cones, shown in Figure 4c, were placed respectively at the beginning of the
+
+track and distances of 240 m, 160 m, and 80 m to the stop line, as were the three warning
+
+signs in the simulator experiment, to warn drivers of an impending stopping point and
+
+prepare them to initiate deceleration. The positions were depicted on Google Earth in
+
+Figure 4d, and this gives the time to gradually reduce the speed to the target from a high
+
+initial velocity (≥120 km/h) in compliance with the AASHTO [41] stopping sight distance
+
+Equation (1):
+
+s = (0.278 · t · v) + v2 254 · ( f + G)
+
+(1)
+
+where the stopping distance “S” is measured in meters, the vehicle’s speed “v” is expressed in kilometers per hour, the perception-reaction time “t” in seconds with the worst-case scenario being 2.5 s, the road’s grade or slope “G” expressed as a decimal, and the coefﬁcient
+
+Sensors 2023, 23, 5428
+
+Equation (1):
+
+𝑠
+
+. ⋅⋅ ⋅
+
+²
+
+(1)
+
+where the stopping distance “S” is measured in meters, the vehicle’s speed “v” i7soef x16pressed in kilometers per hour, the perception-reaction time “t” in seconds with the worst-
+case scenario being 2.5 s, the road’s grade or slope “G” expressed as a decimal, and the
+ofccrooficeeftrﬃﬃiiocccntiiieeoinnsnttt“yoofpff”iffcrbraieiclcttltywiioo0enn.e7ins“, wftt”yhhpebiielwcetawholleneyeeal0ns.w7at,hnewetdrhwotihalheedeo,reoniltsaardaawnnsudgetertfsrhaofceraeodr.mo,Oait0ndr.3aasnutdogrrfe0yas.c4rfeo.r.oaOdm,nt0h.a3edtcoroy0e.fr4ﬁo.caiden, tthoef
+
+FFiigguurree 44.. IIlllluussttrraattiioonn ooff tthhee rreeaall ccaarr eexxppeerriimmeenntt sseettuupp:: ((aa)) MMTTii--GG--771100 sseennssoorr iinnssttaalllleedd cclloossee ttoo tthhee cceenntteerr ooff ggrraavviittyy ooff aa uusseedd TTooyyoottaa ccaarr;; ((bb)) GGNNSSSS aanntteennnnaa iinnssttaalllleedd oonn tthhee ttoopp ooff tthhee vveehhiiccllee;; ((cc)) tthhee totrrfaatfﬃhﬁecc crceooannleedssruuivsseienddgiinenxtthpheeereiexmxppeenerritmitmreaencntktpoplavlaceecrdeladiodnonothntehGerooroaodgalsdeisdEiedaaerstahasismausabugsbteis.ttuittue tfeorfowr awrnairnngin; g(d; )(dsc)hsecmheemoef the real driving experiment track overlaid on Google Earth image.
+22..44..22.. SSiimmuullaattiioonn SSeettuupp TThhee ddrriivviinngg ssiimmuullaattoorr eexxppeerriimmeenntt iinnvvoollvveedd ccrreeaattiinngg aa ddrriivviinngg sscceennaarriioo oonn aa 44220000 mm
+lloonngg ttwwoo--llaannee rruurraall rrooaadd wwiitthh ttwwoo--wwaayy ttrraafﬃﬁcc,, ddeeppiicctteedd iinn FFiigguurree 55aa.. IInn tthhiiss sscceennaarriioo,, tthhee parrttiicciippaannttsswweerreererqequuirierdedtotopepreforrfomrma barabkriankgintagsktaastkaastpaecsipﬁecctiaﬁrcgettaprgoeint tp, ostianrtt,instgarfrtoinmg afr1o2m0 kam12/0hkdmri/vhindgrisvpienegds.pAesedsh. oAws nshinowFinguinreF5igbu, trhee5tba,rgtheet sttaorpgpetinsgtoppopiinntgenpcooinmtpeanscsoems arpaaislwseasyacrraoislwsinayg cornosthsiengrooand,thanedrotahde,paanrdtitchipeapnatrstwiciepraengtisvweneriensgtirvuecntiionnsstrtuochtiaolnt sdtiorehctallyt at the stop line in front of the closed crossing barrier marked with a STOP sign and ﬂashing lights.
+The road situation was established by installing warning signs, as shown in Figure 5c, to alert the drivers to the impending railway crossing and prompt them to reduce their speed. As illustrated in Figure 5a, the track includes three unique warning signs with stripes placed at 80 m (three stripes marker), 160 m (two stripes marker), and 240 m (one stripe marker) ahead of the railway crossing, which gives the necessary time to gradually reduce speed to the target from a high initial velocity (≥120 km/h) based on the stopping sight distance in Equation (1).
+2.5. Procedures 2.5.1. Experiment Procedure
+The virtual reality experiment was conducted in a dimly lit and peaceful environment. The participants were initially surveyed for general details like their age or driving experience. A trial scenario was then presented to allow the participants to familiarize themselves
+
+Sensors 2023, 23, 5428
+
+directly at the stop line in front of the closed crossing barrier marked with a STOP sign and ﬂashing lights.
+The road situation was established by installing warning signs, as shown in Figure 5c, to alert the drivers to the impending railway crossing and prompt them to reduce their speed. As illustrated in Figure 5a, the track includes three unique warning signs w8 iotfh16 stripes placed at 80 m (three stripes marker), 160 m (two stripes marker), and 240 m (one stripe marker) ahead of the railway crossing, which gives the necessary time to gradually wreidthuctheespdereivdintogtshiemtualragteotr.frNomovaicheigdhrivineirtsiarlevqeuloirceidtya(n≥1a2d0akpmta/thio) nbapserdioodnothf e5 sttoo1p0pimngin, wsihgihlet dexisptaenriceenicnedEqduriavtieorns o(1n)l.y took 1 to 3 min to get comfortable.
+
+FFiigguurree 55.. TTrraaﬃfﬁccsscceennaariroioddeseisgingendedfofrotrhtehveirvtuiratul arelarleitaylietyxpeexrpimereinmt:e(nat): t(raa)cktrlaacykoulatyforoumt ftrhoemtotphe tvoipewviwewithwdiitshtadnicsetasntoceesntdopeonidntp; (obi)ntth; e(bs)totphelisnteopat lrianielwaatyracirlowssaiyngc;ro(cs)ssincrge;e(ncs)hsoctreoefnthsheoCtooufntth- e CDoouwnnt-DMoawrknerMs a(CrkDeMrs)(uCsDedMa)suwseadrnaisnwg sairgnnins g(8s0i/g1n6s0/(28400/m160d/is2t4a0ncme)d. istance).
+2.5. PTrhoecepduarretiscipants in the study were instructed to drive a straight path, reach a speed o2f.51.210. Ekxmp/erhim, aenndt Pthreoncecdoumree to a complete stop at the designated stop line in front of the
+railwaTyhecrvoisrstiunagl. rEeaaclihtypeaxrtpiceirpimanetnrtewpeaastecdonthdeucstaemdeintaaskdtihmrelye tliitmaensdinpeeaacchefruoluenndviurnond-er dmifefenrte. nTthme potairotnicilpevaenltss, wnaemreeilnyit“iMalloytisounrvLeeyveedl 0fo”rfgoernneoraml odteitoanilsculiekse, “thMeiortiaogneLoervderliv1”infgor tehxepmeriilednlceev.eAl otfrmialotsicoenn,aarniod w“MasottihoennLperveesle2n”tefodrttohealhloigwh ltehveepl oafrtmicoiptiaonnt.sTthoefapmarialimareitzeers otfhethmesmelovteisonwpitlhattfhoermdriwvienreg asidmjuusltaetdort.oNaosvuiicteabdlreivleevrselroeqf umiroetdioannbaedfoarpetaetaicohnrpoeurnioddboafse5d oton 1th0emmine,awsuhrielemeexnpteprileannc,emdedarnivinegrstohnaltythtoeopka1rttioci3pamnitns tdorogvetecuonmdfeorrtaadblieff.erent order of motioTnhleevpealrst.icipants in the study were instructed to drive a straight path, reach a speed of 12T0hkemsc/ha,leanfudntchteionnc(oemxpeltaoinaecdoimnpoluertepsrteovpioaut sthpeapdeersi[g2n5a]t)eddesptiocpteldinien iFnigfruornet6osfctahlees trhaeilwinapyuctrosisgsninagl.fEraocmh pthaertimcipatahnetmreapteicaatel dmtohde eslamofetthaeskstihmrueelattiemdesvienheicalcehtroouthned munodtieorn pdliaﬀtfeorermnt, mdeoﬁtinonedlebvyelvs,anriaomueslypa“rMamoteiotenrsLienvcellu0d”infogr“nMoamxiomtiuonmcAuecsc,e“leMraottiioonn [Lreavde/ls12”]”, which represents a limit for input linear acceleration, “Maximum Angular Velocity [rad/s]”,
+which is a limit for input angular velocity, and “Gain [-]”, which is a multiplication factor
+of linear acceleration. The parameters for the static level were set to 0, as shown in Table 2,
+where the gain is not taken into consideration. The parameters for the high level of
+motion were adjusted to the recommended higher values for this simulator to minimize the
+occurrence of motion sickness. The values for the low level of motion were set by halving
+the aforementioned values.
+
+Sensors 2023, 23, 5428
+
+represents a limit for input linear acceleration, “Maximum Angular Velocity [rad/s]”, which is a limit for input angular velocity, and “Gain [-]”, which is a multiplication factor of linear acceleration. The parameters for the static level were set to 0, as shown in Table 2, where the gain is not taken into consideration. The parameters for the high level of motion were adjusted to the recommended higher values for this simulator to min9iomf 1iz6e the occurrence of motion sickness. The values for the low level of motion were set by halving the aforementioned values.
+
+FiFmgiuogdureerel6o.6f.RRtehepepresrseimesneuntaltataittoeindonovfoefhthtihceleeSSctacolaetlheFeFuumnncotcittoiiononn[2p[52la]5t]tfhtohartamts.csacalelsesththeeininppuut tsisgignnaal lfrforommththeemmaaththememataitciaclal model of the simulated vehicle to the motion platform.
+
+TaTbalbele2.2S. uSummmmarayryofofththeemmootitoionnpplaltaftoformrmpparaarmameteetresrsththatatddeﬁeﬁnneeScSaclaelefufunnctcitoinon(F(Figiguurere6)6)tutunnededfofor r
+
+ddififﬀereernetnltelveevleslsofomf motoitoinoncuceuse.s.
+
+Maximum Acceleration
+
+Motion Level Maximum Accele[rraatido/ns2[]rad/s2]
+
+Motion Level
+
+XAcc XAcc YAcc YAcc ZAccZAcc
+
+MMaxiamxuimmuAmngAunlagruVlealroVcietylo[rcaidty/s[]rad/s]
+
+XAV XAV
+
+YAV YAV
+
+XG
+
+GaGina[i-n] [-] XG YG YG ZGZG
+
+MotMioontLioenveLl e0vel 0 0
+
+000
+
+00
+
+00
+
+00
+
+-
+
+-- -
+
+--
+
+MotMioontLioenveLl e1vel 1 0.7 0.7 0.55 0.55 0.7 0.7
+
+0.07 0.07
+
+0.07 0.07
+
+0.45 0.45 0.1 0.1 0.105.15
+
+MotMioontLioenveLl e2vel 2 1.5 1.5 1.1 1.1 1.5 1.5
+
+0.15 0.15
+
+0.15 0.15
+
+0.9 0.9 0.2 0.2 0.30.3
+
+On average, each participant’s measurement required 25 min, encompassing adapt-
+ing Otonthaevesrimaguel,aetaocrhapnadrtciocmippanlett’sinmgetahsrueerermouentdrseoqfutihreedd2r5ivminign,taesnkc,oemapchaslsaisntginagd2a.p5tminign. toInthceonsitmraustl,antooraadnadpctaotmiopnletitminegwtharseneereoduenddfsoorfththeerdearlivtrinagcktaesxkp,eeraimchenlatstsiningc2e.5thme pina.rItniccoipnatrtiansgt, dnroivaedraspftraotmionthtiemlaebworaastnoeryedheaddfopretvhieoruesaletxrpaecrkieenxcpeerwimithentthsesiTnocyeotthaecpaarrsteicliepcatet-d infogrdtrhiveemrsefarosumretmheenlatbs.orVaotolurnytheeardspwreevreiouaskeexdpetoriernecpeliwcaitteh the Tvoirytoutaal cbarraskeinlegctteadskfoars thcelomseelaysausrefmeaesnibtsle. Voonluthnetereerasl wtrearcekaasnkdedwteorereaplliocwatedthtoe vpierrtfuoarlmbrraekpienagtetadsktriaaslsc.losely as feasible on the real track and were allowed to perform repeated trials.
+
+2.5.2. Analysis Procedure
+Two datasets were obtained during the experiment. First, the internal parameters from the physical model of the vehicle simulation were recorded with a periodicity of 2 ms. Second, data from the Xsens accelerometer was collected. The raw data from the driving simulator was ﬁltered and processed so that the individual measurements were referenced to each other based on distance (position). All data were visualized in 2D plots (time × distance; time × acceleration) and checked for missing data/errors. The Xsens data (pitch/acceleration of the platform) were compared to theoretical maximal values. Other recorded parameters, e.g., ﬁrst brake use prior to the braking task of each driver at different levels of platform motion, were also analyzed. In addition, the experiment survey data were used to obtain the participants’ subjective driving experience.
+
+3. Results
+The present chapter describes the results obtained from the experiment. Data from the driving simulator and the Xsens accelerometer placed in the simulator during driving were processed. In addition, a comparison with reference data taken from the Xsens accelerometer during real driving testing was carried out.
+
+Sensors 2023, 23, 5428
+
+3. Results
+The present chapter describes the results obtained from the experiment. Data from the driving simulator and the Xsens accelerometer placed in the simulator during driving were processed. In addition, a comparison with reference data taken from the Xs1e0nosf 1a6ccelerometer during real driving testing was carried out.
+3.31..1.GGenenerearlal
+TThheesusummmmaaryryddataatashshoowwnnininFFigiguurere77inidndiciactaetdedvevreyrylolwowddififﬀereernencecsesininmmaxaixmimuumm spspeeded, ,aavveerraaggeessppeeeedd,, and aavveerraaggeeddeecceeleleraratitoionnwwhehnendrdivrivnignwg iwthitdhiﬀdeifrfeenrtenletvleelvs eolfsmofomtiootniocnuceus.eHs.oHwoevweerv, eort,hoetrhvearluveasludeisﬀedrieffderseigdnsiiﬁgcnainﬁtclyan, ptlayr, tpicaurltaicrulylatrhley atchceuaraccyuroafcbyroakf birnagkianngdamndaxmimaxuimudmecedleecrealteiorant.ioWnh. iWlehpielerfpoermrfoinrmg ainsgelaf-saeslsfe-asssmeessnmt aenndt asnudbjseuctbivjeecteivaelevualtuioantiofnthofe tdhreivdinrigvisnimg usilmatuorla, thore, ttehset dtersivt edrrsivperresfeprrefderthreedMthoetioMnoLtieovnelL1esveetlti1ngse, twtihnigc,h wthhiecyhctohneysicdoenresiddteorebdettohbeemthoestmreoasltisrteiacliasntidc taondprtoovpidroevriedlevrealnetvfaenetdfbeaecdkb.aTckh.isTfhaicstfiascctoisncoﬁnrmﬁremdebdybtyhethseumsummamryarryesruelstusl,tps,aprtaicrtuiclaurllayrltyhethloewloewsteastvearvaegreagsepesepdeeadndantdhethloewloewsteasvt averearaggeeddeecceelelerraatitoionn..HHoowweevveerr,,aammoorree detailed analysiiss ooffbbrraakkiinnggbbeehhaavvioiorreelalabboorarateteddinin SeScetcitoinon3.32.2shshoowwededuunnreraelailsitsitcicasapspecetcstsoof fbbrarakkininggwwitihthththeeMMootitoionnLLeevveel l11ssimimuulalatotorrsseetutupp. . SpSpeceicﬁicﬁaclalyll,yw, we peopinoitnotuotuathaighhigmhamxiamxiummudmecdeeleceraletiroantioandan“pdu“mpupminpg”inogf”thoef tbhreakberapkeedaple,wdhailc,hwwhoicuhldwboeuvlderbyeuvnecroymufnocrotambfloeritnabalereianl averehaicllvee(hseiceleFi(gseuereF8ig).ure 8).
+
+225% 200% 175% 150% 125% 100%
+75% 50% 25%
+0%
+
+Comparison of motion platform levels – Motion Level 2 as a reference (100%)
+
+Max speed [km/h]
+
+Average speed
+
+Max
+
+[km/h]
+
+deceleration
+
+[m.sˉ²]
+
+Average deceleration
+[m.sˉ²]
+
+Stopping point First brake use
+
+(distance from distance (from
+
+the stop line) the stop line)
+
+[m]
+
+[m]
+
+Motion Level 0 Motion Level 1 Motion Level 2
+
+FieFgniugcureer=e7t7.h.eSSpuulmamtmfmoaramrryycdudaeatatMaoofotifdordnivrLieverevbreelbh2ea)h.vaiovriodrudriunrgintghethderivdirnigvisnigmusilmatourlaetxopr eerximpeernitm(e1n00t %(1r0e0f%erreference = the platform cue Motion Level 2).
+3.2. Braking Behaviour
+The braking behavior analysis of speciﬁc participants in Motion Level 1 and 2 settings provided insight into the perception of deceleration and brake control. The real car driving tests were considered a reference frame of exemplary driver behavior. Based on real car runs, the following assumptions were established: (a) although the drivers had been instructed to brake as continuously as possible, they were unable to do so; therefore, there were distinctive segments with constant deceleration with short transition phases between segments; (b) deceleration greater than approximately 4 m/s2 is perceived as too violent to be applied even though it is far from the maximum braking capacity of the vehicle, therefore if such deceleration occurs in the simulator, it is an indicator for an insufﬁcient motion cue.
+The braking behavior of various drivers when driving with different levels of motion cues is shown in Figure 8a–c. The driving behavior of all the drivers was analyzed. To present the braking trend, due to clarity reasons, the data of 3 participants were selected for which both trends, for Motion Level 1 as well as for Motion Level 2, are apparent and most clearly demonstrated. These three exemplary trends were selected because they are indicative of and consistent with the driving behavior of the other participants. The decision to present the results in this manner was made because if the trends of all the participants were plotted, the results would become unclear. It can be seen that the participants reacted and started to decelerate earlier under Motion Level 2 conditions, which led to smoother braking and better performance on the braking task.
+
+Sensors 2023, 23, 5S4e2n8sors 2023, 23, x FOR PEER REVIEW
+
+11 of 16 11 of 16
+
+(a)
+(b)
+(c) Figure 8. Comparison of braking behavior with Motion Levels 1 and 2: (a) braking behavior of Participant 2, (b) braking behavior of Participant 3; (c) braking behavior of Participant 5.
+
+Sensors 2023, 23, 5428
+
+12 of 16
+
+Additionally, as previously mentioned, the participants were causing so-called “pump-
+
+ing” of the brake pedal under the Motion Level 1 conditions, resulting in abrupt deceleration
+
+that would be enormously uncomfortable in a real car. However, these three braking trends
+
+are partially different; Motion Level 2 signiﬁcantly helped Participant 2 feel the vehicle’s
+
+speed when braking and therefore began to decelerate earlier and more consistently. While
+
+Participant 3 began decelerating later under the Motion Level 2 conditions, and the speed
+
+curve trend appears to be steep, this braking was executed more smoothly, without “pump-
+
+ing” the brake pedal as under the Motion Level 1 conditions. Finally, Participant 5 indicated
+
+the results of a minority of the participants, with the driver failing to fulﬁll the task and
+
+crossing the given stop line under the Motion Level 2 conditions.
+
+Although he did meet the task under the Motion Level 1 conditions, the braking was
+
+not performed smoothly, and again the graph shows “pumping” of the brake pedal that
+
+would be uncomfortable in a real car. The participants with similar results can be assumed
+
+to have lacked overall control of the vehicle in the simulator and would have needed
+
+signiﬁcantly more adaptation time driving in the simulator than the other participants to
+
+complete the task correctly. The question remains how their behavior is reﬂected in real car
+
+driving and whether these characteristics are also evident in real driving, which could then
+
+be assessed as unsafe, and the simulator motions would not be the cause of abrupt braking
+
+Sensors 2023, 23, x FOR PEER REVIEW or vice versa.
+
+13 of 16
+
+While the curves of the selected participants’ drives show deceleration peaks (brake
+
+pedal press) that are unrealistic compared to real car data of deceleration shown in Figure 9,
+
+these peaks are predominantly located in the ﬁnal braking at low speed (below 5 km/h).
+
+FigFuirgeu9re. D9.eDceelecrealetiroantioinn tihnethrearledalridvrinivgintrgiatlrivasl.visn. tihnethderidvrinivginsgimsuimlautolart.oNr.oNteottheethdeiﬀdeirfefenrceenicne in peapkeavkalvuaelsu.es.
+4. DiscuTshsiisoins typical driver behavior in the simulator caused by a lack of sensitivity in lowspTeehde drersivuilntsgsahnodwesfifgonrtiﬁtocafnutlﬁdlilﬀtehreetnacseks (isntodpritvheer cbaerhaanvdionr ocot rleretsipt oacncdeilnegrattoe daigﬀaeinrefnrtom
+mozteioron vpelalotfcoitrym). sTethteinsgespweahkesnatrheeadlsiﬀoegreennecreablleytwtoeoenabMruoptitotnoLbeevdele1livaenrdedMboytitohneLmevoetilon 2 wpalastafomrmax; ihmenucme dorfi3v°errsesmpi.g8h°t. TnhotebMe oatwioanreLoefvtehl i2s ssehtotirntgbuwtihthartdheﬁhniaglhbersatkainccge.leration and gaiInnpcaormampaertiesrosnc,odrrreivlaintegdwwitihthctuheesboefsMt dortiivoinngLepveerlfo2rrmesaunlcteedininthme odrreivsitnagblseimbrualkai-ng, tors,imi.ei.l,atrhteobprraekviinogusalcycurercaocrydferdomreathl derpivoiinngt otefsvt ideawtao. fWthitehﬁthnealcsuteospopfinMgodtiiosntanLceeveflro1m, the thepsetrocpeivliende.dHecoewleervaetiro,nitisissaolmsoewobhvaitoluims tihteadt;etvheenreafot rteh,ethmeabxriamkuinmg wseattsinmgos,retheerrmatoict.ion platform could not provide motion cues for acceleration/deceleration greater than approximately 2.5 m/s2. In comparison to the data from the real car, the signiﬁcant peaks were observed in maximum deceleration (almost 10 m/s2 compared to 4 m/s2)–for context, 4 m/s2 is perceived as hard braking, while the maximum emergency deceleration of a regular car is 8–9.5 m/s2 [42]. The simulator physics engine calculates the movement of the
+
+Sensors 2023, 23, 5428
+
+13 of 16
+4. Discussion
+The results show signiﬁcant differences in driver behavior corresponding to different motion platform settings when the difference between Motion Level 1 and Motion Level 2 was a maximum of 3◦ resp. 8◦. The Motion Level 2 setting with the highest acceleration and gain parameters correlated with the best driving performance in the driving simulator, i.e., the braking accuracy from the point of view of the ﬁnal stopping distance from the stop line. However, it is also obvious that even at the maximum settings, the motion platform could not provide motion cues for acceleration/deceleration greater than approximately 2.5 m/s2. In comparison to the data from the real car, the signiﬁcant peaks were observed in maximum deceleration (almost 10 m/s2 compared to 4 m/s2)–for context, 4 m/s2 is perceived as hard braking, while the maximum emergency deceleration of a regular car is 8–9.5 m/s2 [42]. The simulator physics engine calculates the movement of the vehicle using an ideal friction coefﬁcient of the tires and tarmac, resulting in a maximum possible deceleration in the vehicle simulator close to 10 m/s2.
+The present paper broadens the understanding of the relation between motion cues and the quality of driving in a car simulator. The team of authors has previously published a study focused on driver performance and driver eyesight analysis using an eye tracker; however, more data from accelerometers and deeper data analysis are required to understand the effect of different motion cues on drivers in virtual environments. Although the movements of the motion platform are purely synthetic since the 6-DOF platform requires mostly the use of rotation to imitate the acceleration of the vehicle through gravity, this could be perceived well by the driver. However, there are two fundamental limitations of this approach–(a) the necessity of using a washout ﬁlter that continuously moves the platform to the default position; (b) the transitory converse effect of rotation into the proper position, which can be perceived as an inverse acceleration to the target one due to rotational acceleration; (c) the capability of this type of motion platform to generate a continuous acceleration/deceleration is physically limited up to 1 G (i.e., approximately 9.8 m/s2) in the theoretical case when the platform is tilted fully perpendicular (in reality, however, it is signiﬁcantly lower, with respect to a feasible tilt around 20◦). These limits require a precisely tuned reaction of the motion platform to the requested simulated acceleration. Nevertheless, this study shows that motion cues are beneﬁcial to driver perceptual experience and performance.
+5. Conclusions
+The analysis of the braking behavior in the driving simulator was conducted, focusing on different settings of the motion cues provided by the 6-DOF motion platform. The hypothesis was conﬁrmed that a higher level of motion cues in a driving simulator would yield a closer correlation with real car data. However, unrealistic peak deceleration values were logged. These were explained, but further measurements with optimized parameters of the motion platform could address and resolve this issue. It was also conﬁrmed that the motion platform helps drivers control the vehicle more precisely in terms of speciﬁc variables, such as the accuracy of braking to a certain point and smoother braking when required. Thus, it can be concluded that they have a better sense of the vehicle speed in the simulator when the motion platform is used. However, it is necessary to mention and include the exceptions of the drivers whose results indicated that they could not perform the braking task as requested (smoothly to the target) in the simulator, regardless of the motion level. It would be interesting to conduct a real driving experiment with them so that we could consider an adverse effect of the platform or, in case of their better performance in a real car, bring further insights and reasons that could lead to proper optimization of the motion platform parameters.
+The motion platform generally delivers a more realistic experience of virtual driving, which is essential for various types of experiments relying on objective measures of driver behavior (e.g., HMI-targeted targeted experiments, driver performance experiments, or even simulator training). On the other hand, the motion cues should be relevant to the
+
+Sensors 2023, 23, 5428
+
+14 of 16
+
+driver’s expectations and simultaneously be feasible to perform on a standard (i.e., reasonably priced) motion platform. These requirements naturally remain in opposition to each other, and the designer’s goal is to ﬁne-tune them carefully and based on deep knowledge and experience to provide acceptable and convincing results. Therefore, further studies with the objective of motion optimization would be useful.
+Author Contributions: S.E.h.: design of the study, execution of the real track experiment, development of the paper, writing of the original draft, and project administration. P.B.: conception of the research topic and supervision. T.K.: execution of the VR experiments, writing and editing the manuscript. P.T. and J.S.: execution of the real track experiments and analysis of the data. S.N. programming and conﬁguration of simulator modules and supervision. All authors have read and agreed to the published version of the manuscript.
+Funding: This research has been supported from the Global Postdoc Fellowship Program of the Czech Technical University in Prague.
+Institutional Review Board Statement: Not applicable.
+Informed Consent Statement: Informed consent was obtained from all subjects involved in the study.
+Data Availability Statement: Not applicable.
+Conﬂicts of Interest: The authors declare no conﬂict of interest.
+References
+1. Nikitenko, A. Software and Hardware Simulators for Train Drivers Training: Overview of Possibilities and Effects of Application. Prz Elektrotechniczny 2020, 96, 198–201. [CrossRef]
+2. Matowicki, M.; Pribyl, O.; Bouchner, P. Pragmatic overview of surrounding trafﬁc implementation into driving simulator. In Proceedings of the ELEKTRO 2016-11th International Conference Proceedings, Strbske Pleso, Slovakia, 16–18 May 2016; pp. 423–428. [CrossRef]
+3. Bouchner, P. Interactive Driving Simulators—History, Design and their Utilization in area of HMI Research. Int. J. Syst. Appl. Eng. Dev. 2016, 10, 179–188.
+4. Yeo, D.; Kim, G.; Kim, S. Toward Immersive Self-Driving Simulations: Reports from a User Study across Six Platforms. In Proceedings of the 2020 CHI Conference on Human Factors in Computing Systems, Honolulu, HI, USA, 25–30 April 2020; pp. 1–12. [CrossRef]
+5. Borojeni, S.S.; Boll, S.C.; Heuten, W.; Bülthoff, H.H.; Chuang, L. Feel the Movement: Real motion inﬂuences responses to Take-over requests in highly automated vehicles. In Proceedings of the 2018 CHI Conference on Human Factors in Computing Systems, Montreal, QC, Canada, 21–26 April 2018; pp. 1–13. [CrossRef]
+6. El Hamdani, S.; Benamar, N. A comprehensive study of intelligent transportation system architectures for road congestion avoidance. In Ubiquitous Networking; Sabir, E., García Armada, A., Ghogho, M., Debbah, M., Eds.; Springer: Cham, Switzerland, 2017.
+7. El Hamdani, S.; Loudari, S.; Ouaissa, M.; Ouaissa, M.; Benamar, N. Deep Reinforcement Learning Modeling of a V2V CommunicationBased Bike Avoidance Protocol for Increased Vehicular Flow. In Computational Intelligence in Recent Communication Networks, EAI/Spring. EAI/Springer Innovations in Communication and Computing; Springer: Cham, Switzerland, 2021.
+8. El Hamdani, S.; Loudari, S.; Novotny, S.; Bouchner, P.; Benamar, N. A Markov Decision Process Model for a Reinforcement Learning-based Autonomous Pedestrian Crossing Protocol. In Proceedings of the 2021 3rd IEEE Middle East and North Africa COMMunications Conference (MENACOMM), Agadir, Morocco, 3–5 December 2022; pp. 147–151. [CrossRef]
+9. El Hamdani, S.; Benamar, N. Autonomous Trafﬁc Management: Open Issues and New Directions. In Proceedings of the 2018 International Conference on Selected Topics in Mobile and Wireless Networking (MoWNeT), Tangier, Morocco, 20–22 June 2018; pp. 1–5. [CrossRef]
+10. Wynne, R.A.; Beanland, V.; Salmon, P.M. Systematic review of driving simulator validation studies. Saf. Sci. 2019, 117, 138–151. [CrossRef]
+11. Casas-Yrurzum, S.; Portales-Ricart, C.; Morillo-Tena, P.; Cruz-Neira, C. On the Objective Evaluation of Motion Cueing in Vehicle Simulations. IEEE Trans. Intell. Transp. Syst. 2021, 22, 3001–3013. [CrossRef]
+12. Qazani, M.R.C.; Asadi, H.; Khoo, S.; Nahavandi, S. A Linear Time-Varying Model Predictive Control-Based Motion Cueing Algorithm for Hexapod Simulation-Based Motion Platform. IEEE Trans. Syst. Man, Cybern. Syst. 2021, 51, 6096–6110. [CrossRef]
+13. Qazani, M.R.C.; Asadi, H.; Zhang, L.; Tabarsinezhad, F.; Mohamed, S.; Lim, C.P.; Nahavandi, S. A New Prepositioning Technique of a Motion Simulator Platform Using Nonlinear Model Predictive Control and Recurrent Neural Network. IEEE Trans. Intell. Transp. Syst. 2022, 23, 23268–23277. [CrossRef]
+14. Riera, J.V.; Casas, S.; Fernández, M.; Alonso, F.; Useche, S.A. Development of a Hybrid Method to Generate Gravito-Inertial Cues for Motion Platforms in Highly Immersive Environments. Sensors 2021, 21, 8079. [CrossRef]
+
+Sensors 2023, 23, 5428
+
+15 of 16
+
+15. Kharrazi, S.; Augusto, B.; Fröjd, N. Vehicle dynamics testing in motion based driving simulators. Veh. Syst. Dyn. 2020, 58, 92–107. [CrossRef]
+16. Keshavarz, B.; Ramkhalawansingh, R.; Haycock, B.; Shahab, S.; Campos, J. Comparing simulator sickness in younger and older adults during simulated driving under different multisensory conditions. Transp. Res. Part F Trafﬁc Psychol. Behav. 2018, 54, 47–62. [CrossRef]
+17. Kim, J.; Lee, S.-M.; Son, H.; Park, T. Effects of unlimited angular motion cue and cue discrepancy on simulator sickness. Expert Syst. Appl. 2022, 213, 119196. [CrossRef]
+18. Berthoz, A.; Bles, W.; Bulthoff, H.H.; Gracio, B.J.C.; Feenstra, P.; Filliard, N.; Huhne, R.; Kemeny, A.; Mayrhofer, M.; Mulder, M.; et al. Motion Scaling for High-Performance Driving Simulators. IEEE Trans. Hum.-Mach. Syst. 2013, 43, 265–276. [CrossRef]
+19. Lakerveld, P.; Damveld, H.; Pool, D.; van der El, K.; van Paassen, M.; Mulder, M. The Effects of Yaw and Sway Motion Cues in Curve Driving Simulation. IFAC-PapersOnLine 2016, 49, 500–505. [CrossRef]
+20. Salisbury, I.G.; Limebeer, D.J.N. Motion cueing in high-performance vehicle simulators. Veh. Syst. Dyn. 2017, 55, 775–801. [CrossRef]
+21. Cleij, D.; Venrooij, J.; Pretto, P.; Pool, D.M.; Mulder, M.; Bulthoff, H.H. Continuous Subjective Rating of Perceived Motion Incongruence During Driving Simulation. IEEE Trans. Hum.-Mach. Syst. 2018, 48, 17–29. [CrossRef]
+22. El Hamdani, S.; Bouchner, P.; Kunclova, T.; Lehet, D. The Impact of Physical Motion Cues on Driver Braking Performance: A Clinical Study Using Driving Simulator and Eye Tracker. Sensors 2023, 23, 42. [CrossRef]
+23. Bruenger-Koch, M. Motion Parameter Tuning and Evaluation for the DLR Automotive Simulator. In Proceedings of the Driving Simulator Conference, Orlando, FL, USA, 30 November–2 December 2005; pp. 262–270.
+24. Tateyama, Y.; Mori, Y.; Yamamoto, K.; Ogi, T.; Nishimura, H.; Kitamura, N.; Yashiro, H. Car Driving Behaviour Observation Using an Immersive Car Driving Simulator. In Proceedings of the 2010 International Conference on P2P, Parallel, Grid, Cloud and Internet Computing, Fukuoka, Japan, 4–6 November 2010; pp. 411–414. [CrossRef]
+25. Di Loreto, C.; Chardonnet, J.; Mackenzie, J.; Dutchke, J.; van den Berg, A.; Forrest, M.; Merienne, F.; Sandoz, B. Real car versus driving simulator comparison of head dynamics in emergency braking events. In Proceedings of the Driving Simulation Conference & Exhibition, Strasbourg, France, 4–6 September 2019.
+26. Xsens. MTi User Manual MTi 10-Series and MTi 100-Series 5th Generation. Doc MT0605PB, Revision 2020A. 2020. Available online: www.xsens.com (accessed on 1 April 2023).
+27. Goedicke, D.; Li, J.; Evers, V.; Ju, W. VR-OOM. In Proceedings of the 2018 CHI Conference on Human Factors in Computing Systems, Montreal, QC, Canada, 21–26 April 2018; pp. 1–11. [CrossRef]
+28. Ligocki, A.; Jelinek, A.; Zalud, L. Brno urban dataset: Winter extension. Data Brief 2022, 40, 107667. [CrossRef] [PubMed] 29. Dols, J.F.; Girbés-Juan, V.; Luna, Á.; Catalán, J. Data Acquisition System for the Characterization of Biomechanical and Ergonomic
+Thresholds in Driving Vehicles. Sustainability 2020, 12, 7013. [CrossRef] 30. Brogle, C.; Zhang, C.; Lim, K.L.; Braunl, T. Hardware-in-the-Loop Autonomous Driving Simulation Without Real-Time Constraints.
+IEEE Trans. Intell. Veh. 2019, 4, 375–384. [CrossRef] 31. Vulpi, F.; Marani, R.; Petitti, A.; Reina, G.; Milella, A. An RGB-D multi-view perspective for autonomous agricultural robots.
+Comput. Electron. Agric. 2022, 202, 107419. [CrossRef] 32. Zhai, Y.; Zhang, S. Two-Wheeled Inverted Pendulum (TWIP) Robot Localization. Sensors 2022, 22, 4778. [CrossRef] [PubMed] 33. Du, S.; Lauterbach, H.A.; Li, X.; Demisse, G.G.; Borrmann, D.; Nüchter, A. Curvefusion—A Method for Combining Estimated
+Trajectories with Applications to SLAM and Time-Calibration. Sensors 2020, 20, 6918. [CrossRef] [PubMed] 34. Wang, Z.; Xing, L.; Xiong, Z.; Ding, Y.; Sun, Y.; Shi, C. An Improved Pedestrian Navigation Method Based on the Combination of
+Indoor Map Assistance and Adaptive Particle Filter. Remote Sens. 2022, 14, 6282. [CrossRef] 35. Brull, A.; Zubizarreta, A.; Cabanes, I.; Rodriguez-Larrad, A. Sensorized Tip for Monitoring People with Multiple Sclerosis that
+require Assistive Devices for Walking. Sensors 2020, 20, 4329. [CrossRef] [PubMed] 36. Shen, J.; Su, Y.; Liang, Q.; Zhu, X. Calculation and Identiﬁcation of the Aerodynamic Parameters for Small-Scaled Fixed-Wing
+UAVs. Sensors 2018, 18, 206. [CrossRef] 37. Bouchner, P.; Novotny, S. Development of advanced driving simulator: Steering wheel and brake pedal feedback. In Proceedings
+of the 2nd International Conference on Circuits, Systems, Control, Signals (CSCS’11), Prague, Czech Republic, 26–28 September 2011; pp. 170–174. 38. Bouchner, P.; Novotný, S. Car dynamics model—Design for interactive driving simulation use. In Proceedings of the 2nd International Conference on Applied Informatics and Computing Theory, Prague, Czech Republic, 26–28 September 2011; pp. 285–289. 39. Pragolet. Your Real Simulator. 2022. Available online: http://www.pragolet.cz (accessed on 4 May 2023). 40. Xsens Technologies B.V. MTi-G User Manual and Technical Documentation. Doc MT0137P, Revision G. pp. 1–77. Available online: https://projects.asl.ethz.ch/datasets/lib/exe/fetch.php?media=hardware:tiltinglaser:mti-g_user_manual_and_technical_ documentation.pdf (accessed on 6 June 2023).
+
+Sensors 2023, 23, 5428
+
+16 of 16
+
+41. Wood, J.; Donnell, E.T. Stopping Sight Distance and Available Sight Distance: New Model and Reliability Analysis Comparison. Transp. Res. Rec. J. Transp. Res. Board 2017, 2638, 1–9. [CrossRef]
+42. Kudarauskas, N. Analysis of Emergency Braking of a Vehicle. Transport 2007, 22, 154–159. [CrossRef]
+Disclaimer/Publisher’s Note: The statements, opinions and data contained in all publications are solely those of the individual author(s) and contributor(s) and not of MDPI and/or the editor(s). MDPI and/or the editor(s) disclaim responsibility for any injury to people or property resulting from any ideas, methods, instructions or products referred to in the content.
+

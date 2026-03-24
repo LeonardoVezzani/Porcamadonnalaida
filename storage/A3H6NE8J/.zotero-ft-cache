@@ -1,0 +1,469 @@
+Skip to Main Content
+Scheduled Maintenance: On Friday, March 10, IEEE Xplore will undergo scheduled maintenance from 7:00 AM-7:00 PM ET (noon-midnight UTC). During this time, there may be intermittent impact on performance. We apologize for any inconvenience.
+
+    IEEE.org
+    IEEE Xplore
+    IEEE SA
+    IEEE Spectrum
+    More Sites 
+
+        Cart 
+        Create Account
+        Personal Sign In 
+
+IEEE Xplore logo - Link to home
+
+    Browse
+    My Settings
+    Help
+
+Access provided by:
+Politecnico di Torino
+Sign Out
+IEEE logo - Link to IEEE main site homepage
+ADVANCED SEARCH
+Conferences > 2016 IEEE 19th International ...
+Augmented reality versus classical HUD to take over from automated driving: An aid to smooth reactions and to anticipate maneuvers
+Publisher: IEEE
+Cite This
+PDF
+S. Langlois ; B. Soualmi
+All Authors
+35
+Paper
+Citations
+1
+Patent
+Citation
+1407
+Full
+Text Views
+
+    Alerts
+
+Abstract
+Document Sections
+
+    I.
+    Introduction
+    II.
+    Method
+    III.
+    Considered Variables
+    IV.
+    Results
+    V.
+    Discussion
+
+Show Full Outline
+Authors
+Figures
+References
+Citations
+Keywords
+Metrics
+Footnotes
+Abstract:
+The takeover phase from highly automated systems, when the transition phase is short (here 10s), is critical for the driver when he has been out of the driving loop. We conducted a simulator study on 26 drivers to compare three conditions: manual mode (MD), transition from automated driving (AD) to MD with a classical head up display (HUD), transition from (AD) to MD with an augmented reality (AR) HUD. In our scenarios, the driver has to take over to respect the navigation request for a lane change, and has to face slowing traffic in the destination lane. Compared to MD, driving behavior is altered in the transition phase up to 30s: the maximum speed on the brake pedal is higher, resulting acceleration being thus increased. AR reduces both these effects, thus improving driving comfort while facing slow traffic. AR also helps better anticipate the lane change maneuver: it increases the distance to the maneuver limit point. As such, the situational awareness seems to be improved by AR. Further analysis of eye tracking data and verbatim is needed to confirm this assumption based on driving data.
+Published in: 2016 IEEE 19th International Conference on Intelligent Transportation Systems (ITSC)
+Date of Conference: 01-04 November 2016
+Date Added to IEEE Xplore : 26 December 2016
+ISBN Information:
+Electronic ISSN: 2153-0017
+INSPEC Accession Number: 16555027
+DOI: 10.1109/ITSC.2016.7795767
+Publisher: IEEE
+Conference Location: Rio de Janeiro, Brazil
+SECTION I.
+Introduction
+
+In the near future, technology advances will allow the realization of cars equipped with level 3 automation, named Limited Self-Driving Automation. The NHTSA defines this level as “enabling the driver to cede full control of all safety-critical functions under certain traffic or environmental conditions and in those conditions to rely heavily on the vehicle to monitor for changes in those conditions requiring transition back to driver control. The driver is expected to be available for occasional control, but with sufficiently comfortable transition time.” [1] .
+
+Works on determining the necessary time speak of a minimum of 10s [2] . But it can be feared that 10s is too short a time for the driver to gain complete situation awareness [3] , especially if the driving situation is complex [2] e.g. when the driver has to make a lane change in order to avoid an obstacle [4] [5] or to reach a desired lane (e.g. highway exit). In an automated driving (AD) mode, the driver is out of the driving loop and may be distracted by another task [6] , so that, at the takeover request (TOR), he has to, first, switch his attention towards this TOR, understand the current driving situation, choose the appropriate actions and finally act on the vehicle. It can be said that the transition phase from AD to MD is a critical phase for NHTSA level 3 systems from a human factors point of view, which is why we focus on this item.
+
+Head-up displays (HUD) help the driver keep his eyes on the road [7] . Augmented reality-CAR) HUDs, also called contact analog HUDs, allow direct superimposition of the information onto the real spatiotemporal context, which helps the driver detect, analyze and react appropriately [7] . As such, we assume that AR can help the driver when he is taking over, to better rebuild his situational awareness and adopt a safer driving behavior. As it is observed that the driver's actions, when resuming the control of the vehicle, are brutal (there is over-compensation on steering and pedals [8] ), we also assume that AR could reduce this effect, and thus enhance driving comfort.
+
+To check our hypotheses, we compare three conditions: manual mode (MD), transition from AD to MD with AR, transition from AD to MD with a reference HMI placed on a classical HUD.
+
+We conduct a simulator study and prepare scenarios where the driver has to take over within 10s to make a lane change following navigation instructions. As driving is a highly dynamic activity, we consider that the driver gets information about his environment and is thus able to anticipate the evolution of the situation through his actions [9] . We expect to get insights about the driver's situational awareness thanks to his driving and ocular behaviors, and thanks to verbatim collected by explicitation interviews [10] .
+
+We first present our testing method, then describe, analyze and discuss the results of driving behavior.
+SECTION II.
+Method
+A. Experimental Setup
+
+The study is conducted on a Renault driving simulator, CARDS. It is a full vehicle mock-up with a 240° field of view. The driver is seated at 2.2m from the main screen. CARDs has already been used for AR HUD studies [11] . Due to technical problems, it is not possible to use both eye tracker and stereoscopic projection at the beginning of the testing; we therefore use a monoscopic projection. SCANeR® studio software [12] is used to run the driving simulation.
+
+We develop a driving supervisor able to perform high speed automated driving on the highway, without lane change [13] . Its level of automation corresponds to NHTSA level 3. To take over, the driver is required to push on button A located on the steering wheel (see Fig 1 ). As soon as button A is pushed, the driver is in MD. If the driver does not push on button A but places his hands on the steering wheel, the system will move on to MD at the end of the transition phase that lasts 10s; if not, it will perform the minimum risk maneuver, which consists of braking the vehicle to a complete stop. During the transition phase, the system cruises as in AD mode.
+
+In MD, the driver is assisted by two informative systems: a distance warning that measures the security distance from the vehicle in front in the same lane, and a blind spot warning that indicates the presence of a car in the blind spot.
+
+The HMI supervisor receives information from the simulated sensors and from the driving supervisor. Its rules define what should be displayed to the driver, how and when.
+
+The driver receives visual information from two HUDs: the “classical HUD” dedicated to classical information like on-going speed and TOR message, and one dedicated to AR (“AR HUD”). These HUDs have a surface respectively equal to 4*15° and to 9*15° (from 0 to _9° vertically, where 0° is the horizon). The classical HUD images are generated by a dedicated pico-projector (Optoma ML 1500e), chosen for its high luminosity and contrast. The AR-HUD is simulated by a virtual HUD, a module of SCANeR® especially developed for our project [14] . It simulates the image produced by a real HUD (field of view, projection distance, color, transparency).
+
+The side mirrors are an additional way to provide information to the driver, to warn about a car present on the side of the car. Sounds are also emitted, especially one for takeover, that lasts during the whole transition phase and is designed to sound more and more urgent.
+
+A touch screen placed in the middle of the dash board is used to play a game, Sonic Dash, during AD mode. This game was chosen as non-driving-related activity because it requires a constant visual and cognitive attention from the player who has to help a character run and jump along a tricky road.
+
+We can collect data about the driver's behavior from an eye tracker, a hand sensor on the steering wheel, and from different vehicle performance sensors that will be described in chapter III.
+
+Figure 1 shows the components of the configuration to be tested.
+Figure 1. - Components integrated into the simulator.
+Figure 1.
+
+Components integrated into the simulator.
+
+Show All
+
+A. Hmi Design
+
+Two HMI conditions are compared: with and without AR. The following table ( table I ) describes the objects highlighted by AR in both MD and AD modes. We follow Eyraud's recommendations [15] based on Wickens's model of the allocation of visual attention [16] : as AR adds saliency, it should be associated only with task-related cues to avoid distraction.
+
+In AD, all surrounding vehicles are highlighted to show the driver that the system detects and takes into account the traffic around him: the lead vehicle is differentiated so that the driver can understand on which vehicle the longitudinal control is carried out.
+Table I. Objects highlighted by ar in md and ad modes
+Table I.- Objects highlighted by ar in md and ad modes
+
+A previous expert testing showed that the highlight of the car ahead should be thin in MD, so as not to interfere with the driving scene, and that the highlight in AD could be thicker, so as to be quickly detected when the driver briefly interrupts his non-driving-related activity to check that the system has a correct comprehension of the surrounding traffic, and also to increase the difference between AD and MD, thus limiting confusion between modes.
+
+To highlight the lane to take, we decide to show the driver which constraint to take into account rather than impose a trajectory to follow. We choose the iconic representation of the signs used along roads to warn about dangerous curves (see Fig 4 ). One virtual sign is placed every 14m. This design respects the recommendations given by Pfannmüller et al. [17] (better use a “boomerang” type design than arrows; limit animations). Lorenz [5] shows that an AR design that highlights the place not to go, in red color (the obstacle forward in his study) produces inappropriate driving strategies (braking instead of steering action). Our highlight rather shows the envelope of the possible trajectories. Ng-Thow-Hing et al. in [18] also recommend providing drivers with better information to improve their driving decisions rather than explicitly telling them what to do. The AR signs are masked by vehicles (see Fig 4 ) because we consider their priority as lower.
+
+The following picture ( Fig 2 ) shows, in AD, the TOR phase with AR. The AR signs for the exit to take (chevron-shaped blue and white signs) and for the lead vehicle (green trapezoid) can be seen. Vehicles on adjacent lanes would be highlighted with a white rectangle beneath. On the classical HUD, the current speed and speed limit, navigation and takeover messages can be seen.
+
+As soon as the driver has pressed button A, he is in MD and HMI is the following ( Fig 3 ), with an AR U-shaped line under the car ahead (here orange to warn the driver that he should decelerate).
+
+Without AR, the whole information is located on the classical HUD. For AD, we developed a birds eye view ( Fig 4 ) that covers approximately the same spatial context as AR (3 lanes ahead, up to 75m). It shows the shape of the road and the cars around. The ego car is represented by a blue rectangle, the lead vehicle by a green rectangle and a vehicle on an adjacent lane by a white rectangle. AD duration is also indicated. In MD, a classical icon dedicated to the distance warning system is used (here in orange because the distance from the vehicle ahead is too short, see Fig 5 ).
+Figure 2. - TOR phase with AR (ad mode is on)
+Figure 2.
+
+TOR phase with AR (ad mode is on)
+
+Show All
+Figure 3. - MD with ar
+Figure 3.
+
+MD with ar
+
+Show All
+Figure 4. - AD without AR: the birds eye view
+Figure 4.
+
+AD without AR: the birds eye view
+
+Show All
+Figure 5. - Classical HUD with warning icon in md
+Figure 5.
+
+Classical HUD with warning icon in md
+
+Show All
+
+Contrary to Lorenz [5] whose baseline HMI was an icon in the instrument cluster and a warning sound, we want to compare AR to the “state of the art” technology, i.e. to a classical HUD, to see if the industrial effort to implement an AR-HUD inside the car is worth it. As a summary, we compared both following HMI conditions:
+
+    With AR: speed, speed limit, navigation and AD messages are on the classical HUD, AR is on the AR-HUD and on the side mirrors (rectangle on the car).
+
+    Without AR: speed, speed limit, navigation and AD messages, birds eye view in AD or distance warning icon in MD are on the classical HUD; an icon can appear on the side mirrors.
+
+As both HMI conditions share the same modality (vision) and the same technology (HUD), we limit comparison bias.
+B. Test Procedure
+
+To avoid testing the discovery phase of the system, we divided the testing into three phases: the first takes place in a real car and the next two in CARDs.
+
+The first one consists of driving a Mini Cooper car for one hour under adaptive cruise control and a classical HUD, to allow the participant to gain experience of the longitudinal control managed by the car and of HUD displays in a real car.
+
+The second phase lasts around one hour. The participant discovers the simulator, the simulated freeway and its traffic, the AD system, the HMI and the game. He exercises the TOR. It is the opportunity to study the driver's impressions while monitoring the system in AD.
+
+In the third phase, the participant has to drive three times, in each experimental condition: 1-in MD, 2-in AD without AR, and 3-in AD with AR (within-subject design). The conditions are counterbalanced. Each runs lasts 11 min, to allow the driver to be fully disconnected from the driving task in AD. It takes place on a three lane-highway with a 90km/h speed limit. At the end of the run, the driver is expected to make a lane change maneuver in MD and to slow down in this lane due to a braking vehicle ahead. We prepared three different scenarios sharing these characteristics to avoid participant habituation. The last scene of the first scenario (hereafter called “scene 1”) consists of changing to the left lane due to a highway split and dealing with a braking vehicle in this new lane. The last scene of the second scenario (hereafter called “scene 2”) consists of moving left towards a busy lane, also due to a highway split. The last scene of the third scenario (hereafter called “scene 3”) consists of changing to the right lane to take the next exit and dealing with a braking vehicle ahead. The scenes are counterbalanced.
+
+We planned the TOR message (hereafter called TOR) in AD to appear 546m before the hatched road markings that define the maneuver limit point: as described in Fig 6 . 264m before is the point where the vehicle should be stopped at the end of the minimum risk maneuver to still allow the driver to handle the lane change maneuver, and 282m is the distance required by the AD system to drive the car during the 10s transition phase and to stop it during the minimum risk maneuver (MRM on the next figure).
+
+From the TOR to the end of the scenario, the driver usually drives around 30s.
+
+In MD, the driver ends the scenario (navigation message and ending scene) without AR. To be as surprising as in AD, the navigation message also appears only 30s before the end of the scenario. We thus explore the comparison between MD and AD in the situation where the driver should perform an unexpected lane change maneuver, here artificially represented by a navigation task that should normally be planned by the system.
+Figure 6. - The TOR message and the exit configuration (scene 3)
+Figure 6.
+
+The TOR message and the exit configuration (scene 3)
+
+Show All
+
+C. Participants
+
+All participants are Renault employees who share the following characteristics: they drive at least three times a week, they use a cruise control, and are interested in AD cars.
+
+Those who volunteer are all men, aged from 24 to 61 (mean=47). From the 36 people we recruit, due to simulator sickness and technical problems, 26 results are available for each condition.
+D. Hypotheses to Check
+
+We presume that driving behavior is modified in the manual phase that follows TOR, compared to the same situation in MD, and that AR helps the driver in this phase. Our four hypotheses are the following:
+
+    Driver's reaction is sharper after TOR than in MD (H1). AR minimizes this effect (H2).
+
+    After TOR, the driver has a higher risk of missing the exit / lane to take (H3). AR helps reduce this risk (H4).
+
+SECTION III.
+Considered Variables
+
+We focus our attention on the last part of the scenarios of the third phase, from TOR to the end of the run.
+
+In order to check the hypotheses, we analyze the driver's reaction to TOR, the vehicle dynamics and the impact of AR on the driver's situation awareness.
+
+The driver's behavior is analyzed with regard to his actions to take over the driving; the way he handles the steering wheel and the car pedals. As he has to make a lane change, the correlation between the AR indication and the success of the maneuver is expected. We expect the distance at which the driver makes the lane change to be before the hatched road markings, this point being considered as the limit point maneuver (see Fig 6 ). In SCANeR [12] simulation environment, the lane change is triggered when the vehicle's center of gravity passes over the lane markings: we then consider that the driver has arrived in the destination lane. The comfort of the lane change maneuver is judged by looking at the lateral accelerations.
+
+In MD the degree of risk of forward collision is measured by the time headway (THW) expressed as: T H W = D i n t v e g o (1) View Source Right-click on figure for MathML and additional features. \begin{equation*} THW=\displaystyle \frac{D_{int}}{v_{ego}} \tag{1} \end{equation*}
+
+Where Dint is the distance from the vehicle ahead and v ego is the ego vehicle speed.
+
+We summarize below the variables that we calculate:
+
+    Hands on (s): duration between TOR and the time when the driver puts his hands on the steering wheel.
+
+    Press button (s): duration between TOR and the time when the driver presses button A deactivating the AD mode.
+
+    Pedal pressed (s): duration between TOR and the time when the driver presses one of the vehicle pedals for the first time;
+
+        Brake pedal: considered as pushed when the force applied is greater than 2N; this value is considered in order to avoid interpreting a touch of the pedal as a push.
+
+        Accelerator pedal: as for the brake pedal, we consider a value of 1 %.
+
+    Steering >2° (s): duration between the time when the driver puts his hand on the steering wheel and the time when he alters steering by at least 2 °.
+
+    Indicator (s): duration between TOR and the time when the driver activates the indicator relative to the destination lane.
+
+    Lane change (s): duration between TOR and the time when the driver arrives in the destination lane.
+
+    Steering rate (°/s): measuring how smoothly the driver acts on the steering wheel. Maximum value and frequency spectrum are analyzed.
+
+    Depression speed of the gas and brake pedals (%/s and N/s respectively): measuring how the driver acts on the car pedals. The first and maximum pedal speeds are calculated.
+
+    Vehicle longitudinal acceleration (m/s 2 ). The maximum is calculated, it is observed in deceleration, generally when the driver is braking to avoid a collision with the vehicle ahead.
+
+    Vehicle lateral acceleration (m/s 2 ). The maximum is calculated, it is observed when the driver performs a sudden maneuver. It generally measures the comfort of the lateral displacement needed to make the lane change.
+
+    Vehicle resulting acceleration: this is the absolute acceleration produced in the center of gravity of the vehicle. Its expression is: a r e s = a 2 l o n g + a 2 l a t − − − − − − − − − √ · The maximum is calculated.
+
+    Distance of lane change to the maneuver limit point (m).
+
+    Vehicle speed (km/h). The maximum is calculated.
+
+In this work the oculometric and verbatim are not addressed.
+SECTION IV.
+Results
+
+In this chapter, we will first describe takeover processes and then check the hypotheses presented above.
+A. Takeover Processes (sequence)
+
+No participant goes to minimum risk maneuver: without AR, all participants press button A; with AR, three participants forget this action, all three in the first run, but as these three persons have their hands on the wheel, they go to MD. Most of the participants follow the process we expected: they first put their hands on the wheel, then press button A and finally activate a pedal. Only one participant without AR does not follow the process (he presses button A before gripping the wheel). With AR, in addition to the 3 who forget to press button A, 2 press the brake pedal less than 1 s before they grip the wheel. All participants press the brake pedal, 3 (1 without AR, 2 with) do not use the accelerator pedal, which is the pedal mostly used first (19 participants without AR, 15 with).
+
+As soon as the TOR message appears (sound + iconic message on the classical HUD), the driver takes some time to put his hands on the steering wheel, press button A, depress a pedal, that is, to regain control over the commands. We describe the means (M) of these different reaction times and their standard deviations (SD) in table II :
+
+For each reaction time, an ANOVA is calculated with the following factors: participant (to take account of individual variability), condition, scene, and interaction between condition *scene. The relevant level of significance is determined by a=0.05. No significant influence is revealed for the reaction times listed in table II , which also indicates the p-value calculated by the ANOVAs for the “condition” factor.
+Table II. Takeover time sequence
+Table II.- Takeover time sequence
+
+B. Hypotheses
+1) Hypotheses 1&2
+
+“Driver's reaction is sharper after TOR than in MD (H1). AR minimizes this effect (H2) “
+
+ANOV As similar to those described above are calculated. Post-hoc t-tests with Bonferroni -correction are calculated for all significant main effects of the factor variation.
+
+We first analyze the lateral control. The driver applies a noticeable movement on the steering wheel (more than 2°) sooner in MD after AD than in MD: the duration between the instant when the driver is back in MD and his action on the wheel is equal to 0.9s on average (AD with or without AR), compared to 4.8s in MD (duration between the navigation message and the noticeable effect on the wheel). The influence of the condition on this variable is significant (F(2,23)=15.1; p<.0001). The maximum steering rate is not influenced by the condition. Nevertheless the next figure shows that the spectrum of the steering rate has more energy at high frequency in MD after AD than in MD. In Figure 7 . the average of spectra of the steering rate for all participants are represented; in red the participants are back in MD after AD and MD driving is represented in blue.
+Figure 7 - Average of spectrum of steering rate in MD and MD after ad
+Figure 7
+
+Average of spectrum of steering rate in MD and MD after ad
+
+Show All
+
+To analyze longitudinal control, we first consider the accelerator pedal. The instant of the first action on this pedal appears much sooner in MD (0.3s compared to 8s on average in AD, with and without AR), which is obvious because the scenario on a highway with free traffic requires the driver constantly to accelerate in MD. The influence of the condition on this variable is very significant (F(2,23)=46.7; p<.0001). The intensity of this first action, the instant and the intensity of the maximum action on the gas pedal are not influenced by the condition.
+
+We secondly consider the brake pedal. There is no influence of the condition on the instant and the intensity of the first action, whereas the instant of the maximum action (pedal speed) is influenced (F(2,23)=7.88; p=.001): it is delayed in AD, with (25.4s) or without AD (27.5s), compared to MD (15.6s). Note that this action is mostly carried out after the lane change, in all conditions (except for 13% of the drivers on average), which means it is presumably performed to adapt to the slowing traffic in the destination lane. As the interaction condition*scene has an influence on the intensity of the maximum action on the brake pedal (F(4,21)=3.14; p=0.024), we have to consider each scene separately: conditions only differ in scene 1 where AD without AR (pedal speed=1237N/s) is significantly higher than MD (654N/s p<.0001), and AD with AR (977N/s) is similar to AD without AR and to MD. We finally analyze the maximum vehicle speed: it is influenced by the condition (F(2,23)=7.63; p=.001), is higher in MD (96.2km/h) than in AD, where both with and without AR conditions are not significantly different (respectively 87.6 and 89.3 km/h).
+
+We analyze the effect of the driver's control of vehicle behavior by means of the following variables: maximum value of longitudinal, lateral and resulting acceleration. The condition influences neither the longitudinal (F(2,23)=2.51; p=.093) nor the lateral acceleration (F(2,23)=0.92; p=.404) but it slightly influences the resulting acceleration (F(2,23)=3.74; p=.032). MD presents the lowest value (8.0m/s 2 ), AD without AR the highest (8.6m/s 2 ), both conditions being different according to the post-hoc test (p=.009); AD with AR is in between (8.4m/s 2 ), not significantly different from MD and from AD without AR. The main component of resulting acceleration is the longitudinal one, the maximum usually appearing when the driver brakes hardest, i.e. to handle the slowing traffic in the destination lane, as already mentioned.
+
+To understand how far the driver takes into account the surrounding traffic, we calculate the minimum time headway. It is not significantly different between conditions (1.97s in MD; 1.52s in AD without AR; 1.33s in AD with AR). This variable describes the driver's behavior in respect of the vehicle in front.
+
+The following table ( table III ) summarizes the analyzed variables that are influenced by the conditions. A positive influence is marked in the column “MD vs. AD” when there is a significant difference between MD and AD with or / and without AR, that is between driving in full MD and driving in a similar situation in the MD phase that follows AD; “MD<AD” is written when the variable has a significantly lower value in MD than in AD with and without AR. A positive influence is marked in the column “with AR vs. without AR” when there is a significant difference between both HMI conditions in the MD phase that follows AD, or when one of these conditions is similar to MD whereas the other one is not.
+Table III. Variables influenced by the conditions
+Table III.- Variables influenced by the conditions
+
+2) Hypotheses 3&4
+
+“After TOR, the driver has a higher risk of missing the exit / lane to take (H3). AR helps reduce this risk (H4) “
+
+In this part, we only consider the participants who realized after TOR the lane change to the destination lane: 50% in MD, as many drivers were already in the middle lane when the navigation message is displayed, 96% in AD without AR, 92% in AD with AR.
+
+We first analyze the distance between TOR and the maneuver limit point, with and without AR. The condition influences this variable (F(2,23)=3.65; p=.039). The distance with AR (147m) is significantly higher (p=.004) than that without (86m). There is no influence of the factor condition *scene; nevertheless, if we look at the means by scene, we can see that the greatest difference appears in scene 2 (224m with AR, 89 without). In scene 3, the difference is small (66m with AR, 64m without) because the distance available to perform the maneuver is limited by the exit size (85m). The following graph ( Fig 8 ) summarizes these results, with means and 95% confidence intervals represented for each condition and scene. Confidence intervals appear as larger with AR, especially in scenel. This means that the trajectories differ amongst drivers more with than without AR.
+Figure 8. - Distance to the maneuver limit point
+Figure 8.
+
+Distance to the maneuver limit point
+
+Show All
+
+We also analyzed the duration between TOR and the instant when the driver activates the appropriate turn signal. The condition influences this variable (F(2,23)=10.53; p=.001). According to post-hoc tests, MD (4.7s) is significantly different from AD with (p<.OOOI) and AD without (p=.01), both last ones being similar. These results concern those drivers who activate the turn signal (85% in MD, 76% in AD without AR, 75% in AD with AR).
+
+The duration between TOR and the lane change into the appropriate lane (third lane for scenes 1 and 2, exit lane for scene 3) is also influenced by the condition (F(2,23)=16.87; p<.OOOI) but also by the factor condition*scene (F(4,21)=2.93; p=.04). We thus have to analyze what appears in each scene. According to the Bonferroni test, in scene 1, there is no significant difference between the conditions (average= 14.1 s). In scene 2, the lane change takes more time in AD without AR (22.1s) than in MD (5.6s; p<.OOOI); it also takes more time than in AD with AR (12.8s; p=.001); neither MD nor AD with AR conditions are significantly different (p=.064). In scene 3, the lane change takes more time in AD with AR (19.6s) than in MD (10.2s; p=0.001); AD without AR (18.4s) is not significantly different from MD (p=.003) and from AD with AR (p=.596). The following graph ( Fig 9 ) summarizes these results, with means and confidence intervals represented for each condition and scene:
+Figure 9. - Duration between TOR and lane change
+Figure 9.
+
+Duration between TOR and lane change
+
+Show All
+
+The following table ( table IV ) summarizes the analyzed variables that are influenced by the conditions:
+Table IV. Variables influenced by the conditions
+Table IV.- Variables influenced by the conditions
+
+SECTION V.
+Discussion
+A. Takeover
+
+As presented earlier, the takeover process is similar in both cases using AR or not. The majority of participants put their hand on the steering wheel, first, then press button A and finally push one of the vehicle pedals. As, before the TOR happens, the vehicle is cruising at the appropriate speed and in a straight lane, in general, the drivers take their time pushing the gas pedal so that the vehicle slows down by itself and is then at a greater distance from vehicles ahead. Comparing the results obtained with those of Lorenz [5] and Gold [19] , the sequences of the takeover are similar, but the interval of time TOR-“hands on the wheel” is greater in our results: around 3.10s vs. [1.39, 1.85]s and [1.45, 1.79]s. This difference may be caused by the means used to distract the drivers when the vehicle is in AD or by the nature of the situation to handle in TOR: in our case there is no urgency, whereas there is an obstacle to avoid in Lorenz's and Gold's studies.
+
+One of the major results is that most of the participants take between 1 and 4s to put their hands on the steering wheel and between 2 and 5s to push button A to resume control, so that 2s represents a minimum duration for the drivers to take over the driving.
+B. Comparison Md-Ad
+
+The driver's actions on the pedals and steering wheel after resuming control of the vehicle are sharper when they come back to the driving than when they were in MD. Therefore H1 is validated. This is apparent from looking at the brake pedal and steering wheel speeds. The maximum brake pedal speed is increased. The vehicle dynamics is directly affected, so that the values of the accelerations, especially the resulting one, are greater than in MD, but the difference is not substantial. Both effects, on maximum braking speed and resulting acceleration, mostly occur when the driver has to take into account the slowing traffic in his destination lane, approximately 27s after TOR; this means that the influence of takeover on the driving behavior lasts quite a while.
+
+The driver's behaviors can be interpreted thus: after resuming control, the drivers prefer to have a greater secured distance from the vehicles ahead and they react with more pressure on the brake pedal.
+
+The fact that the drivers take less than one second to turn the steering wheel by a significant angle after takeover can be seen as though the drivers are checking on the steering wheel to ensure they have control of the vehicle.
+
+The steering rate spectrum presents more energy at high frequencies (greater than 1Hz) in the case of MD after AD than in MD, which shows that, after resuming control, the drivers take moment to stabilize the lateral control of the vehicle.
+
+The lane change maneuver (indicator usage included) is delayed by the takeover process. Therefore H3 is validated.
+C. Influence of Ar
+
+AR has no influence on the takeover: the reaction times to regain control over the commands (steering wheel and pedals) are not modified. This result is similar to those of Lorenz [5] . It could be expected that AR would help the driver take the time to look around and rebuild his situational awareness before he hands over, but it is not the case, at least in the first uses of the system. To know if some drivers develop the strategy to check mirrors and to analyze the environment, strategy being supported by AR, a longitudinal study has to be conducted.
+
+H2 is true for two variables, the resulting acceleration and the maximum braking intensity, as AR allows these variables to be reduced and to become not significantly different from MD. As such, AR seems to help the driver smooth out the control of his car, especially if the traffic slows down when he resumes control. To ascertain if this can be explained by the highlight on the vehicle in front, we have to analyze the verbatim that we collected during the interviews.
+
+Our results show that AR has a positive influence on the operational level of driving.
+
+To check if H4 is true, the variable “duration between TOR and lane change” does not seem to be relevant as two contradictory assumptions can be made: either AR could help the driver take time to understand the situation before making the lane change, or it could help him to perform the maneuver faster. The variable “distance to the maneuver limit point” is much more relevant. It is increased by AR, especially when the distance in which to make the lane change is not too constrained, for example to move to the appropriate highway lane at a highway split. As such, H4 is true: AR seems to help the driver become more aware of the lane change he must make and of the infrastructure constraints, by adding the information directly within the driving scene. The fact that AR modifies the driver strategy after taking over has already been demonstrated by Lorenz [5] . Other studies, conducted in MD, also show that AR allows the driver to better understand the direction to follow (cf. synthesis by Pauzié [7] or by Bark [20] ). Lorenz shows that, in an emergency (obstacle avoidance), the driver's trajectories, with the AR that highlights the trajectory to follow to avoid the obstacle ahead (“AR green”), lie closer together than without. Our results indicate that, in a less urgent use case, drivers' distances to the maneuver limit points vary more with AR. As our objective was to warn about the constraint through our AR design, and not to suggest a trajectory to take, it is understandable that we get a different result from Lorenz and that our objective to give the driver free choice about the trajectory to take is fulfilled.
+
+In conclusion our results confirm that the tactical level of driving described by Michon [21] is also supported by AR.
+SECTION VI.
+Conclusion
+
+Our experiment shows that, with AR, the lane change maneuver is more anticipated and the driver's action on the brake pedal is smoother, in the case where a lane change is needed to follow a navigation instruction and where attention is required to adapt to slowing traffic. We can consequently assume that AR helps the driver to rebuild his situation awareness when he has to take over quickly. The analysis of driving data reflects the driver's actions. It should be completed by the analysis of the eye tracking data to give clues about what the driver has possibly detected and analyzed. Data triangulation (driving and ocular data completed by verbatim, cf. [22] ), will give insights about the driver's intentions, decisions and strategies, and about how far the driver could understand and anticipate the situation.
+
+Our results, obtained in a driving simulator with monoscopic projection, concern an AR that is perfectly superimposed on the environmental objects. In a real car, due to packaging constraints, AR images are usually projected at a fixed distance (e.g. 8 m) and so the superimposition is valid only in 2D. AR design should facilitate congruence [14] but will probably not be perfect [20] , and so AR efficiency could decrease in a real car. In-vehicle testing is needed to answer these questions.
+
+Authors
+Figures
+References
+Citations
+Keywords
+Metrics
+Footnotes
+More Like This
+Wide field of view optical combiner for augmented reality head-up displays
+
+2018 IEEE International Conference on Consumer Electronics (ICCE)
+
+Published: 2018
+Vehicle Augmented Reality Head-up Display information visualization enhancement algorithm and system
+
+2021 International Conference on Information and Communication Technology Convergence (ICTC)
+
+Published: 2021
+Show More
+References
+1.
+A. N. H. T. S. ANHTS, "U.S. Department of Transportation Releases Policy on Automated Vehicle Development", Washington DC , 2013.
+Show in Context Google Scholar
+2.
+N. Merat, A. H. Jamson, F.C.H Lai, M. Daly and O. M. Carsten, "Transition to manual: Driver behaviour when resuming control from a highly automated vehicle", Transportation Research Part F , no. 27, pp. 274-282, 2014.
+Show in Context CrossRef Google Scholar
+3.
+M. R. Endsley and E. O. & Kiris, "The out-of-the-loop performance problem and level of control in automation", Human Factors , vol. 37, pp. 381-394, 1995.
+Show in Context CrossRef Google Scholar
+4.
+J-.M. HOC, F. MARS, I. MILLEVILLE-PENNEL, JOLLY, M. NETTO and J.-M. BLOSSEVILLE, "Human-Machine cooperation in car driving for lateral safety: Delegation and mutual control", Le Travail Humain , pp. 153-182, 2006.
+Show in Context CrossRef Google Scholar
+5.
+L. Lorenz, P. Kerschbaum and J. Schumann, "Designing take over scenarios for automated driving: How does augmented reality support the driver to get back into the loop?", Human Factors and Ergonomics Society , pp. 1681-1685, 2014.
+Show in Context CrossRef Google Scholar
+6.
+A. FELDHÜTTER, C. GOLD, S. SCHNEIDER and K. BENGLER, "How the Duration of Automated Driving Influences Take-Over Performance and Gaze Behavior", Kongress der Gesellschaft für Arbeitswissenschaft , pp. 62, 2016.
+Show in Context Google Scholar
+7.
+A. Pauzié, "Head up display in automotive: a new reality for the driver. Design user experience and usability: interactive experience design", Springer international publishing , 2015.
+Show in Context Google Scholar
+8.
+Y. Liang and J. D. Lee, "Combining cognitive and visual distraction: Less than the sum of its parts", Accident Analysis and Prevention , pp. 881-890, 2010.
+Show in Context CrossRef Google Scholar
+9.
+X. Chalandon, "Conscience de la situation: invariants internes et invariants externes", 2007.
+Show in Context Google Scholar
+10.
+P. VERMERSCH, "L'entretien d'explicitation", ESF , 1994.
+Show in Context Google Scholar
+11.
+L. Halit, A. Kemeny, A. Le-Gouguec, F. Mérienne and H. Mohellebi, "Head motion parallax effect on driving performances using an AR-HUD: simulation study on Renault's CARDs simulator", Driving Simulation Conference , 2015.
+Show in Context Google Scholar
+12.
+"SCANeR™studio", [online] Available: http://www.oktal.filen/automotive/range-of-simulators/software.
+Show in Context Google Scholar
+13.
+B. Soualmi, C. Sentouh, J.C. Popieul and S. Debernard, "Automation-driver cooperative driving in presence of undetected obstacles", Control Engineering Practice , pp. 106-119, 2014.
+Show in Context CrossRef Google Scholar
+14.
+S. Langlois, T. NGuyen and P. Mermillod, "Virtual head-up displays for augmented reality in cars", European Conference for Cognitive Ergonomics , 2016.
+Show in Context CrossRef Google Scholar
+15.
+R. Eyraud, E. Zibetti and T. Baccino, "Allocation of visual attention while driving with simulated augmented reality", Transportation research part F 32 , pp. 46-55, 2015.
+Show in Context CrossRef Google Scholar
+16.
+C.D. Wickens, J. Helleberg, X. Xu and W.J. Horrey, "Technical report ARL-01–14INASA-01-7: Pilot task management: testing an attentional expected value model of visual scanning", NASA-Aviation Research Lab. , 2001.
+Show in Context Google Scholar
+17.
+L. Pfannmüller, M. Kramer, B. Senner and K. Bengler, "A comparison of display concepts for a navigation system in a contact analog head-up display", Applied Human Factors and Ergonomics conference , 2015.
+Show in Context CrossRef Google Scholar
+18.
+V. Ng-Thow-Hing, L. K. Bark, C. Tran, R. Bhandari and S. Sridhar, "User-centered perspectives for automotive augmented reality", IEEE InternationalSymposium on ISMAR-AMH , pp. 13-22, 2013.
+Show in Context View Article
+Google Scholar
+19.
+C. Gold, D. Damböck, L. Lorenz and K. Bengler, "Take over!” How long does it take to get the driver back into the loop?", Proceedings of the Human Factors and Ergonomics Society Annual Meeting , pp. 1938-1942, 2013.
+Show in Context CrossRef Google Scholar
+20.
+K. Bark, C. Tran, K. Fujimura and V. Ng-Thow-Hing, "Personal navi: benefits of an augmented reality navigational aid using see-thru 3D volumetric HUD", Automotive User Interfaces conference , 2014.
+Show in Context CrossRef Google Scholar
+21.
+J. A. Michon, "A critical view of driver behavior models: what do we know what should we do? In Human behavior and traffic safety (pp. 485–524). Springer US", Human behavior and traffic safety Springer US , pp. 485-524, 1985.
+Show in Context CrossRef Google Scholar
+22.
+C. Chauvin and S. Lardjane, "Decision making and strategies in an interaction situation: Collision avoidance at sea" in Transportation Research Part F: Traffic Psychology and Behaviour, no. 4, pp. 259-269, 2008.
+Show in Context CrossRef Google Scholar
+IEEE Personal Account
+
+    Change username/password 
+
+Purchase Details
+
+    Payment Options
+    View Purchased Documents 
+
+Profile Information
+
+    Communications Preferences
+    Profession and Education
+    Technical interests 
+
+Need Help?
+
+    US & Canada: +1 800 678 4333
+    Worldwide: +1 732 981 0060
+    Contact & Support 
+
+Follow
+
+About IEEE Xplore | Contact Us | Help | Accessibility | Terms of Use | Nondiscrimination Policy | IEEE Ethics Reporting | Sitemap | IEEE Privacy Policy
+
+A not-for-profit organization, IEEE is the world's largest technical professional organization dedicated to advancing technology for the benefit of humanity.
+
+© Copyright 2023 IEEE - All rights reserved.
+PDF Help

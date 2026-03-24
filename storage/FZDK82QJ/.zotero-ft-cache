@@ -1,0 +1,1142 @@
+Original Manuscript
+Driving simulator: Analysing the impact of mechanical latency on the perception of lateral dynamics
+Stefano Melzi and Giorgio Previati
+
+Journal of Vibration and Control 2024, Vol. 0(0) 1–14 © The Author(s) 2024 Article reuse guidelines: sagepub.com/journals-permissions DOI: 10.1177/10775463241246906 journals.sagepub.com/home/jvc
+
+Abstract Mechanical latency is the time elapsed between the driver’s input and the subsequent movement of a driving simulator. Large latencies may overlap with the time constants of a vehicle, thus altering its dynamics. As latency introduces inconsistencies between the driver’s input and the vehicle’s response, it may also result in motion sickness. The paper describes the design and the results of a test campaign conceived to understand how mechanical latency impacts the perception of lateral dynamics. In particular, the research aimed at identifying the minimal variation of latency perceived by ordinary drivers. Tests were performed with an innovative cable-driven simulator moving over a 6 × 6 metre platform. A rigorous test procedure was designed while several volunteers of different ages and driving experiences were required to perform a speciﬁc manoeuvre with different latencies. The results showed that 20% of the population can perceive latency variations below 40 ms.
+Keywords Dynamic driving simulator, latency perception, experimental tests, user experience, virtual reality
+
+1. Introduction
+Nowadays, driving simulators are becoming popular tools for designing road vehicles and related control systems (Huang, 2003; Nehaoua, 2008; Koo, 2010). Starting from relatively simple devices proposed in the last decades of the past century, engineers have been developing new simulators exploiting the progress in computer graphics and control systems (Hu, 2016). Architectures evolved to improve the realism of the driving experience while dealing with constraints related to costs and available workspace (Bruck, 2021). Today’s driving simulators are complex machines with several control challenges. They have to provide the driver with realistic feedback while coping with signiﬁcant inertia and physical limitations due to available workspace and drive performance.
+These machines allow the drivers to test a vehicle during its design phase; they guarantee perfect control over the test conditions while reducing the time and costs of real-world experimentation. They are also free of the risks that characterize outdoor test sessions (Quante, 2021). This feature enables the use of driving simulators by non-professional drivers, like most of the ﬁnal users of the vehicle (Nilsson, 2020). Thus, driving simulators may allow the customers to inﬂuence the design process actively; people could test a car in a safe environment and express feedback about its
+
+response. Today, this feature appears of capital importance considering the diffusion of ADAS, and the introduction of autonomous vehicles. For the customers to develop trust in such systems, the control logic should be tuned considering their reactions (Morra, 2019; Raghuveer, 2022; Vollrath, 2011; Roche, 2022).
+The effectiveness of driving simulators as development tools is strictly related to the realism of the virtual driving experience (De Winter, 2009; Wynnea, 2019). This requirement is of particular importance for ordinary drivers who rarely have the chance to experience a driving simulator. Therefore, getting signiﬁcant feedback requires substantial consistency with their everyday experience. High-deﬁnition graphics and sound signiﬁcantly contribute to the realism level (Fouladinejad, 2011). A more relevant factor is the consistency between accelerations perceived from the vestibular and visual systems. Depending on the
+Department of Mechanical Engineering, Politecnico di Milano, Milan, Italy
+Received: 9 May 2023; accepted: 26 March 2024
+Corresponding author: Stefano Melzi, Department of Mechanical Engineering, Politecnico di Milano, Via La Masa 1, Milan 20156, Italy. Email: stefano.melzi@polimi.it
+
+2
+
+Journal of Vibration and Control 0(0)
+
+available workspace, accelerations are conveniently scaled and sustained till the platform limits approach. A proper cueing algorithm (Rengifo, 2021; Qazani, 2022; Khusro, 2020) allows controlling the states of the simulator to conveniently exploit all the workspace while maximizing the realism of the driving experience.
+Another feature inﬂuencing realism is latency, the focus of the research presented in the paper. Mechanical latency is the time elapsed between the driver’s input and the subsequent movement of the simulator. It is related to the data transfer between the cockpit and the elaboration unit, the computational time required by the cueing algorithm, and the drive performance. Therefore, mechanical latency depends on both the overall inertia of the system and the characteristics of the control system. Latency may also affect the visual, acoustic and haptic signals. As reported in previous research (Fisher, 2011; Johnson, 2005), different latencies related to distinct physical stimuli can result in motion sickness due to the asynchrony of motion, visual, acoustic and haptic cues. Besides being the hardest to minimize, the mechanical latency prevents the driver from correctly perceiving the vehicle response. Latency introduces delays that are not related to vehicle dynamics. Excessive latency results in unrealistic behaviour that might even generate motion sickness. However, the main concern is due to latencies that overlap with the time constants of a vehicle. When this condition occurs, even a trained test driver will struggle to distinguish the contribution of the vehicle’s dynamics.
+Depending on the performance and architecture, the default mechanical latency of mid-size simulators is between 10 and 30 ms (Khusro, 2020; Van Doornik, 2018). This value may increase with the computational load of the cueing algorithm. Previous research (Rengifo, 2021) showed that latencies above 200 ms lead drivers to perceive inconsistencies between the platform motion and the visual environment. Given that mechanical latency should always be minimized, to the Authors’ knowledge, technical literature does not provide speciﬁc target values. This research aims to characterize the sensitivity of a population of drivers to mechanical latency. In particular, the work focuses on how different latency levels affect the perception of lateral dynamics. Several volunteers of different ages and driving experiences performed slalom manoeuvres on the simulator of Politecnico di Milano (DRISMI, 2022). They had to compare the response of a compact car when the simulator operated with its built-in latency (30 ms) and with an increased one. Latency was changed until drivers could not distinguish the two vehicles. The target of the research was thus to determine the minimal difference in latency (with respect to 30 ms) that people can detect. Such information contributes to setting a target latency for the design of driving simulators. As the test involved almost exclusively ordinary drivers, it mainly focused on low lateral accelerations.
+
+The ﬁrst section of the paper provides a description of the cable-driven driving simulator used in the research. The second section describes the experimental procedure while the last section presents the results obtained.
+2. Driving simulator
+The driving simulator utilized for the analysis is the cabledriven DiM400 Dynamic Driving Simulator of the DRISMI laboratory (DRISMI, 2022) of Politecnico di Milano. The simulator is produced by VI-Grade (VI-Grade, 2022) and shown in Figure 1.
+The design of the driving simulator allows decoupling of the low-frequency and high-frequency motions. Decoupling is achieved by a two-stage actuation where a cable-driven diskframe represents the ﬁrst stage. The diskframe (Figure 2(a)) travels along a 6 × 6 metre steel platform sliding over frictionless air cushions. The travel space of the diskframe is about 4 m along longitudinal and lateral directions, while yaw rotation is between ±60°. Four Phase servomotors independently control the four cables driving the diskframe. The innovative cable actuation allows for the natural damping of highfrequency vibrations, which may be present in more traditional solutions like linear actuators. The bandwidth of the diskframe motions is up to 3 Hz.
+The second stage of actuation (Figure 2 (b)) consists of a modiﬁed Steward platform hereafter named hexalift. Different to a standard Steward platform, based on six extendable actuators, the hexapod consists of six rigid rods whose lower hinges slide along inclined rails. This conﬁguration allows for increased vertical displacement, sacriﬁcing the amplitude of yaw rotation. This feature is well suited for the driving simulator considered, as the cable-driven diskframe can perform remarkably wide yaw motions. The hexalift adds six degrees of freedom to the cockpit relative to the diskframe: the three translations and rotations of a rigid body in space. The bandwidth of this second actuation stage is above 30 Hz.
+An inertia-compensation system (ICS) is implemented to smooth the system dynamics. The ICS consists of three calibrated fast-moving masses sliding inside the diskframe. These masses compensate for the high-frequency inertia forces generated by the second stage of actuation. Finally, eight shakers located in correspondence with the suspension and engine connection points allow reproducing high-frequency vibrations up to 200 Hz for NVH (Noise, Vibration and Harshness) analysis for comfort assessment.
+Figure 2 shows the two stages of the driving system. Thanks to the conﬁguration with redundant degrees of freedom and reduced size, the driving simulator displays an extremely low latency, measured in less than 30 ms. The time elapsed from the driver’s action and the driving simulator response, that is, the mechanical latency, is
+
+Melzi and Previati
+
+3
+
+Figure 1. Driving simulator DIM400 at Politecnico di Milano inside the DRISMI lab.
+
+Figure 2. Actuation of the driving simulator, adapted from Vi-Grade (2022). (a) Cable driven diskframe and the four cables. (b) Hexalift mounted on the diskframe, on top the connection plate to mount any cockpit.
+
+a critical factor for the ﬁdelity perception of a driving simulator. Table 1 collects the main speciﬁcations of the driving simulator.
+The driving simulator cockpit (Figure 3) directly derives from a commercial compact car. The driver sports seat is equipped with haptic ﬁve-point seat belts. These last tighten during braking, enhancing the restraining exerted on the upper body to improve the deceleration perception. The seat embeds six pneumatic active cushions corresponding to the driver’s side, back and thigh. The cushions inﬂate according to the performed manoeuvre to move the pressure distribution between the body and seat according to longitudinal, lateral and vertical acceleration. The haptic feedback provided by seat belts and cushions supports the perception of sustained acceleration once the diskframe reaches the workspace limits.
+
+The motion of the platform is governed by a cueing algorithm based on an MPC controller. The general control scheme is reported in Figure 4. At the time tk, the 14-dof (degree-of-freedom) model of the vehicle implemented in the simulator, computes the accelerations and angular speeds of the cockpit of the ‘virtual’ car. T These signals undergo several processes: a) they are scaled, as the hardware can reproduce them only to a certain extent (Table 1); b) lateral and longitudinal accelerations are lowpass ﬁltered to provide data for tilt coordination (i.e. the cockpit is tilted to reproduce the effect of low-frequency components of accelerations); c) signals are high-pass ﬁltered to provide data for high-frequency dynamics; d) all the signals are ﬁltered through proper transfer functions representing the response of human vestibular system (Khusro, 2020).. The output of the processing is a vector rk of
+
+4
+
+Journal of Vibration and Control 0(0)
+
+reference accelerations and angular velocities that the driver should perceive. An MPC controller is implemented to determine the vector of inputs uk required to reach this goal. A multi-body model of the moving platform runs in real-time to estimate the actual accelerations and angular velocities yk perceived by the vestibular system of the driver on the simulator. The vector of inputs uk required for controlling the cockpit motion is then determined by minimizing the difference between rk and yk. At the same time, using MPC controller allows
+
+Table 1. Driving Simulator DIM400 speciﬁcations.
+
+Physical quantity
+
+Values
+
+Platform size Visual system (H) Visual system (V) Degrees of freedom Longitudinal acceleration Lateral acceleration Vertical acceleration Longitudinal travel Lateral travel Vertical travel Yaw angle Roll angle Pitch angle
+
+6m×6m 270° 90° 9 1.5 g 1.5 g 2.5 g 4.2 m 4.2 m ±298 mm ±62° ±15° ±15°
+
+settings limits to the displacements associated with the available workspace.
+3. Experimental procedure
+A rigorous experimental procedure was designed to evaluate the impact of mechanical latency on the perception of the vehicle’s response. The tests focused on the lateral dynamics of a compact car and involved almost exclusively ordinary drivers. As stated in the introduction, drivers had to perform a simple manoeuvre with the simulator operating with its default latency (30 ms) and an increased one. Latency was artiﬁcially increased by modifying the parameters of the test bench control. In a series of blind tests, drivers had to identify the two operating conditions based on the vehicle’s response. Tests were repeated by changing the increased latencies until drivers could not distinguish the two operating conditions. The experiment thus identiﬁed the minimal increment of mechanical latency perceived by each driver.
+3.1. Driving task
+During the test, each driver was asked to follow a simple path composed of a 70-m constant radius curve followed by a slalom through a line of trafﬁc cones. Figure 5 shows the test track: the distance between two cones of the slalom section is 16 m. A cruise control system, based on a simple proportional controller, maintained a constant velocity of 40 km/h in third gear. In this way, the driver only had to steer
+
+Figure 3. Driving simulator cockpit.
+
+Melzi and Previati
+
+5
+
+to follow the trajectory. To maximize repeatability, the track was delimited with trafﬁc cones, and red arrows on the asphalt marked the path to follow. Even if the drivers did not receive any warning when they hit one or more cones, the trajectories followed were all similar and perfectly consistent with the designed track.
+The manoeuvre was conceived to be easily performed by any driver. The constant radius bend had a lateral acceleration of around 2 m/s2, which is typical of ordinary driving. The maximum lateral acceleration in the slalom section was between 5 and 6 m/s2, close to the one of a sudden direction change. By choosing a simple driving task, also non-professional drivers can concentrate on their perceptions.
+The manoeuvre designed for the experiment excites mainly the lateral dynamics of the vehicle. Therefore, the test basically explores the sensitivity to latency along the lateral direction, neglecting the effect of longitudinal accelerations. Although this restricts the application range of
+
+the analysis, the choice of the test track presents several advantages. The test becomes very simple to perform even by inexperienced users. Drivers just have to control the trajectory acting on the steering wheel. Besides making the test more complicated to execute, introducing signiﬁcant longitudinal dynamics raises the risk of developing sickness. Previous experiences with several volunteers, also conﬁrmed by technical literature (Himmels, 2022), showed that manoeuvres implying signiﬁcant decelerations, typical of urban scenarios, often resulted in dropouts due to motion sickness.
+The virtual vehicle utilized for the test was a compact car with a mass of 1353 kg, a wheelbase of 2.577 m and a track of 1.506 m.
+3.2. Cueing settings
+Figure 6 compares the simulated lateral acceleration and yaw velocity with the corresponding signals in the cockpit
+
+Figure 4. Cueing control logic. Figure 5. Test track. Left: top view of the test track. Right: driver’s view.
+
+6
+
+Journal of Vibration and Control 0(0)
+
+of the driving simulator. The chosen cueing settings allow reproducing only the transient part of the manoeuvre by applying a high pass ﬁlter of 0.35 Hz on the simulated signals. Also, lateral acceleration was scaled by 65%, while no scaling was applied to the yaw velocity. These settings allow the diskframe to stay far from the platform limits, slightly sacriﬁcing the simulator performance. In this way, if inexperienced drivers performed unexpected manoeuvres, the test could continue without triggering the safe stop of the simulator. Even if the realism of the driving experience was not the primary focus of the research, the cueing settings provided reasonable feedback consistent with the performance expected from the vehicle. None of the drivers involved in the test complained about unrealistic perceptions. In addition, motion sickness represents a good indicator of the realistic level of simulation; the small number of dropouts (<10%) conﬁrms that almost all drivers perceived the scenario as consistent and realistic.
+3.3. Drivers
+A panel of 28 drivers took part in the experiments. The panel included 26 nonprofessional drivers and two professional drivers. The drivers, 10 females and 18 males were between 20 and 60 years old with different levels of previous experience on the driving simulator. All drivers have obtained a driving license. Table 2 reports the list of the drivers. More details on drivers are reported in Appendix A.
+3.4. Latency perception
+The tests focused on identifying the threshold of perception of a variation of the mechanical latency. The other latencies, such as those due to visual or acoustic stimuli, were not considered. Thus, the default settings for video and audio environments, seat and safety belt haptic feedback and steering wheel feedback torque, were used for all tests. Only the mechanical latency was modiﬁed during the tests to
+
+isolate its effects. If the driver perceives the modiﬁcation, the variation of latency or the non-synchronization of the mechanical latency affects the driver’s perceptions. If the driver does not report any difference, the variation level is below a critical threshold. In both cases, the information is relevant as it provides a level of mechanical latency that a driver can accept without affecting the driving experience on the simulator.
+The mechanical latency was changed during the test by delaying the motion of the platform and hexalift. Starting from a reference value, the latency was increased by a deﬁned quantity, adding a constant time delay to the cueing output. The total mechanical latency of the driving simulator, including the delays due to signal computation and transmission, is between 22 and 27 ms, depending on the controller settings. This value represents the minimum latency of the simulator. During the test, the adopted controller conﬁguration allowed a repeatable base latency of 30 ms.
+The perception limit for each driver was estimated following a bisection procedure. The test was divided into a series of runs. Each series had a different level of added latency. If the driver perceived the added latency, its value was reduced by 50% in the next series. Otherwise, the added latency value was increased by 50%. The ﬁrst series had a latency increment of 100 ms. The subsequent series had a latency increment according to the scheme of Figure 7. Each series took about 10 min. To prevent fatigue, each driver underwent a maximum of four series. The result of each test is a time interval between the minimum latency increment identiﬁed and the maximum latency increment not identiﬁed.
+A single-blind procedure was implemented to assess the driver’s perception of a given latency increment. Each series of runs followed these steps.
+(1) The driver performs a preliminary run of the track with the base latency. The driver is informed of the actual latency.
+
+Figure 6. Comparison between simulation outputs and driving simulator response. Left: lateral acceleration. Right: yaw velocity.
+
+Melzi and Previati
+
+7
+
+Table 2. Drivers.
+
+Driver #
+
+Age (years)
+
+Gender
+
+Driving simulator experiencea
+
+Professional driver
+
+1
+
+25
+
+F
+
+None
+
+No
+
+2
+
+26
+
+F
+
+Low
+
+No
+
+3
+
+21
+
+F
+
+None
+
+No
+
+4
+
+23
+
+F
+
+None
+
+No
+
+5
+
+22
+
+F
+
+None
+
+No
+
+6
+
+41
+
+F
+
+None
+
+No
+
+7
+
+51
+
+F
+
+None
+
+No
+
+8
+
+21
+
+F
+
+None
+
+No
+
+9
+
+43
+
+F
+
+None
+
+No
+
+10
+
+46
+
+F
+
+None
+
+No
+
+11
+
+32
+
+M
+
+High
+
+No
+
+12
+
+27
+
+M
+
+High
+
+No
+
+13
+
+44
+
+M
+
+High
+
+No
+
+14
+
+47
+
+M
+
+Medium
+
+No
+
+15
+
+25
+
+M
+
+High
+
+No
+
+16
+
+25
+
+M
+
+None
+
+No
+
+17
+
+52
+
+M
+
+High
+
+No
+
+18
+
+20
+
+M
+
+Low
+
+Yes
+
+19
+
+24
+
+M
+
+Low
+
+No
+
+20
+
+34
+
+M
+
+Low
+
+No
+
+21
+
+24
+
+M
+
+Low
+
+No
+
+22
+
+24
+
+M
+
+Low
+
+No
+
+23
+
+25
+
+M
+
+None
+
+No
+
+24
+
+32
+
+M
+
+High
+
+Yes
+
+25
+
+42
+
+M
+
+Low
+
+No
+
+26
+
+60
+
+M
+
+None
+
+No
+
+27
+
+37
+
+M
+
+None
+
+No
+
+28
+
+25
+
+M
+
+High
+
+No
+
+aExperience: None: never used a driving simulator before. Low: less than ﬁve previous sessions on a driver simulator. Medium: several previous sessions on a driver simulator. High: systematic use of a driving simulator.
+
+Figure 7. Bisection scheme. The time delays refer to the latency increment with respect to the base latency of 30 ms.
+
+(2) The driver performs a preliminary run of the track with incremented latency. The driver is informed of the actual latency.
+(3) The actual test starts; the driver performs a run with the base latency, being informed of its value; then, the
+
+driver performs a second run without knowing if the latency is the base or the incremented one. After the run, the driver has to recognize which of the two latencies was applied. The driver is not informed about the correctness of the answer. This step is repeated ﬁve
+
+8
+
+Journal of Vibration and Control 0(0)
+
+times for a total of 10 runs (ﬁve base latency runs and ﬁve identiﬁcation runs). (4) The latency increment is considered perceived with at least four correct answers. We chose this criterion as a compromise between avoiding false positives and causing fatigue or sickness: the driving simulator could be a very demanding environment, especially for inexperienced drivers. Not allowing any error would have led to many false negatives. The driver then knows if he perceived the latency increment. (5) The latency increment value is changed accordingly to the result of the previous run. The driver is informed if the latency is increased or decreased with respect to the previous level and the experiment restarts from point 1.
+The described procedure aims to prevent casual identiﬁcation of the applied latency. For each driver and series, the sequence of base or incremented latencies is generated from a pseudo-random sequence. Anyway, each series contains at least one run with base latency and one with modiﬁed latency. The described method differs from a usual PEST (Taylor, 1967) approach: the number of trials for each level is constant, and the end of the test is given by the number of levels rather than the size of perceived variation. These differences are motivated by the need to reduce the global testing time to avoid driver fatigue due to prolonged use of the driving simulator.
+Experimental results and data analysis
+Table 3 shows the results of the tests. Out of the 28 drivers, 25 drivers completed four series. Drivers 20 and 24 performed three series only. Consequently, their result intervals are wider. Driver 6 was the only one able to perceive the minimum value of the latency increments in Figure 7. She also performed the test with a latency increment of 6 ms, which she could not detect. Hence, for driver 6, the perceived latency interval was between 6 and 12 ms.
+Having less than 10% of dropouts conﬁrms that the test was properly conceived to minimize the risk of motion sickness. Only two drivers (20 and 24) had to stop after completing 75% of the test. As reported in Figure 7, the maximum value of latency added was 0.187 ms. Such a delay can characterize two vehicles with different dynamic responses. None of the volunteers claimed that the dynamics of the car were unrealistic. Even if the choice of test parameters and cueing settings reduced inconsistencies between expected and perceived accelerations, the sensor conﬂict theory (Reason, 1975) may explain the dropouts.
+The perceived interval increments of latency measured during the experimental tests were used to ﬁt a probability distribution. The experimental data is always positive, and the probability vanishes when approaching zero. Among the possible probability distributions that can describe such data, the log-normal and the Weibull were considered.
+
+These two distributions are common choices in many engineering ﬁelds, including research on human behaviour in transport (Vlahogianni, 2013). The effect of distribution choice on data interpretation was analysed.
+The experimental data were ﬁtted on the considered distributions according to the procedure described in the following. As a ﬁrst step, for the log-normal distribution, the lower and upper bounds of the intervals of Table 3 were transformed into logarithmic values of base 10.
+
+zu, i ¼ log10ðIu, iÞ i ¼ 1…17
+
+(1)
+
+zl, i ¼ log10ðIl, iÞ i ¼ 1…17
+
+(2)
+
+where Iu, i and Il, i are the upper and lower bounds of the intervals for each driver, respectively. For the Weibull
+distribution, such transformation is not required; therefore, for this distribution, zu, i ¼ Iu, i and zl, i ¼ Il, i.
+The vectors p of the parameters of the two distributions were estimated through the maximum likelihood method.
+For the log-normal distribution, the parameters are the mean value μ and the standard deviation σ. The parameters of the Weibull distribution are the scale factors α and β. In the case of ﬁtting data provided as intervals, the logarithmic of the likelihood function for the chosen distribution can be
+computed as
+
+X 17
+
+lðpÞ ¼ logðΦðzu, i, pÞ À Φðzl, i, pÞÞ
+
+(3)
+
+i¼1
+
+where Φ is the cumulative function of the considered
+
+distribution. By maximizing l, the values of the parameters
+
+can be identiﬁed. The identiﬁed parameters are reported in
+
+Table 4 along with their estimated standard deviation.
+
+For the log-normal distributions, the identiﬁed param-
+
+eters are in logarithmic values and the mean value of the
+
+distribution describing the whole population corresponds to
+
+68 ms. If the analysis is referred to female or male drivers
+
+only, the means values will be 70.5 ms and 67 ms, re-
+
+spectively. For the Weibull distribution, a mean value of
+
+84 ms can be computed for the whole population, with mean
+
+values of 94.5 ms and 78.5 ms for female and male pop-
+
+ulations, respectively.
+
+The standard deviations of the parameters can be esti-
+
+mated as the square root of the diagonal terms of the local Fisher matrix Fb, deﬁned as
+2 ∂2lðpÞ ∂2lðpÞ 3
+
+Fb
+
+¼
+
+À6664
+
+∂p12 ∂2lðpÞ
+
+∂p1∂p2 ∂2lðpÞ
+
+7775
+
+(4)
+
+∂p1∂p2 ∂p22
+
+Fb corresponds to minus the Hessian of lðpÞ. This matrix is
+readily available from the numerical solution of the maximization of lðpÞ. p1 and p2 are the two parameters of each of the two considered distributions (p ¼ ½ p1 p2 ).
+
+Melzi and Previati
+
+Table 3. Results of the tests, perceived latency intervals.
+
+Driver number
+
+Max. not perceived latency incr. (ms)
+
+1
+
+87
+
+2
+
+162
+
+3
+
+100
+
+4
+
+150
+
+5
+
+125
+
+6
+
+6
+
+7
+
+37
+
+8
+
+162
+
+9
+
+25
+
+10
+
+37
+
+11
+
+37
+
+12
+
+112
+
+13
+
+25
+
+14
+
+37
+
+15
+
+50
+
+16
+
+87
+
+17
+
+112
+
+18
+
+25
+
+19
+
+62
+
+20
+
+75
+
+21
+
+137
+
+22
+
+25
+
+23
+
+100
+
+24
+
+50
+
+25
+
+12
+
+26
+
+112
+
+27
+
+150
+
+28
+
+75
+
+Min. Perceived latency incr. (ms)
+100 175 112 162 137 12 50 175 37 50 50 127 37 50 62 100 125 37 75 100 150 37 112 75 25 125 162 87
+
+9
+Mean interval value (ms)
+93.5 168.5 106 156 131
+9 43.5 168.5 31 43.5 43.5 119.5 31 43.5 56 93.5 118.5 31 68.5 87.5 143.5 31 106 62.5 18.5 118.5 156 81
+
+The percentiles yP% of each distribution can be computed as
+
+yP% ¼ ΦÀ1ðP%, pÞ
+
+(5)
+
+where ΦÀ1 is the inverse of the considered distribution. The
+
+95% conﬁdence band of the percentiles can be computed as
+
+(
+
+yP%
+
+¼
+
+yP% þ 1:96 Á bσyP% y P%
+
+¼
+
+yP% À 1:96 Á bσyP%
+
+(6)
+
+where
+
+qﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃ
+
+bσyP% ¼ hFbÀ1hT
+
+(7)
+
+with
+
+!
+
+h ¼ ∂yP% ∂yP% ∂p1 ∂p2
+
+(8)
+
+For the Log-normal distribution h reads
+
+Â
+
+Ã
+
+h ¼ 1 zP%
+
+(9)
+
+where zP% ¼ ΦÀ1ðP%, bμ, bσÞ. For the Weibull distribution is
+
+!
+
+h ¼ ðÀ logð1 À P%ÞÞβ1 Á
+
+1
+
+À
+
+α
+
+Á
+
+logð1 β2
+
+À
+
+P%
+
+Þ
+
+(10)
+
+Figure 8 reports the interval of perception of incremented latency on a Log-normal probability chart and on a Weibull chart. Data refer to the entire population and are interpolated with the considered distributions. Both distributions ﬁt the experimental data quite well. In fact, the intervals appear almost evenly distributed around the straight lines describing the theoretical distributions. Also, nearly all the intervals fall within the 95% conﬁdence band for both distributions.
+Figures 9(a) and 9(b) show the Log-normal probability charts for female and male driver populations. Even
+
+10
+
+Journal of Vibration and Control 0(0)
+
+Table 4. Parameters of the distributions of the identiﬁed perceived latency intervals of Table 3 for the whole population and for female and male drivers.
+
+Log-normal distribution
+
+Parameter
+
+Mean identiﬁed value
+
+Standard deviation of identiﬁed value
+
+Mean (whole population) Standard deviation (whole population) Mean (female) Standard deviation (female) Mean (male) Standard deviation (male)
+
+1.8327 0.3122 1.8486 0.3903 1.8241 0.2592
+
+0.0594 0.0430 0.1239 0.0895 0.06169 0.0448
+
+Weibull distribution Parameter Scale factor (whole population) Shape factor (whole population) Scale factor (female) Shape factor (female) Scale factor (male) Shape factor (male)
+
+Mean identiﬁed value 94.71 1.81 105.2 1.588 88.60 2.05
+
+Standard deviation of identiﬁed value 10.47 0.282 21.97 0.431 10.82 0.394
+
+Figure 8. Charts of the perceived latency increment intervals of the whole population of drivers. Left: Log-normal distribution. Right: Weibull distribution. Data in Table 4.
+
+restricting the analysis to these two sets of drivers, the lognormal distribution ﬁts the data reasonably well. Similar results can be obtained by using the Weibull distribution. Figure 10 displays a qualitative comparison of the distributions obtained considering the whole driver population or female or male drivers only. The ﬁgure shows a qualitative similarity between the distributions, both in the case of Log-normal and Weibull distribution. Also, the Spearman correlation index between gender and latency is 0.14, and the p-value of an ANOVA analysis is 0.43. Although relatively few drivers were involved, the qualitative comparison between the two distributions, the low value of the correlation index and the high p-value, seem to indicate that
+
+the inﬂuence of the driver’s gender on the perceived latency variation, if indeed present, is not strong. A larger panel of drivers should be tested to verify this result.
+A similar analysis was on the effect of the driver’s experience with the driving simulator. No signiﬁcant relationship emerged, with a Spearman coefﬁcient of À0.20 and a p-value of an ANOVA analysis of 0.60. Again, despite the limited number of tests, the analysis did not highlight a strong correlation between drivers’ experience with driving simulators and the perceived latency increment. As for the previous comparison, also in this case these preliminary results should be veriﬁed by considering a larger panel of drivers.
+
+Melzi and Previati
+
+11
+
+Figure 9. (a) Log-normal probability chart of the male population of drivers. (b) Log-normal probability chart of the female population of drivers.
+
+Figure 10. Probability density functions of the perceived latency increment intervals. Left: Log-normal distribution. Right: Weibull distribution.
+
+Table 5. Perceived latency: estimated percentiles of the perceived latency for the two considered distributions.
+
+Log-normal distribution
+
+Weibull distribution
+
+95% conﬁdence interval
+
+95% conﬁdence interval
+
+Percentile (%) Mean percentile value (ms) (min-max) (ms)
+
+Mean percentile value (ms) (min-max) (ms)
+
+1
+
+13
+
+7-22
+
+7
+
+1-14
+
+2.5
+
+17
+
+10-27
+
+12
+
+3-21
+
+5
+
+21
+
+14-32
+
+18
+
+7-30
+
+10
+
+27
+
+19-39
+
+27
+
+14-41
+
+20
+
+37
+
+27-51
+
+41
+
+25-57
+
+30
+
+47
+
+35-63
+
+54
+
+36-71
+
+40
+
+57
+
+43-75
+
+65
+
+47-84
+
+50
+
+68
+
+52-89
+
+77
+
+58-97
+
+60
+
+82
+
+62-108
+
+90
+
+70-111
+
+70
+
+99
+
+74-133
+
+105
+
+83-127
+
+80
+
+125
+
+91-171
+
+123
+
+97-149
+
+90
+
+171
+
+118-247
+
+150
+
+117-184
+
+95
+
+222
+
+146-338
+
+174
+
+132-216
+
+97.5
+
+278
+
+174-445
+
+195
+
+144-246
+
+99
+
+362
+
+213-616
+
+221
+
+157-284
+
+12
+
+Journal of Vibration and Control 0(0)
+
+Table 5 reports signiﬁcant percentiles and related conﬁdence bands for the distributions of the entire population. The two distributions show little differences in the percentile values, but the corresponding conﬁdence bands largely overlap, conﬁrming a reasonable agreement between the two interpolations. For higher values of perceived latency, the Weibull distribution displays smaller conﬁdence bands.
+The results show that both professional and nonprofessional drivers perceive relatively small variations of mechanical latency when using a dynamic driving simulator. Almost 20% of the population identiﬁes variations below 40 ms. Even if the experiments considered the variation of latency against a reference value, it can be supposed that drivers would display similar sensitivity to absolute latency. This last would affect their perception of the actual vehicle under test. The manoeuvre used for the tests involved lateral accelerations typical of ordinary driving conditions. In addition, conservative cueing settings were chosen. If more extreme manoeuvres and tailored cueing settings were considered, the drivers would likely be able to perceive even lower variations of mechanical latency.
+5. Conclusion
+This paper dealt with the analysis of the mechanical latency perceived when driving a dynamic driving simulator. Mechanical latency introduces delays between driver inputs and cockpit response, which are unrelated to vehicle dynamics. Excessive mechanical latency prevents the driver from properly perceiving the vehicle dynamics, thus undermining the signiﬁcance of driving simulator tests. This work explored the sensitivity of drivers to mechanical latency, focusing on lateral dynamics in ordinary manoeuvres.
+Twenty-eight professional and non-professional drivers were asked to drive on a simple test track with different levels of mechanical latencies. The test focuses on the effect of latency on the perception of the lateral dynamics of the vehicle. A single-blinded procedure was adopted to identify the amount of latency variation perceived by each driver. The collected data were analysed with two statistical distributions.
+The results show that drivers perceive a relatively small latency variation: 20% of the population distinguishes variations below 40 ms. The most sensitive driver sensed a latency increment of just 12 ms. Even if few professional drivers were involved in the experimentation, the most sensitive non-professional drivers perceive the smallest latency increments. In addition, a preliminary comparison between the perception of female and male drivers has not shown signiﬁcant differences. Such comparison is only preliminary as the two populations are relatively small, a larger panel of drivers should be tested to conﬁrm this result. Similarly, from a preliminary analysis, also previous
+
+experience in driving simulators does not seem to affect the value of the perceived latency variation.
+Overall, many users demonstrated a remarkable sensitivity to mechanical latency. The outcome suggests that part of the population would detect a different response if the default latency of the simulator (30 ms) could be removed. Such results refer to a manoeuvre with lateral accelerations reached in ordinary driving conditions and conservative settings of the cueing algorithm. In more extreme scenarios, latency sensitivity may even sharpen. Likely, for the most demanding applications involving race cars or fast transients, mechanical latency should stay well below 10 ms to provide consistent feedback to the most sensitive drivers. Therefore, care should be taken in controlling this parameter for the signiﬁcance of dynamic driving simulator analyses.
+Acknowledgements The authors greatly acknowledge Prof. Federico Cheli and Prof. Gianpiero Mastinu for their effort in creating DRISMI. The authors wish to thank Dr Francesco Comolli and Eng. Alessandro Casella for their precious help in realizing the tests.
+Declaration of conﬂicting interests The author(s) declared no potential conﬂicts of interest with respect to the research, authorship, and/or publication of this article.
+Funding The author(s) received no ﬁnancial support for the research, authorship, and/or publication of this article.
+ORCID iD Stefano Melzi  https://orcid.org/0000-0001-9138-6225
+References Bruck L, Haycock B and Emadi A (2021) A review of driving
+simulation technology and applications. IEEE Open Journal of Vehicular Technology 2: 1–16. De Winter JCF, De Groot S, Mulder M, et al. (2009) Relationships between driving simulator performance and driving test results. Ergonomics 52(2): 137–153. DRISMI (2022) Available at https://www.drismi.polimi.it/ (accessed 5 May 2023). Fisher JD, Rizzo DL, Caird M, et al. (2011) Handbook of Driving Simulation for Engineering, Medicine and Psychology. Boca Raton: CRC Press. Fouladinejad N, Abd Jalil MK and Taib JM (2011) Modeling virtual driving environment for a driving simulator. In 2011 IEEE International Conference on Control System, Computing and Engineering, 27–32. Himmels C, Venroolj J, Gmunder M, et al. (2022) The inﬂuence of simulator and driving scenario on simulator sickness. In Proceedings of the Driving Simulator Conference, Strasbourg, France, 14-16 September 2022, pp. 29–36
+
+Melzi and Previati
+
+13
+
+Hu B, Zhang L and Yu J (2016) Kinematics and dynamics analysis of a novel serial-parallel dynamic simulator. Journal of Mechanical Science and Technology 30(11): 5183–5195.
+Huang ARW and Chen C (2003) A low-cost driving simulator for full vehicle dynamics simulation. IEEE Transactions on Vehicular Technology 52(1): 162–172.
+Johnson DM (2005) Introduction to Review of Simulator Sickness Research. Report. U.S. Army Research Institute for the Behavioral and Social Sciences.
+Khusro YR, Zheng Y, Grottoli M, et al. (2020) MPC-based motion-cueing algorithm for a 6-DOF driving simulator with actuator constraints. Vehicles 2: 625–647.
+Koo TY, Kim BY, Shin HJ, et al. (2010) Development of the Sungkyunkwan University driving Simulator (skud) for human-machine interface studies of car navigation systems. International Journal of Automotive Technology 11(5): 743–749.
+Morra L, Lamberti F, Pratticó FG, et al. (2019) Building trust in autonomous vehicles: role of virtual reality driving simulators in HMI design. IEEE Transactions on Vehicular Technology 68: 9438–9450.
+Nehaoua L, Mohellebi H, Amouri A, et al. (2008) Design and control of a small-clearance driving simulator. IEEE Transactions on Vehicular Technology 57(2): 736–746.
+Nilsson EJ, Victor T, Ljung Aust M, et al. (2020) On-to-off-path gaze shift cancellations lead to gaze concentration in cognitively loaded car drivers: a simulator study exploring gaze patterns in relation to a cognitive task and the trafﬁc environment. Transportation Research Part F: Trafﬁc Psychology and Behaviour 75: 1–15.
+Qazani MRC, Asadi H, Mohamed S, et al. (2022) An optimal washout ﬁlter for motion platform using neural network and fuzzy logic. Engineering Applications of Artiﬁcial Intelligence 108(1): 104564.
+Quante L, Zhang M, Preuk K, et al. (2022) Human performance in critical scenarios as a Benchmark for highly automated vehicles. Automotive Innovation 4: 274–283.
+Raghuveer G and Srinivas SP (2022) Drivers’ behaviour when driving vehicles with or without advanced driver assistance systems: a driver simulator-based study. Transportation Research Interdisciplinary Perspectives 13: 1–9.
+Reason JT and Brand JJ (1975) Motion Sickness. Oxford: Academic Press.
+
+Rengifo C, Chardonnet J, Mohellebi H, et al. (2021) Impact of human-centered vestibular system model for motion control in a driving simulator. IEEE Transactions on human-machine systems 51(5): 411–420.
+Roche F, Becker S and Thüring M (2022) What happens when drivers of automated vehicles take over control in critical lane change situations? Transportation Research Part F: Trafﬁc Psychology and Behaviour 84: 407–422.
+Taylor M and Creelman C (1967) PEST: Efﬁcient estimates on probability functions. Journal of the Acoustical Society of America 41: 782–787.
+Van Doornik J, Brems W, de Vries E, et al. (2018) Driving simulator with high platform performance and low latency. ATZ worldwide 120: 48–53.
+VI-Grade (2022) Available at https://www.vi-grade.com/ (accessed 5 May 2023).
+Vlahogianni EI (2013) Modeling duration of overtaking in two lane highways. Transportation Research Part F: Trafﬁc Psychology and Behaviour 20: 135–146.
+Vollrath M, Schleicher S and Gelau C (2011) The inﬂuence of cruise control and adaptive cruise control on driving behaviour – a driving simulator study. Accident Analysis & Prevention 43(3): 11134–11139.
+Wynne RA, Beanland Vand Salmon PM (2019) Systematic review of driving simulator validation studies. Safety Science 117: 138–151.
+Appendix 1
+Appendix A - drivers
+The panel of 28 drivers has been recruited among staff and students of Politecnico di Milano who volunteered for performing the tests. All participants have been informed, both orally and in writing, about the risk and safety issues related to the use of the driving simulator. All participants have signed and informed consensus before accessing the driving simulator. Table AI, reports some additional information about the drivers.
+
+14
+
+Table AI. Drivers additional information.
+
+Driver #
+
+Eye-glasses
+
+Driving license years
+
+1
+
+Yes
+
+6
+
+2
+
+Yes
+
+6
+
+3
+
+Yes
+
+3
+
+4
+
+Yes
+
+5
+
+5
+
+No
+
+<1
+
+6
+
+Yes
+
+24
+
+7
+
+Yes
+
+33
+
+8
+
+Yes
+
+4
+
+9
+
+No
+
+25
+
+10
+
+Yes
+
+28
+
+11
+
+No
+
+15
+
+12
+
+Yes
+
+10
+
+13
+
+No
+
+27
+
+14
+
+No
+
+29
+
+15
+
+No
+
+8
+
+16
+
+Yes
+
+8
+
+17
+
+Yes
+
+35
+
+18
+
+No
+
+3
+
+19
+
+No
+
+7
+
+20
+
+No
+
+6
+
+21
+
+No
+
+17
+
+22
+
+Yes
+
+6
+
+23
+
+Yes
+
+8
+
+24
+
+No
+
+14
+
+25
+
+No
+
+25
+
+26
+
+Yes
+
+41
+
+27
+
+No
+
+42
+
+28
+
+No
+
+19
+
+aRanks one to 5. 1 = none, 5 = very extensive.
+
+km/year
+4500 5000 2000 100 1000 3500 15000 120 3500 20000 5000 20000 15000 10000 5000 1200 15000 10000 7000 5000 15000 20000 10000 30000 15000 15000 20000 1000
+
+Journal of Vibration and Control 0(0)
+Experience with driving video gamesa
+1 1 1 2 3 1 1 3 1 1 1 2 4 2 4 1 3 4 5 3 3 4 1 5 1 1 2 2
+

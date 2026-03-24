@@ -1,0 +1,501 @@
+Displays 78 (2023) 102453 Contents lists available at ScienceDirect
+Displays
+journal homepage: www.elsevier.com/locate/displa
+
+HUDNet: A dynamic calibration method for automotive augmented reality head-up-displays✩
+Nan Xu a, Fangzheng Yu a, Jiao Xu b, Dajiang Jin b, Huajun Feng a, Zhihai Xu a, Qi Li a, Yueting Chen a,∗
+a College of Optical Science and Engineering, Zhejiang University, Hangzhou, China b Huawei Technologies Co., Ltd, Dongguan, China
+
+ARTICLE INFO
+Keywords: Augmented reality Head-up-display Neural networks Calibration Distortion correction
+
+ABSTRACT
+The automotive augmented reality head-up-display (AR-HUD) system relies on multiple free-form surfaces to project the virtual image into human eyes. A wide range of views and the extensive display area result in extraordinarily complex distortions. Providing a way to correct such distortions is a major leap forward. Methods widely used for calibration, such as lookup tables and interpolation, require considerable memory capacity, complicated calibration procedures, etc. Additionally, when attempting to meet the high-accuracy requirements for such systems, computational memory grow rapidly. In this context, we propose a fully connected neural network (HUDNet) for an automotive AR-HUD to correct dynamic distortion. Here, we propose a parallel prediction framework for the center and the edge of the image, and separate the distortion information from the disparity information in order to balance the unstable central field of view error. Ultimately, we introduce the transfer learning method to improve accuracy and its effect on accuracy is assessed. The present study provides a reference for us to apply deep learning methods to predict dynamic image distortion of various complex multi-freeform surface reflection systems in the future.
+
+1. Introduction
+Modern automobiles are being equipped with ever more innovative technology, as the industry develops rapidly. Augmented reality is a tool to enhance people’s daily life, recreation, and work-related activities. There are several distinctive solutions for automotive augmented reality (AR), including augmented reality head-up display (AR-HUD), which is able to project road tips, signs, and warnings on the windshield in real-time [1]. AR-HUD offers outstanding advantages in terms of improved driving experience and enhanced road safety.
+1.1. Challenges and significance of AR-HUD
+The idea of using HUD as an Augmented Reality device was originally introduced and explored for avionic applications [2,3]. While an automotive AR-HUD system is an augmented reality display that utilizes the windshield as an optical combiner. The projector system projects the roads’ navigation information or other necessary information on the free-form surface combiner through another pair of free-form surface reflectors, and the driver obtains the fusion information from the virtual image and the world outside. Therefore, drivers
+
+are no longer required to bow their heads and turn their attention to mobile information. They can always be aware of road conditions and respond to all kinds of emergencies more quickly, which increases both safety and comfort.
+However, in AR-HUDs, if the user views the virtual image from different perspectives, the image will exhibit varying degrees of distortion and overall translation, as is illustrated in Fig. 1(a). The inaccessibility of the retinal image signifies an additional challenge for the multidirectional dynamic calibration of AR-HUDs [4]. Before it is put into use, the one-to-one correspondence between the human eye position and distortion must be calibrated in a particular manner. During use, the eye-tracking camera obtains eye position [5–7], and the real-time dynamic distortion correction is carried out according to the offline calibration, as shown in Fig. 1(b). Also, the high degree of freedom of the eye position, the complex projector, and the large virtual image size are factors that impede calibration. The complexity and unreliability of the calibration procedures are the major obstacles to the widespread adoption of AR-HUDs in industrial applications. Also, the dynamic alignment between the projected image and the real world (monocular motion disparity) is also one of the issues to be solved. The sum of
+
+✩ This paper was recommended for publication by Shibiao Xu. ∗ Corresponding author.
+E-mail addresses: 12030044@zju.edu.cn (N. Xu), chenyt@zju.edu.cn (Y. Chen).
+https://doi.org/10.1016/j.displa.2023.102453 Received 6 June 2022; Received in revised form 1 March 2023; Accepted 27 April 2023 Available online 10 May 2023 0141-9382/© 2023 Elsevier B.V. All rights reserved.
+
+N. Xu et al.
+
+Displays 78 (2023) 102453
+
+Fig. 1. AR-HUDs produce distortion and overall translation when the original image is projected onto the windshield. To ensure that the virtual image is not distorted, the original image should be warped beforehand. Without calibration and correction, (a) project the original image directly causing distortion. While (b) project the original image with a pre-distortion warping according to the calibration information to correct the distortion in (a).
+
+the effects of the above two issues (distortion and monocular motion disparity) is regarded as a generalized distortion.
+Therefore, better calibration is vital for creating a safer and more comfortable driving environment, but it also faces tremendous challenges.
+1.2. Limitations of existing methods
+This section outlines some related work and discusses why our solution can be superior to similar ones.
+Fixed viewpoint calibration. In the early stages of the development of AR-HUDs, distortion correction was primarily achieved by the design of two free-form surfaces in the projector [8–10]. By designing a free-form surface reflection system suitable for the shape of the windshield, the distortion is minimized at a certain viewpoint. Later, Wu et al. [11] constructed an interior system focusing primarily on distortion correction with fixed angle viewing and fixed head positioning on the basis of pre-warped points and interpolation. These methods correct the distortion in a fixed viewpoint. When people change positions, distortion and disparity will always happen, resulting in a bad effect of correction.
+Traditional dynamic calibration. Wientapper et al. [12] first proposed dynamic distortion correction for vehicle AR-HUD system. They correct the optical distortion using a polynomial regression model. It is limited to a small display area, and the process of calibration involves complex components. Therefore, some subsequent work has been supplemented on this basis [13] or put forward better improvement schemes [14–16]. Basically, these methods establish and store a relationship table of pre-distortion maps for some eye positions, and then use an interpolation method for the other eye positions. This interpolation method is now widely used by the industry to correct distortion [14].
+A substantial amount of data is required to form the look-up table, which has high requirements for the storage of the system, and the interpolation of distortion models in different viewpoints will inevitably lead to the hopping of distortion correction [17] and negatively impact the user experience. In the process of converting a distortion map into a pre-distortion map, surface fitting and inverse transformation methods are utilized, and the improvement in fitting accuracy leads to an exponential increase in calculation time. To date, the projection virtual image resolution is still low (about 400 × 800 pixels). As resolution increases, the amount of data will need more storage and processing, and it is more difficult to achieve better overall image distortion correction.
+Dynamic calibration based on deep learning. Due to the shortcomings of traditional methods, we propose the method of constructing a fully connected neural network. HUDNet can be used to predict the pre-distortion warping map according to each input eye position to achieve image correction. A neural network method offers superior
+
+generalization abilities and processing efficiency as compared to the traditional method. At the same time, it is helpful for eliminating the problems caused by interpolation. The application prospects are exciting. In comparison to Li’s [17], ours puts forward new ideas including position coding, subfield prediction, and disparity decoupling. By exploring the properties of neural networks, we can achieve better results on this task.
+Other works. Optical See-Through Head-Mounted-Displays (OSTHMD) share many similarities with HUDs as they also use a translucent reflector as a combination to create virtual images in front of the eyes. There are several methods [18–21] available for estimating projective properties. Most of these methods rely on user interaction, in which several virtual points must be aligned with the actual points in the scene. As the eye position in an HMD is fixed, it does not provide a useful reference for the HUD.
+1.3. Our contribution
+In this paper, we propose a deep-learning solution to predict the one-to-one correspondence between eye position and distortion. When calibrating offline, a standard lattice is projected. Inspired by Owen et al. [22], we use an auxiliary camera mounted on a mechanical arm to replace the human eye, and collect the distorted images of the lattice from various viewpoints. A dataset can be obtained for training HUDNet by recognizing the lattice images. The generalized distortion is corrected directly as a whole in the previous works. However, because the variation of parallax is large, the variation of distortion is complex, which will increase the error of generalized distortion prediction. We decouple disparity information from distortion information, which greatly reduces the difficulty of distortion prediction. Furthermore, based on our analysis, we find that the lattice distortion variable in the center of the image is extremely small. Consequently, if it is predicted directly by the neural network, more distortion will be introduced as a result of prediction error. We, therefore, present a more accurate method for predicting the distortion of the central field of view.
+In summary, our contribution includes the following:
+(i) We propose a three-input HUDNet based on position coding. To achieve higher accuracy of prediction, the network outputs both the disparity and distortion separately. Our study investigates the relationship between the properties of neural networks and the task of distortion prediction.
+(ii) We propose a progressive data pre-processing strategy. This is the first attempt at decoupling disparity information from distortion information and using the percentage of distortion to the FOV to predict the small distortion in the center of the field of view. In the distortion correction work, for the first time, we consider the influence of the disparity problem on the alignment of the projected image and the real scene, which provides a better interface for the subsequent process.
+
+2
+
+N. Xu et al.
+1.4. Article structure
+
+In Section 2, we present the specific conceptual foundations of our proposed method. Section 3 outlines the results, verifying the effectiveness and feasibility of our method. The major lessons learned thus far are summarized in the concluding Section 4.
+
+2. Method
+
+The following section presents an overview of the process of acquiring HUD data and the method for estimating the distortion of display elements and explains how our approach overcomes the limitations of existing methods.
+
+2.1. Data collection and processing
+
+A typical projected standard image will produce severe distortion after being reflected by two free-form surface mirrors of the projector and the automobile windshield, as shown in Fig. 1(a). Moreover, the degree and shape of distortion vary depending on the viewpoint from which the projection image is observed. As a result of the difference in relative positions between the human eye and the displayed image as well as the real world, the disparity will also be affected. As long as we recognize the one-to-one correspondence between the pixels in the distorted image and the pixels in the projected image, we can make the distorted image free of distortion by applying a pre-distortion warping to the projected image, as shown in Fig. 1(b). In our case, we are seeking a set of data: 5D input contains the coordinates of the eye in the world coordinate system and a pixel position of the distorted image, while 4D output contains the offset of the entire image caused by the disparity in the two-dimensional display area and the pre-distortion parameters of a pixel of the projected image corresponding to the input. Their relationship is as follows:
+
+[𝑥𝑃 𝑦𝑃 𝑡𝑢 𝑡𝑣]𝑇 =H ([𝑥𝐸 𝑦𝐸 𝑧𝐸 𝑢𝐷 𝑣𝐷]𝑇 ),
+
+(1)
+
+(𝑢𝑃 , 𝑣𝑃 ) =T ((𝑢𝑂, 𝑣𝑂) | (𝑡𝑢, 𝑡𝑣))
+
+As shown in Fig. 1(b), where (𝑥𝐸 , 𝑦𝐸 , 𝑧𝐸 ) is the viewpoint coordinates, (𝑢𝑂, 𝑣𝑂) is the pixel coordinates of the original image, (𝑡𝑢, 𝑡𝑣) is the pre-distortion parameters, T (⋅) is a pre-distortion warping operation, (𝑢𝑃 , 𝑣𝑃 ) is the pixel coordinates of the projected image, (𝑢𝐷, 𝑣𝐷) is the pixel coordinates of the displayed virtual image, 𝑥𝑃 and 𝑦𝑃 are the deviations between the center of the displayed virtual image and the center of the display area. And lastly, we use H to represent the neural network.
+A standard dot-matrix image (Fig. 2(a)) could be projected onto the windshield and the distorted image (Fig. 2(b)) could be captured by an auxiliary camera. By identifying the center of each dot (Fig. 2(c)), we completed the data collection.
+Prior to this, the distorted surface was usually obtained by Bessel fitting, and pre-distortion information was obtained by the inverse solution process. Surface fitting introduces unnecessary errors, resulting in a reduction in prediction accuracy. Particularly, the improvement in fitting accuracy leads to an exponential increase in calculation memory, so a more accurate result will sacrifice larger storage demand. We can, however, output pre-distortion information directly from neural network prediction, and eliminate the step of surface fitting, by decoupling disparity and distortion.
+As far as we know, traditional calibration methods predict the actual coordinates or the offset of the pre-distortion directly. In this case, the error of the prediction method is not directly related to the position of the pixel in the image. While the distortion variable in the central area of the image is small, greater distortion will be introduced due to the interpolation error. The proposed method aims to improve accuracy in
+
+Displays 78 (2023) 102453
+
+the circumstances. The following pre-distortion percentage concept is introduced:
+
+⎧0
+
+𝑝(𝑢𝑂 )
+
+=
+
+⎪ ⎨
+
+𝑢𝑃 −𝑢𝑂
+
+⎪ √𝑢2𝑂+𝑣2𝑂
+
+𝑢2𝑂 + 𝑣2𝑂 = 0 𝑜𝑡ℎ𝑒𝑟𝑤𝑖𝑠𝑒 ,
+
+⎩
+
+(2)
+
+⎧0
+
+𝑝(𝑣𝑂 )
+
+=
+
+⎪ ⎨
+
+𝑣𝑃 −𝑣𝑂
+
+⎪ √𝑢2𝑂+𝑣2𝑂
+
+⎩
+
+𝑢2𝑂 + 𝑣2𝑂 = 0 𝑜𝑡ℎ𝑒𝑟𝑤𝑖𝑠𝑒
+
+Where 𝑝(⋅) is the pre-distortion percentage. If the fitting ability of the neural network remains unchanged,1 we
+
+assume that the output data accuracy is 1% of the range of the input
+
+data. Errors of the three types of output data become as follows:
+
+If (𝑡𝑢, 𝑡𝑣) = (𝑢𝑃 , 𝑣𝑃 ), then HUDNet output the actual coordinates. The maximum error is as follows:
+
+𝐸1 = 0.01𝑁
+
+(3)
+
+If (𝑡𝑢, 𝑡𝑣) = (𝑢𝑃 − 𝑢𝑂, 𝑣𝑃 − 𝑣𝑂), then HUDNet output the coordinate offset. The maximum error is as follows:
+
+𝐸2 = 0.02𝛿
+
+(4)
+
+If (𝑡𝑢, 𝑡𝑣) = (𝑝(𝑢𝑂), 𝑝(𝑣𝑂)), then HUDNet output the pre-distortion percentage. The maximum error is as follows:
+
+𝐸3 = 0.02𝑟𝑝𝑚𝑎𝑥
+
+(5)
+
+Where 𝑟 is the distance from a pixel to the image center, 𝑝𝑚𝑎𝑥 is the maximum of all pre-distortion percentage data, and 𝐸𝑖(𝑖 = 1, 2, 3) is the maximum error in pixels. The image size is 𝑁 × 𝑁 pixels, and the maximum coordinate offset of the pre-distortion is 𝛿.
+As can be seen, if the output data accuracy is unchanged, predicting offset is more accurate than predicting coordinates. Actually, the coordinate offset data is more complex than actual coordinates data, so the accuracy is lower but the error will still be smaller overall. As 𝑟 increases, the error of predicting percentage increases. There is an 𝑟0 make that when 𝑟 < 𝑟0, the accuracy of predicting percentage is the highest of all. So we use the percentage output to predict the predistortion warping map in the center of the image and the offset output on the edge of the image to achieve the highest prediction accuracy.
+A few works [12,23] assume that the position of the virtual image plane in world coordinates is unchanged, disregarding the disparity problem. Several works [17] treat disparity as a part of generalized distortion, resolving both problems simultaneously. In the case where the pixel is located in the center of the image, if we add distortion and disparity to predict, it will result in a large pre-distortion percentage which reduces the accuracy of our method. We propose to assume that the central dot of the image has no distortion, predict the pre-distortion data, and then add it with the disparity data caused by eye position movement. Therefore, by decoupling the distortion and disparity, we can further improve the prediction accuracy of our method. Also, it can make 𝛿 and 𝑝𝑚𝑎𝑥 lower to reduce 𝐸2 and 𝐸3, as shown in Eq. (4). Additionally, disparity information provides a better interface for the alignment of the projected image and the real scene process, which is also of vital importance.
+
+2.2. Architecture of HUDNet
+
+As shown in Eq. (1), the input and output of the neural network correspond to a 5D array and a 4D array respectively. Although neural networks are commonly used as approximators of general functions [24], there is evidence that allowing the network to run directly with a 5D input will lead to poor fitting of the network to large distortion fluctuations. In this case, because the input data is simple,
+
+1 The ratio of prediction errors to the range of input data remains fixed.
+
+3
+
+N. Xu et al.
+
+Displays 78 (2023) 102453
+
+Fig. 2. To collect the dataset, we project an original dot-matrix image to the windshield covered with black film. (a) is the original image we project, (b) is the displayed distorted virtual image, and (c) is the distorted image with marked dot positions. Thus we can input these data to HUDNet to train a network capable of predicting pre-distortion maps.
+
+Fig. 3. Architecture of HUDNet.
+
+the network is limited to predicting shallow relationships, so it can be difficult to extract more complex high-frequency information [25,26]. Positional coding is a solution to solve the above problem which is initially applied to semantic Transformer network [27] to initialize neural network inputs and then used by Mildenhall et al. [26] for image processing. Inspired by NeRF [26], we find that positional coding can enhance the network’s ability to learn high-frequency changing information. Referring to the principle of image information processing by positional coding in NeRF, we try to use it to improve the fitting ability of our network to high-frequency information, and it is confirmed in the experiment that the introduction of positional coding does improve the network to fit complex distorted information. Therefore, we encode the input data first in a non-learning process. The 5D data is converted to a higher dimension, and then it is input into a neural network:
+
+[𝑥𝑃
+
+𝑦𝑃
+
+𝑡𝑢
+
+𝑡𝑣 ]𝑇
+
+= H ([𝜸𝟏
+
+𝜸
+
+]𝑇
+𝟐
+
+)
+
+(6)
+
+𝜸𝟏 and 𝜸𝟐 is the encoded input:
+
+𝜸𝟏 =R𝐿1([𝑥𝐸 𝑦𝐸 𝑧𝐸 ]𝑇 ), 𝜸𝟐 =R𝐿2([𝑢𝐷 𝑣𝐷]𝑇 )
+
+(7)
+
+Where R𝐿 is a non-learning coding process:
+
+R𝐿(𝜶) = [ sin 20𝜋𝜶 cos 20𝜋𝜶 ⋯
+
+(8)
+
+sin 2𝐿−1𝜋𝜶 cos 2𝐿−1𝜋𝜶]𝑇
+
+The correlation between 𝑥𝐸 , 𝑦𝐸 , 𝑧𝐸 and 𝑢𝐷, 𝑣𝐷 is strongest, therefore we encode 𝑥𝐸 , 𝑦𝐸 , 𝑧𝐸 and 𝑢𝐷, 𝑣𝐷 separately as shown in Eq. (7), and divide the encoded data into three inputs to construct a prior of the correlation of the input data. By utilizing this composite coding method, the fit ability of the network can be significantly enhanced.
+Fig. 3 shows the architecture of HUDNet. After adjusting the width and depth of the network, we found the one that had the closest fit. Based on our experiment, we found that if we input 𝜸𝟏 and 𝜸𝟐 at the same time (as shown in Fig. 3), the effect is significantly stronger than if we output disparity in the middle of the net and then add 𝜸𝟐 there. While exploring the network structure, we add some complex structures to the middle of the network, however, the network performs best when the middle structure is the simplest. It follows that when the input layer of the network is more complex and the hidden layer is simpler, the prediction is more accurate. The full connection residual module is added to the middle layer of the network in order to prevent the disappearance of the gradient, which will enhance network functionality.
+
+4
+
+N. Xu et al.
+
+Displays 78 (2023) 102453
+
+Fig. 4. HUDNet outputs sparse pre-distortion map. By interpolating, we get a dense pre-distortion map to warp the original image to the correct projected image.
+
+We use the sum of L1loss and L2loss as the loss function. Accordingly, the loss function of our network is as follows:
+
+𝑛𝑚
+
+L
+
+=
+
+1 𝑚𝑛
+
+∑∑ ‖𝒚̂ 𝑖,𝑗
+𝑖=1 𝑗=1
+
+−
+
+𝒚𝑖,𝑗
+
+2
+‖2
+
++ ‖𝒚̂ 𝑖,𝑗
+
+− 𝒚𝑖,𝑗 ‖1
+
+(9)
+
+It should be noted that the neural network method has other several additional advantages over the traditional calibration method beyond avoiding the steps of surface fitting and inverse transformation as shown in Section 2.1. With the neural network, if you want to increase the accuracy, you simply need to collect more dense data sets, and the amount of storage remains unchanged, which eliminates the problem that the amount of storage in traditional methods increases rapidly as accuracy increases. Moreover, there is a more practical advantage. In the case of identically designed products, an improper installation of the windshield will lead to the problem that the two systems cannot share the same calibration data. It is necessary to collect the same amount of data for each product in order to achieve the same level of accuracy. Within an appropriate modification range, features learned by the neural network can be transmitted [28]. That means the trained network of a product can be used as a pre-training model for another product with installation errors. Therefore, the training can achieve a higher degree of accuracy than when there is no pre-training model as shown in Section 3.3. In other words, the same level of accuracy can be achieved by collecting a smaller amount of data.
+
+2.3. Postprocessing
+
+By running the neural network for an eye position, we can get the pre-distortion parameters of some pixels evenly distributed on the original image (Fig. 4(a)), and then by interpolating, we can calculate the pre-distortion parameters of all pixels(Fig. 4(b)). The projected image input to the AR-HUD system (Fig. 4(c)) can be obtained using the pre-distortion map to pre-distort the original image.
+
+3. Experimental results
+
+We will present our experimental results in this section. First, we compare the accuracy of the prediction with Li’s method, and then we examine the utility of the solution we propose in this paper. Finally, we explore a generalization of neural networks and collect a small amount of data to achieve higher accuracy.
+
+3.1. Dataset and implementation
+
+The experimental network training environment is a Linux system, the GPU is GTX 1080, and the experimental platform is Pytorch. Our training dataset includes 26730 data pairs and its training time is about
+
+Table 1 Storage requirements of traditional distortion correction methods.
+
+Object plane
+
+Image plane
+
+Diaphragm
+
+800 × 600 mm
+
+30.7 × 23 mm
+
+400 × 130 × 60 mm
+
+Windshield Ellipsoid
+
+HUD’s Primary mirror XYP free surface
+
+HUD’s Secondary mirror XYP free surface
+
+Magnification 26
+
+10 min. During Online correction, the storage space occupied by the model is 19.27M and the frame rate can reach 30 fps.
+For better verification, we use ZEMAX to simulate the AR-HUD system to gain distortion data. The optical parameters of the system are shown in Table 1. The volume of the eye box in our device is 400 mm × 130 mm × 60 mm, and the resolution of the HUD is 1920 × 1080. In order to obtain the data for dynamic eye positions, we need to collect the data for multiple eye positions in the eye box. As you can see in Fig. 5(a), we sampled evenly throughout the eye box during the experiment. We sampled five depths (500, 600, 700, 800, and 900 mm) in the Z direction. As shown in Fig. 5(b), 35 eye positions were collected at each depth, among which the test points are green points, and they are excluded from training. The maximum distortion in the X direction reached 𝛿 = 276.08 pixels and 𝑝𝑚𝑎𝑥 = 26.91%, and the maximum distortion in the Y direction reached 𝛿 = 148.36 pixels and 𝑝𝑚𝑎𝑥 = 22.38%.
+
+3.2. Results of our solution
+
+In the training viewpoints, we project a 9 × 27 dot-matrix. In order to reduce the running time, we project a 7 × 13 dot matrix in the test viewpoints. We compared the results obtained by our method with those obtained by Li’s [17], as shown in Fig. 6.
+As a general rule, the root means square error (RMSE) is used as an evaluation of dynamic distortion correction:
+
+√
+
+√𝑛
+
+𝑅𝑀 𝑆 𝐸 (𝑝𝑥)
+
+=
+
+√ √
+
+1
+
+∑(𝒚̂ 2
+
+−
+
+𝒚2)
+
+𝑛
+
+𝑖=1
+
+(10)
+
+According to the experimental results, however, we can observe that when the RMSE is 6 pixels, the maximum prediction error can even reach 47 pixels, which can be attributed to some outlier predictions resulting from the insufficient fitting capability of the network. An error of this magnitude during the actual operation will inevitably result in the failure of distortion correction. We, therefore, believe that the effectiveness of testing methods should not only be measured by the RMSE of test points but should also be measured by the maximum error.
+
+5
+
+N. Xu et al.
+
+Displays 78 (2023) 102453
+
+Fig. 5. We sampled data from 5 × 5 × 7 viewpoints. The orange viewpoints are training data and the green viewpoints are test data.
+
+Fig. 6. We compared the results obtained by two Deep learning-based methods, (a-d) shows the correction results in the viewpoint which coordinates are (0, 0, 600), and (e) shows the results of all test points. (a) is the displayed distorted image, (b) is the corrected image by Li’s, (c) is the corrected image by ours, where the red points are in the correct position and the green ones are the displayed dot array. (d) is the root mean square error (RMSE) and the maximum error (ME) in the fixed viewpoint and (e) is the error (pixels) of all test data, where 𝑢 represents the abscissa direction and 𝑣 represents the ordinate direction.
+
+Fig. 6 depicts the results when the eye position coordinates is (𝑥𝐸 , 𝑦𝐸 𝑧𝐸 ) = (0, 0, 600). Fig. 6(a) shows the projection distortion when it is not corrected, Fig. 6(b) shows the distortion corrected by Li’s [17] method, Fig. 6(c) shows the results corrected by our method, and Fig. 6(d) shows the data under the test point. Fig. 6(e) shows the data comparison of the two methods at all test points. It can be seen that our method reduces the RMSE to some extent and greatly reduces the maximum error of 𝑢. This is because when the distortion degree is larger, the simple network is not enough to fit such complex data. Therefore, Li’s method produces some abnormal points that jump out of the fitting curve, and such abnormal points are not allowed.
+Our results indicate that the improvement of distortion correction along the 𝑥-axis on the image is greater than that along the 𝑦-axis, because distortion along the 𝑦-axis is more complex and difficult to predict, whereas distortion along the 𝑥-axis is simpler. So when the network structure and data processing are improved, distortion correction along the 𝑥-axis will be improved more.
+In summary, the direct end-to-end prediction effect is poor in the case of large distortions. As of now, both data preprocessing and a more complex network structure are required.
+In addition, in our method, when the data increases, the storage capacity of the data will not increase, while in the traditional method, when the data increases, the storage burden will increase significantly.
+
+Table 2 Storage requirements of traditional distortion correction methods.
+
+Number of lattice
+
+10 × 10
+
+100 × 100
+
+200 × 200
+
+Storage
+
+27 KB
+
+1.94 MB
+
+7.35 MB
+
+400 × 400 25.68 MB
+
+Table 3 Storage requirements of traditional distortion correction methods.
+
+Viewpoint 1
+
+2
+
+3
+
+4
+
+5
+
+6
+
+7
+
+Bilinear Ours
+
+2.96 2.24 1.46 2.83 1.99 0.86 0.76 3.17 2.36 1.25 2.80 2.03 0.75 0.54
+
+8
+0.61 0.41
+
+average
+1.71 1.68
+
+As shown in Table 2, the more accurate the data fitted by traditional methods, the more storage space is required. However, no matter how much data there is, the storage requirement of the network model remains at 5.2M.
+We further apply our proposed method to a real system. Eight test points were randomly selected to calculate the distortion between our method and the traditional interpolation method before and after correction. The correction results are shown in Table 3. From the tabular data, we have basically controlled the distortion correction error within the range of 3%.
+
+6
+
+N. Xu et al.
+
+Displays 78 (2023) 102453
+
+Fig. 7. Architecture of simulation system.
+
+Table 4 Ablation experiment results.
+
+Models
+
+𝑀 𝐸𝑢
+
+𝑀𝑜𝑑𝑒𝑙 1 𝑀𝑜𝑑𝑒𝑙 2 𝑀𝑜𝑑𝑒𝑙 3 𝑀𝑜𝑑𝑒𝑙 4 𝑀𝑜𝑑𝑒𝑙 5 𝑀𝑜𝑑𝑒𝑙 6 𝑀𝑜𝑑𝑒𝑙 7
+
+48.5820 43.7305 36.3014 32.5543 13.3754 13.0952 13.0604
+
+𝑅𝑀 𝑆 𝐸𝑢
+7.4925 6.0548 4.7541 6.9979 2.9059 2.9755 2.8058
+
+𝑀 𝐸𝑣
+20.2351 16.9579 15.7239 18.0143 15.1697 12.8968 12.8968
+
+Table 5 Loss of HUDNets with different depth and width.
+
+Depth
+
+256
+
+512
+
+4 𝐿𝑎𝑦𝑒𝑟𝑠 6 𝐿𝑎𝑦𝑒𝑟𝑠 8 𝐿𝑎𝑦𝑒𝑟𝑠 10 𝐿𝑎𝑦𝑒𝑟𝑠 10 𝐿𝑎𝑦𝑒𝑟𝑠 + 𝑅𝑒𝑠 12 𝐿𝑎𝑦𝑒𝑟𝑠 14 𝐿𝑎𝑦𝑒𝑟𝑠
+
+0.0049 0.0042 0.0041 0.0041 0.0040 0.0054 0.0082
+
+0.0039 0.0032 0.0030 0.0029 0.0025 0.0045 –
+
+1024
+– 0.0021 0.0019 0.0022 0.0016 – –
+
+𝑅𝑀 𝑆 𝐸𝑣 4.1043 2.6946 1.9526 4.0845 1.8684 1.7337 1.7017
+2048 – 0.0023 0.0023 – – – –
+
+3.3. Ablation studies
+We propose a series of new modules for our calibration method. We will begin with Li’s model as 𝑀𝑜𝑑𝑒𝑙 1 for ablation experiments. Gradually adding the new method we proposed to compare the accuracy improvement brought about by each step. As a first step, we add a three-way input block as shown in Eq. (6) to the model (𝑀𝑜𝑑𝑒𝑙 2). Then we introduce res-block to deepen and widen the network model (𝑀𝑜𝑑𝑒𝑙 3), improve the parameters, and enhance fitting capability. We incrementally add position coding modules (𝑀𝑜𝑑𝑒𝑙 4) to the network. Finally, we add percentage parallel prediction (𝑀𝑜𝑑𝑒𝑙 5) and coordinate offset prediction (𝑀𝑜𝑑𝑒𝑙 6) separately (𝑀𝑜𝑑𝑒𝑙 5, 𝑀𝑜𝑑𝑒𝑙 6) and simultaneously (𝑀𝑜𝑑𝑒𝑙 7) to verify the importance of data preprocessing. As a result, we present the RSME and maximum error of 𝑢 and 𝑣.
+Table 4 illustrates that although each step contributed to the improvement of accuracy, the most significant step was the introduction of offset prediction (Model 5–7). Additionally, the increase in network parameters (Model 3) and prior information (Model 2) contributes to reducing the prediction error also. When we use position encoding (Model 4), the actual coordinate prediction becomes worse because of overfitting. But according to our experiment, for the prediction of coordinate offset, it is useful due to the high complexity.
+The deeper and wider network model will reduce the running speed and reduce the frame rate. We find that a reduction in the model depth reduces the network capacity less than a reduction in the model width when the amount of computation is insufficient and the amount of network parameters needs to be reduced.
+
+Table 6 Generalization experiment results.
+
+Models
+
+pre-training
+
+𝑀𝑜𝑑𝑒𝑙 𝐵
+
+–
+
+𝑀𝑜𝑑𝑒𝑙 𝐵𝑃
+
+✓
+
+𝑀𝑜𝑑𝑒𝑙 𝐶
+
+–
+
+𝑀𝑜𝑑𝑒𝑙 𝐶𝑃
+
+✓
+
+𝑅𝑀 𝑆 𝐸𝑢
+13.5840 12.5616 11.8272 11.9376
+
+𝑀 𝑎𝑥𝐸𝑢
+2.496 1.6416 2.4576 1.6416
+
+As shown in Table 5, when keeping the width of the network unchanged and increasing the depth of the network, after reaching a certain depth, the network will have its maximum accuracy. Beyond this depth, the network fitting ability will deteriorate as the gradient disappears. However, as the network depth increases, the prediction accuracy increases very slowly. In cases where the depth of the network is maintained as it is, and the width of the network is gradually expanded, the effect is obviously better. The highest result is achieved when the network width is 1024. Unfortunately, due to the limited amount of calculation, we were unable to choose a width of 1024 and a depth of 8. A network with ten layers is the most effective, and a network with eight layers is selected. Even if the calculation amount must be further reduced, a network with six layers may be selected as the width reduction will lead to even greater reductions in prediction accuracy.
+3.4. System analysis for generalization of HUDNet
+As a final step, to investigate the generalization of HUDNet for different product calibration data, we use simulation software to simulate the installation error of HUD 𝑆𝑦𝑠𝑡𝑒𝑚 𝐴, as shown in Fig. 7, collect the 9 × 27 dot-matrix data of 5 × 5 × 7 viewpoints, and train the 𝑀𝑜𝑑𝑒𝑙 𝐴 as a pre-training model. Then we get a 𝑆𝑦𝑠𝑡𝑒𝑚 𝐵 by rotating the windshield 2 degrees around the Y axis and get a 𝑆𝑦𝑠𝑡𝑒𝑚 𝐶 by moving the windshield 2 mm in the negative direction of the Z axis. For the two new systems, we train 𝑀𝑜𝑑𝑒𝑙 𝐵 and 𝑀𝑜𝑑𝑒𝑙 𝐶 respectively. After all, we train 𝑀𝑜𝑑𝑒𝑙 𝐵𝑃 and 𝑀𝑜𝑑𝑒𝑙 𝐶𝑃 with the pre-training model. Table 6 presents the results.
+Our study found that on the same designed system when errors occur during the actual installation, the network prediction accuracy is similar regardless of whether the calibration data is different between different systems. The HUDNet predictions will be much more accurate if a system that experiences installation errors already has a training model for another system as a pre-training model. As you can see, if you want to improve the calibration accuracy in the actual production process, you can obtain as many data points as possible from a system in order to raise the accuracy of the model. Then save the model as a pre-training model for subsequent products. Transfer learning allows the calibration accuracy of subsequent products to be improved. As an alternative, if you want to reduce the cost of manual data collection,
+
+7
+
+N. Xu et al.
+but the accuracy requirements are not as stringent, you can also utilize the transfer learning method.
+Traditional interpolation methods do not provide this generalization capability, which indicates that the calibration method of deep learning has certain benefits in the mass production process of AR-HUD.
+4. Conclusion
+AR-HUD demand is rapidly increasing, and this technology will soon become an essential part of the automotive industry. Current HUDs, however, are far from perfect.
+In this paper, we propose a complete calibration process, including data acquisition, data preprocessing, calibration, pre-distortion prediction, and post-processing. This paper applies deep learning to the dynamic distortion calibration of AR-HUD systems. In light of the characteristics of deep learning, we recommend that reprocessing the obtained data prior to inputting it into the neural network for training will be more accurate than directly inputting the obtained data. There has been considerable improvement in the performance of the neural network, regardless of distortion percentage or position encoding. Additionally, for the task of distortion calibration, we investigated the influence of the network structure on the calibration results and proposed HUDNet as a candidate. HUDNet can improve the accuracy not only by increasing the training data without increasing the amount of running computation memory but also by avoiding the process of surface fitting and interpolation. Most importantly, we further explore the generalizability of neural network models for different products. We have demonstrated that the accuracy of distortion correction of real products can be improved through transfer learning, further reducing the cost of manual data collection.
+The process of the system is that the monitoring camera monitors the human eye position data, and the neural network provides distortion prediction results according to the data. Therefore, the potential for erroneous operations is determined by the stability of the algorithm. Theoretically, the error rate of the algorithm will be far less than the error rate of manual operation and debugging. Moreover, since the system has no cumulative error in the timeline, the dynamic distortion correction refresh frame rate is 30 Hz, and each system will be recalibrated, transfer learning and testing, the occasional error will not have a great impact.
+Even though the use of generalization reduces the collection of data sets across different types of vehicles, it is still necessary to collect data manually. The next topic may be how to predict the relationship between installation tolerance and distortion using only one manual calibration. A predictive way of adapting to every installation tolerance further may support industrial mass production of AR-HUD systems. Also, the criticality of HUD errors is biased. Error tolerances in the HUD center (<5 mrad) are much smaller than the outer edges. In subsequent work, a more accurate error function is needed to better fit this bias. There also needs further research on how to match the camera optical system with the human eye optical system by calibrating camera lens distortion parameters.
+Declaration of competing interest
+The authors declare that they have no known competing financial interests or personal relationships that could have appeared to influence the work reported in this paper.
+Data availability
+Data will be made available on request.
+
+References
+
+Displays 78 (2023) 102453
+
+[1] N. Wolfgang, G. Pomberger, A. Ferscha, D. Kolb, R. Müller, J. Wieghardt, H. Hörtner, C. Lindinger, A new visualization concept for navigation systems, in: ERCIM Workshop on User Interfaces for All, Springer, 2004, pp. 440–451.
+[2] C. Quarrington, The Future of the Pilot’s Head-up Display: A description of the origins of H.U.D. systems and their future application in military and civil fields, Aircr. Eng. Aerosp. Technol. 38 (9) (1966) 63–64.
+[3] T. Sheridan, H. Paynter, S. Coons, Some novel display techniques for driving simulation, IEEE Trans. Hum. Fact. Electron. HFE-5 (1) (1964) 29–32.
+[4] S.J. Gilson, A.W. Fitzgibbon, A. Glennerster, Spatial calibration of an optical see-through head-mounted display, J. Neurosci. Methods 173 (1) (2008) 140–146.
+[5] A. Plopski, Y. Itoh, C. Nitschke, K. Kiyokawa, G. Klinker, H. Takemura, Cornealimaging calibration for optical see-through head-mounted displays, IEEE Trans. Vis. Comput. Graphics 21 (4) (2015) 481–490.
+[6] Y. Itoh, G. Klinker, Interaction-free calibration for optical see-through headmounted displays based on 3D eye localization, in: 2014 IEEE Symposium on 3d User Interfaces, 3dui, IEEE, 2014, pp. 75–82.
+[7] X. Hu, F.R. y Baena, F. Cutolo, Rotation-constrained optical see-through headset calibration with bare-hand alignment, in: 2021 IEEE International Symposium on Mixed and Augmented Reality, ISMAR, IEEE, 2021, pp. 256–264.
+[8] Z. An, X. Meng, X. Ji, X. Xu, Y. Liu, Design and performance of an off-axis free-form mirror for a rear mounted augmented-reality head-up display system, IEEE Photonics J. 13 (1) (2021) 1–15.
+[9] Y.-D. Park, T. Jang, A study on the ultra precision machining of free-form molds for advanced head-up display device, J. Korea Academia-Ind. Coop. Soc. 20 (1) (2019) 290–296.
+[10] K. Fujita, K. Ito, K. Yoneyama, T. Baba, M. Kawana, K. Harada, H. Oshima, Development of an automotive head-up display using a free-form mirror based optical system, 2017, p. 54, Purpose of Publication.
+[11] W. Wu, F. Blaicher, J. Yang, T. Seder, D. Cui, A prototype of landmark-based car navigation using a full-windshield head-up display system, in: Proceedings of the 2009 Workshop on Ambient Media Computing, 2009, pp. 21–28.
+[12] F. Wientapper, H. Wuest, P. Rojtberg, D. Fellner, A camera-based calibration for automotive augmented reality head-up-displays, in: 2013 IEEE International Symposium on Mixed and Augmented Reality, ISMAR, IEEE, 2013, pp. 189–197.
+[13] K. Ueno, T. Komuro, [POSTER] overlaying navigation signs on a road surface using a head-up display, in: 2015 IEEE International Symposium on Mixed and Augmented Reality, ISMAR, 2015.
+[14] X. Gao, J. Werner, M. Necker, W. Stork, A calibration method for automotive augmented reality head-up displays using a chessboard and warping maps, in: Twelfth International Conference on Machine Vision. Vol. 11433, ICMV 2019, International Society for Optics and Photonics, 2020, p. 114332W.
+[15] X. Gao, J. Werner, M. Necker, W. Stork, A calibration method for automotive augmented reality head-up displays based on a consumer-grade mono-camera, in: 2019 IEEE International Conference on Image Processing, ICIP, IEEE, 2019, pp. 4355–4359.
+[16] N. Deng, Y. Zhou, J. Ye, X. Yang, A calibration method for on-vehicle AR-HUD system using mixed reality glasses, in: 2018 IEEE Conference on Virtual Reality and 3D User Interfaces, VR, IEEE, 2018, pp. 541–542.
+[17] L. Ke, B. Ling, L. Yinguo, Z. Zhongkui, Distortion correction algorithm of ar-hud virtual image based on neural network model of spatial continuous mapping, in: 2020 IEEE International Symposium on Mixed and Augmented Reality Adjunct, ISMAR-Adjunct, IEEE, 2020, pp. 178–183.
+[18] M. Tuceryan, Y. Genc, N. Navab, Single-point active alignment method (SPAAM) for optical see-through HMD calibration for augmented reality, Presence: Teleoperators Virtual Environ. 11 (3) (2002) 259–276.
+[19] Y. Genc, M. Tuceryan, A. Khamene, N. Navab, Optical see-through calibration with vision-based trackers: Propagation of projection matrices, in: Proceedings IEEE and ACM International Symposium on Augmented Reality, IEEE, 2001, pp. 147–156.
+[20] E. McGarrity, Y. Genc, M. Tuceryan, C. Owen, N. Navab, A new system for online quantitative evaluation of optical see-through augmentation, in: Proceedings IEEE and ACM International Symposium on Augmented Reality, IEEE, 2001, pp. 157–166.
+[21] F. Kellner, B. Bolte, G. Bruder, U. Rautenberg, F. Steinicke, M. Lappe, R. Koch, Geometric calibration of head-mounted displays and its effects on distance estimation, IEEE Trans. Vis. Comput. Graphics 18 (4) (2012) 589–596.
+[22] C.B. Owen, J. Zhou, A. Tang, F. Xiao, Display-relative calibration for optical see-through head-mounted displays, in: Third IEEE and ACM International Symposium on Mixed and Augmented Reality, IEEE, 2004, pp. 70–78.
+[23] M. Klemm, F. Seebacher, H. Hoppe, High accuracy pixel-wise spatial calibration of optical see-through glasses, Comput. Graph. (2017).
+
+8
+
+N. Xu et al.
+[24] K. Hornik, M. Stinchcombe, H. White, Multilayer feedforward networks are universal approximators, Neural Netw. 2 (5) (1989) 359–366.
+[25] N. Rahaman, A. Baratin, D. Arpit, F. Draxler, M. Lin, F.A. Hamprecht, Y. Bengio, A. Courville, On the spectral bias of neural networks, in: International Conference on Machine Learning, PMLR, 2019, pp. 5301–5310.
+
+Displays 78 (2023) 102453
+[26] B. Mildenhall, P.P. Srinivasan, M. Tancik, J.T. Barron, N. Ren, NeRF: Representing scenes as neural radiance fields for view synthesis, Commun. ACM 65 (1) (2022) 99–106.
+[27] S. Peter, U. Jakob, V. Ashish, Self-attention with relative position representations, 2018, CoRR.
+[28] J. Yosinski, J. Clune, Y. Bengio, H. Lipson, How transferable are features in deep neural networks? Adv. Neural Inf. Process. Syst. 27 (2014).
+
+9
+

@@ -1,0 +1,846 @@
+The International Journal of Virtual Reality, 2010, 9(2):1-20
+
+1
+
+A Survey of Augmented Reality Technologies, Applications and Limitations
+
+D.W.F. van Krevelen and R. Poelman
+Systems Engineering Section, Delft University of Technology, Delft, The Netherlands1
+
+Abstract— We are on the verge of ubiquitously adopting Augmented Reality (AR) technologies to enhance our perception and help us see, hear, and feel our environments in new and enriched ways. AR will support us in fields such as education, maintenance, design and reconnaissance, to name but a few. This paper describes the field of AR, including a brief definition and development history, the enabling technologies and their characteristics. It surveys the state of the art by reviewing some recent applications of AR technology as well as some known limitations regarding human factors in the use of AR systems that developers will need to overcome.
+Index Terms— Augmented Reality, Technologies, Applications, Limitations.
+I INTRODUCTION
+Imagine a technology with which you could see more than others see, hear more than others hear, and perhaps even touch, smell and taste things that others can not. What if we had technology to perceive completely computational elements and objects within our real world experience, entire creatures and structures even that help us in our daily activities, while interacting almost unconsciously through mere gestures and speech?
+With such technology, mechanics could see instructions what to do next when repairing an unknown piece of equipment, surgeons could see ultrasound scans of organs while performing surgery on them, ﬁre ﬁghters could see building layouts to avoid otherwise invisible hazards, soldiers could see positions of enemy snipers spotted by unmanned reconnaissance aircraft, and we could read reviews for each restaurant in the street we‟re walking in, or battle 10-foot tall aliens on the way to work [57].
+Augmented reality (AR) is this technology to create a “next generation, reality-based interface” [77] and is moving from laboratories around the world into various industries and consumer markets. AR supplements the real world with virtual (computer-generated) objects that appear to coexist in the same space as the real world. AR was recognised as an emerging technology of 2007 [79], and with today‟s smart phones and AR browsers we are starting to embrace this very new and exciting kind of human-computer interaction.
+1.1 Definition
+On the reality-virtuality continuum by Milgram and Ki
+Manuscript Received on January 26, 2010. E-Mail: d.w.f.vankrevelen@tudelft.nl
+
+shino [107] (Fig. 1), AR is one part of the general area of mixed reality. Both virtual environments (or virtual reality) and augmented virtuality, in which real objects are added to virtual ones, replace the surrounding environment by a virtual one. In contrast, AR provides local virtuality. When considering not just artiﬁciality but also user transportation, Benford et al. [28] classify AR as separate from both VR and telepresence (see Fig. 2). Following [17, 19], an AR system:
+ combines real and virtual objects in a real environment;  registers (aligns) real and virtual objects with each other;
+and  runs interactively, in three dimensions, and in real time.
+Three aspects of this definition are important to mention. Firstly, it is not restricted to particular display technologies such as a head-mounted display (HMD). Nor is the definition limited to the sense of sight, as AR can and potentially will apply to all senses, including hearing, touch, and smell. Finally, removing real objects by overlaying virtual ones, approaches known as mediated or diminished reality, is also considered AR.
+Fig. 1. Reality-virtuality continuum [107].
+1.2 Brief history The first AR prototypes (Fig. 3), created by computer
+graphics pioneer Ivan Sutherland and his students at Harvard University and the University of Utah, appeared in the 1960s and used a see-through to present 3D graphics [151].
+A small group of researchers at U.S. Air Force‟s Armstrong Laboratory, the NASA Ames Research Center, the Massachusetts Institute of Technology, and the University of North Carolina at Chapel Hill continued research during the 1970s and 1980s. During this time mobile devices like the Sony Walkman (1979), digital watches and personal digital organisers were introduced. This paved the way for wearable computing [103, 147] in the 1990s as personal computers became small enough to be worn at all times. Early palmtop computers include the Psion I (1984), the Apple Newton MessagePad (1993), and the Palm Pilot (1996). Today, many
+
+2
+
+The International Journal of Virtual Reality, 2010, 9(2):1-20
+
+mobile platforms exist that may support AR, such as personal digital assistants (PDAs), tablet PCs, and mobile phones.
+It took until the early 1990s before the term „augmented reality‟ was coined by Caudell and Mizell [42], scientists at Boeing Corporation who were developing an experimental AR system to help workers put together wiring harnesses. True mobile AR was still out of reach, but a few years later [102] developed a GPS-based outdoor system that presents navigational assistance to the visually impaired with spatial audio overlays. Soon computing and tracking devices became sufficiently powerful and small enough to support graphical overlay in mobile settings. Feiner et al. [55] created an early prototype of a mobile AR system (MARS) that registers 3D graphical tour guide information with buildings and artefacts the visitor sees.
+By the late 1990s, as AR became a distinct field of research, several conferences on AR began, including the International Workshop and Symposium on Augmented Reality, the International Symposium on Mixed Reality, and the Designing Augmented Reality Environments workshop. Organisations were formed such as the Mixed Reality Systems Laboratory2 (MRLab) in Nottingham and the Arvika consortium3 in Germany. Also, it became possible to rapidly build AR applications thanks to freely available software toolkits like the ARToolKit. In the meantime, several surveys appeared that give an overview on AR advances, describe its problems, classify and summarise developments [17, 19, 28]. By 2001, MRLab finished their pilot research, and the symposia were united in the International Symposium on Mixed and Augmented Reality4 (ISMAR), which has become the major symposium for industry and research to exchange problems and solutions.
+For anyone who is interested and wants to get acquainted with the field, this survey provides an overview of important technologies, applications and limitations of AR systems. After describing technologies that enable an augmented reality experience in Section 2, we review some of the possibilities of AR systems in Section 3. In Section 4 we discuss a number of common technological challenges and limitations regarding human factors. Finally, we conclude with a number of directions that the authors envision AR research might take.
+Fig. 2. Broad classification of shared spaces according to transportation and artificiality, adapted from [28].
+
+II ENABLING TECHNOLOGIES The technological demands for AR are much higher than for virtual environments or VR, which is why the field of AR took longer to mature than that of VR. However, the key components needed to build an AR system have remained the same since Ivan Sutherland‟s pioneering work of the 1960s. Displays, trackers, and graphics computers and software remain essential in many AR experiences. Following the definition of AR step by step, this section first describes display technologies that combine the real and virtual worlds, followed by sensors and approaches to track user position and orientation for correct registration of the virtual with the real, and user interface technologies that allow real-time, 3D interaction. Finally some remaining AR requirements are discussed.
+Fig. 3. The world‟s first head-mounted display with the “Sword of Damocles” [151].
+2.1 Displays Of all modalities in human sensory input, sight, sound
+and/or touch are currently the senses that AR systems commonly apply. This section mainly focuses on visual displays, however aural (sound) displays are mentioned briefly below.
+Haptic (touch) displays are discussed with the interfaces in Section 2.3, while olfactory (smell) and gustatory (taste) displays are less developed or practically non-existent AR techniques and will not be discussed in this essay.
+2.4 Aural display Aural display application in AR is mostly limited to
+self-explanatory mono (0-dimensional), stereo (1-dimensional) or surround (2-dimensional) headphones and loudspeakers. True 3D aural display is currently found in more immersive simulations of virtual environments and augmented virtuality or still in experimental stages.
+Haptic audio refers to sound that is felt rather than heard [75] and is already applied in consumer devices such as Turtle Beach‟s Ear Force5 headphones to increase the sense of realism and impact, but also to enhance user interfaces of e.g. mobile phones [44]. Recent developments in this area are presented in workshops such as the international workshop on Haptic Audio Visual Environments6 and the international workshop on Haptic and Audio Interaction Design [15].
+
+2 http://www.mrl.nott.ac.uk/ 3 http://www.arvika.de/ 4 http://www.ismar-society.org/
+
+5 http://www.turtlebeach.com/products/gaming-headphones.aspx 6 http://have.ieee-ims.org/
+
+The International Journal of Virtual Reality, 2010, 9(2):1-20
+
+3
+
+techniques may be applied at varying distance from the
+
+TABLE 1: CHARACTERISTICS OF SURVEYED VISUAL AR DISPLAYS. viewer: head-mounted, hand-held and spatial (Fig. 4). Each
+
+Positioning
+
+Head-worn
+
+combination of technique and distance is listed in the over
+
+Hand-held
+
+Spatial
+
+Technology
+
+Retinal
+
+Optical
+
+Video
+
+Projective
+
+All
+
+Video
+
+Optical Projective
+
+Mobile
+
++
+
++
+
++
+
++
+
++
+
+−
+
+−
+
+−
+
+Outdoor use
+
++
+
+±
+
+±
+
++
+
+±
+
+−
+
+−
+
+−
+
+Interaction
+
++
+
++
+
++
+
++
+
++
+
+Remote
+
+−
+
+−
+
+Multi-user
+
++
+
++
+
++
+
++
+
++
+
++
+
+Limited
+
+Limited
+
+Brightness
+
++
+
+−
+
++
+
++
+
+Limited
+
++
+
+Limited
+
+Limited
+
+Contrast
+
++
+
+−
+
++
+
++
+
+Limited
+
++
+
+Limited
+
+Limited
+
+Resolution
+
+Growing
+
+Growing
+
+Growing
+
+Growing
+
+Limited
+
+Limited
+
++
+
++
+
+Field-of-view
+
+Growing
+
+Limited
+
+Limited
+
+Growing
+
+Limited
+
+Limited
+
++
+
++
+
+Full-colour
+
++
+
++
+
++
+
++
+
++
+
++
+
++
+
++
+
+Stereoscopic
+
++
+
++
+
++
+
++
+
+−
+
+−
+
++
+
++
+
+Dynamic refocus (eye strain)
+
++
+
+−
+
+−
+
++
+
+−
+
+−
+
++
+
++
+
+Occlusion
+
+±
+
+±
+
++
+
+Limited
+
+±
+
++
+
+Limited
+
+Limited
+
+Power economy
+
++
+
+−
+
+−
+
+−
+
+−
+
+−
+
+−
+
+−
+
+Opportunities
+
+Future dominance
+
+Current dominance
+
+Realistic, mass-market
+
+Cheap, off-the-shelf
+
+Tuning, ergonomics
+
+Drawbacks
+
+Tuning, tracking
+
+Delays
+
+Retroreflective material
+
+Processor, Memory limits
+
+No see-through metaphor
+
+Clipping
+
+Clipping, shadows
+
+Fig. 4. Visual display techniques and positioning [34].
+2.1.2 Visual display There are basically three ways to visually present an
+augmented reality. Closest to virtual reality is video see-through, where the virtual environment is replaced by a video feed of reality and the AR is overlaid upon the digitised images. Another way that includes Sutherland‟s approach is optical see-through and leaves the real-world perception alone but displays only the AR overlay by means of transparent mirrors and lenses. The third approach is to project the AR overlay onto real objects themselves resulting in projective displays. True 3-dimensional displays for the masses are still far off, although [140] already achieve 1000 dots per second in true 3d free space using plasma in the air. The three
+
+view presented in Table 1 with a comparison of their individual advantages.
+2.1.2.1 Video see-through
+Besides being the cheapest and easiest to implement, this display technique offers the following advantages. Since reality is digitised, it is easier to mediate or remove objects from reality. This includes removing or replacing fiducial markers or placeholders with virtual objects (see for instance Fig. 7 and 22). Also, brightness and contrast of virtual objects are matched easily with the real environment. Evaluating the light conditions of a static outdoor scene is of importance when the computer generated content has to blend in smoothly and a novel approach is developed by Liu et al. [101].
+The digitised images allow tracking of head movement for better registration. It also becomes possible to match perception delays of the real and virtual. Disadvantages of video see-through include a low resolution of reality, a limited field-of-view (although this can easily be increased), and user disorientation due to a parallax (eye-offset) due to the camera‟s positioning at a distance from the viewer‟s true eye location, causing significant adjustment effort for the viewer [35]. This problem was solved at the MR Lab by aligning the video capture [153]. A final drawback is the focus distance of this technique which is fixed in most display types, providing poor eye accommodation. Some head-mounted setups can however move the display (or a lens in front of it) to cover a range of .25 meters to infinity within .3 seconds [150]. Like the parallax problem, biocular displays (where both eyes see the same image) cause significantly more discomfort than monocular or binocular displays, both in eye strain and fatigue [53].
+
+4
+
+The International Journal of Virtual Reality, 2010, 9(2):1-20
+
+2.1.2.2 Optical see-through
+Optical see-through techniques with beam-splitting holographic optical elements (HOEs) may be applied in head-worn displays, hand-held displays, and spatial setups where the AR overlay is mirrored either from a planar screen or through a curved screen.
+These displays not only leave the real-world resolution in tact, they also have the advantage of being cheaper, safer, and parallax-free (no eye-offset due to camera positioning). Optical techniques are safer because users can still see when power fails, making this an ideal technique for military and medical purposes. However, other input devices such as cameras are required for interaction and registration. Also, combining the virtual objects holographically through transparent mirrors and lenses creates disadvantages as it reduces brightness and contrast of both the images and the real-world perception, making this technique less suited for outdoor use. The all-important field-of-view is limited for this technique and may cause clipping of virtual images at the edges of the mirrors or lenses. Finally, occlusion (or mediation) of real objects is difficult because their light is always combined with the virtual image. Kiyokawa et al. [90] solved this problem for head-worn displays by adding an opaque overlay using an LCD panel with pixels that opacify areas to be occluded.
+Virtual retinal displays or retinal scanning displays (RSDs) solve the problems of low brightness and low field-of-view in (head-worn) optical see-through displays. A low-power laser draws a virtual image directly onto the retina which yields high brightness and a wide field-of-view. RSD quality is not limited by the size of pixels but only by diffraction and aberrations in the light source, making (very) high resolutions possible as well. Together with their low power consumption these displays are well-suited for extended outdoor use. Still under development at Washington University and funded by MicroVision7 and the U.S. military, current RSDs are mostly monochrome (red only) and monocular (single-eye) displays. Schowengerdt et al. [143] already developed a full-colour, binocular version with dynamic refocus to accommodate the eyes (Fig. 5) that is promised to be low-cost and light-weight.
+2.1.2.3 Projective
+These displays have the advantage that they do not require special eye-wear thus accommodating user‟s eyes during focusing, and they can cover large surfaces for a wide field-of-view. Projection surfaces may range from flat, plain coloured walls to complex scale models [33].
+Zhou et al. [164] list multiple picoprojectors that are lightweight and low on power consumption for better integration. However, as with optical see-through displays, other input devices are required for (indirect) interaction. Also,projectors need to be calibrated each time the envronment or the distance to the projection surface changes (crucial in mobile setups). Fortunately, calibration may be automated
+
+Fig. 5. Binocular (stereoscopic) vision [143].
+using cameras in e.g. a multi-walled Cave automatic virtual environment (CAVE) with irregular surfaces [133]. Furthermore, this type of display is limited to indoor use only due to low brightness and contrast of the projected images. Occlusion or mediation of objects is also quite poor, but for head-worn projectors this may be improved by covering surfaces with retro-reflective material. Objects and instruments covered in this material will reflect the projection directly towards the light source which is close to the viewer‟s eyes, thus not interfering with the projection.
+2.1.3 Display positioning AR displays may be classified into three categories based
+on their position between the viewer and the real environment: head-worn, hand-held, and spatial (see Fig. 4).
+2.1.3.1 Head-worn
+Visual displays attached to the head include the video/optical see-through head-mounted display (HMD), virtual retinal display (VRD), and head-mounted projective display (HMPD). Cakmakci and Rolland [40] give a recent detailed review of head-worn display technology. A current drawback of head-worn displays is the fact that they have to connect to graphics computers like laptops that restrict mobility due to limited battery life. Battery life may be extended by moving computation to distant locations (clouds) and provide (wireless) connections using standards such as IEEE 802.11 or BlueTooth.
+Fig. 6 shows examples of four (parallax-free) head-worn display types: Canon‟s Co-Optical Axis See-through Augmented Reality (COASTAR) video see-through display [155] (Fig. 6a), Konica Minolta‟s holographic optical see-through „Forgettable Display‟ prototype [84] (Fig. 6b), MicroVision‟s monochromatic and monocular Nomad retinal scanning display [73] (Fig. 6c), and an organic light-emitting diode (OLED) based head-mounted projective display [139] (Fig. 6d).
+
+7 http://www.microvision.com
+
+The International Journal of Virtual Reality, 2010, 9(2):1-20
+
+5
+
+that show 3D objects, or personal digital assistants/PDAs
+
+[161] (Fig. 7b) with e.g. navigation information. [148] apply
+
+optical see-through in their hand-held „sonic flashlight‟ to
+
+display medical ultrasound imaging directly over the scanned
+
+organ (Fig. 8a). One example of a hand-held projective dis-
+
+play or „AR flashlight‟ is the „iLamp‟ by Raskar et al. [134].
+
+This context-aware or tracked projector adjusts the imagery
+
+based on the current orientation of the projector relative to
+
+the environment (Fig. 8b). Recently, MicroVision (from the
+
+retinal displays) introduced the small Pico Projector (PicoP)
+
+(a)
+
+(b)
+
+which is 8mm thick, provides full-colour imagery of 1366 ×
+
+1024 pixels at 60Hz using three lasers, and will probably
+
+appear embedded in mobile phones soon.
+
+(c)
+
+(d)
+
+Fig. 6. Head-worn visual displays by [155], [84], [73] and [139].（Color Plate 3）
+
+(a)
+(b) Fig. 7. Hand-held video see-through displays by [148] and [134]. 2.1.3.2 Hand-held
+This category includes hand-held video/optical see-through displays as well as hand-held projectors. Although this category of displays is bulkier than head-worn displays, it is currently the best work-around to introduce AR to a mass market due to low production costs and ease of use. For instance, hand-held video see-through AR acting as magnifying glasses may be based on existing consumer products like mobile phones Möhring et al. [110] (Fig. 7a)
+
+Fig. 8. Hand-held optical and projective displays
+2.1.3.3 Spatial
+The last category of displays are placed statically within the environment and include screen-based video see-through displays, spatial optical see-through displays, and projective displays. These techniques lend themselves well for large presentations and exhibitions with limited interaction. Early ways of creating AR are based on conventional screens (computer or television) that show a camera feed with an AR overlay. This technique is now being applied in the world of sports television where environments such as swimming pools and race tracks are well defined and easy to augment. Head-up displays (HUDs) in military cockpits are a form of spatial optical see-through and are becoming a standard extension for production cars to project navigational directions in the windshield [113]. User viewpoints relative to the R overlay hardly change in these cases due to the confined space. Spatial see-through displays may however appear misaligned when users move around in open spaces, for instance when AR overlay is presented on a transparent screen such as the „invisible interface‟ by Ogi et al. [115] (Fig. 9a). 3D holographs solve the alignment problem, as Goeb-
+
+6
+
+The International Journal of Virtual Reality, 2010, 9(2):1-20
+
+bels et al. [64] show with the ARSyS TriCorder8 (Fig. 9b) by the German Fraunhofer IMK (now IAIS9) research centre.
+(a)
+(b) Fig. 9. Spatial visual displays by [115] and [64].
+2.2 Tracking sensors and approaches Before an AR system can display virtual objects into a real
+environment, the system must be able to sense the environment and track the viewer‟s (relative) movement preferably with six degrees of freedom (6DOF): three variables (x, y, and z) for position and three angles (yaw, pitch, and roll) for orientation.
+There must be some model of the environment to allow tracking for correct AR registration. Furthermore, most environments have to be prepared before an AR system is able to track 6DOF movement, but not all tracking techniques work in all environments. To this day, determining the orientation of a user is still a complex problem with no single best solution.
+2.2.1 Modelling environments Both tracking and registration techniques rely on envi-
+ronmental models, often 3D geometrical models. To annotate for instance windows, entrances, or rooms, an AR system needs to know where they are located with regard to the user‟s current position and field of view.
+Sometimes the annotations themselves may be occluded based on environmental model. For instance when an annotated building is occluded by other objects, the annotation should point to the non-occluded parts only [26].
+Fortunately, most environmental models do not need to be very detailed about textures or materials. Usually a “cloud” of unconnected 3D sample points suffices for example to present occluded buildings and essentially let users see through walls. To create a traveller guidance service (TGS), Kim et al. [89] used models from a geographical information system (GIS), but for many cases modelling is not necessary
+8 http://www.arsys-tricorder.de 9 http://www.iais.fraunhofer.de/
+
+at all as Gross et al. [66] and Kurillo et al. [95] proved. Stoakley et al. [149] present users with the spatial model itself, an oriented map of the environment or world in miniature (WIM), to assist in navigation.
+2.2.1.1 Modelling techniques
+Creating 3D models of large environments is a research challenge in its own right. Automatic, semiautomatic, and manual techniques can be employed, and Piekarski and Thomas [126] even employed AR itself for modelling purposes. Conversely, a laser range finder used for environmental modelling may also enable users themselves to place notes into the environment [123]. It is still hard to achieve a seamless integration between a real and a added object. Ray-tracing algorithms are better suited to visualize huge data sets than the classic z-buffer algorithm because they create an image in time sub-linear in the number of objects while the z-buffer is linear in the number of objects [145].
+There are significant research problems involved in both the modelling of arbitrary complex 3D spatial models as well as the organisation of storage and querying of such data in spatial databases. These databases may also need to change quite rapidly as real environments are often also dynamic.
+2.2.2 User movement tracking Compared to virtual environments, AR tracking devices
+must have higher accuracy, a wider input variety and bandwidth, and longer ranges [17]. Registration accuracy depends not only on the geometrical model but also on the distance of the objects to be annotated. The further away an object (i) the less impact errors in position tracking have and (ii) the more impact errors in orientation tracking have on the overall misregistration [18].
+Tracking is usually easier in indoor settings than in outdoor settings as the tracking devices do not have to be completely mobile and wearable or deal with shock, abuse, weather, etc. In stead the indoor environment is easily modelled and prepared, and conditions such as lighting and temperature may be controlled. Currently, unprepared outdoor environments still pose tracking problems with no single best solution.
+2.2.2.1 Mechanical, ultrasonic, and magnetic
+Early tracking techniques are restricted to indoor use as they require special equipment to be placed around the user. The first HMD by Sutherland [151] was tracked mechanically (Fig. 3) through ceiling-mounted hardware also nicknamed the “Sword of Damocles.” Devices that send and receive ultrasonic chirps and determine the position, i.e. ultrasonic positioning, were already experimented with by Sutherland [151] and are still used today. A decade or so later Polhemus‟ magnetic trackers that measure distances within electromagnetic fields were introduced by Raab et al. [132]. These are also still in use today and had much more impact on VR and AR research.
+
+The International Journal of Virtual Reality, 2010, 9(2):1-20
+
+7
+
+2.2.2.2 Global positioning systems
+For outdoor tracking by global positioning system (GPS) there exist the American 24-satellite Navstar GPS [63], the Russian counterpart constellation Glonass, and the 30-satellite GPS Galileo, currently being launched by the European Union and operational in 2010.
+Direct visibility with at least four satellites is no longer necessary with assisted GPS (A-GPS), a worldwide network of servers and base stations enable signal broadcast in for instance urban canyons and indoor environments. Plain GPS is accurate to about 10-15 meters, but with the wide area augmentation system (WAAS) technology may be increased to 3-4 meters. For more accuracy, the environments have to be prepared with a local base station that sends a differential error-correction signal to the roaming unit: differential GPS yields 1-3 meter accuracy, while the real-time-kinematic or RTK GPS, based on carrier-phase ambiguity resolution, can estimate positions accurately to within centimeters. Update rates of commercial GPS systems such as the MS750 RTK receiver by Trimble10 have increased from five to twenty times a second and are deemed suitable for tracking fast motion of people and objects [73].
+2.2.2.3 Radio
+Other tracking methods that require environment preparation by placing devices are based on ultra wide band radio waves. Active radio frequency identification (RFID) chips may be positioned inside structures such as aircraft [163] to allow in situ positioning. Complementary to RFID one can apply the wide-area IEEE 802.11b/g standards for both wireless networking and tracking as well. The achievable resolution depends on the density of deployed access points in the network. Several techniques are researched by Bahl and Padmanabhan [21], Castro et al. [41] and vendors like InnerWireless11, AeroScout12 and Ekahau13 offer integrated systems for personnel and equipment tracking in for instance hospitals.
+2.2.2.4 Inertial
+Accelerometers and gyroscopes are sourceless inertial sensors, usually part of hybrid tracking systems, that do not require prepared environments. Timed measurements can provide a practical dead-reckoning method to estimate position when combined with accurate heading information. To minimise errors due to drift, the estimates must periodically be updated with accurate measurements. The act of taking a step can also be measured, i.e. they can function as pedometers. Currently micro-electromechanical (MEM) accelerometers and gyroscopes are already making their way into mobile phones to allow „writing‟ of phone numbers in the air and other gesture-based interaction [87].
+10 http://www.trimble.com/ 11 http://www.innerwireless.com/ 12 http://aeroscout.com/ 13 http://www.ekahau.com/
+
+2.2.2.5 Optical
+Promising approaches for 6DOF pose estimation of users and objects in general settings are vision-based. In closed-loop tracking, the field of view of the camera coincides with that of the user (e.g. in video see-through) allowing for pixel-perfect registration of virtual objects. Conversely in open-loop tracking, the system relies only on the sensed pose of the user and the environmental model.
+Using one or two tiny cameras, model-based approaches can recognise landmarks (given an accurate environmental model) or detect relative movement dynamically between frames. There are a number of techniques to detect scene geometry (e.g. landmark or template matching) and camera motion in both 2D (e.g. optical flow) and 3D which require varying amounts of computation.
+While early vision-based tracking and interaction applications in prepared environments use fiducial markers [111, 142] or light emitting diodes (LEDs) to see how and where to register virtual objects, today there is a growing body of research on „markerless AR‟ for tracking physical positions [46, 48, 58, 65]. Some use a homography to estimate translation and rotation from frame to frame, others use a Harris feature detector to identify target points and some employ the random sample consensus (Ransac) algorithm to validate matching [80]. Recently, Pilet [130] showed how deformable surfaces like paper sheets, t-shirts and mugs can also serve as augmentable surfaces. Robustness is still improving and computational costs high, but results of these pure vision-based approaches (hybrid and/or markerless) for general-case, real-time tracking are very promising.
+2.2.2.6 Hybrid
+Commercial hybrid tracking systems became available during the 1990s and use for instance electromagnetic compasses (magnetometers), gravitational tilt sensors (inclinometers), and gyroscopes (mechanical and optical) for orientation tracking and ultrasonic, magnetic, and optical position tracking. Hybrid tracking approaches are currently the most promising way to deal with the difficulties posed by general indoor and outdoor mobile AR environments [73]. Azuma et al. [20] investigate hybrid methods without vision-based tracking suitable for military use at night in an outdoor environment with less than ten beacons mounted on for instance unmanned air vehicles (UAVs).
+2.3 User interface and interaction
+Besides registering virtual data with the user‟s real world perception, the system needs to provide some kind of interface with both virtual and real objects. Our technological advancing society needs new ways of interfacing with both the physical and digital world to enable people to engage in those environments [67].
+2.1.2 New UI paradigm WIMP (windows, icons, menus, and pointing), as the
+conventional desktop UI metaphor is referred to, does not apply that well to AR systems. Not only is interaction required with six degrees of freedom (6DOF) rather than 2D,
+
+8
+
+The International Journal of Virtual Reality, 2010, 9(2):1-20
+
+the use of conventional devices like a mouse and keyboard are cumbersome to wear and reduce the AR experience.
+Like in WIMP UIs, AR interfaces have to support selecting, positioning, and rotating of virtual objects, drawing paths or trajectories, assigning quantitative values (quantification) and text input. However as a general UI principle, AR interaction also includes the selection, annotation, and, possibly, direct manipulation of physical objects. This computing paradigm is still a challenge [20].
+
+2.3.3 Haptic UI and gesture recognition TUIs with bidirectional, programmable communication
+through touch are called haptic UIs. Haptics is like teleoperation, but the remote slave system is purely computational, i.e. “virtual.” Haptic devices are in effect robots with a single task: to interact with humans [69].
+
+Fig. 10. StudierStube‟s general-purpose Personal Interaction Panel with 2D and 3D widgets and a 6DOF pen [142].（Color Plate 1）
+2.3.2 Tangible UI and 3D pointing Early mobile AR systems simply use mobile trackballs,
+trackpads and gyroscopic mice to support continuous 2D pointing tasks. This is largely because the systems still use a WIMP interface and accurate gesturing to WIMP menus would otherwise require well-tuned motor skills from the users. Ideally the number of extra devices that have to be carried around in mobile UIs is reduced, but this may be difficult with current mobile computing and UI technologies.
+Devices like the mouse are tangible and unidirectional, they communicate from the user to the AR system only. Common 3D equivalents are tangible user interfaces (TUIs) like paddles and wands. Ishii and Ullmer [76] discuss a number of tangible interfaces developed at MIT‟s Tangible Media Group14 including phicons (physical icons) and sliding instruments. Some TUIs have placeholders or markers on them so the AR system can replace them visually with virtual objects. Poupyrev et al. [131] use tiles with fiducial markers, while in StudierStube, Schmalstieg et al. [142] allow users to interact through a Personal Interaction Panel with 2D and 3D widgets that also recognises pen-based gestures in 6DOF (Fig. 10).
+14 http://tangible.media.mit.edu/
+
+Fig. 11. SensAble‟s PHANTOM Premium 3.0 6DOF hap¬tic device.( Color Plate 6)
+The haptic sense is divided into the kinaesthetic sense (force, motion) and the tactile sense (tact, touch). Force feedback devices like joysticks and steering wheels can suggest impact or resistance and are well-known among gamers. A popular 6DOF haptic device in teleoperation and other areas is the PHANTOM (Fig. 11). It optionally provides 7DOF interaction through a pinch or scissors extension. Tactile feedback devices convey parameters such as roughness, rigidity, and temperature. Benali-Khoudja et al. [27] survey tactile interfaces used in teleoperation, 3D surface simulation, games, etc.
+Data gloves use diverse technologies to sense and actuate and are very reliable, flexible and widely used in VR for gesture recognition. In AR however they are suitable only for brief, casual use, as they impede the use of hands in real world activities and are somewhat awkward looking for general application. Buchmann et al. [37] connected buzzers to the fingertips informing users whether they are „touching‟ a virtual object correctly for manipulation, much like the CyberGlove with CyberTouch by SensAble15.
+2.3.4 Visual UI and gesture recognition In stead of using hand-worn trackers, hand movement may
+also be tracked visually, leaving the hands unencumbered. A head-worn or collar-mounted camera pointed at the user‟s hands can be used for gesture recognition. Through gesture recognition, an AR could automatically draw up reports of activities [105]. For 3D interaction, UbiHand uses wrist-mounted cameras enable gesture recognition [14], while the Mobile Augmented Reality Interface Sign Inter-
+15 http://www.sensable.com/
+
+The International Journal of Virtual Reality, 2010, 9(2):1-20
+
+9
+
+pretation Language 16 [16] recognises hand gestures on a virtual keyboard displayed on the user‟s hand (Fig. 12). A simple hand gesture using the Handy AR system can also be used for the initialization of markerless tracking, which estimates a camera pose from a user‟s outstretched hand [97].
+Cameras are also useful to record and document the user‟s view, e.g. for providing a live video feed for teleconferencing, for informing a remote expert about the findings of AR field-workers, or simply for documenting and storing everything that is taking place in front of the mobile AR system user.
+Common in indoor virtual or augmented environments is the use of additional orientation and position trackers to provide 6DOF hand tracking for manipulating virtual objects. For outdoor environments, Foxlin and Harrington [60] experimented with ultrasonic tracking of finger-worn acoustic emitters using three head-worn microphones.
+2.3.5 Gaze tracking Using tiny cameras to observe user pupils and determine
+the direction of their gaze is a technology with potential for AR. The difficulties are that it needs be incorporated into the eye-wear, calibrated to the user to filter out involuntary eye movement, and positioned at a fixed distance. With enough error correction, gaze tracking alternatives for the mouse such as Stanford‟s EyePoint17 [94] provides a dynamic history of user‟s interests and intentions that may help the UI adapt to the future contexts.
+2.3.6 Aural UI and speech recognition To reach the ideal of an inconspicuous UI, auditory UIs
+may become an important part of the solution. Microphones and earphones are easily hidden and allow auditory UIs to deal with speech recognition, speech recording for human-to-human interaction, audio information presentation, and audio dialogue. Although noisy environments pose problems, audio can be valuable in multimodal and multimedia UIs.
+2.3.7 Text input
+
+Achieving fast and reliable text input to a mobile computer remains hard. Standard keyboards require much space and a flat surface, and the current commercial options such as small, foldable, inflatable, or laser-projected virtual keyboards are cumbersome, while soft keyboards take up valuable screen space. Popular choices in the mobile community include chordic keyboards such as the Twiddler2 by Handykey18 that require key combinations to encode a single character. Of course mobile AR systems based on handheld devices like tablet PCs, PDAs or mobile phones already support alphanumeric input through keypads or pen-based handwriting recognition (facilitated by e.g. dictionaries or shape writing technologies), but this cannot be applied in all situations. Glove-based and vision-based hand gesture tracking do not yet provide the ease of use and accuracy for serious adoption. Speech recognition however has improved over the years in both speed and accuracy and, when combined with a fall-back device (e.g., pen-based systems or special purpose chording or miniature keyboards), may be a likely candidate for providing text input to mobile devices in a wide variety of situations [73].
+2.3.8 Hybrid UI With each modality having its drawbacks and benefits, AR
+systems are likely to use a multimodal UI. A synchronised combination of for instance gestures, speech, sound, vision and haptics may provide users with a more natural and robust, yet predictable UI.
+2.3.9 Context awareness The display and tracking devices discussed earlier already
+provide some advantages for an AR interface. A mobile AR system is aware of the user‟s position and orientation and can adjust the UI accordingly. Such context awareness can reduce UI complexity for example by dealing only with virtual or real objects that are nearby or within visual range. Lee et al. [96] already utilize AR for providing context-aware bi-augmentation between physical and virtual spaces through context-adaptable visualization.
+
+Fig. 12. Mobile Augmented Reality Interface Sign Interpretation Language © 2004 Peter Antoniac.
+
+16 http://marisil.org/ 17 http://hci.stanford.edu/research/GUIDe/
+
+18 http://www.handykey.com/
+
+10
+
+The International Journal of Virtual Reality, 2010, 9(2):1-20
+
+2.3.10 Towards human-machine symbiosis Another class of sensors gathers information about the
+user‟s state. Biometric devices can measure heart-rate and bioelectric signals, such as galvanic skin response, electroencephalogram (neural activity), or electromyogram (muscle activity) data in order to monitor biological activity. Affective computing [125] identifies some challenges in making computers more aware of the emotional state of their users and able to adapt accordingly. Although the future may hold human-machine symbioses [99], current integration of UI technology is restricted to devices that are worn or perhaps embroidered to create computationally aware clothes [54].
+2.4 More AR requirements
+Besides tracking, registration, and interaction, Höllerer and Feiner [73] mention three more requirements for a mobile AR system: computational framework, wireless networking, and data storage and access technology. Content is of course also required, so some authoring tools are mentioned here as well.
+
+2.4.3 Content The author believes that commercial success of AR sys-
+tems will depend heavily on the available types of content. Scientific and industrial applications are usually based on specialised content, but presenting commercial content to the common user will remain a challenge if AR is not applied in everyday life.
+Some of the available AR authoring tools are the CREATE tool from Information in Place24, the DART toolkit25 and the MARS Authoring Tool26. Companies like Thinglab27 assist in 3D scanning or digitising of objects. Optical capture systems, capture suits, and other tracking devices available at companies like Inition28 are tools for creating some life AR content beyond „simple‟ annotation.
+Creating or recording dynamic content could benefit from techniques already developed in the movie and games industries, but also from accessible 3D drawing software like Google SketchUp29. Storing and replaying user experiences is a valuable extension to MR system functionality and are provided for instance in HyperMem [49].
+
+Fig. 13. Typical AR system framework tasks.
+2.4.1 Frameworks AR systems have to perform some typical tasks like
+tracking, sensing, display and interaction (Fig. 13). These can be supported by fast prototyping frameworks that are developed independently from their applications. Easy integration of AR devices and quick creation of user interfaces can be achieved with frameworks like the ARToolKit 19, probably the best known and most widely used. Other frameworks include StudierStube 20 [152], DWARF 21 , D‟Fusion by Total Immersion22 and the Layar23 browser for smart phones.
+2.4.2 Networks and databases AR systems usually present a lot of knowledge to the user
+which is obtained through networks. Especially mobile and collaborative AR systems will require suitable (wireless) networks to support data retrieval and multi-user interaction over larger distances. Moving computation load to remote servers is one approach to reduce weight and bulk of mobile AR systems [25, 103]. How to get to the most relevant information with the least effort from databases, and how to minimise information presentation are still open research questions.
+19 http://artoolkit.sourceforge.net/ 20 http://studierstube.icg.tu-graz.ac.at/ 21 http://www.augmentedreality.de/ 22 http://www.t-immersion.com/ 23 http://layar.com/
+
+III APPLICATIONS Over the years, researchers and developers find more and more areas that could benefit from augmentation. The first systems focused on military, industrial and medical application, but AR systems for commercial use and entertainment appeared soon after. Which of these applications will trigger wide-spread use is anybody‟s guess. This section discusses some areas of application grouped similar to the ISMAR 2007 symposium30 categorisation.
+3.1 Personal information systems Höllerer and Feiner [73] believe one of the biggest po-
+tential markets for AR could prove to be in personal wearable computing. At MIT a wearable gestural interface is developed, which attempts to bring information out into the tangible world by means of a tiny projector and a camera mounted on a collar [108]. AR may serve as an advanced, immediate, and more natural UI for wearable and mobile computing in personal, daily use. For instance, AR could integrate phone and email communication with context-aware overlays, manage personal information related to specific locations or people, provide navigational guidance, and provide a unified control interface for all kinds of appliances in and around the home.
+24 http://www.informationinplace.com/ 25 http://www.gvu.gatech.edu/dart/ 26 http://www.cs.columbia.edu/graphics/projects/mars/ 27 http://www.thinglab.co.uk/ 28 http://www.inition.co.uk/ 29 http://www.sketchup.com/ 30 http://www.ismar07.org/
+
+The International Journal of Virtual Reality, 2010, 9(2):1-20
+
+11
+
+Fig. 14. Personal Awareness Assistant. © Accenture.
+3.1.1 Personal Assistance and Advertisement Available from Accenture is the Personal Awareness As-
+sistant (Fig. 14) which automatically stores names and faces of people you meet, cued by words as „how do you do‟. Speech recognition also provides a natural interface to retrieve the information that was recorded earlier. Journalists, police, geographers and archaeologists could use AR to place notes or signs in the environment they are reporting on or working in. On a larger scale, AR techniques for augmenting for instance deformable surfaces like cups and shirts [130] and environments also present direct marketing agencies with many opportunities to offer coupons to passing pedestrians, place virtual billboards, show virtual prototypes, etc. With all these different uses, AR platforms should preferably offer a filter to manage what content they display.
+3.1.2 Navigation Navigation in prepared environments has been tried and
+tested for some time. Rekimoto [136] presented NaviCam for indoor use that augmented a video stream from a hand held camera using fiducial markers for position tracking. Starner et al. [147] consider applications and limitations of AR for wearable computers, including problems of finger tracking and facial recognition. Narzt et al. [112, 113] discuss navigation paradigms for (outdoor) pedestrians (Fig. 15a) and cars that overlay routes, highway exits, follow-me cars, dangers, fuel prices, etc. They prototyped video see-through PDAs and mobile phones and envision eventual use in car windshield heads-up displays. Tönnis et al. [157] investigate the success of using AR warnings to direct a car driver‟s attention towards danger (Fig. 15b). Kim et al. [89] describe how a 2D traveller guidance service can be made 3D using GIS data for AR navigation. Results clearly show that the use of augmented displays result in a significant decrease in navigation errors and issues related to divided attention when compared to using regular displays [88]. Nokia‟s MARA project31 researches deployment of AR on current mobile phone technology.
+31 http://research.nokia.com/research/projects/mara/
+
+(a)
+
+(b)
+
+Fig. 15. Pedestrian navigation [112] and traffic warning [157].
+
+3.1.3 Touring Höllerer et al. [72] use AR to create situated documenta-
+ries about historic events, while Vlahakis et al. [159] present the ArcheoGuide project that reconstructs a cultural heritage site in Olympia, Greece. With this system, visitors can view and learn ancient architecture and customs. Similar systems have been developed for the Pompeii site [122]. The lifeClipper 32 project does about the same for structures and technologies in medieval Germany and is moving from an art project to serious AR exhibition. Bartie and Mackaness [24] introduced a touring system to explore landmarks in the cityscape of Edinburgh that works with speech recognition. The theme park Futuroscope in Poitiers, France, hosts a show called The Future is Wild33 designed by Total Immersion which allows visitors to experience a virtual safari, set in the world as it might be 200 millions years from now. The animals of the future are superimposed on reality, come to life in their surroundings and react to visitors‟ gestures.
+3.2 Industrial and military applications
+Design, assembly, and maintenance are typical areas where AR may prove useful. These activities may be augmented in both corporate and military settings.
+
+3.2.1 Design Fiorentino et al. [59] introduced the SpaceDesign MR
+workspace (based on the StudierStube framework) that allows for instance visualisation and modification of car body curvature and engine layout (Fig. 16a). Volkswagen intends to use AR for comparing calculated and actual crash test imagery [61]. The MR Lab used data from Daimler-Chrysler‟s cars to create Clear and Present Car, a simulation where one can open the door of a virtual concept car and experience the interior, dash board lay out and interface design for usability testing [154, 155]. Notice how the steering wheel is drawn around the hands, rather than over them (Fig. 16b). Shin and Dunston [144] classify application areas in construction where AR can be exploited for better performance.
+
+32 http://www.torpus.com/lifeclipper/ 33 http://uk.futuroscope.com/attraction-futur-wild.php
+
+12
+
+The International Journal of Virtual Reality, 2010, 9(2):1-20
+
+structure. Distributed interaction on construction is further studied by Olwal and Feiner [120].
+
+(a)
+
+(b)
+
+Fig. 16. Spacedesign [59] and Clear and Present Car [154, 155].（Color Plate 13）
+
+Another interesting application presented by Collett and MacDonald [47] is the visualisation of robot programs (Fig. 17). With small robots such as the automated vacuum cleaner Roomba from iRobot34 entering our daily lives, visualising their sensor ranges and intended trajectories might be welcome extensions.
+
+Fig. 17. Robot sensor data visualisation [47].
+3.2.2 Assembly Since BMW experimented with AR to improve welding
+processes on their cars [141], Pentenrieder et al. [124] shows how Volkswagen use AR in construction to analyse interfering edges, plan production lines and workshops, compare variance and verify parts. Assisting the production process at Boeing, Mizell [109] use AR to overlay schematic diagrams and accompanying documentation directly onto wooden boards on which electrical wires are routed, bundled, and sleeved. Curtis et al. [51] verify the AR and find that workers using AR create wire bundles as well as conventional approaches, even though tracking and display technologies were limited at the time.
+At EADS, supporting EuroFighter‟s nose gear assembly is researched [61] while [163] research AR support for Airbus‟ cable and water systems (Fig. 18). Leading (and talking) workers through the assembly process of large aircraft is not suited for stationary AR solutions, yet mobility and tracking with so much metal around also prove to be challenging.
+An extra benefit of augmented assembly and construction is the possibility to monitor and schedule individual progress in order to manage large complex construction projects. An example by Feiner et al. [56] generates overview renderings of the entire construction scene while workers use their HMD to see which strut is to be placed where in a space-frame
+34 http://www.irobot.com/
+
+Fig. 18. Airbus water system assembly [163].
+3.2.3 Maintenance Complex machinery or structures require a lot of skill from
+maintenance personnel and AR is proving useful in this area, for instance in providing “x-ray vision” or automatically probing the environment with extra sensors to direct the users attention to problem sites. Klinker et al. [91] present an AR system for the inspection of power plants at Framatome ANP (today AREVA). Friedrich [61] show the intention to support electrical troubleshooting of vehicles at Ford and according to a MicroVision employee35, Honda and Volvo ordered Nomad Expert Vision Technician systems to assist their technicians with vehicle history and repair information [83].
+3.2.4 Combat and simulation Satellite navigation, heads-up displays for pilots, and also
+much of the current AR research at universities and corporations are the result of military funding. Companies like Information in Place have contracts with the Army, Air Force and Coast Guard, as land warrior and civilian use of AR may overlap in for instance navigational support, communications enhancement, repair and maintenance and emergency medicine. Extra benefits specific for military users may be training in large-scale combat scenarios and simulating real-time enemy action, as in the Battlefield Augmented Reality System (BARS) by Julier et al. [81] and research by Piekarski et al. [128]. Not overloading the user with too much information is critical and is being studied by Julier et al. [82]. The BARS system also provides tools to author the environment with new 3D information that other system users see in turn [22]. Azuma et al. [20] investigate the projection of reconnaissance data from unmanned air vehicles for land warriors.
+3.3 Medical applications
+Similar to maintenance personnel, roaming nurses and doctors could benefit from important information being delivered directly to their glasses [68]. Surgeons however require very precise registration while AR system mobility is less of an issue. An early optical see-through augmentation is presented by Fuchs et al. [62] for laparoscopic surgery36 where the overlaid view of the laparoscopes inserted through small incisions is simulated (Fig. 19). Pietrzak et al. [129]
+35 http://microvision.blogspot.com/2004/05/looking-up.html 36 Laparoscopic surgery uses slender camera systems (laparoscopes) and instruments inserted in the abdomen and/or pelvis cavities through small incisions for reduced patient recovery times.
+
+The International Journal of Virtual Reality, 2010, 9(2):1-20
+
+13
+
+confirm that the use of 3D imagery in laparoscopic surgery still has to be proven, but the opportunities are well documented.
+
+field) and chroma-keying techniques, the annotations are shown on the field and not on the players (Fig. 21b).
+
+Fig. 19. Simulated visualisation in laparoscopic surgery for left and right eye [63].( Color Plate 12)
+There are many AR approaches being tested in medicine with live overlays of ultrasound, CT, and MR scans. Navab et al. [114] already took advantage of the physical constraints of a C-arm x-ray machine to automatically calibrate the cameras with the machine and register the x-ray imagery with the real objects. Vogt et al. [160] use video see-through HMD to overlay MR scans on heads and provide views of tool manipulation hidden beneath tissue and surfaces, while Merten [106] gives an impression of MR scans overlaid on feet (Fig. 20). Kotranza and Lok [92] observed that augmented patient dummies with haptic feedback invoked the same behaviour by specialists as with real patients.
+Fig. 20. AR overlay of a medical scan [107].
+3.4 AR for entertainment Like VR, AR can be applied in the entertainment industry to create AR games, but also to increase visibility of important game aspects in life sports broadcasting. In these cases where a large public is reached, AR can also serve advertisers to show virtual ads and product placements.
+3.4.1 Sports broadcasting Swimming pools, football fields, race tracks and other
+sports environments are well-known and easily prepared, which video see-through augmentation through tracked camera feeds easy. One example is the Fox-Trax system [43], used to highlight the location of a hard-to-see hockey puck as it moves rapidly across the ice, but AR is also applied to annotate racing cars (Fig. 21a), snooker ball trajectories, life swimmer performances, etc. Thanks to predictable environments (uniformed players on a green, white, and brown
+
+(a)
+
+(b)
+
+Fig. 21. AR in life sports broadcasting: racing and football [20].(Color Plate 11)
+3.4.2 Games Extending on a platform for military simulation [128]
+based on the ARToolKit, Piekarski and Thomas [127] created „ARQuake‟ where mobile users fight virtual enemies in a real environment. A general purpose outdoor AR platform, „Tinmith-Metro‟ evolved from this work and is available at the Wearable Computer Lab37 [126], as well as a similar platform for outdoor games such as „Sky Invaders‟ and the adventurous „Game-City‟ [45]. Crabtree et al. [50] discuss experiences with mobile MR game „Bystander‟ where virtual online players avoid capture from real-world cooperating runners.
+A number of games have been developed for prepared indoor environments, such as the alien-battling „AquaGauntlet‟ [155], dolphin-juggling „ContactWater‟, „ARHockey‟, and „2001 AR Odyssey‟ [154]. In „AR-Bowling‟ Matysczok et al. [104] study game-play, and Henrysson et al. [71] created AR tennis for the Nokia mobile phone (Fig. 22). Early AR games also include AR air hockey [116], collaborative combat against virtual enemies [117], and an AR-enhanced pool game [78].
+
+(a)
+
+(b)
+
+Fig. 22. Mobile AR tennis with the phones used as rackets [72].
+
+3.5 AR for the office
+Besides in games, collaboration in office spaces is another area where AR may prove useful, for example in public management or crisis situations, urban planning, etc.
+
+37 http://www.tinmith.net/
+
+14
+
+The International Journal of Virtual Reality, 2010, 9(2):1-20
+
+3.5.1 Collaboration Having multiple people view, discuss, and interact with 3D
+models simultaneously is a major potential benefit of AR. Collaborative environments allow seamless integration with existing tools and practices and enhance practice by supporting remote and collocated activities that would otherwise be impossible [31]. Benford et al. [28] name four examples where shared MR spaces may apply: doctors diagnosing 3D scan data, construction engineers discussing plans and progress data, environmental planners discussing geographical data and urban development, and distributed control rooms such as Air Traffic Control operating through a common visualisation.
+Augmented Surfaces by [137] leaves users unencumbered but is limited to adding virtual information to the projected surfaces. Examples of collaborative AR systems using see-through displays include both those that use see-through hand-held displays (such as Transvision Rekimoto [135] and MagicBook [32]) and see-through head-worn displays (such as Emmie [38], and StudierStube [152], MR2 [154] and ARTHUR [36]). Privacy management is handled in the Emmie system through such metaphors as lamps and mirrors. Making sure everybody knows what someone is pointing at is a problem that StudierStube overcomes by using virtual representation of physical pointers. Similarly, Tamura [154] presented a mixed reality meeting room (MR2) for 3D presentations (Fig. 23a). For urban planning purposes, Broll et al. [36] introduced ARTHUR, complete with pedestrian flow visualisation (Fig. 23b) but lacking augmented pointers.
+
+(a)
+
+(b)
+
+Fig. 23. MR2 [154] and ARTHUR [37].
+
+3.6 Education and training
+Close to earlier mentioned collaborative applications like games and planning are AR tools that support education with 3D objects. Many studies research this area of application [30, 39, 70, 74, 93, 121].
+Kaufmann [85], Kaufmann et al. [86] introduce the Construct3D tool for math and geometry education, based on the StudierStube framework (Fig. 24a). In MARIE (Fig. 24b), based in turn on the Construct3D tool, Liarokapis et al. [98] employ screen-based AR with Web3D to support engineering education. MIT Education Arcade introduced game-based learning in „Mystery at the Museum‟ and „Environmental Detectives‟ where each educative game has an “engaging back-story, differentiated character roles, reactive
+
+third parties, guided debriefing, synthetic activities, and embedded recall/replay to promote both engagement and learning” [83]. Lindinger et al. [100] studied collaborative edutainment in the multi-user mixed reality system “Gulliver‟s World.” In art education, Caarls et al. [39] present multiple examples where AR is used to create new forms of visual art.
+
+(a)
+
+(b)
+
+Fig. 24. Construct3D [87] and MARIE [99].
+
+IV LIMITATIONS
+AR faces technical challenges regarding for example binocular (stereo) view, high resolution, colour depth, luminance, contrast, field of view, and focus depth. However, before AR becomes accepted as part of user‟s everyday life, just like mobile phones and personal digital assistants (PDAs), issues regarding intuitive interfaces, costs, weight, power usage, ergonomics, and appearance must also be addressed. A number of limitations, some of which have been mentioned earlier, are categorised here.
+4.1 Portability and outdoor use
+Most mobile AR systems mentioned in this survey are cumbersome, requiring a heavy backpack to carry the PC, sensors, display, batteries, and everything else. Connections between all the devices must be able to withstand outdoor use, including weather and shock, but universal serial bus (USB) connectors are known to fail easily. However, recent developments in mobile technology like cell phones and PDAs are bridging the gap towards mobile AR.
+Optical and video see-through displays are usually unsuited for outdoor use due to low brightness, contrast, resolution, and field of view. However, recently developed at MicroVision, laser-powered displays offer a new dimension in head-mounted and hand-held displays that overcomes this problem.
+Most portable computers have only one CPU which limits the amount of visual and hybrid tracking. More generally, consumer operating systems are not suited for real-time computing, while specialised real-time operating systems don‟t have the drivers to support the sensors and graphics in modern hardware.
+4.2 Tracking and (auto)calibration
+Tracking in unprepared environments remains a challenge but hybrid approaches are becoming small enough to be
+
+The International Journal of Virtual Reality, 2010, 9(2):1-20
+
+15
+
+added to mobile phones or PDAs. Calibration of these devices is still complicated and extensive, but this may be solved through calibration-free or auto-calibrating approaches that minimise set-up requirements. The latter use redundant sensor information to automatically measure and compensate for changing calibration parameters [19].
+Latency A large source of dynamic registration errors are system delays [19]. Techniques like precalculation, temporal stream matching (in video see-through such as live broadcasts), and prediction of future viewpoints may solve some delay. System latency can also be scheduled to reduce errors through careful system design, and pre-rendered images may be shifted at the last instant to compensate for pan-tilt motions. Similarly, image warping may correct delays in 6DOF motion (both translation and rotation).
+4.3 Depth perception
+One difficult registration problem is accurate depth perception. Stereoscopic displays help, but additional problems including accommodation-vergence conflicts or low resolution and dim displays cause object to appear further away than they should be [52]. Correct occlusion ameliorates some depth problems [138], as does consistent registration for different eyepoint locations [158].
+In early video see-through systems with a parallax, users need to adapt to vertical displaced viewpoints. In an experiment by Biocca and Rolland [35], subjects exhibit a large overshoot in a depth-pointing task after removing the HMD.
+4.4 Overload and over-reliance
+Aside from technical challenges, the user interface must also follow some guidelines as not to overload the user with information while also preventing the user to overly rely on the AR system such that important cues from the environment are missed [156]. At BMW, Bengler and Passaro [29] use guidelines for AR system design in cars, including orientation on the driving task, no moving or obstructing imagery, add only information that improves driving performance, avoid side effects like tunnel vision and cognitive capture, and only use information that does not distract, intrude or disturb given different situations.
+4.5 Social acceptance
+Getting people to use AR may be more challenging than expected, and many factors play a role in social acceptance of AR ranging from unobtrusive fashionable appearance (gloves, helmets, etc.) to privacy concerns. For instance, Accenture‟s Assistant (Fig. 14) blinks a light when it records for the sole purpose of alerting the person who is being recorded. These fundamental issues must be addressed before AR is widely accepted [73].
+V CONCLUSION
+We surveyed the state of the art of technologies, applications and limitations related to augmented reality. We also contributed a comparative table on displays (Table 1) and a brief survey of frameworks as well as content authoring tools (Section 2.4). This survey has become a comprehensive
+
+overview of the AR field and hopefully provides a suitable starting point for readers new to the field.
+AR has come a long way but still has some distance to go before industries, the military and the general public will accept it as a familiar user interface. For example, Airbus CIMPA still struggles to get their AR systems for assembly support accepted by the workers [163]. On the other hand, companies like Information in Place estimated that by 2014, 30% of mobile workers will be using augmented reality. Within 5-10 years, Feiner [57] believes that “augmented reality will have a more profound effect on the way in which we develop and interact with future computers.” With the advent of such complementary technologies as tactile networks, artificial intelligence, cybernetics, and (non-invasive) brain-computer interfaces, AR might soon pave the way for ubiquitous (anytime-anywhere) computing [162] of a more natural kind [13] or even human-machine symbiosis as Licklider [99] already envisioned in the 1950‟s.
+ACKNOWLEDGEMENT
+This work was supported in part by the Delft Unversity of Technology and in part by the Next Generation Infrastructures Foundation.
+REFERENCES
+[1] ISWC’99: Proc. 3rd Int’l Symp. on Wearable Computers, San Francisco, CA, USA, Oct. 18-19 1999. IEEE CS Press. ISBN 0-7695-0428-0.
+[2] IWAR’99: Proc. 2nd Int’l Workshop on Augmented Reality, San Francisco, CA, USA, Oct. 20-21 1999. IEEE CS Press. ISBN 0-7695-0359-4.
+[3] ISAR’00: Proc. Int’l Symp. Augmented Reality, Munich, Germany, Oct. 5-6 2000. IEEE CS Press. ISBN 0-7695-0846-4.
+[4] ISWC’00: Proc. 4th Int’l Symp. on Wearable Computers, Atlanta, GA, USA, Oct. 16-17 2000. IEEE CS Press. ISBN 0-7695-0795-6.
+[5] ISAR’01: Proc. 2nd Int’l Symp. Augmented Reality, New York, NY, USA, Oct. 29-30 2001. IEEE CS Press. ISBN 0-7695-1375-1.
+[6] ISWC’01: Proc. 5th Int’l Symp. on Wearable Computers, Zürich, Switzerland, Oct. 8-9 2001. IEEE CS Press. ISBN 0-7695-1318-2.
+[7] ISMAR’02: Proc. 1st Int’l Symp. on Mixed and Augmented Reality, Darmstadt, Germany, Sep. 30-Oct. 1 2002. IEEE CS Press. ISBN 0-7695-1781-1.
+[8] ISMAR’03: Proc. 2nd Int’l Symp. on Mixed and Augmented Reality, Tokyo, Japan, Oct. 7-10 2003. IEEE CS Press. ISBN 0-7695-2006-5.
+[9] ISMAR’04: Proc. 3nd Int’l Symp. on Mixed and Augmented Reality, Arlington, VA, USA, Nov. 2-5 2004. IEEE CS Press. ISBN 0-7695-2191-6.
+[10] ISMAR’05: Proc. 4th Int’l Symp. on Mixed and Augmented Reality, Vienna, Austria, Oct. 5-8 2005. IEEE CS Press. ISBN 0-7695-2459-1.
+[11] ISMAR’06: Proc. 5th Int’l Symp. on Mixed and Augmented Reality, Santa Barbara, CA, USA, Oct. 22-25 2006. IEEE CS Press. ISBN 1-4244-0650-1.
+[12] VR’08: Proc. Virtual Reality Conf., Reno, NE, USA, Mar. 8-12 2008. ISBN 978-1-4244-1971-5.
+[13] D. Abowd and E. D. Mynatt. Charting past, present, and future research in ubiquitous computing. ACM Trans. Computer-Human Interaction, 7(1): 29–58, Mar. 2000.
+[14] F. Ahmad and P. Musilek. A keystroke and pointer control input interface for wearable computers. In PerCom’06: Proc. 4th Int’l Conf. Pervasive Computing and Communications, pp. 2–11, Pisa, Italy, Mar 13-17, 2006. IEEE CS Press. ISBN 0-7695-2518-0.
+[15] M. E. Altinsoy, U. Jekosch, and S. Brewster, editors. HAID’09: Proc. 4th Int’l Conf. on Haptic and Audio Interaction Design, vol. 5763 of
+
+16
+
+The International Journal of Virtual Reality, 2010, 9(2):1-20
+
+LNCS, Dresden, Germany, Sep. 10-11 2009. Springer-Verlag. ISBN 978-3-642-04075-7. [16] P. Antoniac and P. Pulli. Marisil–mobile user interface framework for virtual enterprise. In ICCE’01: Proc. 7th Int’l Conf. Concurrent Enterprising, pp. 171–180, Bremen, June 2001. [17] R. T. Azuma. A survey of augmented reality. Presence, 6(4):355–385, Aug. 1997. [18] R. T. Azuma. The challenge of making augmented reality work outdoors. In [118], pp. 379–390. [19] R. T. Azuma, Y. Baillot, R. Behringer, S. K. Feiner, S. Julier, and B. MacIntyre. Recent advances in augmented reality. IEEE Computer Graphics and Applications, 21(6):34–47, Nov./Dec. 2001. [20] R. T. Azuma, H. Neely III, M. Daily, and J. Leonard. Performance analysis of an outdoor augmented reality tracking system that relies upon a few mobile beacons. In [11], pp. 101–104. [21] P. Bahl and V. N. Padmanabhan. RADAR: an in-building RF-based user location and tracking system. In Proc. IEEE Infocom, pp. 775–784, Tel Aviv, Israel, Mar. 26-30 2000. IEEE CS Press. ISBN 0-7803-5880-5. [22] Y. Baillot, D. Brown, and S. Julier. Authoring of physical models using mobile computers. In [6], pp. 39–46. [23] W. Barfield and T. Caudell, editors. Fundamentals of WearableComputers and Augmented Reality. CRC Press, Mahwah, NJ, 2001. ISBN 0805829016. [24] P. J. Bartie and W. A. Mackaness. Development of a speech-based augmented reality system to support exploration of cityscape. Trans. GIS, 10(1):63–86, 2006. [25] R. Behringer, C. Tam, J. McGee, S. Sundareswaran, and M. Vassiliou. Wearable augmented reality testbed for navigation and control, built solely with commercial-off-the-shelf (COTS) hardware. In [3], pp. 12–19. [26] B. Bell, S. Feiner, and T. Höllerer. View management for virtual and augmented reality. In UIST’01: Proc. 14th Symp. on User Interface Software and Technology, pp. 101–110, Orlando, FL, USA, Nov. 11-14 2001. ACM Press. ISBN 1-58113-438-X. [27] M. Benali-Khoudja, M. Hafez, J.-M. Alexandre, and A. Kheddar. Tactile interfaces: a state-of-the-art survey. In ISR’04: Proc. 35th Int’l Symp. on Robotics, Paris, France, Mar. 23-26 2004. [28] S. Benford, C. Greenhalgh, G. Reynard, C. Brown, and B. Koleva. Understanding and constructing shared spaces with mixed-reality boundaries. ACM Trans. Computer-Human Interaction, 5(3):185– 223, Sep. 1998. [29] K. Bengler and R. Passaro. Augmented reality in cars: Requirements and constraints. http://www.ismar06.org/data/1a-BMW.pdf, Oct. 22-25 2006. ISMAR‟06 industrial track. [30] M. Billinghurst. Augmented reality in education. New Horizons in Learning, 9(1), Oct. 2003. [31] M. Billinghurst and H. Kato. Collaborative mixed reality. In [118], pp. 261–284. [32] M. Billinghurst, H. Kato, and I. Poupyrev. The MagicBook–Moving seamlessly between reality and virtuality. IEEE Computer Graphics and Applications, 21(3):6–8, May/June 2001. [33] O. Bimber and R. Raskar. Spatial Augmented Reality: Merging Real and Virtual Worlds. A. K. Peters, Wellesley, MA, USA, 2005. ISBN 1-56881-230-2. [34] O. Bimber and R. Raskar. Modern approaches to augmented reality. In J. Fujii, editor, SIGGRAPH’05: Int’l Conf. on Computer Graphics and Interactive Technique, Los Angeles, CA, USA, Jul. 31-Aug. 4 2005. ISBN 1-59593-364-6. [35] F. A. Biocca and J. P. Rolland. Virtual eyes can rearrange your body-adaptation to visual displacement in see-through, head-mounted displays. Presence, 7(3): 262–277, June 1998. [36] W. Broll, I. Lindt, J. Ohlenburg, M. Wittkämper, C. Yuan, T. Novotny, A. Fatah gen. Schieck, C. Mot-tram, and A. Strothmann. ARTHUR: A collaborative augmented environment for architectural design and urban planning. J. of Virtual Reality and Broadcasting, 1(1), Dec. 2004. [37] V. Buchmann, S. Violich, M. Billinghurst, and A. Cockburn. FingARtips: Gesture based direct manipulation in augmented reality. In [146], pp. 212–221.
+
+[38] A. Butz, T. Höllerer, S. Feiner, B. MacIntyre, and C. Beshers. Enveloping users and computers in a collaborative 3D augmented reality. In [2], pp. 35–44.
+[39] J. Caarls, P. Jonker, Y. Kolstee, J. Rotteveel, and W. van Eck. Augmented reality for art, design & cultural heritage; system design and evaluation. J. on Image and Video Processing, Nov. 10 2009. Submitted.
+[40] O. Cakmakci and J. Rolland. Head-worn displays: A review. Display Technology, 2(3):199–216, Sep. 2006.
+[41] P. Castro, P. Chiu, T. Kremenek, and R. Muntz. A probabilistic room location service for wireless networked environments. In G. D. Abowd, B. Brumitt, and S. Shafer, editors, UbiComp’01: Proc. Ubiquitous Computing, vol. 2201 of LNCS, pp. 18–35, Atlanta, GA, USA, Sep. 30-Oct. 2 2001. Springer-Verlag. ISBN 978-3-540-42614-1.
+[42] T. P. Caudell and D. W. Mizell. Augmented reality: An application of heads-up display technology to manual manufacturing processes. In Proc. Hawaii Int’l Conf. on Systems Sciences, pp. 659–669, Kauai, HI, USA, 1992. IEEE CS Press. ISBN 0-8186-2420-5.
+[43] R. Cavallaro. The FoxTrax hockey puck tracking system. IEEE Computer Graphics and Applications, 17 (2):6–12, Mar./Apr. 1997.
+[44] A. Chang and C. O‟Sullivan. Audio-haptic feedback in mobile phones. In G. C. van der Veer and C. Gale, editors, CHI‟05: Proc. Int‟l Conf. on Human Factors in Computing Systems, pp. 1264–1267, Portland, OR, USA, April 2-7 2005. ACM Press. ISBN 1-59593-002-7.
+[45] A. D. Cheok, F. S. Wan, X. Yang, W. Weihua, L. M. Huang, M. Billinghurst, and H. Kato. Game-City: A ubiquitous large area multi-interface mixed reality game space for wearable computers. In ISWC’02: Proc. 6th Int’l Symp. on Wearable Computers, Seattle, WA, USA, Oct. 7-10 2002. IEEE CS Press. ISBN 0-7695-1816-8/02.
+[46] K. W. Chia, A. D. Cheok, and S. J. D. Prince. Online 6 DOF augmented reality registration from natural features. In [7], pp. 305–313.
+[47] T. H. J. Collett and B. A. MacDonald. Developer oriented visualisation of a robot program: An augmented reality approach. In HRI’06: Proc. 1st Conf. on Human-Robot Interaction, pp. 49–56, Salt Lake City, Utah, USA, Mar. 2006. ACM Press. ISBN 1-59593-294-1.
+[48] A. I. Comport, E. Marchand, and F. Chaumette. A real-time tracker for markerless augmented reality. In [8], pp. 36–45.
+[49] N. Correia and L. Romero. Storing user experiences in mixed reality using hypermedia. The Visual Computer, 22(12):991–1001, Dec. 2006.
+[50] A. Crabtree, S. Benford, T. Rodden, C. Greenhalgh, M. Flintham, R. Anastasi, A. Drozd, M. Adams, J. Row-Farr, N. Tandavanitj, and A. Steed. Orchestrating a mixed reality game „on the ground‟. In CHI’03: Proc. Int’l Conf. on Human Factors in Computing Systems, pp. 391–398, Vienna, Austria, Apr. 24-29, 2004. ACM Press. ISBN 1-58113-702-8.
+[51] D. Curtis, D. Mizell, P. Gruenbaum, and A. Janin. Several devils in the details: Making an AR application work in the airplane factory. In R. Behringer, G. Klinker, D. W. Mizell, and G. J. Klinker, editors, IWAR’98: Proc. Int’l Workshop on Augmented Reality, pp. 47–60, Natick, MA, USA, 1998. A. K. Peters. ISBN 1-56881-098-9.
+[52] D. Drascic and P. Milgram. Perceptual issues in augmented reality. In Proc. SPIE, Stereoscopic Displays VII and Virtual Systems III, vol. 2653, pp. 123–134, Bellingham, WA, USA, 1996. SPIE Press.
+[53] S. R. Ellis, F. Breant, B. Manges, R. Jacoby, and B. D. Adelstein. Factors influencing operator interaction with virtual objects viewed via head-mounted see-through displays: Viewing conditions and rendering latency. In VRAIS’97: Proc. Virtual Reality Ann. Int’l Symp., pp. 138–145, Albuquerque, NM, USA, Mar. 1-5 1997. IEEE CS Press. ISBN 0-8186-7843-7.
+[54] J. Farringdon, A. J. Moore, N. Tilbury, J. Church, and P. D. Biemond. Wearable sensor badge and sensor jacket for context awareness. In [1], pp. 107–113.
+[55] S. Feiner, B. MacIntyre, T. Höllerer, and A. Webster. A touring machine: Prototyping 3D mobile augmented reality systems for exploring the urban environment. Personal and Ubiquitous Computing, 1(4):74–81, Dec. 1997.
+[56] S. Feiner, B. MacIntyre, and T. Höllerer. Wearing it out: First steps toward mobile augmented reality systems. In [118], pp. 363–377.
+[57] S. K. Feiner. Augmented reality: A new way of seeing. Scientific American, 286(4), Apr. 2002.
+
+The International Journal of Virtual Reality, 2010, 9(2):1-20
+
+17
+
+[58] V. Ferrari, T. Tuytelaars, and L. van Gool. Markerless augmented reality with a real-time affine region tracker. In [5], pp. 87–96.
+[59] M. Fiorentino, R. de Amicis, G. Monno, and A. Stork. Spacedesign: A mixed reality workspace for aesthetic industrial design. In [7], pp. 86–318.
+[60] E. Foxlin and M. Harrington. Weartrack: A self-referenced head and hand tracker for wearable computers and portable VR. In [4], pp. 155–162.
+[61] W. Friedrich. ARVIKA–augmented reality for development, production and service. In [7], pp. 3–6.
+[62] H. Fuchs, M. A. Livingston, R. Raskar, D. Colucci, K. Keller, A. State, J. R. Crawford, P. Rademacher, S. H. Drake, and A. A. Meyer. Augmented reality visualization for laparoscopic surgery. In W. M. Wells, A. Colchester, and S. Delp, editors, MICCAI’98: Proc. 1st Int’l Conf. Medical Image Computing and Computer-Assisted Intervention, vol. 1496 of LNCS, pp. 934–943, Cambridge, MA, USA, Oct. 11-13 1998. Springer-Verlag. ISBN 3-540-65136-5.
+[63] I. Getting. The global positioning system. IEEE Spectrum, 30(12):36–47, Dec. 1993.
+[64] G. Goebbels, K. Troche, M. Braun, A. Ivanovic, A. Grab, K. von Löbtow, H. F. Zeilhofer, R. Sader, F. Thieringer, K. Albrecht, K. Praxmarer, E. Keeve, N. Hanssen, Z. Krol, and F. Hasenbrink. Development of an augmented reality system for intra-operative navigation in maxillo-facial surgery. In Proc. BMBF Statustagung, pp. 237–246, Stuttgart, Germany, 2002. I. Gordon and D. G. Lowe. What and where: 3D object recognitionwith accurate pose. In [9].
+[65] M. Gross, S. Würmlin, M. Naef, E. Lamboray, C. Spagno, A. Kunz, E. Koller-Meier, T. Svoboda, L. van Gool, S. Lang, K. Strehlke, A. van de Moere, and O. Staadt. blue-c: a spatially immersive display and 3d video portal for telepresence. ACM Trans. Graphics, 22(3):819–827, July 2003.
+[66] R. Harper, T. Rodden, Y. Rogers, and A. Sellen. Being Human—Human-Computer Interaction in the Year 2020. Microsoft Research Ltd, Cambridge, England, UK, 2008. ISBN 978-0-9554761-1-2.
+[67] P. Hasvold. In-the-field health informatics. In The Open Group Conf., Paris, France, 2002.
+[68] V. Hayward, O. Astley, M. Cruz-Hernandez, D. Grant, and G. Robles-De La Torre. Haptic interfaces and devices. Sensor Review, 24:16–29, 2004.
+[69] G. Heidemann, H. Bekel, I. Bax, and H. Ritter. Interactive online learning. Pattern Recognition and Image Analysis, 15(1):55–58, 2005.
+[70] A. Henrysson, M. Billinghurst, and M. Ollila. Face to face collaborative AR on mobile phones. In [10], pp. 80–89.
+[71] T. Höllerer, S. Feiner, and J. Pavlik. Situated documentaries: Embedding multimedia presentations in the real world. In [1], pp. 79–86.
+[72] T. H. Höllerer and S. K. Feiner. Mobile Augmented Reality. In H. Karimi and A. Hammad, editors, Telegeoinformatics: Location-Based Computing and Services. CRC Press, Mar. 2004. ISBN 0-4153-6976-2.
+[73] C. E. Hughes, C. B. Stapleton, D. E. Hughes, and E. M. Smith. Mixed reality in education, entertainment, and training. IEEE Computer Graphics and Applications, pp. 24–30, Nov./Dec. 2005.
+[74] C. E. Hughes, C. B. Stapleton, and M. O‟Connor. The evolution of a framework for mixed reality experiences. In Emerging Technologies of Augmented Reality: Interfaces and Design, Hershey, PA, USA, Nov. 2006. Idea Group Publishing.
+[75] H. Ishii and B. Ullmer. Tangible bits: Towards seamless interfaces between people, bits and atoms. In S. Pemberton, editor, CHI’97: Proc. Int’l Conf. on Human Factors in Computing Systems, pp. 234–241, Atlanta, GA, USA, Mar. 22-27 1997. ACM Press.
+[76] R. J. K. Jacob. What is the next generation of human-computer interaction? In R. E. Grinter, T. Rodden, P. M. Aoki, E. Cutrell, R. Jeffries, and G. M. Olson, editors, CHI’06: Proc. Int’l Conf. on Human Factors in Computing Systems, pp. 1707–1710, Montréal, Québec, Canada, April 2006. ACM Press. ISBN 1-59593-298-4.
+[77] T. Jebara, C. Eyster, J. Weaver, T. Starner, and A. Pentland. Stochasticks: Augmenting the billiards experience with probabilistic vision and wearable computers. In ISWC’97: Proc. Int’l Symp. on Wearable Computers, pp. 138–145, Cambridge, MA, USA, Oct. 13-14 1997. IEEE CS Press. ISBN 0-8186-8192-6.
+
+[78] E. Jonietz. TR10: Augmented reality. http://www.techreview.com/ special/emerging/, Mar. 12 2007.
+[79] S. Julier and G. Bishop. Tracking: how hard can it be? IEEE Computer Graphics and Applications, 22 (6):22–23, Nov.-Dec. 2002.
+[80] S. Julier, R. King, B. Colbert, J. Durbin, and L. Rosenblum. The software architecture of a real-time battlefield visualization virtual environment. In VR’99: Proc. IEEE Virtual Reality, pp. 29–36, Washington, DC, USA, 1999. IEEE CS Press. ISBN 0-7695-0093-5.
+[81] S. J. Julier, M. Lanzagorta, Y. Baillot, L. J. Rosenblum, S. Feiner, T. Höllerer, and S. Sestito. Information filtering for mobile augmented reality. In [3], pp. 3–11.
+[82] E. Kaplan-Leiserson. Trend: Augmented reality check. Learning Circuits, Dec. 2004.
+[83] I. Kasai, Y. Tanijiri, T. Endo, and H. Ueda. A forgettable near eye display. In [4], pp. 115–118.
+[84] H. Kaufmann. Construct3D: an augmented reality application for mathematics and geometry education. In MULTIMEDIA’02: Proc. 10th Int’l Conf. on Multimedia, pp. 656–657, Juan-les-Pins, France, 2002. ACM Press. ISBN 1-58113-620-X.
+[85] H. Kaufmann, D. Schmalstieg, and M. Wagner. Construct3D: A virtual reality application for mathematics and geometry education. Education and Information Technologies, 5(4):263–276, Dec. 2000.
+[86] J. Kela, P. Korpipää, J. Mäntyjärvi, S. Kallio, G. Savino, L. Jozzo, and S. di Marca. Accelerometer-based gesture control for a design environment. Personal and Ubiquitous Computing, 10(5):285–299, Aug. 2006.
+[87] S. Kim and A. K. Dey. Simulated augmented reality windshield display as a cognitive mapping aid for elder driver navigation. In [119], pp. 133–142.
+[88] S. Kim, H. Kim, S. Eom, N. P. Mahalik, and B. Ahn. A reliable new 2-stage distributed interactive TGS system based on GIS database and augmented reality. IEICE Transactions on Information and Systems, E89-D(1):98–105, Jan. 2006.
+[89] K. Kiyokawa, M. Billinghurst, B. Campbell, and E. Woods. An occlusion-capable optical see-through head mount display for supporting co-located collaboration. In [8], pp. 133–141.
+[90] G. Klinker, D. Stricker, and D. Reiners. Augmented reality for exterior construction applications. In [23], pp. 397–427. ISBN 0805829016.
+[91] A. Kotranza and B. Lok. Virtual human + tangible interface = mixed reality human an initial exploration with a virtual breast exam patient. In [12], pp. 99–106.
+[92] H. Kritzenberger, T. Winkler, and M. Herczeg. Collaborative and constructive learning of elementary school children in experiential learning spaces along the virtuality continuum. In M. Herczeg, W. Prinz, and H. Oberquelle, editors, Mensch & Computer 2002: Vom interaktiven Werkzeug zu kooperativen Arbeits- und Lernwelten, pp. 115–124. B. G. Teubner, Stuttgart, Germany, 2002. ISBN 3-519-00364-3.
+[93] M. Kumar and T. Winograd. GUIDe: Gaze-enhanced UI design. In M. B. Rosson and D. J. Gilmore, editors, CHI’07: Proc. Int’l Conf. on Human Factors in Computing Systems, pp. 1977–1982, San Jose, CA, USA, April/May 2007. ISBN 978-1-59593-593-9.
+[94] G. Kurillo, R. Bajcsy, K. Nahrsted, and O. Kreylos. Immersive 3d environment for remote collaboration and training of physical activities. In [12], pp. 269–270.
+[95] J. Y. Lee, D. W. Seo, and G. Rhee. Visualization and interaction of pervasive services using context-aware augmented reality. Expert Systems with Applications, 35(4):1873–1882, Nov. 2008.
+[96] T. Lee and T. Höllerer. Hybrid feature tracking and user interaction for markerless augmented reality. In [12], pp. 145–152.
+[97] F. Liarokapis, N. Mourkoussis, M. White, J. Darcy, M. Sifniotis, P. Petridis, A. Basu, and P. F. Lister. Web3D and augmented reality to support engineering education. World Trans. Engineering and Technology Education, 3(1):1–4, 2004.
+[98] J. Licklider. Man-computer symbiosis. IRE Trans. Human Factors in Electronics, 1:4–11, 1960.
+[99] C. Lindinger, R. Haring, H. Hörtner, D. Kuka, and H. Kato. Multi-user mixed reality system „Gulliver‟s World‟: a case study on collaborative edutainment at the intersection of material and virtual worlds. Virtual Reality, 10(2):109–118, Oct. 2006.
+
+18
+
+The International Journal of Virtual Reality, 2010, 9(2):1-20
+
+[100]Y. Liu, X. Qin, S. Xu, E. Nakamae, and Q. Peng. Light source estimation of outdoor scenes for mixed reality. The Visual Computer, 25(5-7):637–646, May 2009.
+[101]J. Loomis, R. Golledge, and R. Klatzky. Personal guidance system for the visually impaired using GPS, GIS, and VR technologies. In Proc. Conf. on Virtual Reality and Persons with Disabilities, Millbrae, CA, USA, June 17-18 1993.
+[102]S. Mann. Wearable computing: A first step toward personal imaging. Computer, 30(2):25–32, Feb. 1997.
+[103]C. Matysczok, R. Radkowski, and J. Berssenbruegge. AR-bowling: immersive and realistic game play in real environments using augmented reality. In ACE’04: Proc. Int’l Conf. on Advances in Computer Entertainment technology, pp. 269–276, Singapore, 2004. ACM Press. ISBN 1-58113-882-2.
+[104]W. W. Mayol and D. W. Murray. Wearable hand activity recognition for event summarization. In ISWC’05: Proc. 9th Int’l Symp. on Wearable Computers, pp. 122–129, Osaka, Japan, 2005. ISBN 0-7695-2419-2.
+[105]M. Merten. Erweiterte Realität-verschmelzung zweier Welten. Deutsches Ärzteblatt, 104(13):A–840–842, Mar. 2007.
+[106]P. Milgram and F. Kishino. A taxonomy of mixed reality visual displays. IEICE Trans. Information and Systems, E77-D(12):1321–1329, Dec. 1994.
+[107]P. Mistry, P. Maes, and L. Chang. WUW -wear ur world: a wearable gestural interface. In [119], pp. 4111–4116. D. Mizell. Boeing‟s wire bundle assembly project. In [23], pp. 447–467. ISBN 0805829016.
+[108]M. Möhring, C. Lessig, and O. Bimber. Video see-through AR on consumer cell-phones. In [9], pp. 252– 253.
+[109]L. Naimark and E. Foxlin. Circular data matrix fiducial system and robust image processing for a wearable vision-inertial self-tracker. In [7], pp. 27–36.
+[110]W. Narzt, G. Pomberger, A. Ferscha, D. Kolb, R. Müller, J. Wieghardt, H. Hörtner, and C. Lindinger. Pervasive information acquisition for mobile ar-navigation systems. In WMCSA’03: Proc. 5th Workshop on Mobile Computing Systems and Applications, pp. 13–20. IEEE CS Press, Oct. 2003. ISBN 0-7695-1995-4/03.
+[111]W. Narzt, G. Pomberger, A. Ferscha, D. Kolb, R. Müller, J. Wieghardt, H. Hörtner, and C. Lindinger. Augmented reality navigation systems. Universal Access in the Information Society, 4(3):177–187, Mar. 2006.
+[112]N. Navab, A. Bani-Hashemi, and M. Mitschke. Merging visible and invisible: Two camera-augmented mobile C-arm (CAMC) applications. In [2], pp. 134–141.
+[113]T. Ogi, T. Yamada, K. Yamamoto, and M. Hi-rose. Invisible interface for immersive virtual world. In IPT’01: Proc. Immersive Projection Technology Workshop, pp. 237–246, Stuttgart, Germany, 2001.
+[114]T. Ohshima, K. Satoh, H. Yamamoto, and H. Tamura. AR2 Hockey: A case study of collaborative augmented reality. In VRAIS’98: Proc. Virtual Reality Ann. Int’l Symp., pp. 268–275, Washington, DC, USA, 1998. IEEE CS Press.
+[115]T. Ohshima, K. Satoh, H. Yamamoto, and H. Tamura. RV-Border Guards: A multi-player mixed reality entertainment. Trans. Virtual Reality Soc. Japan, 4(4): 699–705, 1999.
+[116]Y. Ohta and H. Tamura, editors. ISMR’99: Proc. 1st Int’l Symp. on Mixed Reality, Yokohama, Japan, Mar. 9-11 1999. Springer-Verlag. ISBN 3-540-65623-5.
+[117]D. R. Olsen Jr., R. B. Arthur, K. Hinckley, M. R. Morris, S. E. Hudson, and S. Greenberg, editors. CHI’09: Proc. 27th Int’l Conf. on Human Factors in Computing Systems, Boston, MA, USA, Apr. 4-9 2009. ACM Press. ISBN 978-1-60558-246-7.
+[118]A. Olwal and S. Feiner. Unit: modular development of distributed interaction techniques for highly interactive user interfaces. In [146], pp. 131–138.
+[119]Z. Pan, A. D. Zhigeng, H. Yang, J. Zhu, and J. Shi. Virtual reality and mixed reality for virtual learning environments. Computers & Graphics, 30(1):20–28, Feb. 2006.
+[120]G. Papagiannakis, S. Schertenleib, B. O‟Kennedy, M. Arevalo-Poizat, N. Magnenat-Thalmann, A. Stoddart, and D. Thalmann. Mixing virtual and real scenes in the site of ancient Pompeii. Computer Animation and Virtual Worlds, 16:11–24, 2005.
+[121]S. N. Patel, J. Rekimoto, and G. D. Abowd. iCam: Precise at-a-distance interaction in the physical environment. In Pervasive'06:
+
+4th Int’l Conf. on Pervasive Computing, vol. 3968 of LNCS, pp. 272–287, Dublin, Ireland, May 7-10 2006. ISBN 978-3-540-33894-9. [122]K. Pentenrieder, C. Bade, F. Doil, and P. Meier. Augmented reality-based factory planning -an application tailored to industrial needs. In ISMAR’07: Proc. 6th Int’l Symp. on Mixed and Augmented Reality, pp. 1–9, Nara, Japan, Nov. 13-16 2007. IEEE CS Press. ISBN 978-1-4244-1749-0. [123]R. W. Picard. Affective computing: challenges. Int’l J. of Human-Computer Studies, 59(1-2):55–64, July 2003. [124]W. Piekarski and B. Thomas. Tinmith-Metro: New outdoor techniques for creating city models with an augmented reality wearable computer. In [6], pp. 31– 38. [125]W. Piekarski and B. Thomas. ARQuake: the outdoor augmented reality gaming system. Comm. ACM, 45 (1):36–38, 2002. [126]W. Piekarski, B. Gunther, and B. Thomas. Integrating virtual and augmented realities in an outdoor application. In [2], pp. 45–54. [127]P. Pietrzak, M. Arya, J. V. Joseph, and H. R. H. Patel. Three-dimensional visualization in laparoscopic surgery. British J. of Urology International, 98(2): 253–256, Aug. 2006. [128]J. Pilet. Augmented Reality for Non-Rigid Surfaces. PhD thesis, Ecole Polytechnique Fédérale de Lausanne, Lausanne, Switzerland, Oct. 31 2008. [129]I. Poupyrev, D. Tan, M. Billinghurst, H. Kato, H. Regenbrecht, and N. Tetsutani. Tiles: A mixed reality authoring interface. In Interact: Proc. 8th Conf. on Human-Computer Interaction, pp. 334–341, Tokyo, Japan, July 9-13 2001. IOS Press. ISBN 1-58603-18-0. [130]F. H. Raab, E. B. Blood, T. O. Steiner, and H. R. Jones. Magnetic position and orientation tracking system. Trans. Aerospace and Electronic Systems, 15 (5):709–717, 1979. [131]R. Raskar, G. Welch, and W.-C. Chen. Table-top spatially-augmented realty: Bringing physical models to life with projected imagery. In [2], pp. 64–70. [132]R. Raskar, J. van Baar, P. Beardsley, T. Willwacher, S. Rao, and C. Forlines. iLamps: geometrically aware and self-configuring projectors. ACM Trans. Graphics, 22(3):809–818, 2003. [133]J. Rekimoto. Transvision: A hand-held augmented reality system for collaborative design. In VSMM’96: Proc. Virtual Systems and Multimedia, pp. 85–90, Gifu, Japan, 1996. Int‟l Soc. Virtual Systems and Multimedia. [134]J. Rekimoto. NaviCam: A magnifying glass approach to augmented reality. Presence, 6(4):399–412, Aug. 1997. [135]J. Rekimoto and M. Saitoh. Augmented surfaces: A spatially continuous workspace for hybrid computing environments. In CHI’99: Proc. Int’l Conf. on Human Factors in Computing Systems, pp. 378–385, Pittsburgh, PA, USA, 1999. ACM Press. ISBN 0-201-48559-1. [136]J. P. Rolland and H. Fuchs. Optical versus video see-through head-mounted displays in medical visualization. Presence, 9(3):287–309, June 2000. [137]J. P. Rolland, F. Biocca, F. Hamza-Lup, Y. Ha, and R. Martins. Development of head-mounted projection displays for distributed, collaborative, augmented reality applications. Presence, 14(5):528–549, 2005. [138]H. Saito, H. Kimura, S. Shimada, T. Naemura, J. Kayahara, S. Jarusirisawad, V. Nozick, H. Ishikawa, T. Murakami, J. Aoki, A. Asano, T. Kimura, M. Kakehata, F. Sasaki, H. Yashiro, M. Mori, K. Torizuka, and K. Ino. Laser-plasma scanning 3d display for putting digital contents in free space. In A. J. Woods, N. S. Holliman, and J. O. Merritt, editors, EI’08: Proc. Electronic Imaging, vol. 6803, pp. 1–10, Apr. 2008. ISBN 9780819469953. [139]C. Sandor and G. Klinker. A rapid prototyping software infrastructure for user interfaces in ubiquitous augmented reality. Personal and Ubiquitous Computing, 9(3):169–185, May 2005. [140]D. Schmalstieg, A. Fuhrmann, and G. Hesina. Bridging multiple user interface dimensions with augmented reality. In [3], pp. 20–29. [141]B. T. Schowengerdt, E. J. Seibel, J. P. Kelly, N. L. Silverman, and T. A. Furness III. Binocular retinal scanning laser display with integrated focus cues for ocular accommodation. In A. J. Woods, M. T. Bolas, J. O. Merritt, and S. A. Benton, editors, Proc. SPIE, Electronic Imaging Science and Technology, Stereoscopic Displays and Applications XIV, vol. 5006, pp. 1–9, Bellingham, WA, USA, Jan. 2003. SPIE Press.
+
+The International Journal of Virtual Reality, 2010, 9(2):1-20
+
+19
+
+[142]D. H. Shin and P. S. Dunston. Identification of application areas for augmented reality in industrial construction based on technology suitability. Automation in Construction, 17(7):882–894, Oct. 2008.
+[143]P. Shirley, K. Sung, E. Brunvand, A. Davis, S. Parker, and S. Boulos. Fast ray tracing and the potential effects on graphics and gaming courses. Computers & Graphics, 32(2):260–267, Apr. 2008.
+[144]S. N. Spencer, editor. GRAPHITE’04: Proc. 2nd Int’l Conf. on Computer Graphics and Interactive Techniques, Singapore, June 15-18 2004. ACM Press.
+[145]T. Starner, S. Mann, B. Rhodes, J. Levine, J. Healey, D. Kirsch, R. Picard, , and A. Pentland. Augmented reality through wearable computing. Presence, 6(4): 386–398, 1997.
+[146]G. Stetten, V. Chib, D. Hildebrand, and J. Bursee. Real time tomographic reflection: Phantoms for calibration and biopsy. In [5], pp. 11–19.
+[147]R. Stoakley, M. Conway, and R. Pausch. Virtual reality on a WIM: Interactive worlds in miniature. In I. R. Katz, R. L. Mack, L. Marks, M. B. Rosson, and J. Nielsen, editors, CHI’95: Proc. Int’l Conf. on Human Factors in Computing Systems, pp. 265–272, Denver, CO, USA, May 7-11 1995. ACM Press. ISBN 0-201-84705-1. T. Sugihara and T. Miyasato. A lightweight 3-D HMD with accommodative compensation. In SID’98: Proc. 29th Society for Information Display, pp. 927–930, San Jose, CA, USA, May 1998.
+[148]I. E. Sutherland. A head-mounted three-dimensional display. In Proc. Fall Joint Computer Conf., pp. 757–764, Washington, DC, 1968. Thompson Books.
+[149]Z. Szalavári, D. Schmalstieg, A. Fuhrmann, and M. Gervautz. StudierStube: An environment for collaboration in augmented reality. Virtual Reality, 3(1): 37–49, 1998.
+[150]A. Takagi, S. Yamazaki, Y. Saito, and N. Taniguchi. Development of a stereo video see-through HMD for AR systems. In [3], pp. 68–77.
+[151]H. Tamura. Steady steps and giant leap toward practical mixed reality systems and applications. In VAR’02: Proc. Int’l Status Conf. on Virtual and Augmented Reality, Leipzig, Germany, Nov. 2002.
+[152]H. Tamura, H. Yamamoto, and A. Katayama. Mixed reality: Future dreams seen at the border between real and virtual worlds. IEEE Computer Graphics and Applications, 21(6):64–70, Nov./Dec. 2001.
+[153]A. Tang, C. Owen, F. Biocca, and W. Mou. Comparative effectiveness of augmented reality in object assembly. In CHI’03: Proc. Int’l Conf. on Human Factors in Computing Systems, pp. 73–80, Ft. Lauderdale, FL, USA, 2003. ACM Press. ISBN 1-58113-630-7.
+[154]M. Tönnis, C. Sandor, G. Klinker, C. Lange, and H. Bubb. Experimental evaluation of an augmented reality visualization for directing a car driver‟s attention. In [10], pp. 56–59.
+[155]L. Vaissie and J. Rolland. Accuracy of rendered depth in head-mounted displays: Choice of eyepoint locations. In Proc. AeroSense, vol. 4021, pp. 343–353, Bellingham, WA, USA, 2000. SPIE Press.
+[156]V. Vlahakis, J. Karigiannis, M. Tsotros, M. Gounaris, L. Almeida, D. Stricker, T. Gleue, I. T. Christou, R. Carlucci, and N. Ioannidis. Archeoguide: first results of an augmented reality, mobile computing system in cultural heritage sites. In VAST’01: Proc. Conf. on Virtual reality, archaeology, and cultural heritage, pp. 131–140, Glyfada, Greece, 2001. ACM Press. ISBN 1-58113-447-9.
+[157]S. Vogt, A. Khamene, and F. Sauer. Reality augmentation for medical procedures: System architecture, single camera marker tracking, and system evaluation. Int’l J. of Computer Vision, 70(2):179–190, 2006.
+[158]D. Wagner and D. Schmalstieg. First steps towards handheld augmented reality. In ISWC’03: Proc. 7th Int’l Symp. on Wearable Computers, pp. 127–135, White Plains, NY, USA, Oct. 21-23 2003. IEEE CS Press. ISBN 0-7695-2034-0.
+[159]M. Weiser. The computer for the 21st century. Scientific American, 265(3):94–104, Sep. 1991.
+[160]D. Willers. Augmented Reality at Airbus. http://www.ismar06.org/ data/3a-Airbus.pdf, Oct. 22-25 2006. ISMAR‟06 industrial track.
+[161]F. Zhou, H. B.-L. Duh, and M. Billinghurst. Trends in augmented reality tracking, interaction and display: A review of ten years of ISMAR. In M. A. Livingston, O. Bimber, and H. Saito, editors, ISMAR’08: Proc. 7th Int’l Symp. on Mixed and Augmented Reality, pp. 193–202, Cambridge, UK, Sep. 15-18 2008. IEEE CS Press. ISBN 978-1-4244-2840-3.
+
+Rick van Krevelen is a Ph.D. researcher studying Intelligent Agents in Games and Simulations at the Systems Engineering section of the Delft University of Technology. His work focuses on the application of agents, machine learning and other artificial intelligence technologies to enhance virtual environments. His research involves the formalization and integration of agent modelling and simulation techniques to increase their applicability across domains such as serious games used for training and educational purposes. His email address is d.w.f.vankrevelen@tudelft.nl and his website is www.tudelft.nl/dwfvankrevelen.
+Ronald Poelman is a Ph.D. researcher in the Systems Engineering section of the Delft University of Technology. He received his M.Sc. in Product Design at the faculty of Science and Technology of the Utrecht University of Professional Education, The Netherlands. His current research interests are mixed reality and serious gaming. His email address is r.poelman@tudelft.nl and his website is www.tudelft.nl/rpoelman.
+

@@ -1,0 +1,62 @@
+HUD
+Dushboard
+Turn-by-turn(mirror)
+Figure 1. Three types of navigation systems
+Abstract— The current technological trend indicates a convergence of augmented reality (AR) with heads-up display (HUD) in car navigation UI’s. In support of this trend, we propose use of small devices which have accelerometers or accelerometer-equipped smartphone as a basis of HUD interaction. In this paper, we defined the limited operation, experimented the basic operation and evaluated them. Then we obtained the good results.
+I. INTRODUCTION
+Modern car navigation systems help to convey a vehicle’s current location on the map, route guidance, points of interest (POI), etc. These systems can generally be divided into three types (See Figure 1):
+1. The turn-by-turn type, with no display.
+2. The embedded display type, installed in the dashboard or carried by the user. 3. The HUD type, which visualizes information on the vehicle’s windscreen.
+Although the HUD type is the most expensive, and remains somewhat limited in both input and output, it has the distinct advantage of minimizing driver distraction. To support the further development of HUD-based car navigation, we propose a new kind of HUD system that integrates a smart mobile device with an accelerometer.
+II. REQUIREMENTS
+Our system assumes the existence of a vehicular HUD with
+the following characteristics:
+1. A simple user interface with intuitive operations 2. No-touch interaction (the user can only watch what is displayed on the windscreen)
+To interact with the HUD, we proposed use of a mobile “smart” device equipped with touchscreen and accelerometer, communicating with navigation systems via Bluetooth or WiFi.
+III. RELATED STUDIES
+There are wireless mouse technologies. However, these interfaces are different from the smartphone, and users have to bring the mouse devices. Interfaces for wearable computing [1] have shown promise, but are ill-suited to driving, since drivers should not have to wear anything. Image processing technology with a camera is more suitable for this purpose, but requires intensive analysis of various positions under unpredictable lighting conditions. Accelerometer-based input systems [2] [3] are generally simple, but poorly suited to controlling the position of a pointing marker. However, since our target system involves a HUD, we can constrain the pointing range of our accelerometer input to the display area of the windscreen.
+IV. PROPOSED METHOD
+A. Overview
+We base our system on two types of input operations:
+1. Tap operations—indicating selection actions 2. Double-tap operations—indicating zooming actions
+Given the limited information available on most HUDs, these two operations are sufficient for navigation interactions. To support such operations, we propose use of an accelerometer device for pointing. As with many mouse-based pointing interfaces, the color of the item beneath the pointer should be altered.
+B. Structure of proposed system
+Our system (See Figure 2) has three components:
+1. HUD 2. Vehicle Information Device
+Accelerometer-based HUD Input for Car Navigation
+̐ Arata Ishizaki, ̐ Shota Ikegami, ̐ Takatomo Yamabe, ̑ Shinji Kitagami, ̐ Ryozo Kiyohara, Member, IEEE
+̐ Kanagawa Institute of Technology, Atsugi, Japan ̑ Mitsubishi Electric Corporation, Kamakura, Japan
+2014 IEEE International Conference on Consumer Electronics (ICCE)
+978-1-4799-1291-9/14/$31.00 ©2014 IEEE 278
+Authorized licensed use limited to: Politecnico di Torino. Downloaded on December 12,2025 at 08:16:23 UTC from IEEE Xplore. Restrictions apply.
+
+
+Figure3. Basic experimentation by accelerometer on the back of a hand
+HUD
+Application
+OS Bluetooth
+Sensor Device
+Accelerometer (three axis)
+Bluetooth
+Vehicle Information Device Sensors with finger
+windscreen
+Figure 2. Structure of proposed system
+g
+100ms
+Figure 6. Value of the long tap operation
+100ms
+g
+Figure 4. Value of the tap operation
+g
+100ms
+Figure 5. Value of the double tap operation
+3. Sensor device
+The Vehicle information device is connected to the sensor device via Bluetooth. The sensor device sends raw input data from its 3-axis accelerometer. The vehicle information device processes this input and performs the appropriate operations.
+V. BASIC EXPERIMENTATION AND EVALUATION
+We performed an experiment using a sensor device mounted on the back of a glove (see Figure 3). Figures 4 and 5 show the accelerometer’s vector input for tap and double-tap operations, respectively. Note that the double-tap operations can be clearly distinguished from tap operations by counting the number of peaks (i.e. values above a given threshold) within fixed period. Figure 6 shows the input for long tap operations. Note that it is comparatively difficult to distinguish from the tap operation, given its similarity to the tap operation.
+VI. CONCLUSION
+In this paper, we proposed a user interface for HUD-based car navigation. Experiments showed that the distinctness of accelerometer input was sufficient for the limited operations of most HUD-based systems. In the future work, we plan to implement a fully functional car navigation system, and to test other factors including driver distraction, alternate pointing techniques, etc.
+REFERENCES
+[1] E. Foxin, M. Harrington: WearTrack: A Self-Referenced Head and Tracker for Wearable Computers and Portable VR, Proceeding of The Forth International Symposium on Wearable Computers, pp. 155{162, 2000.M. Young, The Technical Writer's Handbook. Mill Valley, CA: University Science, 1989. [2] Tsukada, K. and Yasumura, M.: Ubi-Finger: Gesture Input Device for Mobile Use,Proceedings of APCHI 2002, Vol. 1, pp.388-400 (2002). [3] M. Fukumoto, and Y. Tonomura, “Whisper: A Wristwatch Style Wearable Handset,” in Proc. CHI’99, pp.112-119, 1999.
+279
+Authorized licensed use limited to: Politecnico di Torino. Downloaded on December 12,2025 at 08:16:23 UTC from IEEE Xplore. Restrictions apply.

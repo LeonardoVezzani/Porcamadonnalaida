@@ -1,0 +1,640 @@
+IEEE TRANSACTIONS ON INSTRUMENTATION AND MEASUREMENT, VOL. 73, 2024
+
+5008214
+
+Heart Rate Estimation in Driver Monitoring System Using Quality-Guided Spectrum Peak Screening
+Zheng Gong , Xuezhi Yang , Rencheng Song , Senior Member, IEEE, Xuesong Han , Chong Ren , Hailin Shi , Jianwei Niu , and Wei Li
+
+Abstract— Remote photoplethysmography (rPPG) enables heart rate (HR) measurement under stable illumination and low noise conditions. However, challenges arise due to rapid lighting changes, significant head movements, and vehicle vibrations during driving, impacting the recovery of clear rPPG signals and rendering denoising techniques alone inadequate in entirely eliminating noise interference. To address these challenges, we introduce an innovative approach, “quality-guided spectrum peak screening” (QSPS), for monitoring the driver’s HR during driving. First, we developed a signal evaluation framework for assessing signal quality across multiple facial regions following wavelet filtering. Subsequently, by leveraging quality information, a spectral peak screening algorithm is applied to signals from multiple regions, mitigating the impact of residual noise on rPPG. The precise HR is determined by integrating quality scores and short-term stability from various facial regions. Our method is employed in a commercially available driver monitoring system (DMS) equipped with a monochrome camera. Test results show QSPS’s robustness compared with established near-infrared (NIR)-based HR detection methods. In driving scenarios, QSPS achieves a mean absolute error (MAE) of 4.32 bpm, a root mean square error (RMSE) of 6.15 bpm, and a percentage of time with HR estimation errors smaller than 6 bpm of 68.8%. Furthermore, QSPS exhibits excellent performance during extended 10-min HR monitoring, with a Pearson correlation coefficient of 0.943 in the night test and 0.906 in the day test.
+Index Terms— Driver monitoring system (DMS), heart rate (HR) estimation, near-infrared (NIR), remote photoplethysmography (rPPG), signal quality assessment.
+Manuscript received 28 September 2023; revised 21 November 2023; accepted 19 December 2023. Date of publication 11 January 2024; date of current version 24 January 2024. This work was supported in part by the Hefei University of Technology-NIO Innovation Institute under Grant W2022JSKF1120 and in part by the Collaborative Innovation Project of Colleges and Universities of Anhui Province under Grant GXXT-2023-004. The Associate Editor coordinating the review process was Dr. Bardia Yousefi. (Corresponding author: Xuezhi Yang.)
+Zheng Gong, Xuesong Han, and Chong Ren are with the School of Computer and Information and the Anhui Key Laboratory of Industry Safety and Emergency Technology, Hefei University of Technology, Hefei 230601, China (e-mail: 1351832717@qq.com; 1442541201@qq.com; 1142935530@qq.com).
+Xuezhi Yang is with the School of Computer and Information and the Anhui Provincial Key Laboratory of Industrial Safety Emergency Technology, Hefei University of Technology, Hefei 230601, China, and also with the Anhui Provincial Laboratory of Intelligent Interconnection Systems, Hefei 230009, China (e-mail: xzyang@hfut.edu.cn).
+Rencheng Song is with the School of Instrument Science and Optoelectronics Engineering, Hefei University of Technology, Hefei 230009, China (e-mail: rcsong@hfut.edu.cn).
+Hailin Shi, Jianwei Niu, and Wei Li are with NIO, Beijing 100176, China (e-mail: hailin.shi@nio.com; jianwei.niu1@nio.com; wei.li11@nio.com).
+Digital Object Identifier 10.1109/TIM.2024.3352710
+
+I. INTRODUCTION
+DRIVER monitoring system (DMS) initially focused on detecting driver behaviors such as steering, braking, and acceleration to address potential accidents [1]. However, these methods have limitations in effectively addressing preventable human factors, such as driver fatigue and distraction [2]. Recognizing the need for further advancements, recent research has introduced the integration of vital sign monitoring as a new option in DMS. Vital signs, including heart rate (HR) [3], respiratory rate (RR) [4], HR variability (HRV) [4], and blood pressure (BP) [5], provide valuable insights into the driver’s physical condition. By continuously monitoring these physiological indicators, the system can detect fatigue [6], distraction [7] and other physiological changes [8], [9], [10], [11] that may significantly impact driving performance. This integration of vital sign monitoring enhances the proactive identification of potential risks and enables the implementation of preventive measures, thus improving overall road safety.
+Traditional HR measurement techniques involve the use of contact-based sensors like electrocardiography (ECG) and pulse oximeters [12]. While these methods provide accurate HR measurements, direct skin contact can cause skin irritation to drivers and potentially interfere with driving [6]. Remote photoplethysmography (rPPG) has emerged as a prominent noncontact HR measurement method. By capturing subtle color changes in the skin caused by subcutaneous capillary variations, rPPG extracts pulse signals from facial videos, enabling HR detection [13].
+However, for common near-infrared (NIR) monitoring in DMS, most existing rPPG algorithms face challenges. First, NIR images utilized in DMS are monochromatic, resulting in a lower signal-to-noise ratio of extracted rPPG signals [14], [15], rendering RGB-based methods [3], [16], [17], [18] using three color channels inapplicable. Compared to the RGB- and NIR-based methods, the RGB image has better antimotion interference ability [19], while the NIR image has stronger antilight interference ability [20]. Although RGB-depth technology [21] has the advantage of detection accuracy, there are certain obstacles in the application of DMS, such as the difficulty of model deployment and ensuring real-time performance. Second, there are unique sources of noise in moving vehicles, which can be categorized into two aspects: 1) the uneven distribution of ambient light on the driver’s face during driving, such as the variations caused by buildings and trees on the sides of the daytime road or changes in
+
+1557-9662 © 2024 IEEE. Personal use is permitted, but republication/redistribution requires IEEE permission. See https://www.ieee.org/publications/rights/index.html for more information.
+
+Authorized licensed use limited to: Politecnico di Torino. Downloaded on November 19,2025 at 13:42:33 UTC from IEEE Xplore. Restrictions apply.
+
+5008214
+
+IEEE TRANSACTIONS ON INSTRUMENTATION AND MEASUREMENT, VOL. 73, 2024
+
+lighting conditions during the nighttime with streetlights or other environmental light sources, leading to significant fluctuations in facial illumination and 2) motion artifacts caused by factors such as vehicle movement, driver conversations, facial expressions, actions like checking rearview or side mirrors, and even the vibration of the engine that affects the movement of both the vehicle and the driver. These challenges significantly compromise the quality of the extracted pulse signals, making it difficult to obtain accurate HR detection results and assess the reliability of the measured HR.
+In recent years, several rPPG algorithms in NIR have been proposed to overcome these challenges. Zhang et al. [22] proposed a method for monitoring and analyzing driver HR using empirical mode decomposition, bandpass filtering, and fast Fourier transformation. They achieved excellent detection results in complex lighting environments. However, they only considered the impact of lighting and lacked testing in realistic driving scenarios. Nowara et al. [23] introduced the SparsePPG algorithm for driver monitoring using in-car cameras, which enables HR detection in both NIR and RGB modalities. They employed narrowband NIR videos and an active NIR illumination system to reduce variations in ambient light and utilized robust principal component analysis (RPCA) for reliable HR measurements. Building upon their previous work, the same team proposed the AutoSparsePPG algorithm in 2020 [24]. This algorithm leverages the quasiperiodicity of rPPG signals to enhance the robustness of HR detection against motion interference. It is important to note that both these methods utilize narrowband NIR solutions with monochrome cameras. They select 48 regions of interest (ROIs) on the face and calculate the mean color values of these ROIs to extract the rPPG signal. However, since noise affects different ROIs to varying degrees, it is uncertain which ROIs produce reliable signals in the presence of motion interference and variations in lighting conditions. Hernandez-Ortega et al. [25] introduced a signal quality metric in NIR rPPG to assess the quality of the signal by calculating a signal quality score. This metric helps in identifying cases of inaccurate HR estimation. However, the signal quality metric was primarily used for selecting accurate or inaccurate signal segments and did not directly contribute to the HR detection process itself. It did not address the challenges of motion artifacts and variations in lighting conditions.
+In previous research, we have acknowledged the inevitable impact of motion interference on rPPG, leading to the presence of residual motion noise [26]. This impact is manifested as waveform distortion in the time domain and multipeak spectra in the frequency domain of rPPG signals. Furthermore, the extent of this interference varies among different signals. In this article, we introduce an innovative algorithm to address the previously mentioned challenges and issues arising from residual noise. Our method incorporates the quality-guided spectrum peak screening (QSPS) algorithm, which integrates the quality characteristics of pulse signals to achieve more accurate HR estimation and assessment.
+The reason for peak screening during the HR estimation process lies in the fact that motion interference introduces additional frequency components that may not necessarily
+
+correspond to the actual HR frequency. This issue arises from the fact that motion disturbances introduce extra frequency components that can interfere with the HR signal, leading to inaccuracies in HR estimation. Specifically, residual motion noise can result in multiple peaks in the spectrum of the rPPG signal, and these peaks may not correspond to the actual heartbeats. These additional peaks may be caused by facial movements, changes in lighting conditions, or other external factors rather than cardiac activity.
+The proposed method offers three key contributions.
+1) We propose a dedicated HR monitoring system designed specifically for automotive cabin environments. Our method is aimed at extracting rPPG signals from a single-channel 940-nm narrowband NIR source, enabling precise monitoring of drivers’ HR. Importantly, we take into consideration the diverse manifestations of residual noise in different signal domains, effectively mitigating the adverse effects of residual noise on HR detection.
+2) We introduce an extensive framework for evaluating the quality of pulse signals. By extracting rich quality information embedded within pulse signals, we can ascertain whether the signal is predominantly influenced by frequency interference. This quality information serves as a guiding tool to enhance the precision of HR detection.
+3) Differing from sole reliance on quality assessment for output and confidence estimation, we extensively leverage signal quality information to conduct spectral screening of pulse signals across various facial regions. By utilizing the QSPS algorithm, our method effectively identifies spectral distortions induced by motion interference or lighting artifacts. This screening process minimizes the impact of motion interference on HR estimation, resulting in outcomes that are not only more accurate but also more reliable.
+II. RESIDUAL NOISE ANALYSIS
+In DMS, we utilize a common NIR camera setup by installing a monochrome camera module with a 940-nm narrowband NIR filter positioned above the steering wheel to capture facial images and extract the pulse signal. The camera module integrates two 940-nm light sources. In this section, we analyze the residual noise present in the rPPG signal during the HR estimation process.
+A. rPPG Signal Model
+According to the skin reflection model in [27], we establish the rPPG signal model in the NIR. We assume that the NIR grayscale values of the driver’s facial images depend on the contributions of two light sources: the 940-nm NIR light source and the filtered 940-nm wavelength ambient light. The rPPG signal, denoted as Sraw(t), is obtained by averaging the pixel values within each ROI, effectively reducing quantization noise from the camera sensor, which can be disregarded when the number of skin pixels is sufficiently large. Based on the skin two-color reflection model, we consider two types of
+
+Authorized licensed use limited to: Politecnico di Torino. Downloaded on November 19,2025 at 13:42:33 UTC from IEEE Xplore. Restrictions apply.
+
+GONG et al.: HEART RATE ESTIMATION IN DRIVER MONITORING SYSTEM
+
+5008214
+
+reflection: specular reflection and diffuse reflection [28]. Thus, we have
+
+Sraw(t ) = INIR(t ) VsNIR(t ) + VdNIR(t ) + Imb(t ) Vsamb(t ) + Vdamb(t ) . (1)
+
+Here, t represents time, Sraw(t) represents the average pixel values within the ROI, INIR(t) represents the intensity of the NIR light source, Iamb(t) represents the intensity of the ambient light, VsNIR(t) and VdNIR(t) represent the specular and diffuse reflections of the NIR light source, respectively, and Vsamb(t) and Vdamb(t) represent the specular and diffuse reflections of the ambient light, respectively.
+The spectral band of the NIR camera imaging is narrow
+due to the camera’s narrowband filter, which ensures that
+the NIR light source and visible light have similar spectra.
+Consequently, we can neglect the differences between the
+specular and diffuse reflections, assuming them to be equal.
+It is important to note that their influence during motion is
+also similar. Therefore, we make the following assumptions:
+
+
+ 
+
+VsNIR(t )
+
+=
+
+Vsamb(t )
+
+=
+
+Vs (t )
+
+VdNIR(t) = Vdamb(t ) = Vd (t )M(t)
+
+(2)
+
+ 
+
+INIR(t )
+
+=
+
+I0.
+
+Regarding the specular reflection Vs(t) of the skin, the influence of minor motion noise can be neglected, and it can be assumed as a time-independent term
+
+Vs (t) = Vs0.
+
+(3)
+
+The diffuse reflection Vd (t) of the skin reflects the pulse signal and can be represented as a superposition of a constant related to skin characteristics Vd0 and the pulse signal vd (t)
+
+Vd (t) = Vd0 + vd (t).
+
+(4)
+
+The effect of motion noise on the diffuse reflection is significant, so we need to introduce the correction factor M(t) to the original signal model.
+INIR(t) is not only related to the intensity of the NIR light source, but also depends on the distance between the NIR light source and the skin. Since the brightness of the NIR light source is stable, and the distance between the NIR light source and the driver’s face is relatively constant, we assume INIR(t) to be a time-independent term as well.
+Substituting (2)–(4) into (1), we have
+
+B. Residual Motion Noise
+The pulse signal generally demonstrates greater stability compared to the occasional rapid fluctuations caused by noise. During vigorous physical activities, motion-induced interference usually encompasses both high- and low-frequency components. This arises from diverse muscle contractions and movements involved in rapid motions, resulting in motion signals with a broad energy distribution across the frequency domain. We categorize motion-induced interference as M(t), comprising a high-frequency component Mh(t) and a low-frequency component Ml (t) that closely aligns in frequency with the HR
+
+M(t) = Mh(t) + Ml (t).
+
+(6)
+
+In (5), high-frequency components and constant terms can be eliminated, resulting in the preliminarily denoised signal rPPG(t) represented as
+
+rPPG(t) = vd (t)Ml (t)[I0 + Iamb(t)].
+
+(7)
+
+When the low-frequency component Ml (t) approaches the HR frequency or its harmonics, it might coincide with the frequency components of the HR signal, introducing additional peaks or ripples in the frequency spectrum. This interference affects the accuracy of HR estimation, leading to residual motion noise. We will elucidate the impact of residual motion noise on the time–frequency characteristics of the pulse signal and discuss how to mitigate its influence on HR estimation through algorithmic enhancements in the subsequent Section III-C.
+In real-world driving scenarios, substantial fluctuations in ambient light and motion are unavoidable, contributing to the presence of residual noise. However, the extent to which they affect the frequency spectrum after extracting the pulse signal can vary, leading to diverse HR estimation outcomes. The challenge of being impacted by residual motion noise is prevalent in existing methods. The objective of this study is to address the issue of detecting motion anomalies during driving and reducing the impact of residual motion noise on HR estimation.
+
+III. METHODOLOGY
+In this section, the framework of the proposed method will be introduced in detail. This approach consists of five phases, as presented in Fig. 1.
+
+Sraw(t) = vd (t)M(t)[I0 + Iamb(t)] + I0(Vs0 + Vd0) + Iamb(t)M(t)(Vs0 + Vd0). (5)
+Since the pulse signal is a weak low-frequency signal, while the illumination and motion interferences are rapidly changing and high energy, we can separate the signal into low- and high-frequency components to extract the pulse signal. In (5), the first term contains the pulse information to be extracted, the second term serves as the baseline to be removed, and the third term represents the interference caused by ambient light intensity and motion degree, which can be directly removed as the high-frequency component.
+
+A. Face Tracking and ROI Segmentation
+Considering the inherent head movements that occur during driving, precise face detection and tracking are crucial in our study. To achieve this, we directly obtained the video data collected from the DMS and utilized the LAB algorithm developed by SenseTime [29] employed in the DMS of our collaborative company. This algorithm provided us with the coordinates of 106 facial landmarks in each frame of the video. By leveraging this algorithm, we were able to accurately locate and track the 106 facial landmarks, which provided valuable information for subsequent analysis.
+
+Authorized licensed use limited to: Politecnico di Torino. Downloaded on November 19,2025 at 13:42:33 UTC from IEEE Xplore. Restrictions apply.
+
+5008214
+
+IEEE TRANSACTIONS ON INSTRUMENTATION AND MEASUREMENT, VOL. 73, 2024
+
+Fig. 1. Overview of our proposed method. (a) Face tracking and ROI segmentation: the algorithm begins by detecting and tracking the driver’s face, followed by the segmentation of the face into multiple regions based on facial feature points. (b) Pulse signal extraction: pulse signals are computed for each facial region, capturing the variations in blood volume. (c) Signal quality assessment: features are extracted from each pulse signal in the different regions. A quality score is then calculated to evaluate the reliability of the signals, enabling confidence-based classification. (d) Spectrum peak screening: based on the confidence grades, spectral peaks in the pulse signals of each region are screened. (e) HR estimation: the HR of the 42 regions is analyzed for short-term stability, ensuring minimal fluctuations over a short duration. The algorithm then selects and fuses the HR from the identified regions.
+
+In practical scenarios, the use of a single ROI for HR detection often yields suboptimal results due to variations in muscle movement and vascular distribution [30]. Therefore, it is necessary to divide the face into multiple regions. In previous studies, two common approaches for multiregion segmentation were used. The first approach involved dividing the facial region into fixed rectangular subregions [31], while the second approach involved interpolating and extrapolating facial landmarks to form subregions [23]. However, both methods had limitations in terms of motion tracking and maintaining the continuity of signals obtained from the same facial region. Extracting pulse signals based on the average pixel values within the ROI made the subregions susceptible to misalignment and loss of tracking accuracy due to facial muscle movement or the subject’s head motion. Ensuring that the signals obtained from the moved subregions still originated from the original facial position posed a significant challenge. In our study, we employed a segmentation method that utilized the coordinates of a pair of feature points to determine one boundary point of each subregion. The size and position of the subregions varied with changes in the coordinates of the feature points caused by head or facial muscle movements, as presented in Fig. 2. Due to the common issue of hair occlusion on the forehead in practical applications, we excluded the forehead region from ROI selection.
+Our partitioning process using the 106 facial feature points is as follows: first, we localized and obtained the coordinates of the 106 facial feature points. Then, we define the coordinates of each feature point as pi = ( pix , piy). The purpose of boundary point selection is to maximize the smooth
+
+Fig. 2. Illustration of the facial ROI segmentation. (a) Localization of 106 facial feature points. (b) Estimation of coordinate points to divide the face into seven large regions. (c) Subdivision of each large region into six smaller ROI regions. (d) Distribution of ROIs at different angles of facial movement.
+skin area while avoiding the nose, eyes, and mouth regions. Take large region 1 as an example, A = ( p1x , p44y), B = ( p82x , p44y), C = ( p82x , p49y), and D = ( p3x , p49y). These boundary points defined the quadrilateral region, denoted as Region1 = ABC D, as shown in Fig. 2(b). As a result, the face region was divided into seven large regions, denoted as Region = {Region1, Region2, . . . , Region7}. Lastly, each of these large regions was further divided into six equalsized ROIs, resulting in a total of 42 ROIs, denoted as ROI = {ROI1, ROI2, . . . , ROI42}, as shown in Fig. 2(c). The coordinates for the boundary points of each ROI can be obtained by calculating the intersection of the main regions and their sextant lines. This approach was designed to provide more options for HR estimation in the presence of strong interference, allowing us to obtain the optimal solution for HR estimation from different regions. It effectively reduced
+
+Authorized licensed use limited to: Politecnico di Torino. Downloaded on November 19,2025 at 13:42:33 UTC from IEEE Xplore. Restrictions apply.
+
+GONG et al.: HEART RATE ESTIMATION IN DRIVER MONITORING SYSTEM
+
+5008214
+
+the drastic signal variations caused by misalignment of the subregions during subsequent pulse wave signal extraction, as shown in Fig. 2(d). In cases where the subregions were too small in profile or occluded, we either selected the corresponding large region or discarded the data for that specific period.
+
+B. Pulse Signal Extraction
+
+1) Pixel Averaging: The pixel-averaging process is performed for each of the 42 regions separately. Let Sraw[i] represent the averaged pixel values for region i. The raw rPPG signal, denoted as Sraw, is composed of these averaged values from each region in the video sequence.
+The length of the video sequence is denoted as L. The average value of pixels in the ROI at the Lth frame is represented as avg[L]. Hence, Sraw[i] can be expressed as follows:
+
+ avg1[1] avg1[2] · · · avg1[L] 
+
+Sraw
+
+=
+
+   
+
+avg2[1] ...
+
+avg2[2] ...
+
+··· ...
+
+avg2[L ...
+
+]
+
+ . 
+
+
+(8)
+
+avg42[1] avg42[2] · · · avg42[L]
+
+2) Wavelet Filtering: The raw rPPG signals from each region undergo sliding window processing with a window length of 512 and a step size of 30 (corresponding to 1 s). Each window signal, denoted as Xi [ j], represents the sequence of averaged pixel values from avgi [30· j +1] to avgi [30· j +512] within the ith region.
+Next, we apply a wavelet transform to each window signal Xi [ j]. We use the Symlet 8 wavelet to perform a five-level wavelet decomposition, obtaining the approximation coefficients (A4) and detail coefficients (D4, D3, D2, and D1) at the fourth, third, second, and first levels, respectively.
+To reconstruct the filtered signal, we select the approximation coefficients and detail coefficients from the fourth level and perform a wavelet reconstruction. This process yields the filtered signal Si [ j], effectively removing background noise, high-frequency noise, and irregular illumination noise.
+The wavelet decomposition and reconstruction can be expressed as follows:
+
+(A4, D4, D3, D2, D1) = DWT(Xi [ j ], levels = 5) (9)
+
+and
+
+Si [ j ] = IDWT(A4, D4, D3, D2, D1).
+
+(10)
+
+Through the above wavelet decomposition and reconstruction process, we obtain the filtered signal Si [t], which is used for subsequent pulse signal extraction and HR estimation.
+The collection of filtered signals S can be expressed as
+
+ S1[1] S1[2] · · · S1[T ] 
+
+ S2[1] S2[2] · · · S2[T ] 
+
+Sfiltered
+
+=
+
+ 
+
+
+
+...
+
+...
+
+...
+
+...
+
+.  
+
+(11)
+
+S42[1] S42[2] · · · S42[T ]
+
+Here, T represents the time length of the video HR detection, which can be calculated as (L − 512)/30.
+
+C. Quality-Guided Spectrum Peak Screening
+The QSPS algorithm aims to address the challenges associated with inaccurate HR estimation in rPPG signals obtained from NIR imaging. These challenges arise from the low signalto-noise ratio and various sources of interference, which can dominate the frequency spectrum obtained through the Fourier transform (FFT) and lead to erroneous calculations.
+rPPG signals, being weak biological signals, can exhibit multiple peaks in certain cases, which can complicate HR estimation. These multiple peaks are often caused by residual motion noise and other sources of interference. Residual noise refers to the remaining noise components within the HR frequency range (typically 0.7–4 Hz) even after removing irregular and high-frequency noise. These noise components can dominate the spectrum and introduce multiple peaks in the rPPG signal. The presence of residual motion noise is particularly prominent in segments with poor signal quality, where noise frequencies can overshadow the HR, leading to inaccurate estimation. One scenario that can introduce noise-dominated signals is motion artifacts, as shown in 1(d). During daily activities, head and body movements generate vibrations that propagate to the face and impact the rPPG signal. These motion artifacts introduce motion-induced peaks, making it difficult to accurately extract the underlying HR information. Another scenario that can lead to noise-dominated signals is varying illumination conditions. Changes in lighting intensity can cause fluctuations in the rPPG signal, leading to erroneous peak estimation. These fluctuations can arise from factors such as changes in ambient light, shadows, or variations in the positioning of the light source. Furthermore, motion blur can also contribute to noise-dominated signals in rPPG. When there is rapid motion or movement during video recording, it can result in blurred frames, making it challenging to accurately capture the subtle changes in skin color associated with the cardiac cycle.
+To overcome these issues, the QSPS algorithm introduces a novel approach that integrates signal quality assessment with spectrum analysis. By considering the signal quality information, the algorithm selectively retains peaks in the spectrum that are most likely to originate from the HR signal while filtering out noise-dominated peaks. This integration ensures that the HR estimation is based on reliable and informative spectral components, enhancing the accuracy of the results.
+D. Signal Quality Assessment
+This section focuses on evaluating the quality of rPPG signals extracted from 42 ROIs within each video segment. The assessment provides a quality score and grade that indicate the potential for erroneous peak estimation. This information is essential for supporting the subsequent spectrum peak screening in the QSPS algorithm. By assessing signal quality, our approach offers valuable insights to enhance the efficiency and accuracy of peak selection and HR detection.
+Prior research extensively examined the signal quality of rPPG signals. While studies related to RGB-based rPPG assessed quality using time–frequency characteristics [32], [33], including features such as perfusion index, skewness,
+
+Authorized licensed use limited to: Politecnico di Torino. Downloaded on November 19,2025 at 13:42:33 UTC from IEEE Xplore. Restrictions apply.
+
+5008214
+
+IEEE TRANSACTIONS ON INSTRUMENTATION AND MEASUREMENT, VOL. 73, 2024
+
+PR = A1
+
+(14)
+
+A2
+
+PS = A1 .
+
+(15)
+
+MBW
+
+Fig. 3. Signal quality assessment process.
+kurtosis, and information entropy [34], these measures lost their effectiveness under the specific interference conditions of NIR signals. Hernandez-Ortega et al.’s [25] study employed power spectral density (PSD) characteristics to distinguish between good- and poor-quality NIR rPPG signal segments. In our study, we have made specific modifications to the signal quality assessment process.
+The assessment comprises two main parts, as shown in Fig. 3.
+1) Spectral Features: In the first part, the pulse signal collection undergoes FFT to convert to the frequency domain, revealing its spectrum. We calculate four spectral features for each window signal. Furthermore, this assessment encompasses spectrum characteristics to evaluate rPPG signal quality, focusing on four key features.
+1) Main Bandwidth (MBW): This feature represents the bandwidth centered around the dominant frequency component in the frequency spectrum, encompassing a significant portion of signal energy.
+2) Enhanced Signal-to-Noise Ratio (ESNR): ESNR is defined as the ratio of the power at the dominant frequency component in the frequency spectrum to the power in the remaining frequency range. It quantifies the strength of the desired signal relative to background noise.
+3) Peak Ratio (PR): PR indicates the prominence of the dominant frequency component.
+4) Peak Sharpness (PS): This feature reflects the sharpness of the spectral peak.
+The calculation formulas are as follows:
+
+In these formulas, Ai represents the sequence of spectral peaks sorted by amplitude in descending order, n is the total number of spectral peaks, A1 is the amplitude of the highest peak, A2 is the amplitude of the second highest peak, and fr and fl represent the frequencies corresponding to the right and left sides of half the amplitude of the highest peak, respectively. In the specific implementation, the value of each spectral feature needs to be maximum–minimum normalized by the calculation results obtained according to (12)–(15). The values of the four spectral features are squared, summed, and then multiplied by 10, resulting in the SpecScore. By assessing these spectral features, we can evaluate the quality of each rPPG signal segment and identify the likelihood of erroneous peak estimation. These evaluations contribute to the overall scoring process and offer insights to enhance the accuracy of HR detection.
+2) Waveform Similarity: In the second part, we introduce a reference rPPG signal R obtained under ideal NIR conditions without interference. Each signal segment is compared to R to evaluate waveform similarity and assign a score. We calculated the spectral features of the rPPG signals in a static state. The 512-frame signal with the highest score was selected. Then, a 150-frame segment was intercepted which was the most similar to the PPG of fingertip as R. This evaluation is performed on the 512-frame signal segment, corresponding to approximately 17 s (assuming a video frame rate of 30 frames/s). The resulting quality scores offer critical insights for subsequent spectrum peak screening, which enhances peak filtering efficiency and HR detection accuracy. We evaluate each pulse signal within a 5-s sliding window using two criteria: cross correlation and normalized mutual information (NMI). If a small window meets the similarity threshold condition, it is considered to have met waveform quality standards. The higher the number of windows that satisfy this condition, the higher the score. With each signal segment undergoing assessment in 12 small windows, the maximum similarity score per segment is 12. This score provides insights into the temporal distortion of the signal, indicating waveform similarity.
+To assess the waveform similarity between a given rPPG signal segment S and a high-quality reference signal R, several similarity measures can be employed. A common metric is the cross correlation coefficient, quantifying the linear relationship between signals. The formula for calculating the cross correlation coefficient CC(S, R) is as follows:
+
+CC(S, R) =
+
+N n=1
+
+S[n] − S¯
+
+N n=1
+
+S[n] − S¯
+
+2
+
+R[n] − R¯ .
+
+N n=1
+
+R[n] − R¯
+
+2
+
+(16)
+
+MBW = fr − fl
+
+ESNR =
+
+A21
+
+n i =2
+
+Ai2
+
+(12) Here, N denotes the signal length, S[n] and R[n] are the
+
+(13)
+
+nth samples of signal segments S and R, respectively, and S¯ and R¯ are their respective means.
+
+Authorized licensed use limited to: Politecnico di Torino. Downloaded on November 19,2025 at 13:42:33 UTC from IEEE Xplore. Restrictions apply.
+
+GONG et al.: HEART RATE ESTIMATION IN DRIVER MONITORING SYSTEM
+
+5008214
+
+Additionally, the NMI between the two signals can assess
+
+their similarity. NMI quantifies information one signal pro-
+
+vides about the other. The NMI formula is as follows:
+
+NMI(S,
+
+R)
+
+=
+
+MI(S; √
+
+R)
+
+.
+
+(17)
+
+H(S)H(R)
+
+Here, MI(S, R) represents the mutual information between S and R, and H (S) and H (R) represent the entropy of S and R, respectively. These waveform similarity measures quantitatively assess the similarity between signal segments and a reference signal, contributing to the overall quality score. In this article, the similarity threshold conditions are set as CC ≥ 0.66 and NMI ≥ 0.5.
+
+Algorithm 1 Signal Quality Assessment
+
+Input : template signal R, thresholds th1, th2
+
+1 Function SpecScore(S):
+
+2 a ← MBW(S); b ← SNR(S);
+
+3 c ← PR(S); d ← PS(S); √
+4 return 10 × a2 + b2 + c2 + d2;
+
+5 Function SimScore(S, R):
+
+6 S[i] ← S i = 1, 2, , . . . , 12;sim ← 0;
+
+7 for i = 1, 2, 3, , . . . , 12 do
+
+8
+
+a ← CC(S[i], R);
+
+9
+
+b ← NMI(S[i], R);
+
+10
+
+if a > 0.66 ∧ b > 0.5 then
+
+11
+
+sim ← sim + 1
+
+12
+
+end
+
+13 end
+
+14 return si m;
+15 Q ← SimScore(S, R) + SpecScore(S);  0 if Q ≥ th1 
+16 G ← 1 if Q ≥ t h2
+
+2 otherwise
+
+17 return G, Q;
+
+E. Spectral Peak Screening
+After obtaining the quality-assessed signals, spectral peak screening is performed on the multiregion signals at each moment based on the quality assessment. Initially, the FFT is applied to the signals of the 42 ROIs at the initial moment, and based on the quality grade, they are divided into three subsets. In the high-quality subset, the dominant frequencies of all signals are directly calculated and stored in the HR collection after being multiplied by 60. Then, the signal with the highest quality score and the most reliable dominant frequency at the current moment is selected as the reference value, denoted as Ref.
+In the second step, spectral peak screening is performed for the middle and low-quality subsets of signals. It should be noted that due to the strict quality score threshold, even if a signal does not belong to the high-quality subset, its dominant frequency can still be pulse-related, in which case the dominant frequency can be directly selected without further processing. For most signals, the HR dominant frequency can
+
+be identified by selecting the spectral peak. However, there are a few signals for which the HR frequency is completely absent in the entire time window, due to which a sliding window approach is applied to select the intact time-domain signal segment from the subwindows and choose the dominant frequency from the subwindows as a substitute for the output of the long window.
+Therefore, spectral peak screening is performed in two steps for the middle and low-quality subsets of signals. In the first step, the peaks in the spectrum that are closest to the reference frequency are selected. If the selected peak significantly deviates from the reference frequency, a 5-s sliding window is applied to the signal segment, and the result closest to the reference frequency is selected as the HR dominant frequency for the signal segment. If the second step of screening still cannot find an HR dominant frequency, the HR value for that moment is discarded. The HR frequency selected for each region at different moments is represented as fi [t].
+For subsequent moments, the same series of operations is performed. If the reference frequency cannot be found at a certain moment, the reference frequency from the previous moment is used as the reference for the current moment. The operations are carried out in the order of 1–42, and the final HR results for each of the 42 ROIs at each moment are obtained as HRi [t] = ( fi [t] ∗ 60, scorei [t], gradei [t], i).
+After the QSPS calculation, a collection of HR is obtained
+
+ HR1[1] HR1[2] · · · HR1[T ] 
+
+ HR2[1]
+
+HRQSPS
+
+=
+
+ 
+
+
+
+...
+
+HR2[2] ...
+
+· · · HR2[T ] 
+
+...
+
+...
+
+.  
+
+HR42[1] HR42[2] · · · HR42[T ]
+
+(18)
+
+To ensure the continuity of spectrum peak screening and real-time HR output, a peak tracking approach is adopted. The corresponding reference frequency is recorded for each moment. If the reference frequency cannot be found for a certain moment, the reference frequency from the previous moment is used to perform spectral peak screening for all region signals.
+
+F. HR Estimation
+After applying the QSPS algorithm, the HR values from 42 ROIs have been obtained. In this section, the HR estimation process focuses on selecting the most reliable HR from these ROIs after peak filtering.
+1) Short-Term HR Stability: The stability of HR refers to the consistency of HR estimates within a certain time window. By comparing the HR estimates obtained from consecutive segments of the rPPG signals, the stability of the estimated HR can be evaluated. Since rPPG signals exhibit quasiperiodicity, where the HR values are relatively stable or show minimal variations within short time windows, this characteristic can be utilized to fuse the HR values from different ROI regions over time.
+The multiregion HR fusion algorithm combines the HR values from different ROI regions based on their short-term stability. The algorithm calculates the stability of HR estimates
+
+Authorized licensed use limited to: Politecnico di Torino. Downloaded on November 19,2025 at 13:42:33 UTC from IEEE Xplore. Restrictions apply.
+
+5008214
+
+IEEE TRANSACTIONS ON INSTRUMENTATION AND MEASUREMENT, VOL. 73, 2024
+
+Algorithm 2 Spectrum Peak Screening
+Input: Pulse signals Sfiltered, Allowable difference 1 Function PeakScreening(S, Ref): 2 spectr um ← fft(S); 3 peaks ← find_peaks(spectr um); 4 fre ← closest(peaks, Ref); 5 return fre; 6 Function WinScreening(S, Ref): 7 winfre ← Main frequency of 5s window signal
+closest to Ref; 8 return winfre;
+
+9 for t = 1, 2, 3, , . . . , T do
+
+10 for i = 1, 2, 3, , . . . , 42 do
+
+11
+
+S ← Sfilteredi [t];
+
+12
+
+G, Q ← SQA(S);
+
+13
+
+Qi [t] ← (S, Q, G, Score, i);
+
+14 end
+
+15 Max Q ← Qi [t] with highest Score; 16 Ref ← MaxPeak(Max Q) × 60;
+
+17 for S in Qi [t] with G = 0 do
+
+18
+
+HRQSPS ← MaxPeak(H Q[t]) × 60;
+
+19 end
+
+20 for S in Qi [t] with G = 1 or G = 2 do
+
+21
+
+candidate ← PeakScreening(S, Ref) × 60;
+
+22
+
+if |candidate − Ref| > then
+
+23
+
+candidate ← WinScreening(S, Ref) × 60;
+
+24
+
+end
+
+25
+
+HRQSPS ← candidate;
+
+26 end
+
+27 end
+
+28 return HRQSPS;
+
+over a time window and selects the ROI region with the highest stability for fusion. The fused HR value represents the most reliable estimation at the current time.
+2) Optimal HR Selection: Within the HR collection, a sliding window of 7 s is used to select HR values. The sliding window moves through the HR values, and the four windows with the best short-term stability of HR are chosen. Based on the quality scores and grades of the HR values, the highest quality HR value is output in real-time. By combining the short-term stability evaluation and the quality assessment, the optimal HR value is selected, considering both stability and reliability. This approach ensures that the most accurate and trustworthy HR estimation is obtained.
+IV. EXPERIMENT AND RESULT
+A. Experimental Setup
+The experimental setup, depicted in Fig. 4, included the following components: a test vehicle (Model: NIO ET7), a camera lens, a laptop, and a pulse oximeter. The camera utilized a monochromatic CMOS image sensor (Model: Onsemi AR0144AT) equipped with a 940-nm narrowband filter and two 940-nm wavelength light-emitting diodes (LEDs). It was integrated into the vehicle’s DMS, positioned just below the
+
+Fig. 4. Experimental setup for data collection.
+driver’s face at a horizontal distance of 430–640 mm, and inclined at an angle between 29.2◦ and 36.7◦. The laptop was connected to the DMS through an on-board diagnostics (OBD) cable to directly acquire video data from the camera. The pulse oximeter (Model: CONTEC CMS 50E) was linked to the laptop via a USB cable to record the subjects’ groundtruth (GT) HR and PPG waveforms.
+Utilizing the face recognition algorithm within the DMS, the camera captured facial images of the driver at a frame rate of 30 frames/s. The recorded images had a resolution of 1280 × 800 pixels. The camera incorporated auto-exposure control to optimize facial illumination, ensuring precise capture of facial movements.
+The average duration of the recorded videos was 1 min. The developed algorithm, implemented in C++, ran on the DMS of the vehicle and displayed the detection outcomes on the laptop. The QSPS algorithm can be run not only on a computer for HR calculations using NIR videos, but also in real-time on a DMS. The algorithm achieved real-time and consistent HR estimation, providing quality scores for HR signals. When signal quality was insufficient, it displayed a corresponding message indicating the inability to conduct accurate detection.
+The laptop (Model: HP EliteBook B30 GB) is solely used for displaying the results. The HR is calculated in real-time on NIO ET7 with the four NVIDIA DRIVE Orin computing chips. The desktop computer (CPU: Intel Core1 i7-12700H, GPU: NVIDIA GeForce RTX 3060) is used for experimental validation of the collected data. The complexity of the wavelet algorithm is O(n), which indicates that the running time of the algorithm is linearly related to the time of processed videos. In the DMS of NIO ET7, the time to compute a single HR is about 10 ms, while running on the desktop computer is significantly faster at about 5 ms.
+B. Data Collection
+To investigate the effects of motion and environmental light variations on rPPG signal quality and ensure reliable HR detection in various scenarios, participants assumed the driver’s seat and recreated different situations. The data collec-
+1Trademarked.
+
+Authorized licensed use limited to: Politecnico di Torino. Downloaded on November 19,2025 at 13:42:33 UTC from IEEE Xplore. Restrictions apply.
+
+GONG et al.: HEART RATE ESTIMATION IN DRIVER MONITORING SYSTEM
+
+5008214
+
+Fig. 5. Examples of captured images during data collection. (a) Vehicle stationary scenario including three conditions: 1) stationary: the driver remains still; 2) occlusion: facial obstruction with accessories; and 3) motion: free movement inside the vehicle. (b) Real driving scenario.
+
+tion process was divided into two segments: vehicle stationary scenario and real driving scenario.
+1) Vehicle Stationary Scenarios: The vehicle stationary scenarios covered various conditions, including daytime and nighttime, as well as indoor and outdoor settings such as parking garages and roadside stops. The dataset encompassed diverse driver states, including stationary, in motion, head turned left or right, looking upward or downward, and facial occlusions. Each stationary video’s duration was 1 min. During the stationary state, participants were instructed to face forward and minimize movement. In motion scenarios, participants engaged in natural conversations and exhibited unrestricted movements, such as using a mobile phone or participating in other activities. To assess the impact of facial occlusions, participants wore accessories like sunglasses, fake mustaches, masks, or hats. In scenarios where the head was turned left or right, participants naturally looked at the left and right rearview mirrors. For scenarios involving upward and downward glances, participants naturally directed their gaze at the ceiling and the area beneath the steering wheel. Videos of left and right profiles and upward/downward gazes were relatively static and did not affect our algorithm’s efficacy compared to front-facing stationary videos. As shown in Fig. 5(a), we categorized these data types alongside front-facing stationary videos under the “stationary” category. Videos featuring participants wearing accessories were classified as the “occlusion” category, while videos with motion were classified as the “motion” category, facilitating algorithmic performance evaluation.
+2) Real Driving Scenarios: Real driving data were collected from ten drivers engaging in real driving scenarios, involving basic body and head movements, including facial expressions. Participants were instructed to drive at speeds of 20–40 km/h along tree-lined roads. Each driving video lasted for 3 min, and a frame from the driving scenario is shown in Fig. 5(b).
+A total of 71 healthy subjects, with an average age of 22 years, participated in the data collection process. Each participant’s data were collected twice: once during the day and once at night. Among the 71 subjects, 19 were females. The number of videos captured varied for each individual due to factors such as eyeglasses or facial hair, resulting in
+
+Fig. 6. Distribution of quality scores obtained from 42 regions at each moment in 20 videos. The signals are classified into two groups based on their MAE values, lower than 5 bpm and greater than 5 bpm. The histograms show the distribution of quality scores for these two cases, allowing the determination of two threshold values for classifying signal quality levels.
+a total of 872 videos. The combination of stationary and real driving scenarios provides a comprehensive dataset to assess the impact of motion and environmental light variations on rPPG signal quality and HR detection accuracy.
+C. Threshold Setting for Quality Assessment
+An important step in constructing the quality assessment system is setting the thresholds for signal quality levels. Typically, these thresholds are determined based on past experience with signal quality scores. However, in our algorithm, the purpose of signal quality assessment is not solely to differentiate between the estimated HR and the GT, but rather to identify the most reliable HR frequencies and signal segments for subsequent algorithm optimization. This allows signals with initially large errors to find the dominant HR frequency at certain moments. To set the thresholds, we selected videos of all participants in a stationary state and scored the signals from 42 regions at each moment in the video. We chose these videos because signals in stationary videos exhibit higher quality scores in extreme cases, making it easier to observe the differences between signals with low scores but dominant frequencies that match the GT, and signals with high scores but dominant frequencies that do not match the GT.
+
+Authorized licensed use limited to: Politecnico di Torino. Downloaded on November 19,2025 at 13:42:33 UTC from IEEE Xplore. Restrictions apply.
+
+5008214
+
+IEEE TRANSACTIONS ON INSTRUMENTATION AND MEASUREMENT, VOL. 73, 2024
+
+Fig. 7. Comparison of HR estimates before and after spectral peak screening. (a) Without spectral peak screening. (b) After spectral peak screening. The x-axis represents the GT HR, and the y-axis represents the estimated HR. The ideal scenario corresponds to the points lying on the reference line GT. The points between the reference lines GT+6 and GT−6 indicate estimation errors within 6 bpm.
+
+As shown in Fig. 6, we display the distribution of quality scores for signals with MAE values lower than and greater than 5 bpm. It can be observed that signals from both cases are distributed from high to low quality scores. However, the batch of signals with the highest quality scores will inevitably have an estimation error of less than 5 bpm compared to the GT. Therefore, we adopted a stringent threshold to ensure the accuracy of HR estimation for high-quality signals, with a threshold value of Th1 = 7. We also selected the range where the majority of HR estimation results with high accuracy were concentrated as the threshold value for the “medium” quality category, which was Th2 = 3. This ensures that the estimation of HR for high-quality signals is accurate, thereby reducing the misjudgment rate of the reference signal in the spectral peak screening stage of the QSPS algorithm. The reason for classifying signals into three categories is that although low-quality signals may have a dominant frequency within 5 bpm of the GT, the difference between their errors and the higher-quality signals with higher scores will still be larger in terms of MAE.
+D. Evaluation of Spectral Peak Screening Improvement
+To validate the effectiveness of the spectral peak screening step in the QSPS algorithm, we compared the results before and after applying the spectral peak screening in both stationary and motion driver states. The comparison results are shown in Fig. 7.
+In Fig. 7(a), most of the points lie outside the range defined by the two reference lines, GT+6 and GT−6, indicating significant deviations from the GT HR values. However, after applying spectral peak screening in Fig. 7(b), the points are closer to the GT values, suggesting an improvement in HR estimation accuracy. However, a few points remain heavily affected by motion interference, resulting in distorted waveforms and the loss of HR frequencies within the analysis window. For such points, even with the QSPS algorithm, it is not possible to recover accurate HR estimates. In such cases, we compare the high-quality HR from the previous time point
+
+based on their quality scores. If the difference between the HR obtained after spectral peak screening and the high-quality HR is greater than 6 bpm, we discard the HR at that time and use the high-quality HR of the previous moment as the output.
+E. Experimental Results
+1) Compared Algorithms: We compared the performance of our proposed algorithm with two state-of-the-art NIR rPPG methods: SparsePPG [23] and quality-based [25]. The evaluation was conducted on the same set of videos using the same preprocessing and time window parameters as our method. Each computation used a time window of 512 frames. To assess the performance of the compared algorithms, we used four error metrics: 1) the mean absolute error (MAE); 2) the root mean square error (RMSE) between the GT HR and the estimated HR over all 512-frame windows; 3) the percentage of time (PTE6) with HR estimation errors smaller than 6 bpm; and 4) the standard deviation of the HR error (STD).
+2) Performance in Real Driving Videos: In this section, we evaluated the algorithms’ performance during real driving scenarios. The primary source of interference in this type of data comes from the variations in external environmental lighting during driving. Therefore, we differentiated the videos based on differences in ambient lighting, categorizing them as “Driving Day” and “Driving Night” for performance evaluation. We also evaluated the two types of videos together in “Driving All.” The results are summarized in Table I.
+Overall, our proposed algorithm demonstrates superior performance, providing more accurate and robust HR estimation in various scenarios and outperforming the state-of-the-art methods in all cases. The proposed algorithm achieves significantly lower RMSE values and higher PTE6 percentages compared to SparsePPG and quality-based algorithms, indicating its effectiveness in reducing estimation errors and increasing the percentage of accurate HR estimations.
+3) Performance in Vehicle Standstill Videos: Next, we evaluate the performance of the algorithms in the vehicle standstill
+
+Authorized licensed use limited to: Politecnico di Torino. Downloaded on November 19,2025 at 13:42:33 UTC from IEEE Xplore. Restrictions apply.
+
+GONG et al.: HEART RATE ESTIMATION IN DRIVER MONITORING SYSTEM TABLE I
+PERFORMANCE COMPARISON OF ALGORITHMS IN THE REAL DRIVING STATE
+TABLE II PERFORMANCE COMPARISON OF ALGORITHMS IN THE
+VEHICLE STANDSTILL STATE
+
+5008214
+
+Fig. 9. Results of continuous HR estimation in a real driving environment.
+The blue curve represents HRdrive estimated using our method, while the orange curve represents the GT HR HRgt. (a) Driving during the day. (b) Driving during the night.
+
+Fig. 8. Bland–Altman plot comparing the predicted HR (HRrPPG) and the reference HR (HRPPG): quality-based versus QSPS.
+state. The data collected during vehicle standstill was categorized into three conditions: stationary, occlusion, and motion. Since the vehicle is standstill in all three scenarios, the noise caused by illumination changes is minimal. Thus, we can assess the algorithms’ ability to resist motion interference and their performance in the presence of facial occlusion. The results are summarized in Table II.
+The complexity increases hierarchically for the three conditions, and the accuracy ranks from high to low as follows: stationary > occlusion > motion. Our proposed algorithm exhibits superior performance in all three scenarios. Moreover, in the stationary condition, our method achieves the lowest RMSE (3.21 bpm) and the highest PTE6 (95.4%), demonstrating its capability for more accurate and reliable HR estimation even under challenging conditions.
+
+4) Testing With All Scenarios Videos: We conducted comprehensive tests by aggregating all the data to evaluate both the quality-based and our proposed algorithms. The Bland–Altman plot for these two algorithms is presented in Fig. 8, which illustrates the comparison between the predicted HR (HRrPPG) and the reference HR (HRPPG). It is evident from the plot that QSPS demonstrates superior consistency with the GT compared to the quality-based algorithm.
+5) Continuous HR Estimation Evaluation: Continuous HR estimation is valuable for recording and analyzing HR trends, offering detection and early warning capabilities for cardiovascular diseases [35]. To demonstrate the proposed method’s ability to reliably estimate continuous HR over extended periods in a driving environment, we carried out 10-min continuous tests in real road driving during the day and night, respectively. A driver drove at a constant speed of 30 km/h on the same square road section in both tests. The driver engaged in free conversations and head movements while driving
+
+Authorized licensed use limited to: Politecnico di Torino. Downloaded on November 19,2025 at 13:42:33 UTC from IEEE Xplore. Restrictions apply.
+
+5008214
+
+IEEE TRANSACTIONS ON INSTRUMENTATION AND MEASUREMENT, VOL. 73, 2024
+
+Fig. 10. Illustration of the realistic in-vehicle test in four different cases. At the top is the image of the different cases, and the line chart below is the 3-min HR test results of the corresponding cases. GT represents the true values per second and rPPG represents the real-time predicted values of the realistic in-vehicle running algorithm.
+
+straight. During the driving, there were oncoming vehicles, lane changes, speed bumps, and stops. In addition, there were no streetlights at night. For each minute, we selected the four moments with the highest quality scores as the estimated HR (HRdrive), while HRgt represents the corresponding GT HR measured by a pulse oximeter.
+As shown in Fig. 9, the two curves represented by HRdrive and HRgt closely track each other in Fig. 9(a) and (b), demonstrating a clear relationship with significant correlations of 0.906 and 0.943, respectively. This correlation underscores the method’s potential for continuous HR monitoring during prolonged driving scenarios. This evaluation confirms that our proposed method maintains a strong correlation with GT HR values and can effectively estimate continuous HR during extended periods of real driving. It can be seen that the driver’s HR changes for 10 min at night are more intense than during the day. Such capabilities hold promise for prolonged HR monitoring and health assessment during driving activities.
+6) Realistic In-Vehicle Test in Different Cases: Since the algorithm is integrated into the DMS, we test it on the experimental vehicle ET7. As shown in Fig. 10, we selected four different cases and conducted a 3-min test for each: 1) parked on the side of the road, driver stationary; 2) driving
+
+straight during the day at a speed of about 40 km/h, with good lighting conditions and no violent head movement; 3) driving straight in the evening at a speed of about 40 km/h, with poor lighting conditions and continuous illumination from streetlights on both sides and no violent head movement; and 4) driving straight at night at a speed of about 30 km/h, without light and no violent head movement.
+In case (1), QSPS performs well, with a correlation of 0.922 in 3 min. In case (2), QSPS exhibits outliers due to vehicle jitter in the middle and sudden environmental change when entering a tunnel, resulting in a correlation of 0.758. For case (3), which is considered a challenging detection environment, the QSPS algorithm can identify a few high-quality HR values during certain intervals. The algorithm then utilizes these high-quality HR values to replace the detected values during that period. This approach may result in a loss of some correlation between the results and the true values, but it ensures the accuracy of the captured high-quality HR values. The final correlation value obtained was 0.727. In case (4), the detection effect was not significantly different from case (1) due to the low and relatively constant speed of night driving. However, irregular jumps were observed when the lights of oncoming vehicles affected the system [such as
+
+Authorized licensed use limited to: Politecnico di Torino. Downloaded on November 19,2025 at 13:42:33 UTC from IEEE Xplore. Restrictions apply.
+
+GONG et al.: HEART RATE ESTIMATION IN DRIVER MONITORING SYSTEM
+
+5008214
+
+the 115–130-s segment in case (4)]. The final correlation was 0.909. In general, QSPS performs well in the realistic in-vehicle tests and can monitor the changes of real-time HR in a good environment. In certain moments of different real-world driving scenarios, it can also obtain credible HR.
+V. DISCUSSION
+In our experiments, we have demonstrated the robustness of our algorithm in narrowband NIR settings, showcasing its resilience to changing ambient lighting and low-light conditions in the presence of minimal motion. Even under significant motion, our algorithm accurately predicted HR values that closely approximated the GT. While achieving precise HR detection in all challenging scenarios remains a formidable task, our primary focus lies in evaluating signal quality and selecting reliable HR values within specific time intervals. Consequently, when faced with severe interference that impedes accurate HR calculation, we can identify and exclude outliers with substantial deviations using quality scores. Our algorithm incorporates the QSPS technique, leveraging signal quality features to optimize HR detection. Through signal quality assessment, we effectively discriminate reliable HR values from those distorted by interference, resulting in enhanced accuracy and reliability. Moreover, our spectrum screening step adeptly identifies spectral distortions attributed to motion artifacts or lighting interference, subsequently allowing us to exclude such instances and achieve more accurate measurements.
+In comparison to other algorithms, our approach offers notable advantages. First, it strikes a balance between real-time detection and prolonged continuous monitoring demands. This balance ensures the real-time tracking of HR fluctuations while also facilitating stable HR estimation over extended periods. Second, our algorithm excels in driving scenarios, effectively addressing a spectrum of challenging situations while maintaining high accuracy and reliability in both daytime and nighttime driving conditions.
+Notwithstanding the algorithm’s commendable performance across diverse scenarios, we acknowledge its limitations. In extreme cases marked by intense motion interference or exceedingly low lighting, precise HR estimation may prove unattainable. In such scenarios, we recommend employing quality assessment scores to filter results and ensure the selection of highly reliable HR values. Additionally, considering the specificity of our experimental driving scenarios, algorithm performance may vary in disparate driving environments.
+VI. CONCLUSION
+This study presents a comprehensive analysis of residual noise’s impact on narrowband NIR rPPG and introduces algorithmic enhancements to mitigate this challenge. By integrating quality assessment as an auxiliary tool, our approach effectively addresses the issue of multipeak spectra resulting from residual noise. The practical deployment of our system within a real-world driver monitoring setup has yielded promising outcomes. Through real-world driving scenarios, we have verified the effectiveness and reliability of our
+
+algorithm under realistic conditions. The integration of our system with an enterprise-level DMS enables real-time monitoring of drivers’ physiological indicators during both day and night driving. Our system accurately measures HR and provides immediate feedback, thereby aiding in the continual monitoring of the driver’s physical and mental well-being.
+Regarding future directions for improvement, we have identified two potential avenues. First, one potential avenue for improvement involves integrating external environmental factors that could impact signal quality into the assessment process. This could be achieved through the application of machine learning to optimize the scoring and classification process, thereby enhancing the overall accuracy of the assessment. Second, optimizing the process of pulse signal extraction and exploring innovative regional pulse extraction algorithms, especially within challenging driving scenarios characterized by varying motion and lighting conditions, presents another promising direction for enhancement. These advancements have the potential to further elevate the accuracy and reliability of HR estimation, thereby strengthening the effectiveness of our algorithm in addressing the challenges posed by real-world driving scenarios.
+REFERENCES
+[1] S. Kaplan, M. A. Guvensan, A. G. Yavuz, and Y. Karalurt, “Driver behavior analysis for safe driving: A survey,” IEEE Trans. Intell. Transp. Syst., vol. 16, no. 6, pp. 3017–3032, Dec. 2015.
+[2] H.-B. Kang, “Various approaches for driver and driving behavior monitoring: A review,” in Proc. IEEE Int. Conf. Comput. Vis. Workshops, Dec. 2013, pp. 616–623.
+[3] M.-Z. Poh, D. J. McDuff, and R. W. Picard, “Non-contact, automated cardiac pulse measurements using video imaging and blind source separation,” Opt. Exp., vol. 18, no. 10, p. 10762, 2010.
+[4] M.-Z. Poh, D. J. McDuff, and R. W. Picard, “Advancements in noncontact, multiparameter physiological measurements using a webcam,” IEEE Trans. Biomed. Eng., vol. 58, no. 1, pp. 7–11, Jan. 2011.
+[5] D. Wang, X. Yang, X. Liu, J. Jing, and S. Fang, “Detail-preserving pulse wave extraction from facial videos using consumer-level camera,” Biomed. Opt. Exp., vol. 11, no. 4, p. 1876, 2020.
+[6] S. Jung, H. Shin, and W. Chung, “Driver fatigue and drowsiness monitoring system with embedded electrocardiogram sensor on steering wheel,” IET Intell. Transp. Syst., vol. 8, no. 1, pp. 43–50, Feb. 2014.
+[7] K. Tripathi, C. Mukundan, and T. L. Mathew, “Attentional modulation of heart rate variability (HRV) during execution of PC based cognitive tasks,” Indian J. Aerosp. Med., vol. 47, no. 1, pp. 1–10, 2003.
+[8] B.-F. Wu, Y.-W. Chu, P.-W. Huang, M.-L. Chung, and T.-M. Lin, “A motion robust remote-PPG approach to driver’s health state monitoring,” in Proc. Asian Conf. Comput. Vis., Cham, Switzerland: Springer, Nov. 2016, pp. 463–476.
+[9] D. Kurian, P. L. J. Joseph, K. Radhakrishnan, and A. A. Balakrishnan, “Drowsiness detection using photoplethysmography signal,” in Proc. 4th Int. Conf. Adv. Comput. Commun., Aug. 2014, pp. 73–76.
+[10] J. A. Healey and R. W. Picard, “Detecting stress during real-world driving tasks using physiological sensors,” IEEE Trans. Intell. Transp. Syst., vol. 6, no. 2, pp. 156–166, Jun. 2005.
+[11] P. Napoletano and S. Rossi, “Combining heart and breathing rate for car driver stress recognition,” in Proc. IEEE 8th Int. Conf. Consum. Electron. Berlin (ICCE-Berlin), Sep. 2018, pp. 1–5.
+[12] W. Liu, X. Fang, Q. Chen, Y. Li, and T. Li, “Reliability analysis of an integrated device of ECG, PPG and pressure pulse wave for cardiovascular disease,” Microelectron. Rel., vol. 87, pp. 183–187, Aug. 2018.
+[13] Y. Sun and N. Thakor, “Photoplethysmography revisited: From contact to noncontact, from point to imaging,” IEEE Trans. Biomed. Eng., vol. 63, no. 3, pp. 463–477, Mar. 2016.
+
+Authorized licensed use limited to: Politecnico di Torino. Downloaded on November 19,2025 at 13:42:33 UTC from IEEE Xplore. Restrictions apply.
+
+5008214
+
+IEEE TRANSACTIONS ON INSTRUMENTATION AND MEASUREMENT, VOL. 73, 2024
+
+[14] V. Vizbara, “Comparison of green, blue and infrared light in wrist and forehead photoplethysmography,” Biomed. Eng., vol. 17, no. 1, pp. 1–4, 2013.
+[15] L. F. C. Martinez, G. Paez, and M. Strojnik, “Optimal wavelength selection for noncontact reflection photoplethysmography,” in Proc. 22nd Congr. Int. Commission Opt., Light Develop. World, vol. 8011, 2011, pp. 2388–2394.
+[16] J. Kuo, S. Koppel, J. L. Charlton, and C. M. Rudin-Brown, “Evaluation of a video-based measure of driver heart rate,” J. Saf. Res., vol. 54, pp. 55–59, Sep. 2015.
+[17] G. de Haan and V. Jeanne, “Robust pulse rate from chrominance-based rPPG,” IEEE Trans. Biomed. Eng., vol. 60, no. 10, pp. 2878–2886, Oct. 2013.
+[18] W. Wang, A. C. den Brinker, S. Stuijk, and G. de Haan, “Algorithmic principles of remote PPG,” IEEE Trans. Biomed. Eng., vol. 64, no. 7, pp. 1479–1491, Jul. 2017.
+[19] W. Wang, S. Stuijk, and G. de Haan, “Exploiting spatial redundancy of image sensor for motion robust rPPG,” IEEE Trans. Biomed. Eng., vol. 62, no. 2, pp. 415–425, Feb. 2015.
+[20] S. B. Park, G. Kim, H. J. Baek, J. H. Han, and J. H. Kim, “Remote pulse rate measurement from near-infrared videos,” IEEE Signal Process. Lett., vol. 25, no. 8, pp. 1271–1275, Aug. 2018.
+[21] J. Li, Z. Yu, and J. Shi, “Learning motion-robust remote photoplethysmography through arbitrary resolution videos,” in Proc. AAAI Conf. Artif. Intell., vol. 37, no. 1, Jun. 2023, pp. 1334–1342.
+[22] Q. Zhang, Y. Zhou, S. Song, G. Liang, and H. Ni, “Heart rate extraction based on near-infrared camera: Towards driver state monitoring,” IEEE Access, vol. 6, pp. 33076–33087, 2018.
+[23] E. M. Nowara, T. K. Marks, H. Mansour, and A. Veeraraghavan, “SparsePPG: Towards driver monitoring using camera-based vital signs estimation in near-infrared,” in Proc. IEEE/CVF Conf. Comput. Vis. Pattern Recognit. Workshops (CVPRW), Jun. 2018, pp. 1353–135309.
+[24] E. M. Nowara, T. K. Marks, H. Mansour, and A. Veeraraghavan, “Near-infrared imaging photoplethysmography during driving,” IEEE Trans. Intell. Transp. Syst., vol. 23, no. 4, pp. 3589–3600, Apr. 2022.
+
+[25] J. Hernandez-Ortega, S. Nagae, J. Fierrez, and A. Morales, “Qualitybased pulse estimation from NIR face video with application to driver monitoring,” in Proc. Iberian Conf. Pattern Recognit. Image Anal., Madrid, Spain. Cham, Switzerland: Springer, Jul. 2019, pp. 108–119.
+[26] B.-F. Wu, P.-W. Huang, T.-Y. Tsou, T.-M. Lin, and M.-L. Chung, “Camera-based heart rate measurement using continuous wavelet transform,” in Proc. Int. Conf. Syst. Sci. Eng. (ICSSE), Jul. 2017, pp. 7–11.
+[27] W. Wang, A. C. den Brinker, and G. de Haan, “Discriminative signatures for remote-PPG,” IEEE Trans. Biomed. Eng., vol. 67, no. 5, pp. 1462–1473, May 2020.
+[28] M. Xu, G. Zeng, Y. Song, Y. Cao, Z. Liu, and X. He, “Ivrr-PPG: An illumination variation robust remote-PPG algorithm for monitoring heart rate of drivers,” IEEE Trans. Instrum. Meas., vol. 72, pp. 1–10, 2023.
+[29] W. Wu, C. Qian, S. Yang, Q. Wang, Y. Cai, and Q. Zhou, “Look at boundary: A boundary-aware face alignment algorithm,” in Proc. IEEE/CVF Conf. Comput. Vis. Pattern Recognit., Jun. 2018, pp. 2129–2138.
+[30] S. Fallet, V. Moser, F. Braun, and J.-M. Vesin, “Imaging photoplethysmography: What are the best locations on the face to estimate heart rate?” in Proc. Comput. Cardiol. Conf. (CinC), Sep. 2016, pp. 341–344.
+[31] X. Liu, X. Yang, J. Jin, and J. Li, “Self-adaptive signal separation for non-contact heart rate estimation from facial video in realistic environments,” Physiolog. Meas., vol. 39, no. 6, Jun. 2018, Art. no. 06NT01.
+[32] T. Desquins, F. Bousefsaf, A. Pruski, and C. Maaoui, “A survey of photoplethysmography and imaging photoplethysmography quality assessment methods,” Appl. Sci., vol. 12, no. 19, p. 9582, Sep. 2022.
+[33] H. Ernst, H. Malberg, and M. Schmidt, “More reliable remote heart rate measurement by signal quality indexes,” in Proc. Comput. Cardiol., Sep. 2020, pp. 1–4.
+[34] J. Li, K. Vatanparvar, L. Zhu, J. Kuang, and A. Gao, “Enhancement of remote PPG and heart rate estimation with optimal signal quality index,” in Proc. IEEE-EMBS Int. Conf. Wearable Implant. Body Sensor Netw. (BSN), Sep. 2022, pp. 1–4.
+[35] H.-Y. Wu, M. Rubinstein, E. Shih, J. Guttag, F. Durand, and W. Freeman, “Eulerian video magnification for revealing subtle changes in the world,” ACM Trans. Graph., vol. 31, no. 4, pp. 1–8, Aug. 2012.
+
+Authorized licensed use limited to: Politecnico di Torino. Downloaded on November 19,2025 at 13:42:33 UTC from IEEE Xplore. Restrictions apply.
+

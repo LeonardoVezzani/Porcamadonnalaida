@@ -1,0 +1,547 @@
+Advanced Engineering Informatics 31 (2017) 18–31
+Contents lists available at ScienceDirect
+Advanced Engineering Informatics
+journal homepage: www.elsevier.com/locate/aei
+
+Combining visual natural markers and IMU for improved AR based indoor navigation
+Matthias Neges a,⇑, Christian Koch b,1, Markus König c,2, Michael Abramovici a,3
+a IT in Mechanical Engineering, Ruhr-University Bochum, Universitätstraße 150, 44801 Bochum, Germany b Department of Civil Engineering, The University of Nottingham, University Park, Nottingham NG7 2RD, United Kingdom c Computing in Engineering, Ruhr-University Bochum, Universitätstraße 150, 44801 Bochum, Germany
+
+article info
+Article history: Received 15 December 2014 Received in revised form 9 July 2015 Accepted 12 October 2015 Available online 11 November 2015
+Keywords: Indoor navigation Augmented reality Facility maintenance Natural markers Inertial Measurement Unit
+
+abstract
+The operation and maintenance phase is the longest and most expensive life-cycle period of buildings and facilities. Operators need to carry out activities to maintain equipment to prevent functionality failures. Although some software tools have already been introduced, research studies have concluded that (1) facility handover data is still predominantly dispersed, unformatted and paper-based and (2) hence operators still spend 50% of their on-site work on target localization and navigation. To improve these procedures, the authors previously presented a natural marker-based Augmented Reality (AR) framework that digitally supports facility maintenance operators when navigating indoors. Although previous results showed the practical potential, this framework fails if no visual marker is available, if identical markers are at multiple locations, and if markers are light emitting signs. To overcome these shortcomings, this paper presents an improved method that combines an Inertial Measurement Unit (IMU) based step counter and visual live video feed for AR based indoor navigation support. In addition, the AR based marker detection procedure is improved by learning camera exposure times in case of light emitting markers. A case study and experimental results in a controlled environment reveal the improvements and advantages of the enhanced framework.
+Ó 2015 Elsevier Ltd. All rights reserved.
+
+1. Introduction
+Within the lifecycle of buildings and facilities, their operation and maintenance periods cover the largest parts, both in terms of time span and costs. For the purpose of providing a comfortable living and working environment, and maintaining equipment to prevent functional failures, facility managers and operators carry out maintenance activities. Since over 85% of the entire lifecycle costs are spent on facility management [34], improvements to maintenance procedures will signiﬁcantly reduce the overall building lifecycle budget. Consequently, this fact reveals the need and potential for advancements in designing and performing facility maintenance procedures.
+
+⇑ Corresponding author. Tel.: +49 234 32 22109.
+E-mail addresses: matthias.neges@itm.rub.de (M. nottingham.ac.uk (C. Koch), koenig@inf.bi.rub.de abramovici@itm.rub.de (M. Abramovici).
+1 Tel.: +44 115 84 68933. 2 Tel.: +49 234 32 23047. 3 Tel.: +49 234 32 27009.
+
+Neges), christian.koch@ (M. König), michael.
+
+http://dx.doi.org/10.1016/j.aei.2015.10.005 1474-0346/Ó 2015 Elsevier Ltd. All rights reserved.
+
+The current state of practice is characterized by dispersed and unformatted facility information [2]. Akcamete et al. [2] have reported that operators often have to go through several documents to ﬁnd information necessary to support their daily tasks and decisions. This constitutes to lost time during operations for searching for and accessing data when needed [2]. Although software systems have recently been introduced, 50% of the on-site maintenance time is solely spent on localizing inspection targets and navigating to them inside a facility [21]. Moreover, linked maintenance instructions are often multi-page documents, which sometimes are difﬁcult to comprehend, in particular in case of emergencies [2].
+Although some recent research studies propose to use Building Information Models by either integrating or linking work order information to them, not all necessary information is currently available in a digitally integrated and standardized model [2]. Moreover, available indoor navigation approaches using UWB, WLAN, RFID and GPS have been compared and validated [14], but they rely on costly equipment infrastructure for senders and readers. Moreover, these solutions only provide the operator’s position, not the orientation that is needed to present augmented virtual content. Existing Augmented Reality (AR) based solutions
+
+M. Neges et al. / Advanced Engineering Informatics 31 (2017) 18–31
+
+19
+
+use artiﬁcial markers for both navigation and maintenance instruction support [21]. However, these kinds of markers require high installation efforts all over the facility and also come along with signiﬁcant aesthetical issues. Other, more advanced AR based methods use 3D point maps and Simultaneous localization and mapping (SLAM) procedures (e.g. [4,5]). These approaches, however, require an unreasonably huge amount of pre-collected 3D data and additional IT infrastructure. Also they are prone to fail in cases of scene changes due to temporary objects [4].
+Previously, the authors have introduced and tested an AR based framework that can digitally support facility maintenance operators in performing their daily on-site maintenance jobs combining Building Information Models and natural markers (e.g. exit signs) [18]. Within this framework AR based indoor navigation plays a signiﬁcant role. For this purpose, the authors have conducted a performance study on natural marker detection and tracking [17]. The results of this study indicate the practical applicability and potential. However, in the cases where no pre-deﬁned natural markers are available in the camera live view, the distance between two markers is larger than approximately 10 m and the same marker is available at multiple locations, the framework fails to determine the position and orientation of the operator’s device. Unfortunately, in such a situation augmentation is completely lost.
+In this paper we propose an enhanced method that combines an Inertial Measurement Unit (IMU)-based step counter and visual live video feed to improve the previously introduced natural marker-based augmented reality framework for indoor navigation. In addition to natural marker detection and tracking, IMU data is used to estimate the position and orientation of the mobile device where sole AR based concepts fail. In addition, the AR based marker detection procedure is improved by learning camera exposure times in case of light emitting markers. The proposed method has been implemented and tested in a controlled indoor environment on-campus. The results indicate the feasibility and the potential of the improved method.
+2. Background
+2.1. Current practices
+In today’s maintenance and repair practice, facility operators usually gather and access dispersed and unformatted facility information in order to handle work orders [1,2]. Typically, this information is available in form of 2D drawings, spreadsheets, bar charts, ﬁeld reports and paper-based guidelines that are created during the building design and construction phases. Consequently, operators often have to collect, sort and browse through several documents to ﬁnd relevant information to support their daily tasks and decisions, which results in lost time during maintenance procedures [2]. In addition, the facility handover data is then stored in so-called Facility Document Repositories, which are physically space-consuming, so that they may even occupy an entire room [7].
+Recently, Computer-Aided Facility Management (CAFM) Systems for space management and Computerized Maintenance Management Systems (CMMS) for work order management have been introduced to digitally support FM operators in organizing and integrating preventive maintenance schedules and intervals, shop and installation drawings, cost control and documentation, device speciﬁcations and manuals, warranty information, replacement parts providers, as-is performance data, etc. [1].
+Building Information Modeling (BIM) is an up-to-date method involving the generation and management of a digital representation of the physical and functional characteristics of a facility during its entire lifecycle [7]. Although an increasing amount of maintenance-related information has been incorporated
+
+into BIM so far, not all data necessary to perform work orders is currently part of BIM solutions (e.g. manufacturer’s maintenance instructions).
+Even if supported by BIM standards, such as the Industry Foundation Classes (IFC), the actual FM data still needs to be manually rekeyed into the building model multiple times based on the handover documents [7]. To automate this process, East et al. [7] have proposed an open-standard IFC-based Facility Management handover model view deﬁnition that is based on the ConstructionOperations Building information exchange (COBie) format [8]. The advantage is that when the FM handover occurs, the relevant information captured during the design and construction phase can be directly transferred into tools supporting the long-term management and maintenance of the facility. COBie data can be stored in the common ISO STEP format, in the ifcXML format or as a spreadsheet (SpreadsheetML). The use of COBie has been successfully documented in several case studies [7].
+However, in order to prepare an actual on-site maintenance job, operators need to identify the location of the maintenance item inside the building, the route towards it, and the relevant maintenance instruction manuals. According to Lee and Akin [21], 50% of the on-site maintenance time is solely spent on localizing and navigating. For this reason, the focus of this paper is placed on the development of a new indoor navigation solution.
+2.2. Current research efforts in indoor location and navigation solutions
+2.2.1. Estimating the operator’s position In addition to the location of the actual maintenance item, it is
+necessary to know the operator’s position inside the facility in order to support real-time indoor navigation. In recent years, a vast amount of ongoing research has been conducted in this area. Fuchs et al. [10] have presented an overview of existing indoor tracking systems for mission-critical scenarios, including Indoor GPS, Wireless Local Area Networks (WLAN), Ultra-Wide Band (UWB) as well as Inertial Measurement Unit (IMU) based systems. They have evaluated these technologies in terms of precision, deployability, complexity and cost, and have come to the conclusion that a combination of multiple localization methods is required to implement a solution that is deployable, less complex and cheap. As one example from the construction community, Khoury and Kamat [14] have evaluated three different wireless indoor position tracking technologies, in particular, WLAN, UWB and Indoor GPS positioning system. In their study, Indoor GPS has been identiﬁed as being superior, since it could estimate a mobile user’s location with relatively low uncertainty of 1–2 cm. Li and Becerik-Gerber [22] have presented a performance-based evaluation of RFID-based indoor location sensing solutions for the built environment. They have concluded that no single solution meets all the criteria for successful implementation, and that the adaptability of the evaluated solutions within the built environments is uncertain, so that further research is needed.
+Motamedi et al. [27] have investigated the use of RFID technology for indoor localization of RFID-equipped, ﬁxed and moving assets during the operation phase of facilities. Apart from the asset location, the operator’s position can also be estimated using surrounding ﬁxed tags and a handheld RFID reader [27]. However, the main disadvantage of signal-based technologies, such as Indoor GPS, WLAN, RFID and UWB, is the need for extra equipment installation and maintenance (both tags and readers), which still involves a considerable cost factor. Razavi and Moselhi [31] as well as Montaser and Moselhi [26] have presented a low-cost location sensing solution for indoor facilities using passive Radio Frequency Identiﬁcation (RFID) that have a mean error of 1–2 m for location identiﬁcation.
+
+20
+
+M. Neges et al. / Advanced Engineering Informatics 31 (2017) 18–31
+
+Park and Hashimoto [30] have used passive RFID tags on the ﬂoor to enable a robot to successfully estimate the location and the orientation during navigation. The passive RFID tags offer a cost-effective alternative, but require a large number of tags installed in a grid layout on the ﬂoor. Park and Hashimoto [30] have deployed 198 tags over an area of only 420 cm Â 620 cm.
+2.2.2. Estimating the operator’s view orientation Next to the position, the operator’s view orientation needs to be
+determined to provide both location-aware and viewing directionaware guidance within an augmented reality environment. Here, sensors like Inertial Measurement Unit (IMU), a combination of accelerometers and gyroscopes, and magnetic orientation sensors (e.g. a magnetic compass) are utilized. Khoury and Kamat [15] have used a solid-state magnetic ﬁeld sensor, mounted on the user’s head, to track the dynamic viewpoint. This information has then been processed to identify building objects in the user’s ﬁeld to retrieve contextual information. Although the user’s position uncertainty is documented, the orientation accuracy has not been presented nor validated in this paper [15]. Oskiper et al. [28] have introduced a camera tracking system for indoor and outdoor augmented reality applications using an integrated system of a monocular camera and an Inertial Measurement Unit (IMU). Since their approach does not use AR markers, they have to rely on robust visual feature tracking which is achieved through IMU supported feature matching. Although their approach is computationally expensive, the achieved indoor positioning error is about 1.2 m and the outdoor angular orientation error is about 13°. The indoor angular accuracy, however, has not been documented.
+Available AR based indoor positioning methods usually require artiﬁcial markers to estimate the camera position and orientation. For example, Park et al. [29] have presented an AR based ﬁeld inspection scenario using artiﬁcial 2D markers within the frame of a BIM based construction defect management system. Kuo et al. [19] have proposed an outside-in tracking approach that uses an infrared invisible marker mounted on the head of a potential operator. This infrared marker is detected and tracked from the outside to estimate the position and viewing direction of the operator. However, this approach requires infrared tracking devices all over the facility to be both installed and maintained.
+Another AR based (optical) approach is the generation of 3D point maps via the camera or laser scanner [33], rather than using artiﬁcial 2D markers. Simultaneous localization and mapping (SLAM) allows to build point clouds of the building interior with relation to the camera position. Present research activities have focused on automated scanning processes by intelligent robots or quadcopters [5,9]. Thus, the comparison of the currently detected points with the previously generated 3D maps determines and issues the current position within navigation processes. For this
+
+approach, the required 3D map must be created ﬁrst, which is then linked to a virtual building model to calculate the position of the camera in a real-world coordinate system. Temporary objects, e.g. poster banners or construction areas, can disturb the comparison of the currently detected with the previously scanned environment. Another example for comparing images from the user’s mobile device to a 3D point cloud model generated from a set of pre-collected site photographs can be found in [4]. These approaches require an unreasonably huge amount of data (videos or images) collected for each single facility prior to be able to support AR based indoor navigation and do not work in cases where the indoor scene has been changed by temporary objects [4]. Moreover, they usually require additional IT infrastructures, like RFID sender or WLAN networks, and special calibration methods as well as previous building scans and data preparation before navigation can be realized.
+Dead reckoning is currently the only non-building speciﬁc and ﬂexible approach. Non-building speciﬁc in this case means, that this approach is generic, not case based and not intentionally tailored to only one speciﬁc building. Therefore, a non-building speciﬁc approach is generalized can be transferred directly to any building. Mobile devices with IMU or special motion sensors placed on the user’s foot detect the movement (step counter). Examples for this can be found here [24,36,38]. The major disadvantage of this navigation method is the high error propagation due to the relative movement changes. The variations of the step length and the direction in each step add up and lead to a very rough position detection after a few steps. Therefore a recalibration of the user position is required at regular intervals.
+Table 1 summarizes the advantages and limitations of currently available indoor navigation approaches.
+2.2.3. Route calculation Once the location of the maintenance component (target) and
+the user’s position (starting point) are determined, appropriate routes have to be calculated. For this purpose, topological routing graphs are generated based on either derived 2D ﬂoor plans (e.g. [32]) or 3D building geometry (e.g. [39,13]). Subsequently, routing algorithms (e.g. Dijkstra, A⁄) are applied to calculate paths with minimal path distance [6,11,12]. Knowing the current position and orientation as well as the route, navigation instructions are presented to the user. However, these instructions are usually point markers and arrows on 2D ﬂoor plans [39].
+2.3. Previous work in augmented reality-based indoor navigation
+The authors previously presented a BIM based augmented reality framework for facility maintenance using natural markers [18]. So-called natural markers are markers that are already available
+
+Table 1 Advantages and limitations of currently available indoor navigation approaches.
+
+Approach
+WLAN RFID Indoor-GPS 3D-Maps/
+SLAM IMU
+
+Evaluation criteria
+Additional IT infrastructures required
+À Speciﬁc infrastructure installation À Speciﬁc infrastructure installation À Speciﬁc infrastructure installation + 3D scanner for initial data creation ++ High availability of integrated IMU
+
+Data preparation effort
+s Signal measurement at reference points s Signal measurement at reference points ++ None
+ÀÀ Cleaning recorded point clouds
+++ Realtime
+
+++ very good/positive; + good/positive; s average; À poor/negative; ÀÀ very poor/negative.
+
+Continuous positioning
+
+Accuracy
+
++ Depends on signal coverage
++ Depends on signal coverage
++ Depends on signal coverage
++ Depends on point cloud quality ++ Permanently
+
+s Building-speciﬁc disruptive factors s Building-speciﬁc disruptive factors + Building-speciﬁc disruptive factors + Depends on point cloud quality
+À High error propagation
+
+M. Neges et al. / Advanced Engineering Informatics 31 (2017) 18–31
+
+21
+
+on-site, like exit signs or position marks of ﬁre extinguishers. These already installed and available markers have great potential for optical marker tracking, because they are very distinctive due to their color and shapes, they have an appropriate size (not too small) and they are clearly visible (sometimes even illuminated), which they have to be in case of emergencies [16,18].
+The proposed overall framework comprises three major activities: digital work order compilation (collecting relevant BIM and FM information), AR based indoor navigation (positioning and routing), and AR based maintenance instructions (performing maintenance task). Within the latter two activities, natural markers are employed as AR markers. AR markers are very distinctive images with known visual patterns and dimensions that are used as reference objects to superimpose virtual 3D content onto the camera’s live view. In contrast to artiﬁcial markers, which are practically inefﬁcient and unaesthetic to install inside a building, natural markers have the advantage to be already available on-site. Koch et al. [17] have implemented the framework on an iPad 2 using the augmented reality framework metaioSDK 3.1 [25] and made several experiments in a controlled environment to highlight the potential of the proposed framework.
+Promising experimental results of the authors’ previous work regarding an AR-supported indoor navigation to a defective smoke detector as well as AR based smoke detector maintenance instructions are depicted in Fig. 1. A 3D model and 3D navigation arrows (Fig. 1a), 2D navigation arrows (Fig. 1a–c), 3D positions of intact and defective smoke detectors (Fig. 1b and c), animated 3D maintenance instructions (Fig. 1d), and the 2D user position on a map (Fig. 1a–d) are superimposed on the camera live view.
+In order to test the marker detection and tracking performance, a dedicated study has been carried out by the authors [16]. The study is based on the main measurable factors, the detection rate, which indicates the successful marker detection within every camera frame, the real distance to the marker as well as the calculated distance by the marker detection, and the real angle as well as the calculated angle relative to the marker normal. This study has revealed the high potential of natural markers for AR based FM support as the detection rate can achieve more than 95%, the marker distance can be about 10 meters, the marker can be detected up to an angle of 85°, and the maximum distance deviations and angle deviations are less than 50 cm and 20°, respectively.
+As subsequent studies by the authors have shown, these results have a close dependency on the used hardware and software. More powerful hardware components, like the iPad Air, and further developments on the metaioSDK, lead to more accurate and robust detection results. Future studies by the authors conﬁrm this
+
+evolution. The metaioSDK 5.5 implemented on an iPad Air enables a marker detection with an accuracy of 12 cm at a distance of about 10 m. The optimized detection algorithms within the metaioSDK and the additional hardware resources of the iPad allow a detection up to an angle of 90°. In a distance of 9 meters a marker at an angle of 60° can be tracked with a deviation of less than 1°.
+2.4. Problem statement and objectives
+The outlined BIM based augmented reality framework for facility maintenance using natural markers has shown the feasibility and the potential of natural markers in general [16,18]. Fig. 2 depicts a scenario that is used to describe the problem statement. In this scenario only the most obvious markers are considered within the building. This includes three different exit signs (exit to the left, right and front), a ﬁre extinguisher sign and the signage for wheelchair-accessible walkways on the shown positions along the navigation path. Typically, there are more variants of natural markers, like different symbol types for the ﬁre extinguisher sign, or additional signs, e.g. for ﬁrst aid locations. The use of more distinguished natural marker types could minimize the ‘‘marker-less” areas (red areas in Fig. 2).
+However, in the existing framework the natural marker detection method offers a relative position and orientation estimation, but has three distinct disadvantages. First, the same marker is available at multiple locations. Thus, the detection of the marker does not provide a unique position of the user if more than one marker of exactly the same type is located in the building. Second, natural markers are not available at any position of the user. There a several areas where potential natural markers cannot be detected due to long distances (>10 m) between them or winding corridors (Fig. 2). Third, in case of light emitting natural markers, the marker detection procedure fails due to inadequate camera exposure times.
+In order to address the described problems, the overall idea is to integrate IMU data into the existing AR based framework to better support the knowledge intensive task of indoor navigation for facility maintenance. However, since the simple combination of independent computer science methods, such as AR and IMU user positioning, without considering the speciﬁc application context is not straightforward. Rather, explicit engineering knowledge related to this particular task, such as building information (ﬂoor plans, doors, corridors, routing graphs and equipment), AR marker information (appearance, size, and position) as well as operator’s live position and orientation has to be an integral part of the entire solution.
+
+Fig. 1. Augmented live view: (a) superimposed 3D model, 3D navigation arrow and intact smoke detector position (green box), (b) showing left turn instruction and intact smoke detector (green color), (c) superimposed target smoke detector position (red box) and error code, (d) textual instructions (bottom) and superimposed 3D animated instructions (red arrows) [17]. (For interpretation of the references to color in this ﬁgure legend, the reader is referred to the web version of this article.)
+
+22
+
+M. Neges et al. / Advanced Engineering Informatics 31 (2017) 18–31
+
+Start
+no marker detection available
+
+same marker type at different positions
+End
+
+Fig. 2. Available natural markers and marker-less areas (red) along the navigation path. (For interpretation of the references to color in this ﬁgure legend, the reader is referred to the web version of this article.)
+
+The overall objective of this paper is to devise and test an enhanced method that combines an Inertial Measurement Unit (IMU)-based compass and step counter with visual live video feed for AR based indoor navigation support based on existing engineering knowledge about the facility, the markers and the current operator’s position and orientation. Consequently, the following research questions have to be answered:
+  How can we combine IMU data with the existing AR framework to improve the navigation procedure in cases where pure AR concepts fail (no marker available, identical markers at multiple locations)?
+  How can we integrate explicit engineering knowledge about the building, the markers, and the operator’s movement to facilitate the AR based indoor navigation solution?
+  How can we improve the marker detection procedure in case of light emitting natural markers?
+3. Proposed solution
+According to Ayer et al. [3], the workﬂow proposed in this research comprises three main activities: (1) Digital Work Order (DWO) compilation (collecting relevant information), (2) AR based Indoor Navigation (positioning and navigation), and (3) AR based Maintenance Instructions (performing maintenance task).
+This paper describes the second of these phases and is part of a holistic approach. Fig. 3 shows the paper focus in the holistic context. The digital work order preparation is the consolidation of required information based on digital building and product models. The building models are a typical part of the Building Information Modeling (BIM) approach in civil engineering. Product models, in contrast, are managed in Product Lifecycle Management (PLM)
+
+systems in mechanical engineering. Therefore, a common management across the disciplines is needed to create digital work orders. The maintenance task includes an AR approach for interactive work instructions, but also an AR based service report [1]. The main characteristics of the navigation are route calculation and navigation tasks, which are presented in the following sections.
+In this paper, we propose an enhanced method that combines an IMU based step counter and live video feed to improve the previously introduced natural marker based augmented reality framework for indoor navigation. In addition to AR based natural marker detection and tracking, IMU data is used to estimate the position and orientation of the mobile device in cases where sole vision based concepts fail. Based on the IMU acceleration data, a step counter is implemented. In conjunction with the IMU magnetic compass and an estimated pre-deﬁned step length, the step counter is able to extrapolate the device’s motion. It is expected to improve pose estimation performance, in particular, in cases where either no natural marker is available in the live camera view or where identical markers are available several times.
+Fig. 4 depicts the formalized concept of the proposed method, illustrating the integration of explicit engineering knowledge (information input), different device input (camera and IMU) and the information processing steps (marker detection, user movement, online re-calibration, route calculation) towards the information output (navigation path and instructions).
+3.1. IMU based step counter
+As depicted in Fig. 5a below, the procedure of implementing an IMU based step counter can be divided into four stages: Collect acceleration data, transform to global coordinates, streamline data using ﬁlters, and detect and count steps [40]. This part of the
+
+M. Neges et al. / Advanced Engineering Informatics 31 (2017) 18–31
+
+23
+
+local
+
+paper focus
+
+mobil
+
+cloud
+
+BIM PLM
+
+digital
+
+building
+
+information digital
+
+work
+
+digital
+
+order
+
+product
+
+information
+
+route calculation
+indoor navigation
+AR navigation
+
+AR work instruction
+AR maintenance
+AR service report
+
+Fig. 3. Holistic approach to support maintenance tasks.
+
+device input
+information input
+marker
+image size position orientation light condition
+building
+floor plan routing graph
+maintenance object
+position
+
+vision
+
+camera image
+
+exposure time
+
+IMU
+
+compass direction
+
+motion sensor
+
+IMU based user movement
+
+re-calibrate step counter
+
+AR based marker detection
+
+current user position & orientation
+
+routing path calculation
+information processing
+
+information output
+navigation instructions navigation path maintenance object position
+
+Fig. 4. Concept of the proposed enhanced method: information input, device input, information processing, and information output.
+
+enhanced method is neither new nor a contribution of this paper. There are several different methods on how to use IMU data to estimate continuous user movement (e.g. [40]). However, for completeness reasons and in order to better understand the integration of IMU data into the AR framework and its re-calibration, the procedure of detecting footsteps is described below.
+In the ﬁrst stage, the accelerations of the mobile device are recorded for all three directions X0Y0Z0 in the local device coordinate system (cf. Fig. 5b). A typical acceleration graph for the process of natural walking is presented in Fig. 5c. Noticeably, the accelerations along the Z0 axis (close to the direction of gravity) have the largest magnitude. Next, the local acceleration data is transformed into a global world coordinate system so that the major acceleration direction Z matches the gravity direction. For this purpose, the local orientation of the device in the user’s hand provided by the integrated IMU is used. Fig. 5c illustrates the results and the corresponding negative peaks in Z-direction to putting the foot on the ﬂoor and shifting the body’s center of gravity when walking.
+The next stage deals with the streamlining of the signal. The objective here is to easily detect major (low frequency) peaks.
+
+For this purpose, a low pass [23], Gaussian [35], or Kalman [20] ﬁlter can be used. The respective results are depicted as solid blue4 lines in Fig. 6a–c. Due to its simplicity, we have used the low pass ﬁlter with a cutoff frequency of 3 Hz in our implementation.
+In the ﬁnal stage, the negative peaks are detected using the ﬁltered signal to count the walking steps (cf. Fig. 6d). In addition, a threshold for the minimal temporal interval (time window) between two stages is deﬁned to avoid double peaks at one stage [40].
+3.2. Combining vision and IMU
+As depicted in Fig. 7 below, the vision-based process of natural marker detection/tracking and the IMU based process of step counting run in sync. In cases where a natural marker is detected and correctly tracked, the device pose is estimated and virtual content can be imposed on the camera live view. During this phase, the step counter is re-calibrated so that the motion distance per
+4 For interpretation of color in Figs. 6, 11 and 12, the reader is referred to the web version of this article.
+
+24
+
+M. Neges et al. / Advanced Engineering Informatics 31 (2017) 18–31
+
+Acceleration in g
+
+(a)
+
+(b)
+
+Number of measurement points (sampling rate of 20 Hz)
+(c)
+
+Fig. 5. (a) Procedure to implement an IMU based step counter, (b) local coordinate system of a mobile device, (c) acceleration data when walking recorded by an Inertial Measurement Unit (IMU).
+
+(a)
+
+Z Filter result
+
+(b)
+
+Z Filter result
+
+Gaussian: measurement points, window width 6, sampling rate 20 Hz
+
+(c)
+
+Z Filter result
+
+Kalman: measurement points, sampling rate 20 Hz
+
+Z
+
+(d)
+
+Filter result
+
+Step
+
+Low pass: measurement points, cutoff freq. 3 Hz , sampling rate 20 Hz
+
+Step detection: measurement points, sampling rate 20 Hz
+
+Fig. 6. Smoothing ﬁlters: (a) results when applying a Gaussian ﬁlter, (b) results when applying a Kalman ﬁlter, (c) results when applying a low pass ﬁlter, (d) step detection results after having applied a low pass ﬁlter.
+
+Vision IMU
+
+Marker tracking successful
+Pose estimation
+Step counter
+Re-calibration
+
+Marker tracking fails
+Step counter Motion estimation
+
+Marker tracking successful
+Pose estimation Step counter
+Re-calibration
+
+Fig. 7. Concept of fusing vision-based pose estimation and IMU based motion estimation for AR based indoor positioning and navigation.
+
+M. Neges et al. / Advanced Engineering Informatics 31 (2017) 18–31
+
+25
+
+Decrease exposure time
+Fig. 8. Changing exposure time to increase the reliability of marker detection.
+
+step (step length) is re-deﬁned using the known distance changes from the marker tracking process, and the magnetic compass is re-calibrated knowing the viewing direction to the detected marker. Should the marker tracking fail, e.g. if there is no marker available in the camera view, the motion estimation will be continued by the re-calibrated IMU based process using the step counter and the compass. Once the marker detection and tracking system is working successfully again, the pose estimation is made via vision, and the step counter re-calibration process starts. In the re-calibration process both the deﬁned step length and the magnetic compass are re-initialized with updated values.
+3.3. Enhanced marker detection via self-learning of light conditions
+Changing light conditions and light emitting markers like modern exit signs have a signiﬁcant impact on the robustness of the optical marker detection. Light emitting markers often lead to local crossfades within the camera view and prevent accurate sign detection. Hence, the exposure time has to be reduced to enable the marker detection. On the other hand, the detection of normal, non-emitting markers in darker corridors or dark local areas requires a longer exposure time. To enable a robust, more reliably detection of self-emitting and non-emitting markers in real environments, a constantly changing exposure time is needed (Fig. 8).
+Upon successful marker detection, the current exposure time is stored as additional information for each marker. This offers a faster and more precise detection for future navigation processes.
+3.4. Route calculation
+The data structure of topological routing graphs includes a list of waypoints, also known as nodes, with a unique identiﬁcation. Various approaches exists to generate these nodes on speciﬁc positions from given building plans, e.g. corner graphs, straight skeleton or convex partition. Regardless of the generation method, as a result only the unique ID for the node and information about the direct neighbor nodes have to be stored. Therefore, each direct neighbor node with his individual ID and the distance to it, also known as costs, is required to calculate routing graphs. As Werner [37] pointed out, the required waypoint count is signiﬁcantly lower to realize a certain indoor navigation, in contrast to outdoor navigation issues. Therefore, he recommends using the Dijkstra algorithm instead of the complex algorithm, like A⁄. This has the advantage that the Dijkstra algorithm is easy to implement and easy to extend by additional conditions for achieving greater reductions in the resulting calculation time. For this purpose, we add the following three conditions:
+  Ensure that every waypoint is used once for each potential route,
+
+  save temporary costs for each waypoint in each potential route, and continue calculation from the waypoint with the lowest temporary costs,
+  if a route has been found, only continue calculation with potential routes that have lower costs.
+4. Implementation, experiments and results
+In order to test and validate the improved framework, the proposed method has been prototypically implemented. For this purpose, we have utilized an iPad Air (CPU: 1.4 GHz dual-core A7, camera resolution: 1920 Â 1080 px), and the augmented reality framework metaio SDK 5.5 [25]. Fig. 9 below illustrates the software architecture and its major components, which are described in the following sections in detail.
+4.1. Optical marker tracking and positioning
+The AR based positioning component manages a list of all natural markers, such as exit sign and ﬁre extinguisher signs. For each marker the name, the position (XY on a ﬂoor plan), the orientation (2D projection of the marker normal) and the link to the PNG ﬁle (marker image) are stored. This information can be automatically extracted from digital building models [18]. The SDK conﬁguration ﬁle contains the PNG ﬁle names as well as the actual marker sizes in millimeters based on the marker list information. Using the video stream of the integrated camera, the SDK automatically detects and tracks markers. Once a marker has been successfully detected, the SDK delivers its name, distance and horizontal angle. However, from an absolute localization perspective, several positions are possible since several optically identical markers (e.g. exit sign turn left) are installed at different locations, resulting in several potential markers. If one or more potential markers are successfully detected in previous navigation processes, information about the preferred exposure time of the camera can be used to adjust the current camera view.
+4.2. IMU based motion estimation
+The integrated Motion Sensor of the iPad provides the orientation (local X0Y0Z0 rotation) of the device in the user’s hand. Based on this information, the acceleration data transformation (cf. Section 3.1) and the step counter can be implemented. Using the integrated magnetic compass that provides the direction of a step and a pre-deﬁned step length, the user’s relative motion is estimated. The result is a probable location and viewing direction. However, due to the compass error and the approximated step length, the accuracy of the IMU based motion estimation accumulatively declines with increasing walking distance.
+
+26
+
+M. Neges et al. / Advanced Engineering Informatics 31 (2017) 18–31
+
+Fig. 9. Software prototype architecture and its components.
+
+4.3. Combining optical tracking and IMU motion estimation
+After successful detection of a natural marker the AR-framework provides three information, the name of the marker, the distance and the view angle. Hence, a ﬁrst marker ﬁltering can be obtained by the natural marker name (Fig. 10). Based on the user’s current viewing direction provided by the integrated magnetic compass, the number of potential positions (potential markers) can be reduced using the known marker orientation and a tolerance value of ±60°. To further narrow down this number, all potential positions are compared with the estimated position provided by the IMU position. For each marker the detected and the expected distance and angle can be used to calculate a percentage deviation. Finally, based on a combined total deviation, the most probable marker and thus the most probable position are determined.
+Since the user’s viewing direction is accurately determined through successful marker detection, the integrated magnetic compass is re-calibrated. Moreover, the assumed step length is adjusted based on the actual walking distance determined between the last two positions optically detected using the natural markers. The current exposure time of the camera can be saved in the marker list for future detection.
+4.4. Case study and results
+To test our prototype we have carried out a case study in a controlled environment. The experimental setup location is a ﬂoor in our ofﬁce building on the campus at Ruhr-University Bochum.
+
+An extract of the ﬂoor plan, the locations of the natural marker and the navigation path are illustrated in Fig. 11.
+In the framework of our experiments, the implemented IMU based step counter was tested using ﬁve people having different walking behavior due to their heights and weights, walking each at three different speeds (slow, normal, fast) on two different tracks (16 m straight, 19 m zigzag). We manually counted the steps to provide the ground truth data (GT) and calculated the accuracy simply as the percentage ratio between GT and the number of steps (N) the step counter had recorded ((GT–|N–GT|)/GT). We have concluded that the step counter’s accuracy is dependent on the walking speed, so that the overall average accuracy (average over 30 trails) has reached 93%, in cases of normal speed (10 trails) even 97%.
+Once the step counter had been calibrated, the walking path, depicted in Fig. 11, was used to validate the proposed combined approach. The idea was to hold down the iPad when no natural marker was available and the IMU based motion estimation runs, and respectively look straight ahead if potential markers enter the camera viewport. There is no need to hold up the iPad continuously, only for the detection of a natural marker in irregular intervals. The IMU based motion estimation provides a rough position of the user. This rough position can be used to select the potential natural markers in the surrounding area and even the best current exposure time for the camera, if the information is available from previous navigation processes. Fig. 11 shows the ﬂoor plan and the navigation path. The black line guides the user based on the calculated route path via way points, while the green line shows the actual user’s walking path. The dashed blue line represents
+
+M. Neges et al. / Advanced Engineering Informatics 31 (2017) 18–31
+
+27
+
+metaioSDK Framework
+
+name of detected marker
+
+get all markers with name
+
+marker list
+
+compass
+
+view direcƟon
+
+ﬁlter all markers with orientaƟon = view direcƟon
++ tolerance
+
+metaioSDK Framework
+IMU posiƟon
+
+distance of detected marker
+calculate distance deviaƟon for marker
+distance of expected marker
+
+for each marker
+
+metaioSDK Framework
+
+angle of detected marker
+
+IMU posiƟon
+
+angel of expected marker
+
+calculate total deviaƟon for
+marker
+
+calculate angle deviaƟon for
+marker
+
+loop
+
+metaioSDK Framework
+metaioSDK Framework
+
+distance of detected marker
+
+select marker with minimum total deviaƟon
+
+calculate recalibraƟon
+posiƟon
+
+angle of detected marker
+
+Fig. 10. Implementation ﬂowchart: Combining optical tracking an IMU.
+
+the estimated device motion using the IMU while the solid blue line represents the correction of the user’s position estimation and the re-calibration of the IMU upon successful natural marker detection.
+Fig. 12 shows the difference between the real walking path and the detected walking path. It reveals the continuously increasing deviation (blue, solid graph) until the natural marker detection is successfully completed. The deviation in this case is a combination of the distance and direction deviation exemplary illustrated for a single user’s navigation path. However, direction changes lead to random approximations between these two paths, as for example the graph from detection point 3–4 demonstrates.
+Fig. 12 also illustrates how the self-learning process (orange, dashed graph) improves the total deviation. The recorded exposure times corresponding to lighting conditions for each natural marker during the ﬁrst initial walk (blue, solid graph) enable a faster and more robust marker detection. Moreover, the marker detection is possible even across larger distances (left shift of the graph at P2, P3, P4 and P5), which leads to shorter ‘‘marker-less” IMU based navigation areas.
+Some selected iPad screenshots presenting the live camera view used for augmentation are shown in Fig. 13 below. With this approach the user is free to choose available natural markers in
+
+her or his environment. This means, that it is not necessary to detect each natural marker on the user’s way to reach reliable navigation. On the upper right side of the iPad display, the three nearest natural markers are shown including their current distances and directions. This renders marker detection and the recalibration of the position more transparent and thus facilitates end users’ ﬂexibility. The lower right corner shows a navigation arrow and the distance until the next direction change. The position of the maintenance object is given by the information in the digital work order. Typically, the navigation process starts at one of the building entrances and the user can set his starting position manually by tapping on the 2D ﬂoor map on the display. This starting position can be further qualiﬁed by detecting one of the natural signs in the user’s environment. The navigation path algorithm will automatically calculate the given waypoints, which are also part of the digital work order, using the Dijkstra algorithm. The algorithm, including the three optimization conditions, delivers quick search results. In the given scenario, the calculation from the two most distant points takes only 12 ms, by a ﬂoor representation of 126 waypoints. In order to emphasize the calculation time, the original Dijkstra algorithm without additional conditions takes up to 6 s. As such, there is no need for any additional algorithm extensions or other route calculation algorithms yet.
+
+28
+
+M. Neges et al. / Advanced Engineering Informatics 31 (2017) 18–31
+
+Start
+
+P2
+
+P3
+
+P4
+
+Calculated route path based on way points
+Actual user‘s walking path
+EsƟmated path using the IMU compass and step counter
+PosiƟon esƟmaƟon correcƟon and re-calibraƟon of IMU upon sucessful natural marker detecƟon
+PosiƟon of natural markers
+P5 End
+
+Fig. 11. Test scenario: Estimated and actual user’s walking path as well as positions of natural marker detections.
+
+Deviation in cm
+
+110 100
+90 80 70 60 50 40 30 20 10
+0 Start
+
+ﬁrst walk without self-learning data second walk aŌer self-learning process
+
+IMU
+
+P2
+
+IMU
+
+P3
+
+IMU
+
+P4 IMU P5 IMU End
+
+Fig. 12. Deviation of the user position during navigation with and without learning exposure times.
+
+5. Discussion and contribution
+The self-learning process that records the light conditions has a positive impact on the natural marker tracking accuracy (see Fig. 12). The correct exposure time during the marker detection provides a robust marker detection across larger distances, but this approach by itself requires still a static navigation path. This means that the user has to follow the navigation path continuously without any deviations because of multiple potential appearances of the same natural marker within the building.
+The proposed solution is a combination of IMU with the enhanced natural marker navigation from the authors’ previous work. Therefore, the advantages of both methods complement
+
+each other. The IMU provides a permanent tracking of the user movement and ensures the correct identiﬁcation of the marker with regard to the excepted marker position. Therefore, the proposed approach is able to handle deviations from the current path by presenting still the correct user position relative to the currently detected natural marker.
+Furthermore, the integration of the IMU into the natural marker tracking framework requires no additional hardware or previous data preparation. The presented step counter can be implement directly (see Fig. 9) by using output data of the integrated sensors in the tablet. Also, the step counter is continuously re-calibrated whenever a natural marker is detected. The required data preparation for the combined navigation procedure is limited to the
+
+M. Neges et al. / Advanced Engineering Informatics 31 (2017) 18–31
+
+29
+
+Fig. 13. (a) Initial marker detection at start position, (b) marker detection at position 2, (c) marker detection at position 4, (d) marker detection at position 5.
+
+extraction of the positions, appearance and size of the natural markers from the digital building model. This data preparation is part of the ﬁrst task of the holistic approach (see Fig. 3), which is not in the focus of this paper, but will be described in detail in further publications.
+The main contributions of this paper are listed below:
+
+  Enhanced method that combines IMU data with an AR based indoor navigation framework to improve position and orientation estimation for on-site FM operators.
+  Improved AR marker detection method for light emitting natural marker detection based on adjusted camera exposure times.
+
+  Formal concept to integrate explicit engineering knowledge about the building, the natural markers and the current operator’s movement into an AR based indoor navigation framework for facility maintenance.
+
+Table 2 depicts a comparison of currently available indoor navigation approaches, the authors’ previous work [16] and the proposed enhanced method in order to illustrate the contributions and improvements presented in this paper.
+
+Table 2 Comparison of currently available indoor navigation approaches, previous work of the authors [16] and proposed enhanced method.
+
+Approach
+WLAN RFID Indoor-GPS 3D-Maps/SLAM IMU Natural marker detection Proposed solution IMU + natural
+marker detection
+
+Evaluation criteria
+Additional IT infrastructures required
+À Speciﬁc infrastructure installation À Speciﬁc infrastructure installation À Speciﬁc infrastructure installation + 3D scanner for initial data creation ++ High availability of integrated IMU ++ Natural markers already present ++
+
+Data preparation effort
+s Signal measurement at reference points s Signal measurement at reference points ++ None
+ÀÀ Cleaning recorded point clouds ++ Realtime
++ Required information already exist in BIM ++ Realtime by IMU
+
+Continuous positioning
++ Depends on signal coverage + Depends on signal coverage + Depends on signal coverage + Depends on point cloud quality ++ Permanently
+À Only at detection
+++ Permanently by IMU
+
+Accuracy
+s Building-speciﬁc disruptive factors s Building-speciﬁc disruptive factors + Building-speciﬁc disruptive factors + Depends on point cloud quality
+À High error propagation
+s Depends on light condition
++ Stored light condition for each marker position
+
+++ very good/positive; + good/positive; s average; À poor/negative; ÀÀ very poor/negative.
+
+30
+
+M. Neges et al. / Advanced Engineering Informatics 31 (2017) 18–31
+
+6. Conclusions and future work
+The longest phase in a facility’s lifecycle is its operation and maintenance period, during which facility operators perform activities to provide a comfortable living and working environment (e.g. pleasant ambient temperature) as well as to maintain equipment to prevent functional failures. In current practice, operators need to manually process dispersed and unformatted facility information. Although software systems have recently been introduced, 50% of the on-site maintenance time is still spent on localizing inspection targets and navigating to them inside a building [21].
+As mentioned earlier, the presented solution is part of a holistic concept that covers all three phases according to Ayer et al. [3]. Based on a previously presented framework that suggests to support on-site navigation activities using natural marker-based augmented reality, this paper has proposed an improved method that combines an IMU based step counter and live video feed for the navigation task. In addition to AR based natural marker detection and tracking, IMU data is used to estimate the position and orientation of the mobile device in cases where AR based concepts fail. Moreover, the combined approach allows for dynamic re-calibration the IMU based motion estimation method. The inclusion of the light conditions for successfully detected natural markers and the position determination offers a self-learning process for position-speciﬁc camera settings regarding the adjustment of the exposure time. A case study carried out on-campus has revealed the feasibility and potentials of the improved integrated approach.
+A weakness of this approach is the manual procedure to determine the start position for route calculation. The correct starting point is a crucial requirement for successful navigation. Therefore, automated approaches for the determination of the start position are needed. Such an approach can be the detection of QR codes that are attached to suspended ﬂoor plans or the detection of the marked position on the ﬂoor plan. Floor plans are typically available at all central points of the buildings, like the building’s entrance or elevators. Furthermore, the outlined approach currently considers only the navigation process on one ﬂoor. Hence, an extension is required to support navigation paths via staircases, escalators, and elevators.
+Based on the assumption that the user is able to set his start position manually on the ﬂoor plan and the mobile device display, and provided s/he knows the correct level, future work will focus on motion estimation optimization. A practical approach can be the actual sensor data fusion, e.g. using the Kalman ﬁlter, to deal with uncertain noise in sensor data. Moreover, SLAM as a realtime motion detection method should be further examined.
+References
+[1] M. Abramovici, M. Neges, Durchgängige Lösung zur Unterstützung von Wartungsprozessen durch Augmented Reality mit Smart Devices, in: R. Stelzer (Ed.), Tagungsband Entwerfen, Entwickeln, Erleben. Methoden und Werkzeuge in der Produktenentwicklung, EEE’2014, TUDpress, Dresden, Deutschland, 2014, pp. 199–212.
+[2] A. Akcamete, X. Liu, B. Akinci, J.H. Garrett, Integrating and visualizing maintenance and repair work orders in BIM: lessons learned from a prototype, in: Proc. of the 11th International Conference on Construction Applications of Virtual Reality, 2011, Weimar, Germany, 2011.
+[3] S.K. Ayer, J.I. Messner, C.J. Anumba, Determining the appropriate role for mixed reality technologies in facility management, in: 11th International Conference on Construction Applications of Virtual Reality, 2011, Weimar, Germany, 2011.
+[4] H. Bae, M. Golparvar-Fard, J. White, High-precision vision-based mobile augmented reality system for context-aware architectural, engineering, construction and facility management (AEC/FM) applications, Visual. Eng. 1 (1) (2013) 1–13.
+[5] D. Borrmann, A. Nüchter, M. Ðakulovic´ , I. Maurovic´ , I. Petrovic´ , D. Osmankovic´ , J. Velagic´ , A mobile robot based system for fully automated thermal 3D mapping, Adv. Eng. Inform. 28 (4) (2014) 425–440.
+[6] E.W. Dijkstra, A note on two problems in connexion with graphs, Numer. Math. 1 (1) (1959) 269–271.
+
+[7] E.W. East, N. Nisbet, T. Liebich, The facility management handover model view, J. Comput. Civil Eng. 27 (1) (2013) 61–67.
+[8] E.W. East, Construction Operations Building Information Exchange (Cobie): Requirements Deﬁnition and Pilot Implementation Standard, 1 January 2007.
+[9] F. Fraundorfer, L. Heng, D. Honegger, G.H. Lee, L. Meier, P. Tanskanen, M. Pollefeys, Vision-based autonomous mapping and exploration using a quadrotor MAV, in: Proceedings of the International Conference on Intelligent Robots and Systems, Date 7–12 October 2012, IROS’12: IEEE, 2012, pp. 4557–4564.
+[10] C. Fuchs, N. Aschenbruck, P. Martini, M. Wieneke, Indoor tracking for mission critical scenarios: a survey, Pervas. Mobile Comput. 7 (1) (2011) 1–15.
+[11] C. Hernandez, J.A. Baier, R. Asin, Making A⁄ run faster than D⁄-lite for pathplanning in partially known terrain, in: S. Chien, A. Fern, W. Ruml, M. Do (Eds.), Proceedings of the 24th International Conference on Automated Planning and Scheduling, ICAPS’14, AAAI Press, Palo Alto, USA, 2014.
+[12] D. Hongfei, S. Liu, X. Gao, Shortest path optimization of the dijkstra algorithm on the rail transit cohesion planning, Int. J. Appl. Math. Stat. 52 (4) (2014) 386– 394.
+[13] M. Kessel, P. Ruppel, F. Gschwandtner, BIGML: a location model with individual waypoint graphs for indoor location-based services, PIK – Praxis Inform. Kommun. 33 (4) (2010) 261–267.
+[14] H.M. Khoury, V.R. Kamat, Evaluation of position tracking technologies for user localization in indoor construction environments, Autom. Constr. 18 (4) (2009) 444–457.
+[15] H.M. Khoury, V.R. Kamat, High-precision identiﬁcation of contextual information in location-aware engineering applications, Adv. Eng. Inform. 23 (4) (2009) 483–496.
+[16] C. Koch, M. Neges, M. König, M. Abramovici, Natural markers for augmented reality-based indoor navigation and facility maintenance, Autom. Constr. 48 (2014) 18–30.
+[17] C. Koch, M. Neges, M. König, M. Abramovici, Performance study on natural marker detection in BIM based augmented reality for facility maintenance, Austral. J. Constr. Econ. Build. Conf. Ser. 2 (1) (2014) 23–34.
+[18] C. Koch, M. Neges, M. König, M. Abramovici, BIM based augmented reality for facility maintenance using natural markers, in: Proc. of the 19th Intl. EG-ICE Workshop, 2012, Herrsching, Germany, 2012.
+[19] C. Kuo, T. Jeng, I. Yang, An invisible head marker tracking system for indoor mobile augmented reality, Autom. Constr. 33 (2013) 104–115.
+[20] Q. Ladetto, On foot navigation: continuous step calibration using both complementary recursive prediction and adaptive Kalman ﬁltering, in: Proc. of the 13th International Technical Meeting of the Satellite Division of the Institute of Navigation, September 19–22, Salt Lake City, VA, 2000.
+[21] S. Lee, Ö. Akin, Augmented reality-based computational ﬁeldwork support for equipment operations and maintenance, Autom. Constr. 20 (2011) 338–352.
+[22] N. Li, B. Becerik-Gerber, Performance-based evaluation of RFID-based indoor location sensing solutions for the built environment, Adv. Eng. Inform. 25 (3) (2011) 535–546.
+[23] J.-F. Li, Q.-H. Wang, X.-M. Liu, S. Cao, F.-L. Liu, A pedestrian dead reckoning system integrating low-cost MEMS inertial sensors and GPS receiver, J. Eng. Sci. Technol. Rev. 7 (2) (2014) 197–203.
+[24] D. Meduna, Terrain Relative Navigation for Sensor-Limited Systems with Application to Underwater Vehicles, Ph.D. Thesis, Stanford, USA, 2011.
+[25] Metaio, Metaio Mobile SDK, 2014, <http://www.metaio.com/products/sdk/> (June 2014).
+[26] A. Montaser, O. Moselhi, RFID indoor location identiﬁcation for construction projects, Autom. Constr. 39 (1) (2014) 167–179.
+[27] A. Motamedi, M.M. Soltani, A. Hammad, Localization of RFID-equipped assets during the operation phase of facilities, Adv. Eng. Inform. 27 (4) (2013) 566– 579.
+[28] T. Oskiper, S. Samarasekera, R. Kumar, Multi-sensor navigation algorithm using monocular camera, IMU and GPS for large scale augmented reality, in: Proc. of the IEEE International Symposium on Mixed and Augmented Reality, 2012, Atlanta, USA, 2012.
+[29] C.-S. Park, D.-Y. Lee, O.-S. Kwon, X. Wang, A framework for proactive construction defect management using BIM, augmented reality and ontology-based collection template, Autom. Constr. 33 (2013) 61–71.
+[30] S. Park, S. Hashimoto, An intelligent localization algorithm using read time of RFID system, Adv. Eng. Inform. 24 (4) (2010) 490–497.
+[31] S.N. Razavi, O. Moselhi, GPS-less indoor construction location sensing, Autom. Constr. 28 (2012) 128–136.
+[32] U. Rüppel, P. Abolghasemzadeh, K. Stübbe, BIM based immersive indoor graph networks for emergency situations in buildings, in: International Conference on Computing in Civil and Building Engineering (ICCCBE), Nottingham, UK, 2010.
+[33] H. Surmann, A. Nüchter, J. Hertzberg, An autonomous mobile robot with a 3D laser range ﬁnder for 3D exploration and digitalization of indoor environments, Robot. Auton. Syst. 45 (3–4) (2003) 181–198.
+[34] E. Teichholz, Bridging the AEC technology gap, IFMA Facil. Manage. J. 2 (2004). Available from: <http://www.graphicsystems.biz/gsi/articles/Bridging%20the %20AEC_FM%20Gap_r2.pdf>.
+[35] N.T. Trung, Y. Makihara, H. Nagahara, Y. Mukaigawa, Y. Yagi, Inertial-sensorbased walking action recognition using robust step detection and inter-class relationships, in: 21st International Conference on Pattern Recognition, 2012.
+[36] U. Walder, T. Bernoulli, Context-adaptive algorithms to improve indoor positioning with inertial sensors, in: R. Mautz, H. Ingensand, M. Kunz (Eds.),
+
+M. Neges et al. / Advanced Engineering Informatics 31 (2017) 18–31
+
+31
+
+Proceedings of the International Conference on Indoor Positioning and Indoor Navigation, IPIN’10: IEEE, 2010, pp. 1–6. [37] M. Werner, Ubiquitous Navigation: Skalierbare ortsbezogene Dienste in Gebäuden, Ph.D. Thesis, Munich, Germany, 2012. [38] O. Woodman, Pedestrian Localisation for Indoor Environments, Ph.D. Thesis, Cambridge, United Kingdom, 2010.
+
+[39] L.I. Yuan, H.E. Zizhang, 3D indoor navigation: a framework of combining BIM with 3D GIS, in: Proc. of the 44th World Congress of the International Society of City and Regional Planners (ISOCARP), Dalian, China, 2008.
+[40] N. Zhao, Full-Featured Pedometer Design Realized with 3-Axis Digital Accelerometer, Analog Dialogue 44, 2010. <http://www.analog.com/library/ analogdialogue/archives/44-06/pedometer.html> (January 2014).
+

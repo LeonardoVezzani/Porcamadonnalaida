@@ -1,0 +1,328 @@
+Loading [MathJax]/extensions/MathZoom.js
+Skip to Main Content
+
+    IEEE.org
+    IEEE Xplore
+    IEEE SA
+    IEEE Spectrum
+    More Sites 
+
+        Donate 
+        Cart
+        Create Account
+        Personal Sign In 
+
+IEEE Xplore logo - Link to home
+
+    Browse
+    My Settings
+    Help
+
+Access provided by:
+Politecnico di Torino
+Sign Out Attention Authors
+IEEE logo - Link to IEEE main site homepage
+ADVANCED SEARCH
+Conferences > 2021 IEEE Intelligent Vehicle...
+Validation Method of a Self-Driving Architecture for Unexpected Pedestrian Scenario in CARLA Simulator
+Publisher: IEEE
+Cite This
+PDF
+Rodrigo Gutiérrez ; J. Felipe Arango ; Carlos Gomez-Huélamo ; Luis M. Bergasa ; Rafael Barea ; Javier Araluce
+All Authors
+3
+Cites in
+Papers
+781
+Full
+Text Views
+
+    Alerts
+
+Abstract
+Document Sections
+
+    I.
+    Introduction
+    II.
+    Related Works
+    III.
+    Our Autonomous Architecture
+    IV.
+    Test Validation Protocol
+    V.
+    Our Environment
+
+Show Full Outline
+Authors
+Figures
+References
+Citations
+Keywords
+Metrics
+Footnotes
+Abstract:
+This paper introduces a method to validate autonomous navigation frameworks, in simulation using CARLA Simulator, fulfilling the requirements of the Euro-NCAP evaluation. We propose the protocol for evaluating an unexpected pedestrian scenario, where a walker suddenly invades the road and the vehicle has to react in a safe way. Standard validation metrics are created for this use case, which are generalizables for other use cases. To support the proposal, we describe our ROS (Robot Operating System) based Self-Driving architecture, open source and implemented in an electric vehicle. Then, we explain the procedures and requirements needed for the validation protocol that we propose. Finally, we show the metrics and results obtained in simulation for different ego-vehicle velocities and weather conditions. The scenarios implemented in Carla are publicly available 2 2 https://github.com/RobeSafe-UAH/scenarios.
+Published in: 2021 IEEE Intelligent Vehicles Symposium (IV)
+Date of Conference: 11-17 July 2021
+Date Added to IEEE Xplore : 01 November 2021
+ISBN Information:
+DOI: 10.1109/IV48863.2021.9575884
+Publisher: IEEE
+Conference Location: Nagoya, Japan
+Funding Agency:
+SECTION I.
+Introduction
+
+Autonomous vehicles (AVs) have become one of the most important engineering challenge of the last decades. These AV s must perform driving behaviours with a greater reliability than humans, solving transportation problems such as traffic jams or accidents. Many agents that can influence in drivers decisions makes the driving task really complex, that is why multiple sensors perceiving the surrounding environment in real-time and robust algorithms evaluating the obtained data are needed for this purpose.
+
+In recent years, AVs have been developed for both research and commercial objectives. As result of this competition, great self-navigation systems have come up. Some of them in the automotive industry such as Tesla, Google or Uber [1] , and others in competitions such as DARPA Grand Challenge [2] or CARLA Autonomous Driving Challenge [3] .
+
+We are a research group from the University of Alcalá (Spain). In our project, Techs4AgeCar, the main goal is to implement an open source autonomous electric car [4] . For this purpose, we undertake all the design stages involved in the design of an autonomous vehicle: mechanics, electronics, perception, planning, control, navigation, validation in simulation and in a real environment.
+
+In this paper we present our architecture, implemented in an electric vehicle. We use ROS [5] as an standard of communication for our software modules, which are encapsulated in a Docker container [6] that can be run in both real environment and simulation, using the novel and hyper-realistic simulator CARLA [7] . Each of these modules is related with a navigation layer: decision-making, control, localization, mapping, planning and perception [8] .
+
+Our goal in this paper is to validate our architecture by designing and implementing standard protocols. In order to do this, we have developed detailed tests and assessments procedures using standard metrics. These test scenarios were set up based on Euro-NCAP [9] . From all of them, we will focus on the unexpected pedestrian scenario, where the vehicle has to react safely against a sudden road invasion by a pedestrian. We have created this scenario for different velocities and weather conditions. This paper describes both the test design process and the assessment protocol.
+Fig. 1: - Scenario simulation overview
+Fig. 1:
+
+Scenario simulation overview
+
+Show All
+
+The remaining content of this work is organized as follows. The next section presents the main vehicle testing protocols of the state of the art and the CARLA Autonomous Driving Leaderboard. Section 3 briefly describes our vehicle architecture. Section 4 explains the validation protocol for the unexpected pedestrian scenario in detail. Section 5 shows the obtained results. Section 6 deals with the conclusions of the paper and with the future works.
+SECTION II.
+Related Works
+
+A considerable amount of research works and studies, related to pedestrian detection and collision avoidance behavior have been presented in the literature [10] , [11] , where perception or control module are analyzed in depth. However, our goal in this work is to evaluate a whole architecture, where all modules are integrated, using common metrics for all frameworks. In this context, we can find the following options:
+Fig. 2: - Techs4agecar architecture
+Fig. 2:
+
+Techs4agecar architecture
+
+Show All
+
+A. New Car Assessment Programmes
+
+There are several New Car Assessment Programs (NCAPs), which are a set of protocols to evaluate the safety of vehicles. Currently, evaluations are focused on the structure of vehicle and the Advanced Driver Assistance Systems (ADAS), such as: Adult Occupant Protection (AOP), Child Occupant Protection (COP), Autonomous Emergency Braking (AEB), Speed Assist Systems (SAS), etc. The most important NCAPs, at the present time, are:
+
+    European New Car Assessment Program (Euro-NCAP): is the most widely used performance assessment, was founded in 1997, within the scope of the collaboration of the countries of the European Union [12] .
+
+    China New Car Assessment Program (C-NCAP): is a research and development benchmark for vehicle manufacturers in Asio. Most of its program is based on the Euro-NCAP [13] .
+
+    National Highway Transportation Safety Administration (NHTSA): is an agency of the U.S. federal government, part of the Department of Transportation. They have published research reports, guidance documents, and regulations on vehicles equipped with ADAS [14] .
+
+    Autoreview Car Assessment Program (ARCAP): is the first independent evaluation program for cars in Russia. They publish their studies in a newspaper called Autoreview [15] .
+
+But these programs, so far, do not have specific protocols to evaluate self-driving architectures. Also, they are quite different among them, they use different scenarios, parameters, ratios, etc. They also do not specify the equipment to be used.
+B. Carla Autonomous Driving Leaderboard
+
+The objective of the CARLA Leaderboard is to evaluate the performance of different navigation architectures in realistic traffic situations. It is an open-source platform that allows square and reproducible evaluations.
+
+The autonomous navigation architectures are confronted by a set of predefined routes. For each route, vehicles start at a predefined point and must navigate to a destination point. The routes will occur in a variety of areas, including highways, urban scenes and residential districts.
+
+The multiple traffic situations are based on the NHTSA typology. The simulation weather can be changed, allowing evaluation in a variety of weather conditions (daylight, sunset, rain, fog, and night).
+
+At the time of writing this article, there are no standard evaluation protocols for autonomous vehicles, which allow us knowing the performance of each architecture for different scenarios. On the other hand, the CARLA Leaderboard is not easily reproducible in a real environment.
+
+In this paper, we provide a protocol to validate autonomous navigation architectures, in simulation and in real scenarios, giving a global score about its performance. We also provide the results obtained for our architecture, which will serve as a base to compare the performance of different architectures.
+SECTION III.
+Our Autonomous Architecture
+
+Our autonomous navigation architecture is divided in different modules, as shown in Fig. 2 . These modules process the information in an asynchronous way and share information using ROS inter-process communication, allowing the different modules being executed in parallel. The subscribing/publishing method allows communication without loosing information nor blocking messages between modules. In this paper we focus in the modules that play an important role in the unexpected pedestrian scenario:
+A. Mapping/Planning Module
+
+One of our framework strengths is its portability between simulation and real environment. A map based on the university campus has been designed using the VectorZero Road-Runner [16] application. The map information is processed using the CARLA Python API [17] , in order to generate the user interface in RVIZ.
+
+For the path planning task, some code has been developed in combination with the “libcarla” library to create a graph describing the road map. A destination goal is introduced by the user, then the path planning has been solved applying the graph-based method A* [18] .
+
+A list of waypoints describe this trajectory, which is published in a ROS topic. Also, there is an online planning module, that provides information about the lanes state and the regulatory elements existing in the HD map to the perception module.
+B. Perception Module
+
+In terms of environment perception, we carry out tracking-by-detection [19] using as input Bird's Eye View objects obtained through the sensor fusion of depth map and stereo RGB camera information. Despite the fact that in our realworld prototype we perform a late sensor fusion between the BEV stereo camera objects and the BEV laser objects branch, at the moment of writing this article CARLA does not offer enough quality in its laser pointcloud, even increasing the number of channels and points per second, so as to obtain similar results that in real-world datasets. Then, this set of BEV obstacles feeds a simple yet accurate tracking pipeline made up by a BEV Kalman Filter [20] , that predicts the state of the objects from the current frame and update the object state based on the detected bounding boxes at current frame, and a Khun-Munkres (a.k.a Hungarian algorithm [21] ) that associates the predicted trajectories with current detections. Finally, a B/D (Birth and Death) memory deals with the newly appeared trajectories (those matched trajectories that exceeds f m i n frames) and dissapeared trajectories (unmatched trajectories exceeding a g e m a x frames).
+C. Decision Making Module
+
+The decision making module evaluates the information provided by the perception module, the actual state of the vehicle and the HD map features to select the adequate behaviour for each driving situation. We define two types of behaviours:
+
+Background behaviours, just as the unexpected pedestrian or the adaptive cruise control (ACC). These are continuously running, expecting a close vehicle or pedestrian to reduce the vehicle speed in a safe way. Standard use cases, as might be a stop, a give way, an overtaking or a crosswalk. This module is done using Petri Nets. For more information we refer the reader to our previous publication [3] .
+D. Control Module
+
+Our controller [22] performs a smooth interpolation of the waypoints given by the planner. Before the navigation starts, a velocity profile is generated using the curvature radius of each trajectory section. During the navigation the speed command is adjusted using this profile and the steer command is set using LQR techniques to ensure the trajectory tracking. The existing delays in the localization module and the vehicle actuators is compensated in the control loop.
+E. Carla Simulator
+
+CARLA is an hyper-realistic simulator developed to design and validate autonomous driving systems. This simulator provides open digital features that can be used to create scenarios, vary weather conditions, define different sensors distributions, generate maps and much more. We aim to meet an architecture where the results in the simulator can be extrapolated to the real environment, so we can develop algorithms and validate them before we test them in our real vehicle.
+
+We use the provided carla-ros-bridge as an interface between the simulator and our architecture. All sensors data of the simulator is published in ROS topics by this package, also the output signals generated by our system is commanded to the simulated vehicle through this bridge.
+F. Localization
+
+This module is in charge of positioning the vehicle on a map with centimeter precision and in real time. Accurate and robust localization is a primary task for autonomous vehicle navigation.
+
+In a real environment, we estimate the vehicle's pose using the fusion of data provided by a differential GNSS (Global Navigation Satellite System) and by an encoder-based odometry. To improve the accuracy and reliability of the GNSS system, differential positioning techniques (DGNSS) and Real Time Kinematics (RTK) were used [23] .
+
+On the other hand, in simulation, CARLA provides the exact location of the vehicle via ROS, so a localization module is not required.
+G. Drive-By-Wire
+
+The Drive-By-Wire module, which is implemented in the real vehicle, receives the steer and speed commands sent by the Control module and generates the electric signals to feed the electric motor and the steering wheel. [24] .
+
+We have implemented PI controller that equals this module in simulation. This module receives the controller output and generates normalized throttle, brake and steer commands, which are the input signals required by the simulated vehicle.
+SECTION IV.
+Test Validation Protocol
+
+We propose a test validation protocol with standard metrics for autonomous vehicles. For the unexpected pedestrian use case, we used the Euro-NCAP AEB VRU test protocol v3.0.2. [25] as reference, adjusting it for an autonomous navigation architecture.
+A. Test Scenarios
+
+We implemented two of the six scenarios proposed by Euro-NCAP. Fig. 3 shows Car to Pedestrian Nearside Adult (CPNA) scenario. The pedestrians starts in the closest sidewalk to the vehicle.
+
+Fig. 4 shows Car to Pedestrian Farside Adult (CPFA) scenario. The pedestrian starts in the farthest sidewalk to the vehicle. In both cases, the pedestrian invades the path unexpectedly and the vehicle must detect the pedestrian and react quickly, avoiding the collision or reducing the impact speed as much as possible. Avoidance maneuver is not contemplated in the protocol.
+Fig. 3: - Car to pedrestian nearside adult (cpna) scenario
+Fig. 3:
+
+Car to pedrestian nearside adult (cpna) scenario
+
+Show All
+Fig. 4: - Car to pedrestian farside adult (cpfa) scenario
+Fig. 4:
+
+Car to pedrestian farside adult (cpfa) scenario
+
+Show All
+
+The pedestrian speed ( v p ) is 5 km/h for the CPNA scenario and 8 km/h for the CPFA. The vehicle speed ( v v ) ranges from 10 km/h to 60 km/h. We calculate the distance ( d ) , at which the pedestrian must start walking so that impact point ( P I ) is in the center of the lane. Table I shows the parameters for each test.
+Table I: Test parameters
+Table I:- Test parameters
+
+B. Pedestrian Target
+
+A 3D human appearance dummy is required for the scenario. It has to be flexible and manageable in order to acquire a walking position, and has to be designed so cameras, LIDARs and radars can detect it. The adult dummy height is 180 cm and its clothing is made up by a long-sleeve black shirt and blue trousers as shown in Fig. 1 .
+C. The Score
+
+We propose to use standard metrics to validate different self-driving architectures and to can compare them in an easy way. Using these metrics we calculate an score, that evaluates the performance of the architecture. We base our score in the Assessment Protocol - VRU v10.0.3 [26] . We generalize the referred protocol, defined only for day and night time, to different weather conditions.
+
+The score for each test is calculated based on the speed reduction of the vehicle:
+
+    For v v less than or equal to 40km/h:
+
+    If the vehicle stops without collision, it achieves the highest score:
+
+s c o r e t e s t = s c o r e m a x (1)
+View Source Right-click on figure for MathML and additional features. \begin{equation*} score_{test}=score_{max}\tag{1}\end{equation*}
+
+    If the vehicle collides, its score is defined as follows:
+
+s c o r e t e s t = v t e s t − v i m p a c t v t e s t ⋅ s c o r e m a x (2)
+View Source Right-click on figure for MathML and additional features. \begin{equation*} score_{test}=\frac{v_{test}-v_{impact}}{v_{test}}\cdot score_{max}\tag{2}\end{equation*}
+
+    For v v higher than 40km/h:
+
+v i m p a c t ≤ v t e s t − 20 → s c o r e t e s t = s c o r e m a x       v x m p a c t > v t e s t − 20 → s c o r e t e s t = 0 (3) (4)
+View Source Right-click on figure for MathML and additional features. \begin{align*} &v_{impact}\leq v_{test}-20\rightarrow score_{test}=score_{max}\tag{3}\\ &\quad\ \ \ v_{xmpact} > v_{test}-20\rightarrow score_{test}=0\tag{4}\end{align*}
+
+The maximum score ( s c o r e m a x ) for each test is defined in Table I . Each test must be carried out at least three times, and the impact speed ( v i m p a c t ) will be the arithmetic mean of the result obtained in each test. The final score is the arithmetic mean of the scores obtained in each scenario for the different weather conditions.
+SECTION V.
+Our Environment
+
+Fig. 5: - Drivers view under different weather conditions
+Fig. 5:
+
+Drivers view under different weather conditions
+
+Show All
+
+We have elaborated the scenarios described in Section IV using CARLA ScenarioRunner [27] , which allows to create complex scenarios. These scenarios have been implemented under different weather conditions, in order to evaluate how environmental factors affect sensors and detection. In Fig. 5 we present the simulated CPNA scenario for four weather conditions.
+Table II: Cpna results
+Table II:- Cpna results
+
+For the implementation of these scenarios we use the OpenScenario standard supported by ScenarioRunner, that provides an execution engine for CARLA. The vehicle, the pedestrian and all the variables that can be modified accomplish the Euro-NCAP requirements. We vary the weather conditions, the pedestrian position and walking velocity. Also the starting walking distance is adequate depending on the vehicle speed.
+
+CARLA provides a bunch of pedestrian textures, but none of them matches the dummy appearance, so we have modified the textures using the Unreal Engine [28] editor in order to reach the specifications detailed in Section IV-B .
+SECTION VI.
+Results
+
+Since the Techs4AgeCar project started in 2019 it has been under continuous testing. However, our goal in this work goes further, we aim to validate our architecture in a more detailed way. Therefore, in this section, we present the results obtained under the established protocol.
+
+First, we analyse the temporal response for the CPNA scenario using two graphics, evaluating the architecture for different ego-vehicle velocities ( Fig. 6 ) and for different weather conditions ( Fig. 7 ). Then, we present the results obtained for the CPNA scenario summarized in Table II . Finally, we evaluate our system for CPNA scenario and CPFA scenario by calculating its score in Table III .
+Fig. 6: - Time history for sunny weather cpna scenario
+Fig. 6:
+
+Time history for sunny weather cpna scenario
+
+Show All
+
+Fig. 6 represents a time diagram of individual tests running different velocities. T 0 corresponds with the moment the vehicle either stops or collides with the pedestrian. The collision is avoided from 10km/h to 40km/h and mitigated for higher velocities. The instant when a predicted collision is detected and a stop command is sent to the vehicle is represented by a cross for each curve.
+Fig. 7: - Time history for different weather conditions at 50 km/h
+Fig. 7:
+
+Time history for different weather conditions at 50 km/h
+
+Show All
+
+As we mentioned before, we propose a camera based perception system, expected to have a worse performance being affected by adverse climatic conditions. The tests presented in Fig. 7 , where a time diagram of individual tests running under different weather conditions at a velocity of 50km/h is represented, confirm this hypothesis.
+
+The system response is slightly worse at night and with rain; and it barely mitigate the collision with fog. Here, T 0 corresponds with the moment the vehicle collides with the pedestrian. The instant when a pedestrian detection takes place is represented by a dot for each curve and the cross represents the instant when a predicted collision is detected and a stop command is sent to the vehicle.
+
+The test simulation results of the CPNA scenarios are summarized in Table II . As mentioned before, we use a camera based detection method, this explains the slightly worse results while evaluating the night, rain and fog scenarios.
+
+The global score obtained by our autonomous navigation architecture is shown in Table III . The higher pedestrian speed of CPFA scenario in comparison with the CPNA scenario generates worse results for the former one.
+Table III: Final results
+Table III:- Final results
+
+SECTION VII.
+Conclusions
+
+A validation method of a self-driving architecture for unexpected pedestrian scenario following the Euro-NCAP standard has been presented in this paper.
+
+The implemented protocol consisted on the study of the scenarios proposed by Euro-NCAP, adapting the specifications to a general navigation architecture, where changes in the weather are considered in the final score. Because of this, we have decided to bring our scenario to CARLA, which allows us to simulate different environments. Results obtained by our architecture for different ego-vehicle speed and weather conditions are exposed and can be used as a baseline for comparison with other frameworks.
+
+We have found some aspects of our architecture that have to be improved by testing it with the proposed scenario. These improvements will help our system to have better performance in more complex autonomous driving environments.
+
+Implementation of new scenarios and additional weather conditions in simulation, as well as test validations for them in simulation and in a real environment will be done in a near future.
+
+Authors
+Figures
+References
+Citations
+Keywords
+Metrics
+Footnotes
+More Like This
+Vehicle-Road-Station Interaction for Electric Vehicle Charging Navigation Strategy Based on End-of-Trip Orientation
+
+2023 5th International Academic Exchange Conference on Science and Technology Innovation (IAECST)
+
+Published: 2023
+Calculating the tractive power and power conversion efficiency of battery electric vehicles using a global navigation satellite system and a road elevation database
+
+2022 24th European Conference on Power Electronics and Applications (EPE'22 ECCE Europe)
+
+Published: 2022
+Show More
+References
+References is not available for this document.
+IEEE Personal Account
+
+    Change username/password 
+
+Purchase Details
+
+    Payment Options
+    View Purchased Documents 
+
+Profile Information
+
+    Communications Preferences
+    Profession and Education
+    Technical interests 
+
+Need Help?
+
+    US & Canada: +1 800 678 4333
+    Worldwide: +1 732 981 0060
+    Contact & Support 
+
+Follow
+
+About IEEE Xplore | Contact Us | Help | Accessibility | Terms of Use | Nondiscrimination Policy | IEEE Ethics Reporting | Sitemap | IEEE Privacy Policy
+
+A not-for-profit organization, IEEE is the world's largest technical professional organization dedicated to advancing technology for the benefit of humanity.
+
+© Copyright 2024 IEEE - All rights reserved, including rights for text and data mining and training of artificial intelligence and similar technologies.

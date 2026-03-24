@@ -1,0 +1,997 @@
+
+JavaScript is disabled on your browser. Please enable JavaScript to use all the features on this page. Skip to main content Skip to article
+Elsevier logo ScienceDirect
+
+    Journals & Books 
+
+    Search 
+
+Register Sign in
+
+    View  PDF
+    Download full issue 
+
+Outline
+
+    Highlights
+    Abstract
+    Keywords
+    1. Introduction
+    2. Literature review
+    3. Design of the cognition-driven wayfinding system (CogDNA)
+    4. Human subject experiment
+    5. Results
+    6. Discussion and conclusions
+    7. Data availability
+    Declaration of Competing Interest
+    Acknowledgements
+    Data availability
+    References 
+
+Show full outline
+Cited by (1)
+Figures (13)
+
+    Fig. 1. Architecture of the CogDNA
+    Fig. 2. Fitting of pupil luminance relationship function
+    Fig. 3. Eye blink rate analysis
+    Fig. 4. CogDNA UI design
+    Fig. 5. Four primary objectives of the experiment
+    Fig. 6. Floorplan of the building and distribution of all structural damages
+
+Show 7 more figures
+Elsevier
+Safety Science
+Volume 162 , June 2023, 106100
+Safety Science
+Cognition-driven navigation assistive system for emergency indoor wayfinding (CogDNA): Proof of concept and evidence
+Author links open overlay panel Tianyu Zhou , Pengxiang Xia , Qi Zhu , Jing Du
+Show more
+Add to Mendeley
+Share
+Cite
+https://doi.org/10.1016/j.ssci.2023.106100 Get rights and content
+Highlights
+
+    •
+
+    A cognition-drive adaptive wayfinding information system for emergency scenarios was proposed.
+    •
+
+    Comprehensive eye tracking and behavioral measures are used to estimate real-time cognitive load.
+    •
+
+    Wayfinding information user interface and interaction are adjusted according to the varying types of cognitive load.
+    •
+
+    A human-subject experiment with front-line firefighters (N = 31) confirmed that adaptive system outperforms other methods.
+
+Abstract
+
+Attributed to the advances in sensing and visualization technologies, novel wayfinding assistive systems are becoming more accessible such as the augmented reality (AR)-based wayfinding guidance that provides immersive information about the space and environments. However, the excessive information provided by these new methods results in cognitive overload, leading to subpar performance. Especially for emergency wayfinding where responders need to process a large amount of information while performing search and hazard identification tasks, an overdesigned wayfinding user interface and excessive information can cause confusion or disorientation among responders. This study proposes and tests a real-time cognition-driven navigation assistive system for emergency wayfinding called CogDNA. CogDNA measures responders’ real-time cognitive load and mental status based on the high-frequent pupillometer and gazes tracking data. Then the elements and formats of the primary wayfinding information are adjusted based on the individualized cognitive load models and the mental fatigue status measured by the pupillometer data including gaze movement entropy and blink rate. To test the efficacy of CogDNA, a human-subject experiment (n = 31) was performed with local firefighters in a simulated emergency wayfinding task. Three conditions were presented including the control condition with a static wayfinding system, a self-adaption condition where responders could adjust information with gesture controls, and the auto-adaption condition that tailored information based on real-time cognitive load and mental status measures. The result shows that the proposed method reduces the workload and improves the performance of the responders during the wayfinding task. The self-reported assessments also indicate benefits of the proposed method in cognitive load. The findings prove the efficacy of adaptive wayfinding information systems based on real-time cognitive load measures for future emergency wayfinding tasks.
+
+    Previous article in issue
+    Next article in issue 
+
+Keywords
+User Interface
+Emergency Wayfinding
+Cognition-Driven Adaptive System
+Human factors
+1. Introduction
+
+Indoor wayfinding and nfavigation systems are important for human mobility in unfamiliar built environments. Attributed to the rapid development of information and visualization technologies, innovative wayfinding methods continue to emerge, bringing information-rich navigation solutions to users in an unprecedented manner. The emerging Internet of Things (IoT)-enabled sensing and analytics will generate a large amount of real-time data about built environments, such as geometry and building status, supporting the development of innovative and semantics-capable wayfinding systems ( Verma et al. 2019 ). Methods such as radio-frequency identification (RFID) ( Andò et al. 2018 ), indoor positioning systems or IPS ( Mendoza-Silva et al. 2019 ), and mobile computing ( Karabtcev et al. 2019 ) are being tested to facilitate automated wayfinding solutions that are adaptive to varying navigation contexts. Visualization technologies, especially Augmented Reality (AR), are increasingly available to interact with the building data in a more intuitive way for indoor wayfinding ( Huang et al. 2020 ).
+
+While real-time data analytics and visualization become more accessible for indoor wayfinding, a new challenge has arisen - cognitive overload due to information redundancy. Cognitive science literature has long proven that too much information can lead to cognitive overload, resulting in decreased task performance and/or prejudices in decisions such as stereotyping ( Eppler and Mengis 2004 ). For wayfinding, too many formalities and excessive amount of spatial and status information that are available today could cause consequences of cognitive overload consequence. Overdesigns of wayfinding user interface (UI), or excessive information not directly relevant to the navigation tasks (e.g., building metadata in 3D form), can confuse the users or lead to disorientation ( Goetz and Zipf 2010 ). Especially in emergency wayfinding, users such as first responders often need to build an accurate spatial understanding of unfamiliar spaces in a timely manner, requiring intensive retention and processing of received spatial information ( Logie 2014 ). Yet according to the cognitive load theory (CLT), human cognition has a finite information processing capacity ( Sweller 1994 ). The well-proven Miller’s Law shows that in one-dimension judgment tasks (such as temporarily remembering a phone number), an average person can only hold and process 2 to 3 bits of information at one time for a short period of time ( Miller 1956 ). Such an apparent gap between the enormous information processing needs and the limited processing capacity creates a potentially fatal situation in emergency wayfinding for both the rescuers and rescuees. In the foreseeable future, this gap will further be widened due to the advancement of information technologies and the unprecedented accessibility to large amounts of real-time data.
+
+To manage the potential information overload issues in emergency and daily wayfinding, two strategies have been proposed by the literature. The first strategy utilizes a systematic and intuitive design of user interface (UI) ( Apelt et al., 2007 , Beeharee and Steed, xxxx , Calori and Vanden-Eynden, 2015 , Croucher et al., 2016 , Dziekan and Dicke-Ogenia, 2010 , Foltz, 1998 , Foltz and Davis, 1999 , Gibson, 2009 , Glastra-van Loon, 2017 , Havik et al., 2011 , Huang et al., 2017 , LTA, 2017 , Passini, 1998 , Radoczky, 2007 , Raubal and Worboys, 1999 , TFL, 2017 ). Basic principles have been proposed, such as using survey views, providing signs at certain locations, simplifying graphic presentations, etc. ( Croucher et al., 2016 , Dziekan and Dicke-Ogenia, 2010 , Foltz, 1998 , Foltz and Davis, 1999 , Glastra-van Loon, 2017 , Huang et al., 2017 , Radoczky, 2007 ). Government agencies have also published guidelines of design principles believed to be beneficial to a larger population ( Apelt et al., 2007 , LTA, 2017 , TFL, 2017 ). For emergency wayfinding, literature has also tested various best practices for collecting data and presenting information to first responders ( Gao et al., 200 6; Holscher, xxxx , Killeen, xxxx , Turoff et al., 2004 , Yang et al., 2009 ). However, these principles and best practices are usually based on the average pattern learned from a large population in typical scenarios. Users still need to passively accept the information even when the system does not capture individual-level differences in information demand.
+
+The second strategy of coping with information overload issues relates to an interactive UI/UX in information selection, i.e., leaving the right of choosing the wanted information to the users ( Arditi et al., 1999 , Brock, 2013 , Devlin and Bernstein, 1995 , Devlin and Bernstein, 1997 , Ginige et al., 2014 , Lu and Lo, 2010 , Ramloll and Mowat, 2001 , Roth and Harrower, 2008 , Wang and Jin, 2008 ). The argument is that to move from passive observation of spatial information (such as following signage) to active learning of spatial information (such as interactive maps) will improve the performance of individuals. The emerging HCI technologies has made the intuitive and autonomous selection of needed information easier. However, cognition literature still gives contradicting conclusions on the effects of interactivity in spatial learning. For example, Appleyard ( Appleyard 1970 ) found that spatial memory is enhanced by active learning comparing to the passive observation in the map learning, whereas findings by Knight and Tlauka indicate that interactive spatial information can be detrimental to spatial learning in difficult navigation tasks, as there will be additional cognitive loads for making decisions based on information selection ( Knight and Tlauka 2017 ).
+
+In sum, to overcome the potential information overload issues in emergency wayfinding, existing literature proposes a series of information design principles and advocates providing users with enough flexibility to choose the needed information. But there is a lack of evidence whether the cognitive load-driven, personalized spatial information outperforms current practices. To fill the gap, this paper proposes and tests a real-time cognition-driven adaptive wayfinding system for emergency wayfinding called the Cognition-Driven Navigation Assistive wayfinding system, or “CogDNA”. We call it “the third way”. The dynamic cognitive load and mental fatigue status are calculated based on the streaming data from gaze and pupillometer trackers, which determine and enable the adjustment of the wayfinding user interface elements and formats in real time. Recognizing that light conditions changes can drive pupillary size changes, we developed a unique analytical pipeline to recover light conditions based on RGB values of pixels of headset goggles, and calibrate the residual pupillary dilations purely driven by the increased cognitive load. In addition, we recognize that an increased cognitive load could be driven by effective cognitive processes (such as spatial decision-making) and does not necessarily mean that information should be adjusted. As a result, we designed a double secure mechanism that only adjust information when mental fatigue is sensed, measured by fixation entropy and blink rate.
+
+To prove the feasibility and effectiveness of the proposed method, a human-subject experiment was performed to test the use of a hypothetical augmented reality (AR) headset in emergency wayfinding. We focus on wayfinding tasks in an emergency context because it presents a bigger challenge to the mental and physiological processes of the user, and thus manifests a bigger problem with cognitive overload. The tested scenario was using an AR headset given its popularity in literature and the potential to support future emergency wayfinding. The wayfinding performance, cognitive load benefits, and perceived spatial understanding were evaluated. The remainder of this paper will introduce the point of departure, experiment, and findings.
+2. Literature review
+2.1. Personalized wayfinding system
+
+In this information-rich era, attention, not data, is the scarce resource. With the development of computing and machine learning (ML)-enabled recommendation techniques, personalized information filtering has become popular in our daily lives and is affecting professional activities ( Du et al. 2020 ). Personalized information filtering refers to information communication technologies that exhibit personalized behavior, adjusting to the preferences and needs of their users ( Foltz and Dumais 1992 ). The successful filtering of effective information relies on behavior monitoring, models of user preference, personalized UI, and cognitive load prediction models ( Reis and Carvalho 2012 ). Personalized systems can learn individual behaviors and automatically filter out the least valued information for the users. Evidence has shown that a variety of behavioral and learning benefits of relying on personalized information filtering in daily and professional activities, such as improved awareness ( Findlater and McGrenere 2010 ), compensation for cognitive impairment ( Gamecho et al. 2015 ), increased information accessibility ( Speretta and Gauch 2005 ), reduced information asymmetry ( Xu et al. 2016 ), and more efficient learning ( Xiao et al. 2018 ). However, universal wayfinding information systems that don’t differentiate individual differences in information demand are still largely used in public spaces, such as maps, fixed signage, and textural instructions. For emergency wayfinding, government agencies and professional organization still advocate standardized design principles for wayfinding information ( Apelt et al., 2007 , LTA, 2017 , TFL, 2017 ), as well as standardized information and workflows ( FEMA 2006 ), which may cause an imbalance between information supply and demand in changing environments and/or contexts.
+
+To manage the potential information overload issues in wayfinding, two strategies have been proposed in the literature. The first strategy pertains to reducing information overload through optimized designs of wayfinding information presentation ( Calori and Vanden-Eynden, 2015 , Croucher et al., 2016 , Glastra-van Loon, 2017 , Huang et al., 2017 , LTA, 2017 , TFL, 2017 ). General principles have been proposed, including using survey views, providing signs at certain locations, and simplifying graphic presentations ( Croucher et al., 2016 , Dziekan and Dicke-Ogenia, 2010 , Glastra-van Loon, 2017 , Huang et al., 2017 ). Public agencies have also published guidelines of design principles believed to be beneficial to a larger population ( Apelt et al., 2007 , LTA, 2017 , TFL, 2017 ). For emergency wayfinding, literature has tested various generalizable best practices for collecting data and presenting information to first responders ( Grandi et al., 2019 , Vilar et al., xxxx , Yang et al., 2009 ). For instance, it is suggested that highlighting environmental hazards (e.g., CO concentration) should always be pinned in view ( Yang et al. 2009 ).
+
+The second strategy of coping with information overload issues relates to an interactive user experience (UX) in information selection, i.e., leaving the right of choosing the wanted information to the users via the interactive user interface ( Brock, 2013 , Ginige et al., 2014 , Lu and Lo, 2010 ). The argument is that moving from passive observation of spatial information (such as following signage) to active learning of spatial information (such as interactive maps) will improve the performance of individuals. The emerging information and visualization technologies have made the spontaneous selection of needed wayfinding information easier. Especially, the recent advances in AR techniques have greatly enriched the modalities of wayfinding information that can be accessed and leveraged for improved situational awareness ( Joshi et al. 2020 ). Because AR enables digital information to be superimposed onto a real view in real-time and context, it fits well for indoor wayfinding needs since both the real-world features and superimposed spatial information are critical for spatial understanding ( Kim et al. 2015 ). AR-based solutions have been tested for sensor-based path planning ( Joshi et al. 2020 ), collaborative marking and navigation ( Koch et al. 2014 ), spatial feature detection ( Kasprzak et al. 2013 ), and reality capture for automated 3D map generation ( Rajeev et al. 2019 ). Efforts have also been made to examine the benefits of the additional interactivity provided by AR in wayfinding. For example, Rabbaa et al. (2019) found that AR enabled the required interactions in goal settings for dynamic wayfinding tasks, and thus was suited for goal-oriented wayfinding tasks. Laera et al. (2021) examined AR interactions for wayfinding tasks in the context of three unique user perspectives, namely world relative, body relative and screen relative. It is found that the increased interactivity enabled by AR allows users more flexible spatial decisions and situational awareness in complex wayfinding tasks such as marine navigation ( Laera et al. 2021 ).
+
+However, both the generalized UI design principles and interactive wayfinding UX have their limitations in controlling cognitive overload due to excessive information or ineffective UI in wayfinding. As for the generalized UI design method, the optimized and recommended principles are usually based on the average pattern learned from a large population in typical scenarios. Users still need to passively accept the information even when the system does not capture individual-level differences in information demand at different timepoints of the task. As for the interactive wayfinding UX solutions, cognition literature still gives contradicting conclusions on the effects of interactivity in spatial learning. For example, Appleyard ( Appleyard 1970 ) found that spatial memory is enhanced by active learning compared to passive observation in map learning, whereas findings by Knight and Tlauka indicated that interactive spatial information could be detrimental to spatial learning in difficult navigation tasks, as there will be additional cognitive loads for making decisions based on information selection ( Knight and Tlauka 2017 ). This research aims to complement these personalization studies by investigating how real-time cognitive load can be used as a base for the dynamic adaption of wayfinding information presentation by focusing on individual differences in information processing capacity. The challenges relate to the measurement of real-time cognitive load pertaining wayfinding information processing. It requires a deeper understanding on both the cognitive processes and the measurement methods pertaining to the wayfinding information processing.
+2.2. Spatial knowledge development and cognitive load
+
+Two theories are closely related to the cognitive process in wayfinding, including the spatial knowledge development ( Siegel and White 1975 ) and the cognitive load theory (CLT) ( Kalyuga, 2009 , Sweller, 2010 , Sweller et al., 2011 ). Spatial knowledge development concerns the cognitive processes related to spatial information processing. A representative framework is the landmark, route and survey model (LRS) proposed by Siegel and White (1975) . According to the LRS model, spatial knowledge is a mental representation of an environment, which is constructed by the integration of successive perceptions about the environment, including the landmark, route, and survey representations ( Siegel and White 1975 ). Later behavior ( Lapeyre et al. 2011 ) and neurological ( Chrastil 2013 ) evidence has reached a general agreement that spatial knowledge consists of fragmented elements of the space, which are developed in sequence during a typical spatial knowledge acquisition ( Kim and Bock 2021 ). Basic elements of spatial knowledge (i.e., LRS) can be acquired in synergies (prone to real-life-like navigation-observe-learning progress) or in separation (prone to a training process with certain spatial information delivery method) ( Caduff and Timpf 2008 ). As for AR-based wayfinding systems, because of the enhanced interactivity and capability of data representation, it is possible to integrate all three LRS processes at the same time ( Huang et al. 2012 ). Recent studies, such as ( Gardony et al. 2021 ), started to investigate strategies for integrating all three LRS elements in a shared AR display and observed different performance outcomes depending on how these UI elements are integrated. Studies also found different LRS acquisition strategies could cause distinct cognitive processes ( Lee and Tversky, 2005 , Nori et al., 2006 ). Further evidence about how LRS triggers varying cognitive statuses is needed.
+
+The cognitive load theory (CLT) provides a theoretical framework for exploring the interdependency between LRS processes and cognitive load. CLT claims that cognition is not a homogeneous mental process; hence, the seemingly-one-single measure of cognitive load is driven by various mental activities and influences decision-making in distinct ways, including intrinsic load (related to the complexity of tasks), extraneous load (affected by how information is presented) and germane load (devoted to the construction of schemas or permanent knowledge about patterns) ( Kalyuga, 2009 , Paas et al., 2003 , Sweller et al., 2011 ). Baddeley further proposed a dual-coding theory to explain the internal structure of extraneous load in relation to information processing ( Baddeley 2012 ). It is found that there exist “dual channels” in human cognition , where different mental activities are activated when people are processing two distinct categories of information: phonological information (i.e., auditory verbal information or visually presented language) and visuospatial information (i.e., the visually presented information about objects and space). In addition, a central executive cognitive process also takes place to bind information into coherent episodes, shift between tasks or retrieval strategies, and select between attention and inhibition ( Sridharan et al. 2008 ). The heterogeneous structure of cognitive load has been empirically validated by recent neurobiological evidence. For example, neuroimaging studies found that phonological information often triggers Broca’s area (involved in speech production) in addition to supplementary and premotor areas (involved in movement) in the frontal cortex cognitive ( Sahin et al. 2009 ). Neural areas related to spatial or object storage are activated in pursuit of the visuospatial information such as the bilateral intraparietal sulcus region ( Sack et al. 2002 ). The dorsolateral prefrontal cortex (DLPFC) of brains is always activated when central executive process happens ( Levy and Goldman-Rakic, 2000 , Sridharan et al., 2008 ).
+
+The discoveries of LRS and CLT indicate that the design of a personalized wayfinding information system should consider the implications of different combinations of spatial information elements (LRS) and the way they can be presented (phonological versus visuospatial). Furthermore, the adaptation of such a system to varying cognitive status at different timepoints of the wayfinding task should be based on the measure of dynamic cognitive load of different types (effective cognitive processes versus ineffective cognitive processes). However, the literature has recognized the difficulty of measuring cognitive load. Navigation literature tends to investigate wayfinding-related cognitive load as a single entity ( Chang and Wang, 2010 , Haapalainen etal., xxxx , Klatzky et al., 2006 , Liu et al., 2008 ). Indicators such as task performance (e.g., errors) and psychometrics (e.g., surveys) are typically used to measure cognitive load in these studies ( Bunch and Lloyd, 2006 , Meilinger et al., 2008 , Smith and Hart, 2006 ). Although these are important measurements to consider, the lagging nature of the indicators are insufficient to support a real-time monitoring and control mechanism of cognitive load in wayfinding. A simultaneous cognitive load measure method is needed.
+2.3. Pupilometer and gaze measurements of cognitive load
+
+There are mainly-three types of cognitive measurements: performance, subjective measurements, and cognitive sensing ( Gavas et al. 2017 ). Performance and subjective measurements are considered less practical in applications that require real-time and continuous data because they can only make posterior and discrete observations. Cognitive sensing such as Electroencephalogram (EEG) ( Gavas et al. 2016 ) among many others requires a complicated setup and is sensitive to motion artifacts, causing logistics difficulties in practice. With the advent of wearable eye-tracking devices, pupillometry has been widely used and recognized as an effective indicator of mental state ( Chiew and Braver, 2013 , Chiew and Braver, 2014 ). Pupillary diameter and eye blink activities are generally recognized pupillometry measures indicating cognitive activities ( Marshall 2007 ). Behavior ( Chiew and Braver, 2014 , Peysakhovich et al., 2017 , Souchet et al., 2021 ) and neurological ( Eckstein et al. 2017 ) studies consistently agreed that pupillary diameter and eye-blink rate would be considered closely related to cognitive loads and mental fatigue levels respectively. According to recent neurofunctional studies, the underlying principle for the effectiveness of these measures is that activities in the neuromodulatory brain system can trigger sympathetic and parasympathetic branches of the nerve system and further trigger sphincter and dilator muscles that control the pupillary dilation ( van der Wel and van Steenbergen, 2018 , Verguts et al., 2015 ). The association between pupillary size and cognitive load has been studied with regard to various tasks, such as solving mathematics ( Gavas et al., 2017 , Peysakhovich et al., 2017 ), driving simulation ( Palinko et al. 2010 ), speech perception ( Zekveld et al. 2011 ), etc.
+
+However, noises in data caused by position/motor artifacts, blinks, and hardware tracking errors during the pupillary measurement must be processed via a standard and delicate process ( Mathôt et al. 2018 ), including outlier removal, missing values interpretation, baseline correction, and latency correction ( Mathôt et al., 2018 , Shi et al., 2020 ). After the data processing, tasks with higher difficulty levels are proven to be associated with a larger pupillary dilation ( Kiefer et al., xxxx , Payne et al., 1968 ) and more active pupillary oscillations ( Duchowski et al., 2018 , Marshal, xxxx ). In addition to pupillary dilation, eye blink activities are considered closely tied to central dopaminergic functions which can indicate psychological conditions ( Hoppe et al. 2018 ). Studies showed that the eye blink rate was an effective indicator of fatigue and mental loads ( Martins and Carvalho, 2015 , Souchet et al., 2021 , Stern et al., 1994 ). Eyeblink and pupillary dilation together are indicative of complementary information but are demonstrated in mutually exclusive biological paths ( Hoppe et al. 2018 ). Unlike pupillary dilation, although eye blink rate is associated with cognitive load ( Siegle et al. 2008 ), it is more pertaining to the sensory processing phase that is more indicative of mental fatigue, rather than a more neutral measure of cognitive load changes ( Siegle et al., 2008 , Stern et al., 1994 ). In contrast, pupillary dilation often occurs during the sustained information processing phase and is more associated with increased cognitive load ( Pedrotti et al. 2014 ). In sum, both pupillary dilation and eye blinks can be effective metrics for mental activities with different focuses on cognitive load and mental fatigue respectively, which will serve the basis for the proposed system.
+3. Design of the cognition-driven wayfinding system (CogDNA)
+3.1. Overview
+
+The proposed cognition-driven adaptive wayfinding system, CogDNA, consists of three main modules, including the cognitive sensing module, the cognitive load assessment module, and the wayfinding UI adaptation module. The cognitive sensing module collects high-frequent pupillometer and gazes tracking data, with the addition of neuroimaging data in the future. Based on the streaming data from the cognitive sensing module, the cognitive load assessment module filters the effective data and generates a real-time prediction of cognitive load and mental status. Then the wayfinding UI adaptation module adjusts the elements and formats of the main UI elements based on the measures. Fig. 1 shows the architecture of the system.
+
+    Download : Download high-res image (328KB)
+    Download : Download full-size image 
+
+Fig. 1 . Architecture of the CogDNA.
+
+As illustrated in Fig. 1 , for the cognitive sensing module, three steps are executed to process the gaze data, including removing the outlier from the pupillometer data, interpolating the blank data points caused by outlier removal, and smoothing the data. The cognitive load assessment module allows CogDNA to predict the cognitive load of an individual. The luminance can be calculated based on the RGB values of every pixel on the display screen. Based on the smoothed pupil size and luminance data, the individual baseline of each user can be established. The baseline refers to the size of a human pupil in a calm state as well as the relationship between pupil size and lumens. On the basis of the pupil size-lumens relationship, the change in pupil size caused by brightness can be eliminated, and changes in pupil size due to cognitive load can be calculated, which can be viewed as an indicator of cognitive load. As discussed earlier, such an increased cognitive load could be driven by effective cognitive processes related to the spatial decision-making and does not always mean that information is overloaded. And cognition literature has well recognized the difficulty of differentiating different types of cognitive load (intrinsic, extraneous, and germane). In order to avoid that the proposed CogDNA is overly sensitive to increased cognitive load levels, we designed a double-secure mechanism to trigger information adjustment also based on mental fatigue status. In other words, information adjustment can only be triggered when both cognitive load and mental fatigue are increased to an alarming level. Gaze fixation entropy and eye blink rate analysis are used to measure the mental fatigue, and filters out situations of cognitive overload that are directed related to the information processing and should be addressed. The wayfinding UI adaptation module finally modifies the elements and formats of the UI based on the compound measures.
+3.2. Cognitive sensing module
+
+In order to track participants' performance, pupil size, eye blink, and gaze tracking data of users, we use an integrated data collecting system, including built-in activity data tracking system via HTC VIVE headset, eye trackers , and VR controllers. Tobii Pro VR Integration uses an improved version of Pupil Centre Corneal Reflection (PCCR) remote eye-tracking technology with near-infrared illumination and image sensors to track eye movement ( Tobii, 2019 ). Near-infrared illumination in the Tobii eye tracker is used to create the reflection patterns on the cornea and pupil of the eye and image sensors are used to capture images of the eyes and the reflection patterns. Advanced image-processing algorithms and a physiological 3D model of the eye are then used to estimate the position of the eye in space and the point of gaze with high accuracy ( Tobii, 2019 ). To achieve the eye-tracking and documentation functions in the VR, several C# scripts were developed based on Tobii Pro Software Development Kit (SDK) and the application programming interface (API) in Unity. The system collects data on participants’ gaze data at a frequency of 90 Hz (Tobii 2019). The developed VR system automatically records the raw data and saves it into a CSV file.
+
+Due to the blinks, irregular saccades of human eyes, and the limitation of eye-tracking devices, the raw data cannot be directly used for cognitive load assessment. For example, the eye tracker will record the pupil size data as −1 for the eyeblink. CogDNA removes these outliers and uses the linear interpolate method ( Powell 1994 ) to generate new data. The Savitzky–Golay filter ( Savitzky and Golay 1964 ) is then applied to smooth the noise generated by the linear interpolation method. Finally, the processed pupil size, eye blink, and gaze tracking data can be used to determine the level and types of cognitive load.
+3.3. Cognitive load assessment module
+
+The next step is to establish an individual baseline for pupillary analysis due to the difference in individuals’ pupil diameters and response to brightness. To find the pupil-lumen relationship, we need to rule out the pupil light reflex ( Ellis 1981 ) in the pupil size data. According to the study by ( Mathôt 2018 ), the pupillary light reflex is significantly larger in magnitude than cognitively generated pupil change. Therefore, we built a method to eliminate the effect of luminance by calculating the RGB values of every pixel on the display. Literature ( Pierre et al. 2015 ) indicates that the brightness received by human eyes may be calculated based on the relative strength of the three basic hues - red, green, and blue - regardless of the source. We calculated the real-time brightness as follows:
+
+Luminance = 0.299 R 2 + 0.587 G 2 + 0.114 B 2 … Eq (1).
+
+Then CogDNA applies a pupil diameter light response formula to quantify the pupil diameter changes caused by the luminance changes from the displays. Before using the system, users should stay in a virtual scene transitioning from a completely black canvas to a bright canvas in a calm state. The system can record the individual pupil size as well as the corresponding lumens, then the data is fitted to an exponential function as Eq (2) (i.e., pupil-lumen relationship) where y is luminance-related pupil size and × is the luminance.
+
+y = a e bx + c … Eq (2).
+
+Using the above approach, CogDNA filters out light effects and generate the pupillary changes purely driven by cognitive load differences. The pupil size baseline in clam state is the average pupil size with lumen effects eliminated. The absolute amount of real-time cognitive load is the change in pupil size after subtracting the influence of lumen and pupil size baseline.
+
+As illustrated in Fig. 2 a , the × axis is the luminance, and the y axis is the pupil size. The red and blue lines are exponential functions of the pupil-lumen relationship for the left and right eyes, respectively. Fig. 2 b shows an example result of the luminance effect elimination. The blue and orange lines are the pupil size for the left eye and right eye. The green and red lines are the luminance-related pupil size for the left eye and right eye. The pink line is the luminance. The purple and brown lines are the absolute amount of cognitive load. This example indicates that our method can effectively eliminate the influence of luminance.
+
+    Download : Download high-res image (177KB)
+    Download : Download full-size image 
+
+Fig. 2 . Fitting of pupil luminance relationship function.
+
+The second step is to further classify the mental fatigue status. It is to inform our system if an increased load should be controlled or not. Pupilometer analysis helps obtain the absolute measure of cognitive load level, but it cannot identify the specific type and roles of the cognitive load. In other words, from the pupillary data, we can hardly tell if the increased cognitive load is driven by an effective process of wayfinding decision-making, or if it is caused by the additional cognitive burden related to the conversation of ineffective wayfinding UI (corresponding to the extraneous load). As a result, gaze focus and eye blink rate analysis are used to measure mental fatigue status as an indirect indicator of “alarming situation” for the increased cognitive load. Fig. 3 illustrates pupil size data for one participant. X axis is the experiment time and Y axis is the pupil size. The sudden changes in pupil size are the eye blinks.
+
+    Download : Download high-res image (189KB)
+    Download : Download full-size image 
+
+Fig. 3 . Eye blink rate analysis.
+3.4. Wayfinding UI adaptation module
+
+Finally, CogDNA uses individual cognitive load and mental fatigue measures to guide the dynamic customization of the wayfinding UI. Based on the LRS and CLT theories, a person’s cognitive load is driven by both the content of the information, as well as the format (or modality) of the presentation. As such, the CogDNA UI design considers two dimensions, including the wayfinding information content shown as LRS elements, and the representation methods, mainly including visuospatial and phonological. Considering the relevancy with emergency wayfinding tasks, CogDNA UI can be adjusted based on the combinations of the following content elements and formats: spatial information (i.e., landmarks, routes and maps), ambient information (e.g., toxic materials for situational awareness), and team communications (such as task instructions). The formats include phonological and visuospatial, with other sensory stimulations to be added in the future. Fig. 4 illustrates the design of CogDNA in the form of AR headset.
+
+    Download : Download high-res image (251KB)
+    Download : Download full-size image 
+
+Fig. 4 . CogDNA UI design.
+
+Critical information is highlighted to draw more attention from the AR user. As the example in Fig. 4 , the relative icons could be brightened based on task requirements and environmental hazards. Then, the format of the given information is adjusted based on the cognitive load measures (such as fading out the phonological information when the load is high). CogDNA recognizes the importance of preventing oversensitive reactions to cognitive load changes especially when the literature does not agree on an effective way of differentiating effective cognitive load (such as germane load for schema building) from the ineffective cognitive load (such as extraneous load due to inferior design of information presentation). As a result, secondary measures including fixation time and blink rate based on the neurophysiological evidence will be applied. Specifically, for a given level of cognitive load, if fixation is lower and blink rate is higher, it indicates a higher mental fatigue level, and thus stimulus will be dimed ( Debue and Van De Leemput, 2014 , Haq and Hasan, 2016 , Ikehara and Crosby, xxxx , Stern et al., 1994 ). In contrast, if fixation is higher and blink rate is lower, it may indicate an effective cognitive load (e.g., the load related to spatial decision-making), and thus the focused UI would not be dimed.
+4. Human subject experiment
+4.1. The wayfinding task and model
+
+To further test the effectiveness of the proposed CogDNA system in wayfinding, we performed a human-subject experiment. We simulated an emergency search and rescue task with a hypothetical AR headset in Virtual Reality (AR in VR) as the test case. The focus of this paper is to test a potential concept, instead of testing a deployable product or system. The VR simulation of AR was used to support a human-subject experiment for the purpose of proof of concept . AR systems based on see-through head-mounted displays (HMDs) provide immediate access to information during work in a context-sensitive manner ( Chen et al. 2015 ).
+
+However, due to the hazards of real-life evaluation, technical limitations of see-through HMDs, and that the technical content must be fitted to the needs of the users, context, tasks, and devices ( Burova et al. 2020 ), an easy, resource-efficient, and safe method to test content the interactions is required for AR system. The flexibility of VR simulations makes them a feasible and efficient approach to address AR development issues ( Alce et al. 2015 ) ( Ragan et al. 2009 ). In recent years, researchers have simulated AR in VR and successfully identified task relevant-parameters of AR system designs ( Lee et al. 2010 ) ( De Bonnefoy et al., 2008 , Memili, xxxx ) ( Steindecker et al. 2014 ). In comparison to AR, conducting an experiment using VR provides more stable environment, as AR is significantly influenced by the external environment, especially in terms of lighting conditions and scene size ( Lee et al. 2009 ) ( Lee et al. 2013 ) ( Meiβner et al. 2019 ). The VR simulation of the AR system ensures the safety of the experiment, the stability of the environment, the required task content, accurate data collection, and seamless interaction. ( Blattgerste et al. 2018 ). As a result, the VR simulation of AR is used in this study to test the proposed adaptive wayfinding system.
+
+The task was to search four objects, with a secondary task to identify as many structural damages as possible in the building. The damaged building was chosen because of its high relevancy in emergency wayfinding (Vilar et al. 2018). We modeled a four-story building, with each floor having one primary mission objective and sustaining distinct forms of damages in an immersive virtual environment. Four primary search targets are shown in Fig. 5 .
+
+    Download : Download high-res image (344KB)
+    Download : Download full-size image 
+
+Fig. 5 . Four primary objectives of the experiment.
+
+Fig. 6 illustrates the floorplan of the four-story building with two staircases on both sides connecting the first floor to the fourth floor. The first and third floors were unobstructed, while the second and fourth floors were blocked in the middle by obstructions. Therefore, the participants could not directly move from one side to the other side on these two floors. They needed to take a detour via the first or third floor, adding additional difficulty to the search task. Participants must follow the mission instructions to find the targets in the right sequence. Each search task was given a time limit of 3 min. There were a total of 14 damages in the building, as shown in Fig. 6 . The specific three types of damages, structural integrity issues, cracks, and deformations, were demonstrated in Fig. 7 .
+
+    Download : Download high-res image (408KB)
+    Download : Download full-size image 
+
+Fig. 6 . Floorplan of the building and distribution of all structural damages.
+
+    Download : Download high-res image (380KB)
+    Download : Download full-size image 
+
+Fig. 7 . Three types of structural damages.
+4.2. Experiment procedure
+
+The experiment followed a within-subject experimental design ( Charness et al. 2012 ) with three conditions, namely Control, Self-Adaptation, and Auto-Adaptation. In the control condition, none of the UI elements could be changed during the experiment. In the self-Adaptation condition, participants could change the UI elements at any time during the experiment via gesture controls. In the Auto-Adaptation condition, the CogDNA system adjusted the UI elements and formats based on the real-time cognitive load and mental fatigue measures. We adhered to conventional procedures ( Mathôt, 2018 , Moresi et al., 2008 ) to ensure a steady ambient luminance throughout the experiment. As a result, only luminance changes from the VR display altered the pupillary light response of the subjects ( Mathôt 2018 ). Due to the fact that all studies were conducted at the same site, the lighting conditions were uniform across all groups. Consequently, the luminance change from the VR displays was the only component that influenced the pupillary light response of the participants.
+
+The layout of the mission objectives in the building is shown in Fig. 8 . The red points are the mission targets of each floor, and the blue squares refer to the starting point of each condition. To eliminate the learning effect due to the within-subject experimental design, the location of each target varied across different conditions. To make task completion durations comparable, we set the length of the optimal path to be the same for each condition.
+
+    Download : Download high-res image (465KB)
+    Download : Download full-size image 
+
+Fig. 8 . Layout of primary objectives under each condition.
+
+The experiment consisted of nine sessions: (1) calibration; (2) structural damage identification ; (3) training; (4) wayfinding task under shuffled condition 1 (randomly selected from the three conditions); (5) questionnaires about shuffled condition 1; (6) wayfinding task under shuffled condition 2 (randomly selected from the three conditions); (7) questionnaires about shuffled condition 2; (8) wayfinding task under shuffled condition 3 (randomly selected from the three conditions); (9) questionnaires about shuffled condition 3. In the beginning, participants were asked to sign an informed consent form and fill out a background questionnaire about their age, gender, and VR experience. As demonstrated in the system design, a calibration session was executed before the experiment. Each participant should stay in a calibration scene with a virtual canvas with brightness changes as the following procedure: 5- sec showing the darkest color, 10- sec transitioning from the darkest to the brightest color, 5- sec showing the brightest color, 10- sec transitioning from the brightest to the darkest color, and finally, 5- sec showing the darkest color again. The system recorded the pupil size changes as well as corresponding lumens for each participant. The data was then used to fit an exponential function to quantify the pupil-lumen relationship. Each participant had a personalized pupil-lumen formula as well as an individual pupil-size baseline.
+
+A training session was provided in a virtual scenario. The training session was designed to familiarize participants with the VR wayfinding system and interactions within the virtual environment. Each participant was instructed to be acquainted with the VR devices (VR headset and VR controller) and the virtual environment. Then, participants were given instructions about how to use the VR controller to navigate through the building and find the targets. Four functions were provided using the controller: a) arm swing navigation; b) flashlight; c) infrared indicator; and d) UI self-adaptation button. The role of the flashlight was to help participants see objects clearly in the dark environment, and the infrared indicator was used to mark the located targets and the structural damages. Besides, participants could navigate in the virtual scene by swinging their arms as they were walking in the real world. Finally, the VR controller was also designed to adjust the UI elements and formats. The participant could reach any UI panel with the controller, and then use the top button to toggle between the element's various display formats.
+
+After the training session, participants were asked to perform the wayfinding task based on one UI model in the virtual building. As for the starting point, changing the specific starting point locations was also designed to reduce the learning effects, as starting at the same location would reinforce spatial memory of the subjects. As shown in Fig. 8 , the first and third starting points were are the opposite location (so effect of spatial memory was lowers), and the second starting point was on a different level. In this way, participants could not rely on their memory but had to re-plan their paths for the given tasks. To eliminate the influence of different starting points and to reduce the potential impact of different starting points, we carefully designed the model to ensure that participants were exposed to a similar situation for different start points, such as similar level of visibility and light conditions. The initial lighting conditions of all starting points are completely dark, and the number of floors was displayed in the upper left corner of the user interface. Participants were also reminded of starting floor number of the following experiment before it starts. After completing each session, participants were given questionnaires (NASA TLX questionnaire ( Hart and Staveland 1988 ), Situational Awareness Rating Technique (SART) survey ( Taylor 2017 )) to provide comments and feedback. Then participants were asked to perform the task based on another two UI models and provide feedback based on questionnaires. In order to further eliminate the learning effect, we shuffled the sequence order of the conditions in all sessions. The entire experiment took approximately 60 min for each participant. Participants were incentivized with a $30 gift card to finish the experiment.
+4.3. Performance and function measures
+
+The controllers and trackers were used to track navigation data , eye-tracking data, the number of located targets, and task completion time. Task performance and human function were evaluated by four metrics: tasks accomplished per minute , damages identified per minute , average cognitive load , and gaze velocity entropy .
+
+As discussed earlier, Cognitive load was measured by the pupillary size with the effect of brightness removed. We also added gaze velocity entropy as a secondary measure in this study. Previous studies have reported that anxiety and high cognitive load are direct causes of a higher gaze entropy ( Allsop and Gray, 2014 , Shiferaw et al., 2019 , van Dijk et al., 2011 ). Higher entropy values can be estimated as more chaos or irregularity in signals. The Sample Entropy (SampEn Index) was used in this study to quantify gaze movement entropy as an indicator of the extraneous cognitive load ( Richman and Moorman 2000 ). The SampEn is independent of the length of the records and hence is a predominant index for human motion or gesture analysis ( Yentes et al. 2013 ). We recorded the gaze velocity data in all directions (X,Y,Z) and performed the Sample Entropy calculation. First, we calculated the velocity according to the position change of each frame:
+
+V t = P t - P t - 1 T t - T t - 1 …Eq (3).
+
+It should be noted that the actual velocity measured by m / s needed to be converted from m / f r a m e , as the raw data was collected at the frequency of 90  Hz , or 90 frames/s . Then, for a given embedding dimension m , tolerance r , and the number of data points N , SampEn was quantified as the negative natural logarithm of the probability. If two sets of simultaneous data points of length m had distance < r , then two sets of simultaneous data points of length m + 1 also had distance < r . Assume there is a time-series data set of length N = { x 1 , x 2 , x 3 , ⋯ , x N } with a constant time interval τ . The template vector of length is defined as m , such that X m i = { x i , x i + 1 , x i + 2 , ⋯ , x i + m - 1 } and the distance function d [ X m i , X m j ] ( i ≠ j ) is to be the Chebyshev distance ( Cantrell 2000 ). The sample entropy can be defined as follows:
+
+SampEn = - ln A B …Eq (4).
+
+Where.
+
+A = n u m b e r o f t e m p l a t e v e c t o r p a i r s h a v i n g d [ X m + 1 i , X m + 1 j ] < r …Eq (5).
+
+B = n u m b e r o f t e m p l a t e v e c t o r p a i r s h a v i n g d [ X m i , X m j ] < r …Eq (6).
+
+In addition, we used two questionnaires (NASA TLX questionnaire ( Hart and Staveland 1988 ), and Situational Awareness Rating Technique (SART) survey ( Taylor 2017 )) to evaluate participants’ self-reported cognitive load and situational awareness.
+5. Results
+5.1. Participants
+
+We recruited a total of 31 firefighters for the experiment (all males, average age = 35). All participants reported that they did not have any known motor disorders or a history of neurological abnormalities. The study was approved by the ethical approval of the ethics committee at the University of Florida (IRB 201901413). All subjects were required to give their written informed consent before attending the experiment. Fig. 9 shows the participants in the experiment.
+
+    Download : Download high-res image (556KB)
+    Download : Download full-size image 
+
+Fig. 9 . Participants in the experiment.
+5.2. Task performance
+
+To capture performance differences under the three conditions in the simulated search and rescue task, we used the aforementioned task performance metrics. We analyzed the performance data from each trial of all subjects and performed a Mann–Whitney U test across the three conditions.
+
+As shown in Fig. 10 , the results of both metrics simultaneously indicate that the auto-adaptation condition has significantly outperformed the control condition and the self-adaptation condition. Specifically, the number of tasks accomplished per minute (i.e., located targets per minute) under the proposed auto-adaptation condition was significantly higher than the control condition (conventional static UI) (p = 0.0408), and was significantly higher than the self-adaptation condition (UI adjusted by the participant) (p = 0.0014). As for the number of identified damage per minute, the proposed auto-adaptation condition was also significantly higher than the control condition (conventional static UI) (p = 0.0489) and was significantly higher than the self-adaptation condition (UI adjusted by the participant) (p < 0.001).
+
+    Download : Download high-res image (169KB)
+    Download : Download full-size image 
+
+Fig. 10 . Mann–Whitney U test of task performance.
+5.3. Cognitive performance
+
+We analyzed the average cognitive load with the processed pupilometer data, as Fig. 11 .
+
+    Download : Download high-res image (133KB)
+    Download : Download full-size image 
+
+Fig. 11 . Mann–Whitney U test of the average cognitive load.
+
+As shown in Fig. 11 , we found that the control condition had a higher cognitive load than the self-adaptation condition (p < 0.001) and the auto-adaptation condition (p < 0.001). However, there was no significant difference between the self-adaptation condition and the auto-adaptation condition (p = 0.765). To further analyze the cognitive status difference in across these conditions, another indicator, gaze velocity entropy, was used as the secondary measure of cognitive load, as shown in Fig. 12 .
+
+    Download : Download high-res image (167KB)
+    Download : Download full-size image 
+
+Fig. 12 . Mann–Whitney U test of the gaze velocity entropy in X, Y, and Z axis.
+
+As shown in Fig. 12 , we observed that the sample entropy measures of gaze velocity in the X, Y, and Z directions were significantly higher in the self-adaption condition than in the control condition and the auto-adaption condition. Specifically, the gaze entropy under the self-adaptation condition was significantly higher than the control condition (p < 0.001), and higher than the auto-adaptation condition (p < 0.001) in the X direction. The gaze entropy under the self-adaptation condition was also significantly higher than the control condition (p < 0.001), and higher than the auto-adaptation condition (p < 0.001) in the Y direction. Similarly, the gaze entropy under the self-adaptation condition was also significantly higher than the control condition (p < 0.001), and higher than the auto-adaptation condition (p < 0.001) in the Z direction. The cause might be that, under the self-adaption condition, participants must adjust the UI elements by themselves, resulting in unnecessary distraction while performing the task and therefore generating additional cognitive load and anxiety. We did not observe any difference between the control condition and the auto-adaptation condition in any direction.
+5.4. Subjective assessments
+
+In addition to task and cognitive performance, we also analyzed the self-reported perception on task workload and situational awareness. The Mann–Whitney U test was performed to test whether there was any significant difference across the three conditions. Results are shown in Fig. 13 .
+
+    Download : Download high-res image (173KB)
+    Download : Download full-size image 
+
+Fig. 13 . Mann–Whitney U test of the NASA TLX and SART results.
+
+As illustrated in Fig. 13 , all six sub-scales NASA TLX questionnaire ( Hart and Staveland 1988 ) were used to evaluate the workload levels from different perspectives. The subject’s reported task workload was calculated as the sum of all six sub-scales. The results revealed that the self-adaptation condition has a significantly higher workload than the auto-adaptation condition (p = 0.022). There was no significant difference between the control condition and the auto-adaptation condition (p = 0.179). We did not observe any difference in reported situational awareness levels, which were accessed by the Situational Awareness Rating Technique (SART) survey ( Taylor 2017 ). This may be because for well trained professional responders, the simulated search environment was considered normal and without any difficulty for maintaining the needed situational awareness.
+
+The subject assessments showed that participating firefighters reported a lower cognitive load using the proposed system than having an adjustable wayfinding system. It indicated the needs for having an automated mechanism for UI adjustments. The participants did not report any difference between the proposed auto-adaptation system and the control condition. It may have suggested that well-trained professional responders were well adapted to the conventional static UI and did not report any subjective difference. The cognitive load was indeed difference between the proposed auto-adaptation condition and the control condition using pupillometer data, indicating a potential disagreement between subjective perception and objective measures.
+6. Discussion and conclusions
+
+This study proposes and tests a real-time cognition-driven adaptive wayfinding system for emergency wayfinding called CogDNA. In our experiment, it is referred to as “ auto-adaptation method ”. The dynamic cognitive load is monitored based on the streaming data from integrated neurophysiological sensors, which then determines and enables the adjustment of the wayfinding UI elements and presentation methods in real-time. Individualized cognitive load measurement models are developed to capture the distinctive cognitive characteristics of individuals. This is considered the third information overload control method in addition to 1) generally optimized UI/UX designs (which is called “ conventional method ”); and 2) interactive UI/UX (which is called “ self-adaptation method ”) as presented in existing literature. A human-subject experiment was performed with local firefighters to compare the proposed auto-adaptation method with the conventional method and the self-adaptation method in a simulated search and hazard identification task.
+
+The results of the human-subject experiment have shown several benefits of the proposed third way “auto-adaptation method”. First, it was shown that the proposed auto-adaptation method could significantly improve emergency wayfinding task performance. The performance data indicated that the proposed auto-adaptation method led to better performance than both the control condition and the self-adaptation method in all performance metrics, including tasks accomplished per minute and damages identified per minute, see Fig. 10 again. For tasks accomplished per minute, the auto-adaptation condition was 21.4 % higher than the control condition and 41.7 % higher than self-adaptation condition. For damages identified per minute, auto-adaptation condition was 42.5 % higher than the control condition and 65.8 % higher than self-adaptation condition. This may have been attributed to the benefits of the auto-adaptation method that could automatically dimed UI elements and eased formats at critical moments of cognitive load, leading to a healthier level of cognitive load.
+
+Second, the cognitive analysis found that both the self-adaptation method and the auto-adaptation method showed lower cognitive load than the control condition, as shown in Fig. 11 . Specifically, cognitive load of self-adaptation method was 16.9 % lower than that of the conventional method, and cognitive load of auto-adaptation method was 14.1 % lower than that of the conventional method. However, there was no significant difference between the self-adaptation method and the auto-adaptation method in terms of cognitive load. Another indicator, gaze velocity entropy, was employed to indicate extraneous cognitive load. We observed that the gaze entropy measures in the X, Y, and Z directions were significantly higher in the self-adaption condition than in the control condition or in the auto-adaption condition, as shown Fig. 12 . Specifically, gaze entropy of the self-adaptation condition was 31.3 % higher than that of the control condition and 28.6 % higher than that of the auto-adaption condition for an average of X, Y, and Z directions. It may suggest that under the condition of self-adaption, participants must adjust the UI interface elements by themselves, causing additional cognitive load while performing the task and ultimately an increased level of anxiety.
+
+Last but not least, subjective assessments also confirmed various benefits of the proposed auto-adaption method. The results of the questionnaire indicated that the auto-adaptation condition not only showed a better performance measure by the performance score, but also reduced the cognitive load during the wayfinding task, as shown in Fig. 13 . Specifically, the reported mental load of the auto-adaptation method was 8.26 % lower than that of the self-adaption condition. We did not observe any difference across the three conditions in terms of situational awareness though. A possible explanation is that the scenario and task for the experiment were simple enough to accomplish. All participants were capable of handling all information and thus had an excellent situational awareness of the mission targets.
+
+The main contribution of this study is that it has preliminarily shown that an adaptive wayfinding system (i.e., the auto-adaptation method in our experiment) is potentially more effective than static user interface (UI) designs (i.e., the conventional method in our experiment) or interactive UI methods (i.e., the self-adaptation method in our experiment) for front-line firefighters. The adaptive wayfinding system does not allow front-line firefighters to manually adjust the UI elements, which may seem to be a disadvantage at the first glance. But the performance and human assessment results all indicated a better result with this method, with a system that adjusts itself based on the external and comprehensive cognitive load measures via readily available sensors. With the advances in sensing and visualization technologies, novel wayfinding assistive systems are becoming increasingly accessible such as the AR-based wayfinding guidance that provides immersive information about the space and environments( Truong-Allié et al. 2021 ) ( Wenk et al. 2019 ). For emergency wayfinding where responders need to process a large amount of information while performing search and hazard identification tasks, overdesigned wayfinding UI and excessive information not directly relevant to the tasks can contribute to confusion or disorientation among responders. Even though users can self-adjust UI panel settings for AR, they may be unaware of cognitive overload during the task ( Bolisani et al. 2018 ). The additional UI operation tasks during the mission may incur additional cognitive load needed for system interaction but not directly contribute to the task. The experiment results with real world firefighters may provide potential feasibility of a seemingly bold strategy (by not allowing the user to operate the information system), which is expected to encourages scholars to explore more in this new area.
+
+Several limitations will be addressed in the future. First, it was found that in our experiment, there was no significant difference in cognitive load between the auto-adaption condition and the self-adaption condition. The reason could be the duration and complexity of the task were not significant enough to trigger an excessive level of cognitive overload. It is worth a future investigation into the performance of the proposed method in extremely difficult tasks. The second challenge we identified in our experiment was the difficulty to quantify situational awareness. Following previous studies, such as ( Endsley (2000 )), we used The Situation Awareness Global Assessment Technique (SAGAT) to measure situational awareness, during the suspension of the task, probes and queries are used to ascertain levels of SA. However, these measurements may simply reflect confidence in SA and not actual SA ( Cooper et al. 2014 ). Observer ratings may also indicate only the behavior of participants and not the internal processing of information ( Pritchett et al. 2000 ). New methods need to be established to quantify the performance of situational awareness, as it is often related to better task accomplishment ( Ko and Kim 2017 ) ( Shiwakoti et al. 2019 ).
+7. Data availability
+
+All data used in this paper can be found at: https://www.dropbox.com/scl/fo/ux8q0fpg7au6onu0sn0y0/h?dl=0&rlkey = 2ouyxh5peagt3tpkmy07tzj47.
+CRediT authorship contribution statement
+
+Tianyu Zhou: Writing – original draft, Investigation, Formal analysis. Pengxiang Xia: Visualization, Investigation. Qi Zhu: Visualization, Investigation. Jing Du: Writing – review & editing, Methodology, Conceptualization.
+Declaration of Competing Interest
+
+The authors declare that they have no known competing financial interests or personal relationships that could have appeared to influence the work reported in this paper.
+Acknowledgements
+
+This material is supported by the National Institute of Standards and Technology (NIST) under grant 60NANB18D152. Any opinions, findings, conclusions, or recommendations expressed in this article are those of the authors and do not reflect the views of the NIST.
+Data availability
+
+Data will be made available on request.
+References
+
+    Alce et al., 2015
+    G. Alce, K. Hermodsson, M. Wallergård, L. Thern, T. Hadzovic
+    A prototyping method to simulate wearable augmented reality interaction in a virtual environment-a pilot study
+    International Journal of Virtual Worlds and Human Computer Interaction, 3 (2015), pp. 18-28
+    Google Scholar
+    Allsop and Gray, 2014
+    J. Allsop, R. Gray
+    Flying under pressure: Effects of anxiety on attention and gaze behavior in aviation
+    J. Appl. Res. Mem. Cogn., 3 (2) (2014), pp. 63-71
+    View PDF View article CrossRef View in Scopus Google Scholar
+    Andò et al., 2018
+    B. Andò, S. Baglio, V. Marletta, R. Crispino, A. Pistorio
+    A measurement strategy to assess the optimal design of an RFID-based navigation aid
+    IEEE Trans. Instrum. Meas., 68 (7) (2018), pp. 2356-2362
+    Google Scholar
+    Apelt et al., 2007
+    R. Apelt, J. Crawford, D.J. Hogan
+    Wayfinding design guidelines
+    CRC for Construction Innovation (2007)
+    Google Scholar
+    Appleyard, 1970
+    D. Appleyard
+    Styles and methods of structuring a city
+    Environ. Behav., 2 (1) (1970), pp. 100-117
+    CrossRef View in Scopus Google Scholar
+    Arditi et al., 1999
+    A. Arditi, E. Holmes, P. Reedijk, R. Whitehouse
+    Interactive tactile maps, visual disability, and accessibility of building interiors
+    Vis. Impair. Res., 1 (1) (1999), pp. 11-21
+    CrossRef View in Scopus Google Scholar
+    Baddeley, 2012
+    A. Baddeley
+    Working memory: theories, models, and controversies
+    Annu. Rev. Psychol., 63 (2012), pp. 1-29
+    CrossRef View in Scopus Google Scholar
+    Beeharee and Steed, xxxx
+    Beeharee, A. K., and Steed, A. “A natural wayfinding exploiting photos in pedestrian navigation systems.” Proc., Proceedings of the 8th conference on Human-computer interaction with mobile devices and services , ACM, 81-88.
+    Google Scholar
+    Blattgerste et al., xxxx
+    Blattgerste, J., Renner, P., and Pfeiffer, T. “Advantages of eye-gaze over head-gaze-based selection in virtual and augmented reality under varying field of views.” Proc., Proceedings of the Workshop on Communication by Gaze Interaction , 1-9.
+    Google Scholar
+    Bolisani et al., 2018
+    E. Bolisani, E. Scarso, A. Padova
+    Cognitive overload in organizational knowledge management: Case study research
+    Knowl. Process. Manag., 25 (4) (2018), pp. 223-231
+    CrossRef View in Scopus Google Scholar
+    Brock, 2013
+    A.M. Brock
+    Touch the map!: designing interactive maps for visually impaired people
+    ACM SIGACCESS Accessibility and Computing, 105 (2013), pp. 9-14
+    CrossRef Google Scholar
+    Bunch and Lloyd, 2006
+    R.L. Bunch, R.E. Lloyd
+    The cognitive load of geographic information
+    Prof. Geogr., 58 (2) (2006), pp. 209-220
+    CrossRef View in Scopus Google Scholar
+    Burova et al., 2020
+    Burova, A., Mäkelä, J., Hakulinen, J., Keskinen, T., Heinonen, H., Siltanen, S., and Turunen, M. “Utilizing VR and gaze tracking to develop AR solutions for industrial maintenance.” Proc., Proceedings of the 2020 CHI Conference on Human Factors in Computing Systems , 1-13.
+    Google Scholar
+    Caduff and Timpf, 2008
+    D. Caduff, S. Timpf
+    On the assessment of landmark salience for human navigation
+    Cogn. Process., 9 (4) (2008), pp. 249-267
+    CrossRef View in Scopus Google Scholar
+    Calori and Vanden-Eynden, 2015
+    C. Calori, D. Vanden-Eynden
+    Signage and wayfinding design: a complete guide to creating environmental graphic design systems
+    John Wiley & Sons (2015)
+    Google Scholar
+    Cantrell, 2000
+    C.D. Cantrell
+    Modern mathematical methods for physicists and engineers
+    Cambridge University Press (2000)
+    Google Scholar
+    Chang and Wang, 2010
+    Y.-J. Chang, T.-Y. Wang
+    Comparing picture and video prompting in autonomous indoor wayfinding for individuals with cognitive impairments
+    Pers. Ubiquit. Comput., 14 (8) (2010), pp. 737-747
+    CrossRef View in Scopus Google Scholar
+    Charness et al., 2012
+    G. Charness, U. Gneezy, M.A. Kuhn
+    Experimental methods: Between-subject and within-subject design
+    J. Econ. Behav. Organ., 81 (1) (2012), pp. 1-8
+    View PDF View article View in Scopus Google Scholar
+    Chen et al., 2015
+    X. Chen, L. Xu, Y. Wang, H. Wang, F. Wang, X. Zeng, Q. Wang, J. Egger
+    Development of a surgical navigation system based on augmented reality using an optical see-through head-mounted display
+    J. Biomed. Inform., 55 (2015), pp. 124-131
+    View PDF View article Google Scholar
+    Chiew and Braver, 2013
+    K.S. Chiew, T.S. Braver
+    Temporal dynamics of motivation-cognitive control interactions revealed by high-resolution pupillometry
+    Front. Psychol., 4 (2013), p. 15
+    Google Scholar
+    Chiew and Braver, 2014
+    K.S. Chiew, T.S. Braver
+    Dissociable influences of reward motivation and positive emotion on cognitive control
+    Cogn. Affect. Behav. Neurosci., 14 (2) (2014), pp. 509-529
+    CrossRef View in Scopus Google Scholar
+    Chrastil, 2013
+    E.R. Chrastil
+    Neural evidence supports a novel framework for spatial navigation
+    Psychon. Bull. Rev., 20 (2) (2013), pp. 208-227
+    CrossRef View in Scopus Google Scholar
+    Cooper et al., 2014
+    S. Cooper, J. Porter, L. Peach
+    Measuring situation awareness in emergency settings: a systematic review of tools and outcomes
+    Open access emergency medicine: OAEM, 6 (2014), p. 1
+    Google Scholar
+    Croucher et al., 2016
+    Croucher, C., Powell, V., Molnar, A., and Powell, W. “Visual elements influence on navigation in virtual environments.” Proc., 11th International Conference on Disability, Virtual Reality and Associated Technologies: ICDVRAT 2016 , The University of Reading.
+    Google Scholar
+    De Bonnefoy et al., 2008
+    De Bonnefoy, N., Dubois, E., Torguet, P., and Jessel, J.-P. “Virtual reality simulation for prototyping augmented reality.” Proc., 2008 International Symposium on Ubiquitous Virtual Reality , IEEE, 55-58.
+    Google Scholar
+    Debue and Van De Leemput, 2014
+    N. Debue, C. Van De Leemput
+    What does germane load mean? An empirical contribution to the cognitive load theory
+    Front. Psychol., 5 (2014), p. 1099
+    Google Scholar
+    Devlin and Bernstein, 1995
+    A.S. Devlin, J. Bernstein
+    Interactive wayfinding: Use of cues by men and women
+    J. Environ. Psychol., 15 (1) (1995), pp. 23-38
+    View PDF View article View in Scopus Google Scholar
+    Devlin and Bernstein, 1997
+    A.S. Devlin, J. Bernstein
+    Interactive way-finding: Map style and effectiveness
+    J. Environ. Psychol., 17 (2) (1997), pp. 99-110
+    View PDF View article View in Scopus Google Scholar
+    Du et al., 2020
+    J. Du, Q. Zhu, Y. Shi, Q. Wang, Y. Lin, D. Zhao
+    Cognition digital twins for personalized information systems of smart cities: Proof of concept
+    J. Manag. Eng., 36 (2) (2020), p. 04019052
+    View in Scopus Google Scholar
+    Duchowski et al., 2018
+    Duchowski, A. T., Krejtz, K., Krejtz, I., Biele, C., Niedzielska, A., Kiefer, P., Raubal, M., and Giannopoulos, I. “The index of pupillary activity: Measuring cognitive load vis-à-vis task difficulty with pupil oscillation.” Proc., Proceedings of the 2018 CHI conference on human factors in computing systems , 1-13.
+    Google Scholar
+    Dziekan and Dicke-Ogenia, 2010
+    K. Dziekan, M. Dicke-Ogenia
+    Reducing uncertainty and supporting cognitive maps in travel information for public transport
+    World Review of Intermodal Transportation Research, 3 (1–2) (2010), pp. 73-90
+    CrossRef View in Scopus Google Scholar
+    Eckstein et al., 2017
+    M.K. Eckstein, B. Guerra-Carrillo, A.T.M. Singley, S.A. Bunge
+    Beyond eye gaze: What else can eyetracking reveal about cognition and cognitive development?
+    Dev. Cogn. Neurosci., 25 (2017), pp. 69-91
+    View PDF View article View in Scopus Google Scholar
+    Ellis, 1981
+    C. Ellis
+    The pupillary light reflex in normal subjects
+    Br. J. Ophthalmol., 65 (11) (1981), pp. 754-759
+    CrossRef View in Scopus Google Scholar
+    Endsley, 2000
+    M.R. Endsley
+    Theoretical underpinnings
+    Situation Aware Anal Measur, 1 (2000)
+    Google Scholar
+    Eppler and Mengis, 2004
+    M.J. Eppler, J. Mengis
+    The concept of information overload: A review of literature from organization science, accounting, marketing, MIS, and related disciplines
+    Inf. Soc., 20 (5) (2004), pp. 325-344
+    View in Scopus Google Scholar
+    FEMA, 2006
+    FEMA (2006). “National Urban Search & Resecue Response System: Rescue Field Operations Guide.”.
+    Google Scholar
+    Findlater and McGrenere, 2010
+    L. Findlater, J. McGrenere
+    Beyond performance: Feature awareness in personalized interfaces
+    Int. J. Hum Comput Stud., 68 (3) (2010), pp. 121-137
+    View PDF View article View in Scopus Google Scholar
+    Foltz, 1998
+    M.A. Foltz
+    Designing navigable information spaces
+    Massachusetts Institute of Technology, Dept. of Electrical Engineering and Computer Science (1998)
+    Google Scholar
+    Foltz and Davis, 1999
+    Foltz, M. A., and Davis, R. (1999). “Design principles for navigable information spaces.” Summarizes material found in Designing Navigable Information Spaces .
+    Google Scholar
+    Foltz and Dumais, 1992
+    P.W. Foltz, S.T. Dumais
+    Personalized information delivery: An analysis of information filtering methods
+    Commun. ACM, 35 (12) (1992), pp. 51-60
+    View in Scopus Google Scholar
+    Gamecho et al., 2015
+    B. Gamecho, R. Minón, A. Aizpurua, I. Cearreta, M. Arrue, N. Garay-Vitoria, J. Abascal
+    Automatic generation of tailored accessible user interfaces for ubiquitous services
+    IEEE Trans. Hum.-Mach. Syst., 45 (5) (2015), pp. 612-623
+    View in Scopus Google Scholar
+    Gao et al., 2005
+    Gao, T., Greenspan, D., Welsh, M., Juang, R. R., and Alm, A. “Vital signs monitoring and patient tracking over a wireless network.” Proc., Engineering in Medicine and Biology Society, 2005. IEEE-EMBS 2005. 27th Annual International Conference of the , IEEE, 102-105.
+    Google Scholar
+    Gardony et al., 2021
+    A.L. Gardony, S.B. Martis, H.A. Taylor, T.T. Brunyé
+    Interaction strategies for effective augmented reality geo-visualization: Insights from spatial cognition
+    Human-Computer Interaction, 36 (2) (2021), pp. 107-149
+    CrossRef View in Scopus Google Scholar
+    Gavas et al., 2016
+    Gavas, R., Das, R., Das, P., Chatterjee, D., and Sinha, A. “Inactive-state recognition from EEG signals and its application in cognitive load computation.” Proc., 2016 IEEE International Conference on Systems, Man, and Cybernetics (SMC) , IEEE, 003606-003611.
+    Google Scholar
+    Gavas et al., 2017
+    Gavas, R., Chatterjee, D., and Sinha, A. “Estimation of cognitive load based on the pupil size dilation.” Proc., 2017 IEEE International Conference on Systems, Man, and Cybernetics (SMC) , IEEE, 1499-1504.
+    Google Scholar
+    Gibson, 2009
+    D. Gibson
+    The wayfinding handbook: Information design for public places
+    Princeton Architectural Press (2009)
+    Google Scholar
+    Ginige et al., 2014
+    A. Ginige, L. Paolino, M. Romano, M. Sebillo, G. Tortora, G. Vitiello
+    Information sharing among disaster responders-an interactive spreadsheet-based collaboration approach
+    Computer Supported Cooperative Work (CSCW), 23 (4–6) (2014), pp. 547-583
+    CrossRef View in Scopus Google Scholar
+    Glastra-van Loon, 2017
+    Glastra-van Loon, P. (2017). “Defining wayfinding design principles for the new Amsterdam Airport Schiphol pier & terminal, through conceptual design as a case study.”.
+    Google Scholar
+    Goetz and Zipf, 2010
+    Goetz, M., and Zipf, A. (2010). “Open issues in bringing 3D to location based services (LBS)-A review focusing on 3D data streaming and 3D indoor navigation.” Remote Sensing and Spatial Information Sciences , 38-34.
+    Google Scholar
+    Grandi et al., 2019
+    Grandi, J. G., Ogren, M., and Kopper, R. “An approach to designing next generation user interfaces for public-safety organizations.” Proc., 2019 IEEE Conference on Virtual Reality and 3D User Interfaces (VR) , IEEE, 944-945.
+    Google Scholar
+    Haapalainen etal., xxxx
+    Haapalainen, E., Kim, S., Forlizzi, J. F., and Dey, A. K. “Psycho-physiological measures for assessing cognitive load.” Proc., Proceedings of the 12th ACM international conference on Ubiquitous computing , ACM, 301-310.
+    Google Scholar
+    Haq and Hasan, 2016
+    Haq, Z. A., and Hasan, Z. “Eye-blink rate detection for fatigue determination.” Proc., 2016 1st India International Conference on Information Processing (IICIP) , IEEE, 1-5.
+    Google Scholar
+    Hart and Staveland, 1988
+    S.G. Hart, L.E. Staveland
+    Development of NASA-TLX (Task Load Index): Results of empirical and theoretical research
+    Adv. Psychol. , Elsevier (1988), pp. 139-183
+    View PDF View article Google Scholar
+    Havik et al., 2011
+    E.M. Havik, A.C. Kooijman, F.J. Steyvers
+    The effectiveness of verbal information provided by electronic travel aids for visually impaired persons
+    Journal of Visual Impairment & Blindness, 105 (10) (2011), p. 624
+    CrossRef View in Scopus Google Scholar
+    Holscher, xxxx
+    Holscher, C., Buchner, S. J., Brosamle, M., Meilinger, T., and Strube, G. “Signs and maps–Cognitive economy in the use of external aids for indoor navigation.” Proc., Proceedings of the Cognitive Science Society .
+    Google Scholar
+    Hoppe et al., 2018
+    D. Hoppe, S. Helfmann, C.A. Rothkopf
+    Humans quickly learn to blink strategically in response to environmental task demands
+    Proc. Natl. Acad. Sci., 115 (9) (2018), pp. 2246-2251
+    CrossRef View in Scopus Google Scholar
+    Huang et al., 2017
+    Huang, H., Lin, N.-C., Barrett, L., Springer, D., Wang, H.-C., Pomplun, M., and Yu, L.-F. (2017). “Way to Go! Automatic Optimization of Wayfinding Design.” arXiv preprint arXiv:1706.08891 .
+    Google Scholar
+    Huang et al., 2020
+    B.-C. Huang, J. Hsu, E.-T.-H. Chu, H.-M. Wu
+    Arbin: Augmented reality based indoor navigation system
+    Sensors, 20 (20) (2020), p. 5890
+    CrossRef Google Scholar
+    Huang et al., 2012
+    H. Huang, M. Schmidt, G. Gartner
+    Spatial knowledge acquisition with mobile maps, augmented reality and voice in the context of GPS-based pedestrian navigation: Results from a field test
+    Cartogr. Geogr. Inf. Sci., 39 (2) (2012), pp. 107-116
+    CrossRef View in Scopus Google Scholar
+    Ikehara and Crosby, xxxx
+    Ikehara, C. S., and Crosby, M. E. “Assessing cognitive load with physiological sensors.” Proc., Proceedings of the 38th annual hawaii international conference on system sciences , IEEE, 295a-295a.
+    Google Scholar
+    Joshi et al., 2020
+    Joshi, R., Hiwale, A., Birajdar, S., and Gound, R. (2020). “Indoor Navigation with Augmented Reality.” ICCCE 2019 , Springer, 159-165.
+    Google Scholar
+    Kalyuga, 2009
+    S. Kalyuga
+    Cognitive load theory
+    Managing Cognitive Load in Adaptive Multimedia Learning , IGI Global (2009), pp. 34-57
+    CrossRef Google Scholar
+    Karabtcev et al., 2019
+    Karabtcev, S., Khorosheva, T., and Kapkov, N. “BLE beacon interaction module and mobile application in the indoor-navigation system.” Proc., 2019 International Science and Technology Conference“ EastConf” , IEEE, 1-6.
+    Google Scholar
+    Kasprzak et al., 2013
+    Kasprzak, S., Komninos, A., and Barrie, P. “Feature-based indoor navigation using augmented reality.” Proc., 2013 9th international conference on intelligent environments , IEEE, 100-107.
+    Google Scholar
+    Kiefer et al., xxxx
+    Kiefer, P., Giannopoulos, I., Duchowski, A., and Raubal, M. “Measuring cognitive load for map tasks through pupil diameter.” Proc., The Annual International Conference on Geographic Information Science , Springer, 323-337.
+    Google Scholar
+    Killeen, xxxx
+    Killeen, J. P., Chan, T. C., Buono, C., Griswold, W. G., and Lenert, L. A. “A wireless first responder handheld device for rapid triage, patient assessment and documentation during mass casualty incidents.” Proc., AMIA annual symposium proceedings , American Medical Informatics Association, 429.
+    Google Scholar
+    Kim and Bock, 2021
+    K. Kim, O. Bock
+    Acquisition of landmark, route, and survey knowledge in a wayfinding task: in stages or in parallel?
+    Psychological Research, 85 (5) (2021), pp. 2098-2106
+    CrossRef View in Scopus Google Scholar
+    Kim et al., 2015
+    M.J. Kim, X. Wang, S. Han, Y. Wang
+    Implementing an augmented reality-enabled wayfinding system through studying user experience and requirements in complex environments
+    Visualization in Engineering, 3 (1) (2015), pp. 1-12
+    Google Scholar
+    Klatzky et al., 2006
+    R.L. Klatzky, J.R. Marston, N.A. Giudice, R.G. Golledge, J.M. Loomis
+    Cognitive load of navigating without vision when guided by virtual sound versus spatial language
+    J. Exp. Psychol. Appl., 12 (4) (2006), p. 223
+    View in Scopus Google Scholar
+    Knight and Tlauka, 2017
+    M.J. Knight, M. Tlauka
+    Interactivity in map learning: The effect of cognitive load
+    Spat. Cogn. Comput., 17 (3) (2017), pp. 185-198
+    CrossRef View in Scopus Google Scholar
+    Ko and Kim, 2017
+    E. Ko, E.Y. Kim
+    A vision-based wayfinding system for visually impaired people using situation awareness and activity-based instructions
+    Sensors, 17 (8) (2017), p. 1882
+    CrossRef View in Scopus Google Scholar
+    Koch et al., 2014
+    C. Koch, M. Neges, M. König, M. Abramovici
+    Natural markers for augmented reality-based indoor navigation and facility maintenance
+    Autom. Constr., 48 (2014), pp. 18-30
+    View PDF View article View in Scopus Google Scholar
+    Laera et al., 2021
+    F. Laera, M. Fiorentino, A. Evangelista, A. Boccaccio, V.M. Manghisi, J. Gabbard, M. Gattullo, A.E. Uva, M.M. Foglia
+    Augmented reality for maritime navigation data visualisation: A systematic review, issues and perspectives
+    The Journal of Navigation (2021), pp. 1-18
+    Google Scholar
+    Lapeyre et al., 2011
+    B. Lapeyre, S. Hourlier, X. Servantie, B. N’Kaoua, H. Sauzéon
+    Using the Landmark–Route–Survey Framework to Evaluate Spatial Knowledge Obtained From Synthetic Vision Systems
+    Hum. Factors, 53 (6) (2011), pp. 647-661
+    CrossRef View in Scopus Google Scholar
+    Lee et al., 2009
+    Lee, C., Bonebrake, S., Hollerer, T., and Bowman, D. A. “A replication study testing the validity of ar simulation in vr for controlled experiments.” Proc., 2009 8th IEEE International Symposium on Mixed and Augmented Reality , IEEE, 203-204.
+    Google Scholar
+    Lee et al., 2010
+    Lee, C., Bonebrake, S., Bowman, D. A., and Höllerer, T. “The role of latency in the validity of AR simulation.” Proc., 2010 IEEE Virtual Reality Conference (VR) , IEEE, 11-18.
+    Google Scholar
+    Lee et al., 2013
+    C. Lee, G.A. Rincon, G. Meyer, T. Höllerer, D.A. Bowman
+    The effects of visual realism on search tasks in mixed reality simulation
+    IEEE Trans. Vis. Comput. Graph., 19 (4) (2013), pp. 547-556
+    View in Scopus Google Scholar
+    Lee and Tversky, 2005
+    P.U. Lee, B. Tversky
+    Interplay Between Visual and Spatial: The Effect of Landmark Descriptions on Comprehension of Route/Survey Spatial Descriptions
+    Spat. Cogn. Comput., 5 (2–3) (2005), pp. 163-185
+    View in Scopus Google Scholar
+    Levy and Goldman-Rakic, 2000
+    R. Levy, P.S. Goldman-Rakic
+    Segregation of working memory functions within the dorsolateral prefrontal cortex
+    Current issues, Springer, Executive control and the frontal lobe (2000), pp. 23-32
+    View in Scopus Google Scholar
+    Liu et al., 2008
+    A.L. Liu, H. Hile, H. Kautz, G. Borriello, P.A. Brown, M. Harniss, K. Johnson
+    Indoor wayfinding: Developing a functional interface for individuals with cognitive impairments
+    Disabil. Rehabil. Assist. Technol., 3 (1–2) (2008), pp. 69-81
+    CrossRef View in Scopus Google Scholar
+    Logie, 2014
+    R.H. Logie
+    Visuo-spatial working memory
+    Psychology Press (2014)
+    Google Scholar
+    LTA, 2017
+    LTA, L. T. A. o. S. (2017). “Guidline for Adequate Provision of Wayfinding Signage within Developments.” < https://www.lta.gov.sg/content/dam/ltaweb/corp/GreenTransport/2016/Guide%20for%20Wayfinding%20Signage.pdf >.
+    Google Scholar
+    Lu and Lo, 2010
+    Lu, Y., and Lo, G. (2010). “First responder decision support system based on building information model (bim).” Google Patents.
+    Google Scholar
+    Marshal, xxxx
+    Marshall, S. P. “The index of cognitive activity: Measuring cognitive workload.” Proc., Proceedings of the IEEE 7th conference on Human Factors and Power Plants , IEEE, 7-7.
+    Google Scholar
+    Marshall, 2007
+    S.P. Marshall
+    Identifying cognitive state from eye metrics
+    Aviat. Space Environ. Med., 78 (5) (2007), pp. B165-B175
+    View in Scopus Google Scholar
+    Martins and Carvalho, 2015
+    R. Martins, J. Carvalho
+    Eye blinking as an indicator of fatigue and mental load—a systematic review
+    Occupational safety and hygiene III, 10 (2015), pp. 231-235
+    Google Scholar
+    Mathôt, 2018
+    S. Mathôt
+    Pupillometry: Psychology, physiology, and function
+    J. Cogn., 1 (1) (2018)
+    Google Scholar
+    Mathôt et al., 2018
+    S. Mathôt, J. Fabius, E. Van Heusden, S. Van der Stigchel
+    Safe and sensible preprocessing and baseline correction of pupil-size data
+    Behav. Res. Methods, 50 (1) (2018), pp. 94-106
+    CrossRef View in Scopus Google Scholar
+    Meilinger et al., 2008
+    T. Meilinger, M. Knauff, H.H. Bülthoff
+    Working memory in wayfinding—A dual task experiment in a virtual city
+    Cognit. Sci., 32 (4) (2008), pp. 755-770
+    CrossRef View in Scopus Google Scholar
+    Meißner et al., 2019
+    M. Meißner, J. Pfeiffer, T. Pfeiffer, H. Oppewal
+    Combining virtual reality and mobile eye tracking to provide a naturalistic experimental environment for shopper research
+    J. Bus. Res., 100 (2019), pp. 445-458
+    View PDF View article View in Scopus Google Scholar
+    Memili, xxxx
+    Memili, C., Pfeiffer, T., and Renner, P. “Bestimmung von Nutzerpräferenzen für Augmented-Reality Systeme durch Prototyping in einer Virtual-Reality Simulation.” Proc., Virtuelle und Erweiterte Realität-13. Workshop der GI-Fachgruppe VR/AR. https://pub . uni-bielefeld. de/publication/2905704 .
+    Google Scholar
+    Mendoza-Silva et al., 2019
+    G.M. Mendoza-Silva, J. Torres-Sospedra, J. Huerta
+    A meta-review of indoor positioning systems
+    Sensors, 19 (20) (2019), p. 4507
+    CrossRef View in Scopus Google Scholar
+    Miller, 1956
+    G.A. Miller
+    The magical number seven, plus or minus two: Some limits on our capacity for processing information
+    Psychol. Rev., 63 (2) (1956), p. 81
+    CrossRef View in Scopus Google Scholar
+    Moresi et al., 2008
+    S. Moresi, J.J. Adam, J. Rijcken, P.W. Van Gerven, H. Kuipers, J. Jolles
+    Pupil dilation in response preparation
+    Int. J. Psychophysiol., 67 (2) (2008), pp. 124-130
+    View PDF View article View in Scopus Google Scholar
+    Nori et al., 2006
+    R. Nori, S. Grandicelli, F. Giusberti
+    Alignment effect: primary–secondary learning and cognitive styles
+    Perception, 35 (9) (2006), pp. 1233-1249
+    CrossRef View in Scopus Google Scholar
+    Paas et al., 2003
+    F. Paas, A. Renkl, J. Sweller
+    Cognitive load theory and instructional design: Recent developments
+    Educ. Psychol., 38 (1) (2003), pp. 1-4
+    View in Scopus Google Scholar
+    Palinko et al., 2010
+    Palinko, O., Kun, A. L., Shyrokov, A., and Heeman, P. “Estimating cognitive load using remote eye tracking in a driving simulator.” Proc., Proceedings of the 2010 symposium on eye-tracking research & applications , 141-144.
+    Google Scholar
+    Passini, 1998
+    R. Passini
+    Wayfinding: Backbone of graphic support systems
+    Design and research perspectives, Visual information for everyday use (1998), pp. 241-256
+    Google Scholar
+    Payne et al., 1968
+    D.T. Payne, M.E. Parry, S.J. Harasymiw
+    Percentage of pupillary dilation as a measure of item difficulty
+    Percept. Psychophys., 4 (3) (1968), pp. 139-143
+    View in Scopus Google Scholar
+    Pedrotti et al., 2014
+    M. Pedrotti, M.A. Mirzaei, A. Tedesco, J.-R. Chardonnet, F. Mérienne, S. Benedetto, T. Baccino
+    Automatic stress classification with pupil diameter analysis
+    International Journal of Human-Computer Interaction, 30 (3) (2014), pp. 220-236
+    CrossRef View in Scopus Google Scholar
+    Peysakhovich et al., 2017
+    V. Peysakhovich, F. Vachon, F. Dehais
+    The impact of luminance on tonic and phasic pupillary responses to sustained cognitive load
+    Int. J. Psychophysiol., 112 (2017), pp. 40-45
+    View PDF View article View in Scopus Google Scholar
+    Pierre, xxxx
+    Pierre, F., Aujol, J.-F., Bugeau, A., and Ta, V.-T. “Luminance-hue specification in the RGB space.” Proc., International Conference on Scale Space and Variational Methods in Computer Vision , Springer, 413-424.
+    Google Scholar
+    Powell, 1994
+    M.J. Powell
+    A direct search optimization method that models the objective and constraint functions by linear interpolation
+    Advances in optimization and numerical analysis , Springer (1994), pp. 51-67
+    CrossRef Google Scholar
+    Pritchett et al., 2000
+    A.R. Pritchett, R.J. Hansman, E.N. Johnson
+    Use of testable responses for performance-based measurement of situation awareness
+    Situation awareness analysis and measurement (2000), pp. 189-209
+    Google Scholar
+    Rabbaa et al., xxxx
+    Rabbaa, J. A., Morris, A., and Somanath, S. “MRsive: An augmented reality tool for enhancing wayfinding and engagement with art in museums.” Proc., International Conference on Human-Computer Interaction , Springer, 535-542.
+    Google Scholar
+    Radoczky, 2007
+    V. Radoczky
+    How to design a pedestrian navigation system for indoor and outdoor environments
+    Location based services and telecartography , Springer (2007), pp. 301-316
+    CrossRef Google Scholar
+    Ragan et al., 2009
+    Ragan, E., Wilkes, C., Bowman, D. A., and Hollerer, T. “Simulation of augmented reality systems in purely virtual environments.” Proc., 2009 IEEE Virtual Reality Conference , IEEE, 287-288.
+    Google Scholar
+    Rajeev et al., 2019
+    Rajeev, S., Wan, Q., Yau, K., Panetta, K., and Agaian, S. “Augmented reality-based vision-aid indoor navigation system in GPS denied environment.” Proc., Mobile Multimedia/Image Processing, Security, and Applications 2019 , International Society for Optics and Photonics, 109930P.
+    Google Scholar
+    Ramloll and Mowat, 2001
+    Ramloll, R., and Mowat, D. “Wayfinding in virtual environments using an interactive spatial cognitive map.” Proc., Information Visualisation, 2001. Proceedings. Fifth International Conference on , IEEE, 574-583.
+    Google Scholar
+    Raubal and Worboys, 1999
+    Raubal, M., and Worboys, M. (1999). “A formal model of the process of wayfinding in built environments.” Spatial information theory. Cognitive and computational foundations of geographic information science , 748-748.
+    Google Scholar
+    Reis and Carvalho, 2012
+    Reis, J. L., and Carvalho, J. Á. “Personalized information systems: enabling technologies and architecture.” Proc., 7th Iberian Conference on Information Systems and Technologies (CISTI 2012) , IEEE, 1-5.
+    Google Scholar
+    Richman and Moorman, 2000
+    Richman, J. S., and Moorman, J. R. (2000). “Physiological time-series analysis using approximate entropy and sample entropy.” American Journal of Physiology-Heart and Circulatory Physiology .
+    Google Scholar
+    Roth and Harrower, 2008
+    R.E. Roth, M. Harrower
+    Addressing map interface usability: Learning from the lakeshore nature preserve interactive map
+    Cartographic, Perspectives(60) (2008), pp. 46-66
+    View in Scopus Google Scholar
+    Sack et al., 2002
+    A.T. Sack, J.M. Sperling, D. Prvulovic, E. Formisano, R. Goebel, F. Di Salle, T. Dierks, D.E. Linden
+    Tracking the mind's image in the brain II: transcranial magnetic stimulation reveals parietal asymmetry in visuospatial imagery
+    Neuron, 35 (1) (2002), pp. 195-204
+    View PDF View article View in Scopus Google Scholar
+    Sahin et al., 2009
+    N.T. Sahin, S. Pinker, S.S. Cash, D. Schomer, E. Halgren
+    Sequential processing of lexical, grammatical, and phonological information within Broca’s area
+    Science, 326 (5951) (2009), pp. 445-449
+    CrossRef View in Scopus Google Scholar
+    Savitzky and Golay, 1964
+    A. Savitzky, M.J. Golay
+    Smoothing and differentiation of data by simplified least squares procedures
+    Anal. Chem., 36 (8) (1964), pp. 1627-1639
+    CrossRef View in Scopus Google Scholar
+    Shi et al., 2020
+    Y. Shi, J. Du, D.A. Worthy
+    The impact of engineering information formats on learning and execution of construction operations: A virtual reality pipe maintenance experiment
+    Autom. Constr., 119 (2020), Article 103367
+    View PDF View article View in Scopus Google Scholar
+    Shiferaw et al., 2019
+    B. Shiferaw, L. Downey, D. Crewther
+    A review of gaze entropy as a measure of visual scanning efficiency
+    Neurosci. Biobehav. Rev., 96 (2019), pp. 353-366
+    View PDF View article View in Scopus Google Scholar
+    Shiwakoti et al., 2019
+    N. Shiwakoti, H. Wang, H. Jiang, L. Wang
+    Examining passengers’ perceptions and awareness of emergency wayfinding and procedure in airports
+    Saf. Sci., 118 (2019), pp. 805-813
+    View PDF View article View in Scopus Google Scholar
+    Siegel and White, 1975
+    Siegel, A. W., and White, S. H. (1975). “The Development of Spatial Representations of Large-Scale Environments.” Advances in Child Development and Behavior , H. W. Reese, ed., JAI, 9-55.
+    Google Scholar
+    Siegle et al., 2008
+    G.J. Siegle, N. Ichikawa, S. Steinhauer
+    Blink before and after you think: Blinks occur prior to and following cognitive load indexed by pupillary responses
+    Psychophysiology, 45 (5) (2008), pp. 679-687
+    CrossRef View in Scopus Google Scholar
+    Smith and Hart, 2006
+    Smith, S. P., and Hart, J. “Evaluating distributed cognitive resources for wayfinding in a desktop virtual environment.” Proc., 3D User Interfaces, 2006. 3DUI 2006. IEEE Symposium on , IEEE, 3-10.
+    Google Scholar
+    Souchet et al., 2021
+    A.D. Souchet, S. Philippe, D. Lourdeaux, L. Leroy
+    Measuring Visual Fatigue and Cognitive Load via Eye Tracking while Learning with Virtual Reality Head-Mounted Displays: A Review
+    International Journal of Human-Computer Interaction (2021), pp. 1-24
+    Google Scholar
+    Speretta and Gauch, 2005
+    Speretta, M., and Gauch, S. “Personalized search based on user search histories.” Proc., Web Intelligence, 2005. Proceedings. The 2005 IEEE/WIC/ACM International Conference on , IEEE, 622-628.
+    Google Scholar
+    Sridharan et al., 2008
+    D. Sridharan, D.J. Levitin, V. Menon
+    A critical role for the right fronto-insular cortex in switching between central-executive and default-mode networks
+    Proc. Natl. Acad. Sci., 105 (34) (2008), pp. 12569-12574
+    CrossRef View in Scopus Google Scholar
+    Steindecker et al., xxxx
+    Steindecker, E., Stelzer, R., and Saske, B. “Requirements for virtualization of AR displays within VR environments.” Proc., International Conference on Virtual, Augmented and Mixed Reality , Springer, 105-116.
+    Google Scholar
+    Stern et al., 1994
+    J.A. Stern, D. Boyer, D. Schroeder
+    Blink rate: a possible measure of fatigue
+    Hum. Factors, 36 (2) (1994), pp. 285-297
+    CrossRef Google Scholar
+    Sweller, 1994
+    J. Sweller
+    Cognitive load theory, learning difficulty, and instructional design
+    Learn. Instr., 4 (4) (1994), pp. 295-312
+    View PDF View article View in Scopus Google Scholar
+    Sweller, 2010
+    J. Sweller
+    Cognitive load theory: Recent theoretical advances
+    Cognitive load theory, 1 (2010), pp. 29-30
+    View in Scopus Google Scholar
+    Sweller et al., 2011
+    J. Sweller, P. Ayres, S. Kalyuga
+    Cognitive load theory
+    Springer (2011)
+    Google Scholar
+    Taylor, 2017
+    R.M. Taylor
+    Situational awareness rating technique (SART): The development of a tool for aircrew systems design
+    Situational awareness , Routledge (2017), pp. 111-128
+    CrossRef Google Scholar
+    TFL, 2017
+    TFL, T. f. L. (2017). “Wayfinding.” < https://tfl.gov.uk/info-for/urban-planning-and-construction/wayfinding >.
+    Google Scholar
+    Tobii, 2019a
+    Tobii (2019). “Tobii Pro SDK.” < https://www.tobiipro.com/product-listing/tobii-pro-sdk/ >. (June 6th, 2019).
+    Google Scholar
+    Tobii, 2019b
+    Tobii (2019). “Tobii Pro X3-120.” < https://www.tobiipro.com/product-listing/tobii-pro-x3-120/ >. (June 5th, 2019).
+    Google Scholar
+    Truong-Allié et al., 2021
+    C. Truong-Allié, A. Paljic, A. Roux, M. Herbeth
+    User Behavior Adaptive AR Guidance for Wayfinding and Tasks Completion
+    Multimodal Technologies and Interaction, 5 (11) (2021), p. 65
+    CrossRef View in Scopus Google Scholar
+    Turoff et al., 2004
+    M. Turoff, M. Chumer, B. Van de Walle, X. Yao
+    The design of a dynamic emergency response management information system (DERMIS)
+    JITTA: Journal of Information Technology Theory and Application, 5 (4) (2004), p. 1
+    CrossRef Google Scholar
+    van der Wel and van Steenbergen, 2018
+    P. van der Wel, H. van Steenbergen
+    Pupil dilation as an index of effort in cognitive control tasks: A review
+    Psychon. Bull. Rev., 25 (6) (2018), pp. 2005-2015
+    CrossRef View in Scopus Google Scholar
+    van Dijk et al., 2011
+    H. van Dijk, K. van de Merwe, R. Zon
+    A Coherent Impression of the Pilots' Situation Awareness: Studying relevant human factors tools
+    Int. J. Aviat. Psychol., 21 (4) (2011), pp. 343-356
+    CrossRef View in Scopus Google Scholar
+    Verguts et al., 2015
+    T. Verguts, E. Vassena, M. Silvetti
+    Adaptive effort investment in cognitive and physical tasks: A neurocomputational model
+    Front. Behav. Neurosci., 9 (2015), p. 57
+    View in Scopus Google Scholar
+    Verma et al., 2019
+    A. Verma, S. Prakash, V. Srivastava, A. Kumar, S.C. Mukhopadhyay
+    Sensing, controlling, and IoT infrastructure in smart building: a review
+    IEEE Sens. J., 19 (20) (2019), pp. 9036-9046
+    CrossRef View in Scopus Google Scholar
+    Vilar et al., xxxx
+    Vilar, E., Rebelo, F., and Noriega, P. “Smart systems in emergency wayfinding: A literature review.” Proc., International Conference of Design, User Experience, and Usability , Springer, 379-388.
+    Google Scholar
+    Wang and Jin, 2008
+    Wang, Y., and Jin, T. (2008). “Method for Exchanging Location-Relevant Information Using a Mobile Device with an Interactive Map Display.” Google Patents.
+    Google Scholar
+    Wenk et al., 2019
+    Wenk, N., Penalver-Andres, J., Palma, R., Buetler, K. A., Müri, R., Nef, T., and Marchal-Crespo, L. “Reaching in several realities: Motor and cognitive benefits of different visualization technologies.” Proc., 2019 IEEE 16th International Conference on Rehabilitation Robotics (ICORR) , IEEE, 1037-1042.
+    Google Scholar
+    Xiao et al., 2018
+    J. Xiao, M. Wang, B. Jiang, J. Li
+    A personalized recommendation system with combinational algorithm for online learning
+    J. Ambient Intell. Hum. Comput., 9 (3) (2018), pp. 667-677
+    CrossRef View in Scopus Google Scholar
+    Xu et al., 2016
+    W. Xu, J. Sun, J. Ma, W. Du
+    A personalized information recommendation system for R&D project opportunity finding in big data contexts
+    J. Netw. Comput. Appl., 59 (2016), pp. 362-369
+    View PDF View article View in Scopus Google Scholar
+    Yang et al., 2009
+    L. Yang, R. Prasanna, M. King
+    On-site information systems design for emergency first responders
+    JITTA: Journal of Information Technology Theory and Application, 10 (1) (2009), p. 5
+    Google Scholar
+    Yentes et al., 2013
+    J.M. Yentes, N. Hunt, K.K. Schmid, J.P. Kaipust, D. McGrath, N. Stergiou
+    The Appropriate Use of Approximate Entropy and Sample Entropy with Short Data Sets
+    Ann. Biomed. Eng., 41 (2) (2013), pp. 349-365
+    CrossRef View in Scopus Google Scholar
+    Zekveld et al., 2011
+    A.A. Zekveld, S.E. Kramer, J.M. Festen
+    Cognitive load during speech perception in noise: The influence of age, hearing loss, and cognition on the pupil response
+    Ear Hear., 32 (4) (2011), pp. 498-510
+    View in Scopus Google Scholar
+
+Cited by (1)
+
+    ROV teleoperation via human body motion mapping: Design and experiment
+    2023, Computers in Industry
+    Show abstract
+
+View Abstract
+© 2023 Elsevier Ltd. All rights reserved.
+Recommended articles
+
+    How does social capital influence shadow evacuation behavior under rainstorm disaster in China
+    Safety Science, Volume 162, 2023, Article 106098
+    Mingshu Lyu , …, Yanyan Wang
+    View PDF
+    Human hand motion prediction based on feature grouping and deep learning: Pipe skid maintenance example
+    Automation in Construction, Volume 138, 2022, Article 104232
+    Tianyu Zhou , …, Jing Du
+    View PDF
+    A proposed validation framework for the system theoretic process analysis (STPA) technique
+    Safety Science, Volume 162, 2023, Article 106080
+    Reyhaneh Sadeghi , Floris Goerlandt
+    View PDF
+
+Show 3 more articles
+Article Metrics
+Citations
+
+    Citation Indexes: 1 
+
+Captures
+
+    Readers: 16 
+
+plumX logo
+View details
+Elsevier logo with wordmark
+
+    About ScienceDirect
+    Remote access
+    Shopping cart
+    Advertise
+    Contact and support
+    Terms and conditions
+    Privacy policy 
+
+We use cookies to help provide and enhance our service and tailor content and ads. By continuing you agree to the use of cookies .
+
+All content on this site: Copyright © 2023 Elsevier B.V., its licensors, and contributors. All rights are reserved, including those for text and data mining, AI training, and similar technologies. For all open access content, the Creative Commons licensing terms apply.
+RELX group home page
+Feedback 

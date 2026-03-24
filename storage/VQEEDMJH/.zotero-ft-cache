@@ -1,0 +1,162 @@
+This website uses cookies to provide you with a variety of services and to improve the usability of our website. By using the website, you agree to the use of cookies in accordance with our Privacy Policy.
+Close
+Sign In View Cart ( 0 ) Help
+SPIE - The International Society of Optics and Photonics
+
+    About
+    Conferences + Exhibitions
+    Publications
+    Membership
+    Industry Resources
+    Education
+    News
+
+Optipedia • SPIE Press books opened for your reference.
+Diffraction Modulation Transfer Function
+
+Diffraction MTF is a wave-optics calculation for which the only variables (for a given aperture shape) are the aperture diameter D , wavelength λ, and focal length f . The MTF diffraction is the upper limit to the system’s performance; the effects of optical aberrations are assumed to be negligible. Aberrations increase the spot size and thus contribute to a poorer MTF . The diffraction MTF is based on the overall limiting aperture of the system (the aperture stop). The diffraction effects are only calculated once per system and do not accumulate multiplicatively on an element-by-element basis.
+Calculation of diffraction MTF
+
+The diffraction OTF can be calculated as the normalized autocorrelation of the exit pupil of the system. We will show that this is consistent with the definition of Eqs. (1.6), (1.7), and (1.10), which state that the OTF is the Fourier transform of the impulse response. For the incoherent systems we consider, the impulse response h ( x,y ) is the square of the two-dimensional Fourier transform of the diffracting aperture p ( x,y ). The magnitude squared of the diffracted electric-field amplitude E in V/cm gives the irradiance profile of the impulse response in W/cm 2 :
+
+equation 1.23
+
+From Eq. (1.23), we must implement a change of variables ξ = x /λ f and η = y /λ f to express the impulse response (which is a Fourier transform of the pupil function) in terms of image-plane spatial position. We then calculate the diffraction OTF in the usual way, as the Fourier transform of the impulse response h ( x , y ):
+
+equation 1.24
+
+Because of the absolute-value-squared operation, the two transform operations of Eq. (1.24) do not exactly undo each other—the diffraction OTF is the two-dimensional autocorrelation of diffracting aperture p ( x,y ). The diffraction MTF is thus the magnitude of the (complex) diffraction OTF. As an example of this calculation, we take the simple case of a square aperture, seen in Fig. 1.24:
+
+equation 1.25
+
+The autocorrelation of the square is a triangle-shaped function,
+
+equation 1.26
+
+with cutoff frequency defined by
+
+equation 1.27
+
+Terms for calculating the MTF of a square aperture.
+Figure 1.24 Terms for calculating the MTF of a square aperture.
+
+For the case of a circular aperture of diameter D , the system has the same cutoff frequency, ξ cutoff = 1/(l F /#), but the MTF has a different functional form:
+
+equation 1.28
+
+for ξ < ξ cutoff and
+
+equation 1.29
+
+for ξ > ξ cutoff . These diffraction -limited MTF curves are plotted in Fig. 1.25. The diffraction -limited MTF is an easy-to-calculate upper limit to performance; we need only λ and the F /# to compute it. An optical system cannot perform better than its diffraction -limited MTF —any aberrations will pull the MTF curve down. It is useful to compare the performance specifications of a given system to the diffraction -limited MTF curve to determine the feasibility of the proposed specifications, to decide how much headroom has been left for manufacturing tolerances, or to see what performance is possible within the context of a given choice of λ and F /#.
+
+Universal curves for diffraction-limited MTFs, for incoherent systems with circular or rectangular aperture.
+Figure 1.25 Universal curves for diffraction -limited MTFs, for incoherent systems with circular or rectangular aperture.
+
+As an example of the calculations, let us consider the square-aperture system of Fig. 1.26(a) with an object at finite distance. Using the object-space or image-space F /# as appropriate, we can calculate ξ cutoff in either the object plane or image plane:
+
+equation 1.30
+
+or
+
+equation 1.31
+
+Because p < q , the image is magnified with respect to the object; hence a given feature in the object appears at a lower spatial frequency in the image, so the two frequencies in Eqs. (1.30) and (1.31) represent the same feature. The filtering caused by diffraction from the finite aperture is the same, whether considered in object space or image space. With the cutoff frequency in hand, we can answer questions such as for what image spatial frequency is the MTF 30%? We use Eq. (1.26) to find that 30% MTF is at 70% of the image-plane cutoff frequency, or 223 cy/mm. This calculation is for diffraction -limited performance. Aberrations will narrow the bandwidth of the system, so that the frequency at which the MTF is 30% will be lower than 223 cy/mm.
+
+Rectangular-aperture
+Figure 1.26 (a)Rectangular-aperture finite-conjugate MTF example, and (b) rectangular-aperture infinite-conjugate MTF example.
+
+The next example shows the calculation for an object-at-infinity condition, with MTF obtained in object space as well as image space. We obtain the cutoff frequency in the image plane using Eq. (1.27):
+
+equation 1.32
+
+As in Fig. 1.26(a), a given feature in Fig. 1.26(b) experiences the same amount of filtering, whether expressed in the image plane or in object space. In the object space, we find the cutoff frequency is
+
+equation 1.33
+
+Let us verify that this angular spatial frequency corresponds to the same feature as that in Eq. (1.32). Referring to Fig. 1.27, we use the relationship between object-space angle θ and image-plane distance X ,
+
+equation 1.34
+
+Inverting Eq. (1.34) to obtain the angular spatial frequency 1/θ:
+
+equation 1.35
+
+Given that θ is in radians, if X and f have the same units, we can verify the correspondence between the frequencies in Eqs. (1.32) and (1.33):
+
+equation 1.36
+
+Relation between object-space angle and image-plane distance (adapted from Ref. 3).
+Figure 1.27 Relation between object-space angle and image-plane distance (adapted from Ref. 1 ).
+
+It is also of interest to verify that the diffraction MTF curves in Fig. 1.25 are consistent with the results of the simple 84% encircled-power diffraction spot-size formula of 2.4 λ ( F /#). In Fig. 1.28, we create a one-dimensional spatial frequency with adjacent lines and spaces. We approximate the diffraction spot as having 84% of its flux contained inside a circle of diameter 2.44 λ ( F /#), and 16% in a circle of twice the diameter.
+
+Verification of the formula for diffraction MTF.
+Figure 1.28 Verification of the formula for diffraction MTF .
+
+The fundamental spatial frequency of the above pattern is
+
+equation 1.37
+
+and the modulation depth at this frequency is
+
+equation 1.38
+
+in close agreement with Fig. 1.25 for a diffraction -limited circular aperture, at a frequency of ξ = 0.21 ξ cutoff .
+Reference
+
+    E. Dereniak and G. D. Boreman, Infrared Detectors and Systems , Wiley, New York (1996), referenced figures reprinted by permission of John Wiley and Sons, Inc.
+
+Citation:
+
+G. D. Boreman, Modulation Transfer Function in Optical and Electro-Optical Systems , SPIE Press, Bellingham, WA (2001).
+
+
+View SPIE terms of use.
+
+    Conference Proceedings
+
+    SPIE Journals
+
+    SPIE Digital Library
+
+    Books
+
+    Open Access
+
+    Contact SPIE Publications
+
+SPIE Logo
+
+    ABOUT
+    Mission
+    Leadership
+    Committees
+    History
+    Policies and Reporting
+    Jobs at SPIE
+    Donate to SPIE
+
+    RESOURCES
+    Join SPIE
+    Publish with SPIE
+    Public Policy
+    Education Outreach
+    SPIE Brand and Logos
+    SPIE Press Releases
+    SPIE Profiles
+
+    HELP
+    Help FAQs
+    Report an Incident
+    Email Preferences
+
+    SUBSCRIBE TO OUR EMAILS
+    Receive only the information you want
+    Sign Up
+    Stay Connected Get the App
+    SPIE's Facebook SPIE's LinkedIn SPIE's Instagram SPIE's Twitter SPIE's Youtube Get SPIE in Google Play Store Get SPIE in Apple Store
+
+© 2024 SPIE
+SPIE Digital Library | SPIE Career Center | optics.org | Privacy Policy
+Top of Page Top of page

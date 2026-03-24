@@ -1,0 +1,194 @@
+ 
+JavaScript is disabled on your browser. Please enable JavaScript to use all the features on this page. Skip to main content Skip to article 
+Elsevier logo ScienceDirect 
+ 
+    Journals & Books  
+ 
+    Help 
+    Search 
+ 
+My account 
+Sign in 
+ 
+    Purchase PDF 
+    Access through another organization  
+ 
+Article preview 
+ 
+    Abstract 
+    Introduction 
+    Section snippets 
+    References (80) 
+    Cited by (4)  
+ 
+Elsevier 
+International Journal of Human-Computer Studies 
+Volume 183 , March 2024, 103194 
+International Journal of Human-Computer Studies 
+A new dynamic spatial information design framework for AR-HUD to evoke drivers’ instinctive responses and improve accident prevention 
+Author links open overlay panel Jianmin Wang a 1 , Jingyan Yang a 1 , Qianwen Fu a b , Jie Zhang c d , Jun Zhang a b c 
+Show more 
+Add to Mendeley 
+Share 
+Cite 
+https://doi.org/10.1016/j.ijhcs.2023.103194 Get rights and content 
+Highlights 
+ 
+    • 
+    A new framework of AR-HUD design is developed to evoke driver’s instinctive response. 
+    • 
+    The information of the dynamic interface follows the cognitive process of the driver. 
+    • 
+    The interface supports the driver’s cognitive process at three levels of SRK taxonomy. 
+    • 
+    The spatial interface design effectively supports the driver’s situation awareness. 
+ 
+Abstract 
+Driver’s instinctive responses and skill-based behaviors enable them to react faster and better control their vehicle in dangerous situations. This study incorporated dynamic spatial information design (DSID) in an augmented reality head-up display (AR-HUD) under manual driving conditions. By integrating the skill, rule, and knowledge (SRK) taxonomy and situation awareness (SA) theory, our AR-HUD successfully evoked drivers’ instinctive responses and improved driving safety. First, we converted symbol and sign information processed at the knowledge-based and rule-based levels, respectively, into signal information processed at the skill-based level. Then we developed four AR-HUD interfaces with different dynamic designs for use in a hazardous scenario at an intersection. Finally, we investigated each design’s impact on drivers’ SA and driving performance. Experimental results demonstrated that our DSID enhanced drivers’ SA and accident-avoidance capabilities while reducing their cognitive workload. Among the four AR-HUD interfaces, the one that incorporated all three information elements under study (i.e., lateral warning, dynamic driving space, and speedometer) performed the best. This indicates that our proposed framework has potential applications in other similar dangerous driving scenarios, thus contributing to the development of safer and more efficient driving environments. 
+Introduction 
+Human driving behavior is based on real-time responses to changes in the environment, which involve various levels of cognitive activities. The skills, rules, and knowledge (SRK) taxonomy theory categorizes human cognitive activities into three levels: skill-based, rule-based, and knowledge-based (Rasmussen, 1987). According to this theory, skill-based behavior is instinctive and automated, and humans have the fastest response time to stimuli at this level. The other two levels require the processing of information based on existing rules or knowledge before taking action, resulting in a slower response time. In fact, a significant cause of accidents is the delayed response or lack of perception of what is in the environment by humans. This suggests that incorporating contextual information that triggers faster instinctive responses can reduce the reaction time of drivers and enable them to make faster decisions to avoid danger. 
+A good option for triggering quick and appropriate instinctive responses and skill-based behaviors in drivers is projecting virtual information into the real environment. The augmented reality head-up display (AR-HUD) is an advanced interface technology that uses AR to overlay information onto the driver’s real environment. This creates a synchronized space where real and virtual information can appear in real time together (Moussa et al., 2012). 
+Using AR-HUDs, drivers can maintain their gaze and attention on the road for longer periods, enabling quicker responses to hazards and thereby enhancing driving performance and reducing workload (Kim and Gabbard, 2022). For example, AR information can be superimposed onto other road users to increase the driver’s perception and prediction of pedestrian behavior (Medenica et al., 2011). Additionally, displaying important driving events on the AR-HUD interface can enhance drivers’ situation awareness (SA) (Endsley, 1988, George et al., 2012). 
+Effective interface design can rapidly direct the driver’s attention to critical elements in the environment related to potential hazards, thereby enhancing the driver’s SA (Endsley, 1988) and improving driving safety. Unfortunately, while overlaying critical information on an AR-HUD windshield display (WSD) can enhance response times (Yoo, 1999, Horrey et al., 2003), poorly designed projections can lead to various issues and human–machine interaction misunderstandings (Ward et al., 1995). Therefore, many studies have focused on designing rational AR-HUD interface messages to best enhance drivers’ SA. 
+In some studies, SRK taxonomy theory has been used to intervene in the cognitive processes of drivers. For example, Tönnis et al. (2007) designed an AR-HUD interface that displays the estimated braking distance of a vehicle as an AR braking bar on the road ahead. They also mapped the rotation of the steering wheel to the left and right movements of the AR path displayed on the interface. Kim et al. (2013) designed visual information on the AR-HUD that varies according to the distance between the vehicle and the impending danger. In left-turn scenarios, Tran et al. (2013) showed that displaying the projected path of other traffic participants on the AR-HUD can help activate drivers’ instinctive reactions and alleviate visual distraction. 
+The above-mentioned studies are well-targeted at the driver’s SA, and use the SRK taxonomy to intervene in interface information design, but they do not specifically address interface design for particular types of dangerous situations. Moreover, they only focus on the impacts of the position and dynamic changes in the semantics of interface elements on drivers. In contrast, we investigate the effects of dynamic changes in interface information content (including color, semantics, and morphology) on the SA and driving performance of drivers. Considering that in the future there is a high probability that a vehicle’s whole windshield will be used as an AR-HUD display, all of our AR-HUD interfaces are designed based on the WSD size. 
+To address the aforementioned gap, the purpose of this study is to explore how to design different levels or types of information in hazardous scenarios to trigger the driver’s instinctive response and driving skills as quickly as possible to avoid danger (using the example of hazardous scenarios at intersections). Therefore, our research questions ( RQ ) are: 
+ 
+    • 
+    RQ1 : What SA information in the hazard scenario needs to be shared with the human driver through the interface? 
+    • 
+    RQ2 : What method should be used to design dynamic spatial information that meets drivers’ SA needs? 
+    • 
+    RQ3 : What are the impacts of different forms of dynamic information design on drivers’ behavior? 
+ 
+To answer RQ1 , we reviewed SA theory, conducted cognitive work analysis, and improved use-case diagram construction for the driving task. This process enabled us to identify the information that the Advanced Driving Assist System (ADAS) needs to convey to the driver through the AR-HUD. To address RQ2 , we proposed a dynamic spatial information design (DSID) framework based on the SRK taxonomy and SA theory. We then designed cognitive information for the AR-HUD interface in hazardous intersection scenarios and visualized the dynamic information content of the interface. To answer RQ3 , we conducted a controlled experiment and obtained quantitative results. 
+The structure of this paper is as follows: In Section 2, we review the theory and research related to HUDs, SA, and the SRK taxonomy, and present our own conceptual framework. In Section 3, we use the conceptual framework to complete different interface designs. In Sections 4 Methods, 5 Results, we conduct experiments and data analysis. In Section 6, we discuss the results of the experiments. In Section 7, we elaborate on the limitations of this study. Finally, we summarize the work of this study and suggest future work. 
+Section snippets 
+Context and theoretical framework 
+In this section, we will review relevant research related to this study, including SA and SRK taxonomy. The SA theory aided us in understanding the information requirements of drivers in the given scenarios, while the SRK taxonomy guided the visualization of information to enhance the driving performance of drivers in hazardous situations. 
+Designing process and conceptual framework 
+Based on the SRK taxonomy and SA, we proposed an AR-HUD interface design framework and outline the design steps. We will then describe the specific interface design for a given scenario based on this framework and steps. As shown in Fig. 1, the interface design process studied in this paper is based on SA and the SRK taxonomy, which established a framework for designing dynamic spatial information. This was followed by an analysis of cognitive work in hazard scenarios, with adapted use-case 
+Hypotheses 
+The purpose of this research is to explore the impacts of the four different forms of dynamic information design mentioned in Section 3.4.2 on driver SA and performance in dangerous situations ( RQ3 ). We propose the following hypotheses: 
+H1: DSID can help enhance drivers’ SA and improve driving performance. 
+H2: DSID can reduce drivers’ reaction times. 
+Independent variables 
+We used a paired repeated measures experimental design. The experiment’s independent variables were the four AR-HUD interface designs. Table 2 shows 
+Results 
+In this experiment, we performed data testing using SPSS 26.0 software. GraphPad Prism was utilized to visually represent the results. The measured values of each indicator were not normally distributed, as indicated by the Shapiro–Wilk test (Shapiro and Wilk, 1965). To evaluate the four AR-HUD interface scenarios, a nonparametric test based on the Friedman test (Friedman, 1937) was employed. After finding significant differences between the samples, post hoc multiple comparisons were performed 
+Discussion 
+Based on the SRK taxonomy and SA theory, this paper proposes a DSID framework for AR-HUD interfaces in hazardous intersection scenarios and presents four design interfaces. The research first addresses what SA information needs to be shared with the human driver through the interface in the hazard scenario ( RQ1 ) and what method should be used to design a DSI that meets drivers’ SA needs ( RQ2 ). In the experimental study, we compared four AR-HUD interfaces with different forms of dynamic 
+Limitations 
+This study has several limitations. First, in terms of display medium, we did not compare the differences in drivers’ responses to hazardous situations between the presence and absence of AR-HUD (WSD). Second, in terms of interface design, our designs were tailored specifically to the traffic rules and scenarios in China, without considering potential variations in traffic rules and scenarios in other countries and regions. 
+In addition, we did not thoroughly explore the effects of different 
+Conclusion and future work 
+This study investigated the impacts of AR-HUD interfaces on drivers’ SA and driving performance, based on the SRK taxonomy and SA theory. In terms of theoretical contributions, we proposed a DSID framework to guide the design of AR-HUD interfaces. In our experiments, the decision time (reaction time) of drivers using HMI2 (DSI, LW) was shorter than that of drivers using our other three schemes. Moreover, drivers’ driving behaviors were gentler when using HMI2 (DSI, LW), as evidenced by the 
+CRediT authorship contribution statement 
+Jianmin Wang: Supervision, Writing – review & editing. Jingyan Yang: Data curation, Writing – original draft, Formal analysis. Qianwen Fu: Visualization, Investigation. Jie Zhang: Methodology, Supervision. Jun Zhang: Conceptualization, Methodology, Project administration. 
+Declaration of competing interest 
+The authors declare that they have no known competing financial interests or personal relationships that could have appeared to influence the work reported in this paper. 
+Acknowledgments 
+This research was supported by the Fundamental Research Funds for the Central Universities ; the High-Level Foreign Expert Project ( G2022133031L , G2023133041L ); Shenzhen Science and Technology Program ( GJHZ20220913142401002 ). 
+References (80) 
+ 
+    Calvi A. et al. 
+    Evaluation of augmented reality cues to improve the safety of left-turn maneuvers in a connected environment: A driving simulator study 
+    Accid. Anal. Prev. 
+    (2020) 
+    Cooper P.J. et al. 
+    The impact of hands-free message reception/response on driving task performance 
+    Accid. Anal. Prev. 
+    (2003) 
+    Eyraud R. et al. 
+    Allocation of visual attention while driving with simulated augmented reality 
+    Transp. Res. F 
+    (2015) 
+    Moussa G. et al. 
+    Augmented reality vehicle system: Left-turn maneuver study 
+    Transp. Res. C 
+    (2012) 
+    Ranney T.A. 
+    Models of driving behavior: a review of their evolution 
+    Accid. Anal. Prev. 
+    (1994) 
+    Rusch M.L. et al. 
+    Directing driver attention with augmented reality cues 
+    Transp. Res. F 
+    (2013) 
+    Schewe F. et al. 
+    Ecological interface design effectively reduces cognitive workload–the example of HMIs for speed control 
+    Transp. Res. F 
+    (2020) 
+    Schewe F. et al. 
+    Visualizing the autonomous vehicle’s maneuvers–does an ecological interface help to increase the hedonic quality and safety? 
+    Transp. Res. F 
+    (2021) 
+    Smith M. et al. 
+    Determining the impact of augmented reality graphic spatial location and motion on driver behaviors 
+    Appl. Ergon. 
+    (2021) 
+    Stange V. et al. 
+    Is the automated vehicle “aware” of the pedestrian? Examining driving behavior adaptation as a cue to inform the passenger of a potential hazard 
+    Transp. Res. Interdiscip. Pers. 
+    (2022) 
+ 
+View more references 
+Cited by (4) 
+ 
+    What is the optimal display range? Exploring the impacts of area and shape on in-vehicle head-up display efficiency 
+    2025, Applied Ergonomics 
+    Show abstract 
+    Effects of context-sensitive distraction warnings on drivers’ smartphone use and acceptance: A long-term naturalistic field study 
+    2024, International Journal of Human Computer Studies 
+    Citation Excerpt : 
+ 
+    As a general effect, it was expected that the system would decrease the number of touches on the smartphone in areas with high attentional demands, where reminders and warnings were provided (cf. Kujala et al., 2016). Studies by Caird et al. (2008) and Wang et al. (2024) indicated that in-vehicle visual warning signs can facilitate drivers’ attentiveness when approaching intersections. The density of intersections and crosswalks and, therefore, the density of areas with high attentional demands are much more intense in urban than in other road environments (especially on highways or rural roads). 
+    Show abstract 
+    Find My Friend: An Innovative Cooperative Approach of Real-Time Goal Collaboration in Automated Driving 
+    2025, International Journal of Human-Computer Interaction 
+    The impact of AR-HUD lane enhancement on lateral control performance under fog conditions 
+    2024, Proceedings of SPIE - The International Society for Optical Engineering 
+ 
+1 
+    Jianmin Wang and Jingyan Yang contributed equally to this paper. 
+ 
+View full text 
+© 2023 Elsevier Ltd. All rights reserved. 
+Recommended articles 
+ 
+    Longitudinal assessment of the effects of passive training on stroke rehabilitation using fNIRS technology 
+    International Journal of Human-Computer Studies, Volume 183, 2024, Article 103202 
+    Tan Zou , …, Lingguo Bu 
+    mF+C: Linking suboptimal projections to detail on handheld devices 
+    International Journal of Human-Computer Studies, Volume 182, 2024, Article 103170 
+    Majid Nasirinejad , Derek Reilly 
+    Challenges in starting to design and make together: Examining family engagement in Fab Labs: A nexus-analytical inquiry 
+    International Journal of Human-Computer Studies, Volume 183, 2024, Article 103185 
+    Behnaz Norouzi , …, Iván Sánchez Milara 
+ 
+Show 3 more articles 
+Article Metrics 
+Citations 
+ 
+    Citation Indexes 4  
+ 
+Captures 
+ 
+    Mendeley Readers 23  
+ 
+PlumX Metrics Logo View details 
+Elsevier logo with wordmark 
+ 
+    About ScienceDirect 
+    Remote access 
+    Advertise 
+    Contact and support 
+    Terms and conditions 
+    Privacy policy  
+ 
+Cookies are used by this site. Cookie Settings 
+ 
+All content on this site: Copyright © 2025 or its licensors and contributors. All rights are reserved, including those for text and data mining, AI training, and similar technologies. For all open access content, the relevant licensing terms apply. 
+RELX group home page 
+Feedback 
+Get citation 

@@ -1,0 +1,904 @@
+Augmented reality HUD vs. conventional HUD to perform a navigation task in a complex driving situation
+Christine Chauvin 
+(
+
+christine.chauvin@univ-ubs.fr
+) University of Southern Brittany
+Farida Said University of Southern Brittany
+Sabine Langlois Renault (France)
+Research Article Keywords: Driving, Navigation, Head-Up Display, Augmented Reality Posted Date: September 13th, 2022 DOI: https://doi.org/10.21203/rs.3.rs-2049777/v1 License:
+
+
+This work is licensed under a Creative Commons Attribution 4.0 International
+License.
+ Read Full License
+Page 1/31
+
+Abstract
+This study aims at investigating the added value of an augmented reality head-up display (AR-HUD) in relation to a conventional head-up display (C-HUD) to perform navigation tasks in a complex road situation. The notion of complexity was defined according to two main factors: infrastructure and traffic. It was used to identify and select real road situations presenting different sources of complexity.
+This study focuses on one of these situations, which was reproduced on a simulator and broken down into three use cases. A total of 32 participants performed three navigation tasks, using the AR-HUD or the C-HUD. Both objective and subjective data were collected.
+Data analyses, using linear mixed model analyses of variance and multilevel logistic regression, indicate a slight advantage of the AR-HUD. Participants using the AR-HUD make fewer errors and drive faster on average. Moreover, the AR-HUD is assessed to be more useful and easier to understand than the C-HUD. However, this interface shows limitations, in particular because it does not enable drivers to anticipate the manoeuvre to be conducted.
+The study raises questions about the design of an instrument system that would help drivers not only identify, but also build a representation of a forthcoming manoeuvre to be performed.
+1. Introduction
+Navigation in unknown road environments represents a costly cognitive activity for drivers. Numerous studies have demonstrated the difficulties drivers encounter to plan and follow routes (Ross and Burnett 2001). These difficulties may induce dangerous behaviours such as late lane changes.
+Michon (1985) breaks down the driving task into three levels: strategic, tactical, and operational. Ross and Burnett (2001) point out that the navigation task also involves these three levels. Planning the route falls within the strategic level. It impacts upon the manoeuvres performed at the tactical level (e.g., overtaking, controlling the inter-vehicle distance) as drivers need to follow the planned route while dealing with interactions with the other road users. On the operational level, manoeuvres involve lateral and longitudinal control (e.g., slowing down at a highway off-ramp). Burnett (1998) proposes to break down the navigation task into several phases that precede and follow a navigation task manoeuvre:
+Preview: drivers assess the time/distance remaining before the next manoeuvre and envision the manoeuvre to be performed. Identify: they identify the location of the next manoeuvre and the direction to take, adapt their speed, and correctly position their vehicle. Confirm: they check that they have performed the right manoeuvre.
+In parallel with these phases, two processes are executed. Drivers make sure that the route taken is the correct one. They also build a representation of their environment and of their vehicle location.
+Page 2/31
+
+Navigation systems may provide assistance to the drivers at each of the three phases. They take the form of a vehicle-independent personal assistant, a head-down display (HDD), a head-up display (HUD), or even a head-mounted display (HMD). Harkin, Cartwright and Black (2005) indicate that using a HUD that projects information onto the vehicle windshield is expected to reduce the time spent not looking at the road environment (i.e., eye-off-road time); in turn, this would improve the drivers' situation awareness and safety in contrast to what happens with a personal assistant or an HDD.
+Gabbard, Fitch and Kim (2014) distinguish between conventional HUDs (C-HUDs) providing information in symbolic form and augmented reality-based HUDs (AR-HUDs) that superimpose information onto outside-world objects or draw attention to these objects. The authors explain that the latter HUDs (termed world-fixed head-up optical see-through displays) are more relevant than the first type of HUDs because they highlight information relating to the primary task of driving (e.g., wayfinding, hazard warnings). Augmented reality-based HUDs facilitate drivers’ perception of useful information. Drivers do not have to change focus as their attention remains attached to the driving scene, and it is directed towards the most relevant objects in their environment. Utsuboya, Shimizu and Kurosawa (2013) argue that AR-HUDs provide intuitive wayfinding by superimposing the planned route onto the actual route followed by the vehicle and direction arrows onto intersections, or identifying landmarks on the buildings appearing in the visual scene.
+Regarding the performance of navigation tasks, studies have demonstrated the advantage of using different types of HUD-based presentations of information over a personal assistant (Nwakacha et al. 2013) and the advantage of AR-HUDs over HDD (Kim and Dey 2009; Medenica et al. 2011; Smith et al. 2017) or HMD systems (Jose et al. 2016). Some studies also point out the advantages of AR-HUDs over C-HUDs (Bolton et al. 2015; Bauernfeind et al. 2019, 2021; Chauvin et al. 2019). Bolton, Burnett and Large (2015) examined different uses of augmented reality on a HUD. Using a simulator-based town-driving scenario, the authors compared four driving conditions: one showed the direction to follow using a CHUD, and the other three used augmented reality with an arrow indicating the direction to follow, or an arrow or a box highlighting a landmark in the environment. The experiment showed the merit of using AR to draw attention to points of interest for a navigational task (e.g., petrol stations, schools, railway stations, places of worship). Using AR to put these points of interest inside boxes had a significant effect upon participants' response time and successful completion of the task. Out of the four conditions being tested, the C-HUD was associated with the lowest performance and the highest mental load; it was also the participants' least preferred condition.
+In another study, Bauerfeind et al. (2019, 2021) compared an AR-HUD and a C-HUD to perform a navigation task in an ambiguous urban area. The authors hypothesized that augmented reality displays are particularly beneficial in ambiguous situations. They used scenarios including many possible turns that were very close to each other. The results confirmed their hypothesis. As they spent more time observing the road scene, participants using the AR-HUD made earlier decisions, drove faster, and made fewer errors than with a C-HUD (Bauernfeind et al. 2019). Furthermore, augmented reality information required less of their mental load in understanding and interpreting and led to more confident driving
+Page 3/31
+
+behaviours (Bauerfeind et al. 2021). More than the ambiguity of the situation, it was its complexity that was central in the preliminary study of Chauvin et al. (2019). A real driving environment was reproduced. It was a peri-urban road with an X-shaped interchange where participants had to change lane. The results Chauvin et al. (2019) obtained were less conclusive than those pointed out by Bauerfeind et al. (2019, 2021). The AR-HUD supported drivers, since it contributed to avoiding poor performance (characterized by abrupt actions on the steering wheel and low time-to-collision with the front vehicle), but there was no positive effect of the use of an AR-HUD on the vehicle speed. One explanation was that the situation was not complex enough to observe a clear added value of the AR-HUD.
+The present study aims at investigating the following issue more thoroughly: what are the benefits of an AR-HUD, compared with a C-HUD, in a complex and real driving situation? We used the proposal of Boelhouwer et al. (2020) to define complex driving situations according to two main factors: infrastructure and traffic. In line with the literature, we made two general hypotheses:
+H1- In complex situations, the AR-HUD facilitates the identification of the manoeuvre to be performed and therefore is expected to be associated with better driving performance than the C-HUD: participants make fewer errors when using the AR-HUD (H1.1), they adopt a higher speed (H1.2), and their actions are less abrupt (H1.3). H2- In complex situations, the AR-HUD is associated with a better user experience than the C-HUD: participants have a better comprehension of the information provided by the AR-HUD (H2.1), they find the AR-HUD more useful than the C-HUD (H2.2), they have higher confidence in the manoeuvre when using the AR-HUD (H2.3), and they feel more comfortable with the AR-HUD than with the C-HUD (2.4).
+Because Boelhouwer et al. (2020) also underline a possible effect of familiarity on the perceived complexity of driving situation, this factor was controlled.
+2. Method
+2.1 Definition and design of real and complex driving situations
+Several real and complex situations were identified in a pre-study during which 10 individuals who were used to driving in the Paris area were asked to list places where it is difficult to find one's way. In this prestudy, 31 problem areas were listed, and 14 were retained to make open observations with eight drivers in real-life driving situations. The drivers were asked to think aloud along the route defined by the experimenter. They could use their favourite navigation app on their smartphone. When reaching their destination, drivers had to indicate the reasons for their discomfort, the influence of traffic, the information used to complete the task, and they had to assess the difficulties they experienced to find their way.
+Page 4/31
+
+In line with the proposal of Boelhouwer et al. (2020), the overall complexity of these road situations was determined by the characteristics of the infrastructure (the type of infrastructure and the presence of road elements that may increase the complexity for the drivers) and the traffic features (traffic density, traffic predictability, and type of priority). Concerning the type of infrastructure, the selected situations were made up of intersections or interchanges. They were characterized by one or several of the following road elements: absence of road lines, hidden road signs, unfamiliar road arrangement (e.g., entering a freeway from the left lane), short distance between two route changes. In some use cases (UCs), those factors were supplemented by dense traffic or unclear driving priority rules.
+Three geographic areas (Le Plessy, Le Gallo, Bercy), representative of the 31 situations listed at the beginning, were reproduced in the simulator-based experiment.
+2.2 Participants
+For the simulator-based experiment, 32 participants were recruited. The panel consisted of 15 women and 17 men aged between 25 and 60 years (M = 41.8, SD = 9.8). They had at least two years' driving experience, and drove at least 5,000 km a year. They used a navigation system regularly (once a week), whether on-board or not.
+2.3 Experimental design
+In the experiment, participants were required to drive on a peri-urban road, in three selected geographical areas. Each area involved different UCs, defined by the manoeuvre to be executed to change route (e.g., turning left, taking a particular direction, or taking a junction on the right).
+Driving in the first geographical area (Le Plessy) was the learning phase; hence, the data from this area were not analysed. The area called Le Gallo comprised two UCs. The data collected as part of these two UCs are not dealt with in this paper since their analysis has already been published and its main results outlined in the introduction (Chauvin et al. 2019). The Bercy area comprised four UCs (UC1 turning left, UC2 taking the Metz-Nancy direction, UC3 taking the middle lane at the first junction on the right, UC4 taking the right-hand lane at another junction). As 10 seconds only separate UC3 and UC4, they were examined together. The present study deals with these three UCs (UC1, UC2, UC3-4). In all UCs, the speed limit was 50 km/h (31 mph).
+UC1 takes place at an intersection. It involves changing lane, then taking the second road on the left (Fig. 1). Participants were required to choose between three directions (driving straight ahead, turning left immediately, or taking the second road on the left). In this UC, complexity is determined by the fact that there are two close intersections on the left-hand side and, therefore, two possible turns. This UC is close to the situation investigated by Bauerfeind et al. (2021). It was expected that the AR-HUD would help drivers identify the correct turn.
+UC2 presents an intersection where the participants had to go through a vehicle flow to take the MetzNancy direction (Fig. 2). In this case, complexity is determined by the fact that the priority rule is violated
+Page 5/31
+
+as the flow of vehicles on the larger lane does not give way to vehicles approaching from the right. Because this UC does not involve any manoeuvre, the benefits of the AR-HUD were expected to be limited.
+UC3-4 is made up of two interchanges (Fig. 3). Drivers needed:
+to change lane to go to the middle lane in an X-shaped junction (two lanes become two lanes heading in different directions). When their vehicle reached the start point, it was followed by another vehicle and they also needed to take a motorcycle into account to adapt their trajectory because the motorcycle undertook late and unpredictable actions. Two other vehicles were already present in the right-hand lane; to change lane to go to the right-hand lane in a Y-shaped interchange (one lane becomes two lanes heading in different directions). This manoeuvre took place 10 seconds after the previous one. The ego-vehicle was followed by a vehicle travelling at the same speed with a time headway of 2 seconds.
+This UC displays several factors of complexity due to the infrastructure (consecutive X-shaped and Yshaped interchanges, hidden road signs, absence of road lines) and the presence of several other vehicles of different types showing more or less predictable behaviours. Because all of these features and because Boelhouwer et al. (2020) point out that traffic issues have a larger influence on the overall complexity than infrastructure ones, it was thought that this UC is more complex than the other ones. Hence, the benefits of an AR-HUD were expected to appear clearly.
+In all UCs, half the participants drove with the AR-HUD and the other half with the C-HUD. Each participant tested both interfaces. The running order was counterbalanced.
+2.4 Hardware and the human-machine interface (HMI)
+The experiment was conducted with the simulator of the Institute for Technological Research System X (IRT SystemX), the Driving Simulator for Human-Machine Interaction studies (Dr SIHMI). This static simulator consists of a driving station containing a steering wheel, acceleration and brake pedals, a HUD functioning as AR-HUD or C-HUD depending upon the experiment condition, and a GPS. The HUD is a binocular mirrored one with a surface of 9*15°. As defined by Gish (1995), it is similar to a fully-functional HUD except that there are no optics between the image source and the combiner (a large piece of plate glass). Thus, the virtual image distance is equivalent to the source-to-eye distance. In our simulator, the distance between the eye of the driver and the screen where the driving scene is projected is equal to 1.3m. We developed our HUD so that the virtual image distance is also equal to 1.3m.
+The AR-HUD unit has a dedicated surface of 8*15°. It projects virtual information onto the windshield in the form of arrows that indicate the direction to follow (Fig. 4). The arrows appeared 400m before the manoeuvre end-of-point. The system takes the traffic into account and indicates the manoeuvre to be performed only if this action is possible given the vehicles present in the vicinity. Other information appeared on a fixed section at the bottom of the HUD: the speed limit, the vehicle speed, the turn-by-turn
+Page 6/31
+
+icon indicating the next change of direction, the remaining distance before reaching it, and an indication of the direction to follow, shown as a road sign similar to the one that appears on the road.
+The C-HUD shows a map indicating the route to follow (Fig. 5). It reproduces the system available on some high-end vehicles. The same items of information as those listed above also appear on the HUD (speed limit, vehicle speed, etc.).
+A basic GPS system shows a map of the entire area, oriented north and clearly indicating the vehicle location. It is displayed on a screen located in the middle of the dashboard.
+A curved projection screen with an aperture of 170° was used to show the simulation of the different driving situations with the SCANeR simulation software.
+2.5 Experiment sessions
+The experiment sessions lasted 1h30. Participants were invited to read an information document and sign consent forms. They were then introduced to the simulator, interfaces, and the test (5 minutes duration). A learning phase entailed driving in the Le Plessis area first with, then without AR or conversely; the sequence was similar to that selected for the experimental phases.
+The first experimental phase entailed driving in the Le Gallo or Bercy area with the AR-HUD or C-HUD interface. In case of failure, the driving phase was interrupted, and participants had to start over again. As participants could replay this phase up to three times, should they fail the first and second driving test, the duration of this phase varied between 20 and 30 minutes. A debriefing interview was then held. The second experimental phase was held in similar fashion in the second area and with the other interface. Finally, participants were asked to complete a questionnaire relating to their preferences and their profile (about 10 minutes duration).
+2.6 The data collected
+Ross and Burnett (2001) explain that the assessment of navigation systems is based upon objective and/or subjective dimensions. The present study uses both assessment categories. The objective dimensions, relating mainly to driving performance, were used to test the first general hypothesis: in complex situations, the AR-HUD facilitates the identification of the manoeuvre to be performed and therefore is expected to be associated with better driving performance than with the C-HUD. The subjective dimensions were used to test the second general hypothesis related to the added value of the AR-HUD on the user experience.
+2.6.1 Objective dimensions
+Table 1 shows the metrics calculated using the data collected from the simulator. They are calculated for each UC. In addition to their average values, the maximum values of the vehicle speed, pedal deflection speed, steering wheel rotation, and acceleration were examined as they may be indicative of the roughness (vs. smoothness) of the driving actions. Following Eriksson and Simon (2017), the variability
+Page 7/31
+
+of actions on the steering wheel was also considered since the authors view this metric as a good indicator of the drivers' mental workload.
+Failures were recorded; they correspond to navigation errors. The experimenter also noted all gazing at the manoeuvre-adapted mirror.
+Table 1 Available metrics – The vehicle metrics Total duration of the driving session in minutes Vehicle speed (Mean, max, min, SD) in km/h Acceleration (Mean, max, min, SD) in m.s− 2 Brake pedal deflection speed (Mean, max, min, SD) in m.s− 1 Acceleration pedal deflection speed (Mean, max, min, SD) in m.s− 1 Steering wheel rotation speed (Mean, max, min, SD) rd.s− 1 Time-To-Collision TTC (rear and ahead) (Mean, max, min, SD) in seconds Mirrors (number of times drivers look in a mirror) Time between Start Point and using the indicator in seconds Time between Start Point and lane change in seconds Time between Start Point and the first look in a mirror in seconds Time between the first look in a mirror and the lane change in seconds Distance between the point where the indicator is activated and the possible end-of-manoeuvre point (End Point), in meters Distance between the lane change point and the possible end-of-manoeuvre point (End Point), in meters
+2.6.2 Subjective dimensions
+After each experimental phase, a debriefing interview was held with participants in order to determine, for each UC,
+the sources of information used (GPS, the AR-HUD or C-HUD interface, the turn-by-turn icon, the distance, and the road sign reproduced at the bottom of the HUD); the participants' impressions (understanding/usefulness of the information from each information source).
+In addition, participants were asked to assess their feelings using the following four 6-point Likert scales:
+Page 8/31
+
+the level of comprehension of each piece of information provided (GPS, turn-by-turn icon, turn-by-turn distance, direction sign, C-HUD, AR-HUD); the perceived usefulness of each piece of information provided (GPS, turn-by-turn icon, turn-by-turn distance, direction sign, C-HUD, AR-HUD); the degree of confidence placed in the manoeuvre (Can you assess the level of confidence you felt in the route to be followed: I felt almost no confidence/ very little confidence/ little confidence/ average confidence/ high confidence/ very high confidence); a comfort score (Can you assess the level of comfort you experienced: I experienced almost no comfort/ very little comfort/ little comfort/ average comfort/ high comfort/ very high comfort).
+At the end of the experiment, participants were asked to indicate their preference for one or the other of the two interfaces. Additionally, participants were asked about their knowledge of the area and the route.
+2.7 Data processing
+We adopted a two-step procedure to analyse the data.
+We first examined the effects of the HMI, the UC, and knowledge of the area on the objective variables: compliance with instructions, navigation errors, and vehicle metrics. Our goal was to assess the effect of the AR-HUD on the driving performance according to the first hypothesis, but also to confirm the specific status of UC3-4 and to control a possible learning or experience effect.
+Next, we analysed the subjective information provided by the participants in order to test the second hypothesis related to the user experience. To this end, we investigated the effects of the HMI on the different scores (comprehension, usefulness, confidence, and comfort). As before, we also took into account the effects of the UC and knowledge of the area. Furthermore, we assessed the relationship between the subjective and the objective metrics.
+Analyses were conducted in R (R Core Team 2022), and we used the package lme4 (Bates et al. 2012) to perform linear mixed model analyses of variance and multilevel logistic regression. As fixed effects, we entered the HMI, UC, and knowledge of the area -with interaction terms- into the models. As random effects, we had intercepts for the participants. P-values were obtained by likelihood ratio tests of the full model with the effect investigated against the model without the effect investigated. Homogeneity and normality assumptions were checked through visual inspection of the residual plots. We also ran repeated measures ANOVAs for which sphericity was assessed through Mauchly’s test, and in case of sphericity violation, the Greenhouse-Geisser correction was used to report the results. To measure the association between categorical variables, we used the chi-square test of independence.
+3. Results
+Among the 32 participants, 10 already knew the Bercy area in which the experiment took place and 3 of them also had some knowledge of the UCs. In addition, 8 participants made navigation errors that led to
+Page 9/31
+
+re-running the driving sessions; 2 of them knew the area, and 1 knew the route. To take into account a possible learning effect, we introduced the binary variable "knowledge of the area" which indicates whether the participant knew the area, either from experience or because he/she failed in a first run and had to replay a UC. In all, 17 participants knew the area (9 AR-HUD, 8 C-HUD), 14 did not (8 AR-HUD, 6 CHUD), and this information was not reported for one participant. Results are presented by type of variable. Analysis of the objective metrics provides answers to the first general hypothesis related to the effect of the HMI on the driving performance (H1), whereas the analysis of the subjective metrics provides answers to the second hypothesis related to the effect of the HMI on the user experience (H2).
+3.1. Objective metrics analysis
+This first part presents the analysis of navigation errors and compliance with instructions on the one hand and the analysis of vehicle metrics on the other.
+3.1.1. Navigation errors and compliance with instructions
+The analyses reported below aim at testing Hypothesis H1.1 stating that participants make fewer errors when using the AR-HUD. A total of 14 navigation errors (i.e., failures) were recorded during the driving sessions: 2 participants failed both UC1 and UC3-4, 2 failed only UC1, and 8 failed only UC3-4. The failures are reported in Table 2 by HMI, UC, and prior knowledge of the area. A multilevel logistic regression was performed to ascertain the effects of these factors and their interactions on the likelihood that participants would fail to complete the driving task. It revealed a significant main effect of the UC (χ2 (2) = 14.57, p < .001). There was no significant effect of HMI (χ2 (1) = .07, ns), prior knowledge of the area (χ2 (1) < .001, ns) nor their interactions. UC2 was associated with a zero risk of failure and probability of failure raised to 9.3% and 27.7% for UC1 and UC3-4 respectively.
+Page 10/31
+
+Table 2 Counts of failure by HMI, use case, and prior knowledge of the area
+
+HMI
+
+Use case
+
+Prior area knowledge
+
+Failure AR- C-
+
+UC1 UC2 UC3- No
+
+Yes
+
+HUD HUD
+
+4
+
+No
+
+45
+
+37
+
+28 32 22
+
+52
+
+26
+
+Yes
+
+6
+
+8
+
+4
+
+0
+
+10
+
+8
+
+4
+
+Total
+
+51
+
+45
+
+32 32 32
+
+60
+
+30
+
+Note. There are two missing values in prior area knowledge
+
+In addition to the failure analysis, we also examined participants’ compliance with procedures, which proved conclusive for UC1. In this UC, participants had to perform two successive lane changes (Fig. 6): shifting to the left to go from lane 3 to lane 4 (1), then turning at the traffic lights (2).
+Using the AR-HUD significantly promotes compliance with the procedure (χ2(32) = 18.15, p < .001, Cramer’s V = 0.75). It is worth noting that a large majority of the participants using the C-HUD continued driving on lane 3, then they cut across lane 4 to turn at the traffic light (Table 3).
+
+Table 3 Complying or failing to comply with the procedure
+
+Lane change
+
+AR-HUD C-HUD Total
+
+Compliance with the procedure 16
+
+3
+
+19
+
+Non-compliance
+
+1
+
+12
+
+13
+
+Total
+
+17
+
+15
+
+32
+
+Among the participants who complied with the procedure, lane changing occurs later under the C-HUD. The median distance between the lane change point and the end-of-manoeuvre point was greater under the C-HUD (Mdn = 87.4m) than under the AR-HUD (Mdn = 56.6m). A Mann-Whitney test indicated that this difference was statistically significant (U(3,16) = 4 ; p = 0.023 ; Rank biserial correlation=-0.83).
+3.1.2. Analysis of the driving performance (mean and maximum speed)
+This section aims at testing Hypothesis H1.2 stating that participants adopt a higher speed with the ARHUD than with the C-HUD.
+Page 11/31
+
+We conducted linear mixed model analyses of variance to investigate the effects of HMI, UC, and area knowledge on the speed metrics. We entered HMI, UC, area knowledge and all their possible interactions as fixed factors and intercepts for the participants as random factors.
+
+Mean speed. We found significant main effects of the UC (χ2(2) = 192.55, p < .001) and the HMI (χ2(1) =  5.25, p < .05) on the mean speed. Pairwise comparisons using t-tests, corrected with Holm’s sequential Bonferroni procedure, indicated that the differences UC1 vs. UC2 (d=-2.03, t(29)=-3.01, p < .01), UC1 vs. UC3-4 (d=-16.58, t(29)=-24.68, p < .001), and UC2 vs. UC3-4 (d=-14.55, t(29)=-21.67, p < .001) were statistically significant. At the same time, AR-HUD vs. C-HUD showed a statistically significant difference (d = 1.59, t(28) = 2.23, p < .05). Figure 7 shows the significant effects that were revealed: the average vehicle mean speed is at its lowest in UC1, its highest in UC3-4, and it decreases under the C-HUD.
+
+Maximum speed. There was a significant main effect of the UC (χ2(2) = 56.27, p < .001) and a marginal
+
+effect
+
+of
+
+the
+
+HMI
+
+(
+
+2
+χ
+
+(1) = 3.38,
+
+p = 0.066)
+
+on
+
+the
+
+maximum
+
+speed.
+
+Pairwise
+
+comparisons
+
+indicated
+
+that
+
+the differences UC1 vs. UC2 (d=-2.45, t(30)=-2.28, p < .05), UC1 vs. UC3-4 (d=-6.81, t(30)=-6.34, p < .001),
+
+and UC2 vs. UC3-4 (d=-9.26, t(30)=-8.62, p < .001) were statistically significant. At the same time, AR-HUD
+
+vs. C-HUD showed a marginally significant difference (d = 3.35, t(30) = 1.76, p = .09). Figure 8 shows the
+
+significant effects that were revealed: the average vehicle maximum speed is at its lowest in UC1, its
+
+highest in UC3-4, and it tends to decrease under the C-HUD.
+
+3.1.3. Analysis of the driving actions
+
+Following the same methodology, we investigated the effects of HMI, UC, and area knowledge on the metrics related to the driving actions (acceleration and actions on the brake pedal, the acceleration pedal, the steering wheel). The analyses carried out aim at testing Hypothesis H1.3 stating that actions are less abrupt with the AR-HUD than with the C-HUD.
+
+Two significant effects of the UC were found: one concerned the mean acceleration and the other concerned the steering wheel rotation speed. We did not find any effect of the HMI.
+
+Mean acceleration. We found only one main significant effect of the UC (χ2(2) = 10.31, p < .01). Pairwise comparisons indicated that the differences of UC1 vs. UC2 (d = .496, t(30) = 6.08, p < .001), UC1 vs. UC3-4 (d = .73, t(30) = 8.98, p < .001), and UC2 vs. UC3-4 (d = .08, t(30) = 2.91, p < .01) were statistically significant. Figure 9 shows the main effect that was revealed: the average vehicle acceleration is at its lowest in UC1 and at its highest in UC2.
+
+Steering wheel rotation speed. The analysis revealed a significant main effect of the UC on both the maximum steering wheel rotation speed (χ2(2) = 74.05, p < .001) and the variability of the steering wheel rotation speed (χ2(2) = 69.24, p < .001). There was also a significant interaction effect of UC and area knowledge on the maximum steering wheel rotation speed (χ2(2) = 9.68, p < .01) and on its variability (χ2 (2) = 9.54, p < .01). Pairwise comparisons indicated that when the area is not known, the pairwise differences between UCs are all significantly different: the smoothest actions on the wheel and the lowest variability of the steering wheel rotation speed are associated with UC2, followed by UC1 and then UC3-4.
+Page 12/31
+
+When the area is known, the smoothest actions on the wheel and the lowest variability of the steering wheel rotation speed are still associated with UC2, but there is no significant difference between UC1 and UC3-4 (Fig. 10a). Furthermore, the variability of the steering wheel rotation speed and the roughness of the actions on the wheel in UC3-4 tend to decrease when the area is known (Fig. 10b). It is important to recall that the variability of the steering wheel rotation speed may be seen as an indicator of mental workload.
+Thus, the objective metrics analysis shows that
+H1.1 is partially confirmed for UC1. In this UC, the AR-HUD interface promotes compliance with instructions. However, and regardless of the UCs, there was no effect of the HMI on navigation errors. H1.2 related to the vehicle speed is confirmed. There is a significant effect of the HMI on the mean speed and a marginal effect of the HMI on the maximum speed. As expected, speed is higher with an AR-HUD than with a C-HUD. H1.3 related to the driving actions features is not confirmed. Actions carried out when using an ARHUD were not less abrupt than with those carried out using a C-HUD.
+Besides those results concerning the effects of the AR-HUD, we observe significant effects of the UCs on driving performance. Some of these (e.g., differences in mean and max speeds) are induced by the specific features of the UCs; for instance, the speed of the vehicle is necessarily limited in UC1 since the driver must stop at the intersection. Other effects reflect differences between UCs attributable to their level of complexity. The fact that navigation odds ratios are higher under UC3-4 while the risk of failure is null in UC2 confirms the specific status of UC 3–4 as the most complex case and of UC2 as the easiest one. Similarly, the variability of the steering wheel rotation speed, which is an indicator of mental workload, takes its lowest value in UC2 and its highest ones in UC3-4.
+3.2. Subjective metrics analysis
+The second part of our study focuses on two dimensions: i) the information used by the participants and their assessment in terms of its ease of comprehension and usefulness, ii) the scores of confidence and comfort associated with the manoeuvres. It aims at testing the second hypothesis related to the effect of the AR-HUD on user experience.
+3.2.1. Sources of information
+Participants had several sources of information at their disposal: GPS, three items at the bottom of the HUD indicating the next direction to take (turn-by-turn icon), the remaining distance before the direction change (turn-by-turn distance), a road sign showing the direction to follow (road sign), a 3D arrow under AR-HUD, and a map under C-HUD. Table 4 illustrates the information sources that the participants stated they had used in their debriefing interviews. Results show that
+In UC1, the participants used more information sources than in other UCs.
+Page 13/31
+
+The GPS was hardly used. Under the AR-HUD, the participants mainly used the 3D arrow and the road sign at the bottom of the HUD screen. In the most complex UC, UC3-4, participants relied even more on the 3D arrow to the detriment of other information sources. Under the C-HUD, participants mainly relied on the road sign. The C-HUD map was barely used in UC3-4 and not much at all in UC1 and UC2.
+
+Table 4 Counts of information sources used by condition and by use case
+HMI
+
+Information
+
+AR-HUD
+
+Sources
+
+UC1
+
+UC2
+
+GPS
+
+1
+
+0
+
+TbT icon
+
+2
+
+2
+
+TbT distance
+
+4
+
+2
+
+Road sign
+
+8
+
+12
+
+3D arrow (AR-
+
+10
+
+12
+
+HUD)
+
+Map (C-HUD)
+
+Note. TbT: turn-by-turn
+
+UC3-4 0 1 0 6 17
+
+C-HUD
+
+UC1
+
+UC2
+
+0
+
+0
+
+4
+
+0
+
+5
+
+0
+
+11
+
+11
+
+6
+
+7
+
+UC3-4 0 0 1 10
+2
+
+At the end of the driving sessions, the participants were asked to assess the usefulness and clarity (or ease of comprehension) of the available information, on a scale ranging from 1 to 6. With a mean score of 1.55 (SD = 1.06), the GPS is the source of information viewed as the least useful, although it does not pose any comprehension problems (M = 4.41; SD = 0.72). The three items of information shown at the bottom of the HUD (i.e., the turn-by-turn icon, turn-by-turn distance, and road sign) were viewed as useful or even very useful since their mean scores are 4.86 (SD = 1.11), 5.08 (SD = 1.46), and 4.92 (SD = 1.71) respectively. These items are also easy to understand as participants assessed this information at over 5 for the three items: 5.41 (SD = 0.72), 5.61 (SD = 0.94) and 5.44 (SD = 0.79) respectively.
+
+The mean score for usefulness of the AR-HUD is 4.33 (SD = 1.89), and that of the C-HUD is 2.95 (SD = 
+
+1.87). The mean score given to ease of comprehension is 4.3 (SD = 1.67) for the AR-HUD and 2.85 (SD = 
+
+1.75) for the C-HUD. Repeated measures ANOVAs revealed a significant effect of the sources of
+
+information
+
+on
+
+predicting
+
+the
+
+usefulness
+
+scores
+
+(F(5,155) = 27.58,
+
+p < .001,
+
+2
+η
+
+=.47)
+
+and
+
+the
+
+comprehension
+
+scores
+
+(Greenhouse-Geisser
+
+correction
+
+of
+
+sphericity,
+
+F(3.25,71.51)=16.22,
+
+p<.001,
+
+2
+η
+
+=.42). Pairwise comparison tests, with Holm’s correction for adjusting p, established that the map (C-
+
+Page 14/31
+
+HUD) is the source of information that is the least easy to understand and that the information at the bottom of the HUD screen (turn-by-turn icon, turn-by-turn distance, road sign) is easier to understand than the C-HUD map, the GPS, and the AR-HUD. The GPS is considered the least useful of all information sources, followed by the C-HUD map (Table 5). Thus, 3D arrows (AR-HUD) are more useful and easier to understand than the map (C-HUD). However, they are considered less easy to understand than the bottom HUD information, without any evidence of lesser usefulness. Various problems were reported by AR-HUD users during the debriefing interviews, including a lack of anticipation that reduces the perceived usefulness of this interface. It was also sometimes difficult to interpret the direction of the arrows; some participants indicated they were not specific enough, they were not on the right lane, or they appeared too suddenly. At the same time, the participants who used the CHUD mentioned the difficulty of finding their location on the map and the disruptive changes of representation. Several also thought this artefact carried too much information (“too many criss-crossing lines”) in a complex situation; hence, the map added confusion.
+Page 15/31
+
+Table 5 Pairwise comparisons of comprehension and usefulness scores
+
+Information sources
+
+Comprehension
+
+Usefulness
+
+Mean
+
+t-statistic
+
+Mean
+
+difference
+
+difference
+
+GPS
+
+TbT icon
+
+-1.00*
+
+-2.71
+
+-3.31***
+
+TbT distance
+
+-1.20*
+
+-3.24
+
+-3.53***
+
+Direction sign
+
+-1.02*
+
+-2.77
+
+-3.38***
+
+Map (C-HUD)
+
+1.57***
+
+4.24
+
+-1.41**
+
+3D arrow (AR-
+
+0.11
+
+HUD)
+
+0.29
+
+-2.78***
+
+TbT icon
+
+TbT distance
+
+-0.20
+
+-0.53
+
+-0.22
+
+Direction sign
+
+-0.02
+
+-0.06
+
+-0.06
+
+Map (C-HUD)
+
+2.57***
+
+6.94
+
+1.91***
+
+3D arrow (AR-
+
+1.11*
+
+3.00
+
+0.53
+
+HUD)
+
+TbT distance Direction sign
+
+0.17
+
+0.47
+
+0.16
+
+Map (C-HUD)
+
+2.76***
+
+7.47
+
+2.13***
+
+3D arrow (AR-
+
+1.30**
+
+3.53
+
+0.75
+
+HUD)
+
+Direction
+
+Map (C-HUD)
+
+2.59***
+
+7.00
+
+sign
+
+1.97***
+
+3D arrow (AR-
+
+1.13*
+
+3.06
+
+0.59
+
+HUD)
+
+Map (C-HUD) 3D arrow (ARHUD)
+
+-1.46**
+
+-3.94
+
+-1.38**
+
+Note. Pooled standard errors: SE(Comprehension) = 0.37, SE(Usefulness) = 0.38
+
+Note. *p < .05, **p < .01, ***p < .001
+
+Note. P-value adjusted with the Holm correction for comparing a family of 6
+
+Note. TbT: turn-by-turn
+
+t-statistic
+-8.72 -9.29 -8.88 -3.70 -7.32
+-0.58 -0.16 5.02 1.40
+0.41 5.59 1.97
+5.18
+1.56
+-3.62
+
+3.2.2. Confidence and comfort scores
+Page 16/31
+
+Table 6 shows the mean and standard deviations of confidence and comfort scores associated with the manoeuvres, by UC, area knowledge, and HMI. A linear mixed model analysis of variance revealed a significant main effect of UC (χ2(2) = 18.09, p < .001) and prior knowledge of the area (χ2(1) = 5.52, p  < .05) in predicting confidence scores, and a significant main effect of UC (χ2(2) = 8.33, p < .05) in predicting comfort scores. There was no significant effect of the HMI on confidence or comfort levels.
+
+Table 6 Mean and standard deviations of confidence and comfort scores
+
+Confidence
+
+Comfort
+
+Use case Area known
+
+HMI
+
+M
+
+SD
+
+N
+
+M
+
+SD
+
+N
+
+UC1
+
+No
+
+AR-HUD
+
+4.20 1.14 10 4.55 1.37 11
+
+C-HUD
+
+3.78 1.46 9
+
+4.56 1.29 8
+
+Yes
+
+AR-HUD
+
+4.50 1.64 6
+
+4.33 1.51 6
+
+C-HUD
+
+3.75 1.89 4
+
+4.25 1.50 4
+
+UC2
+
+No
+
+AR-HUD
+
+4.10 1.08 10 4.41 1.16 11
+
+C-HUD
+
+4.11 1.45 9
+
+4.00 1.77 8
+
+Yes
+
+AR-HUD
+
+4.83 0.75 6
+
+4.42 0.80 6
+
+C-HUD
+
+5.00 0.82 4
+
+4.50 1.00 4
+
+UC3-4
+
+No
+
+AR-HUD
+
+2.60 1.43 10 3.05 1.71 11
+
+C-HUD
+
+2.00 1.23 9
+
+3.13 1.64 8
+
+Yes
+
+AR-HUD
+
+3.67 1.97 6
+
+4.00 1.27 6
+
+C-HUD
+
+3.75 1.89 4
+
+3.75 1.89 4
+
+Note. Different frequencies are due to missing values
+
+Pairwise comparison tests, using the Holm correction to adjust p, indicated that on average, confidence and comfort scores were significantly lower in UC3-4 than in UC1 and UC2. There was no evidence of a difference between UC1 and UC2 (Table 7).
+
+Page 17/31
+
+Table 7 Pairwise comparisons of confidence and comfort scores between use cases
+
+Confidence
+
+Comfort
+
+Use cases
+
+d
+
+SE
+
+t-
+
+d
+
+statistic
+
+SE
+
+t-
+
+statistic
+
+UC1 UC2 -0.367 0.326 -1.124
+
+0.117
+
+0.343 0.340
+
+UC3- 1.267 0.326 3.883
+
+4
+
+***
+
+1.067** 0.343 3.108
+
+UC2 UC3- 1.633 0.326 5.006
+
+4
+
+***
+
+0.950 * 0.343 2.768
+
+Note. * p < .05, ** p < .01, *** p < .001
+
+Note. p values are adjusted with the Holm correction for comparing a family of 3
+
+Note. d is the difference between means, SE is the pooled standard error between means
+
+Similarly, as illustrated in Fig. 11, confidence scores tend to increase when the area is known (d=-.79, SE  = .36, t=-2.19, p < .05).
+3.2.3. Correlations between the objective and subjective dimensions
+
+In each UC, we assessed the correlations between the vehicle metrics on the one hand and the confidence and confidence scores on the other. In UC1, lower mean acceleration and smoother actions on the steering wheel were associated with higher confidence and comfort scores (Table 8).
+
+Vehicle metrics
+
+Table 8 Significant Pearson correlations in UC1
+Confidence score
+
+Mean acceleration
+
+− 0.42* (0.18)
+
+Maximal steering wheel rotation speed
+
+− 0.42* (0.18)
+
+Note. *p < .05, **p < .01, ***p < .001
+
+Note. Determination coefficients r2 are given between brackets
+
+Comfort score − 0.495** (0.25) − 0.62*** (0.38)
+
+In UC3-4, there was a direct correlation between the minimum speed of the vehicle and confidence scores: confidence scores tended to be lower when vehicles drove more slowly and vice versa. In addition, confidence and comfort scores tended to be lower for higher magnitudes of action on the steering wheel.
+
+Page 18/31
+
+The mean rotation speed of the steering wheel was inversely correlated with comfort and confidence scores, and its maximum rotation speed was inversely correlated with the confidence score (Table 9).
+
+Table 9 Significant Pearson correlations in UC3-4
+
+Vehicle metrics
+
+Confidence score
+
+Comfort score
+
+Mean steering wheel speed
+
+− 0.48** (0.23)
+
+− 0.36** (0.13)
+
+Maximal steering wheel rotation speed
+
+− 0.46** (0.22)
+
+Minimal speed
+
+0.41* (0.17)
+
+Note. *p < .05, **p < .01, ***p < .001
+
+Note. Determination coefficients r2 are given between brackets
+
+There was no significant correlation in UC2 between objective and subjective metrics.
+Thus, the analysis of the subjective metrics shows that
+H2.1 and H2.2 are confirmed. Participants have a better comprehension of the information provided by the AR-HUD than with the C-HUD (H2.1), and they find the AR-HUD more useful (H2.2). However, the AR-HUD is viewed as less easy to understand than the bottom HUD information (the turn-by-turn icon, turn-by-turn distance, and road sign). H2.3 and H2.4 are not confirmed, as there was no effect of the HMI on both the confidence and the comfort scores.
+Those results highlight, once again, the particular status of UC3-4, which is associated with the lowest scores of confidence and comfort. They also show the learning or experience effect on these scores and reveal notable correlations between several objective metrics on the one hand and the confidence and comfort scores on the other.
+
+4. Discussion
+This study shows the higher performance of participants using the AR-HUD in comparison with those who used the C-HUD, and at the same time, it brings to light the problems encountered with the AR-HUD.
+In addition, it confirms the singular status of UC3-4. Associated with a high risk of failure and with the lowest scores of confidence and comfort, it appears to be the most difficult situation.
+4.1 Superior performance with the AR-HUD
+Page 19/31
+
+The first hypotheses (H1.1 and H1.2) are validated. The AR-HUD has a positive effect on rule compliance in UC1, and it is associated with an increased mean speed. Speed adjustments are known to enable drivers to deal with the difficulties they encounter (Fuller 2005). In a complex situation, slowing down provides extra time to obtain useful information and to understand the situation. Our results show that in the most complex UC (UC3-4), speed, and specifically minimum speed, correlates with the confidence score. Drivers adopt a low speed when they are unsure of the route to take. Nwakacha et al. (2013) also note the influence of the interface (arrow C-HUD vs. a sat-nav personal assistant) upon the speed adopted by the participants during a navigation task; the authors argue that “The lowest speed values recorded with the sat nav suggested the possibility that the participants may have found the tasks more difficult to carry out with the sat nav” (p. 265). Bauerfeind et al. (2021) also point out that participants drive more slowly with a conventional HUD than with an AR display.
+These findings, based on the analysis of the objective data, are confirmed by the analysis of the subjective data, which shows that the AR-HUD is assessed as being more useful and easier to understand than the C-HUD. The map displayed in the C-HUD condition remained a secondary, even minor source of information in the most complex UC. Furthermore, the information provided by the AR-HUD is easier to understand and considered as more useful than the information provided by the C-HUD. These results confirm some of the hypotheses related to the user experience (i.e., H2.1 and H2.2).
+However, and against H1.3, the HMI has no effect on the smoothness (vs. roughness) of the actions performed, nor on their variability. Furthermore, and against H2.3 and H2.4, it has no effect on confidence and comfort.
+4.2 The AR-HUD: Room for improvement
+Those mitigated results suggest that the AR-HUD does not provide optimal support. Some participants explained that it precludes anticipation. It is necessary to specify that this navigation system is based upon the SCANeR simulation software package and takes the surrounding traffic into consideration; hence, it indicates a manoeuvre only when the latter is possible. The AR-HUD supports drivers in the guidance phase, but it does not enable them to build an overall representation of the route. In addition, participants do not use the GPS system, certainly because it is somewhat basic. GPS versions that are zoomed and self-centring would surely help drivers construct a comprehensive vision of the route.
+The AR-HUD is assessed as being more useful and easier to understand than the C-HUD, but less so than the indication of direction (road sign) or the turn-by-turn information. Some participants reported that the arrow in the augmented reality view "oscillates", which makes it difficult to interpret the information. Pfannmüller, Walter and Bengler (2015) also point out that lack of precision in the position of the information displayed in augmented reality has a negative impact upon drivers' performance and the user experience.
+4.3 Limitations of the study
+Page 20/31
+
+The main limitation of this study is that the analysis of the sources of information used by the participants is based upon verbatim statements only, and that eye-tracking data were not collected. The investigation of the visual scanning processes is however important, since it has been shown that the ARHUD could have a negative impact on the perception of a dangerous event occurring (Smith et al. 2020). This investigation would have been necessary to verify the following statement: “Optimal AR graphics would require a few glances of short duration in the direction of the graphics and would increase the amount of visual attention available for drivers to allocate to other areas with potential hazards and other driving-relevant information” (de Oliveira Faria et al., 2020, p. 764).
+5. Conclusion
+From a methodological perspective, the study shows that the mean speed variable discriminates between the two interfaces. It also draws attention to the variables relating to the steering wheel rotation speed (i.e., mean and maximum), whose values correlate with both the confidence score and the comfort score when the situation is very complex.
+From a practical perspective, the study demonstrates the value of an AR-HUD to complete a navigation task in a complex environment with little guidance information. However, the limitations pointed out by the participants, particularly those relating to the difficulties of anticipation, call for further studies through the investigation of the finer-grained incorporation of the traffic situation (i.e., contextualizing the presentation of information rather than delaying it) on the one hand, and ways of helping drivers not only in the phase preceding the manoeuvre (the "identify" stage in Burnett’s model) but also in the "preview" phase that enables drivers to construct a representation of the manoeuvre, on the other. Topliss et al. (2019), who have identified the same limitation, suggest incorporating support using augmented reality in a system comprising other sources of information (e.g., a map or spoken instructions). Hence, it is necessary to consider integrating different sources of information in an instrument system (Forzy 2002) so that they may be used as complements or alternatives depending upon the phases of the navigation activity and the characteristics of the situation.
+Declarations
+Declaration of competing interest
+The authors declare that they have no known competing financial interests or personal relationships that could have appeared to influence the work reported in this paper.
+Acknowledgments
+The authors are grateful to the French car manufacturer Renault, which supported this study, and in particular to the “Localization & Augmented Reality” team. They would also like to thank Jean-François Forzy (Renault Company) for his relevant feedback.
+Page 21/31
+
+References
+1. Bates D, Mäechler M, Bolker B, Walker S (2015). Fitting Linear Mixed-Effects Models using lme4. Journal of Statistical Software, 67(1): 1-48. https://doi:10.18637/jss.v067.i01
+2. Bauerfeind K, Drüke J, Bendewald L, Baumann M (2019) When does the driver benefit from ARinformation in a navigation task compared to a Head-Up Display? Results of a driving simulator study. In Proceedings of the Human Factors and Ergonomics Society Europe (pp. 219-230)
+3. Bauerfeind K, Drüke J, Schneider J, Haar A, Bendewald L, Baumann M. (2021) Navigating with Augmented Reality–How does it affect drivers’ mental load? Applied Ergonomics 94. https://doi.org/10.1016/j.apergo.2021.103398
+4. Boelhouwer A, Beukel APVD, Voort MC, Martens MH (2020, July) Determining Infrastructure-and Traffic Factors that Increase the Perceived Complexity of Driving Situations. International Conference on Applied Human Factors and Ergonomics. Springer, Cham, pp 3-10
+5. Bolton A, Burnett G, Large DR (2015) An investigation of augmented reality presentations of landmark-based navigation using a head-up display. In Proceedings of the 7th International Conference on Automotive User Interfaces and Interactive Vehicular Applications (pp. 56-63). ACM https://doi.org/10.1145/2799250.2799253
+6. Burnett G.E. (1998) "Turn right at the King’s Head": Drivers’ requirements for route guidance information. Dissertation, Loughborough University
+7. Chauvin C, Saïd F, Langlois S (2019) Does the Type of Visualization Influence the Mode of Cognitive Control in a Dynamic System? In Proceedings of the International Conference on Intelligent Human Systems Integration (PP. 751-757). Springer, Cham. https://doi.org/10.1007/978-3-030-11051-2_114
+8. de Oliveira Faria N, Gabbard JL, Smith M (2020) Place in the World or Place on the Screen? Investigating the Effects of Augmented Reality Head-Up Display User Interfaces on Drivers’ Spatial Knowledge Acquisition and Glance Behavior. In Proceedings of the 2020 IEEE Conference on Virtual Reality and 3D User Interfaces Abstracts and Workshops (VRW) (pp.763-764). https://doi.org/10.1109/VRW50115.2020.00232
+9. Gabbard JL, Fitch GM, Kim H (2014) Behind the Glass: Driver challenges and opportunities for AR automotive applications. In Proceedings of the IEEE (pp. 124-136). http://doi.org/10.1109/JPROC.2013.2294642
+10. Eriksson A, Stanton NA (2017) Driving performance after self-regulated control transitions in highly automated vehicles. Human factors 59: 1233-1248. https://doi.org/10.1177%2F0018720817728774
+11. Forzy JF (2002) Conception ergonomique pour des environnements multi-instrumentés : Le cas des postes de conduite automobile. Dissertation, Université Paris VIII
+12. Fuller R (2005) Towards a general theory of driver behaviour. Accident Analysis & Prevention 37: 461472. https://doi.org/10.1016/j.aap.2004.11.003
+13. Gish KS (1995) NHTSA / Human factors aspects of using head up displays in automobiles: a review of literature. Report DOT HS 808 320 / NHTSA
+Page 22/31
+
+14. Jose R, Lee GA, Billinghurst M (2016) A comparative study of simulated augmented reality displays for vehicle navigation. In Proceedings of the 28th Australian Conference on Computer-Human Interaction (pp. 40-48). ACM. https://doi.org/10.1145/3010915.3010918
+15. Harkin D, Cartwright W, Black M (2005) Decomposing the map: using head-up display for vehicle navigation. Proceedings of the 21st International Cartographic Conference.
+16. Kim S, Dey AK (2009) Simulated augmented reality windshield display as a cognitive mapping aid for elder driver navigation. In Proceedings of the SIGCHI Conference on Human Factors in Computing Systems (pp. 133-142). ACM. https://doi.org/10.1145/1518701.1518724
+17. Medenica Z, Kun AL, Paek T, Palinko O (2011) Augmented reality vs. street views: a driving simulator study comparing two emerging navigation aids. In Proceedings of the 13th International Conference on Human Computer Interaction with Mobile Devices and Services (pp. 265-274). ACM. https://doi.org/10.1145/2037373.2037414
+18. Michon JA (1985) A critical view of driver behavior models: what do we know, what should we do? In Evans L and Schwing RC (eds) Human behavior and traffic safety. Springer, Boston, pp 485-524. https://doi.org/10.1007/978-1-4613-2173-6_19
+19. Nwakacha V, Crabtree A., Burnett G (2013) Evaluating distraction and disengagement of attention from the road. In Proceedings of the International Conference on Virtual, Augmented and Mixed Reality (pp. 261-270). Springer, Berlin, Heidelberg. https://doi.org/10.1007/978-3-642-39420-1_28
+20. Pfannmüller L, Walter M, Bengler K (2015) Lead me the right way?! The impact of position accuracy of augmented reality navigation arrows in a contact analogue head-up display on driving performance, workload, and usability. In Proceedings of the 19th triennial congress of the IEA, Melbourne.
+21. R Core Team (2022) R: A language and environment for statistical computing. Foundation for statistical Computing, R Foundation for Statistical Computing, Vienna, Austria. URL https://www.Rproject.org/.
+22. Ross T, Burnett G (2001) Evaluating the human–machine interface to vehicle navigation systems as an example of ubiquitous computing. International Journal of Human-Computer Studies 55: 661674. https://doi.org/10.1006/ijhc.2001.0495
+23. Schneider M, Bruder A, Necker M. Schluesener T, Henze N, Wolff C (2019) A real-world driving experiment to collect expert knowledge for the design of AR HUD navigation that covers less. Mensch und Computer 2019-Workshopband. https://dx.doi.org/10.18420/muc2019-ws-610
+24. Smith M, Gabbard JL, Burnett G, Doutcheva N (2017) The effects of augmented reality head-up displays on drivers' eye scan patterns, performance, and perceptions. International Journal of Mobile Human Computer Interaction (IJMHCI) 9: 1-17. https://doi.org/10.4018/IJMHCI.2017040101
+25. Smith M, Jordan L, Bagalkotkar K, Sai Manjuluri S, Nittala R, Gabbard J (2020) Hit the Brakes! Augmented Reality Head-up Display Impact on Driver Responses to Unexpected Events. In Proceedings of the 12th International Conference on Automotive User Interfaces and Interactive Vehicular Applications (pp. 46-49). https://doi.org/10.1145/3409251.3411720
+Page 23/31
+
+26. Topliss BH, Pampel SM, Burnett G, Skrypchuk L, Hare C (2019) Follow the Leader: Examining Real and Augmented Reality Lead Vehicles as Driving Navigational Aids. International Journal of Mobile Human Computer Interaction (IJMHCI) 11: 19-38. https://doi.org/10.4018/IJMHCI.2019040102
+27. Utsuboya O, Shimizu T, Kurosawa A (2013) Augmented reality head up display for car navigation system. SID Symposium Digest of Technical Papers 44. Blackwell Publishing Ltd, Oxford, pp 551554. https://doi.org/10.1002/j.2168-0159.2013.tb06268.x
+Figures
+
+Figure 1 Bercy Use Case 1
+
+Page 24/31
+
+Figure 2 Bercy Use Case 2 (bird view on the left side and view from the ego vehicle on the right side)
+
+Figure 3 Bercy Use Case 3-4
+
+Page 25/31
+
+Figure 4 Information displayed on the AR HUD (first action to undertake in UC1)
+Figure 5 Information displayed on the C-HUD (beginning of UC1)
+Page 26/31
+
+Figure 6 The two steps required for compliance with procedure in UC1
+
+Figure 7 Interaction plot of the mean speed
+
+Page 27/31
+
+Figure 8 Interaction plot of the maximum speed
+Page 28/31
+
+Figure 9 Interaction plot of the mean acceleration
+Page 29/31
+
+Figure 10 a Interaction plot of the maximum steering wheel speed b Interaction plot of the steering wheel speed variability
+Page 30/31
+
+Figure 11 Confidence scores and 95% confidence intervals
+Page 31/31
+

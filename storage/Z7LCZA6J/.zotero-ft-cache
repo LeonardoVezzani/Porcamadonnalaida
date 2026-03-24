@@ -1,0 +1,932 @@
+
+JavaScript is disabled on your browser. Please enable JavaScript to use all the features on this page. Skip to main content Skip to article
+Elsevier logo ScienceDirect
+
+    Journals & Books 
+
+    Help
+    Search 
+
+Institution
+Register Sign in
+
+    PDF View  PDF
+    Download full issue 
+
+Search
+Outline
+
+    Highlights
+    Abstract
+    1. Introduction
+    2. Background and related work
+    3. Study design
+    4. Study results
+    5. Discussion
+    6. Conclusion
+    CRediT authorship contribution statement
+    Declaration of Competing Interest
+    Acknowledgments
+    References 
+
+Show full outline Navigate Down
+Cited By (6)
+Figures (5)
+
+    Fig. 1. Illustration of the contributions of this paper
+    Fig. 2. The UX design phases and associated UX activities
+    Fig. 3. Schematic overview
+    Fig. 4. The multiphase mixed methods approach
+    Fig. 5. Summary of the results in accordance to Fig
+
+Elsevier
+Transportation Research Interdisciplinary Perspectives
+Volume 11 , September 2021, 100455
+Transportation Research Interdisciplinary Perspectives
+Automotive UX design and data-driven development: Narrowing the gap to support practitioners
+Author links open overlay panel Patrick Ebel a Person Envelope Julia Orlovska b Envelope Sebastian Hünemeyer c Envelope Casper Wickman b Envelope Andreas Vogelsang a Envelope Rikard Söderberg b Envelope
+Show more Navigate Down
+List Plus Add to Mendeley
+Share Share
+Cited By Cite
+https://doi.org/10.1016/j.trip.2021.100455 Get rights and content
+Under a Creative Commons license
+Open access
+Highlights
+
+•
+
+    A Multiphase Mixed Methods approach, combining four individual studies, is applied.
+•
+
+    UX experts demand better integration of data-driven methods into the design process.
+•
+
+    Multiple limitations hinder OEMs to leverage insights from natural data.
+•
+
+    The limitations are evaluated from a technical, organizational, or legal perspective.
+•
+
+    Currently unexploited but potentially valuable methods are introduced and discussed.
+•
+
+    Recommendations are made to improve the collaboration between UX and Data Science.
+
+Abstract
+
+The development and evaluation of In-Vehicle Information Systems (IVISs) is strongly based on insights from qualitative studies conducted in artificial contexts (e.g., driving simulators or lab experiments). However, the growing complexity of the systems and the uncertainty about the context in which they are used, create a need to augment qualitative data with quantitative data, collected during real-world driving. In contrast to many digital companies that are already successfully using data-driven methods, Original Equipment Manufacturers (OEMs) are not yet succeeding in releasing the potentials such methods offer. We aim to understand what prevents automotive OEMs from applying data-driven methods, what needs practitioners formulate, and how collecting and analyzing usage data from vehicles can enhance UX activities. We adopted a Multiphase Mixed Methods approach comprising two interview studies with more than 15 UX practitioners and two action research studies conducted with two different OEMs. From the four studies, we synthesize the needs of UX designers, extract limitations within the domain that hinder the application of data-driven methods, elaborate on unleveraged potentials, and formulate recommendations to improve the usage of vehicle data. We conclude that, in addition to modernizing the legal, technical, and organizational infrastructure, UX and Data Science must be brought closer together by reducing silo mentality and increasing interdisciplinary collaboration. New tools and methods need to be developed and UX experts must be empowered to make data-based evidence an integral part of the UX design process.
+
+    Navigate Left Previous article in issue
+    Next article in issue Navigate Right 
+
+1. Introduction
+
+The influence of digital products on our everyday life is continuously growing. Smartphones, tablets, and other smart devices are ever-present, and become smarter, more personalized, and more capable from generation to generation. This is due not only to technological progress but also to the way digital products are developed and how the customer experience of a product is designed. The main goal of today’s digital product development process is to create a good User Experience (UX) such that the product satisfies the user’s expectations. User-centered Design (UCD) is an iterative multi-disciplinary design approach in which designers involve users in each phase of the process. Integrating users and their needs throughout the design process is considered essential to create a product with good usefulness and usability ( Mao et al., 2005 ). However, the continuous involvement of users and the need for experienced designers makes UCD an expensive but crucial task. Considering the ever-growing system complexity and the increasing expectations toward digital products, a traditional solely qualitative UX approach is no longer sufficient to fulfill customer’s needs. Therefore, digital domains including web or app development enhance their UX design processes by integrating data-driven methods. Those methods are based on big data to gain fast and objective user feedback. Modern websites, for example, can track every click of every user, resulting in large amounts of data that enables UX experts to gain additional insights into the users’ behavior and interests. Having insights about where people click, how long they interact with the system, and what they eventually buy, enables companies to tailor their services to meet customers’ needs.
+
+The changes in the design process of digital products also affect the development of today’s cars. Software-based systems play an increasingly important role and enable most of the innovations in modern cars ( Broy, 2006 , Burkacky et al., 2018 ). Whereas cars were originally purely mechanical products, influenced by the digital transformation, simple infotainment devices found their way into cars, resulting in the highly complex systems we experience today ( Harvey and Stanton, 2016 ). With the increasing impact of digital solutions, in-car UX is highly dependent on the user’s experience with those digital systems since, apart from the driving task, they are the main interaction method. Modern IVISs are feature-rich, highly connected digital systems that offer a large variety of applications ranging from car-specific settings to entertainment options like music streaming or television. This evolution leads to the fact that IVISs are not only compared to the systems offered by other car manufacturers but also to smartphones, websites, and other digital solutions. Therefore, it is increasingly important and difficult to provide customers with a user interface that meets their needs ( Harvey and Stanton, 2016 ). Digital companies recognized early that data-driven methods and big data analytics can have great value for their UX design process. In contrast, automotive OEMs are currently unable to fully exploit the possibilities and potentials of those methods ( Ebel et al., 2020a ) for the Product Development (PD) life cycle. This is due to organizational, legal, or technical restrictions. However, especially for the development of IVISs, data-driven methods yield great potential to enhance the understanding of the complex interaction between the car, the driver, and the driving environment. Whereas OEMs are aware of the potentials that data-driven methods offer to improve a product’s UX, previous work shows that they struggle to apply them to the development of IVISs. We are interested in the specific needs UX experts formulate toward data-driven methods, what potential use cases exist, why they are not yet leveraged, and how this can be tackled. As of now, no work addresses the general limitations of data logging, data processing, and data integration in the automotive UX development process. Previous work expresses individual, but only rough assumptions for the reasons why OEMs are not able to fully exploit the potentials of data usage in the (UX) product development.
+1.1. Contribution of this paper
+
+As the design of IVISs is complex, it requires a multidimensional approach to evaluate the topic studied in this work. Therefore, we examine the problem at hand from different perspectives by synthesizing results from four individual studies. This approach leads to various contributions. First, we present the current state-of-the-art of data utilization in the automotive UX design process of IVISs. We give an overview of the role data-driven methods play in the automotive sector , differentiate between different types of data that can be utilized, and compare the current state-of-the-art to digital domains. Second, based on the individual studies on which this work is based and the comparison to digital domains, we present the main limitations of the automotive sector concerning the usage of data-driven approaches. Additionally, specific needs UX experts have toward such systems are presented to gain a deeper knowledge of what is needed to make the UX design process more evidence-based and user-centered. Furthermore, potential fields of application in which the benefits of the usage of data-driven methods are not (yet) leveraged are presented. Based on the knowledge gained and the evaluation of the current shortcomings, we suggest actions and formulate recommendations on how to better integrate data-driven methods in the UX design process.
+
+    Download : Download high-res image (257KB)
+    Download : Download full-size image 
+
+Fig. 1 . Illustration of the contributions of this paper.
+
+This paper is intended to provide OEMs and researchers with guidance on what actions need to be taken to more effectively incorporate data-driven methods into the UX design process to develop in a user-centric manner. It also provides unexplored and interdisciplinary areas of research that are of interest to the academic community. Therefore, we provide recommendations on what peculiarities from the UX perspective need to be taken into account when building an automotive data logging and analysis framework. To do so, we elaborate on the technical infrastructure and identified limitations, the current way of working, and how current, mostly qualitative, methods can be triangulated with data-driven methods. By combining the knowledge regarding the limitations that apply to the automotive domain, the UX experts’ needs, the methods they use, as well as the triangulation potentials, we aim to bring data-driven methods and UX activities closer together to unleash untapped potential (see Fig. 1 ).
+2. Background and related work
+
+In this chapter the main concepts connected to UX and data-driven approaches in the automotive and other digital domains are discussed. Additionally, we elaborate on the data that can be used to support automotive UX activities.
+2.1. UX and its role in the automotive industry
+
+Although the term UX originates from the usability concept, the scope of UX goes far beyond the notion of usability. UX is used as an umbrella term that considers the entire person’s interaction with the product and includes the thoughts, feelings, and perceptions that result from that interaction ( Albert and Tullis, 2013 ). ISO 9241-210 defines UX as “a person’s perceptions and responses that result from the use or anticipated use of a product, system, or service” . In academia, it is commonly agreed that UX, being a holistic and subjective concept ( Roto et al., 2009 ), exceeds the mere solving of usability problems or the creation of pleasant UIs. Whereas usability aspects contribute to the overall UX, they are not suitable to measure UX. Measures including success rates or the time on task yield insights on how users interact with a product but not how the interaction ( Roto et al., 2011 ) is perceived. The user’s internal state, the system’s characteristics in use, and the context of interaction contribute and influence the perceived UX ( Hassenzahl and Tractinsky, 2006 ). Such a comprehensive and diverse understanding of UX leads to challenges in the practical implementation ( Väänänen et al., 2008 ), with some being of particular relevance for the design process of IVISs. For instance, the dual-task environment leads to the fact that interactions with IVISs are highly context-sensitive and are therefore dependent on the driving scenario and other environmental conditions ( Harvey et al., 2010 ). Thus, besides the physical interface and the interaction design, designers must also address the influence of the driving situation ( Löcken et al., 2017 ). This context-dependency increases the complexity of the design task ( Fastrez and Haué, 2008 ). Moreover, each IVIS itself is part of an overarching construct consisting of a multitude of subsystems and sensors that are often highly complex software systems in themselves. Therefore, the flawless and continuous communication between those systems plays a vital role with regard to in-car UX and users’ perception of IVIS.
+
+Today, the importance of UX is widely recognized by product developers and a good UX is the primary goal of most product development processes . Since this paper is oriented toward the industrial design process in the automotive area, we are focused on the practical implementation of UX principles, particularly on tools and methods used by UX practitioners. From this viewpoint, User Experience Design (UXD) is no different from user-centered design UCD ( Roto et al., 2011 ). However, if UX is a “tangible” outcome, then UCD is the method to create a better UXD. Thus, the roots of UXD can be found in the principles of UCD (ISO 13407:1999; revised by ISO 9241-210). UCD is based on three principles: (1) early focus on users and tasks; (2) empirical measurements using quantifiable and measurable usability criteria; (3) iterative design. Nevertheless, UX adds to the UCD concept the challenge to assess subjective UX factors such as aesthetics, perception, trust, and others. Other challenges of UXD are connected to selecting feasible methods and tools to measure, validate, and satisfy the UX factors, and the support of the UCD practice within the organization. A more specific peculiarity of UX is its cumulative nature ( Roto et al., 2011 ), which builds from anticipated, momentary, and episodic UX, and aggregates to the overall UX of the product. This finding suggests that UX evaluation activities need to be repeated during the product life cycle to capture something similar to an overall UX score ( Law et al., 2009 ). This is of particular interest for the automotive domain considering the long product lifecycle ( Broy, 2006 ), the various customer touchpoints, and the widespread and diverse user base ( Heimgärtner et al., 2017 ).
+2.2. UX in the product development life cycle
+
+This section gives a brief overview of the industrial application of the UX concept to demonstrate how UX activities are involved in the product development life cycle.
+
+    Download : Download high-res image (549KB)
+    Download : Download full-size image 
+
+Fig. 2 . The UX design phases and associated UX activities.
+
+The product design and development process can be described by six consequent steps: (1) Strategy and Research, (2) Product Definition, (3) Ideas Generation, (4) Prototyping and Testing, (5) Implementation, followed by an iterative (6) Evaluation Process for further product improvements (see Fig. 2 ). These steps can be directly associated with the pre-design, design, and post-design phases introduced by  Nielsen (1992) . At the same time, UX as a practice includes three main steps: (1) Envision UX, (2) Design UX, and (3) Evaluate UX ( Roto et al., 2011 ). Connected to the product development phases (see Fig. 2 ), these three major UX steps can be assigned as pre-design, design, and post-design phases. Each of these PD phases incorporates multiple UX activities that need to be considered to deliver a good UX design.
+
+In the following, we elaborate on the design phases according to  Nielsen (1992) in more detail: Pre-design is the phase where requirement and feature elicitation happens after funding is available and before design begins. The pre-design phase comprises two main steps, Strategy and Research and Product Definition. The former aims to understand the target user population. Various studies are conducted to achieve a specific understanding of the user groups and user needs, to define use cases, and to understand in which context users are performing certain tasks. During Product Definition the technical requirements are derived, features are defined and usability goals are set to clarify the design process.
+
+During the design phase, the focus lies on design implementation and an effective connection between hardware, software, UI, information flow, and other design elements. This phase ranges from the first sketches and wireframes that are generated during Idea Generation, over the first prototypes built in the Prototyping and Testing step to a usable Implementation of the system. Each step contains specific evaluation tasks that need to suit the maturity of the design in the respective step. Simultaneously, designing a “smart” product with digital features, like IVISs, requires encompassing the following design constructs: physical design, communication design, contextual design, and integration design. The comprehension of interrelations between all four design constructs is important to provide a quality design to the end-user. Physical design can be described as the design of a product and its features. Communication design is responsible for the interaction model with the user, including the Human-Machine Interaction (HMI) design. The contextual design aims to consider the dynamic environmental effect on product or system performance. Finally, the integration design is responsible for the seamless incorporation of the product or system into a higher-level system or product. To provide a seamless and meaningful interaction for the user, the designers must combine the individual design constructs into a coherent concept.
+
+The post-design phase also referred to as the follow-up phase, is especially important for a system’s redesign process. A good understanding of how customers use and accept the system, what impact the system has on the in-car UX, the safety, and other metrics is essential to derive suggestions for improvements that can be implemented in a re-design. Additionally, with the product being released, the initially set goals for usability can be evaluated using field data and unintended usage patterns can be identified.
+2.3. Comparison of automotive and digital domains
+
+In the automotive domain, a lot of research is done regarding the analysis of naturalistic driving data and the interaction with driver assistance systems ( Dingus et al., 2006 , Fridman et al., 2019 , Risteska et al., 2018 ). However, the development of methods that utilize fine-grained interaction data to directly derive usability and UX measures for IVISs themselves seems to be more prevalent in digital domains. Outside of the automotive domain, the analysis of user interaction data already plays a vital role in the UX design process. In app or web development, data-driven methods using implicit data are widely established. Already in 2006,  Agichtein et al. (2006) analyzed 12 million user interactions in a web search engine to derive an implicit feedback model. Another approach presented by  Atterer et al. (2006) utilizes implicit data, collected from user interaction on websites, to perform usability tests and evaluate how users behave while browsing websites. In contrast to  Agichtein et al. (2006) who track multiple different metrics,  Atterer et al. (2006) present an approach that measures the overall UX of a web page but is solely based on mouse tracking. Another approach is presented by  Deka et al. (2017) allowing designers to collect detailed interaction data for any Android app without any need for integration or access to the source code. Their method allows the collection of performance metrics (e.g., time on task, completion rate) and visualizes user flows to quickly identify specific problems. Another method that aims to explore and understand clickstream data is presented by  Liu et al. (2017) . The authors identified four different granularity levels in clickstream data and present an approach that aims to ease the analysts’ work to make sense of usage patterns and sequences.
+
+Compared to the evaluation methods mentioned above, automotive-related evaluation methods do not yet make use of automatically collected implicit user behavior data in such detail. Since the driving context is considered an important factor in evaluating in-car user behavior, a lot of research focuses on driving event recognition ( Orlovska et al., 2020a , Liang et al., 2016 ). Aiming to contribute to driver behavior understanding, researchers, utilizing indirect signals, propose prediction models on driver workload estimation ( Xing et al., 2018 , van Leeuwen et al., 2016 , Murphey et al., 2018 ), driver distraction ( Kanaan et al., 2019 ) and driver behavior ( Yao et al., 2019 , Miyajima and Takeda, 2016 ). Although these aspects contribute to a better driver behavior understanding, the proposed methods do not leverage the added potential introduced by detailed interaction data. This is mainly due to the fact that interaction data from the IVISs is mostly still unavailable, while the same interaction data in areas such as mobile apps or web development are well developed, providing insights into the interaction with digital products ( Deka et al., 2016 , Deka et al., 2017 , West et al., 2009 , Wulczyn and Taraborelli, 2017 ).
+2.4. Data in the UX design process
+
+Every study that focuses on UX evaluation involves participants who interact with the system under test to derive insights regarding the usage and the interaction. However, there are two types of data that can be collected (qualitative and quantitative data) and two different approaches how the data is collected (implicit feedback vs. explicit feedback). In the following, the authors will elaborate on the differences between those characteristics to derive a clear definition of what kind of data will be covered in this work.
+
+Qualitative Data vs. Quantitative Data. Qualitative research methods focus on the quality of things and are used to explain, describe, and identify the root cause of user behavior ( Creswell, 2013 , Merriam, 2009 ).  Deniz and Lincoln (2017) describe qualitative research methods as an approach to interpret phenomena in their natural environment based on the meaning that a particular user or group of users reveals to them. Therefore, qualitative methods usually focus on gathering subjective impressions of the system at different product use stages. Since qualitative research focuses on explaining why certain behaviors or phenomena occur, human factors such as user perception or satisfaction are of primary interest in qualitative research ( Orlovska et al., 2019a ). Quantitative research, in contrast, focuses on measurements to test hypotheses, determine and quantify an outcome, detect correlations and generalize results ( Deniz and Lincoln, 2017 ). The ability to control experiments in quantitative research enables researchers to produce reliable and reproducible results. Quantitative data is any quantifiable information that can be used for statistical analysis. The difference between qualitative and quantitative data can be broken down to the type of questions they can answer: Whereas quantitative approaches aim to answer questions like “How many?” and “How much?” qualitative approaches aim to answer the “Why?” question.
+
+Explicit Data vs. Implicit Data. Another way of categorizing the data used in the product development process is to distinguish how the data is collected. There are two different types of feedback used to evaluate user behavior, explicit and implicit feedback. Explicit feedback is collected intentionally, for example, through surveys, focus groups, or interviews. In contrast, implicit feedback is not provided intentionally but gathered during the interaction with a product through observation or logging by, for example, sensors and telemetry. This work only focuses on implicit feedback collected from vehicle actuators, sensors, vehicle apps, or in-vehicle software systems. Therefore, the explicit quantitative feedback generated by extensive user surveys, or by using an automated data collection method, such as web surveys, will not be considered in this work.
+
+Lab Data vs. Naturalistic Data vs. Natural Data. In addition to the above distinctions, further characteristics need to be considered when describing automotive data. Since the perceived UX is highly dependent on the context, i.e. the driving situation, it is necessary to introduce subcategories, describing the environment in which the data is collected. Lab data is data that is collected during controlled experiments in an artificial environment. For most lab experiments, which aim to collect implicit user interaction data, a small number of participants are recruited and instructed to perform dedicated tasks in a driving simulator environment. The fidelity of the driving simulator can range from a simple seating buck without any context simulation to a moving-base high-fidelity driving simulator. Due to the experimental setting, the implicit data, collected during the experiment, can easily be enhanced by qualitative and explicit data (e.g. by performing follow-up interviews). However, great time and resource investments are necessary and the number of participants is strictly limited by the available budget.
+
+Whereas lab data is collected in an artificial environment, naturalistic driving studies aim to create an unobtrusive data collection. Naturalistic data is gathered during real-world driving “in a natural driving context and under various driving conditions”  ( Orlovska et al., 2020a ). However, only data from a defined group of participants over a certain amount of time is evaluated. This is mostly because such studies often require additional instrumentation in the vehicle. Naturalistic driving studies are often conducted if the data that can be collected from the production vehicles is not sufficient, and more detailed user feedback is needed to evaluate the research objective. Additionally, for some measurements, such as personal or physiological data, driver consent needs to be collected, further narrowing down the number of participants. Despite the naturalistic driving study’s main focus on implicit and quantitative data collection, follow-up interviews, aiming to triangulate quantitative insights with qualitative ones, can be part of naturalistic driving studies.
+
+In contrast to naturalistic data, natural data describes data that is collected from real-world customers, without a specifically designed test environment or a defined group of participants. Natural user data collection does not require any additional vehicle instrumentation, using only existing and available means of the original production vehicle. This, in theory, enables data to be collected from every car in the fleet of an OEM . Nevertheless, even if it might technically be possible to log the required natural data from any vehicle, the prior consent of the respective driver is still a prerequisite due to the data protection regulations.
+
+In summary, each type of data has certain advantages and disadvantages. Whereas quantitative data can be used to quantify the existence of a problem, qualitative data can be used to discuss the causes of the problem. Explicit data allows the extraction of detailed information, but its collection is limited to small amounts of data and is relatively expensive. Implicit data can be collected automatically in large quantities, which opens up many application areas. However, conclusions from implicit data are always limited when it comes to understanding the relationship between user behavior and user experience. As of now, the evaluation of IVISs is mostly based on explicit data. If implicit quantitative data is used, it is mostly generated during lab experiments or user studies, focusing on one specific research question.
+
+Whereas the automotive industry is aware of the potentials of implicit quantitative data that can be collected automatically in real-time, these possibilities, especially when combined with the already existing and very well-developed qualitative feedback channels, are not yet leveraged to any great extent.
+3. Study design
+
+Despite the known potentials of implicit natural and naturalistic user interaction data for improving the UX of a product, previous work shows that these potentials are not (yet) leveraged in the development of automotive IVISs. We are interested in how the data sources are currently used, why the potentials are not leveraged and how this could be tackled. Therefore, we aim to answer the following research questions:
+
+RQ1:
+
+    What are the main limitations that prevent data-driven methods from being applied?
+RQ2:
+
+    What are the needs of UX experts with regard to the usage of data-driven methods in the automotive UX development life cycle?
+RQ3:
+
+    How can a more effective utilization of implicit vehicle data enhance UX activities?
+RQ4:
+
+    What measures can improve the integration of data-driven methods into the UX design process?
+
+Fig. 3 shows how the individual research questions are related to each other and how we will answer them in the following sections. First, we answer RQ1 and RQ2 and how they influence each other. From the generated knowledge we then answer RQ3 before presenting specific measures related to RQ4.
+
+    Download : Download high-res image (247KB)
+    Download : Download full-size image 
+
+Fig. 3 . Schematic overview.
+3.1. Research methodology
+
+The overall design comprises four studies, two of them being interview studies with professionals and two being practical investigations on vehicle data availability for user-related studies. In addition to the results of the interview studies that directly contribute to the overall research objective, we also analyzed two ongoing studies currently being conducted in two large OEMs. To do so, we applied the Action Research Methodology ( Avison et al., 1999 , Sjoberg et al., 2007 ). The main objective of the action research methodology is to combine academic knowledge with current practical challenges ( Greenwood, 1998 ). While providing practical value to the client organization by introducing new methods or technologies, action research simultaneously aims to generate theoretical knowledge based on the deep and first-hand understanding the researchers obtain in their interaction with the client organization ( Sjoberg et al., 2007 ). The practical value of Study 1 and Study 3 lies in the data collection, data processing, and data analysis methods that are introduced to the two OEMs during the course of the respective studies. The theoretical knowledge is based on the experiences we gained during the studies regarding limitations, needs, and potentials of data-driven methods in UX development. These experiences were documented during the study in the form of researcher identity memos ( Maxwell, 2012 ). Therefore, the action research approach builds a model of co-production between researchers and practitioners, being highly suited to evaluate the problems addressed in this work. In its entirety, the overall study aims to explore and explain the automotive domain’s specificity regarding data-driven approaches in UX design activities. The following gives an overview of the individual studies and their contribution to this work. 1
+
+Study 1: This study consists of the design, practical implementation, and subsequent data analysis of a naturalistic driving study. The study is based on data recorded from 132 vehicles over seven months. Thus, in the course of the design and implementation of the respective naturalistic driving study, the purpose of Study 1 is to observe and analyze the main restrictions regarding data collection and to investigate how the processes of vehicle data collection, processing, and storage are organized in practice. This study helps to identify and analyze several critical limitations regarding vehicle data utilization for user-related studies. Thus, based on the practical assessment of two Advanced Driver Assistance System (ADAS) functions, this study contributes to the in-depth understanding of underlying issues regarding vehicle data availability in one of the Swedish leading OEMs. The study design is precisely described in  Orlovska et al. (2020a) .
+
+Study 2: The second study is an interview study, conducted with the developers who designed and implemented the ADAS functions that were evaluated in Study 1. In this study, semi-structured interviews with the ADAS development and verification team were conducted to determine what data, and data-driven methods in particular, are currently used in ADAS development. All interviews were audio-recorded, transcribed, and coded separately by two independent researchers using the qualitative data analysis software NVivo 12. 2 To create a common understanding of the coding procedure and determine coherence and reliability among the coders, both researchers reviewed the codes after coding the first transcripts. After coming to a consensus, all remaining interviews were coded separately by the researchers. The interview data analysis uncovered how the data-driven evaluation process is organized and what kind of data and methods are used throughout the development, verification, and follow-up phases. Several critical issues were identified and mapped within different development stages. A detailed description of the study can be found in  Orlovska et al. (2020c) . The information obtained in this study allows to discuss the effectiveness of data utilization for one particular function and suggests improvements to the current data-driven approach.
+
+Study 3: In Study 3 we elaborate on the current state-of-the-art of interaction data utilization in the automotive UX design process. We reflect on the needs practitioners formulate toward data-driven solutions, on the concerns they share, and on the potentials they anticipate. To put the results into perspective, we conducted semi-structured interviews with UX professionals from the automotive domain (8 participants) and digital domains such as app or web development (6 participants). The interviews were audio-recorded, transcribed, and anonymized before they were coded in a mixture of a priori and emergent coding using ATLAS.ti. 3 The identified codes were structured into five categories. The relation of these categories is described in a thematic coding model. This study provides insights into the current role of implicit feedback through natural user interaction data, the peculiarities of the automotive domain, and the value data-driven analysis can have for automotive UX development. Additionally, the study leads to a deeper understanding of automotive-related limitations and builds the foundation for further investigation on how those limitations might be overcome. The study design and outcome are precisely described in  Ebel et al. (2020a) .
+
+Study 4: This study is a currently ongoing practical case study, based on natural data retrieved from production vehicles of a large German OEM. In this study, a framework for analyzing user behavior based on natural event sequence data and driving data is developed and implemented. By combining driving data and user interaction data from the HMI , the authors aim to evaluate the bidirectional dependencies between driving behavior and interaction with IVISs. First results and an overview of the telematics architecture are provided by  Ebel et al. (2021) . Similar to Study 1, the action research methodology is adopted and applied. Based on observation, evaluation, and critical analysis of existing methods and current practices within the OEM, we extracted valuable information regarding the current applications and limitations of data-driven approaches in the automotive driver behavior assessment.
+
+The data collection in all corresponding studies was carried out with the signed agreement of participants. The acquisition, processing, and storage of the collected data were made in accordance with the European General Data Protection Regulation (GDPR), meaning that the confidentiality of data storage and anonymity of participants’ identifiers were strictly followed.
+3.2. Integration and triangulation of study results
+
+In this research we adopted a Multiphase Mixed Methods approach ( Creswell, 2013 ) and modified it to fit the research purpose (see  Fig. 4 ) of this work.
+
+Study 1 and Study 2 were both performed in cooperation with a large Swedish OEM and form the two distinct interactive phases of Study A, using an Explanatory Sequential Mixed Methods design ( Creswell, 2013 ). The Explanatory Sequential Mixed Methods design has two distinct phases, where the action research approach precedes the qualitative interview study. In Study 1, the design implementation for collecting and analyzing quantitative data in a naturalistic driving study revealed several restrictions and peculiarities regarding the company’s data-related processes. These findings were then investigated in greater detail in a qualitative interview study with company professionals (Study 2). This study aims to explore and understand the OEM’s limitations toward the usage of data-driven methods. The triangulation of the two studies enriches the action research outcome with practitioners’ insights and explanations and helps to better understand the root causes of the practical limitations.
+
+    Download : Download high-res image (902KB)
+    Download : Download full-size image 
+
+Fig. 4 . The multiphase mixed methods approach.
+
+In contrast, Study 3 and Study 4 were performed using the Exploratory Sequential Mixed Methods design ( Creswell, 2013 ). According to this design approach, the interview study (Study 3) first explores the professionals’ needs, challenges, and concerns, which are then used to derive insights toward the practical implementation of data-driven methods for user behavior assessment. The consecutive quantitative case study (Study 4), aims to integrate data-driven methods and tools into the UX design process of an OEM. The methods should meet the needs of the UX experts and leverage the potentials identified in the preceding interview study.
+
+Despite the parallel design of the Explanatory Sequential Mixed Methods approach (Study A) and the Exploratory Sequential Mixed Methods approach (Study B), all four studies are used to complement, enhance, and validate each other’s results. For example, whereas Study 2 reveals very detailed insights, its main limitation is that it was conducted based on the professionals’ input from only one OEM, which prevents the results from being extrapolated to the whole automotive area. Thus, Study 3, which compares different automotive and non-automotive companies’ perspectives, is used to validate the results of Study 2. Simultaneously, since Study 3 does not delve as deeply into the technical details, it can be used to identify whether the limitations of Study 3 also apply to other OEMs or digital companies in general. Additionally, although Study 1 and Study 4 provide very detailed insights from working with the respective OEMs, they approach the research objective from different perspectives. Study 1 deals with the execution of a naturalistic driving study and the subsequent data analysis, and Study 4 deals with the collection, processing, and analysis of natural data.
+
+In the first step of the data triangulation, it is necessary to determine which insights can be provided by which study. Whereas the interview studies focus more on the problems and requirements of practitioners working directly with design artifacts (UX designers, software developers), the action research approaches shed more light on the specifics from a data science or data engineering perspective and additionally introduce insights from discussions with legal and management.
+
+To compare and integrate the results of all studies, the generated data was put into the same form. For the interview studies, the authors reviewed the coded raw data and extracted all limitations, needs, and potentials mentioned by the participants. Individual statements relating to similar points were grouped under a common theme. The same procedure was applied to the data extracted from the researcher identity memos, being the results of the action research methodology. To integrate the results of the individual studies, a series of workshops was organized. During the first workshop, both first authors created a mapping between the different themes to identify which points are validated or enhanced by another study. In a second workshop, the first three authors discussed the outcome of the first workshop and decided on the most relevant points for the UX design process. As a result of this work, a common understanding of the state-of-the-art data-driven methods in the automotive UX area was derived.
+
+Thus, the Multiphase Mixed Methods design extends the scope of former investigations’ scope by using different mixed methods components. While addressing the same objectives from different perspectives, the chosen study design forms a comprehensive understanding of user interaction data development and the constraints specific to the automotive area.
+3.3. Threats to validity
+
+Being a joint work combining different studies, the threats to the validity of the individual studies apply to this study as well. However, a differentiation between the different types of studies has to be made. With Study 2 ( Orlovska et al., 2020c ) and Study 3 ( Ebel et al., 2020a ) being qualitative user studies, Maxwell’s five threats to validity ( Maxwell, 2012 ) apply.  Maxwell (2012) elaborates on the flaws that can occur during study execution and data collection, and on the threat of deliberately or accidentally manipulating the collected data to fit a certain theory. To eliminate those threats, a study must be designed such that no “alternative hypotheses” can be derived ( Lewis, 2009 ). The individual threats and how we address them are listed below:
+
+Descriptive validity concerns the threat of inaccurate and incomplete documentation. We have addressed this threat by recording and transcribing all interviews. Furthermore, we annotated the transcripts with timestamps such that the original conversation is easily accessible during analysis.
+
+Interpretation validity refers to the threat of capturing the observation as intended by the interviewees . To preclude this threat, we used non-directional and open-ended questions. Additionally, the transcripts were coded independently by two authors of the respective works, and statements that could be interpreted in different ways were discussed to interpret them as intended by the interviewees
+
+The threats of theory validity and researcher bias refer to researchers forcing the data to fit a specific theory or being biased toward the participants or a potentially desired outcome. To mitigate this threat, both studies were constructed as exploratory studies, intending to reflect the current state-of-the-art in practice. Furthermore, the coding and reviewing concepts that were applied are also intended to reduce the impact of the researcher bias.
+
+The threat of Reactivity occurs when the interviewees are influenced by the presence of the interviewer. Considering the chosen study setup, it is hardly possible to mitigate this threat. However, by paying attention to not influencing the participants and not leading the interviews in a certain direction, we tried to eliminate this threat as far as possible.
+
+Another threat that applies in particular to the action research methodology, and therefore to Study 1 and Study 4, is a potential lack of objectivity and researcher bias.  Petersen et al. (2014) argue that the best way to reduce this bias is to involve multiple researchers and to collaborate with different practitioner groups. By involving researchers from different research institutes, all collaborating with different OEMs, we try to mitigate this threat as much as possible.
+
+A final threat that applies to all four individual studies is the threat of selection bias  ( Collier and Mahoney, 1996 ). All the information in this paper is derived by working with, or talking to, UX and Data Science experts from a selected set of OEMs. For this reason, the statements cannot be generalized for all automotive OEMs, since the maturity in which data-driven methods are used in the UX development lifecycle varies between OEMs.
+4. Study results
+
+To answer the research questions, multiple peculiarities of the automotive domain, may they be of legal, technical, or organizational nature need to be taken into consideration. The methodology described in Section  3.2 allows investigating the given objective from different perspectives. Thus, we are able to make differentiated statements about the current limitations, desires, and potentials toward data-driven methods in the automotive UX design process.
+
+The results from interview studies 2 and 3 reveal that the usage of data-driven methods varies depending on the OEM, but also within the different phases of the respective product development process. However, since most automotive OEMs share similarities in their organizational structure and their development processes, it can be assumed that the derived artifacts also exist in other OEMs. Still, the extent to which these findings can be applied may vary between OEMs.
+
+In the following section, we will discuss the limitations that prevent data-driven methods from being applied and the needs of UX experts concerning vehicle data utilization. The results are drawn from the presented studies and the superscripts ( (S1,S2,S3,S4) ) annotated to the section headers indicate the studies on which the particular statement is based. Afterward, potentials on how the utilization of implicit data can enhance UX activities are presented, and recommendations on how to better integrate data-driven methods into the UX design process are given.
+4.1. RQ1: Limitations that prevent data-driven methods from being applied
+
+In the following, we present general limitations in the automotive software development and their consequences for the application of data-driven methods in the UX design and in the product development life cycle.
+
+Automotive software platforms are not designed to support the growing needs of data logging. (S1,S2,S3) Most automotive software platforms are not (yet) developed sufficiently to satisfy the dynamically changing needs regarding data availability introduced by the quick development of data-driven methods. Because of the high costs connected to the development of a new automotive platform and software architecture, most traditional automotive OEMs choose to gradually extend their legacy platforms. Thus, currently available data retrieval systems are developed as intermediate solutions. This introduces several shortcomings concerning the needs formulated for data-driven support. According to published research, no OEM has a logging system designed specifically for analyzing usage data, allowing detailed metrics to be derived from user interactions. However, being aware that a lot of progress remains unpublished, only assumptions can be made about the logging infrastructure of some OEMs.
+
+Consequence: The majority of available data is extracted from CAN and FLEX RAY buses and relates to system performance data. However, the logging of user interaction data is not yet as developed. Signals generated within the specific units, such as the infotainment unit, are still limited. Thus, the data UX practitioners currently have access to is limited in terms of detail, quality and consistency and therefore is poorly suitable for state-of-the-art data-driven evaluations.
+
+The product life cycle is long. (S1,S2,S3) The product life cycle in the automotive domain is long compared to digital products or other consumer products (e.g., smartphones) ( Broy, 2006 ). The opportunities to make any changes to the hardware or hardware-related signals after a car is released are limited due to the stage-gate concept adoption. This delays the introduction of new digital technologies in vehicles that are already on the market. New technologies can, therefore, often only be introduced in the next generation of cars. An interviewee from Study 2 adds that they “[...] specified [the data] a couple of years before the first vehicle went to production” and further argues that it is very difficult to answer any new research question that occurs afterward, as this may require data that was not part of what was defined in the very early stages.
+
+Consequence: The long product development life cycle and the low flexibility to changes contradict the fast-changing needs regarding UX design. Newly introduced data points, needed for either the development of new applications or UX analysis, are often provided with significant delay. This leads to a slower development when it comes to digital technologies compared to other digital domains.
+
+Data is distributed over different subsystems. (S1,S2,S4) A car is a complex product, consisting of a multitude of systems, subsystems, and functions exchanging data to enable communication ( Vogelsang, 2020 ). Often UX practitioners are in need of data generated by subsystems such as, for example, the infotainment system, the body and comfort systems, or the powertrain system to triangulate driver-system behavior relevant for the overall UX. One participant (Study 3) describes that the system complexity makes it hard to answer questions, that in themselves are not very complex: “We wanted to measure how many times someone opened the window. That’s a really difficult problem since you have to go through all the physical wiring and switches, so we are not certain on how to get that information” . This example illustrates that central databases and shared documentations that describe and organize the signals needed to design, develop and evaluate IVISs are missing.
+
+Consequence: Due to a missing process that collects, evaluates, and orchestrates all available datapoints, UX experts often do not have access to potentially relevant data or its description. Moreover, current databases often contain duplications of signals created due to the parallel development of IVISs. These signals are often poorly described and knowledge about the interdependences between different signals is not available. This can lead to incorrect assumptions being made, affecting the validity of the data and the systems utilizing the data.
+
+Access to components of suppliers is limited. (S1,S4) The car consists of a multitude of software and hardware systems that are often developed independently by external suppliers ( Broy, 2006 ). These systems are often handled as black boxes with no access or ability to change the codebase.
+
+Consequence: The outsourced software development introduces in-vehicle solutions locked for changes, making it difficult for the transparent flow and documentation of signals in databases. As a result, data scientists and UX experts have difficulties deriving and introducing new user-related signals from already implemented legacy systems. This prevents data-driven methods from delivering reliable results.
+
+Strict data protection regulations and the associated internal processes limit data collection and utilization. (S1,S2,S3,S4) The advances made with regard to automotive software, smart applications, and data-driven solutions also introduce new challenges to security and privacy. Person-related data especially, and the large amount of data processed in the cloud need to be handled without violating the data protection regulations of the respective countries. According to a comparative analysis conducted by  Voss and Houser (2019) , the United States and the European Union define and understand personal data differently. The protected personally identifiable information in the United States contains less information than the similar concept of personal data in Europe. For example, some pseudonymized information may be considered impersonal in the United States, while according to the European GDPR, the same information would be considered as sensitive. In China, there was no privacy protection law until recently. Today, China works on building a data privacy system through legal adoption and transformation of both EU and US laws ( Pernot-Leplay, 2020 ).
+
+Consequence: The strict regulations, especially in Europe, hinder the logging and processing of personal data. This applies to applications that are based on the use of person-related data as well as to evaluations that need to be carried out on person-related data. Additionally, often a complex legal process must be carried out to make a recommendation within the OEMs as to whether certain data points are considered personal data or not. One of the UX experts interviewed in Study 3 adds that “[...] when it comes to sensitive data, you have completely different security requirements. This means that you have to go through different audits which often critically impact the time schedule” . While this process is indispensable and the UX experts are aware of it, they complain that it is too time-consuming, non-transparent, and also delays the processes and evaluations of non-personal data. Furthermore, the strict data protection regulations and insufficient processes within OEMs make it difficult to obtain data from customers in the field. A participant in Study 2 states: “we are only able to do this [meaning data-driven evaluations], in a fairly easy way if we have access to company cars [...] because it would be very tricky to log such data from [real] users” . As a result, qualitative data collection still serves as the main resource in user-related studies.
+
+Hardware, software, and UX development activities are poorly aligned. (S1,S2,S3,S4) Physical and digital parts of in-vehicle systems are often developed in parallel. Whereas the hardware of a subsystem does not change after Start of Production (SOP), software applications that build upon those subsystems are continuously developed and new UX evaluation needs constantly arise. These new applications often require new data points that were not considered at the beginning of the system development. Another common issue is a late specification and missing requirements from the UX side to provide data that should serve evaluation demands.
+
+Consequence: The poor coordination within development teams in the early stages of PD results in data requirements not being passed on promptly. This often results in the unavailability of data points requested at later stages of product development and a slow pace of user- and context-related data development.
+
+The possibility to make major Over-The-Air (OTA) updates is missing . (S4) The car has always been a technical product, and a change of requirements, physical interfaces, or functionalities after the car release was neither needed nor intended. However, in today’s web development, practices such as A/B testing or Canary releases are state-of-the-art and considered indispensable for user-centered development ( Kohavi et al., 2013 , Xu et al., 2015 ). However, these procedures require the ability to perform centralized distant updates to test new designs dynamically, fix identified bugs and calculate UX measures in real-time. Verified design ideas or fixes can be deployed to production instantly. Some new competitors in the automotive domain have already implemented solutions ( Giaimo et al., 2020 , Tesla, 2021 ) that are available in production vehicles. However, despite actively developing such systems, most of the traditional OEMs are not (yet) able to make major software changes via OTA updates. Besides, the high demands toward functional safety additionally increase the difficulties associated with online user testing. To handle the complexity of in-vehicle systems and ensure the current performance, the released vehicle is usually locked for any changes. All further design modifications are shifted to the next car generation. In comparison, web applications practice A/B testing of design ideas on real users, and their software allows them to run centralized distant updates to fix any identified bugs.
+
+Consequence: IVIS updates remain inflexible and cannot be easily and dynamically changed based on customer feedback throughout the product life cycle.
+
+Considering the above list, it is noticeable that most of the limitations are due to specifics of the current automotive product development processes. Current practices in the automotive area, regulations that apply, priorities that are set, methods that are used, and the general vision concerning the UX development of digital products affect how in-car solutions such as IVISs are developed today. Currently, vehicle performance development is often prioritized over user-centered development, since this is directly connected to driver safety and the OEM’s reputation. UX design comes as an important but secondary task. Therefore, the developed solutions for data management are more focused on satisfying vehicle performance verification requirements than the data requirements introduced from the UX development side. This often leads to restrictions during the design of studies that are based on implicit data. Due to missing or low-quality data, study designs often need to be altered, resulting in study designs that do not fully fit the initial research purpose. Furthermore, not all limitations can be attributed to technical feasibility . Many OEMs are still lacking the strategic planning for data development of user-related and contextual data. For example, user interaction data like clickstream data, is commonly used in the daily business of digital companies but is still not used in many advanced automotive companies ( Ebel et al., 2020a ).
+4.2. RQ2: Needs of UX experts with regard to vehicle data utilization
+
+In this section, we present the needs of UX practitioners linked to implicit data utilization. Whereas some of the needs can be directly connected to the already presented limitations, some needs describe explicit demands detached from current shortcomings.
+
+Detailed quantitative user behavior insights. (S1,S2,S3,S4) In addition to the currently mostly qualitative research, automotive UX experts need detailed user behavior data collected from multiple different sources to get a detailed picture of how people interact with IVISs. One interviewee (Study 2) emphasizes this by stating: “[w]hat we lack knowledge about is how the real customer uses the function. That is what we must be better at” . The data collected should be detailed enough to answer questions about specific usage patterns and usability metrics in addition to questions about the frequency and context of use. Furthermore, the combination of different data sources plays an important role. For example, the UX experts want to correlate the interaction data with context variables that allow insights regarding the driving situation.
+
+Data transparency. (S1,S2,S3,S4) In both interview studies and practical studies, one of the main needs expressed by the UX experts is the need for transparency in the data collection and processing activities. In Study 3 a participant describes a general problem being that “[t]here is a very strong silo mentality in companies in the acquisition of information, but also in its distribution . The respondent further elaborates that this leads to valuable data remaining unused. This coincides with the fact that in all studies the need for data documentation that includes all datapoints from all data sources that are available within the company is expressed. Furthermore, detailed signal documentation, technical and legal requirements giving insights about how the data is collected, processed, anonymized, and for which purposes it is supposed to be used are required. The participants argue that this is necessary to ensure that each datapoint is used to its full potential.
+
+Continuous user feedback. (S1,S3,S4) To enable a more user-centric way of software development, the UX experts express the need to continuously collect, analyze, and incorporate user feedback in the development process of IVISs. They argue that the instant and continuous feedback provided by methods such as A/B testing is needed to make data-driven and evidence-based design decisions rather than decisions based on the gut feelings of individuals or outdated market research results. One Interviewee from Study 3 states: “I would say that the best way would be to make sure that we can do A/B comparisons directly in the cars, like other companies and online businesses do it. The customer doesn’t really know that they have been updated with new functions and we can figure out which functions are best by trying different versions in different cars from different customers. So real-time evaluation with real customers of different types of function”.
+
+Triangulation of qualitative and quantitative data. (S1,S2,S3) Traditionally, UX research in the automotive domain is more qualitative than quantitative and UX researchers mostly use only qualitative approaches. However, both qualitative and quantitative data can enhance the UX activities, since different data types contribute to a different type of knowledge regarding UX understanding ( Orlovska et al., 2019a ). One participant in Study 3, for example, expressed the need to enhance personas with quantitative evidence. This would enable them to map the qualitative insights of personas, about who the target customer is, with quantitative insights on how this group of customers interacts with the system. The general need for triangulation is further underlined by other automotive UX experts stating that quantitative data might be the right choice to locate a problem but qualitative methods are still needed to further understand the problem ( Orlovska et al., 2019a ). One UX expert (Study 3) states that “[w]ith quantitative data, we have a starting point, a trigger that tells us, let’s look into this. But the quantitative data alone doesn’t provide the answer to why something is happening” . This therefore emphasizes that qualitative and quantitative data need to be effectively combined to achieve more detailed user insights.
+
+Personalized or pseudonymized data. (S1,S3,S4) Personalized or pseudonymized data is extremely important when it comes to the development of intelligent in-car applications or the in-depth analysis of how different user groups interact with the system. Since a vehicle is often a shared product, personalized or pseudonymized data is needed to separate distinct behavioral models for further analysis ( Orlovska et al., 2019b ). The same logic applies to developing personalized services and interfaces where the design is highly dependent on personalized driver reactions to proposed solutions.
+
+Tool and knowledge support. (S3) Although automotive UX experts are aware that data-driven approaches can support their advances toward user-centered design, they often struggle to work with quantitative data and machine learning approaches ( Yang et al., 2018 ). This is due to the lack of available methods, tools, and competence. Since the main task of UX experts is to deal with the design and evaluation of IVIS, there is a need for tools and methods that support them in analyzing the large amount of data that is generated by modern cars. Therefore methods that automatically visualize data insights, calculate usability metrics, or evaluate designs based on interaction data, are needed. One interviewee explains that it would be helpful “[...] if we could create models from user data, for example, one could directly integrate a user model into a sketch tool. Then, when creating a design it is directly evaluated against a user model” . However, with regard to automated analyses and models, the UX practitioners state that such methods should also provide an explanation module such that scores or proposed decisions can be put in perspective.
+
+Data visualizations. (S3) Data-driven evaluation methods aim to provide UX experts with additional information such that they can make the best possible decisions to optimize the UX. To be able to do so, the UX experts express the need for intuitive data representation. They state that due to a large amount of data and a high number of different features, the data needs to be presented in an easy to understand and intuitive way. Additionally, the experts argue that the information needs to be directly accessible without further processing. The need for fast data access is emphasized by one participant (Study 3) describing that “[...] it’s not ideal if we always have to go to another department and say ’can you prepare this for us?’ and then they say ’yes, you’ll have it in a week’, which of course isn’t the point. It would of course be good to validate our hypotheses quickly ourselves”. . Whereas traditional usability metrics such as average time on task or completion rates are easy to interpret, more sophisticated, for example, machine learning-based methods, should offer an explanation component. One of the interviewees argues that whereas it might be interesting to retrieve a design score for a prototype screen, the real value would be generated if a statement could be made about which factors of the design influenced the score in particular. Current evaluations after a product release take too long, which means they are not really of interest anymore once they are communicated to the UX experts.
+4.3. RQ3: How can the utilization of implicit data enhance UX activities?
+
+Having introduced the limitations that prevent data-driven approaches from being applied and the explicit needs UX experts formulate toward the utilization of implicit data, the question on how implicit data can be used to enhance qualitative UX activities is answered in the following.
+
+Data-driven personas. The goal of the pre-design phase is to understand the target user population and derive a clear product definition. Currently, most of the UX activities in the pre-design phase are based on qualitative and explicit data. In the strategy and research step, the task of understanding the target group and identifying the user needs is mostly based on market research and customer surveys. One common approach to understanding who the customer is, is the persona technique ( Cooper, 1999 ).  Cooper (1999) defines a persona as an archetypal user, representing an underlying customer or user group. Personas are used to group similar users into a superordinate group to help decision-makers understand the customer needs ( Salminen et al., 2019 ). Personas are typically manually created using qualitative approaches such as ethnographic field studies and interviews ( Brickey et al., 2012 ). Therefore, manual persona generation is costly, the collected data is not directly related to the user’s behavior ( McGinn and Kotamraju, 2008 ), and personas tend to expire as soon as customer behavior evolves and changes ( Zhang et al., 2016 ). Data-driven personas based on different kinds of customer data ( Zhang et al., 2016 , Jung et al., 2017 , An et al., 2018 ) do not only tackle the shortcomings of qualitative persona generation but aim to connect abstract personas to real-world interaction data. Therefore, data-driven personas are also suited to enhance the strategy and research phase in the automotive area. Implicit data retrieved during car usage can be used to generate insights on the driving preferences of different customer groups and the preference such groups have toward features such as automated driving functions, comfort, or entertainment functions. While data-driven personas might not replace the currently used personas, we argue that the triangulation of both is a promising application to create a more detailed picture of the customers. Whereas implicit data retrieved from simulator studies or naturalistic driving studies can also be used to build data-driven personas, natural data has the advantage that it contains data from the whole user base and is collected continuously. It is, therefore, possible to dynamically adapt personas when changes in customer behavior take place.
+
+Context-dependent evaluations. Since the driver’s user experience is strongly influenced by the current driving and traffic situation ( Harvey and Stanton, 2016 ), the designers need to understand the context of use in which the interactions occur. In the pre-design phase, no fully functional or physical prototypes exist that can be used for such evaluation purposes. However, by analyzing either naturalistic or natural data from the already existing system, it is possible to derive meta-information about the driving context, and even take into consideration the differences across markets, such as road infrastructure, traffic, and driving culture ( Orlovska et al., 2020b ). Aggregate data can, for example, give insights regarding the length of trips, the number of trips per day, the time at which the customers use their cars, or the routes they take. This information can be triangulated with the results from general market research to create a more detailed picture of how, and in which context, the current product is used. In the post-design phase, implicit data also has the potential to support the context assessment for driving-related functions such as automated driving to understand in what context functions are activated or deactivated and how take-over requests are handled. This improves the post-design evaluation activities for such functions since unintended or unexpected user behavior can be identified, and severity assessments of system misuse can be conducted. So far, data-driven methods for driving context monitoring have not been fully developed. The most feasible way to assess driving context today is by combining telematics data with external databases, traffic, weather applications, social media services, or by collecting the data from an in-vehicle camera, which is usually used in qualitative studies. However, the analysis of such data is very time- and resource-consuming and additionally raises privacy concerns. Multiple studies ( Chaovalit et al., 2013 , Daptardar et al., 2015 , Bose et al., 2018 , Mitrovic, 2005 , Leakkaw and Panichpapiboon, 2018 , Ly et al., 2013 ) indicate the great potential of implicit data for automated driving event recognition in real-time. The automated process of context analysis based on implicit data will help UX practitioners conduct context-aware evaluations and better understand driver choices.
+
+Evidence-based feature elicitation. In addition to the potentials data-driven methods offered regarding the UX activities in the strategy and research phase, the authors also see great potential when it comes to the product definition process. The feature and requirement elicitation in the automotive domain is currently mostly based on general market research and decisions are often made based on the gut feeling of decision-makers ( Ebel et al., 2020a ). One interviewee (Study 3) argues that “[w]e shouldn’t just carry things over for the sake of carrying things over, we should evaluate if those are actually useful things for the user. I think that’s why we still have SD cards and USB Input in the car. They [decision makers] don’t know if people are using it” . UX experts often feel that their results from qualitative user studies are overruled by management, based on the underlying assumption that they are not representative of the general user base. Insights from naturalistic or natural data can, therefore, be used to support and validate their hypotheses. Feature usage analyses can be used to prioritize features within the system. The analysis of clickstream data or driving data can highlight current usability issues that need to be addressed. Additionally, usability metrics derived from the current system can serve as input when setting the usability goals for a new version. Therefore, the authors argue that triangulation of qualitative research with quantitative data insights can help to shift the requirements and feature elicitation from personal best guesses to more objective decisions.
+
+User flow visualizations. The main objective of the design phase is to derive a usable implementation that can be released ( Nielsen, 1992 ). In the ideation phase, design ideas are gathered, and first wireframes and sketches are drawn and evaluated. Whereas idea generation is a highly creative process, data-driven methods have the potential to assist UX experts in finding the most suitable design choice. The data collected in today’s vehicles, which allows conclusions to be drawn about current user behavior, can act as a source of inspiration. To exploit the full potential of the data, it is important to provide designers with visualizations and tools that enable them to efficiently analyze user interaction data. Multiple different methods, including Sankey diagrams  ( Riehmann et al., 2005 , Friendly, 2002 ), Outflow ( Wongsuphasawat and Gotz, 2012 ) or MatrixWave ( Zhao et al., 2015 ) have proven to be efficient for many different analysis tasks and help designers to find unintended or unexpected user behavior that in turn can be used as inspiration for new design ideas. These approaches aggregate large amounts of event sequence data and are therefore well suited to visualize data that is collected in large naturalistic user studies or natural data collected from the whole user base.
+
+Automatic design suggestions. Apart from analyzing and visualizing user behavior data to support the designers in their idea generation process, multiple approaches exist that automatically generate design suggestions based on different kinds of data. For example,  Gajos et al. (2010) propose Supple , a system that renders interfaces based on the device’s constraint and user traces that are used to customize the interface to specific usage patterns. Another example of a method that makes automatic design suggestions is presented by  Bailly et al. (2013) . Their approach makes suggestions on how to structure menus based on an adapted Search-Decision-Pointing model used to predict selection times of menu items.
+
+Model-based evaluation of early-stage prototypes. After the ideation phase, wireframes are transformed into prototypes of different fidelity that need to be evaluated. In Study 3, automotive UX experts report that early intermediate designs are mostly evaluated qualitatively by in-house experts or in small user studies. While evaluations with experts can provide important insights, they are not suitable for evaluating metrics such as time on task or glance behavior. However, feedback on metrics such as time on task or glance behavior can be crucial already in early development phases. Modeling methods allow automatic evaluation of early-stage prototypes and can give valuable feedback even before a user study is conducted. Multiple approaches exist that allow predictions to be made for various metrics such as time on task ( Schneegaß et al., 2011 , Green et al., 2015 , Lee et al., 2019 , Kim and Song, 2014 ) or glance duration ( Pettitt and Burnett, 2010 , Large et al., 2017 , Pampel et al., 2019 , Purucker et al., 2017 ). For example,  Large et al. (2017) propose a method to model the visual demand of IVISs when used concurrently with driving. Their approach is based on an information-theoretic model, for which the dependent variables have been identified in a simulator study. Whereas current work is based on rather small amounts of data, generated through lab experiments, the use of big data for such prediction tasks holds great potential. Approaches based on a large amount of naturalistic or natural data allow the application of dedicated machine learning algorithms . Those applications have already proven to surpass the prediction accuracy of relatively simple regression methods in other automotive applications (e.g.  Ebel et al., 2020b ). A general advantage of applying modeling methods to natural data is that, on the one hand, the entire user base is covered and, on the other hand, continuous data collection also implies continuous improvement of the models. Since natural data can continuously be collected the model parameters can be adjusted in a real-time manner in such a way that the model will adopt if user behavior in the field changes. In addition, the vast amount of data that can be collected via telematics would also enable the inclusion of multiple different parameters, such as contextual information regarding the driving situation, into the models.
+
+Beta testing. After prototyping and testing, the main objective is to implement the functionality of the developed feature and to ensure seamless integration into the vehicle environment. Currently the automotive product development process is a purely stage-gate concept with fixed milestones, making it necessary to perform complete vehicle tests before a new feature can be deployed. However, UX experts need more agile and data-driven development practices, for example Continuous Experimentation (CE). Being able to run A/B experiments and getting quantifiable data about the user acceptance of a feature is essential to develop designs that meet customer demands. This enables designers to test new features, compare them with one another, learn how users respond to them, and optimize already running features ( Tang et al., 2010 ). To enable CE as it is already available in different digital domains ( Kohavi et al., 2013 , Ros and Runeson, 2018 ), multiple challenges need to be addressed ( Giaimo et al., 2019 ). Not only detailed user interaction data from production vehicles is necessary, challenges concerning the organizational and legal framework (see Section  4.1 ) also need to be solved.
+
+Continuous user feedback. The main advantage of implicit data is that it can be automatically collected over a long period. This opens up many application areas for applications based on such data; from single driver behavior analysis to aggregated results of different user groups, from the short-term learning process to long-term UX. Currently implicit data, collected in naturalistic driving studies, is mostly used for episodic UX analysis, such as evaluating a few months of driver behavior, conducting usability testing, behavioral hypothesis testing, and other activities. However, UX experts need cumulative UX assessment, recollecting different periods of use, such as the learning process, using process, change of the behavior over time, etc. ( Nielsen, 1992 ). The vast amount of natural data that can be collected over the whole product life cycle bears great potential to enable such analyses. Several studies indicate ongoing research in this direction. For example,  Marrella and Catarci (2018) propose implicit metrics for learnability evaluation, looking at deviations between the expected user behavior and actual user behavior, based on the analysis of user logs. This approach helps by quantifying the degree of learnability over time and assists in identifying potential learning issues. In another study,  Gerostathopoulos et al. (2019) present the first attempt to use machine learning algorithms for automated learnability evaluation implementing automated quality gates.
+
+Measurement of subjective UX factors. To assess subjective UX factors such as trust, perceived safety, satisfaction, usefulness, acceptance, and others, qualitative methods, such as self-report methodologies are considered better suited. Nevertheless, implicit data has the potential to derive quantitative metrics that could be used for the validation of subjective UX measures. For example, in the web domain,  Fox et al. (2005) investigate which implicit metrics are correlated with user satisfaction to evaluate if explicit user satisfaction ratings and implicit user interest metrics could be cross-validated. Another example is presented by  Lachner et al. (2017) . The authors show that website visitors from different countries show significantly different usage patterns, suggesting that even personal characteristics, that influence the experience of a user, can be measured using quantitative metrics. Whereas being relatively unexplored, the measurement of UX based on implicit data could be a great advantage for the automotive and general UX design process ( Law, 2011 ).
+
+Driver state monitoring. Another area of implicit data application in post-mortem analyses performed in the Post-Design phase is driver state monitoring. Multiple works focus on combining vehicle data with individual physiological data ( Taelman et al., 2009 , Murphey et al., 2018 , Aghaei et al., 2016 ), which indicates future possibilities for including driver physiological characteristics, such as driver state, stress, arousal, fatigue, and others, into the overall UX assessment.  Aghaei et al. (2016) , propose a model for smart driver monitoring using physiological measures such as skin moisture, eye movements, heart rate, and respiratory activities. However, due to the GDPR restrictions, these metrics can only be used in naturalistic driving studies where drivers’ full consent to share their sensitive data is given. Since the biometrical parameters are restricted for usage in the natural automotive environment, attempts to create metrics for driver state evaluation based solely on implicit car data are also investigated. For example,  Li et al. (2018) found a correlation between driver distraction and steering entropy, which they used as basis to propose a driver distraction analysis method.  Kircher and Ahlstrom (2010) show a correlation between visual distraction and vehicle-based measures such as throttle hold rate, steering wheel reversal rate, and speed variability. They illustrated that the cumulative calculation of these measures helps understand driver visual distraction.  Kanaan et al. (2019) investigated the utilization of implicit vehicle-based measures, e.g., high curvature and poor surface conditions, for measuring driver distraction. They assessed driver distraction by detecting long (more than 2 s) off-road glances while performing secondary tasks. The above studies show the potential of implicit data to evaluate the driver’s state while performing tasks. This would improve the overall picture of driving behavior, providing deeper insights while reasoning for specific driver behavior.
+
+Being a substantial activity of the Post-Design phase, data-driven methods such as clickstream analysis, glance behavior, and video data analysis have the great potential to enhance current practices. Applications based on machine learning algorithms are already successfully used in digital domains and have great potential for broader use in automotive development. In the Post-design phase a, hypothetically, large amount of natural data from production vehicles is available to provide UX practitioners with numerous applications to further evaluate designs that are already on the market. Based on this implicit data, quantifiable evidence and statistical significance are needed to prioritize the improvements and support the decision-making in the following re-design activities.
+4.4. RQ4: Recommended actions to better integrate data-driven methods into the UX design process
+
+Having discussed the potentials and limitations of data-driven , as well as the explicit needs of practitioners, we are suggesting measures that can assist OEMs and practitioners to better incorporate data-driven methods into the UX design process. Although we state that the proposed actions do not guarantee completeness or success, we are confident, thanks to diverse experiences from the studies and close cooperation with the OEMs, that they provide an important foundation for establishing data-driven UX as a practice in the automotive development. The measures presented in the following are, therefore, intended to show the direction in which research should be conducted to bridge the gap between data-driven methods and the automotive UX design process.
+
+Incorporate data-based evidence in decision-making processes. Currently, most design decisions are made based on opinions or gut feelings of individuals. In cases of disagreement, the results of small qualitative user studies are often overruled. We, therefore, argue that it is necessary to integrate policies or processes ensuring that each assumption that is made regarding the importance of a feature or its usefulness is backed up by statistical evidence. The provided statistical evidence can then be used to tailor qualitative studies to investigate the identified problem in detail. By doing this OEMs can not only be more certain that their product will meet the user’s needs, but they can also save money that would have been spent for implementing or researching a feature that does not benefit customers in any way.
+
+Increase interdisciplinary collaboration. To fully exploit the potential of data-driven methods for the UX design process it is important to merge the expertise of data scientists and UX experts. Data-driven evaluation methods should be developed in close cooperation with the UX experts such that they can easily access and interpret all relevant information. Only a close collaboration between data scientists and UX experts can ensure that the need for intuitive data visualizations is satisfied. Further,  Yang et al. (2018) argue that “there is a real need for design tools and methodologies that support designers who lack constant access to capable data scientists” . They additionally present multiple best practices on how machine learning can be incorporated into the design process. On the other hand, it is also important to empower UX experts by increasing their knowledge, such that they can effectively work with data or even machine learning. Whereas multiple books and online courses exist to help designers learn about statistics and machine learning ( Hebron, 2016 , Carter and Nielsen, 2017 ), it seems that this knowledge is not yet so widespread in the automotive industry . The goal needs to be to provide UX experts with the knowledge and tools needed, such that basic statistical expertise is available. If automatically aggregated statistics are easily accessible for UX experts and for product management, it is less of a burden for UX experts and product managers to use statistical analysis to either make decisions or test hypotheses.
+
+Introduce clear technical specifications. One of the most severe limitations automotive UX experts and data scientists complain about is a lack of specification and documentation. We therefore argue that each new feature that is developed needs to satisfy the interface specifications dictated by an overarching logging framework. Therefore, user behavior and interaction data can be analyzed for all features within the system. Additionally, when a user-facing feature is developed, UX experts also need to be involved in the early stages of the functional feature specification. They need to clearly formulate their requirements on how the respective feature needs to be evaluated and what datapoints are therefore needed. This practice aims to prevent the currently often observed problem that specific signals needed for user behavior evaluation are not available due to insufficient specification in early product development stages.
+
+Reduce silo mentality and introduce data transparency. One of the most frequently mentioned limitations addresses the lack of knowledge and documentation about what data is available, how it can be accessed, and who is responsible for it. This leads to practitioners often not even considering basing their decisions on data. One of the UX experts, interviewed in Study 3, explains that “[...] we have to ask several people throughout the company to get the data. This slows us down because it can take a relatively long time until we get something useful. Most of the time we can’t wait that long because we have to make progress with our designs” . One possibility to counteract this is to introduce a centrally responsible unit that manages an OEM-wide data catalog containing all available datapoints, their functional documentation, and current and/or intended use cases. Additionally, this unit should also handle all legal approval processes for each signal. It is necessary to provide practitioners with a clear guideline of what information is needed, such that they are empowered in using data-driven methods in their daily work.
+
+Introduce agile practices and modernize infrastructure One of the most discussed questions when it comes to automotive software development is the question of how agile software development practices including Continuous Integration (CI) and CE can be integrated into the automotive development process.  Hohl et al. (2016) and  Katumba and Knauss (2014) describe multiple challenges OEMs are facing in their software development that are of an organizational and social nature. These include long communication chains, a low cross-functional mindset, high efforts for compliance and validation, and technical challenges. Whereas it is desirable to implement agile practices throughout the software development process, CE as an experiment-driven development approach is of particular interest for the UX design process. Many of the advantages of CE, which are well-established in other fields of application, can be transferred to the automotive industry ( Giaimo et al., 2019 ). However, to leverage the potentials of CE, multiple challenges such as safety and security concerns or hardware-induced resource constraints need to be addressed. Whereas multiple studies focus on conceptual analyses regarding the deployment of CE in cyber–physical systems, only a few papers present concrete approaches to solutions ( Giaimo et al., 2020 ).  Giaimo and Berger (2020) propose a prototypical implementation and discuss design criteria to enableCE, but also state that their approach is not close to commercial use. It is necessary, therefore, to investigate how the current challenges can be tackled and how CE practices can be brought into practice, such that software-based automotive designs can be evaluated similarly to web pages or mobile apps.
+5. Discussion
+
+Fig. 5 summarizes our results and relates them to each other. The figure represents conflicts between the needs we have collected in RQ2 and the limiting factors apparent in automotive development (RQ1). In the following, we discuss some of these conflicts and relate them to the recommendations that emerged from our studies (RQ4).
+
+    Download : Download high-res image (858KB)
+    Download : Download full-size image 
+
+Fig. 5 . Summary of the results in accordance to Fig. 1 and Fig. 3 . The solid lines and lightning bolts indicate which specific limitation conflicts with which need. The dotted outlines and arrows indicate the consideration of combined previous results.
+
+The most apparent conflict is probably between the use of personalized or pseudonymized customer data and the current data protection laws and regulations. The studies have shown that access to personalized or pseudonymized data is important for the both development and evaluation of intelligent in-car functions. Personalized or pseudonymized data is particularly important for customer research and evaluation tasks such as learnability assessment. Alternative qualitative procedures, such as extensive user surveys or lab experiments that aim to reduce the uncertainty in the early stages of product development are often costly. Data-driven approaches based on natural data do not introduce the cost associated with user studies. However, all newly requested data must go through an internal assessment process to ensure that it does not potentially contain personal information. OEM processes are lengthy and not clearly defined, resulting in delays even for data points that do not contain personal information. We do not see any technical possibility to resolve the conflict between the need for personalized or pseudonymized data and the data privacy regulations. However, the legal assessment can be supported by an early guideline specifying how datapoints of new features need to be documented, and what legal requirements they need to satisfy. Additionally, by clearly defining and streamlining the internal risk assessment processes, OEMs can also minimize the influence of such processes on non-person-related data.
+
+Another conflict arises between the need for data transparency and the current vehicle architecture, consisting of a multitude of distributed subsystems. UX experts and data scientists need to have access to detailed data documentation from the different data sources to generate data-driven customer insights. However, since the components are often developed by multiple suppliers, access to the data points within these subsystems is usually limited. Also, practitioners are missing a superordinate instance responsible for the administration and holistic interpretation of individual data points. As a result, a holistic picture of available data points is often not available to the UX experts or can only be put together with great effort and remaining uncertainties. However, several scenarios for reducing the barriers and remaining uncertainties are conceivable. From an organizational point of view, a central coordinating role in the development, providing a holistic overview of the data points and main nodes in the vehicle needs to be established. This facilitates traceability and makes it easier to identify all signals relevant to a specific issue. Furthermore, the silo mentality between different departments in the OEMs themselves needs to be abolished to promote interdisciplinary collaboration and efficiency. However, it should be noted that this is an organizational-cultural problem and can neither be solved uniformly nor does it apply equally to all OEMs.
+
+Another related conflict exists between the need for data triangulation and the poorly aligned processes when it comes to integrating data-based evidence in the UX design process. By combining quantitative and qualitative data, UX experts can explore and investigate user behavior from different perspectives to create a better understanding of the underlying problem. However, this requires intensive cooperation with the relevant departments which can only be achieved if OEMs strengthen the interdisciplinary collaboration between data scientists and UX experts and make it compulsory to include data-based evidence when making design decisions .
+
+The product development process in the automotive industry with its fixed milestones conflicts with the UX experts’ needs to enable modern development methods such as CE. An iterative procedure for conceptualizing and exploring concepts is not explicitly defined in the automotive stage-gate model, introducing potentials for future research based on the recommended actions presented in the main part of this work. Focusing on the early stages of product development, smooth integration of data in UX research activities helps product developers reduce uncertainty regarding potential customers and scenarios IVISs are used in. We claim that the degree of maturity of UX concepts can therefore be improved with relatively low effort. Currently, existing potentials often cannot be leveraged due to technical limitations. We additionally found that the central objective of interaction data collection is satisfying management rather than explicitly answering questions relevant to the UX design process. However, the requirements for the elicitation of natural interaction data should be initiated by UX experts and the problems they face in their daily work. The corresponding data points must be defined based on the question posed by UX experts.
+
+In general, data-driven support is well anticipated throughout all UX design phases and can act as an enabler for multiple methods that bring the design and evaluation of IVISs to another level. However, not only the technical limitations that specifically apply to the automotive domain are conflicting with UX expert’s needs and hinder the potentials to be leveraged. Insufficient transparency, specification, and documentation of implicit vehicle data, lengthy processes, as well as a lack of integration of data-specific requirements in the early PD stages, lead to OEMs being behind their capabilities when it comes to data-driven and user-centric development of IVISs. The identified conflicts between the practitioners’ needs and current limitations and our initial recommendations serve as the groundwork for further research developing organizational, technical, and legal solutions.
+6. Conclusion
+
+Based on a multi-phase mixed-method approach that combines the results of four different studies, we elaborate on the needs, potentials, and limitations of data-driven methods in the automotive UX design process. By analyzing the problem at hand from different perspectives, we provide a first overview aiming to narrow the gap between the automotive UX design process and data-driven development practices. UX experts articulate clear desires for better integration of data-driven methods into the UX design process. To make the current design process more data-driven and thus more user-oriented, UX experts need detailed user interaction data, tools, and visualizations that make complex analysis results easily accessible, as well as methods that allow triangulation of qualitative and quantitative data. Furthermore, there is a strong need to integrate development processes such as CE, which have long been used in web design, into the automotive UX design process. Our results show that approaches based on in-car data can improve the UX design process in many respects. Methods including data-driven personas of feature usage analyses that complement the insights generated through traditional market research methods and qualitative studies facilitate user-centered decision-making. On the other hand, model-based design evaluations or context-dependent design suggestions can be seamlessly integrated into the design process itself. However, our results show that to leverage the extracted potentials and satisfy the needs of UX experts, multiple conflicts need to be addressed. We therefore recommend that automotive OEMs need to re-think their current decision-making process when it comes to feature and requirements elicitation by involving data-based evidence when making design decisions that affect user-facing features. We additionally argue that the technical requirements for logging detailed user interaction data must be integrated into early product development processes. To do so, the interdisciplinary collaboration between data scientists and UX experts needs to be strengthened, relevant technical and legal information needs to be transparently distributed within in the OEMs and the ever-existing problem of silo mentality needs to be approached.
+CRediT authorship contribution statement
+
+Patrick Ebel: Conceptualization, Methodology, Data curation , Formal analysis, Writing - original draft. Julia Orlovska: Conceptualization, Methodology, Data curation, Formal analysis, Writing – original draft. Sebastian Hünemeyer: Conceptualization, Writing – original draft. Casper Wickman: Supervision, Writing – review & editing. Andreas Vogelsang: Supervision, Writing – review & editing. Rikard Söderberg: Supervision, Writing – review & editing.
+Declaration of Competing Interest
+
+The authors declare that they have no known competing financial interests or personal relationships that could have appeared to influence the work reported in this paper.
+Acknowledgments
+
+We would like to express our gratitude to the Swedish Innovation Agency VINNOVA for the project’s funding (grant no 2018-05017 ). Also, we are particularly grateful to the industry professionals who supported this study, sharing their knowledge and experience. Additionally, we would like to thank all the interviewees for their participation without whom the study would not have been possible.
+References
+
+Aghaei et al., 2016
+    Aghaei A.S., Donmez B., Liu C.C., He D., Liu G., Plataniotis K.N., Chen H.-Y.W., Sojoudi Z.
+    Smart driver monitoring: When signal processing meets human factors: In the driver’s seat
+    IEEE Signal Process. Mag., 33 (6) (2016), pp. 35-48
+    View Record in Scopus Google Scholar
+Agichtein et al., 2006
+    Agichtein E., Brill E., Dumais S.
+    Improving web search ranking by incorporating user behavior information
+    Proceedings of the 29th Annual International ACM SIGIR Conference on Research and Development in Information Retrieval - SIGIR ’06, ACM Press (2006)
+    Google Scholar
+Albert and Tullis, 2013
+    Albert B., Tullis T.
+    Measuring the User Experience
+    Elsevier LTD, Oxford (2013)
+    Google Scholar
+An et al., 2018
+    An J., Kwak H., Jung S., Salminen J., Admad M., Jansen B.
+    Imaginary people representing real numbers
+    ACM Trans. Web, 12 (4) (2018), pp. 1-26
+    CrossRef View Record in Scopus Google Scholar
+Atterer et al., 2006
+    Atterer R., Wnuk M., Schmidt A.
+    Knowing the user’s every move
+    Proceedings of the 15th International Conference on World Wide Web - WWW ’06, ACM Press (2006)
+    Google Scholar
+Avison et al., 1999
+    Avison D.E., Lau F., Myers M.D., Nielsen P.A.
+    Action research
+    Commun. ACM, 42 (1) (1999), pp. 94-97
+    View Record in Scopus Google Scholar
+Bailly et al., 2013
+    Bailly G., Oulasvirta A., Kötzing T., Hoppe S.
+    Menuoptimizer
+    Proceedings of the 26th Annual ACM Symposium on User Interface Software and Technology - UIST ’13, ACM Press (2013)
+    Google Scholar
+Bose et al., 2018
+    Bose B., Dutta J., Ghosh S., Pramanick P., Roy S.
+    D&Rsense: Detection of driving patterns and road anomalies
+    2018 3rd International Conference on Internet of Things: Smart Innovation and Usages (IoT-SIU), IEEE (2018)
+    Google Scholar
+Brickey et al., 2012
+    Brickey J., Walczak S., Burgess T.
+    Comparing semi-automated clustering methods for persona development
+    IEEE Trans. Softw. Eng., 38 (3) (2012), pp. 537-546
+    View Record in Scopus Google Scholar
+Broy, 2006
+    Broy M.
+    Challenges in automotive software engineering
+    Proceedings of the 28th International Conference on Software Engineering, ICSE ’06, Association for Computing Machinery, New York, NY, USA (2006), pp. 33-42
+    CrossRef Google Scholar
+Burkacky et al., 2018
+    Burkacky O., Deichmann J., Doll G., Knochenhauer C.
+    Rethinking car software and electronics architecture
+    McKinsey Co. (2018)
+    Google Scholar
+Carter and Nielsen, 2017
+    Carter S., Nielsen M.
+    Using artificial intelligence to augment human intelligence
+    Distill, 2 (12) (2017)
+    Google Scholar
+Chaovalit et al., 2013
+    Chaovalit P., Saiprasert C., Pholprasit T.
+    A method for driving event detection using SAX on smartphone sensors
+    2013 13th International Conference on ITS Telecommunications, ITST, IEEE (2013)
+    Google Scholar
+Collier and Mahoney, 1996
+    Collier D., Mahoney J.
+    Insights and pitfalls: Selection bias in qualitative research
+    World Politics, 49 (1) (1996), pp. 56-91
+    http://www.jstor.org/stable/25053989
+    CrossRef View Record in Scopus Google Scholar
+Cooper, 1999
+    Cooper A.
+    The Inmates are Running the Asylum
+    Sams, Indianapolis, IN (1999)
+    Google Scholar
+Creswell, 2013
+    Creswell J.W.
+    Research Design: Qualitative, Quantitative, and Mixed Methods Approaches
+    SAGE Publications (2013)
+    Google Scholar
+Daptardar et al., 2015
+    Daptardar S., Lakshminarayanan V., Reddy S., Nair S., Sahoo S., Sinha P.
+    Hidden Markov model based driving event detection and driver profiling from mobile inertial sensor data
+    2015 IEEE Sensors, IEEE (2015)
+    Google Scholar
+Deka et al., 2017
+    Deka B., Huang Z., Franzen C., Nichols J., Li Y., Kumar R.
+    ZIPT: Zero-integration performance testing of mobile app designs
+    Proceedings of the 30th Annual ACM Symposium on User Interface Software and Technology - UIST ’17, ACM Press (2017)
+    Google Scholar
+Deka et al., 2016
+    Deka B., Huang Z., Kumar R.
+    ERICA: Interaction mining mobile apps
+    Proceedings of the 29th Annual Symposium on User Interface Software and Technology - UIST ’16, ACM Press (2016)
+    Google Scholar
+Deniz and Lincoln, 2017
+    Deniz N.K., Lincoln Y.S.
+    The SAGE Handbook of Qualitative Research
+    Sage Publications Ltd. (2017)
+    https://www.ebook.de/de/product/26464857/the_sage_handbook_of_qualitative_research.html
+    Google Scholar
+Dingus et al., 2006
+    Dingus T., Klauer S., Lewis V., Petersen A., Lee S., Sudweeks J., Perez M., Hankey J., Ramsey D., Gupta S., Bucher C., Doerzaph Z., Jermeland J., Knipling R.
+    The 100-car naturalistic driving study: Phase II – results of the 100-car field experiment
+    (2006)
+    Google Scholar
+Ebel et al., 2020a
+    Ebel P., Brokhausen F., Vogelsang A.
+    The role and potentials of field user interaction data in the automotive UX development lifecycle: An industry perspective
+    12th International Conference on Automotive User Interfaces and Interactive Vehicular Applications, ACM (2020)
+    Google Scholar
+Ebel et al., 2020b
+    Ebel P., Gol I.E., Lingenfelder C., Vogelsang A.
+    Destination prediction based on partial trajectory data
+    2020 IEEE Intelligent Vehicles Symposium (IV), IEEE (2020)
+    Google Scholar
+Ebel et al., 2021
+    Ebel P., Lingenfelder C., Vogelsang A.
+    Visualizing event sequence data for user behavior evaluation of in-vehicle information systems
+    13th International Conference on Automotive User Interfaces and Interactive Vehicular Applications, AutomotiveUI ’21, Association for Computing Machinery, New York, NY, USA (2021), pp. 1-10
+    https://arxiv.org/abs/2108.01388
+    CrossRef View Record in Scopus Google Scholar
+Fastrez and Haué, 2008
+    Fastrez P., Haué J.-B.
+    Designing and evaluating driver support systems with the user in mind
+    Int. J. Hum.-Comput. Stud., 66 (3) (2008), pp. 125-131
+    Article PDF Download PDF View Record in Scopus Google Scholar
+Fox et al., 2005
+    Fox S., Karnawat K., Mydland M., Dumais S., White T.
+    Evaluating implicit measures to improve web search
+    ACM Trans. Inf. Syst., 23 (2) (2005), pp. 147-168
+    CrossRef View Record in Scopus Google Scholar
+Fridman et al., 2019
+    Fridman L., Brown D.E., Glazer M., Angell W., Dodd S., Jenik B., Terwilliger J., Patsekin A., Kindelsberger J., Ding L., Seaman S., Mehler A., Sipperley A., Pettinato A., Seppelt B.D., Angell L., Mehler B., Reimer B.
+    MIT advanced vehicle technology study: Large-scale naturalistic driving study of driver behavior and interaction with automation
+    IEEE Access, 7 (2019), pp. 102021-102038
+    CrossRef Google Scholar
+Friendly, 2002
+    Friendly M.
+    Visions and re-visions of Charles Joseph Minard
+    J. Educ. Behav. Stat., 27 (1) (2002), pp. 31-51
+    CrossRef View Record in Scopus Google Scholar
+Gajos et al., 2010
+    Gajos K.Z., Weld D.S., Wobbrock J.O.
+    Automatically generating personalized user interfaces with supple
+    Artif. Intell., 174 (12–13) (2010), pp. 910-950
+    Article PDF Download PDF View Record in Scopus Google Scholar
+Gerostathopoulos et al., 2019
+    Gerostathopoulos I., Kugele S., Segler C., Bures T., Knoll A.
+    Automated trainability evaluation for smart software functions
+    2019 34th IEEE/ACM International Conference on Automated Software Engineering, ASE, IEEE (2019)
+    Google Scholar
+Giaimo et al., 2019
+    Giaimo F., Andrade H., Berger C.
+    The automotive take on continuous experimentation: A multiple case study
+    2019 45th Euromicro Conference on Software Engineering and Advanced Applications (SEAA), IEEE Computer Society, Los Alamitos, CA, USA (2019), pp. 126-130
+    https://doi.ieeecomputersociety.org/10.1109/SEAA.2019.00028
+    CrossRef View Record in Scopus Google Scholar
+Giaimo et al., 2020
+    Giaimo F., Andrade H., Berger C.
+    Continuous experimentation and the cyber–physical systems challenge: An overview of the literature and the industrial perspective
+    J. Syst. Softw., 170 (2020), Article 110781
+    Article PDF Download PDF View Record in Scopus Google Scholar
+Giaimo and Berger, 2020
+    Giaimo F., Berger C.
+    Continuous experimentation for automotive software on the example of a heavy commercial vehicle in daily operation
+    Lecture Notes in Comput. Sci. (2020), pp. 73-88, 10.1007/978-3-030-58923-3_5
+    View Record in Scopus Google Scholar
+Green et al., 2015
+    Green P., Kang T., Lin B.
+    Touch screen task element times for improving SAE recommended practice J2365: First proposal
+    (2015)
+    Google Scholar
+Greenwood, 1998
+    Greenwood D.
+    Introduction to Action Research : Social Research for Social Change
+    Sage Publications, Thousand Oaks (1998)
+    Google Scholar
+Harvey and Stanton, 2016
+    Harvey C., Stanton N.A.
+    Usability Evaluation for in-Vehicle Systems
+    Taylor & Francis Ltd. (2016)
+    https://www.ebook.de/de/product/21182820/catherine_harvey_neville_a_stanton_usability_evaluation_for_in_vehicle_systems.html
+    Google Scholar
+Harvey et al., 2010
+    Harvey C., Stanton N.A., Pickering C.A., McDonald M., Zheng P.
+    Context of use as a factor in determining the usability of in-vehicle devices
+    Theor. Issues Ergon. Sci., 12 (4) (2010), pp. 318-338
+    Google Scholar
+Hassenzahl and Tractinsky, 2006
+    Hassenzahl M., Tractinsky N.
+    User experience - A research agenda
+    Behav. Inf. Technol., 25 (2) (2006), pp. 91-97
+    CrossRef View Record in Scopus Google Scholar
+Hebron, 2016
+    Hebron P.
+    Machine Learning for Designers
+    O’Reilly Media, Sebastopol, CA (2016)
+    https://cds.cern.ch/record/2213289
+    Google Scholar
+Heimgärtner et al., 2017
+    Heimgärtner R., Solanki A., Windl H.
+    Cultural user experience in the car–toward a standardized systematic intercultural agile automotive UI/UX design process
+    Automotive User Interfaces, Springer International Publishing (2017), pp. 143-184
+    CrossRef View Record in Scopus Google Scholar
+Hohl et al., 2016
+    Hohl P., Münch J., Schneider K., Stupperich M.
+    Forces that prevent agile adoption in the automotive domain
+    Product-Focused Software Process Improvement, Springer International Publishing (2016), pp. 468-476
+    CrossRef Google Scholar
+Jung et al., 2017
+    Jung S.-G., An J., Kwak H., Ahmad M., Nielsen L., Jansen B.J.
+    Persona generation from aggregated social media data
+    Proceedings of the 2017 CHI Conference Extended Abstracts on Human Factors in Computing Systems, ACM (2017)
+    Google Scholar
+Kanaan et al., 2019
+    Kanaan D., Ayas S., Donmez B., Risteska M., Chakraborty J.
+    Using naturalistic vehicle-based data to predict distraction and environmental demand
+    Int. J. Mobile Hum. Comput. Interact., 11 (3) (2019), pp. 59-70
+    CrossRef View Record in Scopus Google Scholar
+Katumba and Knauss, 2014
+    Katumba B., Knauss E.
+    Agile development in automotive software development: Challenges and opportunities
+    Product-Focused Software Process Improvement, Springer International Publishing (2014), pp. 33-47
+    CrossRef View Record in Scopus Google Scholar
+Kim and Song, 2014
+    Kim H., Song H.
+    Evaluation of the safety and usability of touch gestures in operating in-vehicle information systems with visual occlusion
+    Applied Ergon., 45 (3) (2014), pp. 789-798
+    Article PDF Download PDF View Record in Scopus Google Scholar
+Kircher and Ahlstrom, 2010
+    Kircher K., Ahlstrom C.
+    Predicting visual distraction using driving performance data
+    Ann. Adv. Automot. Med. / Annu. Sci. Conf. Assoc. Adv. Automot. Med. Assoc. Adv. Automot. Med. Sci. Conf., 54 (2010), pp. 333-342
+    View Record in Scopus Google Scholar
+Kohavi et al., 2013
+    Kohavi R., Deng A., Frasca B., Walker T., Xu Y., Pohlmann N.
+    Online controlled experiments at large scale
+    Proceedings of the 19th ACM SIGKDD International Conference on Knowledge Discovery and Data Mining, ACM (2013)
+    Google Scholar
+Lachner et al., 2017
+    Lachner F., Fincke F., Butz A.
+    UX metrics: Deriving country-specific usage patterns of a website plug-in from web analytics
+    Human-Computer Interaction – INTERACT 2017, Springer International Publishing (2017), pp. 142-159
+    CrossRef View Record in Scopus Google Scholar
+Large et al., 2017
+    Large D.R., Burnett G., Crundall E., van Loon E., Eren A.L., Skrypchuk L.
+    Developing predictive equations to model the visual demand of in-vehicle touchscreen HMIs
+    Int. J. Hum.-Comput. Interact., 34 (1) (2017), pp. 1-14
+    View Record in Scopus Google Scholar
+Law, 2011
+    Law E.L.-C.
+    The measurability and predictability of user experience
+    Proceedings of the 3rd ACM SIGCHI Symposium on Engineering Interactive Computing Systems - EICS ’11, ACM Press (2011)
+    Google Scholar
+Law et al., 2009
+    Law E.L.-C., Roto V., Hassenzahl M., Vermeeren A.P., Kort J.
+    Understanding, scoping and defining user experience
+    Proceedings of the 27th International Conference on Human Factors in Computing Systems - CHI 09, ACM Press (2009), pp. 719-728
+    CrossRef Google Scholar
+Leakkaw and Panichpapiboon, 2018
+    Leakkaw P., Panichpapiboon S.
+    Real-time lane change detection through steering wheel rotation
+    2018 IEEE Vehicular Networking Conference, VNC, IEEE (2018)
+    Google Scholar
+Lee et al., 2019
+    Lee S.C., Yoon S.H., Ji Y.G.
+    Modeling task completion time of in-vehicle information systems while driving with keystroke level modeling
+    Int. J. Ind. Ergon., 72 (2019), pp. 252-260
+    Article PDF Download PDF CrossRef Google Scholar
+van Leeuwen et al., 2016
+    van Leeuwen P., Landman R., Buning L., Heffelaar T., Hogema J., van Hemert J.M., de Winter J., Happee R.
+    Towards a real-time driver workload estimator: An on-the-road study
+    Advances in Intelligent Systems and Computing, Springer International Publishing (2016), pp. 1151-1164
+    Google Scholar
+Lewis, 2009
+    Lewis J.
+    Redefining qualitative methods: Believability in the fifth moment
+    Int. J. Qual. Methods, 8 (2) (2009), pp. 1-14
+    View Record in Scopus Google Scholar
+Li et al., 2018
+    Li Z., Bao S., Kolmanovsky I.V., Yin X.
+    Visual-manual distraction detection using driving performance indicators with naturalistic driving data
+    IEEE Trans. Intell. Transp. Syst., 19 (8) (2018), pp. 2528-2535
+    CrossRef View Record in Scopus Google Scholar
+Liang et al., 2016
+    Liang Y., McLaurin E.J., Simmons L.A., Verma S.K., Horrey W.J., Lesch M.F.
+    Considering traffic and roadway context in driver behavior assessments
+    Proceedings of the 8th International Conference on Automotive User Interfaces and Interactive Vehicular Applications Adjunct - Automotive’UI 16, ACM Press (2016)
+    Google Scholar
+Liu et al., 2017
+    Liu Z., Wang Y., Dontcheva M., Hoffman M., Walker S., Wilson A.
+    Patterns and sequences: Interactive exploration of clickstreams to understand common visitor paths
+    IEEE Trans. Vis. Comput. Graph., 23 (1) (2017), pp. 321-330
+    View Record in Scopus Google Scholar
+Löcken et al., 2017
+    Löcken A., Borojeni S.S., Müller H., Gable T.M., Triberti S., Diels C., Glatz C., Alvarez I., Chuang L., Boll S.
+    Towards adaptive ambient in-vehicle displays and interactions: Insights and design guidelines from the 2015 automotiveui dedicated workshop
+    Automotive User Interfaces, Springer International Publishing (2017), pp. 325-348
+    CrossRef View Record in Scopus Google Scholar
+Ly et al., 2013
+    Ly M.V., Martin S., Trivedi M.M.
+    Driver classification and driving style recognition using inertial sensors
+    2013 IEEE Intelligent Vehicles Symposium (IV), IEEE (2013)
+    Google Scholar
+Mao et al., 2005
+    Mao J.-Y., Vredenburg K., Smith P.W., Carey T.
+    The state of user-centered design practice
+    Commun. ACM, 48 (3) (2005), pp. 105-109, 10.1145/1047671.1047677
+    View Record in Scopus Google Scholar
+Marrella and Catarci, 2018
+    Marrella A., Catarci T.
+    Measuring the learnability of interactive systems using a Petri net based approach
+    Proceedings of the 2018 Designing Interactive Systems Conference, ACM (2018)
+    Google Scholar
+Maxwell, 2012
+    Maxwell J.
+    Qualitative Research Design: An Interactive Approach
+    SAGE (London) (2012)
+    Google Scholar
+McGinn and Kotamraju, 2008
+    McGinn J.J., Kotamraju N.
+    Data-driven persona development
+    Proceeding of the Twenty-Sixth Annual CHI Conference on Human Factors in Computing Systems - CHI ’08, ACM Press (2008)
+    Google Scholar
+Merriam, 2009
+    Merriam S.
+    Qualitative Research : A Guide to Design and Implementation
+    Jossey-Bass, San Francisco (2009)
+    Google Scholar
+Mitrovic, 2005
+    Mitrovic D.
+    Reliable method for driving events recognition
+    IEEE Trans. Intell. Transp. Syst., 6 (2) (2005), pp. 198-205
+    View Record in Scopus Google Scholar
+Miyajima and Takeda, 2016
+    Miyajima C., Takeda K.
+    Driver-behavior modeling using on-road driving data: A new application for behavior signal processing
+    IEEE Signal Process. Mag., 33 (6) (2016), pp. 14-21
+    View Record in Scopus Google Scholar
+Murphey et al., 2018
+    Murphey Y., Xie Y., Kochhar D.S.
+    Personalized driver workload estimation in real-world driving
+    SAE Technical Paper Series, SAE International (2018)
+    Google Scholar
+Nielsen, 1992
+    Nielsen J.
+    The usability engineering life cycle
+    Computer, 25 (3) (1992), pp. 12-22
+    Google Scholar
+Orlovska et al., 2020a
+    Orlovska J., Novakazi F., Lars-Ola B., Karlsson M., Wickman C., Söderberg R.
+    Effects of the driving context on the usage of automated driver assistance systems (ADAS) -naturalistic driving study for ADAS evaluation
+    Transp. Res. Interdiscip. Perspect. (2020), Article 100093
+    Article PDF Download PDF Google Scholar
+Orlovska et al., 2019a
+    Orlovska J., Novakazi F., Wickman C., Soderberg R.
+    Mixed-method design for user behavior evaluation of automated driver assistance systems: An automotive industry case
+    Proc. Des. Soc.: Int. Conf. Eng. Des., 1 (1) (2019), pp. 1803-1812
+    CrossRef View Record in Scopus Google Scholar
+Orlovska et al., 2019b
+    Orlovska J., Wickman C., Söderberg R.
+    Capturing customer profile enables in-vehicle user identification: Design for data-based user behavior evaluation
+    Smart Innovation, Systems and Technologies, Springer, Singapore (2019), pp. 665-675
+    CrossRef View Record in Scopus Google Scholar
+Orlovska et al., 2020b
+    Orlovska J., Wickman C., Söderberg R.
+    Naturalistic driving study for automated driver assistance systems (ADAS) evaluation in the Chinese, Swedish and American markets
+    Procedia CIRP, 93 (2020), pp. 1286-1291
+    Article PDF Download PDF View Record in Scopus Google Scholar
+Orlovska et al., 2020c
+    Orlovska J., Wickman C., Soderberg R.
+    The use of vehicle data in ADAS development, verification and follow-up on the system
+    Proc. Des. Soc.: Des. Conf., 1 (2020), pp. 2551-2560
+    CrossRef View Record in Scopus Google Scholar
+Pampel et al., 2019
+    Pampel S.M., Burnett G., Hare C., Singh H., Shabani A., Skrypchuk L., Mouzakitis A.
+    Fitts goes autobahn
+    Proceedings of the 11th International Conference on Automotive User Interfaces and Interactive Vehicular Applications, ACM (2019)
+    Google Scholar
+Pernot-Leplay, 2020
+    Pernot-Leplay E.
+    China’s approach on data privacy law: A third way between the US and the eu?
+    Penn State J. Law Int. Aff., 8 (1) (2020)
+    Google Scholar
+Petersen et al., 2014
+    Petersen K., Gencel C., Asghari N., Baca D., Betz S.
+    Action research as a model for industry-academia collaboration in the software engineering context
+    Proceedings of the 2014 International Workshop on Long-Term Industrial Collaboration on Software Engineering, ACM (2014)
+    Google Scholar
+Pettitt and Burnett, 2010
+    Pettitt M., Burnett G.
+    Visual demand evaluation methods for in-vehicle interfaces
+    Int. J. Mobile Hum. Comput. Interact., 2 (4) (2010), pp. 45-57
+    CrossRef View Record in Scopus Google Scholar
+Purucker et al., 2017
+    Purucker C., Naujoks F., Prill A., Neukum A.
+    Evaluating distraction of in-vehicle information systems while driving by predicting total eyes-off-road times with keystroke level modeling
+    Applied Ergon., 58 (2017), pp. 543-554
+    Article PDF Download PDF View Record in Scopus Google Scholar
+Riehmann et al., 2005
+    Riehmann P., Hanfler M., Froehlich B.
+    Interactive sankey diagrams
+    IEEE Symposium on Information Visualization, 2005, INFOVIS 2005, IEEE (2005)
+    Google Scholar
+Risteska et al., 2018
+    Risteska M., Chakraborty J., Donmez B.
+    Predicting environmental demand and secondary task engagement using vehicle kinematics from naturalistic driving data
+    Proceedings of the 10th International Conference on Automotive User Interfaces and Interactive Vehicular Applications - AutomotiveUI ’18, ACM Press (2018)
+    Google Scholar
+Ros and Runeson, 2018
+    Ros R., Runeson P.
+    Continuous experimentation and A/B testing
+    Proceedings of the 4th International Workshop on Rapid Continuous Software Engineering, ACM (2018)
+    Google Scholar
+Roto et al., 2011
+    Roto V., Law E.L.-C., Vermeeren A.P., Hoonhout J.
+    User experience white paper – bringing clarity to the concept of user experience
+    (2011)
+    Google Scholar
+Roto et al., 2009
+    Roto, V., Rantavuo, H., Väänänen, K., 2009. Evaluating user experience of early product concepts. In: Proceeding of the International Conference on Designing Pleasurable Products and Interfaces DPPI09.
+    Google Scholar
+Salminen et al., 2019
+    Salminen J., gyo Jung S., Jansen B.
+    The future of data-driven personas: A marriage of online analytics numbers and human attributes
+    Proceedings of the 21st International Conference on Enterprise Information Systems, SCITEPRESS - Science and Technology Publications (2019)
+    Google Scholar
+Schneegaß et al., 2011
+    Schneegaß S., Pfleging B., Kern D., Schmidt A.
+    Support for modeling interaction with automotive user interfaces
+    Proceedings of the 3rd International Conference on Automotive User Interfaces and Interactive Vehicular Applications - AutomotiveUI ’11, ACM Press (2011)
+    Google Scholar
+Sjoberg et al., 2007
+    Sjoberg D.I., Dyba T., Jorgensen M.
+    The future of empirical methods in software engineering research
+    Future of Software Engineering (FOSE ’07), IEEE (2007)
+    Google Scholar
+Taelman et al., 2009
+    Taelman J., Vandeput S., Spaepen A., Huffel S.V.
+    Influence of mental stress on heart rate and heart rate variability
+    IFMBE Proceedings, Springer Berlin Heidelberg (2009), pp. 1366-1369
+    CrossRef Google Scholar
+Tang et al., 2010
+    Tang D., Agarwal A., O’Brien D., Meyer M.
+    Overlapping experiment infrastructure
+    Proceedings of the 16th ACM SIGKDD International Conference on Knowledge Discovery and Data Mining - KDD ’10, ACM Press (2010)
+    Google Scholar
+Tesla, 2021
+    Tesla I.
+    Software updates
+    (2021)
+    Website, https://www.tesla.com/support/software-updates
+    Google Scholar
+Väänänen et al., 2008
+    Väänänen K., Roto V., Hassenzahl M.
+    Towards practical user experience evaluation methods
+    (2008)
+    Google Scholar
+Vogelsang, 2020
+    Vogelsang A.
+    Feature dependencies in automotive software systems: Extent, awareness, and refactoring
+    J. Syst. Softw. (JSS), 160 (2020)
+    Google Scholar
+Voss and Houser, 2019
+    Voss W.G., Houser K.
+    Personal data and the GDPR: Providing a competitive advantage for U.S. companies
+    Am. Bus. Law J., 56 (2019), pp. 287-344
+    CrossRef Google Scholar
+West et al., 2009
+    West R., Pineau J., Precup D.
+    Wikispeedia: An online game for inferring semantic distances between concepts
+    Proceedings of the 21st International Jont Conference on Artifical Intelligence, IJCAI’09, Morgan Kaufmann Publishers Inc., San Francisco, CA, USA (2009), pp. 1598-1603
+    View Record in Scopus Google Scholar
+Wongsuphasawat and Gotz, 2012
+    Wongsuphasawat K., Gotz D.
+    Exploring flow, factors, and outcomes of temporal event sequences with the outflow visualization
+    IEEE Trans. Vis. Comput. Graph., 18 (12) (2012), pp. 2659-2668
+    View Record in Scopus Google Scholar
+Wulczyn and Taraborelli, 2017
+    Wulczyn E., Taraborelli D.
+    Wikipedia clickstream
+    (2017)
+    Google Scholar
+Xing et al., 2018
+    Xing Y., Lv C., Cao D., Wang H., Zhao Y.
+    Driver workload estimation using a novel hybrid method of error reduction ratio causality and support vector machine
+    Measurement, 114 (2018), pp. 390-397
+    Article PDF Download PDF View Record in Scopus Google Scholar
+Xu et al., 2015
+    Xu Y., Chen N., Fernandez A., Sinno O., Bhasin A.
+    From infrastructure to culture
+    Proceedings of the 21th ACM SIGKDD International Conference on Knowledge Discovery and Data Mining, ACM (2015)
+    Google Scholar
+Yang et al., 2018
+    Yang Q., Scuito A., Zimmerman J., Forlizzi J., Steinfeld A.
+    Investigating how experienced UX designers effectively work with machine learning
+    Proceedings of the 2018 on Designing Interactive Systems Conference 2018 - DIS ’18, ACM Press (2018)
+    Google Scholar
+Yao et al., 2019
+    Yao Y., Zhao X., Wu Y., Zhang Y., Rong J.
+    Clustering driver behavior using dynamic time warping and hidden Markov model
+    J. Intell. Transp. Syst. (2019), pp. 1-14
+    Google Scholar
+Zhang et al., 2016
+    Zhang X., Brown H.-F., Shankar A.
+    Data-driven personas
+    Proceedings of the 2016 CHI Conference on Human Factors in Computing Systems, ACM (2016)
+    Google Scholar
+Zhao et al., 2015
+    Zhao J., Liu Z., Dontcheva M., Hertzmann A., Wilson A.
+    Matrixwave
+    Proceedings of the 33rd Annual ACM Conference on Human Factors in Computing Systems - CHI ’15, ACM Press (2015)
+    Google Scholar
+
+Cited by (6)
+
+    Human-Car Interface: A Systematic Literature Review
+    2023, Studies in Systems, Decision and Control
+    ICEBOAT: An Interactive User Behavior Analysis Tool for Automotive User Interfaces
+    2022, UIST 2022 Adjunct - Adjunct Proceedings of the 35th Annual ACM Symposium on User Interface Software and Technology
+    How Do Drivers Self-Regulate their Secondary Task Engagements? The Effect of Driving Automation on Touchscreen Interactions and Glance Behavior
+    2022, Main Proceedings - 14th International ACM Conference on Automotive User Interfaces and Interactive Vehicular Applications, AutomotiveUI 2022
+    Together Distracted? The Effect of Driver-Passenger Collaboration on Workload, Glance Behavior, and Driving Performance
+    2022, Adjunct Proceedings - 14th International ACM Conference on Automotive User Interfaces and Interactive Vehicular Applications, AutomotiveUI 2022
+    ICEBOAT: An Interactive User Behavior Analysis Tool for Automotive User Interfaces
+    2022, arXiv
+    How Do Drivers Self-Regulate their Secondary Task Engagements? The Effect of Driving Automation on Touchscreen Interactions and Glance Behavior
+    2022, arXiv
+
+1
+
+    A detailed overview consisting of the characteristics of all four studies is provided here: https://doi.org/10.6084/m9.figshare.15156783.v1 .
+
+2
+
+    https://www.qsrinternational.com/nvivo-qualitative-data-analysis-software/about/nvivo .
+
+3
+
+    https://atlasti.com/ .
+
+© 2021 Published by Elsevier Ltd.
+Recommended articles
+Navigate Down
+
+    Pavement slipperiness detection using wheel speed and acceleration sensor data
+    Transportation Research Interdisciplinary Perspectives, Volume 11, 2021, Article 100431
+    PDF Download PDF View details Navigate Down
+    Activities, time-use and mental health during the first COVID-19 pandemic wave: Insight from Greece
+    Transportation Research Interdisciplinary Perspectives, Volume 11, 2021, Article 100442
+    PDF Download PDF View details Navigate Down
+    Factors associated with differences in initial pandemic preparedness and response: Findings from a nationwide survey in the United states
+    Transportation Research Interdisciplinary Perspectives, Volume 11, 2021, Article 100430
+    PDF Download PDF View details Navigate Down
+
+1 2 Next Navigate Right
+Article Metrics
+Navigate Down
+Citations
+
+    Citation Indexes: 4 
+
+Captures
+
+    Readers: 29 
+
+Social Media
+
+    Tweets: 3 
+
+plumX logo
+View details
+Elsevier logo with wordmark
+
+    About ScienceDirect
+    Remote access
+    Shopping cart
+    Advertise
+    Contact and support
+    Terms and conditions
+    Privacy policy 
+
+We use cookies to help provide and enhance our service and tailor content and ads. By continuing you agree to the use of cookies .
+
+Copyright © 2022 Elsevier B.V. or its licensors or contributors. ScienceDirect® is a registered trademark of Elsevier B.V.
+
+ScienceDirect® is a registered trademark of Elsevier B.V.
+RELX group home page
+Feedback 

@@ -1,0 +1,749 @@
+
+
+
+JavaScript is disabled on your browser. Please enable JavaScript to use all the features on this page. Skip to main content Skip to article
+Elsevier logo ScienceDirect
+
+    Journals & Books 
+
+    Search 
+
+Register Sign in
+
+    View  PDF
+    Download full issue 
+
+Outline
+
+    Abstract
+    Keywords
+    1. Introduction
+    2. Literature review
+    3. Methodology
+    4. Data collection and analysis
+    5. Results
+    6. Discussion
+    7. Conclusions and futurework
+    Declaration of Competing Interest
+    Acknowledgements
+    Data availability
+    References 
+
+Show full outline
+Figures (13)
+
+    Fig. 1. Spatial perspectives in wayfinding UI design: (a): exocentric, (b): egocentric
+    Fig. 2. Turlington Hall at UF
+    Fig. 3. Archietecture of the AR based indoor wayrinding system
+    Fig. 4. Point cloud model of the experiment site's spatial structure
+    Fig. 5. Demonstration of a complete virtual scene from the wayfinding system
+    Fig. 6. Apparatus and experiment in action: (a) Microsoft HoloLens 2; (b) third person…
+
+Show 7 more figures
+Tables (2)
+
+    Table 1
+    Table 2 
+
+Elsevier
+Advanced Engineering Informatics
+Volume 59 , January 2024, 102265
+Advanced Engineering Informatics
+Full length article
+Improving indoor wayfinding with AR-enabled egocentric cues: A comparative study
+Author links open overlay panel Fang Xu , Tianyu Zhou , Hengxu You , Jing Du
+Show more
+Add to Mendeley
+Share
+Cite
+https://doi.org/10.1016/j.aei.2023.102265 Get rights and content
+Abstract
+
+Indoor wayfinding poses significant challenges, as navigating complex environments can be difficult and time-consuming. Augmented reality (AR) has emerged as a promising solution to address these challenges. However, understanding how to effectively leverage AR techniques for large-scale indoor wayfinding scenarios remains unclear. In particular, the implications of AR-enabled egocentric perspectives have not been thoroughly investigated. This study aims to explore the potential benefits of AR-based egocentric perspectives and their impact on indoor wayfinding performance. A human-subject experiment (N = 31) was conducted in a multi-story building, utilizing a self-developed AR system capable of providing both traditional exocentric and innovative egocentric perspectives. The results of the experiment confirmed the performance and cognitive benefits of the AR-enabled egocentric perspective. Participants using the egocentric perspective demonstrated improved wayfinding efficiency, reduced cognitive load, and enhanced spatial awareness. These findings suggest that the AR-based egocentric perspective offers a more intuitive and effective approach to indoor wayfinding, enabling users to better process spatial information and make informed decisions during wayfinding tasks. The findings are expected to provide empirical evidence on the efficacy of AR systems for wayfinding and inspire new user interface (UI) designs that would better leverage the advantages of AR techniques.
+
+    Previous article in issue
+    Next article in issue 
+
+Keywords
+Wayfinding
+Indoor navigation
+Exocentric
+Egocentric
+Augmented reality
+1. Introduction
+
+Indoor wayfinding, i.e., localization , orientation, and route planning to a precise point of interest inside a building, is an indispensable function in unfamiliar spaces [1] . In many cases, individuals need to quickly gain situational awareness and execute effective wayfinding decisions. Nonetheless, the overwhelming spatial information, elusive environment and intensive sensory input together increase the cognition processing load that obstructs one’s awareness [2] . In addition to verbal depictions, conventional methods of displaying spatial information are limited by their medium of visual interfaces [3] . Traditional methods of conveying spatial information, such as 2D maps, signages, and text-based route guidelines, are constrained by their medium of visual interfaces and can lack the ability to provide a configural overview of the environment [4] , [5] . This can make it challenging for users to intuitively understand their relative positions in a complex, multi-level indoor space. Attributed to the development of augmented reality (AR) technologies, efforts have been made to incorporate AR and positioning techniques in advanced wayfinding services [6] , [7] . The accessibility of head-mounted displays (HMDs) is enhanced by the improved mobility, powerful computational capabilities, and more precise localization functions. Especially with the optical see through (OST) HMDs, a projection of the virtual environment can be visualized on top of the physical world at a 1:1 scale and being stabilized to blend seamlessly into one’s view [8] . In our previous study, a reality capturing system that exploits the benefits of quadrupedal robots, ranging sensors, Simultaneous Localization, and Mapping (SLAM), and AR devices provided a solution of obtaining and rendering spatial information and synchronize with the real world simultaneously [9] . This provides a great advantage for wayfinding solutions, in a way that combines the perceived spatial information seamlessly with the physical world.
+
+Despite the potential advantages of AR techniques for future indoor wayfinding, the challenge still lies in the UI that can facilitate the comprehension of complex indoor structures. This obstacle is attributed to both the inherent complexity of the structure itself and the cognitive processes required for humans to interpret intricate spatial information [10] . Particularly, in this paper, we focus on the impact of different view perspectives of spatial information, which refers to the ways in which individuals perceive, interpret, and represent spatial relationships and environments based on their viewing angle or position [11] . Conventional wayfinding cues are mostly presented in an exocentric perspective, as information is displayed in front of a user, analogous to third-person view point [12] . In this way, exocentric perspective presents the location of one object relative to the location of other objects ( Fig. 1 ). In contrast, because of the unique experience provided by AR HMDs, wayfinding cues and structural information can be provided with an AR-enabled egocentric perspective, i.e., presenting 1:1 scaled virtual contents superimposed on the physical world along with wayfinding cues [13] . As such, egocentric perspective presents location information relative to the user’s own body ( Fig. 1 ).
+
+    Download : Download high-res image (67KB)
+    Download : Download full-size image 
+
+Fig. 1 . Spatial perspectives in wayfinding UI design : (a): exocentric, (b): egocentric.
+
+Literature has noticed the difference between the two view perspectives in wayfinding and attempted to examine the advantages and limitations of both perspectives in a set of spatial decision contexts. It was found that egocentric perspective could offer a more natural and intuitive representation of the environment, making it easier for users to understand and follow directions [14] , while exocentric perspective could better support wayfinding and decision-making, as users can visualize holistic picture of the environment [15] . However, it should be noted that most of these investigations are performed in simulated environments (such as virtual simulators) as controlled experiments [16] , or delicately constructed experiment environments [17] . The direct evidence solicited from a real-life setting with AR devices is still largely missing.
+
+This study focuses on investigating the impact of two perspectives on individuals who are exposed to both conventional exocentric and AR-enabled egocentric wayfinding cues in a real-world wayfinding task. An AR system was designed to perform an experiment with a real-world indoor structure (Turlington Hall at the University of Florida) and a 1:1 scaled spatial model obtained by reality capture. A human-subject experiment was then carried out to evaluate performance and cognitive load of participants using different wayfinding cues in the same indoor structure. The experiment consisted of four distinct scenarios that employed different methods for displaying spatial information, namely the “control,” “route,” “minimap,” and “global” conditions. These conditions were implemented using a 2D paper map, a 2D map with AR routes, a 3D mini map, and an AR egocentric map, respectively. The task was designed to let participants find one target within a two-level building in a limited timeframe. The location of the target was given to the subjects as well as the layout of the indoor environment. The following parts of this paper will introduce the related work, methodology and design of the experiment, results, conclusions, and discussions.
+2. Literature review
+2.1. Augmented reality for indoor wayfinding
+
+With recent advances in mobile computing , artificial intelligence and game engines, AR becomes available to the public and has a trending to be widely adopted [18] . Popular AR devices on the market are equipped with advanced sensors and powerful computing units to realize unprecedented capabilities, such as HoloLens, Magic Leap, and Google Glass [19] , [20] . In recent years, there has been a surge of interest in exploring the potential of AR devices for indoor wayfinding, as they offer an immersive and interactive experience for users. Several studies have been conducted to evaluate the effectiveness of AR-based wayfinding systems in various settings, such as museums, shopping malls, and airports [21] , [22] . These studies have generally reported positive results, indicating that AR devices can improve user satisfaction, engagement, and wayfinding efficiency [23] , [24] .
+
+However, many of these studies have faced challenges due to the limitations of AR techniques, as well as the complexity of indoor environments. In particular, rendering method, interface and the overall performance of AR devices have been identified as significant factors affecting the effectiveness of AR-based wayfinding systems [17] , [25] . Despite having existed for decades, AR technology still has limitations in terms of its ranging, mapping, and indoor localization capabilities [26] . Most OST AR devices are equipped with ranging sensors to guarantee the accuracy of overlaying virtual objects and tracking of the user’s movement. Mobile AR devices typically use infrared depth cameras as ranging sensors to scan the vicinity and track user motion, but their limited spatial data acquisition range, field of view (FOV) and low frequency pose challenges [27] . As a result, most current use cases of AR HMDs are confined in small indoor areas where lots of feature-rich objects are kept at close distance [28] . On the other hand, although the 3D models of many public facilities are being precisely described with building information modeling (BIM), their interior structure are usually varied, and reality capture is often applied for a precise 3D reconstruction [29] . In such conditions, the capability to quickly acquire real-time dynamic spatial information and displaying the 3D information in an intuitive way is desirable for the potential users. Some studies have attempted to address these issues by implementing advanced rendering techniques, such as real-time 3D object tracking and occlusion handling [30] , [31] . Nevertheless, the scalability of these techniques to large, multi-level indoor environments remains an open question. For example, studies concerning behavioral wayfinding performances of AR applications are carried out but limited by the device’s capability, which end up in testing room-scale performance [17] .
+
+To mitigate the limited capability of AR devices in processing real-time spatial information, efforts have been made to integrate extended spatial information, such as established floor plans and 3D models to improve the performance of AR-based wayfinding systems [32] . Some studies have attempted to incorporate this type of information into their systems, either by directly overlaying it onto the user’s view or by providing it through an interface [33] . However, the effectiveness of these approaches remains unclear, and further research is needed to determine the best methods for integrating extended spatial information into AR-based indoor wayfinding systems. On the one hand, a seamless workflow for integrating external spatial information into the existing AR platforms still needs further test and validation [34] . On the other hand, it is less clear how the added spatial information from a richer external source would affect the processing capabilities of the users, and ultimately affect the performance. More research efforts are still needed to provide empirical evidence about the unique benefits of applying AR in indoor wayfinding. This study aims to examine how different UI designs would leverage the unique advantages of AR in indoor wayfinding, while mitigating the potential limitation as mentioned above. Especially, we are interested in exploring how AR would enable a special view perspective, i.e., the ways in which individuals perceive, interpret, and represent spatial relationships and environments based on their viewing angle or position [35] . It requires a thorough discussion on the view perspective designs for spatial information.
+2.2. View perspectives in spatial understanding and indoor wayfinding
+
+When spatial structure of an indoor environment is complex, it becomes increasingly important for a person to quickly obtain spatial knowledge and maintain one’s sense of orientation [36] . Strategies and spatial abilities differ from person to person, but there are two general approaches, including route-based egocentric strategy and survey-based exocentric strategy [37] . In practice, both an individual’s sense of direction and the sources of spatial information available significantly influence the choice of navigation strategies, and a combination of both strategies is often adopted based on these factors [38] . The origin of spatial information inherently exhibits variations in perspective. However, utilizing virtual environments offers the distinct benefit of presenting multiple perspectives within a singular system, or even enabling “super natural” capabilities [39] .
+
+In practice, spatial information is often presented in an exocentric reference frame using 2D maps and 3D models [40] , [41] . Exocentric maps provide a holistic view of the environment, allowing users to gain survey knowledge easily [15] , [40] . In addition to maps, egocentric information can be obtained by the operator when interacting with the physical world. Nevertheless, preserving one’s sense of direction and monitoring egocentric cognition can become difficult, particularly when navigating through multiple turns [37] . Although normally people interpret space by combining egocentric and exocentric references, it is reported that extra cognitive effort is required to convert exocentric perspective to their egocentric perspective to align with their body motion [42] . By looking at the process of spatial understanding , it could be articulated that all the efforts made inside of the brain were to correlate precepted information with reference to the physical world and to themselves [43] .
+
+To be noted, the efficacy of these main perspectives is relative, depending on the specific context and nature of the navigation tasks . For example, the specific roles egocentric perspective and exocentric perspective play depend on if the task involves free navigation for spatial learning [44] or path planning for a given and known target [45] . Although in this research we aim to test the benefits of egocentric perspective in path planning with given targets, there is strong evidence that exocentric perspectives expedite environmental learning, consolidated by cognitive flexibility in problem-solving within the environment [39] , [46] . Such flexibility is particularly evident when users switch between exocentric and egocentric perspectives [47] , [48] . Additionally, research has shown that exocentric perspective supports route planning and decision-making, as it allows users to visualize extended ranges [49] . While the exocentric perspective offers certain advantages, such as a comprehensive view of the environment, it also has its limitations. Users may struggle to translate the bird’s-eye view to their own perspective, which can lead to performance errors [50] . Moreover, this perspective can cause cognitive overload as users must process cluttered wayfinding information simultaneously [51] .
+
+Consequently, by merging the perceptual and cognitive processes, one could theoretically accelerate spatial cognition. This involves presenting “survey knowledge” from an egocentric perspective through virtual environments. Utilizing this approach, individuals can bypass the laborious task of processing and memorizing intricate data, and instead draw upon immediate “mental maps” for navigation. Presenting survey knowledge from an egocentric viewpoint potentially negates the need for cognitive transformations in perspective. While in theory, this system might enhance spatial understanding and streamline wayfinding by reducing cognitive strain, its practical implications and effectiveness remain untested. There’s also a lack of comparison with traditional spatial information presentation methods, especially concerning potential unfamiliarity and unforeseen cognitive effects.
+2.3. AR HMD enabled wayfinding UIs
+
+Although conventional approaches have extensively focused on delivering exocentric spatial information, the potential of egocentric navigation systems remains largely unexplored. Often known as first-person or immersive views, egocentric systems are believed to be favored for spatial comprehension [39] . This viewpoint has become increasingly popular in Virtual Reality (VR) and Augmented Reality (AR) applications for navigation, made possible through HMDs and virtual environments [52] , [53] . Egocentric perspective provides a more natural and intuitive representation of the environment, making it easier for users to understand and follow directions [54] . Studies have demonstrated that utilizing an egocentric perspective can enhance wayfinding performance by reducing the need for mental rotation and transformation [55] . Despite the advantages of egocentric perspective for wayfinding, one of its main drawbacks is the limited field of view, which can hinder users’ spatial awareness [56] . However, in complex environments, the egocentric perspective may cause disorientation since users can become fully immersed in the environment without an effective way of perceiving complete information. Therefore, more empirical evidence is needed to validate the comprehensive efficacy of both perspectives in a real-life setting.
+
+The literature documents practices in investigating spatial cognition processes enabled by AR HMDs. For example, a previous study on AR-based 3D geo-visualization revealed that user interactions, guided by spatial perspectives, notably impact navigation performance [57] . The finding uncovers the interaction strategies that best facilitate the use of AR for geo-visualization, with a particular focus on drawing insights from spatial cognition. The research emphasizes the intent behind AR system usage. This affects the choice of interaction strategies and helps generate a flexible mental map. A key highlight from their results showcases that when participants aim to quickly learn a route between two distant locations, they predominantly opt for an exocentric perspective. This means that they tend to manipulate the AR environment to view it from an external vantage point, akin to handling a 2D map. This behavior highlights the deep impact of spatial cognitive processes on the AR navigation system, indicating that cognitive foundations are essential for adopting navigation strategies. Many AR based wayfinding studies have been conducted, but the assessment of participants’ performance typically focused on either the physical or virtual environment, despite the integration of virtual objects [32] , [58] . The benchmarking of a complete AR enabled wayfinding solution that provides direct egocentric survey knowledge obtained from reality capture was not well established although many related studies attempted [59] , [60] . Another distinction in spatial understanding and indoor navigation is the consideration of multi-level buildings. Previous studies have highlighted that these tasks display characteristics different from those in two-dimensional wayfinding scenarios [61] . Wayfinders tend to find a path to the vertical location of the target first, while route knowledge plays an important role in cognitive mapping [62] . To ultimately address the problem faced in indoor wayfinding scenarios, the complexity of multistory structure cannot be neglected [63] .
+
+To conclude, although AR HMDs have shown a great potential in promoting indoor wayfinding performance, the advantages and challenges introduced by such innovative methods are largely unexplored. There is a need for assembling and testing a complete AR wayfinding system with new user interfaces in real-life wayfinding tasks to the scale. The proposed AR system, experiment design and the details of results are discussed in the following sections.
+3. Methodology
+3.1. Overview
+
+To achieve the desired experimental conditions and effectively analyze the performance of human participants, three primary challenges needed to be addressed: selecting an appropriate experimental site based on the current device capabilities, spatial structure, and applicability; obtaining accurate spatial measurements of the site and integrating them into the AR system; and evaluating real-world events using virtual tools. As the experiment aimed to explore wayfinding performance, it was crucial to select a suitably complex experimental site that would emphasize performance differences and minimize learning effects. Another significant concern was the compatibility of the AR equipment. Environments with curtain walls and large-scale featureless structures were deemed unsuitable for reality capture and tracking purposes. Consequently, after conducting field tests in several campus buildings, Turlington Hall was ultimately chosen ( Fig. 2 ). The third and fourth floors were selected for the experiment due to their interconnectivity and complexity.
+
+    Download : Download high-res image (254KB)
+    Download : Download full-size image 
+
+Fig. 2 . Turlington Hall at UF. (a) Top-down view; (b) Inside of building; (c) Floor plan of 3rd level; (d) Floor plan of 4th level.
+
+Addressing the second challenge involved refining an AR wayfinding system based on our previous platform ( Fig. 3 ) [34] . The wayfinding system employed in this study encompassed a ground robot, ranging sensors, data fusion, an OST AR HMD, and Unity game engine rendering techniques, culminating in a real-time reality capture system that visualizes spatial information to augment the spatial awareness of human operators. Leveraging the Unity game engine, all virtual components could be described with accurate transformation and scale, ensuring that the created virtual environment accurately represented spatial information obtained from the physical world with fidelity and tractability. The virtual environment was constructed using a set of point clouds generated by a 16-channel Velodyne light detection and ranging (LiDAR) scanner, as well as point clouds converted from mesh models scanned by the depth camera of the HoloLens 2. This approach capitalized on the range and efficiency of the LiDAR sensor and the high fidelity of the depth camera. The scanning task was divided into two sections—hallways and staircases—to take advantage of both sensors [34] . Mapping tasks were executed with visual SLAM, including A-LOAM and the built-in mapping functions of HoloLens 2 [64] . In conclusion, the wayfinding system includes two major segments, which are reality capture and AR visualization. The scanned point cloud map is registered in both the virtual coordinate system in Unity and the physical space, and the AR visualization of all virtual objects were anchored to the physical space by HoloLens2 HMD.
+
+    Download : Download high-res image (695KB)
+    Download : Download full-size image 
+
+Fig. 3 . Archietecture of the AR based indoor wayrinding system.
+
+To build an accurate point cloud map, we used a ground robot equipped with LiDAR to navigate along the hallway for scanning large geometries. To account for the interruption caused by closed fire doors, the scanning of the 3rd floor was partitioned into six sections, while the 4th floor was divided into seven sections. The point cloud data obtained from both the LiDAR and HoloLens 2 scanning were merged to produce a combined point cloud model, comprising a total of 1,201,934 points ( Fig. 4 ). An additional layer of mesh, conforming to the geometry of each floor plan, was generated, and visually differentiated by color to enable users to easily distinguish between vertical levels. The combination of the pre-scanned point cloud and mesh was finalized for providing visual wayfinding cues for the AR system. Fig. 5 showcases a virtual scene that includes a point cloud model, floor plan mesh, virtual obstacles, and a virtual target, illustrating the assembled components of the proposed wayfinding system.
+
+    Download : Download high-res image (314KB)
+    Download : Download full-size image 
+
+Fig. 4 . Point cloud model of the experiment site's spatial structure. (a) 3 stairs scanned with HoloLens 2; (b) top-down view of the structure; (c) perspective view of the structure; (d) side view of the structure.
+
+    Download : Download high-res image (533KB)
+    Download : Download full-size image 
+
+Fig. 5 . Demonstration of a complete virtual scene from the wayfinding system. The layout of the hallway is emphasized with blue and green mesh ; three staircases were marked with red (unavailable) and green (available) brackets; obstacles were marked with red cubes; starting point and target were visualized with yellow icons. (For interpretation of the references to color in this figure legend, the reader is referred to the web version of this article.)
+
+To facilitate egocentric visualization and an exocentric minimap, our system employs a virtual environment that incorporates structures and objects pertinent to indoor wayfinding within such a setting. In terms of egocentric wayfinding, point cloud models, obtained from reality capture, provide visual inputs for spatial understanding , and serve as the platform for landmarks and other objects. A 1:1 scale virtual model was established and synchronized with the physical space to create a “seeing-through-wall” effect [65] . Users can orient themselves by merely observing the entire level being visualized. This includes occluded areas, enabling stable spatial awareness without relocation.
+
+Conversely, for the exocentric method, we provide an interactive, equally detailed, miniature model. Aside from viewing perspective, the primary distinction lies in a marker that represents the user’s real-time position and orientation within the virtual model. Now, users can orient themselves using the marker on the 3D minimap and make wayfinding decisions accordingly.
+
+In our previous study, we conducted real-time reality capture of the physical space as the user navigated the indoor area, and localization was simultaneously achieved with Simultaneous Localization and Mapping (SLAM) for dynamic environmental visualization [34] . We employed a hierarchical scanning strategy along with the combined use of Light Detection and Ranging (LiDAR) and depth cameras to ensure swift and accurate scanning of indoor areas, encompassing both large (like corridors) and smaller (like rooms) zones. We integrated point cloud models from RGB-D and LiDAR sensors using a structured workflow [34] . Initial processing employed the DBSCAN algorithm to filter noise and outliers [66] . Feature points were then extracted using the Fast Point Feature Histograms (FPFH) descriptor [67] , [68] . The final registration of point clouds was achieved with the fast global registration method, merging models from LiDAR and visual SLAM [69] . This allowed registration with our consolidated model , and by applying this method between HoloLens’ spatial mesh and the resultant point cloud, alignment was achieved in the same coordinate system. In this current research, to align with the human subject study for a controlled experiment design and its practicality, we limited the scanning and rendering to hallways and staircases of the two levels. We scanned, registered, and voxelized the point cloud models offline to optimize the accuracy of the virtual scene.
+
+For this study, we relied on the inherent “spatial mapping” and “spatial anchor” systems of HoloLens2 for user localization. HoloLens2 implements visual SLAM and an Inertial Measurement Unit (IMU) for precise indoor localization. The HoloLens2 HMD, in its current generation, constructs a lightweight map with its depth sensor and IMU during deployment, resulting in a progressively expanding map as the user navigates unknown spaces. Revisiting the same physical location triggers map loop closure. By accurately defining the position and orientation within the spatial anchoring system, motorized spatial features serve as an anchoring point for any holograms. Landmarks or wayfinding cues, in the form of holograms, anchor to physical space with persistent tracking capabilities. With familiarization, HoloLens2 can present an even more stable localization result. Anchoring the virtual scene at a 1:1 scale to the physical space, user localization is achieved as HoloLens2 HMD tracks their physical movement.
+
+For wayfinding tasks, we virtually defined starting and ending points in the target area, matching the physical space’s dimensions. Given HoloLens2′s ability to track its physical movement and recognize revisited locations, it consistently renders a visualization of the virtual scene anywhere within the indoor area. The starting point for each experiment was set at the same relative location in both spaces, the subject’s location was updated simultaneously within the virtual space concerning the relative motion. Localization accuracy in this study relies on the accuracy of visual SLAM run on HoloLens2, tracking error existed when in certain areas, the analogy of spatial structure, or illumination condition caused confusion. To improve tracking accuracy during the experiment, the HMD was worn by a researcher while traveling inside the target area to train its spatial understanding system by scanning detailed 3D maps. After training, each HMD was able to perform snappy localization when being powered on at any location within the target area. In practice, tracking error in this study would not lead to system error for measurement, it appeared as an incident and an accurate tracking was always re-established when the subjects moved on. All thirty one experiments were performed with successful localization; the trials that experienced continuous tracking error were re-performed.
+
+By bridging the gap between the virtual and real worlds, this method allows for a more comprehensive evaluation of wayfinding performance in the context of AR-based indoor wayfinding. The resulting data can provide valuable insights into the effectiveness of different UI designs and their impact on wayfinding performance, ultimately informing the development of more efficient and user-friendly AR indoor wayfinding systems.
+3.2. Apparatus
+
+In this study, a HoloLens 2 was utilized in all four trials, where participants wore the device while carrying an additional backpack weighing a total of 7 lbs. This backpack housed a tablet for data collection and a lithium battery for power supply ( Fig. 6 ). To facilitate the rendering of the virtual scene and data processing, a Unity project was executed on a Windows laptop, which communicated with the AR HMD through a Wi-Fi hotspot. During the experiment, a three-person team was required to move together to carry the devices and provide mutual support. The wayfinding system was running on a laptop due to its superior computing power and the resultant 3D models were streamed to the HoloLens 2. The laptop was used for the heavy-duty task of processing and rendering the point cloud model, and the HoloLens 2 for visualization and user interaction. This allowed for real-time updates to the user without overburdening the computational capacity of HoloLens 2. The third person in this group did not actively participate in the experiment.
+
+    Download : Download high-res image (209KB)
+    Download : Download full-size image 
+
+Fig. 6 . Apparatus and experiment in action: (a) Microsoft HoloLens 2; (b) third person view of participant; (c) first person view of participant.
+3.3. Experiment design
+
+A wayfinding experiment was designed with four within-subject conditions: “control”, “route”, “minimap” and “global”, each implementing a unique way of presenting wayfinding cues. Specifically, the “control” condition provided a print map, the “route” condition visualized arrows and lines to the key waypoints on the floor using AR HMDs, the “minimap” condition rendered a small-scale miniature 3D map in the hand of the participants, and the “global” condition projected the 1:1 building model on top of the real building, creating an illusion of seeing through walls. As such, the “control” and “minimap” conditions used the exocentric perspective for displaying wayfinding information, as information was detached from the real world, while the “route” and “global” conditions referred to the egocentric perspective, as the spatial information was provided to the participants in a first-person immersive manner.
+
+The task was to locate a virtual human-like target within a 10-minute time limit. The target location was provided along with spatial information through different forms, including maps and virtual environments. The search task took place in a two-level indoor structure, with the starting locations on the lower level and the target on the upper level to lower the risk of tripping and falling. Since the four conditions shared the same physical structure, to reduce learning effects different sets of virtual obstacles on the way to the target were added. The virtual obstacles also serve as environmental variables, since the layout of a building is often changed after disasters, as well as the accessibility of entrances. To facilitate a better evaluation and comparison of the performance of each condition, the maps and conditions were paired, and the sequence of the conditions was randomized. The visibility of the target, virtual obstacles, and access to featured wayfinding cues were set differently across the four conditions to address the UI design and perspective variance. In Fig. 7 , first and third-person views of the four conditions are illustrated. Throughout all four conditions, participants were equipped with the HoloLens HMD. The hand tracking meshes displayed in Fig. 7 (a) and (b) indicated the utilization of the HoloLens. The virtual obstacles include red-colored cubes and red-colored frames representing blocked hallways and staircases. The red blocks were sized at 1.5 × 1.5 m in the physical world’s reference, and the frames’ size depended on the shape of the staircases ( Fig. 8 ).
+
+    Download : Download high-res image (420KB)
+    Download : Download full-size image 
+
+Fig. 7 . The four conditions: (a) condition: “control”; (b) condition: “minimap”; (c) condition: “route”; (d) condition: “global”.
+
+    Download : Download high-res image (281KB)
+    Download : Download full-size image 
+
+Fig. 8 . First person views of virtual objects: (a) target object scale reference; (b) target on experiment site; (c) obstacle in vicinity; (d) obstacle viewed from a distance.
+
+The “control” condition simulated the most common method in wayfinding with a printed 2D map held in the hands. The map provided the configuration of the test site, with the starting and target points marked clearly. The map did not provide any suggested routes, and participants needed to plan out the path for themselves. The participants were allowed to check the map during the experiment. The Unity games scene and AR HMD were still running during this wayfinding mission, to ensure that virtual obstacles were rendered properly when the subjects reached them. The other reason for subjects to wear the AR HMD is the collection of real-time data related to path plans, moving speeds, and first-person view (FPV) video recordings for further analysis.
+
+The “route” condition was designed to Imitate common methods of presenting pre-acquired spatial information using AR HMDs. In this condition, colored lines were placed on the floor to represent the shortest path to the staircases, akin to “EXIT” signs in every hallway. Three colored lines in blue, orange, and green were connected to the three stairs one, two and three accordingly (see Fig. 9 ). Test subjects were also provided with a 2D paper map. Due to the presence of virtual obstacles, subjects had to decide whether to follow the lines to find their way. Accurate locations of the virtual obstacles were only available through the paper map, and the pre-plotted colored lines were sometimes blocked by the obstacles. Thus, in this condition, wayfinding cues were also presented in an exocentric way. In this condition, subjects needed to mentally process wayfinding cues in different perspectives for successful path planning .
+
+    Download : Download high-res image (649KB)
+    Download : Download full-size image 
+
+Fig. 9 . Optimal path design for four conditions.
+
+The “minimap” condition aimed to test the exocentric reference of providing spatial information. In this condition, subjects had access to an interactive 3D map within the AR view, positioned in front of their chest. The 3D minimap was a scaled-down version of the virtual space, including the point cloud, floor plan mesh, virtual obstacles, target icon, and the HMD’s current location. The 3D minimap could be interacted with by grabbing and rotating to obtain a clear view of each level in case of occlusion. The subject’s current location and orientation relative to the virtual/physical space were updated in real time and displayed as an arrow icon within the 3D minimap. A paper map was not provided in this condition to ensure that the source of wayfinding cues came solely from the exocentric minimap.
+
+The “global” condition was designed to provide egocentric wayfinding cues. In this condition, the point cloud, floor plan, obstacles, and target were all visible throughout the entire process. Floor plans were colored differently for different levels to prevent confusion while looking up or down. A paper map was not provided in this condition to ensure that the source of wayfinding cues came only from the egocentric global map.
+
+To elaborate, each of the four conditions was provided with comprehensive structural information, as well as the locations of the target and obstacles. The task was entirely wayfinding-based with no need for free search, meaning that the subjects could plan the complete wayfinding solution at the outset of each condition. Consequently, the performance of each trial reflects the impact of various wayfinding cues on spatial cognition. Also worth noting, using real-world structures for a wayfinding study can be challenging due to the inherent invariability of the physical world. By employing superimposed virtual obstacles, real-world structures could be reconfigured to meet the demands of intricate experiment designs. The wayfinding tasks in this study were designed with tailored optimal paths to exploit the spatial structures of Turlington Hall while maintaining the complexity of each condition at a consistent level. To evaluate performance comparably, the optimal paths were constrained by virtual obstacles to ensure a unique solution with minimal confusion during planning ( Fig. 9 ). The starting location of the four optimal paths was situated at a straight section in the hallway, requiring participants to choose between two potential directions at the outset. Each condition featured a different starting point and target location, paired with varying placements of virtual obstacles to ensure the novelty of the conditions for all test subjects and to eliminate potential memories about the structure. The four conditions contained 11 (control), 10 (route), 10 (minimap), and 11 (global) decision-making points to successfully plan the optimal path. Only one of the three staircases was available in each condition for accessing the upper level.
+3.4. Experiment procedure
+
+The procedure for each subject consisted of one training session and four sequentially arranged experiment sessions, with each experiment session including a wayfinding operation and three questionnaires for evaluation. In the training session, subjects became acquainted with the visuals and interactions of the HoloLens 2 HMD. Four primary aspects were covered: 1. Hand interaction with holograms (touching, grabbing, pinching); 2. Interaction with near/hand menu UI functions; 3. Visual familiarization with holograms; and 4. Error avoidance instructions to minimize tracking problems during the experiment. The near interaction of HoloLens 2 enables users to engage with holograms using their bare hands and eye gaze. A training stage was essential for familiarizing users with AR HMDs, ensuring that the visualization and hand interactions with holograms were comprehensible. In the experiments, three primary types of interactions were designed: touching the target object, manipulating 3D mini maps, and invoking hand-bounded menus. Following the training sessions, all participants were observed to be capable of managing the basic interactions required for completing the experiment.
+
+Before the experiment, the sequences of the four conditions were randomized and set up for each subject, and the participants were guided to the starting point without equipping the HMD. For the “control” and “route” conditions, subjects were first provided with a paper map marked with the locations of the target and virtual obstacles. The HMD was then equipped, and the subjects were asked to step on the “start” icon to synchronize the initial location in both the virtual and physical worlds. The 10-minute countdown timer commenced when the subject was ready. The completion of each experiment was marked with a hand interaction with the virtual target. If the subject failed to reach the target within 10 min, data recording would be terminated. After each wayfinding mission, subjects completed three questionnaires: NASA task load index (NASA-TLX), trust level, and situational awareness rating technique (SART) for task load and spatial awareness report [70] , [71] . The break time between each condition was set to 5 min in addition to the questionnaire session. Since the AR experiment was not causing a lot of fatigue and the movement of subject were at normal walking speed.
+4. Data collection and analysis
+
+Four indicators were adopted to evaluate the results: task completion status, trajectory, speed, and surveys. The time taken for each subject to successfully locate the target in each task was recorded and compared across the four conditions. The trajectory of each subject was recorded to analyze the effectiveness of their path planning strategies and to assess how each of the four conditions could influence their behavior. For evaluating the effectiveness of path planning, the Percentage Above Optimal (PAO) criteria was used as shown in Eq. (1) [72] , [73] , [74] . In each of the 4 conditions, the shortest passage towards the target was designed to be unique, so that the most effective planning of path would be concerned as an “optimal path”. (1) PAO = d walked - d shortest d shortest × 100 %
+
+To further reveal the performance difference, average speed was analyzed based on trajectory data with timestamps. In wayfinding tasks, speed was commonly treated as an indicator of whether the subject has a clear sense of direction [75] . Furthermore, movement speed also indicates that the subject was confident with either their localization and sense of direction, especially when encountering intersections and corners, at which walking speed could decrease drastically [76] . To measure the change or “quality” of speed, another analysis of sample entropy (SampEn) was performed. SampEn was recognized in the literature as an indicator for quality, predictability and variability [77] . This study adopted SampEn as a metric to differentiate speed variations in trajectories, with the hypothesis that constant speed indicates healthy spatial cognition and an effective path planning strategy [75] , [78] . As shown in Eq. (2) , SampEn is the negative logarithm for the conditional probability that s series of data points within a certain range, m, would be repeated within the distance m + 1. With N as the number of the length of repeated data points in the time series, and A as the number of similar vector length (m + 1) residing in a relative tolerance limit. B is the number of similar vectors lengths (m) residing within the tolerance limit. The tolerance limit is expressed with a factor r times standard deviation of the data set [79] . The choice of parameters was m as 2 and r as 0.2 due to the structure of time series data in this experiment and according to the literature [80] , [81] . Low entropy score indicated a high degree of regularity and predictability in the trajectory, thus the subjects were maintaining a constant speed and making quick and accurate decisions. On the other hand, high entropy score indicates randomness and unpredictability of the trajectory, which are caused by changing directions frequently, moving back and forth as well as reluctancy of taking actions at decision points. (2) SampEn ( m , r , N ) = - ln [ A m + 1 ( r ) B m ( r ) ]
+
+The performance data of test subjects was collected virtually in the form of event status and coordinate values by Unity game engine and recorded in the form of “.csv” output files. Data collection of this experiment was another challenge due to the technological difficulties of involving AR device, which was limited by sensing and registration errors [82] , [83] . To filter out tracking errors in trajectory data ( Fig. 10 ), a thresholding method was adopted with regard to the minimum data output frequency (30 Hz) and the walking speed of humans (0.5 to 1.7 m/s) [84] . After filtering the distances between data points with decreasing sizes of thresholds, the sum of distance settled to a constant value after the minimum filtering threshold of 0.2 m. There was another form of accumulated tracking error caused by the AR HMD when recording trajectory data over a long time. But the greatest observed lateral drifting was no larger than the width of the hallways, so it was not considered detrimental to the results. In addition, the trajectory was measured based on the motion tracked by the AR HMD, which includes vibration caused by body motion and head motion. Thus, the data points were smoothed with Savitzky-Golay Filter with a window size of 101 data points and a polynomial order of 2 [85] , [86] . The sample entropy analysis for speed data was also applied with a per 60 frame output interpolation for smoothing out baseline noise of the trajectory. To mitigate the effects of inevitable tracking errors on the study results, participants were instructed to maintain their chosen direction and speed in the event of such an error. This directive, as illustrated in Fig. 10 , ensured that any trajectory drift caused by tracking errors did not disrupt the persistence of data collection. Moreover, post-processing of trajectory data was employed as an additional measure to further minimize the influence of tracking errors on the results.
+
+    Download : Download high-res image (114KB)
+    Download : Download full-size image 
+
+Fig. 10 . Examples of trajectory result plotted. (a) a recorded trajectory without drifting; (b) a recorded trajectory with several break points and tracking lost during the experiment.
+5. Results
+5.1. Participants
+
+The wayfinding experiment was performed with 31 subjects recruited publicly. The total time span of the experiment was during a 36-day period and there were 17 male and 14 female participants, aged from 18 to 41 years old with an average age of 26.4 and the standard deviation of 4.54. In the total of 31 participants, 26 of them claimed that they have never or very slightly experienced AR HMDs, 5 of them claimed to be experienced or have been working with AR devices. As for ensuring the accessibility of the wayfinding contents to be not disturbed physically by the displaying materials, the sickness/dizziness level was evaluated with a scale from 1 (not feeling sick at all) to 5 (sever sickness). 8 out of the 31 participants claimed to have experienced level 2 sickness, 1 of them reported level 3 sickness and the rest 22 participants were not affected to the slightest level. Recruitment of subjects that were familiar with the specific sections of the building was intentionally avoided. All subjects were able to participate in the study successfully. The study was approved by the Institutional Review Board (IRB) of the University of Florida.
+5.2. Performance results
+
+In this study, given the within-subject design across conditions, the differences among the four condition groups were assessed using the Kruskal-Wallis test, a non-parametric analog to one-way (ANOVA) analysis, with a significance threshold set at p < 0.05 [87] . Following this, Dunn’s post-hoc analysis was conducted to identify specific pairwise group differences [88] . During the experiments, 7 out of 124 trials were recorded as failures to complete the search task i.e., the subject couldn’t find the target object within the given time. In the total 7 uncomplete trials, one was under “control” condition, and six were under “route” condition. The result from Kruskal-Wallis test for time of completion shows that there is no significant difference to reject null hypothesis between the groups: control and route (p = 7.406 × 10 −1 ), route and minimap (p = 5.035 × 10 −2 ), control and minimap (p = 4.859 × 10 −1 ). Significant differences were found between any other conditions with the global condition, in which groups: control and global (p = 4.293 × 10 −6 ), route and global: (p = 9.570 × 10 −4 ), minimap and global: (p = 2.164 × 10 −6 ) ( Fig. 11 (a)). Post-hoc analysis showed that significant differences were observed between global and the other three conditions: (control: p = 6.0 × 10 −5 , minimap: 3.52 × 10 −4 , route: 1.27 × 10 −4 ). The global condition had the lowest average and smallest standard deviation among the four conditions in the completion time analysis, consistent with the study’s hypothesis that presenting complete spatial information with egocentric perspective holograms is the most efficient cueing method compared to the other three methods ( Table 1 ). In the route condition, a significantly higher deviation was measured, with three observed types of behaviors. Due to interruptions caused by virtual obstacles, fixed route cues were largely inaccurate, leading subjects to comprehend the environment’s structure and avoid being misled by route information. The first type of subjects formed a cognitive map after familiarizing themselves with the environment and realizing the routes were unreliable. Their performance improved over time. The second type of subjects relied only on 2D paper maps and were not affected by the routes, consistent with their performance in the control condition. The third type of subjects struggled with spatial cognition, getting confused by using both 2D map and route cues, and many failed to complete the task.
+
+    Download : Download high-res image (198KB)
+    Download : Download full-size image 
+
+Fig. 11 . Kruskal–Wallis analysis results of: (a) Time of Completion; (b) PAO.
+
+Table 1 . Results of Completion time and PAO results.
+Condition:	Time of Completion	PAO
+Average (s)	STD	Average (s)	STD
+Control	374.5	94.56	0.2060	0.1615
+Route	399.5	142.11	0.2790	0.2034
+Minimap	357.3	72.28	0.1079	0.1353
+Global	279.0	37.55	0.0254	0.0641
+
+The next performance analysis was PAO, which resulted in significant differences between conditions: control and global (p = 2.155 × 10 −7 ), route and global (p = 4.671 × 10 −9 ), minimap and global (p = 1.108 × 10 −3 ), route and minimap (p = 4.260 × 10 −4 ), control and minimap (p = 1.283 × 10 −2 ). And non-significant differences were found between conditions: control and route (p = 2.021 × 10 −1 ) ( Fig. 11 (b)). Post-hoc analysis showed that significant differences were observed between global and the other two conditions: (control: p = 4.0 × 10 −6 , route: 1.58 × 10 −8 ); as well as between minimap and route: 5.36 × 10 −3 . Test subjects experienced varying degrees of disorientation and occasional complete loss across all conditions, beyond what was captured by the error percentage analysis in the PAO. In the route condition, subjects experienced confusion with the wayfinding cues, leading to repeated attempts to navigate the same path until they could memorize the spatial information and successfully find a way out. In extreme cases, subjects were trapped on the first level for 10 min. Some subjects that were experienced with exocentric wayfinding cues relied solely on their 2D map to complete the route trials. This resulted in the highest variance of route ( Table.2 ). On the other hand, in the control condition, subjects had to rely on the cues from a 2D map, which led to a familiar condition in everyday life, some of them could handle the wayfinding task without making mistakes. Among the 6 subjects that made under 10% error in route condition, 4 of them also made less than 10% error in the control condition. For the minimap condition, most of the subjects were able to get to the target with less error, but some of them were observed to make random attempts before they could make a correct decision. This may be caused by the occlusion of 3D mini maps and the requirement to orient themselves in addition to understanding the 3D mini map. It was observed that many subjects were moving around to determine their heading direction according to the real-time updated tracker marker on the 3D mini map. Finally, for the global condition, few subjects made mistakes while navigating towards the target. It was observed that the subjects often performed a “Planning while comprehending” behavior while using egocentric AR cues. The process of understanding spatial information came naturally when they were heading towards the target while they could clearly tell the correlation of intersected hallways and obstacles while changing their perspective to avoid occlusion. This results in the least PAO result among 4 conditions, while being the most stable and consistent cueing method.
+
+Table 2 . Results of average speed and entropy of speed.
+Condition:	Average speed	SampEn of Speed
+Average (m/s)	STD	Average (s)	STD
+Control	1.035	0.1548	1.139	0.4862
+Route	1.056	0.1758	1.177	0.4026
+Minimap	1.007	0.1497	1.062	0.3603
+Global	1.263	0.1685	0.875	0.3199
+
+From the results of average speed, significant differences were identified between the following conditions: control and global (p = 1.739 × 10 −6 ), route and global (p = 4.527 × 10 −6 ), minimap and global (p = 1578 × 10 −6 ). No significant difference was found between the conditions: control and route (p = 5.967 × 10 −1 ), control and minimap (p = 1.763 × 10 −1 ), route and minimap (p = 4.779 × 10 −2 ) ( Fig. 12 (a)). Post-hoc analysis indicated that significant differences were observed between global and the other three conditions: (control: p = 2.2 × 10 −5 , minimap: 9.8 × 10 −7 , route: 3.47 × 10 −4 ). The global condition exhibits a significantly higher average speed than the other 3 conditions ( Table.2 ).
+
+    Download : Download high-res image (203KB)
+    Download : Download full-size image 
+
+Fig. 12 . Kruskal–Wallis analysis results of: (a) Average Speed; (b) Sample Entropy of Speed.
+
+The Kruskal–Wallis test of sample entropy of speed shows significant differences between the following conditions: control and global (p = 8.052 × 10 −4 ), route and global (p = 8.880 × 10 −5 ), minimap and global (p = 8.641 × 10 −3 ). And non-significant differences were found between conditions: control and route (p = 8.293 × 10 −1 ), control and minimap (p = 7.390 × 10 −1 ), route and minimap (p = 3.570 × 10 −1 ) ( Fig. 12 (b)). Post-hoc analysis showed that significant differences were observed between global and route condition (p = 1.55 × 10 −2 ). Among the 4 conditions, global had the lowest mean value and standard deviation ( Table.2 ). The result indicated that by using egocentric cues, a more consistent movement of subjects was observed in comparison to three other conditions, which was presumably caused by constant feed of spatial information while navigating towards the target. Subjects were not constantly changing their viewpoint and thinking about converting different perspectives of cues to obtain the route knowledge . It was also worth noting that the minimap condition exhibited the highest bottom line entropy level, which were consistent with the experiment that subjects were observed constantly gazing at the 3D mini map and adjusting their speed while intently scrutinizing the mini map.
+5.3. Survey results
+
+For NASA-TLX, pair analysis showed that significant differences were found between conditions: control and global (p = 2.790 × 10 −6 ), route and global (p = 8.189 × 10 −8 ), minimap and global (p = 6.256 × 10 −6 ), route and minimap (p = 3.576 × 10 −2 ). And non-significant differences were found between conditions: control and route (p = 9.103 × 10 −1 ), control and minimap (p = 5.920 × 10 −2 ) ( Fig. 13 (a)). Post-hoc analysis showed that significant differences were observed between global and the other three conditions: (control: p = 5.84 × 10 −7 , minimap: 9.17 × 10 −4 , route: 2.31 × 10 −7 ). The results indicate that among 4 conditions, the global condition significantly reduces cognitive and physical load for the wayfinding task.
+
+    Download : Download high-res image (178KB)
+    Download : Download full-size image 
+
+Fig. 13 . Kruskal–Wallis analysis results of: (a) NASA-TLX; (b) SART; (c) Trust Level.
+
+For SART survey, pair analysis showed that significant differences were found between conditions: control and global (p = 2.844 × 10 −6 ), route and global (p = 4.731 × 10 −9 ), minimap and global (p = 8.971 × 10 −4 ), route and minimap (p = 9.032 × 10 −4 ). And non-significant differences were found between conditions: control and route (p = 2.307 × 10 −1 ), control and minimap (p = 6.083 × 10 −2 ) ( Fig. 13 (b)). Post-hoc analysis showed that significant differences were observed between global and the other three conditions: (control: p = 5.86 × 10 −6 , minimap: 1.58 × 10 −7 , route: 7.19 × 10 −9 ), as well as between minimap and route: p = 1.27 × 10 −2 . According to the SART results, the global condition showed the highest scoring which means that subjects process a strong sense of spatial awareness and cognitive mapping results. This was an important indicator that suggests the subjects were able to effectively process and integrate complex spatial information in real-time while maintaining a high level of situational awareness. Moreover, the usage of the egocentric cueing method, which familiarizes the subjects with the situation, elucidates the natural correlation between egocentric perspective and situational awareness.
+
+For trust level survey, pair analysis showed that significant differences were found between conditions: control and global (p = 4.252 × 10 −8 ), route and global (p = 3.440 × 10 −11 ), minimap and global (p = 1.577 × 10 −7 ), route and minimap (p = 3.432 × 10 −5 ), control and minimap (p = 1.143 × 10 −2 ). And non-significant differences were found between conditions: control and route (p = 4.099 × 10 −1 ) ( Fig. 13 (c)). Post-hoc analysis showed that significant differences were observed between global and the other three conditions: (control: p = 6.55 × 10 −9 , minimap: 5.13 × 10 −4 , route: 3.45 × 10 −12 ), as well as between minimap and route: p = 6.27 × 10 −3 . Both the minimap and global conditions showed a clear improvement of trust level in comparison to the other conditions, and the most trusted one was global condition with highest scores. It was also worth noting that in the route and control conditions, a large variance of scoring was observed (control std = 17.8, route std = 14.0, minimap std = 10.3, global std = 3.1). As mentioned previously, familiarity with 2D maps and prior experience with wayfinding tasks influenced subjects’ trust. On the other hand, the evaluation of global condition had the highest scoring and uniformity. Result from this survey was also in accordance with the fact that that human tends to evaluate their trust level between the machine systems based on their performance when working with the system, past trust levels and faults [89] .
+6. Discussion
+
+This study focused on testing if the most effective way of presenting wayfinding cues could be achieved with OST AR HMDs paired with 1:1 scaled spatial model in an egocentric perspective. An experiment was carried out with all conditions possessing the same spatial information, and the only variable was the method of presentation. Our evaluation methods combined performance metrics and feedback from participants, both during and after their “wayfinding” task, where they were given a specific target location and layout within a set time limit. Although the tasks were repeated within each subject, they were not able to obtain spatial knowledge of the space a priori due to the difference location of obstacle placement. All 31 participants in the experiment willingly provided their consent and full cooperation throughout the study.
+
+According to the performance and survey results, it was clearly observed that the “global” condition outperformed three other conditions in aiding the wayfinding missions. At the end of the survey, when being asked the preference among the 4 conditions for self-localization, 62.5% of the subjects preferred the “global” condition, while 35% chose “minimap”. And for their preference for the most helpful condition for the overall wayfinding tasks, 90% of subjects chose the “global” condition. It was observed that with the help of the egocentric cues provided in “global” condition, the subjects were able to clearly obtain spatial information while navigating towards the target. Although the 3D minimap was also synchronized with real time updated location of the subject, the average speed and entropy analysis showed a clear decrease of performance in comparison to the “global” condition. This finding aligns with the idea that wayfinding with exocentric cues could be less efficient than with egocentric cues [17] . Another notable finding from the experiment was that when participants faced more challenging and cognitively demanding conditions, some of them were able to streamline their use of wayfinding cues and rely on familiar methods. For instance, in the “route” condition, subjects who performed well in the “control” condition tended to avoid using the plotted routes on the floor which caused confusion and instead relied solely on the 2D paper map provided in the “control” condition. There was a large deviation in both the “control” and “route” conditions, with some subjects performing well in both conditions and others performing poorly in both conditions. It is noteworthy that the participants showed comparable average traveling speed across “control”, “route”, and “minimap” conditions, in which accurate spatial information was exclusively available via exocentric cues, such as 2D or 3D maps. The consistent decrease in average speed, lower than that observed in the “global” condition, suggests that the process of planning for the next step requires additional time and effort, thereby impeding the subjects’ wayfinding performance when relying on exocentric cues.
+
+Another intriguing finding was that individuals who performed exceptionally well in the “control” and “route” conditions employed a “shortcut” strategy that involved first localizing themselves on the 2D map based on recognizable landmarks, then aligning the map with the physical space, and subsequently rotating the map to maintain its orientation relative to their position. It is possible that, during this process, they used an imaginary icon of their location that appeared on the map to trace their progress. These resourceful individuals thus effectively converted the 2D map into a form of cues like those in the “global” condition, which facilitated their wayfinding performance. Nonetheless, this “shortcut” strategy may prove challenging in real-life situations due to concurrent distractions and unforeseen events. The proposed wayfinding system, employing egocentric cues, could offer an efficient way to accomplish this strategy and conserve cognitive resources for other tasks. These results demonstrate that, regardless of the wayfinding strategies employed by the subjects, they were able to effectively utilize the egocentric AR cues, which proved to be the most efficient method. Notably, subjects exhibited higher levels of trust, lower stress levels, and fewer errors when experiencing the “global” condition. Additionally, it was unexpected that the use of AR HMD did not significantly impact subjects’ unfamiliar interactions, as most subjects experienced little to no dizziness and found hand interactions to be natural.
+
+Several factors had the potential to impact the experiment’s results, with the first being the limited selection of real-world indoor structures used. Despite assessing multiple buildings, the choice of Turlington Hall on the UF campus remained suboptimal in terms of complexity and accessibility. Consequently, the wayfinding task was restricted to hallways and two levels of indoor structures, with insufficient spatial complexity to challenge the path-planning abilities of a conventional 2D map reader. The participants were able to divide the task into two sections: finding the staircase to the second level and then locating the target on the second level. This limited the potential improvement of performance by using egocentric cues, as each individual task could be accomplished with a 2D map. Additionally, it is important to note that the configuration of physical structures in the real world is fixed and unalterable, thereby making it challenging to perfectly control difficulty across experiment conditions, in contrast to experiments using virtual scenes. The experiment’s second limitation was caused by the narrow FOV of HoloLens 2, as reported by the subjects. They found it challenging to visualize the entire hologram, and often had to slow down, turn around, or even take a few steps back to see the complete cues in the “global” condition. Moreover, the FOV also restricted the size of the 3D mini map. In addition to FOV, depth perception was also potentially affecting the results. In our AR wayfinding system, depth perception was enhanced by rendering high-fidelity point cloud models through HoloLens 2. While Fig. 7 (c) might hint at spatial ambiguities in its static display, real-time interaction provides users with a clearer depth sense. Users could naturally alter their perspective by moving, reducing depth perception issues. Even in global conditions, the 1:1 hologram scale set in the physical environment offers intuitive depth understanding. Although no subjects complained about depth confusions, it should be examined carefully in the future. Despite these limitations, the HoloLens 2 remained the optimal solution due to its advantages in ranging sensors, localization, spatial mapping, display quality, and mobility. The third limitation of the experiment was the restriction of the research process, which prevented the subjects from experiencing extra workload, altering situations, or distractions. This may have led to the “shortcut” behavior of many subjects, who could devote all their mental energy to the wayfinding task and perform equally well across all four conditions. Nevertheless, the observed results suggest that the proposed AR wayfinding system may offer significant advantages in real-world situations for a broader range of users.
+7. Conclusions and futurework
+
+The significance of implementing advanced wayfinding systems for indoor spaces cannot be overstated, particularly in emergency scenarios such as search and rescue, firefighting, and other public safety challenges. Conventional wayfinding strategies, which require significant time and effort, have been shown to be excessively burdensome and impractical when it comes to saving human lives. The complexity of emergency situations and the anxiety associated with being in a dangerous environment can significantly impede the situational awareness and decision-making abilities of both onsite operators and commanders, leading to disastrous outcomes. Previous research has shown that the process of comprehending spatial information is inherently complex and resource-intensive, particularly when the provided information is interpreted exocentrically. In contrast, the natural way of perceiving spatial knowledge occurs from an egocentric perspective, as the information is primarily gathered within the range of eyesight and stored in memory while traversing a particular area [90] . With the aid of cutting-edge advancements in AR technologies, an innovative solution has the potential to overcome these issues and produce unparalleled outcomes. This study focused on the evaluation of such an indoor wayfinding system and more importantly, verifying the potential improvement of AR-visualized egocentric wayfinding cues over conventional exocentric maps. We intentionally limited our wayfinding tasks to hallways and staircases to address the challenges of indoor navigation in multi-segment spaces and level transitions. While rooms present less wayfinding complexity, corridors and staircases pose intricacies in routing. Preliminary trials indicated that incorporating numerous rooms introduced depth perception issues and path planning occlusions, potentially complicating result interpretation. However, we recognize the importance of addressing navigation in environments with multiple rooms and open spaces for a comprehensive solution. Our targeted approach ensures controlled experimentation and accurate analysis, laying a foundation for future studies in varied indoor settings. The highlights of this study include utilizing reality capturing systems to broaden the sight of mobile AR devices, benchmarking indoor AR wayfinding systems in mixed reality, and evaluating the performance of egocentric wayfinding cues.
+
+The results of the performance and survey indicate that presenting spatial information egocentrically with AR HMDs allowed subjects to complete the task in a shorter time, at a faster and more consistent moving speed, with fewer mistakes, less cognitive and physical load, and better spatial awareness, while also reflecting a higher level of trust. These findings confirm that the high cognitive cost of processing and converting spatial knowledge into wayfinding decisions can be reduced by displaying the information from an egocentric perspective, i.e., presenting spatial cues relative to the user instead of using conventional maps. The use of 1:1 scaled holograms superimposed on top of the physical world as a map, which encapsulates the user’s perspective as if within the physical world, comes naturally when applied to wayfinding.
+
+One potential area for improvement is the user interface (UI) design. Although the egocentric cues were found helpful with wayfinding, objects could be occluded and difficult to differentiate as the area expands and the complexity of layout increases. Tracking a moving object or monitoring multiple objects can be challenging, particularly when the sense of distance is unclear. The UI should not only display helpful spatial information from an egocentric perspective, but also enhance spatial perception in areas such as object tracking, distance estimation, and spatial relationships. Furthermore, it is essential that the UI provides a more accurate and authentic depiction of the physical environment, enabling hazards and obstacles to be rendered more precisely and conveying direct cues with faithful representation. Another area for improvement is the adoption of advanced AR tools that offer stronger computing power, better FOV, and interactivity. Another area for potential improvement involves optimizing multi-user applications, which facilitates cooperation and interaction among multiple users sharing the same physical space. Introducing additional personnel can fully expand the capabilities of this system, allowing multiple individuals to work in parallel to explore larger areas in a more time-efficient manner. Given that collaboration is often necessary in search and rescue missions, it is worthwhile to investigate how human resources can be better organized to maximize the benefits of advanced wayfinding systems. Considering the potential for integrating indoor and outdoor wayfinding is another compelling prospect for future research [91] . A system blending GPS and Indoor Positioning Systems (IPS) could provide a complete solution, yet additional studies would be required to address challenges like positional accuracy and system integration .
+Declaration of Competing Interest
+
+The authors declare that they have no known competing financial interests or personal relationships that could have appeared to influence the work reported in this paper.
+Acknowledgements
+
+The author would like to thank all the participants who have devoted their valuable time and effort in this study. This material is supported by the National Institute of Standards and Technology (NIST) under grant 70NANB21H045. Any opinions, findings, conclusions, or recommendations expressed in this article are those of the authors and do not reflect the views of NIST.
+Data availability
+
+Data will be made available on request.
+References
+
+    [1]
+    H.A. Karimi
+    Indoor Wayfinding and Navigation
+    CRC Press (2015)
+    Google Scholar
+    [2]
+    H. Huang, G. Gartner
+    A Survey of Mobile Indoor Navigation Systems
+    Springer (2010)
+    Google Scholar
+    [3]
+    A. Möller, M. Kranz, S. Diewald, L. Roalter, R. Huitl, T. Stockinger, M. Koelle, P.A. Lindemann
+    Experimental evaluation of user interfaces for visual indoor navigation
+    Proceedings of the SIGCHI conference on human factors in computing systems (2014), pp. 3607-3616
+    CrossRef View in Scopus Google Scholar
+    [4]
+    Y. Shi, J. Kang, P. Xia, O. Tyagi, R.K. Mehta, J. Du
+    Spatial knowledge and firefighters’ wayfinding performance: A virtual reality search and rescue experiment
+    Saf. Sci., 139 (2021), Article 105231
+    View PDF View article View in Scopus Google Scholar
+    [5]
+    H. Li, N.A. Giudice
+    The effects of 2D and 3D maps on learning virtual multi-level indoor environments
+    Proceedings of the 1st ACM SIGSPATIAL International Workshop on MapInteraction (2013), pp. 7-12
+    CrossRef Google Scholar
+    [6]
+    F. Baek, I. Ha, H. Kim
+    Augmented reality system for facility management using image-based indoor localization
+    Autom. Constr., 99 (2019), pp. 18-26
+    View PDF View article View in Scopus Google Scholar
+    [7]
+    V. Dosaya, S. Varshney, V.K. Parameshwarappa, A. Beniwal, S. Tak
+    A low cost augmented reality system for wide area indoor navigation
+    2020 International Conference on Decision Aid Sciences and Application (DASA) (2020), pp. 190-195
+    CrossRef View in Scopus Google Scholar
+    [8]
+    H. Benko, E. Ofek, F. Zheng, A.D. Wilson, Fovear,
+    Combining an optically see-through near-eye display with projector-based spatial augmented reality
+    Proceedings of the 28th Annual ACM Symposium on User Interface Software & Technology (2015), pp. 129-135
+    CrossRef View in Scopus Google Scholar
+    [9]
+    J.M.D. Delgado, L. Oyedele, P. Demian, T. Beach
+    A research agenda for augmented and virtual reality in architecture, engineering and construction
+    Adv. Eng. Inf., 45 (2020), Article 101122
+    Google Scholar
+    [10]
+    R.G. Golledge, Wayfinding behavior: Cognitive mapping and other spatial processes, JHU press1999.
+    Google Scholar
+    [11]
+    R.L. Klatzky
+    Allocentric and egocentric spatial representations: Definitions, distinctions, and interconnections, Spatial cognition: An interdisciplinary approach to representing and processing spatial knowledge
+    Springer (1998), pp. 1-17
+    CrossRef Google Scholar
+    [12]
+    Y. Sterken, A. Postma, E.H. De Haan, A. Dingemans
+    Egocentric and exocentric spatial judgements of visual displacement
+    Quarter. J. Experiment. Psychol.: Sect. A, 52 (1999), pp. 1047-1055
+    View in Scopus Google Scholar
+    [13]
+    J.E. Swan, A. Jones, E. Kolstad, M.A. Livingston, H.S. Smallman
+    Egocentric depth judgments in optical, see-through augmented reality
+    IEEE Trans. Vis. Comput. Graph., 13 (2007), pp. 429-442
+    View in Scopus Google Scholar
+    [14]
+    R.F. Wang, E.S. Spelke
+    Updating egocentric representations in human navigation
+    Cognition, 77 (2000), pp. 215-250
+    View PDF View article View in Scopus Google Scholar
+    [15]
+    J.G. Hollands, M. Lamb
+    Viewpoint tethering for remotely operated vehicles: effects on complex terrain navigation and spatial awareness
+    Hum. Factors, 53 (2011), pp. 154-167
+    CrossRef View in Scopus Google Scholar
+    [16]
+    B.E. Riecke, B. Bodenheimer, T.P. McNamara, B. Williams, P. Peng, D. Feuereissen, Do we need to walk for effective virtual reality navigation? physical rotations alone may suffice, Spatial Cognition VII: International Conference, Spatial Cognition 2010, Mt. Hood/Portland, OR, USA, August 15-19, 2010. Proceedings 7, Springer, 2010, pp. 234-247.
+    Google Scholar
+    [17]
+    B.F. Goldiez, A.M. Ahmad, P.A. Hancock
+    Effects of augmented reality display settings on human wayfinding performance, IEEE Transactions on Systems, Man, and Cybernetics
+    Part C (Applications and Reviews), 37 (2007), pp. 839-845
+    View in Scopus Google Scholar
+    [18]
+    H. Kim, Y.T. Kwon, H.R. Lim, J.H. Kim, Y.S. Kim, W.H. Yeo
+    Recent advances in wearable sensors and integrated functional devices for virtual and augmented reality applications
+    Adv. Funct. Mater., 31 (2021), p. 2005692
+    View in Scopus Google Scholar
+    [19]
+    T. Zhan, K. Yin, J. Xiong, Z. He, S.-T. Wu
+    Augmented reality and virtual reality displays: perspectives and challenges
+    Iscience, 23 (2020), Article 101397
+    View PDF View article View in Scopus Google Scholar
+    [20]
+    Y. Itoh, T. Langlotz, J. Sutton, A. Plopski
+    Towards indistinguishable augmented reality: A survey on optical see-through head-mounted displays
+    ACM Comput. Surveys (CSUR), 54 (2021), pp. 1-36
+    CrossRef View in Scopus Google Scholar
+    [21]
+    A. Meliones, D. Sampson
+    Blind MuseumTourer: A system for self-guided tours in museums and blind indoor navigation
+    Technologies, 6 (2018), p. 4
+    CrossRef Google Scholar
+    [22]
+    G. Gerstweiler, E. Vonach, H. Kaufmann
+    HyMoTrack: A mobile AR navigation system for complex indoor environments
+    Sensors, 16 (2015), p. 17
+    CrossRef Google Scholar
+    [23]
+    J. Al Rabbaa, A. Morris, S. Somanath, MRsive: An augmented reality tool for enhancing wayfinding and engagement with art in museums, HCI International 2019-Posters: 21st International Conference, HCII 2019, Orlando, FL, USA, July 26–31, 2019, Proceedings, Part III 21, Springer, 2019, pp. 535-542.
+    Google Scholar
+    [24]
+    M. Neges, C. Koch, M. König, M. Abramovici
+    Combining visual natural markers and IMU for improved AR based indoor navigation
+    Adv. Eng. Inf., 31 (2017), pp. 18-31
+    View PDF View article View in Scopus Google Scholar
+    [25]
+    A. Mulloni, H. Seichter, D. Schmalstieg
+    Handheld augmented reality indoor navigation with activity-based instructions
+    Proceedings of the 13th international conference on human computer interaction with mobile devices and services (2011), pp. 211-220
+    CrossRef View in Scopus Google Scholar
+    [26]
+    L.F. de Souza Cardoso, F.C.M.Q. Mariano, E.R. Zorzal
+    A survey of industrial augmented reality
+    Comput. Ind. Eng., 139 (2020), Article 106159
+    View PDF View article View in Scopus Google Scholar
+    [27]
+    R. Hammady, M. Ma
+    Designing spatial ui as a solution of the narrow fov of microsoft hololens: Prototype of virtual museum guide
+    Augmented Real. Virtual Reality: Power AR VR Business (2019), pp. 217-231
+    CrossRef Google Scholar
+    [28]
+    I. Mutis, A. Ambekar
+    Challenges and enablers of augmented reality technology for in situ walkthrough applications
+    J. Informat. Technol. Construct., 25 (2020)
+    Google Scholar
+    [29]
+    M.E. Esfahani, C. Rausch, M.M. Sharif, Q. Chen, C. Haas, B.T. Adey
+    Quantitative investigation on the accuracy and precision of Scan-to-BIM under different modelling scenarios
+    Autom. Constr., 126 (2021), Article 103686
+    View PDF View article View in Scopus Google Scholar
+    [30]
+    M.-L. Wu, V. Popescu
+    Efficient VR and AR navigation through multiperspective occlusion management
+    IEEE Trans. Vis. Comput. Graph., 24 (2017), pp. 3069-3080
+    CrossRef View in Scopus Google Scholar
+    [31]
+    J. Rambach, A. Pagani, M. Schneider, O. Artemenko, D. Stricker
+    6DoF object tracking based on 3D scans for augmented reality remote live support
+    Computers, 7 (2018), p. 6
+    View in Scopus Google Scholar
+    [32]
+    J. Zhang, X. Xia, R. Liu, N. Li
+    Enhancing human indoor cognitive map development and wayfinding performance with immersive augmented reality-based navigation systems
+    Adv. Eng. Inf., 50 (2021), Article 101432
+    View PDF View article View in Scopus Google Scholar
+    [33]
+    W. Narzt, G. Pomberger, A. Ferscha, D. Kolb, R. Müller, J. Wieghardt, H. Hörtner, C. Lindinger
+    Augmented reality navigation systems
+    Univ. Access Inf. Soc., 4 (2006), pp. 177-187
+    CrossRef View in Scopus Google Scholar
+    [34]
+    F. Xu, P. Xia, H. You, J. Du
+    Robotic Cross-Platform Sensor Fusion and Augmented Visualization for Large Indoor Space Reality Capture
+    J. Comput. Civ. Eng., 36 (2022), p. 04022036
+    Google Scholar
+    [35]
+    B.E. Shelton, N.R. Hedley
+    Exploring a cognitive basis for learning spatial relationships with augmented reality
+    Technol. Instr. Cogn. Learn., 1 (2004), p. 323
+    View in Scopus Google Scholar
+    [36]
+    C.A. Lawton
+    Strategies for indoor wayfinding: The role of orientation
+    J. Environ. Psychol., 16 (1996), pp. 137-145
+    View PDF View article View in Scopus Google Scholar
+    [37]
+    L.A. Carlson, C. Hölscher, T.F. Shipley, R.C. Dalton
+    Getting lost in buildings
+    Curr. Dir. Psychol. Sci., 19 (2010), pp. 284-289
+    CrossRef View in Scopus Google Scholar
+    [38]
+    T. Ishikawa, D.R. Montello
+    Spatial knowledge acquisition from direct experience in the environment: Individual differences in the development of metric knowledge and the integration of separately learned places
+    Cogn. Psychol., 52 (2006), pp. 93-129
+    View PDF View article View in Scopus Google Scholar
+    [39]
+    D.R. Montello, D. Waller, M. Hegarty, A.E. Richardson
+    Spatial memory of real environments, virtual environments, and maps
+    Psychology Press, Human spatial memory (2004), pp. 271-306
+    Google Scholar
+    [40]
+    Z. Luo, W. Luo, C.D. Wickens, I.-M. Chen
+    Spatial learning in a virtual multilevel building: Evaluating three exocentric view aids
+    Int. J. Hum Comput Stud., 68 (2010), pp. 746-759
+    View PDF View article View in Scopus Google Scholar
+    [41]
+    F.E. Mintz, J.G. Trafton, E. Marsh, D. Perzanowski, Choosing frames of referenece: Perspective-taking in a 2d and 3d navigational task, Proceedings of the Human Factors and Ergonomics Society Annual Meeting, SAGE Publications Sage CA: Los Angeles, CA, 2004, pp. 1933-1937.
+    Google Scholar
+    [42]
+    A.J. Aretz, C.D. Wickens
+    The mental rotation of map displays
+    Hum. Perform., 5 (1992), pp. 303-328
+    CrossRef View in Scopus Google Scholar
+    [43]
+    A.E. Richardson, D.R. Montello, M. Hegarty
+    Spatial knowledge acquisition from maps and from navigation in real and virtual environments
+    Mem. Cogn., 27 (1999), pp. 741-750
+    View in Scopus Google Scholar
+    [44]
+    M. Loyola
+    The influence of the availability of visual cues on the accurate perception of spatial dimensions in architectural virtual environments
+    Virtual Reality, 22 (2018), pp. 235-243
+    CrossRef View in Scopus Google Scholar
+    [45]
+    Á. Török, T.P. Nguyen, O. Kolozsvári, R.J. Buchanan, Z. Nadasdy
+    Reference frames in virtual spatial navigation are viewpoint dependent
+    Front. Hum. Neurosci., 8 (2014), p. 646
+    View in Scopus Google Scholar
+    [46]
+    W.A. Schafer, D.A. Bowman
+    Evaluating the effects of frame of reference on spatial collaboration using desktop collaborative virtual environments
+    Virtual Reality, 7 (2004), pp. 164-174
+    View in Scopus Google Scholar
+    [47]
+    H. Yang, G.M. Olson
+    Exploring collaborative navigation: the effect of perspectives on group performance
+    Proceedings of the 4th international conference on Collaborative virtual environments (2002), pp. 135-142
+    View in Scopus Google Scholar
+    [48]
+    J.S. Roo, J. Basset, P.-A. Cinquin, M. Hachet
+    Understanding Users’ Capability to Transfer Information Between Mixed and Virtual Reality: Position Estimation Across Modalities and Perspectives
+    Proceedings of the 2018 CHI Conference on Human Factors in Computing Systems (2018), pp. 1-12
+    CrossRef Google Scholar
+    [49]
+    X. Qiu, Z. Yang, J. Yang, Q. Wang, D. Wang
+    Impact of AR navigation display methods on wayfinding performance and spatial knowledge acquisition
+    Int. J. Human-Computer Interact. (2023), pp. 1-21
+    Google Scholar
+    [50]
+    Z. Luo, H.B.-L. Duh, I.-M. Chen, W. Luo, Spatial navigation in a virtual multilevel building: The role of exocentric view in acquiring survey knowledge, Virtual and Mixed Reality: Third International Conference, VMR 2009, Held as Part of HCI International 2009, San Diego, CA, USA, July 19-24, 2009. Proceedings 3, Springer, 2009, pp. 60-69.
+    Google Scholar
+    [51]
+    E. Cordeiro, T. Finseth, T. Feyereisen, 3D Exocentric Aircraft Navigation Displays: Review and Recommendations, 2022 IEEE/AIAA 41st Digital Avionics Systems Conference (DASC), IEEE, 2022, pp. 1-7.
+    Google Scholar
+    [52]
+    M. Miyakoshi, L. Gehrke, K. Gramann, S. Makeig, J. Iversen
+    The AudioMaze: An EEG and motion capture study of human spatial navigation in sparse augmented reality
+    Eur. J. Neurosci., 54 (2021), pp. 8283-8307
+    CrossRef View in Scopus Google Scholar
+    [53]
+    W. Dong, Y. Wu, T. Qin, X. Bian, Y. Zhao, Y. He, Y. Xu, C. Yu
+    What is the difference between augmented reality and 2D navigation electronic maps in pedestrian wayfinding?
+    Cartogr. Geogr. Inf. Sci., 48 (2021), pp. 225-240
+    CrossRef View in Scopus Google Scholar
+    [54]
+    J.E. Melzer, R.W. Madison, Birds do it, Bees do it: A bio-inspired look at wayfinding and navigation tools for augmented reality, Optical Architectures for Displays and Sensing in Augmented, Virtual, and Mixed Reality (AR, VR, MR), SPIE, 2020, pp. 172-182.
+    Google Scholar
+    [55]
+    S. Münzer, C. Stahl
+    Learning routes from visualizations for indoor wayfinding: Presentation modes and individual differences
+    Spat. Cogn. Comput., 11 (2011), pp. 281-312
+    CrossRef View in Scopus Google Scholar
+    [56]
+    S. Masnadi, K. Pfeil, J.-V.-T. Sera-Josef, J. LaViola
+    Effects of field of view on egocentric distance perception in virtual reality
+    Proceedings of the 2022 CHI Conference on Human Factors in Computing Systems (2022), pp. 1-10
+    CrossRef Google Scholar
+    [57]
+    A.L. Gardony, S.B. Martis, H.A. Taylor, T.T. Brunye
+    Interaction strategies for effective augmented reality geo-visualization: Insights from spatial cognition
+    Human-Computer Interaction, 36 (2021), pp. 107-149
+    CrossRef View in Scopus Google Scholar
+    [58]
+    E. Vilar, F. Rebelo, P. Noriega
+    Indoor human wayfinding performance using vertical and horizontal signage in virtual reality
+    Hum. Factors Ergon. Manuf. Serv. Ind., 24 (2014), pp. 601-615
+    CrossRef View in Scopus Google Scholar
+    [59]
+    P. Xia, F. Xu, T. Zhou, J. Du
+    Benchmarking human versus robot performance in emergency structural inspection
+    J. Constr. Eng. Manag., 148 (2022), p. 04022070
+    View in Scopus Google Scholar
+    [60]
+    P. Xia, F. Xu, Q. Zhu, J. Du
+    Human robot comparison in rapid structural inspection
+    Construct. Res. Congr., 2022 (2022), pp. 570-580
+    CrossRef View in Scopus Google Scholar
+    [61]
+    C. Hölscher, T. Meilinger, G. Vrachliotis, M. Brösamle, M. Knauff
+    Up the down staircase: Wayfinding strategies in multi-level buildings
+    J. Environ. Psychol., 26 (2006), pp. 284-299
+    View PDF View article View in Scopus Google Scholar
+    [62]
+    S.C. Hirtle, C.R. Bahm
+    Cognition for the navigation of complex indoor environments
+    Indoor Wayfinding Navigation (2015), pp. 1-12
+    View in Scopus Google Scholar
+    [63]
+    L. Chittaro, S. Venkataraman, Navigation aids for multi-floor virtual buildings: A comparative evaluation of two approaches, Proceedings of the ACM symposium on Virtual Reality Software and Technology, 2006, pp. 227-235.
+    Google Scholar
+    [64]
+    L. Li, X. Kong, X. Zhao, W. Li, F. Wen, H. Zhang, Y. Liu
+    SA-LOAM: Semantic-aided LiDAR SLAM with loop closure
+    2021 IEEE International Conference on Robotics and Automation (ICRA), IEEE (2021), pp. 7627-7634
+    CrossRef View in Scopus Google Scholar
+    [65]
+    G. Pu, P. Wei, A. Aribe, J. Boultinghouse, N. Dinh, F. Xu, J. Du, Seeing through walls: real-time digital twin modeling of indoor spaces, 2021 Winter Simulation Conference (WSC), IEEE, 2021, pp. 1-10.
+    Google Scholar
+    [66]
+    M. Ester, H.-P. Kriegel, J. Sander, X. Xu, A density-based algorithm for discovering clusters in large spatial databases with noise, kdd, 1996, pp. 226-231.
+    Google Scholar
+    [67]
+    R.B. Rusu, N. Blodow, M. Beetz, Fast point feature histograms (FPFH) for 3D registration, 2009 IEEE international conference on robotics and automation, IEEE, 2009, pp. 3212-3217.
+    Google Scholar
+    [68]
+    R.B. Rusu, N. Blodow, Z.C. Marton, M. Beetz, Aligning point cloud views using persistent feature histograms, 2008 IEEE/RSJ international conference on intelligent robots and systems, IEEE, 2008, pp. 3384-3391.
+    Google Scholar
+    [69]
+    Q.-Y. Zhou, J. Park, V. Koltun
+    Fast global registration
+    Springer, European conference on computer vision (2016), pp. 766-782
+    CrossRef View in Scopus Google Scholar
+    [70]
+    S.G. Hart, L.E. Staveland
+    Development of NASA-TLX (Task Load Index): Results of empirical and theoretical research, Advances in psychology
+    Elsevier (1988), pp. 139-183
+    View PDF View article Google Scholar
+    [71]
+    R.M. Taylor
+    Situational awareness rating technique (SART): The development of a tool for aircrew systems design
+    Routledge, Situational awareness (2017), pp. 111-128
+    CrossRef Google Scholar
+    [72]
+    S.J. Buecher, C. Holscher, J. Wiener, Search strategies and their success in a virtual maze, Proceedings of the annual meeting of the cognitive science society, 2009.
+    Google Scholar
+    [73]
+    R.A. Ruddle, S.J. Payne, D.M. Jones
+    Navigating buildings in“ desk-top” virtual environments: Experimental investigations using extended navigational experience
+    J. Exp. Psychol. Appl., 3 (1997), p. 143
+    View in Scopus Google Scholar
+    [74]
+    J.M. Wiener, A. Schnee, H.A. Mallot
+    Use and interaction of navigation strategies in regionalized environments
+    J. Environ. Psychol., 24 (2004), pp. 475-493
+    View PDF View article View in Scopus Google Scholar
+    [75]
+    R. Narimoto, S. Kajita, H. Yamaguchi, T. Higashino
+    Wayfinding Behavior Detection by Smartphone
+    2018 IEEE 32nd International Conference on Advanced Information Networking and Applications (AINA), IEEE (2018), pp. 488-495
+    CrossRef View in Scopus Google Scholar
+    [76]
+    Y.H. Bae, Y.C. Kim, R.S. Oh, J.Y. Son, W.H. Hong, J.H. Choi
+    Walking speed reduction rates at intersections while wayfinding indoors: An experimental study
+    Fire Mater., 45 (2021), pp. 498-507
+    CrossRef View in Scopus Google Scholar
+    [77]
+    J.D. McCamley, W. Denton, A. Arnold, P.C. Raffalt, J.M. Yentes
+    On the calculation of sample entropy using continuous and discrete human gait data
+    Entropy, 20 (2018), p. 764
+    CrossRef View in Scopus Google Scholar
+    [78]
+    M. Zhang, J. Ke, L. Tong, X. Luo
+    Investigating the influence of route turning angle on compliance behaviors and evacuation performance in a virtual-reality-based experiment
+    Adv. Eng. Inf., 48 (2021), Article 101259
+    View PDF View article View in Scopus Google Scholar
+    [79]
+    J.M. Yentes, N. Hunt, K.K. Schmid, J.P. Kaipust, D. McGrath, N. Stergiou
+    The appropriate use of approximate entropy and sample entropy with short data sets
+    Ann. Biomed. Eng., 41 (2013), pp. 349-365
+    CrossRef View in Scopus Google Scholar
+    [80]
+    S. Ahmadi, N. Sepehri, C. Wu, T. Szturm
+    Sample entropy of human gait center of pressure displacement: a systematic methodological analysis
+    Entropy, 20 (2018), p. 579
+    View in Scopus Google Scholar
+    [81]
+    P.C. Raffalt, J. McCamley, W. Denton, J.M. Yentes
+    Sampling frequency influences sample entropy of kinematics during walking
+    Med. Biol. Eng. Compu., 57 (2019), pp. 759-764
+    CrossRef View in Scopus Google Scholar
+    [82]
+    Z. Makhataeva, H.A. Varol
+    Augmented reality for robotics: A review
+    Robotics, 9 (2020), p. 21
+    CrossRef View in Scopus Google Scholar
+    [83]
+    R. Azuma, Y. Baillot, R. Behringer, S. Feiner, S. Julier, B. MacIntyre
+    Recent advances in augmented reality
+    IEEE Comput. Graph. Appl., 21 (2001), pp. 34-47
+    View in Scopus Google Scholar
+    [84]
+    G.J. Bastien, P.A. Willems, B. Schepens, N.C. Heglund
+    Effect of load and speed on the energetic cost of human walking
+    Eur. J. Appl. Physiol., 94 (2005), pp. 76-83
+    CrossRef View in Scopus Google Scholar
+    [85]
+    A. Savitzky, M.J. Golay
+    Smoothing and differentiation of data by simplified least squares procedures
+    Anal. Chem., 36 (1964), pp. 1627-1639
+    CrossRef View in Scopus Google Scholar
+    [86]
+    R.W. Schafer
+    What is a Savitzky-Golay filter?[lecture notes]
+    IEEE Signal Process Mag., 28 (2011), pp. 111-117
+    View in Scopus Google Scholar
+    [87]
+    W.H. Kruskal, W.A. Wallis
+    Use of ranks in one-criterion variance analysis
+    J. Am. Stat. Assoc., 47 (1952), pp. 583-621
+    View in Scopus Google Scholar
+    [88]
+    O.J. Dunn
+    Multiple comparisons using rank sums
+    Technometrics, 6 (1964), pp. 241-252
+    View in Scopus Google Scholar
+    [89]
+    W.-L. Hu, K. Akash, T. Reid, N. Jain
+    Computational modeling of the dynamics of human trust during human–machine interactions
+    IEEE Trans. Hum.-Mach. Syst., 49 (2018), pp. 485-497
+    View in Scopus Google Scholar
+    [90]
+    M. Vidal, M.-A. Amorim, A. Berthoz
+    Navigating in a virtual three-dimensional maze: how do egocentric and allocentric reference frames interact?
+    Cogn. Brain Res., 19 (2004), pp. 244-258
+    View PDF View article View in Scopus Google Scholar
+    [91]
+    J. Xu, F. Xue, A. Chiaradia, W. Lu, J. Cao, Indoor-outdoor navigation without beacons: compensating smartphone AR positioning errors with 3D pedestrian network, Construction Research Congress 2020, American Society of Civil Engineers Reston, VA, 2020, pp. 444-452.
+    Google Scholar
+
+Cited by (0)
+View Abstract
+© 2023 Elsevier Ltd. All rights reserved.
+Recommended articles
+
+    A data-driven simulation and Gaussian process regression model for hydraulic press condition diagnosis
+    Advanced Engineering Informatics, Volume 59, 2024, Article 102276
+    Denis Jankovič , …, Niko Herakovič
+    View PDF
+    Two-stage approximation allocation approach for real-time parking reservations considering stochastic requests and reusable resources
+    Advanced Engineering Informatics, Volume 59, 2024, Article 102251
+    Mingyan Bai , …, Xiang T.R. Kong
+    View PDF
+    Enhancement of virtual data quality using pre-trained Bayesian transfer learning under inaccurate and insufficient measurement data
+    Advanced Engineering Informatics, Volume 59, 2024, Article 102241
+    Jaewook Lee , …, Jongsoo Lee
+    View PDF
+
+Show 3 more articles
+Article Metrics
+No metrics available.
+plumX logo
+View details
+Elsevier logo with wordmark
+
+    About ScienceDirect
+    Remote access
+    Shopping cart
+    Advertise
+    Contact and support
+    Terms and conditions
+    Privacy policy 
+
+Cookies are used by this site. Cookie Settings
+
+All content on this site: Copyright © 2024 Elsevier B.V., its licensors, and contributors. All rights are reserved, including those for text and data mining, AI training, and similar technologies. For all open access content, the Creative Commons licensing terms apply.
+RELX group home page
+Feedback 

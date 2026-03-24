@@ -1,0 +1,118 @@
+Traffic and Navigation Support through an Automobile Heads Up Display (A-HUD)
+
+Kar-Hai Chu
+Laboratory for Interactive Learning Technologies, Department of Information and
+Computer Sciences, University of Hawaii
+karhai@hawaii.edu
+
+Robert Brewer
+Laboratory for Interactive Learning Technologies, Department of Information and
+Computer Sciences, University of Hawaii
+rbrewer@lava.net
+
+Sam Joseph
+Laboratory for Interactive Learning Technologies, Department of Information and
+Computer Sciences, University of Hawaii
+srjoseph@hawaii.edu
+
+ABSTRACT
+The automobile industry has produced many cars with new features over the past decade. Taking advantage of advances in technology, cars today have fuel-efficient hybrid engines, proximately sensors, windshield wipers that can detect rain, builtin multimedia entertainment, and all-wheel drive systems that adjust power in real-time. However, the interaction between the driver and the car has not changed significantly. The information being delivered – both in quantity and method – from the car to the driver has not seen the same improvements as there has been “under the hood.” This is a position paper that proposes immersing the driver inside an additional layer of traffic and navigation data, and presenting that data to the driver by embedding display systems into the automobile windows and mirrors. We have developed the initial concepts and ideas for this type of virtual display. Through gaze tracking the digital information is superimposed and registered with real world entities such as street signs and traffic intersections.
+Categories and Subject Descriptors
+H.5.1 [Information Interfaces and Representation]: Multimedia Information Systems – Artificial, augmented, and virtual realities
+General Terms
+Human Factors.
+Keywords
+mobile broadband; heads up display; augmented reality; automobile technology
+1. INTRODUCTION
+Automobile companies have been quick to take advantage of advances in information and communication technology (ICT). Global Positioning System (GPS) receivers depend on satellites to help drivers navigate, while other commercial products such as GM's OnStar utilize cellular technology to support automatic communication between car and call center to fix problems with the vehicle and provide support in an emergency1. For example
+1
+http://www.onstar.com/us_english/jsp/explore/onstar_basics/technology .jsp
+
+within seconds of a moderate to severe crash, the OnStar module will send a message to the OnStar Call Center through a cellular connection, informing the advisor that a crash has occurred. If possible a voice connection between the advisor and the vehicle occupants will be established. However if there is no response from the occupants, the advisor can provide the emergency dispatcher with the crash information from the vehicles sensing diagnostic module and location via GPS.
+Figure 1: GM’s OnStar Technology
+However, few automobile systems have taken advantage of breakthroughs in other technology-focused fields. Research in human-computer interaction (HCI) has revolutionized personal computing, while augmented reality (AR) has the potential to radically change many different technology related fields. In this paper we describe how these technologies could be used to support car drivers through controlled information distribution. We propose an automobile heads-up display (HUD) integrated with a connected network of vehicles to improve awareness in driving and navigating.
+One usage scenario is driving to a location for the first time. Consider Jane driving to a job interview some distance away. Jane will need to travel along suburban roads, city streets, and a major freeway to reach her destination. Jane’s GPS system has already plotted a path, so an illuminated directional arrow appears in the car’s HUD. Underneath the arrow is a small line of text, showing the estimated travel time as “64 minutes.” After taking several turns along the city streets, Jane drives up an entrance ramp on to a four-lane freeway. Unbeknownst to Jane, an accident has just occurred five miles ahead, blocking off all but one lane and slowing traffic down to a meager three miles per hour. Almost instantaneously, new information appears in the car’s HUD. The estimated time under the original arrow (which is pointing straight ahead along the freeway) blinks rapidly and now reads “110
+
+minutes.” A second arrow has also appeared; this new arrow is pointing away from the freeway, toward the next exit. Underneath the new arrow is another time estimate, reading “72 minutes.”
+
+Figure 2: A driver looking straight ahead and seeing navigation directions based on traffic
+Although the 72 minutes is longer than the original estimate, the new route is considerably faster than continuing along the freeway. Jane makes a quick decision to follow the alternate route in order to avoid the traffic up ahead. Within a minute, Jane can see the outline of a road sign. As she gets closer, she tilts her head to the right to read the sign. When Jane turns her head, the road sign immediately lights up, surrounded by a bright neon border with the new arrow underneath it, and the original highway arrow now fades to a light glow. Jane follows the new arrow to exit; the arrow continues updating to show the path that Jane needs to follow to reach her destination.
+A full storyboard is visualized as follows:
+1- Driver enters destination, either via traditional GPS receiver, speech recognition, or some other method. Directions are displayed visually as transparent text in the passenger side of the windshield, including estimated time of arrival (ETA).
+
+3- After navigating through a few local streets, driver sees the highlighted sign to enter the highway.
+
+4- Driver sees a traffic update that reports an accident occurred up ahead. The ETA is also updated to show a much longer travel time. Simultaneously, an exit sign is highlighted that might potentially save time by routing around the accident.
+
+2- Driver begins their travel. Full directions have disappeared and individual instructions now come into view at relevant intersections.
+
+5- Driver is warned that staying on the freeway will result in an extended ETA due to heavy traffic. An alternative route is highlighted in green that has a lower ETA. The road signs for the exit are continuously lit up.
+
+8- Driver arrives at destination.
+6- Driver has arrived at the suggested exit, just as more congestion and traffic is clearly getting worse on the highway.
+
+7- Driver has exited the highway and is continuing on local streets to reach their destination. A directional arrow continues visualizing the path, along with a constantly updating ETA.
+
+Several of the technologies mentioned in the previous scenario are commercially available. However, the means by which they are integrated along with new technologies creates a system that offers much more than today’s devices. For example, GPS units can provide step-by-step instructions on how to travel from one location to another, but they are not seamlessly integrated with a HUD. Similarly, there are several different methods for traffic monitoring, but none that use wireless broadband to collect realtime driving information from other vehicles. Details of the different components of the system are discussed below.
+2. SYSTEM OVERVIEW
+The Automobile Heads Up Display (A-HUD) is a combination of developments in ICT, specifically within the fields of HCI and AR. It potentially offers improved safety, a more informative and applicable display of relevant information, and more flexibility in movement and communication. Present state-of-the-art technology inside cars is still very much limited, both in scope and flexibility. While computers have become an important part of the automobile industry, the majority of technology inside a car is behind the scenes and focused on driving the car itself (i.e. hybrid electric power, AWD power distribution, regenerative
+
+braking, etc). We are not concerned with driving a car, but rather with secondary awareness and communication issues. The AHUD attempts to advance augmented reality usage beyond those used in aircraft simulations and supplement many of the information gauges inside cars. Every A-HUD component helps to solve modern day practical problems such as avoiding traffic jams, finding information quickly, or repairing an overheated engine. The A-HUD unit offers improved safety, provides valuable information upon request, and with the addition of AR glasses, can potentially give drivers the chance to continue interacting with their vehicle even when they are not sitting inside.
+2.1 Technologies
+2.1.1 The Network
+Communication to and from vehicles will take place via an extremely high bandwidth network. There are several possible infrastructures that can be used in this system. One suggested method is to create a peer-to-peer (P2P) network [3]. P2P networks are unlike conventional networks in that they are not based on the standard server-client model. Instead, a P2P network is decentralized so that each peer, or node, is itself a server and a client. It offers obvious advantages in being able to distribute computational and bandwidth demand throughout the entire system. Without the necessity of a centralized server, P2P networks can potentially be more reliable and better withstand node failures.
+
+sufficiently powerful server, the P2P model can actually take longer because of the multiple steps needed to distribute information to all of the nodes. For our scenario, we are operating under the assumption that bandwidth and computational load are limitless, greatly reducing several of P2P’s benefits. Within a server-client infrastructure, we can keep the system under a centralized entity of control; any software can be developed and maintained in a single location, reducing the need to support each client.
+2.1.2 HUD
+Traditionally, automobile digital information screens refer to either the display directly in front of the driver, or a smaller supplemental screen in the center of the dashboard. They can give drivers an assortment of information; usually the data is simple, limited to gauges for speed, gas remaining, directional orientation, etc. However, as cars become more computerized, more information has been made available to the driver. Engine health, tire pressure, and navigation are among the plethora of information that is at the driver's disposal.
+
+Figure 3: Comparing P2P and server-client systems
+Brought into the public spotlight by Napster’s fame (although Napster itself was not a true P2P network), P2P has become a popular means of file sharing. Other fields are leveraging P2P technology, especially those that need to move large amounts of data. Its use in academia (e.g. LionShare2), entertainment and media (e.g. Joost3), and telecommunication (e.g. Skype4) has demonstrated that P2P can be used in a wide range of applications.
+Even with its many strengths, a P2P network is not always the best solution. For example, traditional server-client networks still have several advantages. With all information required to pass through a single point, server-client networks can provide better security and interoperability [1]. The P2P network shares the computational load among all of the nodes, but given a
+2 http://lionshare.psu.edu/ 3 http://www.joost.com/ 4 http://www.skype.com/
+
+Figure 4: Average brake reaction time when viewing a navigation display in different positions [4]
+In recent years, HUD's have been incorporated into more cars. Popular in airplanes, both real and simulated, HUD's provide information to the driver (or pilot) without forcing them to shift their line of sight. HUD's are not a new concept in cars, having been seen as early as 19885. In the past 20 years, advances in technology have allowed more information to be displayed, and in considerably better quality. Today, several different car companies - including BMW, Lexus, and GM to name a few have built HUD's into their vehicles. For cars without built-in HUD's, one can purchase 3rd party systems that can be installed to perform similar tasks.6 Over time, HUD technology has seen many improvements. For example, HUD's are now capable of adjusting to ambient light, so the images are just as clear whether you are driving at day or night.
+5 http://www.oldsclub.org/History/PaceCars/IndyOldsPaceCars.htm
+6 http://www.gtop-tech.com/index.asp?pid=309
+
+Figure 5: A driver shifting his sight to use a GPS navigator HUD’s are an obvious choice to use as an interactive interface inside cars. Their location is in the driver’s direct line of sight and does not require the driver to move their head. Studies have shown that HUD’s increase driver performance [6] while nonHUD navigation displays can result in much slower reaction times [5][7]. The use of HUD’s inside automobiles has opened up various possibilities for research [8][9].
+2.2 Putting it together
+Today’s car HUD’s primarily display their data on the driver side windshield, as seen in Figure 6. The amount of information available to the driver is limited to systems within the car, e.g. speed, gear, turn signal indicators, etc. One major reason for this is that as a driver’s cognitive load increases, it severely impacts their response time [2]. Our invention expands upon traditional HUD’s in two major characteristics. First, it will make available information from the outside world. The invention will take advantage of its high-speed wireless connection to retrieve realtime data about other cars, road and traffic conditions, navigation, etc. This information can better inform the driver the best way to reach their destination. The invention can integrate not only all of the systems within the car, but also combine it with outside data to provide a clearer picture of the roads to the driver.
+Figure 6: HUD from BMW The second improvement is the use of the windshield as the HUD. Information will not reside in a small area immediately in front of the driver; instead, we intend to utilize the all of the windshields and windows to display information to the driver. With the information being received in the upgrade mentioned above, there
+
+needs to be a way to process and deliver it in an organized and understandable manner. We do not want to overload the driver with an excess of raw information, but rather specific data organized to exactly what the driver needs, when they need it.
+A head-tracking device will constantly monitor where the driver is facing. Based on the orientation of the driver’s head, the system will project information in the windshield HUD wherever they are looking. A driver might see their speed and gas while they are looking ahead on the road, but if they turn to look for road signs, additional information such as traffic conditions or navigation data can be overlaid on the highlighted sign that they are facing, whether on another part of the windshield, a side window, or the rear window. This keeps information limited to only what the driver needs, and when they need it. Both recommended changes, the increased displayable area and extra information, would be seamlessly integrated in such a way that they will not significantly increase the driver’s cognitive load. In our introduction scenario, the registration and highlighting of a road sign is an example of adding a minimal amount of data for the driver to process while still providing valuable information.
+There are other similar projects that propose using large scale HUD’s for driver information [10]. However, many details still need to be worked out to make use of the entire windshield area. AR can be implemented without full-scale use of a windshield HUD, for both data gathering and research into different prototypes. Tonnis’ research [11] not only discusses this gap and how to bridge current technology to future potentials, but also how persons other than the driver can benefit from these systems.
+2.3 Applications
+One straightforward application for A-HUD is traffic monitoring. Real-time information is expected to reach over 83 million drivers by 20127. Current traffic monitoring devices include FM stations, satellite radio, road sensors, and traffic message channel (TMC). TMC is a popular choice inside GPS receivers. Its signals are sent via FM that cannot normally be picked up by standard car radios. Data in the United States is collected and broadcasted by companies such as Inrix, an aggregator of traffic information. In many cases, the data is integrated into a GPS receiver to help drivers find alternate routes when there are traffic congestions.
+The major sources of traffic information come from a combination of traffic reports, road sensors, and more recently, mobile phones and fleet vehicles equipped with GPS. However, even when combining multiple sources of information, the amount of coverage that traffic monitors offer is still very limited. Two major companies in the United States with GPS receivers that integrate traffic monitoring are Magellan and Garmin. As of this writing, Magellan provides traffic coverage for 50 cities in North America8; Garmin, through XM NavTraffic, offers reporting in 78 cities9. However, even those numbers can be deceiving; Coverage in most of those cities is usually very small, and in some cases restricted to only a few major highways. This is not a North American problem; Traffic monitors have similar
+7
+http://www.gpsbusinessnews.com/index.php?action=article&numero=5 43&PHPSESSID=102deee7d1f0df1aaf9244687054ccf8
+8 http://www.magellangps.com/products/traffic_service.asp
+9 http://www.xmradio.com/navtraffic/market_coverage.xmc
+
+limitations in Europe as well. The difficulty appears to that there are a limited number of road sensors that can provide accurate information and installing more is costly and time-consuming.
+Figure 7: A driver following a highlighted exit sign. Note that all other AR components not in the driver’s line of sight has
+disappeared. There have been different attempts at alternate sources of information. IntelliOne has developed a system that tracks users via there mobile phones10. TomTom11 is a navigation device that has released a new version called High Definition Traffic. The device itself, called “TomTom One XL HD Traffic,” claims to cover 10 times more roads than information sent via FM. One of the innovations incorporated into the new receiver is TomTom’s collaboration with Vodafone. This partnership also supports tracking of mobile phones within the Vodafone network, providing more accurate and current data. There is some research in developing a P2P network to communicate vehicular information [3], where ad-hoc organization and scalability might prove superior to a server-client system. The TraffoMeter System12 is another idea that takes advantage of mobile phones to send information on traffic conditions. Based on a server-client model, data from mobile phones can be used by companies such as Inrix to provide real-time traffic information. Google and Yahoo also provide traffic information aggregation systems. Aside from traffic monitoring, additional practical uses include speedy communication with other drivers, improved travel information, and ability to self-detect and repair minor mechanical problems. We also do not limit our invention to the confines of the car. AR glasses can continue to update the driver with information if they exit their vehicle. This simultaneously allows the driver to maintain any communication they have and continue to receive real-time information about their car (e.g. diagnostics report).
+3. CONCLUSION
+A-HUD will display various types of information within a predetermined vicinity, viewable by the driver without needing to
+10 http://www.intellione.com 11 http://www.tomtom.com 12 http://csdl.ics.hawaii.edu/~johnson/traffometer.html
+
+shift their focus to a display console or GPS screen far from their point of view. It will fully immerse the driver within their car, displaying speed, traffic, navigation, and other data from any available windshield. Relying on a high-bandwidth wireless network and powerful servers, A-HUD creates a network of cars to gather important pieces of information that can better inform drivers of their journey. It offers significantly more data than any navigation system or HUD today, while still maintaining a minimalist display method by tracking the driver’s line of sight. Traffic monitoring and navigation is seen as the primary application, however the increased amount of data combined with the augmented reality display of information will support many other uses.
+4. REFERENCES
+[1] Androutsellis-Theotokis S. and Spinellis D. A survey of peer-to-peer content distribution technologies. ACM Computing Surveys, 36(4):335–371, December 2004. Ding, W. and Marchionini, G. 1997 A Study on Video Browsing Strategies. Technical Report. University of Maryland at College Park.
+[2] Wolffsohn J. S., McBrien N. A., Edgar G. K. and Stout T. (1998). The influence of cognition and age on accommodation, detection rate and response times when using a car head-up display (HUD). Ophthalmic and Physiological Optics 18 (3), 243–253.
+[3] I. Chisalita, and N. Shahmehri, (2002). A peer-to-peer approach to vehicular communication for the support of traffic safety applications, in 5th IEEE Conference on Intelligent Transportation Systems, Singapore, pp. 336-341, September 2002.
+[4] May, A.J., Burnett, G.E. and Joyner, S.M. (1995). Integrating a Route Guidance Display Within a Vehicle: Safety Implications of Display Position (CEC EUREKA PROMETHEUS Programme BRIMMI CED 9: Dual Mode Route Guidance, Report 5.2). Loughborough, UK: HUSAT Research Institute.
+[5] Burnett, G.E. (2000) Usable vehicle navigation systems: Are we there yet?, Vehicle Electronic Systems 2000 - European conference and exhibition, ERA Technology Ltd, 29-30 June 2000, pp. 3.1.1-3.1.11
+[6] Burnett, G.E. (2003) A road-based evaluation of a Head-Up Display for presenting navigation information, In Proceedings of HCI International conference, Vol 3 (HumanCentred Computing), pp. 180-184
+[7] Steinfeld, A. and Green, P. “Driver response times to fullwindshield, head-up displays for navigation and vision enhancement.” Technical Report UMTRI-95-29, The University of Michigan, Transportation Research Institute, 1995.
+[8] Pace, T., Ramalingam, S., and Roedl, D. 2007. Celerometer and idling reminder: persuasive technology for school bus eco-driving. In CHI '07 Extended Abstracts on Human Factors in Computing Systems (San Jose, CA, USA, April 28 - May 03, 2007). CHI '07. ACM, New York, NY, 2085-2090.
+[9] Sawano, H. and Okada, M. 2006. Flat shading road versus photo realistic road for AR-based car navigation. In ACM SIGGRAPH 2006 Research Posters (Boston, Massachusetts,
+
+July 30 - August 03, 2006). SIGGRAPH '06. ACM, New York, NY, 153.
+[10] W. Narzt, G. Pomberger, A. Ferscha, D. Kolb, R. Muller, J. Wieghardt, H. Hortner, and C. Lindinger. Pervasive information acquisition for mobile ar-navigation systems. In Fifth IEEEWorkshoponMobileComputing Systems and Applications, 2003.
+
+[11] Marcus Tonnis, Rudi Lindl, Leonhard Walchshausl, Gudrun Klinker. 2007. Visualization of Spatial Sensor Data in the Context of Automotive Environment Perception Systems. The Sixth IEEE and ACM International Symposium on Mixed and Augmented Reality, Nara, Japan, Nov. 13 - 16, 2007.
+

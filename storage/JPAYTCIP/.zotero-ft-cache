@@ -1,0 +1,631 @@
+This article has been accepted for publication in IEEE Transactions on Intelligent Vehicles. This is the author's version which has not been fully edited and content may change prior to final publication. Citation information: DOI 10.1109/TIV.2024.3379367 1
+Explainable Deep Adversarial Reinforcement Learning Approach for Robust Autonomous Driving
+Chuyao Wang , Nabil Aouf
+
+Abstract—Deep Reinforcement Learning (DRL) has made promising progress in autonomous driving planning and guidance within dynamic urban scenarios. As the potentials for realworld applications increase, so does the demand for a safe and robust driving system. For example, an end-to-end deep reinforcement learning agent makes guidance decisions based on the observation states extracted from perception sensor inputs, which can be interfered by unpredictable adversarial attacks. The latter causes adversarial observation states, which easily leads autonomous driving agent to incorrect decisions and ultimately to unintended accidents. In this work, we propose both attack and defence approaches for robust learning-based self-driving agent. The optimal observation perturbation is realized using an efficient augmented gradient-based method. An attack detection deep network with saliency map based explainability is then proposed to flag up to the users the existing danger of the attacks on the sensor perception. Furthermore, to ensure safe driving under these perceptional perturbations, we propose a deep adversarial reinforcement learning based approach for robust autonomous driving in a roundabout passing scene. We adopt PPO (Policy Proximal Optimization) [1] as our baseline guidance algorithm and develop a theoretical supported constraint, multiobject objective function optimization to efficiently mitigate the effect on the deep guidance autonomous driving policy from strong adversarial attacks. We conduct extensive experiments and evaluate our robust model under various adversarial attack configurations in traffic scenarios. Our proposed method shows significant improvements coping with optimal adversary in dynamic environments.
+Index Terms—Adversarial Attack, Autonomous Driving, Robust Learning, Deep Reinforcement Learning, Explainability.
+I. INTRODUCTION
+I N recent years, autonomous driving has attracted major research interests because of its capacity to bring the prospect of greater convenience, mobility efficiency and safety to the automotive industry. Researchers have made significant progress in different applications in autonomous driving field, such as scene understanding (perception), localization, mapping and path planning. In particular, state-of-the-art deep reinforcement learning based algorithms are able to handle the challenging decision making (guidance) tasks in dynamic environments [2]–[4], [41].
+Despite of existing successes, these simulation based methods work well under ideal experimental conditions, in which the sensors are all time properly functioning. The observations delivered by these sensors may inherently contain uncertainties due to various factors such as unavoidable sensor errors or natural equipment inaccuracies, and adversarial attacks. Among them, adversarial attacks are the strongest directional interference. A policy of a DRL agent that is not robust to such perturbations can encounter catastrophic failures in more
+
+realistic environments. In light of these risks, autonomous vehicles are required to ensure that their decision making system can handle the adversarial perturbations from perceptual sensing module. Having stated the importance of such problem, only few researches investigated deeply the aforementioned challenge. Some works [5]–[7] adopt adversarial training from supervised learning scheme to improve the robustness of such deep based guidance schemes. Specifically, the agent is occasionally attacked and the adversarial trajectories are generated during the data collection. Then some existing DRL algorithms are trained with the replay buffer containing adversarial transitions generated before. However, for most environments, naive adversarial training leads to unstable training and deteriorates DRL agent performance [8], [9] or does not significantly improve their robustness under strong attacks.
+To address this problem, this paper introduces an explainable deep adversarial reinforcement learning approach for autonomous vehicles to improve the performance and robustness of driving policies against the observation adversarial attacks. Our key contributions can be summarized as follows:
+1) We establish a Markov Decision Process (MDP) with perturbations to model the decision making behaviors of an autonomous vehicle under policy constraints and observation perturbations for a roundabout scenario with dense traffic.
+2) A white-box optimal attack method based on FGSM is proposed to approximate the worst observation perturbations due to sensor attacks. In the testing, this attack technique can efficiently lead the vanilla deep reinforcement learning agent to failure.
+3) We propose a robust proximal policy optimization to obtain a robust policy for roundabout making under bounded optimal observation perturbations.
+4) Furthermore, an explainable adversarial attack detection network is presented to provide an insightful visualization on how the DRL agent is making the decision based on the sensor inputs and how is the adversarial attack influencing on that, as well as additional information to alarm the user of our system whether the guidance agent is under attack or not.
+Extensive experiments are carried out in the realistic unrealengine powered simulator CARLA [10] with dynamic surrounding traffic and various attack strengths to evaluate the performance of our proposed methods. Our generated optimal adversaries show strong effects on the adopted DRL agent. This results further prove the improvement of performance
+
+Authorized licensed use limited to: Universitat Autonoma De Barcelona. Downloaded on April 21,2025 at 05:19:49 UTC from IEEE Xplore. Restrictions apply. © 2024 IEEE. Personal use is permitted, but republication/redistribution requires IEEE permission.See https://www.ieee.org/publications/rights/index.html for more information.
+
+This article has been accepted for publication in IEEE Transactions on Intelligent Vehicles. This is the author's version which has not been fully edited and content may change prior to final publication. Citation information: DOI 10.1109/TIV.2024.3379367
+2
+
+and robustness of our proposed adversarial defence method. We collect our own data to train and evaluate our detection network, which shows highly reliable detection rate.
+II. RELATED WORK
+A. Deep reinforcement learning based autonomous driving
+Following the major breakthroughs of deep reinforcement learning (DRL) in recent years [11], [12], researchers have started to use DRL to address the decision-making problems in autonomous driving [13], [14], [40]. DRL based methods can greatly decrease the heavy reliance on the large amount of data because they do not specifically need large labeled driving data for training comparing to supervised learning scheme adopted methods such as behavior cloning and imitation learning. Alternatively, they learn and enhance their scene understanding and decision-making capability via interactions with the environment. Besides, human pre-collected data could be biased to cover the hazard and failure situations where DRL based methods can be used in the collision or closecollision scenarios, where self-driving vehicles learn to deal with dangerous scenarios in the simulation. Dong Li et al [15] solves the lateral control for autonomous driving by introducing an individual perception module for the track features prediction and the DRL control module for the control action prediction. They claim that their framework outperforms the conventional linear quadratic regulator (LQR) controller and model predictive control (MPC) controller on different tracks. [16] introduces a velocity control model for autonomous driving to focus on delivering safe, efficient, and comfortable experience. By analysing human driving data and combining driving features related to safety, efficiency, and comfort, this method develops a reward function encouraging the driving agent to maintain stable while avoiding obstacles. To further exploit the human prior knowledge, [17] combines deep reinforcement learning and human expert demonstrates based imitation learning with uncertainty estimation. Then the DRL agent learns by regularizing the KL divergence between the DRL agent’s policy and the imitative expert policy.
+Unlike supervised learning methods, DRL approaches can mitigate the high cost of data collection in hazardous scenarios by training models within virtual simulation environments, allowing for cost-effective failure occurring learning. However, as they running in a perfect conditioning simulation environment, many DRL based decision-making methods do not take observation uncertainty due to sensor failure or attacks into consideration, leading to unstable and less robust driving strategies that could make the vehicle unsafe under more realistic environment settings.
+B. Adversarial attack on DRL
+Though deep learning models recently achieve significant improvement, research shows that these well-trained models are still very vulnerable to adversarial attacks. Adversarial attacks on camera sensor often lead to visually similar images to the normal images from a human perspective, yet they can deceive deep learning models into generating inaccurate predictions. Generally there are two types of adversarial attack
+
+methods, white-box attacks and black-box attacks, depending on if the attacker has full access to the models’ parameters or not.
+In [18], a Bayes optimization based approach was proposed to generate the painting of black lines on the road to counterfeit lane lines and make the vehicle deviate from the original orientation. Experiments were conducted in CARLA simulator, and results showed that end-to-end driving models were attacked and deviated to the orientation chosen by attackers. He et al. [19] combined Bayesian optimization and Jensen-Shannon (JS) divergence to measure average variation distance of the policies attacked by the observation perturbations for optimal black-box attacks. Behzadan and Munir [20] studied blackbox attacks on DQNs with discrete actions via transferability of adversarial examples. Pattanaik et al. [21] further enhanced adversarial attacks to DRL with multi-step gradient descent and better engineered loss function. They required a critic or Q function to perform attacks. Typically, the critic network learned during agent training. For white-box approaches, Huang et al. [22] evaluated the robustness of deep reinforcement learning policies through an FGSM based attack on Atari games with discrete actions. Kos and Song [23] proposed to use the value function to guide adversarial perturbation search. Lin et al. [24] considered a more complicated case where the adversary is allowed to attack only a subset of time steps, and used a generative model to generate attack plans luring the agent to a designated target state. In our work, we introduce a FGSM based method to generate optimal adversary examples by maximizing the pre-defined collision risk. Results show that with a small strength parameter ε and minimal visual difference, our method can efficiently misguide the well-trained agent.
+C. Explainability for Deep Learning
+Despite the success in deep learning, its explainability is limited due to its predominantly black-box nature. Researchers have been investigating ways to provide explanations for the decisions made by deep neural networks. A major trend of works focus on attributing importance or relevance to different input features. These methods aim to identify the parts of the input that contribute most to the model’s output. Examples include SHapley Additive exPlanations (SHAP) [33], Local Interpretable Model-agnostic Explanations (LIME) [34], and Gradient-based Class Activation Mapping (Grad-CAM) [35]. Among them, gradient-based methods excel in providing better visual explainability, which are easier for human to understand. T. Nathan et al. [36] use a layer-ordered visualization of information to visualize individual scale/layer contributions, and combine them into a single saliency map. By exploiting saliency map order equivalence, their method exceed traditional Grad-CAM and Grad-CAM++ without increasing the computational costs. Ekrem et al. [37] propose an attentionbased saliency map prediction model to interpret the relationship between saliency and driving decisions. Similar to gradient based saliency methods, attention based methods also provide comprehensive visualization. During training, the network focuses on specific parts of the inputs by nature, and
+
+Authorized licensed use limited to: Universitat Autonoma De Barcelona. Downloaded on April 21,2025 at 05:19:49 UTC from IEEE Xplore. Restrictions apply. © 2024 IEEE. Personal use is permitted, but republication/redistribution requires IEEE permission.See https://www.ieee.org/publications/rights/index.html for more information.
+
+This article has been accepted for publication in IEEE Transactions on Intelligent Vehicles. This is the author's version which has not been fully edited and content may change prior to final publication. Citation information: DOI 10.1109/TIV.2024.3379367
+3
+
+the attention mechanism will gradually increase the weights of important parts through training. Kim and Bansal [38] propose an attentional bottleneck architecture and combine with visual attention to predict trajectories for autonomous driving cars and improve model explainability. To understand the intrinsic mechanism of the trajectory predictions, [39] utilize a transformer model with multiple prediction heads to retrieve the influencing factors of the predictions. Lei et al. [42] further explain DRL using both visual and texture explanation. In our work, the proposed saliency map based attack detection model not only provides detects adversarial attacks but also explainability to interpret the decisions made by our robust driving agent.
+III. METHODOLOGY A. Framework Overview
+In this section, an explainable deep adversarial reinforcement learning approach for autonomous driving is proposed to enhance the robustness of RL agent against the observation perturbations. Our framework consists of three main components, including:
+1) An optimal adversarial attack generation to model the strongest observation perturbations on the perception of the driving agent.
+2) An adversarial deep reinforcement learning scheme against the optimal attacks we generated to guarantee a robust guidance performance.
+3) An efficient adversary detection model based explainability to show whether the guidance DRL network is under adversarial attacks.
+Furthermore, with the explainability mechanism, the detection network provides more insightful information on the behavior of the driving agent under observation perturbations. The system overview is shown in Fig. 1.
+Fig. 1. The framework overview.
+B. Markov Decision Process with Perturbation A deep reinforcement learning task can be considered as
+a continuous decision-making problem, which follows the Markov Decision Process (MDP) [25]. Basic MDP is defined as (S, A, P, R, γ). The agent interacts with the environment of successive state s ∈ S with actions a ∈ A, getting the step reward r ∈ R and the transition probability p ∈ P to the next
+′
+state s ∈ S. γ indicates the discount factor. The goal of deep reinforcement learning is to find an optimal policy that has the maximum accumulative discounted returns. In this work,
+
+to ensure the robust policy against perturbation, we define the Markov Decision Process with observation adversary (OAMDP).
+In contrast to MDP, OA-MDP consists of a tuple of (S, A, P, R, γ, SA, AA), where sA ∈ SA is the set of states from S under optimal adversarial attack, and aA ∈ AA is the action the agent responded to sA. The attacked state sA is a shifted state, which models the worst case perturbation due to attacks on the sensor leading to aA sub-optimal than a. A welltrained guidance policy network may be able to cope with a weak and quick perturbation, turning back to the actual actions and the desired trajectory after the state observations get back to normal. However under strong and continuous adversarial attacks, this guidance policy network can easily fail.
+
+C. Problem Formulation
+
+Getting a DRL agent robust to adversarial attacks, we tend to find the optimal policy π∗ that maximizes the accumulative
+long-term rewards under series of worst-case perturbed states SA. This can be formulated as:
+
+Jπ∗ = maxminJπ(π, SA)
+
+(1)
+
+π SA
+
+It means that the problem is decoupled as two sub-problems. First is to solve the inner minimum, finding the state SA under the worst-case adversarial attacks. We introduce the details of optimal adversary generation in the later section. Second is the outer maximization of the long-term rewards under these adversaries, and here we present our robust proximal policy optimization.
+
+D. Optimal Adversary Generation
+In this section, we solve the inner minimization part of the problem, modelling the optimal adversarial attacks on observations based on a white-box technique. We require an adversarial attack generation method that prioritizes ease of implementation and computational efficiency. The Fast Gradient Sign Method (FGSM), introduced by Goodfellow et al [26], fulfills these criteria. Additionally, FGSM offers flexibility, allowing for the application of techniques like Basic Iterative Method (BIM) [27] to introduce iterations and enhance the adversarial attack instead of increasing the perturbation parameter ε.
+FGSM works by using the gradients of the neural network to create an adversarial example. For deep reinforcement learning, the method uses the gradient ▽sL(π, s, a) of the loss with respect to the input observation to create a new observation that maximizes this loss. The π refers to the policy network parameters, while the a is the output action. The new masked observation is obtained by:
+
+sadv = s + ε ∗ sign(▽sL(π, s, a))
+
+(2)
+
+This new observation sadv is called the adversarial state. The ε parameter controls the strength of the attack, and it varies from 0 to 1. The closer the value to 1, the more visually distinguishable the sadv is. On the contrary, if the ε is small, it will be harder to detect the difference with normal state
+
+Authorized licensed use limited to: Universitat Autonoma De Barcelona. Downloaded on April 21,2025 at 05:19:49 UTC from IEEE Xplore. Restrictions apply. © 2024 IEEE. Personal use is permitted, but republication/redistribution requires IEEE permission.See https://www.ieee.org/publications/rights/index.html for more information.
+
+This article has been accepted for publication in IEEE Transactions on Intelligent Vehicles. This is the author's version which has not been fully edited and content may change prior to final publication. Citation information: DOI 10.1109/TIV.2024.3379367
+4
+
+Fig. 2. An Adversarial Example. We enhance the perturbation mask for better visualization. The alterations in the attacked observation are hard to recognise with the human eye.
+
+where
+
+Ln = (−steer, 1) − (π | sn)
+
+(4)
+
+sadv indicates the optimal adversary, and n is the iteration number. These attacsk will lead the model to the worst actions in most of the cases. The test details of success rate of the attack will be carried out in results section. The process of one iteration of generating our adversarial sensory image sample is shown in Fig. 2.
+
+Fig. 3. An example of how our adversarial perturbation works on a trained agent.
+
+for human eyes. As discussed in the beginning of the section, to solve the inner minJπ(π, SA), the generated perturbations
+SA
+should lead the policy to minimum rewards. In our Robust PPO training, minimum rewards refer to minimum advantage value, which is unobtainable during decision-making phase. In such situation, we find an alternative loss function instead of minimizing the advantage value. Within the realm of autonomous driving, certain throttle and steering actions in certain scenarios may pose potential danger. Based on this idea, we introduce the gradient-based perturbations into the control system with the aim of maximizing the throttle and reversing the steering, thereby deliberately maximizing the risk of collisions. As shown in Fig. 3, in the turn making situation, optimally, the agent should slow down and make a right turn. After introducing our augmented FGSM, the agent will be encouraged to accelerate and make a sharp left turn to make the collision.
+The problem of using FGSM is the effective sensitivity to ε. In practice, we need a larger ε to make the perturbation effective on the deep guidance model decision. However during training, this will make perturbations predictable and tolerated by the model [28]. We employ the BIM to intentionally escalate the attack effeteness associated with autonomous driving. The BIM iterates the process of a single FGSM, which means a previous generated adversarial state will be the input of the next adversary generation. By iterating FGSM, the influence of the attacks can be increased without affecting the sensory image as much as by increasing the ε by a comparable amount. Finally, with the risk encouragement and BIM, the optimal adversary is obtained as:
+
+sadv = sn + ε ∗ sign(▽sn (Ln))
+
+sn = sn−1 + ε ∗ sign(▽sn−1 (Ln−1))
+
+(3)
+
+E. Robust Proximal Policy Optimization
+To solve the outer maximization with generated optimal adversaries, and learn the robust optimal driving policy, we introduce a robust proximal policy optimization in this section. We adopt PPO as our baseline DRL. It is a model-free, onpolicy, stochastic method. It shares the similar idea of TRPO (Trust Region Policy Optimization) algorithm [29], which restricts the policy update based on the probability ratio or the KL divergence between the new policy and the old policy. The most popular PPO variant employs a clipped surrogate objective to prevent the new policy differing too much from the old policy:
+
+Lclip(π) = Eˆt[min((rt(π), clip(rt(π), 1 − ε, 1 + ε))Aˆt)] (5)
+
+where π is the policy parameter of the deep guidance agent, and Eˆt denotes the expectation over t. rt is the ratio of the probability under the new and old policy, while ε stands for the
+constant clip term that limits the policy update by constraining
+the ratio within a specified range, preventing excessively large updates. Aˆt is the estimated advantage value, obtained by the difference between the observed reward for taking an action
+a at a state s and the expected value predicted by the critic
+network at a state s:
+
+Aˆt = Qt(s, a) − Vt(s)
+
+(6)
+
+As a stochastic method, the policy network in PPO outputs a probability distribution instead of an actual action. During training, actions are randomly sampled from this distribution to increase exploration. In our experiment, we employ a multivariate Beta distribution as the policy output to ensure a bounded action space.
+A trained policy demonstrates robustness against adversarial attacks when the behaviors at non-attacked and attacked states show minimal divergence. This closeness in behavior indicates that the policy remains effective and resilient in the presence of adversarial perturbations. Based on the theorem in [30],
+
+Authorized licensed use limited to: Universitat Autonoma De Barcelona. Downloaded on April 21,2025 at 05:19:49 UTC from IEEE Xplore. Restrictions apply. © 2024 IEEE. Personal use is permitted, but republication/redistribution requires IEEE permission.See https://www.ieee.org/publications/rights/index.html for more information.
+
+This article has been accepted for publication in IEEE Transactions on Intelligent Vehicles. This is the author's version which has not been fully edited and content may change prior to final publication. Citation information: DOI 10.1109/TIV.2024.3379367
+5
+
+given a policy π and its value function Vπ(s) and under the optimal perturbation sA, for all s ∈ S and the corresponding sA ∈ SA, we have
+
+max V (s, sA) ≤ α max D(s, sA))
+
+(7)
+
+s∈S ,sA ∈SA
+
+s∈S ,sA ∈SA
+
+where
+
+V (s, sA) = Vπ(s) − Vπ(sA)
+
+(8)
+
+D(s, sA) = DT V (π(s), π(sA))
+
+(9)
+
+DT V (π(s), π(sA)) is the total variation distance between π(s) and π(s(A). This is the largest possible difference between the probabilities that the two probability distributions can assign to the same action. According to Pinsker’s inequality [31], DT V can be linked to another distance Kullback–Leibler (KL) divergence [32]:
+
+1
+
+DT V (π(s), π(sA)) ≤ 2 DKL(π(s), π(sA))
+
+(10)
+
+which is more computationally efficient compared to the integral operation in DT V . Therefore, we further amend equation 7 with the KL divergence distance to:
+
+1
+
+max V (s, sA) ≤ max
+
+s∈S ,sA ∈SA
+
+s∈S ,sA ∈SA
+
+2 DKL(π(s), π(sA)) (11)
+
+That is, if we minimize the KL divergence of the action probabilities under non-attacked and attacked states, the total variation distance DT V will also be minimized, therefore the performance gap could be minimized too. The objective function of our proposed robust proximal policy optimization is then developed. Combining the divergence term and the accumulative expected reward, we tend to solve the following optimization problem:
+
+T
+
+max[ γtr(st, at) + KLr]
+
+(12)
+
+π
+
+0
+
+subject to µ − L2(f (s, π), s) ≥ 0
+
+(13)
+
+If π satisfies the constraint condition in equation 13, we have:
+
+T
+
+θP (α) = γtr(st, at) + KLr
+
+(16)
+
+0
+
+otherwise θP (α) = −∞. Equation 16 denotes that maximizing the new defined function mπaxθP (α) is equivalent to the primal problem equation 12. The proof is shown as follows:
+Under a fixed π, minimizing the Lagrange function equals to minimizing α(µ − L2(f (s, π), s)). With α ≥ 0, if (µ − L2(f (s, π), s)) < 0, which does not satisfy the constraint, we have
+
+minα(µ − L2(f (s, π), s)) → −∞
+α≥0
+
+⇒ minL(π, α) → −∞
+α≥0
+
+⇒ θP (α) = −∞
+
+(17)
+
+And if (µ − L2(f (s, π), s)) ≥ 0, which satisfies the constraint
+
+minα(µ − L2(f (s, π), s)) → 0
+α≥0
+
+T
+⇒ minL(π, α) = γtr(st, at) + KLr
+α≥0 0
+
+T
+
+⇒ θP (α) = γtr(st, at) + KLr
+
+(18)
+
+0
+
+Based on equation 12 and 15, we have the primal optimization problem as:
+
+maxθP (x) = maxminL(π, α)
+
+(19)
+
+π
+
+π α≥0
+
+This optimization is detailed by the two following steps:
+
+1. min
+α≥0
+2. max
+π
+
+T 0
+
+γt(st,
+
+at)
+
++
+
+K Lr
+
++
+
+α(µ
+
+−
+
+L2(f (s,
+
+π),
+
+s))
+
+T 0
+
+γt(st, at) + KLr
+
++ α(µ − L2(f (s, π), s))
+
+(20)
+
+First, we freeze the policy π and update the Lagrange multiplier α based on step 1. Then similarly, the updated Lagrange multiplier α is frozen to update the policy π based on step 2. Furthermore, step 1 can be represented as:
+
+KLr is the reverse term of the KL divergence of the action probability under attacked and non-attacked states. Note we just use this pseudo term here to match the maximization problem and will transfer it back to KL divergence later. Equation 13 is the constraint condition for the maximization optimization, which indicates that the L2 norm of f (s, π) − s is bounded by µ. f is the optimal adversary generation function at policy π and current s. t and γ denote the time step and discount factor respectively. Based on the Lagrange multiplier technique, the original optimization problem becomes:
+T
+L(π, α) = γt(st, at) + KLr + α(µ − L2(f (s, π), s)) (14)
+0
+where α ≥ 0 is the Lagrange multiplier, a new variable introduced to replace the constraint equation. Now we consider the Lagrange function with respect to α:
+
+θP (α) = minL(π, α)
+
+(15)
+
+α≥0
+
+min α(µ − L2(f (s, π), s))
+
+(21)
+
+α≥0
+
+And step 2 can be represented as minimizing the negative terms:
+
+T
+
+min −
+π
+
+γt(st, at) + DKL − α(µ − L2(f (s, π), s))
+
+0
+
+= min
+π
+
+rt(π)Aˆt + DKL − αµ + αL2(f (s, π), s)
+
+= min
+π
+
+rt(π)Aˆt + DKL + αL2(f (s, π), s)
+
+(22)
+
+Here as µ is independent from π, we remove µπ and the KL divergence DKL is transferred back from KLr. Finally, the maxmin problem becomes a minmin problem. In practice, we use Lclip(π) from equation 5 to replace rt(π)Aˆt in equation 21 for better performance. We use gradient descent to find the optimal Lagrange multiplier α and the optimal policy π
+repeatedly through equation 21 and 22 in each batch update.
+The objective function is a jointly optimisation problem, where
+
+Authorized licensed use limited to: Universitat Autonoma De Barcelona. Downloaded on April 21,2025 at 05:19:49 UTC from IEEE Xplore. Restrictions apply. © 2024 IEEE. Personal use is permitted, but republication/redistribution requires IEEE permission.See https://www.ieee.org/publications/rights/index.html for more information.
+
+This article has been accepted for publication in IEEE Transactions on Intelligent Vehicles. This is the author's version which has not been fully edited and content may change prior to final publication. Citation information: DOI 10.1109/TIV.2024.3379367
+6
+
+Fig. 4. Network structure of our robust DRL model. It consists of a feature extract encoder, and the actor-critic network. We feed the actor-critic network with the concatenation of the numeric features and the extracted features.
+
+Algorithm 1 Robust Proximal Policy Optimization
+
+1: Initialize the actor network parameter θ0, the state-value critic network parameter ϕ0, the replay buffer D;
+2: Initialize the Lagrange multiplier α;
+
+3: for k = 0, 1, 2, ... do
+
+4: for t = 0, 1, 2, ... do
+
+5:
+
+Sample action at ∼ π(θk)(at|st) based on the policy
+
+π(θk) and state st.
+
+6:
+
+Generate optimal adversary sAt through equation 10.
+
+7:
+
+Obtain transitions st+1, rt by executing at.
+
+8:
+
+Store the transitions in Dk ← {st, at, rt, st+1, sAt}.
+
+9: end for
+
+10: Calculate the reward-to-go Rˆt. 11: Calculate estimated advantage Aˆt through equation 6.
+
+12: Obtain action distributions d, dA under all s and sA from Dk
+
+13: Calculate KL divergence DKL based on d, dA.
+
+14: Calculate L2 norm of the difference of attacked and
+
+normal states.
+
+15: Update the Lagrange multiplier α by minimizing the
+
+step 1 objective function:
+
+αk+1 = argmin α(µ − L2(f (s, π), s))
+α≥0
+16: Update the policy θ by minimizing the step 1 objective
+
+function:
+
+θk+1 = argmin Lclip(θ) + DKL + αL2(f (s, θ), s)
+θ
+17: Update the state-value critic network parameter ϕ0 by
+
+regression on mean-squared error:
+
+ϕk+1 = argmin
+ϕ
+
+1 T
+
+T t=0
+
+(Vϕ
+
+(st)
+
+−
+
+Rˆt)
+
+18: end for
+
+the parameters of the two term rt(π)Aˆt and L2(f (s, π), s) balance the performance under normal observation and the adversarial defence capability. In the experiments, we find the policy will learn to satisfy the constraint in equation 13 and resulting the term αL2(f (s, π), s) in step 2 to decrease during the gradient descent process, and α in step 1 will gradually approach zero. Consequently, step 2 will find the minimum after α becomes zero. For the parameter of DKL,
+
+we conducted experiments with several potential values and chose the best one. The proposed robust DRL actor-critic network structure is illustrated in Fig. 4. The model takes the monocular RGB image as input, and concatenates the highlevel features extracted by the encoder with five additional numeric features. The concatenated features are then fed into actor and critic networks. With our optimal adversary generation and robust proximal policy optimization, the problem formulated in equation 1 is solved. The method is detailed in Algorithm 1.
+
+F. Reward Function Design
+The reward function design is one of the most crucial parts for DRL problems. To make sure the agent accomplishes the roundabout making task while ensure the safety, efficiency, the hand-designed reward function is defined as follows, which are mainly two signals:
+
+rtotal = rdone + rcompound
+
+(23)
+
+For the rdone, we define five distinct terminal conditions, and three of which share the same reward value. These three conditions are characterized as ’Early Stop Signals’ to prevent what we consider as meaningless exploration, thereby enhancing training efficiency:
+1) Distance Threshold: If the distance between the center of the ego vehicle and the road center is beyond a certain criterion, revealing that the car deviates too far from the desired trajectory.
+2) Under-speed Threshold: If the velocity of ego vehicle is below 1 km/h for over certain time steps. This usually means that the agent chooses being still to avoid accruing the negative rewards, which is commonly seen in DRL training.
+3) Over-speed Threshold: If the speed is over the maximum speed we set. For safety concerns, we limit the maximum speed at 25 km/h.
+All three of these Early Stop Signals are assigned a reward value of -100, aiming to discourage actions associated with these conditions. Another terminal signal, collision, consists of three different types, collision with pedestrians, collision
+
+Authorized licensed use limited to: Universitat Autonoma De Barcelona. Downloaded on April 21,2025 at 05:19:49 UTC from IEEE Xplore. Restrictions apply. © 2024 IEEE. Personal use is permitted, but republication/redistribution requires IEEE permission.See https://www.ieee.org/publications/rights/index.html for more information.
+
+This article has been accepted for publication in IEEE Transactions on Intelligent Vehicles. This is the author's version which has not been fully edited and content may change prior to final publication. Citation information: DOI 10.1109/TIV.2024.3379367
+7
+
+with other vehicles, and collision with other objects. They are assigned respectively with -1000, -200, -100, to express the severity associated with each collision type. Finally, if the ego vehicle approaches the target position, the agent will receive a success reward of 100.
+To calculate rcompound, we introduce two variables :
+
+distance f rom center
+
+centering = 1 −
+
+(24)
+
+max distance f rom center
+
+angle
+
+angling = 1− |
+
+|
+
+(25)
+
+max angle
+
+The distance f rom center refers to distance between the center of the ego vehicle and the road center, and the angle denotes the angle between the car and the vector of two neighboring way-points. Both of the variables are in range of [0, 1]. We set rcompound = V ∗ centering ∗ angling, and V changes depending on the vehicle speed. When the speed is between 12 km/h and 22 km/h, V = 1. If the speed is below 12, V = velocity/12 and if the speed exceeds 22 km/h, V = 1 − (velocity − 22)/3. This setting aims to encourage the DRL agent to maintain a speed within the range of 12 km/h to 22 km/h. In summary, the reward function balances the encouragement for goal reaching, obstacle avoidance and safety. Furthermore, our adversarial attack defence algorithm is independent from the reward function. Both the baseline and our approach are trained using the same reward function, meaning that the efficiency of our method is hardly affected by the design of the reward function.
+
+G. Adversarial Attack Detection Network based Explainability
+In this section, we introduce an efficient explainability based adversarial attack detection network for attack awareness and better understanding the fundamental of the decision making process under adversarial attacks. We adopt saliency map to provide insights into the DRL model’s decision-making process by highlighting the most influential regions in the input space. Saliency maps help understand which parts of the input contribute most to the agent’s action. With an analysis made we found out that the saliency maps generated from the same policy show certain discrepancies under normal states and adversarial attacked states. This spurred our decision to propose a deep network-based detector (CNN-based detector) exploiting explainability based saliency maps by monitoring the saliency maps generated by the gradient of the robust proximal policy optimization agent. The detector will learn and find patterns in the saliency map images to detect adversarial attacks.
+By calculating the gradient of the output with respect to the feature map from the last convolutional layer, the saliency maps are obtained. The map is represented as a heatmap, and it will be up-sampled to overlay on the sensor RGB image input to form the final visualization. We collect our own adversarial attack detection data in Carla using the trained agent driving around. The details of the attack detection dataset will be explained in the experiment section.
+We design an optimized convolutional neural network architecture to balance the detection accuracy and the computation
+
+burden. It consists of three convolutional layers with channel numbers of 16, 32, and 64, respectively. All convolutional layers have a kernel size of 3, stride of 1, and padding of 1. Three linear layers are then connected to the last convolutional layer with output neurons of 128, 64, and 2 for the final prediction of adversarial or normal. Batch normalization layers are employed after the second convolutional layer and the second linear layer to stabilize the training process. ReLU activation functions are used, and the network is initialized using Kaiming uniform initialization. The details of the network is shown in Fig. 5. Crossentropy loss function is used to fit the network outputs and the supervised signals.
+Fig. 5. Network structure of our adversarial attack detection model.
+IV. EXPERIMENTS A. Simulator and Scene Settings
+The training and testing of the proposed framework are implemented in CARLA simulator. CARLA is an opensource platform for development, training, and validation of autonomous driving systems. It has a rich library of vehicle models and realistic urban road modelling, hence being near ideal to urban driving simulation. We set up our experiment scene in map Town 3, as shown in Fig. 6. In the experiment, the ego agent will be spawned randomly around the starting point. The Goal of the task is to reach the destination through the roundabout and avoid the dynamic surrounding vehicles and pedestrians, which are driving and walking autonomously using PID controllers by CARLA. We set dense traffic with randomly spawned vehicles and pedestrians.
+Fig. 6. Environment for experiments in CARLA. The training scenario comprises the roundabout and its connecting extension road. The green cross means starting point and red is destination.
+
+Authorized licensed use limited to: Universitat Autonoma De Barcelona. Downloaded on April 21,2025 at 05:19:49 UTC from IEEE Xplore. Restrictions apply. © 2024 IEEE. Personal use is permitted, but republication/redistribution requires IEEE permission.See https://www.ieee.org/publications/rights/index.html for more information.
+
+This article has been accepted for publication in IEEE Transactions on Intelligent Vehicles. This is the author's version which has not been fully edited and content may change prior to final publication. Citation information: DOI 10.1109/TIV.2024.3379367
+8
+
+TABLE 1 HYPER-PARAMETERS FOR THE EXPERIMENTS
+
+Hyper-parameter discount factor γ RL network learning rate Lagrange multiplier learning rate initial Lagrange multiplier α
+memory size clipping ratio constraint threshold µ
+
+Value 0.99 0.0001 0.01 0.01 5000 0.2 0.001
+
+B. Implementation Details
+The DRL agent takes as inputs a 160*80 RGB image from a monocular camera and 5 numeric features: throttle, velocity, steer, the distance between the vehicle and the road centres, and the angle between the vehicle forward vector and the tangent to the road as shown in the network structure in Fig. 4. Specifically, the encoder extracts the high level features from the RGB image, and they are concatenated with the five numeric features. The policy network and value network share the parameters in feature extractor, where the high-level information is shared to benefit both tasks during the training. For the constraint threshold µ, we selected a suitable value manually from candidate values through experimentation. This threshold serves to restrict the gradient changes of the policy network’s output in response to adversarial attacks, and is sensitive to the scenario while significantly affecting the stability and performance of the training process. The main hyperparameters used are shown in table 1. To increase the uncertainties in the process of generating optimal adversarial attacks, we use a normal-distributed random strength controlling parameter ε, with mean = 0.01 and std = 0.012, and limit the value of ε in [0.01, 0.05]. Additionally, we’ve implemented two methods to handle the bounding of adversarial attacks during training time. First, following [30], we manually constrained the attack by employing a clipping technique on the adversarial states. This technique restricted the magnitude of changes resulting from the generated optimal adversary. While this approach enhances training stability, it may potentially limit the overall performance of the driving policy. Secondly, we skip the manual bounding process, enabling the algorithm to autonomously learn and naturally confine the observation changes due to adversarial attacks within µ, as described in equation 13. During the testing phase, manual bounding is not applied to either model, as it’s unfeasible to confine the adversarial attacks or observation uncertainty within a specific range in real world. In the robust agent evaluation section, we compare the performance of our proposed method using these two implementations. Our model runs at 250 fps in CARLA on a single RTX 4090 graphic card.
+C. Results
+In this section, we carry out experiments for the efficiency assessment of the optimal adversary attacks, the robust guidance policy evaluation and the adversarial attack detection accuracy and explainability. To realize these tests, we first
+
+Fig. 7. Training curves of our proposed model and its variant (constraint optimization only), and the baseline model.
+train the baseline (PPO), our proposed robust model with different attack bounding policies, and its variants. The training is conducted in the roundabout scenario with randomly spawned surrounding traffic. All algorithms are trained under the same applicable hyper-parameter settings and environment conditions. Fig. 7 shows the training curves of the proposed method (no manual bounding), proposed variant (constraint optimization only) and the baseline. Our model demonstrates faster convergence compared to the other two. As the driving trajectories are generated by the actions based on the normal observations in training, the episodic rewards represent the performance under normal observations, but not necessarily reflect the robustness of the models. Detailed robustness tests will be conducted in the later section.
+1) Adversarial Attack Evaluation: Before we test our robust deep reinforcement learning agent, we evaluate the impact of the proposed optimal generated adversaries at various experiment settings. The attack strength parameter ε is set from 0.01, to 0.025, 0.05, 0.075 and 0.1. At each ε, we have different numbers of iterations 1, 5, 10, and 20. As our model runs at a very high 250 fps, it needs more frames to be attacked to make a deviation in the DRL decision making process. Therefore two sets of attack frames are conducted at 100 and 200 continuous frames. We find in the testing time that certain levels of adversarial attacks cause the agent to be seriously off the desired path, for example to the lawn and the sidewalk, but eventually the agent avoid collision or out-of-lane threshold. To increase the difficulty of testing and distinguish the attack ability, we define a successful attack as leading the self-driving agent directly or finally into collision or exceeding out-of-lane threshold. The adversarial attack evaluation in this section is based on the non-robust trained normal PPO, and we test 10 episodes for each configurations. The results are shown in Fig. 8. The success rate is positively related to the number of iterations and the value of ε. It also can be seen that, higher iterations or higher strength parameters normally lead to higher success rates. We first analyze the results in Fig. 8 (a) with 100 attack frames. When the iteration is 1, which means that the attack method is just the FGSM, the impact on the trained deep guidance agent is unstable and relatively minor
+
+Authorized licensed use limited to: Universitat Autonoma De Barcelona. Downloaded on April 21,2025 at 05:19:49 UTC from IEEE Xplore. Restrictions apply. © 2024 IEEE. Personal use is permitted, but republication/redistribution requires IEEE permission.See https://www.ieee.org/publications/rights/index.html for more information.
+
+This article has been accepted for publication in IEEE Transactions on Intelligent Vehicles. This is the author's version which has not been fully edited and content may change prior to final publication. Citation information: DOI 10.1109/TIV.2024.3379367
+9
+
+Fig. 8. The success rates at different settings of 100 (a) and 200 (b) continuous frames of perturbation.
+
+TABLE 2 EVALUATION OF DIFFERENT ALGORITHMS WITH DIFFERENT EPSILON VALUE. THE CONSTRAINT REFERS TO THE MODEL WITH ONLY THE CONSTRAINT OPTIMIZATION. OURS AND OURS MANUAL SHARE THE SAME ALGORITHM BUT OURS IS IMPLEMENTED WITHOUT MANUAL
+CLIPPING FOR THE ADVERSARIAL ATTACKS.
+
+Epsilon 0.05
+0.1
+
+Method Baseline Constraint Ours Manual
+Ours Baseline Constraint Ours Manual
+Ours
+
+Average Reward 1133.15±109.31 2187.47±254.83 2441.15±204.86 2656.04±341.03 803.08±142.49 1684.47±256.93 1928.81±142.49 2255.70±281.91
+
+Collision Rate 0.070±0.012 0.099±0.018 0.040±0.014 0.038±0.013 0.230±0.012 0.078±0.015 0.044±0.020 0.042±0.004
+
+Success Rate 0.080±0.049 0.670±0.078 0.770±0.096 0.809±0.113
+0.000 0.450±0.103 0.530±0.096 0.679±0.086
+
+despite how strong the ε is. This also implies that the impact gained from increasing ε is not as substantial as increasing the iteration numbers when the iteration is small. The success rates are below 20%, and even invalid at 0.01, 0.05 and 0.1 of ε. The adversarial attacks have similar impact when the numbers of iterations are set at 5 and 10 (although relatively higher). Their success rates vary from 30% to 90% depending on the strength parameter settings. Lastly, the generated attacks hold the highest and stable impact performance when the number of iteration is 20. At the smallest ε, we still have 40%. Furthermore, with the increase of ε, it reaches 100% attack success rate. This result also indicates that a well-trained non-robust PPO has no chance in surviving under such strong adversarial perturbations.
+We further increase the influence of the attacks by increasing the continuous attack frames to 200. Fig. 8 (b) shows the evaluation results with the same configurations as 100 frame attacks. As expected, even with increased number of frames, the attack with 1 iteration as function of ε remains the lowest success rate and unstable. Iteration 5 does not show significant improvement comparing to 100 continuous frames attack, and reaches a limit of 70% success rate after ε is over 0.05. Iteration 20 and 10 share most part of the performance curve except at ε of 0.025. Same as before, both of them can hit a 100% of success rate. In a word, our proposed optimal adversary generation shows great performance on disturbing the decision making of the self-driving DRL agent, and with the proper setting the attack success rate can easily remain 90100% level. Note that due to the high fps our model running at, the 100 and 200 consecutive frame attacks only take 0.4 and 0.8 seconds of simulation time, respectively.
+2) Robust Agent Evaluation: In the previous section, our optimal adversary generation shows a great impact on the decision making process of the baseline deep guidance agent. The performance gap between 200 and 100 consecutive frame attacks becomes negligible at higher strength parameters ε and iteration numbers. To evaluate the performance of our proposed robust guidance algorithm under observation perturbations, we choose two difficult attack configurations, ε = 0.1 and ε = 0.05 which have over 80% success rate in the previous evaluation. Both ε values are with iterations of 20 and 100 consecutive frames adversarial attacks. For each category we evaluate all models for 100 episodes. Note that we have a stochastic ε value in the training, and the maximum value is only 0.05. In other words, most of the adversarial attacks in
+
+the evaluation are much stronger than we have in the training process.
+We evaluate the baseline PPO, the proposed method with only constraint optimization, the proposed method with manual attack bounding, and the proposed method without bounding. We define the categories as following:
+1) Average reward: the average accumulative reward per episode.
+2) Average success rate: current success times to reach the goal position over current episodes
+3) Average collision rate: current collision encounters over current episodes.
+Note that despite the concerns about bias in evaluation due to incorporating extra, non-attacked data as inputs to enhance stability and performance, our results show substantial impacts on the baseline model, resulting in high failure rates. Our proposed method effectively handles strong adversarial attacks under the same conditions, indicating that the additional inputs do not compromise evaluation outcomes. In table 2, Ours (the proposed method without bounding) leads all the categories. Fig. 9 illustrates the performance of these models under the two settings in a more comprehensive way. The thin line is the mean value of each category and we visualize the standard deviation around the mean value. Overall as it can be seen, Ours outperforms the baseline model with large margin in terms of accumulative rewards, task success rate, and collision encounters. Specifically, with ε = 0.05 in Fig. 9 (a), the baseline deep guidance model is at 1133.15 per episode. In contrast, our method achieves around 2656.04 accumulative reward an episode, which represents 134.4% gain from the baseline. Comparing to the Constraint (with only constraint optimization), we achieve 21.4% improvement. And as expected, the manual attack bounding (Ours Manual) loses 8.8% of performance, but still averages 2441.15 in terms of reward. In the category of task success rate in Fig. 9 (b), Ours averages 80.9%, leading the baseline (at 8.0%) by 72.9%. With this attack strength, the baseline model can barely finish the task, due to the sub-optimal or worst decision making impacted by the adversarial attacks. Our robust guidance model and its variants on the other hand keep resistant to the strong perturbations. All models demonstrate low tendency towards collisions in Fig. 9 (c), and Ours holds the advantage at the lowest 3.8% of collision rate. From this result we can infer that surpassing the out-of-lane threshold contributes to the majority
+
+Authorized licensed use limited to: Universitat Autonoma De Barcelona. Downloaded on April 21,2025 at 05:19:49 UTC from IEEE Xplore. Restrictions apply. © 2024 IEEE. Personal use is permitted, but republication/redistribution requires IEEE permission.See https://www.ieee.org/publications/rights/index.html for more information.
+
+This article has been accepted for publication in IEEE Transactions on Intelligent Vehicles. This is the author's version which has not been fully edited and content may change prior to final publication. Citation information: DOI 10.1109/TIV.2024.3379367
+10
+
+Fig. 9. Detailed comparisons between our proposed method and baseline. We attack the agent with 100 consecutive frames with ε = 0.05 for sub-images (a)(b)(c) and ε = 0.1 for sub-images (d)(e)(f) with the same iteration = 20 and surrounding traffic. The curve line is the mean value while transparent area indicates standard deviation.
+
+of failure cases in the attack evaluation section. The reason that the collision rate of baseline does not match the attack success rate in the previous section is we exclude the out-of-lane here.
+When the attack strength escalates to ε = 0.1, as expected, the baseline model shows worse robustness to the perturbations. In the reward category in Fig. 9 (d), the baseline decreases to 803.08, whereas Constraint reaches 1684.47, marking a 109.7% improvement already. Ours Manual achieves 1928.81, 140.2% better than the baseline. In comparison to manual bounding, Ours achieves an average cumulative reward of 2255.7, marking a 180.8% increase over the baseline. This demonstrates a 33% improvement over the Constraint method and a 17% enhancement solely attributed to the autonomously bounding learned by our algorithm. In terms of task success rate, the baseline model exhibits a complete failure, being unable to complete a single episode. Although the performance of Constraint, Ours Manual and Ours decline compared to the setting with ε = 0.05, they still successfully reach the goal point without collisions at 45%, 53% and 67.9% of the time respectively. Under the stronger attacks, the notable performance difference emerges in the collision category. Ours experiences a collision rate of 4.2%, close to the previous setting. The baseline encounters collisions 5.47 times higher than our model. Moreover, Ours demonstrates superior performance across all categories without the need for manual perturbation bounding. This highlights the algorithm’s capacity to learn and restrict observation shifts caused by gradientbased adversarial attacks during training, thereby enhancing robustness against stronger, unbounded perturbations. The divergence based optimization term further reduces the action probability generated under normal and attacked observations.
+
+These tests demonstrate the capability of our proposed robust proximal policy optimization guidance model to remain resilient against strong adversarial perturbations while maintaining proficient performance in the driving tasks. Moreover, to assess the generalization capability of our proposed method in handling domain shifting, another challenging scenario that requires system robustness, we evaluate both our model and the baseline model under the heavy rain weather condition, an unseen scenario for both models. Specifically, we set the precipitation parameter (rain) as 50/100, precipitation-deposits (puddle) as 50/100, and the wetness (water on the camera) as 20/100 in CARLA. The visual difference can be seen in Fig. 10. We apply two settings of normal observations and attacked observations with ε = 0.05. The results are shown in table 3. In the heavy rain weather condition, without any applied adversarial attacks, the baseline model fails to adapt its driving policy to the new scenario. It averages a reward of 780.14 per episode and only completes the task once. In contrast, when faced with the unseen heavy rain condition, our model exhibits great generalization, achieving an average reward of 2031.25 per episode with a 56% success rate. When
+Fig. 10. Visualization of the road in the training cloudy noon (left) and the unseen heavy rain (right) weather condition.
+
+Authorized licensed use limited to: Universitat Autonoma De Barcelona. Downloaded on April 21,2025 at 05:19:49 UTC from IEEE Xplore. Restrictions apply. © 2024 IEEE. Personal use is permitted, but republication/redistribution requires IEEE permission.See https://www.ieee.org/publications/rights/index.html for more information.
+
+This article has been accepted for publication in IEEE Transactions on Intelligent Vehicles. This is the author's version which has not been fully edited and content may change prior to final publication. Citation information: DOI 10.1109/TIV.2024.3379367
+11
+
+TABLE 3 EVALUATION IN THE UNSEEN HEAVY RAIN WEATHER CONDITION. OUR
+METHOD AND BASELINE MODEL ARE TESTED UNDER NORMAL
+OBSERVATION AND ATTACKED OBSERVATION WITH EPSILON=0.05.
+
+Methods Baseline Normal
+Ours Normal Baseline Attacked
+Ours Attacked
+
+Average Reward 780.14±111.25 2031.25±283.47 764.71±103.88 1776.56±202.49
+
+Collision Rate 0.034±0.014 0.012±0.007 0.123±0.025 0.017±0.007
+
+Success Rate 0.01±0.02 0.56±0.08 0 0.42±0.07
+
+the adversarial perturbations are introduced, the performance of the baseline continues to fall to a collision rate of 0.123 and 0 task success. Our model stays resilient to the perturbed unseen scenario, scoring 1776.56 episodic rewards and 42% of success rate. In Fig. 11, the curves of the baseline in normal and attacked scenarios appear similar. This similarity suggests that the baseline model is already highly unstable due to weather changes. Consequently, adversarial attacks do not significantly escalate this situation.
+In summary, the proposed algorithm not only handles optimal adversarial attacks within the training weather but also demonstrates robust generalization in unforeseen scenarios, even in the presence of observation perturbations.
+
+Fig. 12. Training curve of the explainable attack detection model. We show the loss and the accuracy of the training and validation during the training phase.
+
+Fig. 13. Visualization of the explainable saliency maps for steer and throttle actions of a well-trained model and an under-trained model at the normal observation respectively.
+
+Fig. 11. Performance comparison in average accumulative reward category of the proposed method and the baseline in heavy rain weather condition.
+3) Attack Detection Evaluation and Explainability: We collect 2200 frames of synthetic data from CARLA by navigating using our trained proposed model. Out of the collected frames, 1100 represent normal, non-adversarial sensor observations, while the remaining 1100 are adversarial examples generated by stochastic adversaries with controlled ε ∈ [0.5, 1]. This range aligns with the parameters used in the evaluation of the robust agent. The saliency maps are then generated by computing the gradients of the outputs from the final convolutional layer within the feature extractor of the self-driving agent, with respect to the agent’s action outputs. We divide the data into 1700 samples for training and 500 samples for evaluation purposes. Fig. 12 illustrates the training progress of our adversarial detection network. After 20 epochs of training, the detector reaches an accuracy of 99.58% on the training set and 99.38% on the validation set.
+Furthermore, we visualize the saliency maps that are used in the adversarial detector training to explore the explainability behind the behaviors of the self-driving model. From Fig. 13, it is clear that the steer and throttle actions depend on distinct
+
+information derived from the sensory input observation. In the normal driving condition, the street lamp, functioning as an obstacle, notably influences the throttle actions. The saliency map of a under-trained agent produces highlight in different pixels of the heatmap. As focusing on the wrong objects, the agent generates non-optimal actions, leading to collisions during training. For the steer action, the open space and terrain have significant influence on this specific action generation.
+During the robust model evaluation, we notice that the driving policy is more vulnerable under adversarial perturbations in certain positions along the trajectories. The generated saliency maps confirm these findings in Fig. 14. We pinpoint two spots in the driving scenario that exhibit different potential vulnerabilities under identical perturbation strengths on both our proposed model and the baseline model. When the agent is at the potentially vulnerable position 1 and the camera observations are shown in (a) and (e), the adversaries significantly alter the action generation logic shown in (b) and (f). Consequently, both agents output actions deviating in large margin from the optimal and thus potentially leading to collisions. On the other hand, when the robust agent is at position 2, the steering saliency maps (c) and (d) show very similar heatmaps, indicating that the actions generated by our model are close enough whether the adversarial attacks are present or not. Note that this is also the objective of our divergence based optimization term. In contrast, the decisionmaking process in the baseline model is significantly affected by the same perturbation strength at the same position, as shown in (g) and (h). This suggests that the position 2, con-
+
+Authorized licensed use limited to: Universitat Autonoma De Barcelona. Downloaded on April 21,2025 at 05:19:49 UTC from IEEE Xplore. Restrictions apply. © 2024 IEEE. Personal use is permitted, but republication/redistribution requires IEEE permission.See https://www.ieee.org/publications/rights/index.html for more information.
+
+This article has been accepted for publication in IEEE Transactions on Intelligent Vehicles. This is the author's version which has not been fully edited and content may change prior to final publication. Citation information: DOI 10.1109/TIV.2024.3379367
+12
+
+Fig. 14. Steering saliency map comparisons between our proposed model and the baseline at two positions along the trajectories. We present saliency under normal and adversarial attacked observation with same strength.
+
+Fig. 15. Steering saliency map comparisons with the same observation and various adversarial attack strength ε.
+
+sidered invulnerable to the robust model remains potentially vulnerable to the baseline model due to the absence of our proposed robust optimized training.
+Fig. 15 demonstrates the changes to the decision process when the robust agent encounters adversarial attacks with different strengths. As expected, attack with ε = 0.01 produces very similar saliency map to the normal observation, implying that the agent stays resilient to this attack. For stronger attack with ε = 0.1, more changes in the saliency map can be seen. However, there is still similarity in the highlight, for example the left highlight keeps the same position. With the increase of ε to 0.1, the highlight part on the left starts to shift, signifying larger changes in the action’s magnitude. Besides the changes in the heatmap, we observe isolated spots that tend to appear predominantly on darker objects, such as the building and the hood of the ego vehicle in Fig. 15. These spots play the key role in distinguishing whether the observation is under adversarial attack for the attack detection network. The driving agent’s focus on the input observation appears to be distracted, causing a spreading of the highlight of the heatmap onto other objects in the scene and finally luring the agent to the suboptimal action generations.
+V. CONCLUSION
+In this paper, we introduce a novel approach for deep reinforcement learning based robust autonomous driving against observation perturbation with an explainable adversarial detection model. The realm of autonomous driving and decisionmaking models based on deep reinforcement learning is constantly challenged by safety issues arising from inevitable sen-
+
+sor failures or transitions between domains. These challenges bear a resemblance to adversarial attacks, as they potentially disrupt or compromise the agent’s ability to make accurate decisions in critical situations. To approximate the worst-case perturbation, we develop a white-box optimal method for generating adversaries, which has full access to the parameters of the RL agent model, enabling the creation of training samples for robust reinforcement learning. This method is based on fast gradient sign method (FGSM), incorporating with our collision risk maximum formulation. To more efficiently attack the RL agent, we use iteration on FGSM rather than simply enlarge the attack strength parameter ε to reduce the visibility of the adversarial examples. After obtaining the perturbated observation, we introduce a Markov decision process with perturbation to formulate the urban roundabout making for autonomous driving under constraint observation uncertainties. Furthermore, a divergence based optimization term is applied to mimic the performance gap between non-adversarial states and adversarial states. An adversarial attack detection network based on explainable saliency map is also introduced to enhance our understanding of the fundamental decision-making processes in the presence of adversarial attacks.
+We conduct experiments for each of the three components within our approach. The results demonstrate the notably high attack success rate achieved by our proposed method when applied to the well-trained baseline model. Furthermore, our proposed robust agent shows resilient and robust performance under such strong perturbation across various evaluation conditions. Moreover, our detection model attains high accuracy in detecting attacks and offers comprehensive visualizations,
+
+Authorized licensed use limited to: Universitat Autonoma De Barcelona. Downloaded on April 21,2025 at 05:19:49 UTC from IEEE Xplore. Restrictions apply. © 2024 IEEE. Personal use is permitted, but republication/redistribution requires IEEE permission.See https://www.ieee.org/publications/rights/index.html for more information.
+
+This article has been accepted for publication in IEEE Transactions on Intelligent Vehicles. This is the author's version which has not been fully edited and content may change prior to final publication. Citation information: DOI 10.1109/TIV.2024.3379367
+13
+
+aiding in understanding the decision-making process under
+attack scenarios.
+REFERENCES
+[1] Schulman J, Wolski F, Dhariwal P, et al. Proximal policy optimization algorithms[J]. arXiv preprint arXiv:1707.06347, 2017.
+[2] Chen J, Yuan B, Tomizuka M. Model-free deep reinforcement learning for urban autonomous driving[C]//2019 IEEE intelligent transportation systems conference (ITSC). IEEE, 2019: 2765-2771.
+[3] Wang C, Aouf N. Deep Reinforcement Learning based Planning for Urban Self-driving with Demonstration and Depth Completion[C]//2021 21st International Conference on Control, Automation and Systems (ICCAS). IEEE, 2021: 962-967.
+[4] Chen J, Li S E, Tomizuka M. Interpretable end-to-end urban autonomous driving with latent deep reinforcement learning[J]. IEEE Transactions on Intelligent Transportation Systems, 2021, 23(6): 5068-5078.
+[5] Kurakin A, Goodfellow I, Bengio S. Adversarial machine learning at scale[J]. arXiv preprint arXiv:1611.01236, 2016.
+[6] Madry A, Makelov A, Schmidt L, et al. Towards deep learning models resistant to adversarial attacks[J]. arXiv preprint arXiv:1706.06083, 2017.
+[7] Zhang H, Yu Y, Jiao J, et al. Theoretically principled trade-off between robustness and accuracy[C]//International conference on machine learning. PMLR, 2019: 7472-7482.
+[8] Behzadan V, Munir A. Whatever does not kill deep reinforcement learning, makes it stronger[J]. arXiv preprint arXiv:1712.09344, 2017.
+[9] Fischer M, Mirman M, Stalder S, et al. Online robustness training for deep reinforcement learning[J]. arXiv preprint arXiv:1911.00887, 2019.
+[10] Dosovitskiy A, Ros G, Codevilla F, et al. CARLA: An open urban driving simulator[C]//Conference on robot learning. PMLR, 2017: 1-16.
+[11] Arulkumaran K, Deisenroth M P, Brundage M, et al. Deep reinforcement learning: A brief survey[J]. IEEE Signal Processing Magazine, 2017, 34(6): 26-38.
+[12] Mnih V, Kavukcuoglu K, Silver D, et al. Playing atari with deep reinforcement learning[J]. arXiv preprint arXiv:1312.5602, 2013.
+[13] Sallab A E L, Abdou M, Perot E, et al. Deep reinforcement learning framework for autonomous driving[J]. arXiv preprint arXiv:1704.02532, 2017.
+[14] Wang C, Aouf N. Deep Reinforcement Learning based Planning for Urban Self-driving with Demonstration and Depth Completion[C]//2021 21st International Conference on Control, Automation and Systems (ICCAS). IEEE, 2021: 962-967.
+[15] Li D, Zhao D, Zhang Q, et al. Reinforcement learning and deep learning based lateral control for autonomous driving [application notes][J]. IEEE Computational Intelligence Magazine, 2019, 14(2): 83-98.
+[16] Zhu M, Wang Y, Pu Z, et al. Safe, efficient, and comfortable velocity control based on reinforcement learning for autonomous driving[J]. Transportation Research Part C: Emerging Technologies, 2020, 117: 102662.
+[17] Huang Z, Wu J, Lv C. Efficient deep reinforcement learning with imitative expert priors for autonomous driving[J]. IEEE Transactions on Neural Networks and Learning Systems, 2022.
+[18] Boloor A, Garimella K, He X, et al. Attacking vision-based perception in end-to-end autonomous driving models[J]. Journal of Systems Architecture, 2020, 110: 101766.
+[19] He X, Yang H, Hu Z, et al. Robust lane change decision making for autonomous vehicles: An observation adversarial reinforcement learning approach[J]. IEEE Transactions on Intelligent Vehicles, 2022, 8(1): 184193.
+[20] Behzadan V, Munir A. Vulnerability of deep reinforcement learning to policy induction attacks[C]//Machine Learning and Data Mining in Pattern Recognition: 13th International Conference, MLDM 2017, New York, NY, USA, July 15-20, 2017, Proceedings 13. Springer International Publishing, 2017: 262-275.
+[21] Pattanaik A, Tang Z, Liu S, et al. Robust deep reinforcement learning with adversarial attacks[J]. arXiv preprint arXiv:1712.03632, 2017.
+[22] Huang S, Papernot N, Goodfellow I, et al. Adversarial attacks on neural network policies[J]. arXiv preprint arXiv:1702.02284, 2017.
+[23] Kos J, Song D. Delving into adversarial attacks on deep policies[J]. arXiv preprint arXiv:1705.06452, 2017.
+[24] Lin Y C, Hong Z W, Liao Y H, et al. Tactics of adversarial attack on deep reinforcement learning agents[J]. arXiv preprint arXiv:1703.06748, 2017.
+[25] Puterman M L. Markov decision processes[J]. Handbooks in operations research and management science, 1990, 2: 331-434.
+[26] Goodfellow I J, Shlens J, Szegedy C. Explaining and harnessing adversarial examples[J]. arXiv preprint arXiv:1412.6572, 2014.
+
+[27] Kurakin A, Goodfellow I J, Bengio S. Adversarial examples in the physical world[M]//Artificial intelligence safety and security. Chapman and Hall/CRC, 2018: 99-112.
+[28] Madry A, Makelov A, Schmidt L, et al. Towards deep learning models resistant to adversarial attacks[J]. arXiv preprint arXiv:1706.06083, 2017.
+[29] Schulman J, Levine S, Abbeel P, et al. Trust region policy optimization[C]//International conference on machine learning. PMLR, 2015: 1889-1897.
+[30] Zhou Z, Liu G, Zhou M. A Robust Mean-Field Actor-Critic Reinforcement Learning Against Adversarial Perturbations on Agent States[J]. IEEE Transactions on Neural Networks and Learning Systems, 2023.
+[31] Csisza´r I, Ko¨rner J. Information theory: coding theorems for discrete memoryless systems[M]. Cambridge University Press, 2011.
+[32] Csisza´r I. I-divergence geometry of probability distributions and minimization problems[J]. The annals of probability, 1975: 146-158.
+[33] M. S. Lundberg and S.-I. Lee, “A unified approach to interpreting model predictions,” in Proc. Adv. Neural Inf. Process. Syst., 2017, pp. 4768–4777.
+[34] S.Shah,D.Dey,C.Lovett,andA.Kapoor,“AirSim:High-fidelityvisual and physical simulation for autonomous vehicles,” in Field and Service Robotics. Berlin, Germany: Springer, 2018, pp. 621–635.
+[35] Selvaraju R R, Cogswell M, Das A, et al. Grad-cam: Visual explanations from deep networks via gradient-based localization[C]//Proceedings of the IEEE international conference on computer vision. 2017: 618-626.
+[36] Mundhenk T N, Chen B Y, Friedland G. Efficient saliency maps for explainable AI[J]. arXiv preprint arXiv:1911.11293, 2019.
+[37] Aksoy E, Yazıcı A, Kasap M. See, attend and brake: An attention-based saliency map prediction model for end-to-end driving[J]. arXiv preprint arXiv:2002.11020, 2020.
+[38] Kim J, Bansal M. Attentional bottleneck: Towards an interpretable deep driving network[C]//Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition Workshops. 2020: 322-323.
+[39] Zhang K, Li L. Explainable multimodal trajectory prediction using attention models[J]. Transportation Research Part C: Emerging Technologies, 2022, 143: 103829.
+[40] P. Ye, H. Qi, F. Zhu and Y. Lv. Counterfactual Evolutionary Reasoning for Virtual Driver Reinforcement Learning in Safe Driving. IEEE Transactions on Intelligent Vehicles, 2023, 8(12): 4696-4705. DOI: 10.1109/TIV.2023.3322694
+[41] C. Park, G. S. Kim, S. Park, S. Jung and J. Kim. Multi-Agent Reinforcement Learning for Cooperative Air Transportation Services in CityWide Autonomous Urban Air Mobility. IEEE Transactions on Intelligent Vehicles, 2023, 8(8): 4016-4030. DOI: 10.1109/TIV.2023.3283235
+[42] He L, Aouf N, Song B. Explainable Deep Reinforcement Learning for UAV autonomous path planning[J]. Aerospace science and technology, 2021, 118: 107052.
+Chuyao Wang received the B.Eng. degree in electrical and electronic engineering from City University of London, London, U.K., in 2020. He is currently working toward the Ph.D. degree with the School of Science and Technology, City University of London, London, U.K.. He is a Member of the Robotics, Autonomy and Machine Intelligence (RAMI) Group under Prof. Aouf. His research interests include autonomous systems, perception and scene understanding, guidance and navigation, and autonomous vehicles.
+Nabil Aouf is currently the Lead of the Robotics and Machine Intelligence activities with City University of London, London, U.K. He leads the Robotics, Autonomy and Machine Intelligence (RAMI) Group. He has authored more than 180 publications of high calibre in his research areas, which include aerospace, information fusion and vision systems, guidance and navigation, tracking, and control and autonomy of systems. Prof. Aouf is an Associate Editor for four journals, including IEEE TRANSACTION JOURNAL.
+
+Authorized licensed use limited to: Universitat Autonoma De Barcelona. Downloaded on April 21,2025 at 05:19:49 UTC from IEEE Xplore. Restrictions apply. © 2024 IEEE. Personal use is permitted, but republication/redistribution requires IEEE permission.See https://www.ieee.org/publications/rights/index.html for more information.
+

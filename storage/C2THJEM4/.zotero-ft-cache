@@ -1,0 +1,287 @@
+Computer Methods and Programs in Biomedicine 221 (2022) 106857
+Contents lists available at ScienceDirect
+Computer Methods and Programs in Biomedicine
+journal homepage: www.elsevier.com/locate/cmpb
+
+ADRIS: The new open-source accessible driving simulator for training and evaluation of driving abilities
+S. Ricci a,b,∗, F. Gandolﬁ a, G. Marchesi a, A. Bellitto a,c, A. Basteris d, A. Canessa a, A. Massone c, M. Casadio a,b,c,∗
+a Department of Informatics, Bioengineering, Robotics, and Systems Engineering, University of Genova, Via Pastore 3, Genova 16132, Italy b Simulation and Advanced Education Center, University of Genova, Via all’Opera Pia 13, Genova 16145, Italy c Spinal Cord Italian Laboratory, Spinal Cord Unit, Santa Corona Hospital, ASL2 Savonese, Pietra Ligure, Italy d Health Informatics and Technology, The Maersk Mc-Kinney Moller Institute, University of Southern Denmark, Odense, Denmark
+
+article info
+Article history: Received 26 January 2022 Revised 2 May 2022 Accepted 4 May 2022
+Keywords: Driving simulator Virtual reality Open-source Customizable Various diﬃculties scenarios
+
+a b s t r a c t
+Background and objective: Independent living and transportation are crucial aspects for people living with a disability. After an injury, it is important to assess driving ability, in terms of physical and psychological conditions, and to test the effects of prescribed drugs. Within this framework, driving simulators are suitable tools for training driving skills; however, available tools are expensive or lack appropriate sets of behavioral measures to fully characterize the drivers’ ability. Methods: This work presents the ﬁrst step toward the development of ADRIS, a new open-source, accessible, realistic virtual reality simulator for training and testing driving skills of people with sensory-motor disability. This includes a prototype based on an open-source simulator for autonomous driving research (CARLA), with the addition of customized features such as adaptable driving controllers, a virtual reality headset, and the possibility to collect behavioral and physiological data. Also, the new system allows to set different environmental conditions, to include and control the timing of potentially dangerous situations, and to set scenarios with various diﬃculty levels. Results: Tests on 17 healthy participants demonstrated that the simulator is well tolerated in terms of discomfort, physical fatigue, and mental effort. Also, the system is easy to use and is capable of providing a realistic driving experience, allowing the extraction of reliable behavioral parameters. Conclusions: ADRIS combines a high-ﬁdelity virtual world, with customizable features speciﬁcally designed for the training and testing of people living with a disability, thus making it usable in many contexts such as home training, rehabilitation, education, and research.
+© 2022 Elsevier B.V. All rights reserved.
+
+1. Introduction
+Accessibility is a key principle, acknowledged by the United Nations, to enable individuals living with a disability to live independently and participate fully in all aspects of life [1]. Driving a car, allowing one to be independent in his/her own transport, is a potentially very helpful solution against social disability [2]. However, to resume driving is a complicated process, especially following a traumatic event, or in case of neurological and neurodegenerative diseases. In fact, these conditions might impair cognition, visual perception, and motor function, which can increase the risk of crashes by interrupting driver information processing at sev-
+∗ Corresponding authors at: Department of Informatics, Bioengineering, Robotics, and Systems Engineering, University of Genova, Via Pastore 3, Genova 16132, Italy.
+E-mail addresses: serena.ricci@edu.unige.it (S. Ricci), maura.casadio@unige.it (M. Casadio).
+
+eral levels (e.g., perception, attention to a stimulus, interpretation of the situation on the road, formulation of a plan, execution of an action, corrective actions) [3]. Also, drugs such as antidepressants or antiepileptics are often prescribed after neurological diseases or injuries. Their consumption, at certain dosages and only in some cases, could cause a dangerous attention disorder [4]. Assessing driving behaviors is also important for healthy individuals [5]: newly licensed drivers may not be as skilled as advanced ones, thus putting them at risk of road crashes [6]; skilled people may overestimate their abilities and lower their attentional level due to tiredness or external distractors [7]; elderly drivers could experience vision loss, resulting into lower reaction times and a higher risk of accidents [8].
+Even though the benchmark for assessing driving ability is onroad evaluation, simulators can offer an additional mean to practice and assess driving in a safe environment [9], while proposing the challenges that could be experienced in real life [10].
+
+https://doi.org/10.1016/j.cmpb.2022.106857 0169-2607/© 2022 Elsevier B.V. All rights reserved.
+
+S. Ricci, F. Gandolﬁ, G. Marchesi et al.
+
+Computer Methods and Programs in Biomedicine 221 (2022) 106857
+
+Driving simulation is largely used both in industry and in academia. In industry, it is used for dynamic evaluation, chassis and powertrain systems development, estimate of fuel consumption, road design, human machine interaction, and autonomous driving [11]. Simulators can be divided in two groups: (i) lowﬁdelity desktop simulators speciﬁcally designed for education; (ii) simulators having a more complex architecture, which combine one of more of the following components: vehicle dynamics model, visual, auditory, and haptic cues. Some of them also include motion cueing and kinematics algorithms and motion system to further increase the realism of the simulation [11].
+Overall, high-ﬁdelity driving simulators cost runs in the one hundred thousand dollar range, require large amounts of space and are hence not useful in a clinical environment, or for home training [12]. Also, most of them, are focused on physically replicating a real car [13], but the burden of transferring from wheelchair to the simulators´ seat is a highly restrictive barrier for people with motor disabilities [9].
+Another important but not yet completely fulﬁlled need, is the possibility to create and personalize scenarios with various diﬃculty elements [14,15]. Even if high-ﬁdelity simulators provide the possibility of creating and personalizing driving scenarios, these systems are usually designed to fulﬁll many different purposes at the same time (i.e., driver impairment, autonomous vehicles, energy system) [11], and are not optimized for the evaluation and training of people with disability [16]. Furthermore, an analysis of the driving simulators speciﬁcally designed for rehabilitation of driving skills, highlight that such systems are simple tools composed of a software application (either screen based or with HMDs) and driving controllers, that do not provide the possibility to create personalized scenarios [16] .
+The goal of this project is to develop ADRIS, an open-source, highly accessible, realistic virtual reality (VR) driving simulator, with programmable scenario speciﬁcally designed for people with disabilities. The system replicates the natural interaction between the user and physical world (steering wheels, button controllers), also providing patients the possibility to virtually drive in a variety of environments allowing them to practice driving freely during their hospital stay or at home. The system offers the possibility to use a VR head mounted display (HMD), also referred as VR headset, to increase the sense of being immersed in the environment and the subject’s engagement. Moreover, a semi-immersive version (e.g., curved screen) of the system has been developed to manage situations where the use of HMD is not possible (e.g., individual problems of the user with 3D immersive VR) or is not required. The user can be presented with many of the situations that may occur while driving, such as various daylight or weather conditions, pedestrians, or other vehicles unexpected moves. The simulation platform provides a variety of measures associated with driving and compliance with traﬃc rules, thus allowing the evaluation of the subject’s behavioral responses (e.g., reaction time). The system integrates the acquisition of bio signals to investigate the re-learning process and the compensatory/adaptive mechanisms that occurs during driving practice at the level of the muscle activation.
+Other than the HW/SW design and implementation steps, here it is presented the result of a preliminary test performed on a cohort of healthy impaired subjects aimed at determining: (i) users’ acceptance, realism and immersivity levels; (ii) workload of using a VR-based simulator; (iii) occurrence of motion sickness or any other discomfort; (iv) whether ADRIS can provide a realistic driving experience; (v) if the simulator guarantees the extraction of reliable behavioral parameters. This test was performed to verify if the system could be proposed to people suffering from sensorymotor disability, both for assessing and training of their driving
+
+skills, with the long-term goal to give them the prospect of returning to drive.
+2. Related work
+One of the main research areas is driving skills evaluation and training under different circumstances (e.g., alcohol or drugs consumption, occurrence of fatigue and sleepiness) [11]. As examples, Stough et al. [17], used using placebo and real drugs to assess that both MDMA and methamphetamine negatively affect driving performance using a driving simulator. Similarly, simulant and opiate drugs increase the occurrence of risky behaviors, resulting in a compromised driving ability [18]. Another study that investigates emotional and stress factor during driving, reported that older drivers underestimate stress levels, with respect to younger drivers [19].
+Driving rehabilitation and evaluation of driving skills in driver with sensorimotor disability have gained more importance in the last decades, as it has the potential to improve road safety and it is commonly recommended to those who, because of illness, accident, or injury, would like to drive again [20]. Pavlou et al. [21] discovered that drivers with spinal cord injury had a conservative driving behavior caused by self-awareness of their degraded driving performance. This attitude was characterized by a low average speed, and low variability of the average speed. However, another study reported that ﬁve sessions of simulator training can improve driving ability [22]. In general, studies comparing driving performance of people with disability with those of healthy controls agree that the former have a poorer performance [23,24].
+Typically, driving abilities are investigated by collecting performance data, subjective feedback and, more rarely, behavioral measures such as eye or head movements [11,25–27]. To the best of our knowledge, a few studies using driving simulators have also collected physiological data, mainly for detecting fatigue [28–31]. Schmidt and Bullinger [28] have used eye tracking, heart rate and skin conductance measurements; other groups instead measured cortical activity [29–31]. While fatigue has received considerable attention during the years, emotional state is still an open ﬁeld. Paschalidis et al. [32] collected heart rate, electrodermal activity, blood pressure and temperature to measure emotional states. Similarly, Rendon-Velez et al. [33] assessed the effect of time pressure by recording eye and head movements, as well as electrocardiogram, thorax expansion and limb movements.
+3. Methods
+3.1. Hardware
+The system integrates two types of commercially available controllers: a 4-axis Joystick (Logitech WingMan Attack 2) and a Pedals Steering Wheel PlayStation (Logitech G920 Driving Force Wheel; Fig. 1).
+Moreover, ADRIS includes two visualization devices: a 32-inch curved display (SAMSUNG LC32F391FWNXZA), and an immersive HMD (HTC Vive; HTC Taiwan) combined with a Leap Motion Controller (UltraLeap, USA), to track the user’s hands in real time, replicating them in the VR environment (Fig. 1). The simulator can be used also with additional controllers ranging from keyboard and mouse, up to adaptive driving aids, as well as with different HMDs (e.g., HTC Vive or Oculus).
+Finally, the simulator comprises a synchronization system allowing the simulator to be coupled with systems for the acquisition of biological data, such as brain (i.e., electroencephalography) and muscle activity (surface electromyography). During a preliminary study, real time electromyographic signals have been col-
+
+2
+
+S. Ricci, F. Gandolﬁ, G. Marchesi et al.
+
+Computer Methods and Programs in Biomedicine 221 (2022) 106857
+
+Fig. 1. Left: Hardware components of ADRIS. The simulator includes a computer connected to a driving controller (e.g., steering wheel and pedals, joystick) and a visualization device (screen or HMD). The software sends data to the external system for a synchronized acquisition of biological data. Right: Monitor version of ADRIS, used for the validation tests.
+
+lected (Fig. 1; surface EMG acquisition device: Cometa Wave Plus Wireless sEMG; Cometa systems, USA).
+3.2. Software
+ADRIS is based on the graphic engine Unreal Engine 4 (Epic Games Inc., North Carolina, US) and CARLA (Car Learning to Act [34]), an open-source simulator for autonomous driving research for urban driving developed by Intel Las, Toyota Research Institute and Computer Vision Center of Barcellona [34] CARLA is based on a client-server architecture, with the server being responsible for the entire simulation. With this architecture, it is possible to create different clients (i.e., cars), and to manage various scenarios or weather conditions. Also, CARLA provides several features that have been adapted to ﬁt the purpose of having a ﬁrst-person simulator. Among them, there is Traﬃc manager which is the module controlling vehicles inside the simulation. Traﬃc manager has the goal to populate the simulation world with multiple vehicles that can either run with autopilot or can be used to develop a speciﬁc task in a scenario (i.e., a vehicle suddenly stopping, or running the red light) [34]. Other useful modules are Scenario Runner that provides urban, rural, and other traﬃc scenarios (see below) and OpenSCENARIO describing synchronized maneuvers that involve multiple vehicles, pedestrians, traﬃc lights and traﬃc rules [34].
+Starting from Unreal Engine and CARLA, ADRIS has been developed by adding the following features (Fig. 2): (i) a ﬁrst-person player module that enables to use the car as a ﬁrst-person driver; (ii) a VR module which makes the simulator usable with HMD; (iii) a car module managing the main components of the car (i.e., controllers and car sounds). (iv) an input/output interface to control the car and send synchronization signals to the biological data acquisition system.
+The main vehicle is characterized by its own movement physics, including motor brakes, steering angle, and activation curves. Also, it is possible to change the seat’s position and to perform a 20° side view, as well as a 10° rotation for the monitor version, that, respectively replicate the left/right movements and the back rotation of the driver’s head. In addition, a Heads-up Display showing velocity, gear, and x, y axes for the joystick drive is included in the vehicle.
+Regarding the VR module, ADRIS has implemented the FirstPerson camera for VR mode. The blueprint of the new camera ﬁrst enables the HMD, then it tracks the eye level and sets the relative
+
+location of the camera. The VR conﬁguration includes also Leap Motion Controller to track the user’s hands in real time.
+After having implemented the main components of the simulator, new blueprints have been added to manage the following props: (i) driving controllers replicating the movements of real controllers into the virtual world; (ii) realistic sounds varying according to whether the car moves or stops (namely, engine sound, handbrakes, gears change, horn, and environmental noises); (iii) input/output interface; (iii) data savings. The input/output interface is the core of the ﬂexibility of the simulator, allowing to use different types of driving controllers. As soon as all the drivers are installed on the graphic engine, it is possible to associate keys and axis, thus making the controller usable with the simulator. Data savings includes x-y-z location of the vehicle (sampling frequency 30 Hz); biological data (EMG activity of 14 muscles; sampling frequency 2 kHz); driving performance, namely the distance driven, duration of the simulation, number of collisions and infractions (i.e., running red lights; running stop signs; lane crossings).
+3.3. Driving scenarios
+As mentioned above, the driving scenarios can be created by using the Scenario Runner tool. All the information about a new scenario (name of the session, road type, weather, light conditions, etc.) is contained in an XML ﬁle, which is checked by Scenario Manager, prior to starting the simulation. In addition, Scenario Runner has been edited by adding a new log system. As soon as the simulation starts, the log system sends a trigger signal to synchronize the simulation with external acquisition systems (e.g., the EMG); then, at each time frame, the timestamp and location of the vehicle are saved in a ﬁle. In addition, information about the driving performance and the distractors are stored for subsequent analyses, and each simulation is recorded via CARLA for replays.
+The combination of Unreal Engine 4 and CARLA, allows to create maps, vehicles, and pedestrians, to assign routes and autopilot to vehicles. Moreover, CARLA offers a set of Python nodes to generate new simulation scenarios, change the weather settings and lights conditions and spawn a selected number of cars in the scene. In addition, customized road geometries can also be added by using external editors such as Road Runner (Matworks), that is an interactive editor to design 3D scenes to simulate and test autonomous driving systems. With this software, it is possible to customize a road plan by adding 3D elements, create new maps, signals, and other signage. Also, Road Runner imports lidar point
+
+3
+
+S. Ricci, F. Gandolﬁ, G. Marchesi et al.
+
+Computer Methods and Programs in Biomedicine 221 (2022) 106857
+
+Fig. 2. Software diagram. White boxes indicate existing modules (i.e., CARLA simulator and Unreal Engine). Yellow boxes deﬁne customized ones, designed for ADRIS. From left to right: VR module to use the simulator with HMD; ﬁrst-person player module for using the ego vehicle; input output interface to control the car and send synchronization signals; car module that runs controllers and car sounds.
+
+Table 1 Main features of the nine training scenarios.
+
+Scenario Main Event
+
+1.1
+
+Object in the street
+
+1.2
+
+Doubtful car at stop
+
+1.3
+
+Damaged car in the street
+
+2.1
+
+Car running yellow traﬃc light
+
+2.2
+
+Bike crossing the street after turn
+
+2.3
+
+Car running red traﬃc light
+
+3.1
+
+Blackout (no environment lights)
+
+3.2
+
+Object in a small street
+
+3.3
+
+Bike crossing the street after junction
+
+Visibility
+Mid-day, Sunny Mid-day, Cloudy Mid-day, Cloudy Mid-day, Cloudy Sunset, Sunny Night, Cloudy Night, Cloudy Night, Rainy Night, Foggy and Rainy
+
+Traﬃc
+Low Low Low Medium Medium Medium High High High
+
+cloud, aerial imagery, and Geographic Information System Mapping (GIS) data to recreate exiting maps, and allows to set and conﬁgure traﬃc light times, phases, and vehicle routes at intersections.
+To test the system, nine custom designed scenarios (Table 1) organized in three levels (i.e., three scenarios for each level) with various diﬃculty in terms of route complexity, visibility, and trafﬁc condition (Table 1; Fig. 3) were used. Each scenario has a main event happening at the beginning, in the middle or at the end of the simulation, and minor events along the entire simulation. Main events include a car passing through a red traﬃc light, a cyclist crossing the road or an object blocking the street (Table 1); minors are traﬃc at a junction, other cars making unexpected maneuvers, red lights, junctions to cross, stop signs or traﬃc to be managed. The ﬁrst level is based on a map characterized by 4lane roads, a residential 2-lane road, various traﬃc lights with a big junction and a tunnel. It also has a roundabout in the center of the map (Fig. 3; Table 1). The second level takes place in a medium traﬃc urban setting with 2-lanes roads and an 8-lane expressway (Fig. 3; Table 1). The third level is characterized by a rural scenario without horizontal signs and by narrow roads (Fig, 3; Table 1).
+3.4. Subjects
+For this study, 17 people (average age: 26.06 SD: 4.02 years; 10 females) participated in one experimental session. Inclusion criteria were to have a driving license and no known history of orthopedical injuries or neurological disorders. None of the participants played videogames daily, and 7 of them played videogames
+
+a couple of hours a month. 13 out of 17 subjects drove less than 4 h a week and three participants drove more than 1 h a day. Finally, 3 subjects wore glasses, and 4 participants suffered from car sickness in real life. The study was approved by the Institutional Review Board of the Department of Informatics, Bioengineering, Robotics and Systems Engineering (DIBRIS), University of Genoa, Genoa, Italy (code CE DIBRIS protocol - 009/2020 approved on 18/05/2020) and conformed to the ethical standards of the 1964 Declaration of Helsinki. Each subject provided written informed consent to participate in the study and to publish individual data.
+3.5. Experimental design
+The experimental sessions used the monitor version of ADRIS (i.e., with 32-inch curved monitor as a visualization device; Fig. 1) and the pedals and steering wheels as controllers. As a ﬁrst step, each participant ﬁlled out a background questionnaire to assess if he/she meets the inclusion criteria and to give consent to take part into the study.
+The questionnaire included questions about driving habits, video-game use, vision deﬁcits and corrections, and car sickness in real life. During the experiment, the activity of 14 muscles has been recorded (bilaterally triceps brachii, biceps brachii, brachioradialis, ﬂexor carpi ulnaris, trapezius descendens, latissimus dorsi and right-side tibialis anterior and soleus; Fig. 4). The EMG electrodes were positioned according to the guidelines of SENIAM (Surface EMG for Non-Invasive Assessment of Muscles, seniam.org), which is a European project on surface EMG.
+
+4
+
+S. Ricci, F. Gandolﬁ, G. Marchesi et al.
+
+Computer Methods and Programs in Biomedicine 221 (2022) 106857
+
+Fig. 3. Top: Examples of the free ride (left) and three scenarios. Arrows show the path the user must follow during the tests. Bottom: screenshots from the simulator. Left: a daylight scenario (Test Level 1.1) during which an obstacle should be avoided. Right: a nightlight scenario (Test Level 3.3) with low visibility due to the fog and rain.
+
+Fig. 4. Positioning of the sEMG electrodes.
+
+To test the usability of the simulator, the authors created a pipeline which includes driving sessions with various diﬃculty elements (Fig. 5). Firstly, the subject was required to use the simulator for the ﬁrst time to both drive in an empty parking and to follow a leading vehicle for 2 min keeping a speed of 40 Km/h (familiarization phase). The protocol consisted of a free ride ses-
+
+sion, namely, the user is required to freely explore the scene following traﬃc laws, for either 1 km or 5 min, whatever occurred ﬁrst. Then, participants underwent the nine tests described in the Driving Scenario Session (Table 1), such that they drive for either 1 km or 6 min. As each one is characterized by a predetermined route to follow, where facing speciﬁc hazardous situations, the ex-
+
+5
+
+S. Ricci, F. Gandolﬁ, G. Marchesi et al.
+
+Computer Methods and Programs in Biomedicine 221 (2022) 106857
+
+Fig. 5. Pipeline of the experiment. Subject is equipped with EMG sensors, then he/she undergoes a familiarization phase consisting in following a vehicle, a free ride session (i.e., the driver freely explores the scene), 3 tests with various diﬃculty levels, and a ﬁnal free ride. At the end, participants are required to ﬁlled out three questionnaires to assess motion sickness, workload perception and sense of presence.
+
+perimenter acted as a “navigation system”. In other words, the experimenter told the user, in real time, where to go, as the participant did not know about the maps in which the simulation took place, and the route to follow. The experiment ended with a ﬁnal free ride scenario identical to the ﬁrst one (Fig. 5). This way we could assess whether the user changed his/her behavior, for instance by increasing the speed, reducing the number of infractions, or changing the route, because of the training with the simulator.
+After the experiment, subjects ﬁlled out three questionnaires: (i) Simulator Sickness Questionnaire [35] (SSQ) to assess motion sickness during the use of the simulator; (ii) NASA Task Load Index [36] (NASA TLX) to investigate subjective workload perception; (iii) Igroup Presence Questionnaire [37] (IPQ) to determine the users’ sense of presence inside the VR.
+3.6. Data analysis
+Starting from trajectory data of the vehicle provided by the simulator (x,y,z; sampling frequency 30 Hz), the average and maximum speed has been computed off-line by applying a Savitzky–Golay ﬁlter and its standard deviation. For each scenario, the simulator collected the number of collisions (either with other vehicles or with objects and buildings) and the number of infractions (i.e., wrong lane, running red light, running stop sign). As the data were not normally distributed (Kolmogorov-Smirnov tested), Mann U-Whitney tests between the ﬁrst and the last test’s indices has been performed to investigate practice-related changes.
+EMG data were recorded at 2 kHz; raw signals were ﬁrst bandpass-ﬁltered between 40 and 450 Hz by using a ninth-order band pass Butterworth ﬁlter, then rectiﬁed and low-passed ﬁltered (fourth-order Butterworth ﬁlter, cut-off frequency 4-Hz) to obtain the envelope. Finally, each signal was normalized by its maximum value to make it comparable across different muscles and subjects [38,39]. All analyses were performed using custom developed software written in Matlab (Mathworks Massachusetts, USA; version 2020b).
+
+4. Results
+4.1. Questionnaires
+Results from the SSQ questionnaire report no general discomfort (general discomfort median 1, range: [1–2]; Fig. 6a). No signs of motion sickness symptoms have been detected (nausea: 1, [1–3]; stomach awareness: 1, [1 – 2]; vertigo: 1, [1 – 3]; sweating: 1, [1–3]; increased salivation: 1, [1–3]; burping: 1, [1–2]; diﬃculty concentrating: 1, [1–4]; diﬃculty focusing: 2, [1–4]; headache: 1, [1–4]; dizziness: 1, [1–3]; Fig. 6a). As expected, three out 17 subjects reported a moderate level of eyestrain (median: 2; [1–7]) and blurred vision (1; [1–6]), although most of the participants did not experience any vision related discomfort.
+The NASA TLX survey reported no signs of physical fatigue (1; [1–3]; Fig. 6b) and a moderate level of mental effort (mental demand: 4; [1–6]; overall effort 3; [1–7]; Fig. 6b). Two out of 17 subjects reported a sensible level of frustration in performing the experiment (2; [1–6]). Score on subjective performance ranged from 1 to 8 (6; Fig. 6b).
+The last questionnaire was the IPQ to test the subjective sense of being in a virtual environment (Fig. 6c). The ﬁrst question asked was about the realism of the world surrounding the user: nine out of 17 reported that the virtual world felt irreal (score <5; median and range of all the responses: 4 [1–7]). Similarly, half of the participants did not ﬁnd the simulation coherent with the real experience (score <5 n = 8; median and range of all the responses: 5 [2–8]). This is probably because the experiments were run in a lab with the monitor version that might have affected the overall realism of the simulation. Interestingly, 11 subjects felt surrounded by the virtual world (score >5; median and range of all the responses: 6 [4–8]) and were fascinated and engaged by the simulation (median and range of all the responses: 7 [3–9]). Also, 14 drivers felt present in the virtual world (score >5; median and range of all the responses: 6 [4–8]) and rated positively its quality (median and range of all the responses: 7 [3–9]).
+
+Fig. 6. Results of the questionnaire. a. Simulator Sickness Questionnaire; b. NASA Task Load Index; c. Igroup Presence Questionnaire. Filled lines show the median of the responses, dotted lines indicate the minimum and maximum score for each question. Users rate each parameter on a scale ranging from 1 to 10, with 1 being low agreement with the question and 10 a complete agreement.
+6
+
+S. Ricci, F. Gandolﬁ, G. Marchesi et al.
+
+Computer Methods and Programs in Biomedicine 221 (2022) 106857
+
+Fig. 7. Performance indexes. a. Mean Speed; b. Average Speed; c. Speed variability. All these indices were computed only considering when the car was moving (i.e., speed > 5 km/h). d. Number of infractions. Black dots and bars represent the mean and standard error of the mean for the free ride (FR) scenarios, gray ones indicate the test (3 levels with 3 scenarios each). ∗p < 0.05.
+
+4.2. Performance
+On average, participants drove 11.5 ± 0.4 km (mean ± STD) in less than an hour (55 ± 4 min), due to the large amount of traﬃc lights requiring to stop multiple times. Data of all subjects have been averaged to establish whether practice related effects occurred. Visual inspection of the data shows that max and mean speed (considering only when the car was moving; i.e., speed > 5 Km/h) were the highest in the second training (expressway; Fig. 7a,b), together with the speed variability (Fig. 7c), which indicates whether the driver maintained the same speed during the driving. Finally, analysis on infractions suggests that infractions augment in a low signalized scenario (Fig. 7d). Interestingly, the number of infractions signiﬁcantly decreased with practice (pretest: 1.54 ± 1.45 posttest: 0.69 ± 0.95; p = 0.042; Fig. 7d).
+4.3. EMG
+The muscle strategy was not expected to be unique for all the subjects for two reasons: (i) driving is subjective in terms of positioning and behaviors (some drivers are calm and relaxed, while others can be rush drivers); (ii) even though simulations occur in the same scenario, participants could have experienced different driving conditions due to their own speed (e.g., red or green light; being the ﬁrst car at a junction or having to wait for the other cars to cross it). Indeed, muscular activity at this stage should be ana-
+
+lyzed on a single subject basis. Fig. 8 shows the muscle activity of a representative subject for the whole duration of a single scenario. As expected, the anterior tibialis was the most used muscle, as it is involved for accelerating. Similarly, the right soleus was responsible for a sudden braking (Fig. 8, top panel). The latissimi dorsi had almost a constant activity for the whole duration without variations. Differently, the arm muscles and the trapezii had activations likely due to curves in the path. In particular, the representative subject seems to mainly use the left arm to accomplish the curves (Fig. 8, bottom panel).
+5. Discussion
+VR represents an attractive option to consistently study relearning processes by replicating situations that users usually experience while driving in the real world [9]. Experimentally, VR brings ease in creating controlled and safe, yet complex and dynamic environments and extends the capabilities that the realworld limits. In the context of neurorehabilitation, VR can be used to promote cognitive and motor functional recovery [40]. The beneﬁts of VR rehabilitation have been suggested to result from enhanced motor learning and retention [41]. Overall, interactions in VR maximize motor and cognitive abilities simultaneously (e.g., requiring planning, attention, information processing of stimuli in the virtual environment, sensory integration) [42].
+
+7
+
+S. Ricci, F. Gandolﬁ, G. Marchesi et al.
+
+Computer Methods and Programs in Biomedicine 221 (2022) 106857
+
+Fig. 8. Normalized sEMG activity of 14 muscles and velocity of a representative subject during a free drive scenario. The top panel reports a 10 s zoom of the soleus and tibialis activity resulting from a sudden braking. The bottom panel display a 5-second zoom corresponding to a left turn, also visible in the xy trajectory of the car with the green circle and the red cross being, respectively the starting and end points.
+
+Within this framework, the authors designed and implemented ADRIS, an open-source ﬁrst person view driving simulator to promote the return to driving of people with disability, and to assess their ﬁtness to drive. The system is based on the integration of an adapted open-source simulator for autonomous driving (CARLA) with customized addons.
+Other than CARLA, other research groups have been developed open-source automated driving simulators. In fact, driving simulators can be used for many different applications. Among them, there is autonomous driving which is becoming more important in the last years. As an example, Schroeter et al. [43] combined 180-degrees videos of real roads with a virtual car into a tool for designers and developers to rapidly prototype and test novel incar interfaces and experiences. Indeed, this system does not allow interactions between the end user and the driving scenario [43]. Conversely, Riegler et al. [44] developed an immersive simulator for testing different types of human-computer interactions during autonomous driving. As for ADRIS, interactions between the driver and the car are possible by using driving controllers, as well as head, hands and gaze movements [44], even though the user is required to drive only when the autonomous driving system is not capable to do so. Indeed, neither performance nor physiological data are collected during the simulation [44].
+The most innovative aspects of ADRIS concern the combination of a high-ﬁdelity virtual world, as the one used in CARLA, with features speciﬁcally designed for the training and testing of people with disability. This includes the possibility to use adapted controllers, other than commercial driving sets. Also, the simulator can be used with either semi-immersive or immersive visualization devices, thus making it usable in many contexts such as home training, rehabilitation, education, and research. Of notice, the driving scenarios are highly customizable in terms of traﬃc volume, road type, visibility, and distractors. Familiar driv-
+
+ing paths, such as home neighbors or roads that people must learn, can be replicated by using interactive editors for 3D scenes (e.g., RoadRunner, Matworks). Within these maps, it is possible to set distractors, specifying the timing and the location of the event.
+Finally, this study presents the ﬁrst step toward the development of a new driving simulator that provides behavioral (i.e., trajectory, number of collision and number of infractions) and biological measures (e.g., EMG in the current version). Also, additional measures such as mean and max speed can be computed oﬄine and can be used to assess the performance and the degree of driving skill of the user.
+This is particularly interesting because it will allow, in future studies, to investigate different aspects of driving ability and deﬁne indices and metrics to measure: (i) effects of medication in driving behaviors and subjects’ ﬁtness to drive [45]; (ii) re-learning processes and the compensatory/adaptive mechanisms that occurs during driving [46].
+Preliminary results on healthy unpaired subjects, whose main purpose was to test the usability of the system, suggest that the system is well tolerated in terms of physical distress, as supported by users’ feedback (Fig. 6). Interestingly, prior to the experiment we collected information about car sickness and 4 out of 17 participants suffer car sickness in “real life”. Luckily, this was not the case during the simulation, as reported by the SSQ questionnaire. This may be related to two aspects: on one hand, motion sickness tends to be lower when the person drives [47]. On the other hand, using a monitor may mitigate simulator sickness. Monitors delivered monoscopic images, as opposed to VR headset presenting stereoscopic images. As the stereoscopic content seems more realistic, it can also produce a greater discrepancy between expected and perceived sensory information, thus leading to VR sickness [48].
+
+8
+
+S. Ricci, F. Gandolﬁ, G. Marchesi et al.
+
+Computer Methods and Programs in Biomedicine 221 (2022) 106857
+
+Results on the NASA Task Load Index, used to investigate subjective workload perception show a moderate level of effort, mental and temporal demand, thus suggesting that additional sessions of training can be required to make the user familiar with the technology used (i.e., simulation environment, controllers), as also reported by studies assessing the validity of mental workload measures in a driving simulation environment and comparing it with real driving [13,49]. This consideration is further supported by behavioral data reporting that the simulator is coherent with a real experience, albeit with some differences. In general, the users were slower than they would be in real life. As an example, the maximum speed in the second level is on average lower than 75 km/h (Fig. 7), even though the scenario takes place in an expressway. This can indicate that the participants were not familiar with VR application, given also the fact that they do not play video games often [50]. Another possibility is that one hour of driving is not enough to be familiar with a new car and a new scenario, as it would be in real life. Indeed, the lower number of infractions at the end of the session, proposes the idea that participants need practice to feel comfortable with the simulation.
+5.1. Limitations
+This study presents the ﬁrst step toward the development of a new driving simulator for training and testing driving skills of people with sensory-motor disability. Despite the different combinations of hardware that can be generated to use the simulator (e.g., monitor version with joystick controller and brain activity data collection, or VR headset, with steering wheel and EMG recording), only the monitor version, with pedals and steering wheel controllers and EMG, has been tested. This choice was made to test the user experience and to collect homogenous data; however, to conﬁrm the preliminary results, all the combinations should be tested in the future. For the same reason, the study should be replicated in a larger sample of users with different age, experience with technology and in a further step with people with different motor and cognitive abilities. Currently, we have tested the system on 17 healthy unimpaired participants aged 22 to 38 years, recruited among the students and staff of the University of Genoa, Italy. Prior to use the tool presented, more research and validation studies are required, also involving people with different ages, as well as people with sensorimotor disabilities.
+5.2. Future work
+The current version of ADRIS has been tested with custom designed pre-deﬁned scenarios, as the main goal was to assess the usability of the simulator as a training and evaluation tool. However, in the future, the simulator will integrate an interface to both select pre-existing scenarios designed with therapists and clinicians, and to create their own scenes. This way, it would be possible to provide a fully personalized experience (i.e., by letting the user to drive in familiar areas, where he/she will exploit daily activities).
+Another important future development will be to investigate the best ﬁeld of view needed to provide a realistic driving experience. The current version of ADRIS shows a ﬁeld of view of 114 that was chosen to see the road and be present into the simulation when a curved monitor is used. However, in the future, it would be interesting to also provide a three-screen conﬁguration, thus, making the simulator more versatile. In particular, the curved-monitor version could be used for daily training or at home, while the three-screen conﬁguration might be installed in rehabilitation or research center to assess driving skills.
+Notably, it will be important to collect simultaneously several parameters, associated with driving and compliance with traﬃc
+
+rules. These include speed, acceleration, lane variation, errors, driving performance, braking behavior, that should be coupled and related to attention, reaction time, eye ﬁxation, mental workload, and physiological measures. Indeed, these metrics will allow the evaluation of subject’s behavioral responses from which to assess the performance and the degree of driving skill of the subject with sensorimotor disability, the effect on driving of medications, the subject ﬁtness to drive and the occurrence of cognitive deﬁcits. The integration of different bio-signals (e.g., pupillary response, electrocardiogram, skin conductance) will allow to unmask the timely contribution of anxiety, arousal, and fear to drive. In addition, the simulator should be adapted for being used by people with different motor impairments, who may need customized hand controls, equal to those they will use during real driving.
+Lastly, to have a new tool useful and effective for training and evaluating driving skills, a validation study will be ﬁnalized. The validation of driving simulators is an open research topic, as no standardized method has been provided so far [13]. Systems validation includes: ﬁdelity assessment of the software and the visualization device; reliability, namely the ability of a simulator to report consistent results over time; validity, that is the capability to accurately represent a real-world driving experience [13]. Validity can be absolute if the behavioral parameters collected during the simulation match those of real driving, or relative if the simulators results show the same patterns as real driving (i.e., it can be deﬁned some correlations between simulated and real driving behaviors [13]). Within this framework, it will be important to carefully design the validation study in terms of experimental design, measures to analyze and participant factors, eventually proposing a validation approach usable with other simulators.
+6. Conclusions
+ADRIS is a prototype of a driving simulator combining highﬁdelity driving scenarios, with customizable features such as adaptable driving controllers, a VR headset, and the possibility to collect behavioral and physiological data. The simulator has been designed and developed to train and test the driving skills of populations with different needs: people with sensorimotor disability, new or elderly drivers; individuals with attentional deﬁcits; people taking medications, with the long-term goal to assess driving ability in an objective and standardized way and provide an adaptive customizable tool for training.
+Declaration of Competing Interest
+The author(s) declare no competing interests.
+CRediT authorship contribution statement
+S. Ricci: Visualization, Data curation, Formal analysis, Writing – original draft. F. Gandolﬁ: Visualization, Software, Data curation, Formal analysis. G. Marchesi: Data curation, Formal analysis. A. Bellitto: Writing – original draft. A. Basteris: Conceptualization. A. Canessa: Visualization, Formal analysis. A. Massone: Conceptualization. M. Casadio: Conceptualization, Visualization, Formal analysis, Writing – original draft.
+Acknowledgments
+We thank the municipality and the local oﬃce of Loano (Savona, Italy), Dal Bo Mobility, Abilitando onlus, Amelotti Maria Giuliana, Berto Luca and Gimelli Alessandro for their support. This work was partially supported by the European Union, program Erasmus+ KA220-SCH-BC3E99EA Cooperation partnerships in school education, ROaD EducatiOn; by the operative program
+
+9
+
+S. Ricci, F. Gandolﬁ, G. Marchesi et al.
+POR FSE Regione Liguria 2014-2020 ARGE17-992/6/1 (GM); and by the European Union, PON Ricerca e Innovazione 2014-2020 D35F21002300007 (SR).
+References
+[1] D. MacKay, The United Nations convention on the rights of persons with disabilities, Syracuse J. Int’l L. Com. 34 (2006) 323.
+[2] B.E. Dicianno, et al., Systematic review: automated vehicles and services for people with disabilities, Neurosci. Lett. 761 (2021) 136103.
+[3] E.Y. Uc, M. Rizzo, Driving and neurodegenerative diseases, Curr. Neurol. Neurosci. Rep. 8 (2008) 377–383.
+[4] L.L. Hill, et al., Depression, antidepressants and driving safety, Inj. Epidemiol. 4 (2017) 10.
+[5] N. Sharma, T. Gedeon, Objective measures, sensors and computational techniques for stress recognition and classiﬁcation: a survey, Comput. Methods Programs Biomed. 108 (2012) 1287–1301.
+[6] B.C. Banz, J.C. Fell, F.E. Vaca, Complexities of young driver injury and fatal motor vehicle crashes, Yale J. Biol. Med. 92 (2019) 725–731.
+[7] R.N. Khushaba, S. Kodagoda, D. Liu, G. Dissanayake, Muscle computer interfaces for driver distraction reduction, Comput. Methods Programs Biomed. 110 (2013) 137–149.
+[8] A.J. Palumbo, M.R. Pfeiffer, K.B. Metzger, A.E. Curry, Driver licensing, motor-vehicle crashes, and moving violations among older adults, J. Saf. Res. 71 (2019) 87–93 .
+[9] Q. Hussain, et al., Speed perception and actual speed in a driving simulator and real-world: a validation study, Transp. Res. Part F Traﬃc Psychol. Behav. 62 (2019) 637–650.
+[10] K.N. Randall, J.B. Ryan, J.N. Stierle, S.M. Walters, W. Bridges, Evaluating and enhancing driving skills for individuals with intellectual disabilities through simulator training, Focus Autism Other Dev. Disabl. 36 (3) (2021) 1088357620985458.
+[11] L. Bruck, B. Haycock, A. Emadi, A review of driving simulation technology and applications, IEEE Open J. Veh. Technol. 2 (2020) 1–16.
+[12] D. Serje, E. Acuña, Driving and ﬂying simulators: a review on relevant considerations and trends, Transp. Res. Rec 267 (3) (2021) 03611981211052963.
+[13] R.A. Wynne, V. Beanland, P.M. Salmon, Systematic review of driving simulator validation studies, Saf. Sci. 117 (2019) 138–151.
+[14] H. Maxwell, B. Weaver, S. Gagnon, S. Marshall, M. Bedard, The validity of three new driving simulator scenarios: detecting differences in driving performance by diﬃculty and driver gender and age, Hum. Factors 63 (8) (2021) 0018720820937520.
+[15] B. Dimech-Betancourt, P.E. Ross, J.L. Ponsford, J.L. Charlton, R.J. Stolwyk, The development of a simulator-based intervention to rehabilitate driving skills in people with acquired brain injury, Disabil. Rehabil. Assist. Technol. 16 (2021) 289–300.
+[16] F. Weidner, A. Hoesch, S. Poeschl, W. Broll, Comparing VR and non-VR driving simulations: an experimental user study, in: Proceedings of the IEEE Virtual Reality (VR), 2017, pp. 281–282. IEEE.
+[17] C. Stough, et al., The acute effects of 3, 4-methylenedioxymethamphetamine and methamphetamine on driving: a simulator study, Accid. Anal. Prev. 45 (2012) 493–497.
+[18] A. Nahvi, M. Hajirasouli, H. Naseri, K. Lotﬁ, M. Niknejad, Effects of stimulant and opiate drugs on driver behavior during lane change in a driving simulator, Travel Behav. Soc. 4 (2016) 69–78.
+[19] Y. Zhao, T. Yamamoto, R. Kanamori, Study of older male drivers’ driving stress compared with that of young male drivers, J. Traﬃc Transp. Eng. 7 (2020) 467–481.
+[20] C.A. Unsworth, A. Baker, Driver rehabilitation: a systematic review of the types and effectiveness of interventions used by occupational therapists to improve on-road ﬁtness-to-drive, Accid. Anal. Prev. 71 (2014) 106–114.
+[21] D. Pavlou, et al., Which are the critical measures to assess the driving performance of drivers with brain pathologies? Transp. Res. procedia 14 (2016) 4393–4402.
+[22] W.H. Sung, T.Y. Chiu, W.W. Tsai, H. Cheng, J.J. Chen, The effect of virtual reality-enhanced driving protocol in patients following spinal cord injury, J. Chin. Med. Assoc. 75 (2012) 600–605.
+[23] H.L. Lew, et al., Predictive validity of driving-simulator assessments following traumatic brain injury: a preliminary study, Brain Inj. 19 (2005) 177–188.
+[24] I. Milleville-Pennel, J. Pothier, J.M. Hoc, J.F. Mathé, Consequences of cognitive impairments following traumatic brain injury: pilot study on visual exploration while driving, Brain Inj. 24 (2010) 678–691.
+
+Computer Methods and Programs in Biomedicine 221 (2022) 106857
+[25] C.D. Fitzpatrick, S. Samuel, M.A. Knodler, Evaluating the effect of vegetation and clear zone width on driver behavior using a driving simulator, Transp. Res. Part F Traﬃc Psychol. Behav. 42 (2016) 80–89.
+[26] J. Xu, J. Min, J. Hu, Real-time eye tracking for the assessment of driver fatigue, Healthc. Technol. Lett. 5 (2018) 54–58.
+[27] J. Schmidt, C. Braunagel, W. Stolzmann, K. Karrer-Gauß, Driver drowsiness and behavior detection in prolonged conditionally automated drives, in: Proceedings of the IEEE Intelligent Vehicles Symposium (IV), 2016, pp. 400–405. IEEE.
+[28] E. Schmidt, A.C. Bullinger, Mitigating passive fatigue during monotonous drives with thermal stimuli: insights into the effect of different stimulation durations, Accid. Anal. Prev. 126 (2019) 115–121.
+[29] Y. Ma, et al., Driving fatigue detection from EEG using a modiﬁed PCANet method, Comput. Intell. Neurosci. (2019) 4721863, doi:10.1155/2019/4721863.
+[30] J. Min, P. Wang, J. Hu, Driver fatigue detection through multiple entropy fusion analysis in an EEG-based system, PLoS One 12 (2017) e0188756.
+[31] C. Zhao, M. Zhao, J. Liu, C. Zheng, Electroencephalogram and electrocardiograph assessment of mental fatigue in a driving simulator, Accid. Anal. Prev. 45 (2012) 83–90.
+[32] E. Paschalidis, C.F. Choudhury, S. Hess, Modelling the effects of stress on gap-acceptance decisions combining data from driving simulator and physiological sensors, Transp. Res. Part F Traﬃc Psychol. Behav. 59 (2018) 418–435.
+[33] E. Rendon-Velez, et al., The effects of time pressure on driver performance and physiological activity: a driving simulator study, Transp. Res. Part F Traﬃc Psychol. Behav. 41 (2016) 150–169.
+[34] A. Dosovitskiy, G. Ros, F. Codevilla, A. Lopez, V. Koltun, CARLA: an open urban driving simulator, in: Proceedings of the Conference on Robot Learning, 2017, pp. 1–16. PMLR.
+[35] R.S. Kennedy, N.E. Lane, K.S. Berbaum, M.G. Lilienthal, Simulator sickness questionnaire: an enhanced method for quantifying simulator sickness, Int. J. Aviat. Psychol. 3 (1993) 203–220.
+[36] S.G. Hart, L.E. Staveland, Development of NASA-TLX (task load index): results of empirical and theoretical research, in: Advances in Psychology, 52, Elsevier, 1988, pp. 139–183.
+[37] T. Schubert, F. Friedmann, H. Regenbrecht, Embodied presence in virtual environments, in: Visual Representations and Interpretations, Springer, 1999, pp. 269–278.
+[38] A. De Luca, et al., Exoskeleton for gait rehabilitation: effects of assistance, mechanical structure, and walking aids on muscle activations, Appl. Sci. 9 (2019) 2868.
+[39] M. Halaki, K. Ginn, Normalization of EMG signals: to normalize or not to normalize and what to normalize to, in: Computational Intelligence in Electromyography Analysis - A Perspective on Current Applications and Future Challenges, IntechOpen, 2012, pp. 175–194.
+[40] J. Gentle, D. Brady, N. Woodger, S. Croston, H.C. Leonard, Driving skills of individuals with and without developmental coordination disorder (DCD/Dyspraxia), Front. Hum. Neurosci. 15 (2021) 105.
+[41] J.M. Rogers, J. Duckworth, S. Middleton, B. Steenbergen, P.H. Wilson, Elements virtual rehabilitation improves motor, cognitive, and functional outcomes in adult stroke: evidence from a randomized controlled pilot study, J. Neuroeng. Rehabil. 16 (2019) 56.
+[42] D. Perez-Marcos, M. Bieler-Aeschlimann, A. Serino, Virtual reality as a vehicle to empower motor-cognitive neurorehabilitation, Front. Psychol. 9 (2018) 2120.
+[43] R. Schroeter, M.A. Gerber, A low-cost vr-based automated driving simulator for rapid automotive ui prototyping, in: Proceedings of the 10th International Conference on Automotive User Interfaces and Interactive Vehicular Applications, 2018, pp. 248–251.
+[44] A. Riegler, A. Riener, C. Holzmann, AutoWSD: virtual reality automated driving simulator for rapid HCI prototyping, in: Proceedings of the Mensch und Computer, 2019, pp. 853–857.
+[45] H.E.C. van der Wall, et al., The use of machine learning improves the assessment of drug-induced driving behaviour, Accid. Anal. Prev. 148 (2020) 105822.
+[46] J. Lee, M. Itoh, Effects of driver compensatory behaviour on risks of critical pedestrian collisions under simulated visual ﬁeld defects, PLoS One 15 (2020) e0231130 .
+[47] C.H. Chang, T.A. Stoffregen, L.Y. Tseng, M.K. Lei, K.B. Cheng, Control of a virtual vehicle inﬂuences postural activity and motion sickness in pre-adolescent children, Hum. Mov. Sci. 78 (2021) 102832.
+[48] E. Chang, H.T. Kim, B. Yoo, Virtual reality sickness: a review of causes and measurements, Int. J. Hum. Comput. Interact. 36 (2020) 1658–1682.
+[49] F. Galante, et al., Validity of mental workload measures in a driving simulation environment, J. Adv. Transp. (2018).
+[50] M.R. Ciceri, D. Ruscio, Does driving experience in video games count? Hazard anticipation and visual exploration of male gamers as function of driving experience, Transp. Res. Part F Traﬃc Psychol. Behav. 22 (2014) 76–85.
+
+10
+

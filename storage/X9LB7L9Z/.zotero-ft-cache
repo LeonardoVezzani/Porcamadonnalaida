@@ -1,0 +1,861 @@
+DSC 2024 Europe VR
+
+Fang et al.
+
+Assessment of vehicle dynamics using highperformance driving simulator
+Zhou Fang, Jean-Michel Nidiot, Jean-Christophe Collinet, Dominique Theillier, Florent Colombet, Didier Wautier, Stéphane Régnier
+Renault TCR, France, {zhou.fang, jean-michel.nidiot, jean-christophe.collinet, dominique.theillier, florent.colombet, didier.wautier, stephane.regnier}@renault.com
+
+Abstract – The aim of this work is to establish a practical evaluation method to measure the performances of driving simulators and the motion cueing algorithms in terms of relative or absolute fidelity. To achieve this objective, we investigate two driving experiences for lateral vehicle dynamics using a high-performance driving simulator. One scenario involves normal freeway driving tests with slalom maneuvers, while the other entails driving at the tire-adherent limit condition on a handling track. We compare the performance of motion cueing algorithms based on classical filter (CF-MCA) and model predictive control (MPC-MCA) using the method developed in this study which is consistent with the ratings given by professional drivers. Thanks to this work, a vehicle handling assessment on high lateral dynamics has been achieved on ROADS (Renault Operational Advanced Driving Simulator) and is applicable for all vehicles’ project development.
+
+Keywords: MCA performance, driving simulation for vehicle dynamics assessment, tilt velocity threshold.
+
+1. Introduction
+Driving simulators have a wide range of applications: driver training, optimizing race car design, such as the F1 driving simulators at Renault Sport and McLaren in the UK, road infrastructure design (e.g., Tongji University driving simulator), vehicle development with the driver in the loop, testing critical situations without exposing drivers to real danger, etc. In recent years, with the growing development of AD/ADAS and electric vehicles, some car manufacturers have developed highperformance driving simulators (e.g., Daimler, Nissan, BMW, Renault, etc.). The main aim of these high-performance driving simulators is to reduce the gap in motion perception between the driving simulator and the real car, thereby improving the fidelity of the driving simulation and making the subjective evaluation results more representative of the physical tests. Thus, by using an advanced driving simulator, we can carry out subjective evaluations using digital models upstream of the project. As described in the literature (Kharrazi et al., 2019), driving simulators can be used for iterative testing at an early stage to better gather subjective understanding of various vehicle designs. This will enable vehicle designs to be evaluated and refined before moving on to real-world testing, thereby reducing development time and improving design quality.
+
+In the literature, we found a few articles dealing with the subjective assessment of vehicle dynamics using a driving simulator (Fischer et al., 2010; Berthoz et al., 2013; Kharrazi et al., 2019; Lamprecht et al., 2022), but these were generally limited to a level of lateral acceleration on freeways between 2 and 3 m/s². Studies investigating high lateral dynamics in a motion-based driving simulator (Fang et al., 2020) are still rare. To fill this gap, the present study investigates the subjective assessment of high lateral dynamics based on different scenarios ranging from highway driving experiences with slalom to handling tracks. The aim of this work is to establish a practical evaluation method in terms of relative or absolute fidelity for Renault’s high performance driving simulator ROADS.
+
+The performance of Renault’s driving simulator, ROADS, is presented in Table 1.
+Table 1: Performance of ROADS
+
+Rail length Rail velocity Rail accel. Pitch, Roll, Yaw table
+
+(m)
+
+(m/s)
+
+(m/s2)
+
+angle (°)
+
+X Y X Y X Y Pitch/Roll Yaw table
+±7.5 ±7.5 ±9 ±9 ±10 ±10 ±23 ±165
+
+Strasbourg, 18-20 Sep 2024
+
+- 127 -
+
+Assessment of vehicle dynamics using high-performance driving simulator
+
+DSC 2024 Europe VR
+
+2. Description of scenarios
+To evaluate the behaviors of vehicle lateral dynamics on the ROADS driving simulator, we developed several scenarios. In this paper, the two most important scenarios are described:
+2.1 N104 scenario
+This scenario is based on the French national road named N104. N104 is a fast-way road with a maximum driving speed of 110 km/h. To evaluate higher levels of lateral acceleration of the vehicle, two series of slalom maneuvers are added. The first one is designed with a sinusoid of 0.2 Hz at 70 km/h, and the second one with 0.2-0.3 Hz at 70 km/h. For this test, traffic is also simulated to provide a more immersive experience.
+0.2Hz sinusoidal manoeuvre guided by safety pylon:
+Figure 1: N104 road
+2.2 CTA1 scenario
+The CTA1 scenario corresponds to our vehicle handling evaluation track on the proving ground. It contains different road curvatures with radii varying from 35m to 250m. For this driving test, the driver is asked to drive the car almost at the limit of tire adherence. The maximal lateral acceleration approaches 1g in every bend.
+CTA1 handling track: “pif-paf” (rapid sequences of tight turns) segment
+Figure 2: CTA1 handling track
+3. Potential workspace of a driving simulator
+The potential workspace or more precisely the potential reproduction area of acceleration in a driving simulator is defined by the acceleration level and its maximal duration that can be simulated. We
+
+will establish this potential operating area considering human motion perception thresholds. We refer to this potential operating zone as a "-T chart" for simplicity.
+In a dark room, the perceived linear motion threshold is 0.05m/s² for sinusoidal excitation (Benson et al., 1986). In a driving simulator with high dynamic scenarios, this threshold could increase to 0.1m/s², or even more (cf. table 2). The perceived tilt velocity in a driving simulator generally ranges from 3°/s to 6°/s, depending on the current acceleration amplitude reproduced by rail and hexapod. Our experience in a high dynamic scenario with high rail motion shows that a tilt velocity of 4°/s, or even 56°/s in some instances of high peak acceleration, can be accepted by most people. Therefore, a linear acceleration of 0.1m/s² and a tilt velocity of 4°/s are used to construct the  -T map.
+Table 2: Motion perception thresholds
+
+Linear motion (m/s²)
+
+Angular motion (°/s)
+
+Axis In darkness Dynamic In darkness
+
+(Benson86)
+
+scene
+
+(Benson86)
+
+(Reid85)
+
+Dynamic scene
+(Reid85)
+
+x
+
+0.063
+
+0.17
+
+2.04
+
+3.0
+
+y
+
+0.057
+
+0.17
+
+2.07
+
+3.6
+
+z
+
+0.154
+
+0.28
+
+1.5
+
+2.6
+
+To reproduce constant acceleration motion, the cockpit is generally accelerated constantly for a duration of T seconds, followed by a long braking phase to stop at the end of the maximal rail position. The braking phase is controlled with a deceleration level below the human perception threshold. Figure 3 illustrates an example of ROADS X or Y rail performance for reproducing 1g acceleration using ubrake = 0.1m/s². The reproduced period (=0.18s) is very short for this example. By employing an opposite motion strategy, named "back-go strategy" to generate negative velocity (Fang, 2010, see Fig. 4), the simulated duration of acceleration can be doubled. However, the second case is not applicable for an active driving test, except for some eventtriggered tests where the car’s trajectory is always the same and the vehicle speed is repeated in each test. To increase the simulated acceleration duration, we can also use tilt coordination technique to achieve higher braking motion without being perceived by the driver, thus significantly extending the reproduced duration.
+Figure 4 illustrates the principle of the strategy using tilt-coordination and pre-velocity technique. The principle of the “back-go strategy” with tilt is mainly used in MPC-MCA or optimal-MCA (Venrooij et al., 2016).
+
+- 128 -
+
+Strasbourg, 18-20 Sep 2024
+
+DSC 2024 Europe VR
+-0.1m/s² Figure 3: 1g reproduction using only one rail
+
+Fang et al.
+which is judged much better than a constant scaling factor for CTA1 scenario. In the reference signal’s formula,  denotes the acceleration, 𝜙𝑣𝑒ℎ is the vehicle natural roll angle.
+
+Figure 4: Back-go strategy for getting more acc. duration
+
+Note that in this example, the tilt-coordination technique is only used for the braking phase. We can slightly improve the motion cueing results if it is also used in the acceleration reproduction phase (see the small triangle around t=6s).
+In terms of pure tilt motion, it can provide a sustained acceleration feeling but is limited by the motion perception threshold of the tilt velocity and the maximum tilt angle. Using a tilt velocity of 4°/s, we can define its operating zone in the -T map (see Fig. 5: tilt specific force zone). Without the rail motion, the reproduced tilt specific force has a rate limitation on acceleration or jerk limitation.
+Finally, we can apply the full tilt-coordination technique and couple X and Y rail motions to define the maximal -T operating zone. As it depends strongly on the performance of developed MCA, the tilt-coordination zone is arbitrarily depicted by a dotted line (see Fig. 5: tilt-coordination technique).
+
+Fig. 5 presents the ROADS driving simulator’s -T
+
+chart and some handling use-cases. The N104
+
+scenario refers to high-speed Lane/Change. The
+
+CTA1 scenario represents the furthest zone to enter
+
+the ROADS operating workspace. In order to
+
+incorporate the CTA1 operating zone into the
+
+exploitable -T workspace of ROADS, the reference acceleration to be reproduced is modified by using two scaling factors:
+
+𝛾𝑙𝑎𝑡 𝑟𝑒𝑓
+
+=
+
+𝐾𝐿𝑃.
+
+(𝛾
+
+′ 𝑣𝑒ℎ
+
+−
+
+𝛾𝑙𝑎𝑡
+
+𝐻𝑃)
+
++
+
+𝐾𝐻𝑃. 𝛾𝑙𝑎𝑡 𝐻𝑃
+
+𝑤𝑖𝑡ℎ
+
+𝛾
+
+′ 𝑙𝑎𝑡
+
+𝑣𝑒ℎ
+
+= 𝛾𝑙𝑎𝑡 𝑣𝑒ℎ −
+
+𝜙𝑣𝑒ℎ. 𝑔
+
+𝛾𝑙𝑎𝑡 𝐻𝑃 = 𝐻𝑃 𝑓𝑖𝑙𝑡𝑒𝑟(𝛾′𝑙𝑎𝑡 𝑣𝑒ℎ)
+
+Figure 5: Driving simulator operation zone and use-cases working zone in -T chart
+As depicted in Fig. 5, the lowpass scaling factor should ideally be around 0.3-0.4 for the CTA1 scenario. It's important to note that a real-time filter with minimal data buffering latency introduces some phase distortion to the filtered signal. Specifically, the phase of high-frequency signals is advanced while low-frequency signals present a delay (Fang et al., 2020). If the lowpass and highpass scaling factors have the same value, the resultant reference signal's phase aligns perfectly with the original signal. However, in some use-cases, drivers prefer more feedback from high-frequency signals to better understand the vehicle's behavior. Unfortunately, when using two different scaling factors, the phase of the resultant signal is distorted compared to the original. These scaling factors need to be tuned based on the performance of the motion cueing algorithm and the driver's tolerance for false cues and phase distortion.
+4. MCA description
+To evaluate MCA performance, we compare two motion cueing algorithms: one based on classical filter technique, a widely used MCA, and another, our internal Model Predictive Control based MCA (MPCMCA).
+To ensure consistent motion perception across lateral acceleration, roll, and yaw velocity motions, all three signals are scaled using the same lowfrequency scaling factor, KLP, and high-frequency scaling factor, KHP. The cutoff frequency of the applied filter is also the same for these three motions.
+
+Strasbourg, 18-20 Sep 2024
+
+- 129 -
+
+Assessment of vehicle dynamics using high-performance driving simulator
+
+DSC 2024 Europe VR
+
+Table 3: 2nd order lowpass (LP) & highpass (HP) filter
+
+Filter Type 2nd LP
+2nd HP
+
+Filter transfer function: H(s)
+𝝎𝒏𝟐 𝒔𝟐 + 𝟐𝝃. 𝝎𝒏. 𝒔 + 𝝎𝒏𝟐
+𝒔𝟐 𝒔𝟐 + 𝟐𝝃. 𝝎𝒏. 𝒔 + 𝝎𝒏𝟐
+
+Pulsation n, or cutoff frequency fc 𝝎𝒏 = (𝟐𝝅𝒇𝒄)
+𝝎𝒏 = (𝟐𝝅𝒇𝒄)
+
+Table 4: Scaling parameters & HP filter parameters
+
+CTA1
+
+HP
+
+damping KLP
+
+KHP
+
+𝜸𝒍𝒂𝒕,
+
+fc (Hz)
+
+coef.
+
+𝝎𝒚𝒂𝒘 & 𝝎𝒓𝒐𝒍𝒍(°/𝒔)
+
+
+
+MPC-MCA
+
+0.15
+
+0.85
+
+0.5
+
+0.9
+
+CF-MCA
+
+0.15
+
+0.55
+
+0.12
+
+0.6
+
+4.1 Classical filter-based MCA
+The parameters of Classical Filter-based MCA (CFMCA) are tuned to maximize the linear correlation coefficient with the original signal for the HP signal while keeping the HP signal’s amplitude as high as possible (refer to Table 4 for filter details). The specific force is reproduced by the linear motion generated by rail or hexapod and by the tilt specific force provided by hexapod thanks to the tilt angle and the gravity force.
+
+For the linear motion, we have:
+
+𝛾𝑙𝑎𝑡 𝑙𝑖𝑛 𝑟𝑒𝑓
+
+=
+
+𝐾𝐿𝑃
+
+.
+
+(𝛾
+
+′ 𝑙𝑎𝑡
+
+𝑣𝑒ℎ
+
+−
+
+𝛾𝑙𝑎𝑡 𝑙𝑖𝑛 𝐻𝑃)
+
++
+
+𝐾𝐻𝑃. 𝛾𝑙𝑎𝑡 𝑙𝑖𝑛 𝐻𝑃
+
+The scaling factor KLP is mainly determined by the workspace.
+
+The scaling factor KHP must strike a balance between producing sufficient amplitude of high frequency motion while avoiding significant false cues due to the HP filter behaviours such as “backlash” effect (Reymond et al., 2000) and phase distortion. The use of incompatible KLP and KHP scaling factors could cause a very disturbing perception of motion for some frequency signal like the motion at “pif-paf” segment in the CTA1 scenario.
+
+Regarding the tilt motion, it is tuned by:
+
+𝜙𝑠𝑖𝑚𝑢𝑙𝑎𝑡𝑜𝑟
+
+=
+
+𝛾𝑙𝑎𝑡
+
+𝑣𝑒ℎ − 𝛾𝑙𝑎𝑡 𝑘𝑡𝑖𝑙𝑡. 𝑔
+
+𝑙𝑖𝑛 𝑟𝑒𝑓
+
++
+
+𝑘𝜙 𝜙𝑣𝑒ℎ
+
+𝑤𝑖𝑡ℎ
+
+|𝑑(𝜙𝑠𝑖𝑚𝑢𝑙𝑎𝑑𝑡𝑜𝑡𝑟
+
+−
+
+𝜙𝑣𝑒ℎ
+
+) |
+
+{<<53.5°/°/𝑠𝑠𝑓𝑓𝑜𝑜𝑟𝑟𝑁𝐶1𝑇0𝐴41}
+
+4.2 MPC based MCA
+
+The MPC-based MCA, an internal software called ROMA (Renault Optimal Motion-cueing Algorithm), employs a variable time-step algorithm to reduce CPU time. Operating at 200Hz on a Concurrent Real-Time system, it distributes a predictive horizon of about 10s over 50 steps (see Fig. 6). Nominal tilt velocity control is set to 4°/s, but adaptable to 5 or 6°/s under high solicitation and rail acceleration conditions. The threshold of tilt velocity adapted to the rail acceleration level was reported by (Chapron et al. 2007).
+
+1.5
+
+1
+
+0.5
+
+0 0 0.5 1 1.5 2 2.5 3 3.5 4 4.5 5 time step(s)
+1.5
+
+1
+
+0.5
+
+0
+
+0
+
+0.05
+
+0.1
+
+0.15
+
+0.2
+
+0.25
+
+0.3
+
+time step(s)
+
+Figure 6: Variable time step of MPC-MCA
+
+The average computational time is approximately 2ms using a single-core CPU.
+
+5. MCA performance measurement
+
+5.1 False cues classification
+
+To analyze the false cues, Kolff et al. (2022) propose to classify the false cues into 4 types which can be mathematically expressed by:
+Table 5: Classification of false cues according to Kolff et al.
+
+Type of false cues 1
+Scale mismatched
+2 False detection
+3 False detection
+4 Opposite motion
+
+Logical expression |𝑘𝑒𝑓𝑓. 𝛾𝑣𝑒ℎ − 𝛾𝑀𝐶𝐴| > 0.3 |𝑘𝑒𝑓𝑓. 𝛾𝑣𝑒ℎ|
+& |𝑘𝑒𝑓𝑓. 𝛾𝑣𝑒ℎ − 𝛾𝑀𝐶𝐴| > 𝑢𝑡ℎ𝑑 |𝑘𝑒𝑓𝑓. 𝛾𝑣𝑒ℎ| > 𝑢𝑡ℎ𝑑 & |𝛾𝑀𝐶𝐴| < 𝑢𝑡ℎ𝑑 Vehicle moving, MCA immobile |𝑘𝑒𝑓𝑓. 𝛾𝑣𝑒ℎ| < 𝑢𝑡ℎ𝑑 & |𝛾𝑀𝐶𝐴| > 𝑢𝑡ℎ𝑑 MCA moving, Vehicle immobile |𝑘𝑒𝑓𝑓. 𝛾𝑣𝑒ℎ| > 𝑢𝑡ℎ𝑑 & |𝛾𝑀𝐶𝐴| > 𝑢𝑡ℎ𝑑
+& 𝑠𝑖𝑔𝑛(𝛾𝑣𝑒ℎ) = −𝑠𝑖𝑔𝑛(𝛾𝑀𝐶𝐴)
+
+Fig. 7 illustrates the domain of type 2 false cues, similar to type 3.
+
+uthd -uthd
+
+𝑘𝑒𝑓𝑓. 𝛾𝑣𝑒ℎ ≥ 𝑢𝑡ℎ𝑑 |𝛾𝑀𝐶𝐴| < 𝑢𝑡ℎ𝑑
+
+|𝛾𝑀𝐶𝐴| < 𝑢𝑡ℎ𝑑 𝑘𝑒𝑓𝑓. 𝛾𝑣𝑒ℎ ≤ −𝑢𝑡ℎ𝑑
+
+Figure 7: Domain of type 2 of false cues
+
+- 130 -
+
+Strasbourg, 18-20 Sep 2024
+
+DSC 2024 Europe VR
+
+However, some points of type 2 false cues (Fig. 8) should not be classified as false cues, as they move following some trajectory. Thus, it's preferred not to consider this domain as part of the false cues.
+𝑘𝑒𝑓𝑓. 𝛾𝑣𝑒ℎ ≥ 𝑢𝑡ℎ𝑑
+|𝛾𝑀𝐶𝐴| < 𝑢𝑡ℎ𝑑
+
+Figure 8: Illustration of removal false cues
+
+Note that the type 1 of scale false cues is not completely independent of type 2 and 3. The original classification method is slightly modified as follows:
+Table 6: Classification of false cues
+
+Type of false cues 2
+3
+4 1
+
+Logical expression |𝑘𝑒𝑓𝑓. 𝛾𝑣𝑒ℎ| > 𝑢𝑡ℎ𝑑 & |𝛾𝑀𝐶𝐴| < 𝑢𝑡ℎ𝑑
+& |𝑘𝑒𝑓𝑓. 𝛾𝑣𝑒ℎ − 𝛾𝑀𝐶𝐴| > 𝑢𝑡ℎ𝑑 |𝑘𝑒𝑓𝑓. 𝛾𝑣𝑒ℎ| < 𝑢𝑡ℎ𝑑 & |𝛾𝑀𝐶𝐴| > 𝑢𝑡ℎ𝑑
+& |𝑘𝑒𝑓𝑓. 𝛾𝑣𝑒ℎ − 𝛾𝑀𝐶𝐴| > 𝑢𝑡ℎ𝑑 |𝑘𝑒𝑓𝑓. 𝛾𝑣𝑒ℎ| > 𝑢𝑡ℎ𝑑 & |𝛾𝑀𝐶𝐴| > 𝑢𝑡ℎ𝑑
+& 𝑠𝑖𝑔𝑛(𝛾𝑣𝑒ℎ) = −𝑠𝑖𝑔𝑛(𝛾𝑀𝐶𝐴) |𝑘𝑒𝑓𝑓. 𝛾𝑣𝑒ℎ − 𝛾𝑀𝐶𝐴| > 0.3 |𝑘𝑒𝑓𝑓. 𝛾𝑣𝑒ℎ|
+& |𝑘𝑒𝑓𝑓. 𝛾𝑣𝑒ℎ − 𝛾𝑀𝐶𝐴| > 𝑢𝑡ℎ𝑑 & ~(𝑡𝑦𝑝𝑒 2|𝑡𝑦𝑝𝑒 3|𝑡𝑦𝑝𝑒 4)
+
+The original proposed statistic value EAP (error area per unit time) is replaced by a mean absolute motion cues’ error which is more significant in MCA score evaluation.
+
+5.2 Other statistic indices
+To provide more comprehensive statistical data, we introduced three additional macroscopic indices to create a more representative global score. These additional indices are summarized in table 7.
+Table 7: statistic indices used in global score
+
+Additional index
+
+Formula
+
+Correlation 1R²
+R²: coefficient of
+determination
+
+𝑹 = ∑(𝜸𝒗𝒆𝒉 𝒊 − 𝛄̅𝒗𝒆𝒉) . (𝜸𝑴𝑪𝑨 𝒊 − 𝛄̅𝑴𝑪𝑨) ) √∑(𝜸𝒗𝒆𝒉 𝒊 − 𝛄̅𝒗𝒆𝒉)𝟐 . ∑(𝜸𝑴𝑪𝑨 𝒊 − 𝛄̅𝑴𝑪𝑨)𝟐 R: Pearson correlation coefficient
+
+Correlation 2 R%
+
+𝑹% = 𝒑𝒆𝒓𝒄𝒆𝒏𝒕𝒂𝒈𝒆 𝒐𝒇 𝒑𝒐𝒊𝒏𝒕𝒔 𝒂𝒔 |(𝒌𝒆𝒇𝒇𝜸𝒗𝒆𝒉 𝒊 − 𝜸𝑴𝑪𝑨 𝒊)| < 𝒖𝒕𝒉𝒅 𝒘𝒊𝒕𝒉 𝒖𝒕𝒉𝒅 = 𝟎. 𝟐𝒎. 𝒔−𝟐 𝒇𝒐𝒓 𝑯𝑷 𝒔𝒊𝒈𝒏𝒂𝒍 𝒖𝒕𝒉𝒅 = 𝟎. 𝟓 𝒎. 𝒔−𝟐𝒇𝒐𝒓 𝒂𝒍𝒍 𝒇𝒓𝒆𝒒𝒖𝒆𝒏𝒄𝒚 𝒔𝒊𝒈𝒏𝒂𝒍
+
+Correlation 3 Rn
+
+√∑(𝒌𝒆𝒇𝒇𝜸𝒗𝒆𝒉 𝒊 − 𝜸𝑴𝑪𝑨 𝒊)𝟐
+
+𝑹𝒏 =
+
+𝟏− 𝒌𝒆𝒇𝒇√∑(𝜸𝒗𝒆𝒉 𝒊 − 𝛄̅𝒗𝒆𝒉)𝟐
+
+. 𝟏𝟎𝟎
+
+(
+
+)
+
+Fang et al.
+
+Correlation 1 is based on the Pearson coefficient to evaluate the quality of MCA. In scenarios where two scaling factors are involved in the reference signal, The correlation of motion cues between MCA and vehicle is carried out using respectively filtered LP & HP frequency signals. The linear coefficient of the model corresponds to the effective scaling factor respectively for LP and HP motions, and R² represents the coefficient of determination, where R is the Pearson coefficient (see Figs. 13-18). It generally provides an optimistic MCA performance score.
+Correlation 2 is based on histogram results where the correct motion cues are determined by:
+|(𝒌𝒆𝒇𝒇𝜸𝒗𝒆𝒉 𝒊 − 𝜸𝑴𝑪𝑨 𝒊)| < 𝒖𝒕𝒉𝒅
+Different motion thresholds (see table 8), uthd, are used according to the vehicle dynamics and the frequency band, providing a score consistent with the subjective ratings given by professional drivers.
+Table 8: Acceptable motion cues’ threshold
+
+scenario for HP signal for whole signal
+
+N104
+
+0.05m/s²
+
+0.2m/s²
+
+CTA1
+
+0.2m/s²
+
+0.5m/s²
+
+The signal from all frequency bands is utilized, penalizing scenarios with two scaling factors. The index of correlation 2 is normally close to the sum of correct and scale false cues in the classification method.
+Correlation 3 assesses the significance of any large differences between the vehicle motion cues and the reproduced motion (type 4 of false cues) using whole signal.
+Using all frequency bands signal to make the correlation index can greatly penalize the MCA’s performance with the strategy of multiple scaling factors due to the linear correlation model assuming only one effective scaling factor. Since we have two indices (R% & Rn) obtained by considering all frequency bands' signals and two indices provided by separated LP & HP signals R² & Rc, the correct cues in classification method), the global score is balanced.
+For the CTA1 scenario, the LP signal for comparison is filtered using fc=0.10Hz compared to a reference signal filtered by HP fc = 0.15Hz. The HP signal is filtered using fc = 0.45Hz. Other lower cutoff frequencies can also be used.
+
+In the global score estimation, false cues of type 4 are considered the worst, justifying a penalty coefficient three times higher than that of type 2 or 3. The penalty coefficient for false scale cues is set at half the value of the type 2 or 3.
+
+Strasbourg, 18-20 Sep 2024
+
+- 131 -
+
+Assessment of vehicle dynamics using high-performance driving simulator
+
+DSC 2024 Europe VR
+
+The score for LP or whole signal, sLP, is calculated by:
+
+[(𝐾𝐿𝑃 𝑒𝑓𝑓
+
++ 𝑅𝑐
+
++
+
+𝑅2
+
++ 𝑅%
+
++
+
+𝑅𝑛
+
+− 𝑤𝑒(0.5𝑅𝑒1 4
+
++ 𝑅𝑒2
+
++ 𝑅𝑒3
+
++ 3𝑅𝑒4))
+
+]
+
+2
+
+The score for HP, sHP, signal is given by:
+
+[(𝐾𝑒𝑓𝑓
+
++
+
+𝑅𝑐
+
++
+
+𝑅2
+
++
+
+𝑅%
+
++
+
+𝑅𝑛
+
+−
+
+𝑤𝑒(0.5𝑅𝑒1 4
+
++
+
+𝑅𝑒2
+
++
+
+𝑅𝑒3
+
++
+
+3𝑅𝑒4))
+
+]
+𝐻𝑃
+
+2
+
+𝑠𝑐𝑜𝑟𝑒
+
+=
+
+10[𝑤𝐿𝑃 .
+
+𝑠𝐿𝑃
+
++ (1 2
+
+−
+
+𝑤𝐿𝑃 )𝑠𝐻𝑃
+
+]
+
+where the contribution of score from LP signal in global score is set by:
+𝑤𝐿𝑃 = 0.35 and the weight coefficient of false cues is set by:
+𝑤𝑒 = 10 𝑅𝑒,𝑖 = 𝑅𝑒𝑟𝑟 𝑡𝑦𝑝𝑒 𝑖 Δ|̅𝛾̅̅𝑖̅|
+Re,i represents the penalty index of each type of false cues in the global score evaluation, 𝑅𝑒𝑟𝑟 𝑡𝑦𝑝𝑒 𝑖 the percentage of each type of false cues, Δ|̅𝛾̅̅𝑖̅|, the mean acc error for each type of false cues (see Figs. 13-18).
+The value of the score varies from 0 to 10 to measure the representativeness of physical tests by the driving simulation (absolute fidelity).
+
+6. Results
+6.1 MCAs performance
+To facilitate the MCAs’ performance comparison, in this paper, the MPC-MCA data comes from a driving experience recording and the result of CF-MCA is simulated using the same input signal as the MPCMCA.
+Fig. 9 directly compares the motion cueing results between CF-MCA and MPC-MCA for the
+N104 scenario. The specific force provided by MPCMCA closely matches the vehicle’s lateral acceleration on a 1:1 scale, while CF-MCA provides a motion cueing result scaled at 0.8:1 with a low linear correlation coefficient (R²=0.81, see table 10). Both MCAs ensure tilt velocities below 3°/s.
+Figs. 10-11 compare the motion cueing results of MPC-MCA and CF-MCA for the CTA1 scenario. A substantial difference is observed in the amplitude of the reproduced lowpass motion signal between CFMCA and MPC-MCA.
+Fig. 12 depicts the roll velocity of the MPC-MCA as well as the tilt velocity (deviation from the scaled roll velocity of the vehicle).
+
+To produce more tilt specific force during moments of high lateral acceleration, the tilt velocity exceeds the restricted nominal value of 4°/s in MCA. While professional drivers have tested the scenario and not reported issues, future iterations of MCA should aim to reduce these high tilt velocities.
+Figs. 13-18 present classification results of motion cues for both MCAs.
+For the N104 scenario (Figs. 13-14), significant differences in the indicators of false cues between CF-MCA and MPC-MCA are observed for signals of all frequency bands. Note that high frequency motion cues (fc HP = 0.45Hz) are effectively reproduced by both MCAs with scaling factors exceeding 0.95 and R²>0.95 (see tables 9-10).
+For the CTA1 scenario (Figs. 15-18), MPC-MCA achieves an effective scaling factor three times higher than CF-MCA for low-frequency signals (Figs 15-16), but with higher index of false cues due to increased motion stimuli reproduction. Feedback from drivers underscores the importance of lowfrequency motion amplitude in driving experience. Similarly, the effective scaling factor of highfrequency signals for MPC-MCA surpasses that of CF-MCA with 35% more gain (see Figs 17-18). Both MCAs achieve >90% correctness of motion cues.
+We present four examples of histograms to illustrate the distribution of groups of motion error using the result of MPC-MCA. The red line indicates acceptable motion cues with an error inferior to the criterion uthd.
+The percentage of points inside the red rectangle is given by the first legend value, and the correlation index Rn is provided in legend 3 of the histogram figure (see Figs 19-22). If the distribution of Δ𝛾𝑖 is a Gaussian curve, we have:
+
+𝑅% = 0.95 & 𝑢𝑡ℎ𝑑 = 𝜇 + 2. 𝜎
+
+𝑊𝑖𝑡ℎ
+
+𝜎2
+
+=
+
+∑(Δ𝛾𝑖 − 𝑁
+
+𝜇)2
+
+,
+
+𝜇
+
+=
+
+∑ Δ𝛾𝑖 𝑁
+
+For example, from Fig. 20 and the result of MPCMCA for HP signal, we have :
+𝑅% = 0.958, 𝜇 = 0, 2𝜎 = 0.048𝑚/𝑠2 The 2𝜎 statistic value is very close to that of uthd (=0.05m/s²).
+
+- 132 -
+
+Strasbourg, 18-20 Sep 2024
+
+DSC 2024 Europe VR
+
+Fang et al.
+
+Figure 9: Comparison of motion cueing result for N104 scenario
+Pif-pas segment t(s) Figure 10: Comparison of motion cueing result for CTA1 scenario
+
+Figure 11: Comparison of motion cueing result between MPC-MCA & CF-MCA for LP signal and CTA1 scenario
+
+Figure 12: Roll velocity in driving simulator 𝝎𝒓𝒐𝒍𝒍 𝑴𝑷𝑪−𝑴𝑪𝑨 and tilt roll velocity 𝝎𝒓𝒐𝒍𝒍 𝑴𝑷𝑪−𝑴𝑪𝑨 − 𝒔𝒄𝒂𝒍𝒆𝒅 𝝎𝒓𝒐𝒍𝒍 𝒗𝒆𝒉
+
+Strasbourg, 18-20 Sep 2024
+
+- 133 -
+
+Assessment of vehicle dynamics using high-performance driving simulator
+
+DSC 2024 Europe VR
+
+Figure 13: Classification of motion cues for MPC-MCA & N104 scenario Figure 14: Classification of motion cues for CF-MCA & N104 scenario
+
+Figure 15: Classification of LP motion cues for MPC-MCA & CTA1 scenario
+
+- 134 -
+
+Strasbourg, 18-20 Sep 2024
+
+DSC 2024 Europe VR
+
+Fang et al.
+
+Figure 16: Classification of LP motion cues for CF-MCA & CTA1 scenario
+
+Figure 17: Classification of motion cues for MPC-MCA & CTA1 scenario with HP signal and fc HP = 0.45Hz
+
+Figure 18: Classification of motion cues for CF-MCA & CTA1 scenario with HP signal and fc HP = 0.45Hz
+
+Strasbourg, 18-20 Sep 2024
+
+- 135 -
+
+Assessment of vehicle dynamics using high-performance driving simulator
+
+DSC 2024 Europe VR
+
+Figure 19: Histogram of whole signal for MPC-MCA & N104 Figure 20: Histogram of HP signal for MPC-MCA & N104
+Figure 21: Histogram of whole signal for MPC-MCA & CTA1 Figure 22: Histogram of HP signal for MPC-MCA & CTA1
+
+Tables 9 to 12 summarize the correlation indices and the overall performance score of the two MCAs for the N104 and the CTA1 scenarios.
+
+Table 9: MPC-MCA statistic indices & global score for N104 scenario
+
+N104 MPC-MCA
+
+Correlation index for Correlation Index
+
+whole signal
+
+for HP signal
+
+Correct cue (classification) uthd = 0.05m/s² Correlation 1
+Correlation 2
+Correlation 3
+
+R c = 0.92 ∑ 𝒘𝒆 𝒊𝑹𝒆 𝒊 = -0.05
+Keff = 0.99 R ² = 1.0 R%= 0.99 using uthd = 0.20m/s² Rn=0.94
+Score = 9,8
+
+R c HP =0.99 ∑ 𝒘𝒆 𝒊𝑹𝒆 𝒊 𝑯𝑷 =-0.01
+Keff HP = 1.0 RHP² = 0.99 R% HP =0.96 using uthd = 0.05m/s² Rn HP = 0.91
+
+Table 10: CF-MCA statistic indices & global score for N104 scenario
+
+N104 CF-MCA
+
+Correlation index for Correlation Index
+
+whole signal
+
+for HP signal
+
+Correct cue (classification) uthd = 0.05m/s² Correlation 1
+Correlation 2
+Correlation 3
+
+R c = 0.35 ∑ 𝒘𝒆 𝒊𝑹𝒆 𝒊 =-2
+Keff = 0.79 R ² = 0.81 R%= 0.51 using uthd = 0.20m/s² Rn=0.57
+Score = 7.4
+
+R c HP =0.93 ∑ 𝒘𝒆 𝒊𝑹𝒆 𝒊 𝑯𝑷 =-0.10
+Keff HP = 0.95 RHP² = 0.95 R% HP = 0.89 using uthd = 0.05m/s² Rn HP = 0.77
+
+Table 11: MPC-MCA statistic indices & global score for CTA1
+
+CTA1 MPC-MCA
+
+Correlation index for Correlation Index
+
+LP or whole signal
+
+for HP signal
+
+Correct cue (classification)
+
+R c LP = 0.77 weiR ei LP =-0.79
+
+R c HP = 0.91 weiR ei HP =-0.24
+
+Correlation 1 Correlation 2 Correlation 3
+
+Keff LP = 0.37 R LP² = 0.94
+R%= 0.71 using uthd = 0.50m/s²
+Rn=0.62 Score = 6,3
+
+Keff = 0.70 RHP² = 0.82
+R%=0.89 using uthd = 0.20m/s²
+Rn=0.58
+
+Table 12: MPC-MCA statistic indices & global score for CTA1
+
+CTA1 CF-MCA
+
+Correlation index for Correlation Index
+
+LP or whole signal
+
+for HP signal
+
+Correct cue (classification)
+
+R c LP = 0.77 weiR ei LP =-0.79
+
+R c HP = 0.91 weiR ei HP =-0.24
+
+Correlation 1 Correlation 2 Correlation 3
+
+Keff LP = 0.12 R LP² = 0.42
+R%= 0.75 uthd = 0.50m/s²
+Rn=0.24 Score = 4.8
+
+Keff HP = 0.52 RHP² = 0.74
+R%=0.89 uthd = 0.20m/s²
+Rn=0.49
+
+- 136 -
+
+Strasbourg, 18-20 Sep 2024
+
+DSC 2024 Europe VR
+6.2 Validation with professional drivers
+Three professional drivers participated in the MCA performance evaluation. The first driver has experience testing various high-performance driving simulators worldwide. The second driver usually suffers from motion sickness in our previous driving simulator ULTIMATE. The last driver had no prior experience with driving simulators before testing ROADS.
+The optimization of MCAs parameters was facilitated by a co-author with expertise in vehicle dynamics mapping.
+None of the three professional drivers experienced motion sickness during ROADS driving tests. Although the third driver initially found the car's feeling unnatural compared to a physical car in CTA1 scenario (first driving experience), he quickly adapted to using ROADS to evaluate the performances of various vehicles without issue. Their oral feedback regarding the representativeness of the physical car correlated with the scores presented in this paper.
+For the N104 scenario, professional drivers could feel the Renault car's characteristics with MPC-MCA, while only sensing the tendencies of the car's behaviour with CF-MCA, if the tire model or anti-roll bar’s diameter were modified. Regarding the CTA1 scenario, CF-MCA's performance was assessed by driving simulator team and deemed much less performant compared to MPC-MCA. Due to the workload on the ROADS, it is not yet evaluated by the professional driver.
+The longitudinal acceleration is also a useful indicator to help the driver to better control the vehicle in high dynamic driving experience (CTA1 scenario). It is tuned to have the best performance below 2m/s².
+During the driving experiences, we changed the graphic engine in SCANeR from OSG to Unreal. A significant amelioration has been observed in terms of visual feeling and global feeling by the professional drivers.
+7. Conclusion
+By using ROADS and MPC-MCA, we have developed a method to assess the high dynamic behaviours on handling track of a passenger car. The method is validated by professional drivers and applicable for vehicle project development.
+Thanks to the performance of MPC-MCA in reproducing low frequency motion, the reproduction of high-frequency motion is also improved compared to CF-MCA, thus, increasing the performance of ROADS.
+
+Fang et al.
+
+A numerical method to evaluate the performance of MCA is proposed. It will help us to improve again the achieved global score. The method can also be used for the performance evaluation of ROADS driving simulator.
+In future, we will integrate the driving simulator’s latency to reach the best performance of ROADS.
+
+References
+
+Benson, A. J., Spencer, M. B., and Stott, J. R., 1986.
+
+Thresholds for the detection of the direction of whole-
+
+body, linear movement in the horizontal plane. Aviation,
+
+space, and environmental medicine.
+
+Berthoz, A., et al., 2013. Motion scaling for high-
+
+performance driving simulators. IEEE Transactions on
+
+Human-Machine Systems, 43(3), pp. 265-276.
+
+Chapron, T. and Colinot, J. P., 2007. The new PSA
+
+Peugeot-Citroën Advanced Driving Simulator – Overall
+
+design and motion cue algorithm. DSC North America
+
+2007 proceedings, Iowa City
+
+Fang, Z., 2010, Note Technique n° 67260-10-12-01,
+
+Renault internal report.
+
+Fang, Z., et al., 2020. Motion cueing algorithms and
+
+objective criteria investigation for reproducing high
+
+lateral dynamic motion perception in driving simulator.
+
+DSC2020, Antibes.
+
+Fischer, M., Sehammer, H., and Palmkvis, G., 2010.
+
+Motion cueing for 3-, 6- and 8- degrees-of-freedom
+
+motion systems. DSC Proceedings of the Driving
+
+Simulation - Conference Europe 2010.
+
+Kharrazi, S., Augusto, B., and Fröjd, N., 2019. Vehicle
+
+dynamics testing in motion based driving simulators.
+
+Vehicle
+
+System
+
+Dynamics,
+
+DOI:
+
+10.1080/00423114.2019.1566555.
+
+Kolff, M., Venrooij, J., Schwienbacher, M., Pool, D. N., and
+
+Mulder, M., 2022. Motion Cueing Quality Comparison of
+
+Driving Simulators using Oracle Motion Cueing.
+
+DSC2022, Strasbourg.
+
+Lamprecht, A., Steffen, D., Nagel, K., Haecker, J., and
+
+Graichen, K., 2022. Online Model Predictive Motion
+
+Cueing With Real-Time Driver Prediction. IEEE
+
+Transactions on Intelligent Transportation Systems,
+
+23(8), pp. 12414-12428.
+
+Reid, L. D. and Nahon, M. A., 1985. Flight Simulation
+
+Motion-base Drive Algorithms: Part 1- Developing and
+
+Testing the Equations. Institute for Aerospace Studies,
+
+Toronto University.
+
+Reymond, G. and Kemeny, A., 2000. Motion cueing in the
+
+Renault driving simulator. Vehicle System Dynamics,
+
+34(4):249-259.
+
+Venrooij, J., Cleij, D., Katliar, M., Pretto, P., Bülthoff, H. H.,
+
+Steffen, D., Hoffmeyer, F. W., and Schöner, H.-P.,
+
+2016. Comparison between Filter- and Optimization
+
+based Motion Cueing in the Daimler Driving Simulator,
+
+DSC 2016, Paris.
+
+Strasbourg, 18-20 Sep 2024
+
+- 137 -
+

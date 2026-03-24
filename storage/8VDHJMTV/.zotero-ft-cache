@@ -1,0 +1,390 @@
+Skip to Main Content
+
+    IEEE.org
+    IEEE Xplore
+    IEEE SA
+    IEEE Spectrum
+    More Sites 
+
+        Donate 
+        Cart
+        Create Account
+        Personal Sign In 
+
+IEEE Xplore logo - Link to home
+
+    Browse
+    My Settings
+    Help
+
+Access provided by:
+Politecnico di Torino
+Sign Out Attention Authors
+IEEE logo - Link to IEEE main site homepage
+ADVANCED SEARCH
+Journals & Magazines > IEEE Transactions on Intellig... > Volume: 23 Issue: 5
+Augmented Reality Head-Up Display: A Visual Support During Malfunctions in Partially Automated Driving?
+Publisher: IEEE
+Cite This
+PDF
+Alexander Feierle ; Fabian Schlichtherle ; Klaus Bengler
+All Authors
+6
+Cites in
+Papers
+1150
+Full
+Text Views
+
+    Alerts
+
+Abstract
+Document Sections
+
+    I.
+    Introduction
+    II.
+    Objectives
+    III.
+    HMI Design
+    IV.
+    Method
+    V.
+    Results
+
+Show Full Outline
+Authors
+Figures
+References
+Citations
+Keywords
+Metrics
+Abstract:
+Malfunctions are a major challenge in partially automated driving. During such malfunctions, the driver must be able to adequately take over vehicle guidance without being requested to intervene. This may be particularly difficult in urban areas due to their high complexity and information density. Augmented Reality Head-Up Displays (ARHUDs) may have the potential to support the driver during the monitoring task by providing driving-related information at its required location in the primary field of view. The effects of an ARHUD compared to a Baseline concept in case of malfunctions were investigated in a driving simulation experiment with 52 participants. In a partially automated urban drive, participants experienced a longitudinal and a lateral malfunction in permuted order. The concepts–ARHUD or Baseline– were presented as a between-subject factor. The results showed significantly shorter take-over times when using the ARHUD, resulting in fewer crashes. For those who were able to avoid the crash, no differences in the take-over quality between both concepts were found. There was one difference in visual attention: the attention ratio on the instrument cluster was lower for the ARHUD. In addition, the ARHUD revealed a significantly higher trust and usability rating. However, there were no differences in acceptance and subjective workload between the two concepts. The results showed that the ARHUD has more potential to prevent crashes in the event of malfunctions compared to the Baseline. Nevertheless, the high number of crashes, regardless of the concept, showed the importance of a fallback level for partially automated urban driving.
+Published in: IEEE Transactions on Intelligent Transportation Systems ( Volume: 23 , Issue: 5 , May 2022 )
+Page(s): 4853 - 4865
+Date of Publication: 02 November 2021
+ISSN Information:
+DOI: 10.1109/TITS.2021.3119774
+Publisher: IEEE
+Funding Agency:
+SECTION I.
+Introduction
+
+Partially automated driving, Level 2 of the SAE International [1] , is meanwhile state of the art in the premium segment of vehicle manufacturers. At this level of driving automation, the automated driving system (ADS) of the automated vehicle (AV) completely takes over the longitudinal and lateral vehicle guidance [1] . The driver is no longer actively involved in the primary driving task. Nevertheless, the driver is responsible for monitoring the AV, its system status and driving behavior at all times. This is necessary since the driver must be able to take over the vehicle guidance immediately in case of a request to intervene due to a detected system limit of the AV. A sufficient time budget (e.g., 5–7 seconds) as with higher automation levels is not feasible with partially automated driving [2] . An even greater challenge are malfunctions compared to system limits with a request to intervene, because these failures are not detected by ADS. The driver must be able to determine on his or her own whether the vehicle is in control of the situation or not and intervene if necessary [3] . Malfunctions have been identified as a high safety risk in previous studies [4] , [5] . Twenty-seven percent of reported accidents due to malfunctions were getting off the road [5] and there was a 28% crash rate [4] . In complex urban areas, the controllability of such malfunctions by the driver could be even worse. The complexity of urban areas is a result of a large number of static and dynamic objects [6] , high information density and the large number of different types of road users [7] . Situations that are more complex can prolong the decision making time [8] . This may be problematic, since time-critical situations can arise in urban areas [9] . It is therefore important to investigate the effects of malfunctions in partially automated urban driving and how the driver can be supported during such malfunction scenarios.
+A. Relevance of an Automation Human-Machine Interface
+
+In order to support the driver in safely handling malfunctions during partially automated driving, it is essential to provide adequate information to the driver via a so-called automation Human-Machine Interface (HMI) [10] . Here, information about the system status and the maneuvers of the AV is considered important [11] –​ [13] . In addition, information about maneuver reasons, environmental information, speed and speed limits also seems to be important in partially automated driving [14] . This has also been confirmed for urban automated driving [15] . The design of the HMI is challenging; the driver should be adequately informed by the HMI, but at the same time the driver should not be visually distracted in the monitoring task of the driving environment [16] , since more than 90% of information is perceived visually while driving [17] . It has been observed that partially automated driving leads to reduced visual attention and longer off-road glances compared to manual driving [18] . Since a low level of visual attention to the forward driving environment and long off-road glances (longer than 2–3 seconds) during automated driving are associated with a high crash risk [19] , one main goal of the HMI should be to guarantee a sufficient level of attention [20] . The HMI should further contribute to a reduction of stress through its design [20] , since parallel monitoring of the driving environment and the HMI may cause high stress and workload levels [21] . Furthermore, acceptance of the AV in combination with the HMI should be achieved, otherwise drivers intend to not use the ADS [22] . Without sufficient trust, this requirement for acceptance cannot be fulfilled [23] . An increase in trust can be achieved by helping the user to understand the automation’s decisions [24] . However, it is important to not only prevent mistrust, but also to not create over-trust. For instance, drivers showed over-trust if they were not appropriately supported in their monitoring responsibilities [25] . The design of the HMI should therefore guarantee correct trust calibration [20] . By fulfilling the usability requirement, the HMI should support the driver effectively, efficiently and satisfactorily [26] during a take-over caused by malfunctions and in monitoring the partially ADS.
+B. Potential of Augmented Reality Head-Up Displays
+
+Augmented Reality Head-Up Displays (ARHUDs) represent an innovative approach to the design of the HMI. The first investigations in the automotive context were already carried out in the 1970s [27] , but are now experiencing an increase in relevance due to their technical feasibility. An ARHUD is characterized by displaying virtual objects and information in the driving environment in real time [28] . This allows the information to be displayed at the actual position and thus virtual objects can overlay the environment from the drivers’ perspective [29] . ARHUD can thus direct the drivers’ attention via the virtual objects to allow them to react faster [30] without having to take their eyes off the road. Therefore, ARHUDs may lead to higher safety and comfort [31] . Previous research in the context of automated driving has so far shown positive subjective results [32] –​ [36] and higher visual attention to the driving environment when using an ARHUD [32] , [37] . There is also a positive trend for the ARHUD in regard to take-over performance, but the results depend on the scenarios and the design of the ARHUD and are less clear [37] , [38] . A pre-study [32] showed decreased subjective workload and increased trust of an ARHUD concept compared to a conventional head-up display (HUD) concept for monitoring in partially automated urban driving. Additionally, the ARHUD resulted in higher visual attention to the driving environment [32] . In regard to the monitoring of functionalities of an adaptive cruise control, drivers reported a higher level of safety and a lower level of workload and distraction when using an ARHUD compared to an instrument cluster [33] . Showing drivers an augmented visualization of the vehicle’s sensor data also improved acceptance and trust in the AV [34] . In a further study [35] , participants reported that they would prefer an ARHUD compared to an instrument cluster in conditionally automated driving. They considered the ARHUD more useful and easier to understand [35] . It could also be demonstrated that ARHUDs can improve situation awareness in automated driving [36] . Regarding automation failures in automated driving, an ARHUD led to shorter reaction times of the driver [38] . In contrast, another study [37] showed no differences in take-over time or crash rate when comparing an ARHUD to an instrument cluster. However, it found a higher visual attention ratio to the driving environment [37] .
+SECTION II.
+Objectives
+
+In order to comply with the challenges of partially automated driving in complex urban areas from a human-centered perspective, an integrated HMI seems to be of great importance. With regard to malfunctions in partially automated driving, ARHUDs could have a high potential. It has not yet been investigated if an ARHUD actually provides better support for the driver in case of malfunctions during partially automated driving in urban areas. For this purpose, an ARHUD concept has been developed, which should be compared to a Baseline concept consisting of only an instrument cluster and an LED strip (see Section III ). In a driving simulation experiment, the two concepts were evaluated regarding their effects on take-over time, take-over quality, visual attention and subjective ratings. This was to investigate the following research questions (RQs). Due to the positive subjective results of ARHUDs in previous research (see Section I . B .), we expected the ARHUD to result in higher subjective ratings than the Baseline concept.
+
+    RQ1:
+
+    Does take-over time and quality differ depending on the HMI concept?
+    RQ2:
+
+    Are there differences in take-over time and quality between the lateral and longitudinal malfunction?
+    RQ3:
+
+    Does visual attention differ depending on the HMI concept?
+    RQ4:
+
+    Does the ARHUD concept lead to higher subjective ratings compared to the Baseline concept?
+
+On an explorative level, we wanted to additionally investigate whether safety and controllability can be ensured for the investigated malfunction scenarios.
+SECTION III.
+HMI Design
+A. Baseline Concept
+
+The Baseline concept consisted of a freely programmable instrument cluster and a LED strip mounted at the bottom of the windshield. The instrument cluster design was based on two previously conducted studies [39] , [40] . It displayed several driving- and automation-related information items such as the system status of the ADS, current speed, speed limits, navigation, as well as actual and planned maneuvers. Since the system status was considered the most relevant information for automated driving [14] , [15] , this information was additionally displayed via an LED strip. The LED strip is particularly beneficial due to its good peripheral perceptibility [10] and has already been used in several studies on automated driving (e.g., [15] , [39] , [41] –​ [43] ). The active ADS was indicated by a blue illumination of the LED strip, since the color blue is peripherally well perceptible [44] and was rated suitable for this use case [41] . Furthermore, the color blue was proposed for LED strips in the context of partially automated driving [39] , [45] . Fig. 1 shows the blue LED strip and the instrument cluster in the vehicle interior during the partially active ADS. In the event of a request to intervene, a take-over icon was displayed in the instrument cluster, the LED flashed red, a warning tone appeared and the seat vibrated. The participants thus received multimodal warnings to take over vehicle guidance again. Although the participants experienced system limits with the mentioned design of the request to intervene during the familiarization drive, this had no relevance to the investigated malfunction scenarios, since no requests to intervene occurred during these scenarios.
+Fig. 1. - ARHUD concept during partially active ADS, consisting of the instrument cluster, LED strip and ARHUD (showing current speed and the planned trajectory by a single boomerang during free driving).
+Fig. 1.
+
+ARHUD concept during partially active ADS, consisting of the instrument cluster, LED strip and ARHUD (showing current speed and the planned trajectory by a single boomerang during free driving).
+
+Show All
+
+B. Augmented Reality Head-Up Display Concept
+1) Requirements Definition:
+
+Whereas there are already guidelines for the design of the instrument cluster [46] , [47] and recommendations for the design of the HMI for automated driving [48] , [49] , there are still no design principles for the ARHUD [50] , [51] . We therefore collected quantitative and qualitative requirements resulting from ARHUD studies or transferred from conventional HMI concepts to the ARHUD context ( Table I and Table II ). This should provide a basis for the development of the ARHUD in this paper.
+TABLE I Quantitative Requirements Definition for the Visualization of the ARHUD
+Table I- Quantitative Requirements Definition for the Visualization of the ARHUD
+TABLE II Qualitative Requirements Definition for the Visualization of the ARHUD
+Table II- Qualitative Requirements Definition for the Visualization of the ARHUD
+
+2) Development:
+
+The ARHUD concept consisted of the Baseline concept, but was extended by an additional ARHUD ( Fig. 2 ). The ARHUD concept was based on a pre-study [32] and was further developed. We displayed the driving-relevant information regarding AV guidance in the ARHUD. In addition to the augmented reality elements, the current speed was continously displayed in a conventional HUD. If an augmented visualization of the navigation information was not yet possible, e.g., because the intersection was not completely visible yet, this information was additionally displayed situation-specific in a two-dimensional manner in the HUD [50] . When the ADS was active, a single boomerang or boomerang chain was displayed in front of the AV ( Fig. 2 ). When the vehicle was in free driving mode or stopped and no explicit maneuver such as turning at a intersection or a lane change was present, a single boomerang was displayed in front of the vehicle to reduce the risk of concealing other objects [50] ( Fig. 2.a ). The boomerang had the width of the AV, since this is the basis for estimating the lateral deviation of the AV [52] . The boomerang was displayed at a distance of 12 m in front of the AV, which was about 0.9 seconds away at 50 km/h and thus at the lower limit of the driver’s fixations [53] , [54] . The speed of 50 km/h was relevant because of the speed of 50 km/h set during the malfunction scenarios. In case of a lane change or a turning maneuver, the single boomerang was extended to a boomerang chain, which displayed the planned trajectory for an enhanced system understanding ( Fig. 2.b and Fig. 2.c ). Additionally, six more boomerang elements with a gap of 1 m in front of the single boomerang were shown. When following a vehicle in front, the system switched to the adaptive cruise control (ACC) mode. The distance to the vehicle in front was visualized with a variable number of boomerang elements depending on the distance, which showed the control range as known from conventional ACC icons ( Fig. 2.d ). To indicate that the vehicle in front was detected, it was marked by a green bracket at the bottom [51] . Static and dynamic obstacles in the AV’s lane were marked with a round yellow bracket ( Fig. 2.c ). This round bracket should additionally mark the lateral distance to the obstacle when passing it. A rectangular bracket marked traffic lights, oncoming traffic, as well as traffic signs that had an influence on driving strategy, such as “Speed limit” or “Give way” ( Fig. 2.a ). The rectangular brackets marking traffic lights had the color of the state of the traffic light.
+Fig. 2. - Visualization of the ARHUD in the driving environment for four specific driving scenarios: Free driving, turning left at an intersection, passing a bottleneck due to roadwork, following a front vehicle.
+Fig. 2.
+
+Visualization of the ARHUD in the driving environment for four specific driving scenarios: Free driving, turning left at an intersection, passing a bottleneck due to roadwork, following a front vehicle.
+
+Show All
+
+SECTION IV.
+Method
+A. Sample
+
+The participants were recruited via postings at the Technical University of Munich. The prerequisite for participation was the possession of a valid driver’s license for at least three years. Fifty-two participants took part in the driving simulator experiment. Due to simulator sickness, three participants had to abort the experiment. One participant had to be excluded because of nonfulfillment of the prerequisites for participation. This resulted in a total of 48 valid data sets. The mean age of the ARHUD group was M = 25.8 years ( SD = 7.3) and the mean age of the Baseline group was M = 24.9 years ( SD = 2.2). The ARHUD and the Baseline group each consisted of 10 (41.7%) women and 14 (58.3%) men. One participant in the Baseline and two participants in the ARHUD condition had a red-green color vision deficiency. When asked how regularly they drove in the past year, in the Baseline condition one participant reported daily, five participants reported several times a week, nine participants reported weekly, and nine participants reported monthly. In contrast, in the ARHUD condition, two participants reported driving daily, five participants reported driving several times a week, seven participants reported driving weekly, and 10 participants reported driving monthly. In the ARHUD group, 45.8% and in the Baseline group, 50.0% already had experience with a partially ADS. Both groups reported a high knowledge of automated driving ( Mdn = 4.0) rated on a 5-point Likert scale from “very low (1)” to “very high (5)”.
+B. Experimental Design
+
+We implemented a 2 × 2 mixed-subject design for the driving simulator study. The HMI concept (ARHUD or Baseline) was a between-subject factor and the malfunction scenario (longitudinal or lateral) was a within-subject factor. This was to avoid participants experiencing the same malfunction scenario multiple times. The malfunction scenarios were presented to the participants in permutated order. The experimental drive was interrupted after each take-over situation so that the participants did not have to drive for more than 10 minutes without a break. This should reduce vigilance decrements while the participants had to monitor the ADS [12] , [57] . Participants were instructed that it was not necessary to keep their hands on the steering wheel when the ADS was active, since no reduced crash outcomes or improved driver conflict response were found when driving hands-on [4] , [58] , [59] . Additional non-driving related activities (NDRAs) in partially automated driving result in a higher number and longer duration of off-road glances [18] . A potential resulting low visual attention is associated with an increased crash probability [19] , [60] . Furthermore, performing NDRA during automated driving caused more lane excursions and longer take-over times [61] . To avoid such a negative influence of the NDRA, the participants were not allowed to engage in NDRAs during this study.
+
+The ethics committee of the Technical University of Munich reviewed and approved this study. The ethical approval code is 533/19 S.
+C. Dependent Variables
+
+We collected objective and subjective data during the experiment. We recorded take-over time, maximum lateral acceleration, minimum longitudinal acceleration and minimum time-to-collision (mTTC) [62] to evaluate take-over quality at system limits [63] . The crash rate was also recorded. Causing no crash was defined as pass-criteria against which controllability can be assessed [64] . According to ISO 26262 standard [65] , controllability is achieved if 90.0% of the participants fulfill this pass-criterion (class of controllability: C2). Visual attention was operationalized by the attention ratio on the areas of interest (AOIs) Road Ahead (corresponding to the windscreen) and Instrument Cluster , as well as off-road glances with a duration of more than 2 seconds [60] . Mirrors were not considered as further AOI, since these showed values of less than one percent in a pre-study [32] and should not be affected by the HMI concepts. Off-road glances greater than 2 seconds are considered to be an increased crash risk [60] . Using standardized questionnaires, we measured usability [66] , subjective workload [67] , [68] , trust [69] and acceptance [70] . Additionally, participants rated the malfunction scenarios regarding the time budget (from 1 = “not sufficient at all” to 5 = “completely sufficient”), criticality (from 1 = “very critical” to 5 = “very uncritical”), complexity (from 1 = “very complex” to 5 = “very simple”) and predictability (from 1 = “very unpredictable” to 5 = “very predictable”) directly following the encountered malfunction scenario. These ratings were based on the factors classifying take-over scenarios [71] . The questionnaires were provided in German. Table III shows a list of the investigated dependent variables and their description.
+TABLE III Dependent Variables
+Table III- Dependent Variables
+
+D. Apparatus
+
+We conducted the experiment in the static driving simulator of the Chair of Ergonomics at the Technical University of Munich [72] ( Fig. 3 ). Three front projectors generated a 180° front view and three rear projectors generated the side and rear mirrors. Additionally, the front center projector realized the ARHUD visualization. The driving simulator software SILAB 6.0 of the Würzburg Institute for Traffic Sciences [73] had a refresh rate of 60 Hz for visualization and a data collection rate of 240 Hz. A sound system created engine and environmental sounds. We recorded the eye-tracking data using the remote eye-tracking system SmartEye [74] using three stationary infrared cameras in the vehicle interior running at 60 Hz. The ADS could be activated by pressing a button on the steering wheel. The ADS could be deactivated at any time by the participants by pressing the same button, by pressing the brake or accelerator pedal or by a steering intervention.
+Fig. 3. - Static driving simulator of the chair of ergonomics.
+Fig. 3.
+
+Static driving simulator of the chair of ergonomics.
+
+Show All
+
+E. Experimental Track and Design of Malfunction Scenarios
+
+The experimental track was a 27-minute automated drive, consisting of typical urban driving scenarios, such as following a vehicle in front, passing road bottlenecks or turning at intersections with traffic lights. After 7 minutes of automated driving, a system limit scenario with a request to intervene occurred. The results of this scenario are not part of this publication. This was followed by two parts of 10 minutes automated driving followed by the lateral or longitudinal malfunction scenario depending on the permutation.
+1) Longitudinal Malfunction Scenario:
+
+Before the malfunction occurred, the AV was on the right lane of a two-lane road and followed a van with a time gap of 2 seconds at a speed of 50 km/h (see Fig. 2.d ). The van then changed to the left lane and a stopped vehicle became visible in the right lane (see Fig. 4.a ). The ADS failed to recognize the new vehicle and drove towards the stopped vehicle without any request to intervene. The participants then had a time budget of 2.6 seconds to intervene in order to prevent a collision with the stopped vehicle. The scenario was based on cut-out scenarios in partially automated driving showing similar time budgets of 2.3-3 seconds on highways and rural roads [58] , [59] . According to [71] , we classified this scenario as having high urgency, low predictability, high criticality and high complexity of the necessary driver response. In the event of the malfunction, the ARHUD changed from ACC mode to free driving mode due to the missed detection of the stopped vehicle. This was also displayed accordingly in the instrument cluster.
+Fig. 4. - The front view during the lateral and longitudinal malfunction scenarios including visualization of the ARHUD in the driving simulation environment.
+Fig. 4.
+
+The front view during the lateral and longitudinal malfunction scenarios including visualization of the ARHUD in the driving simulation environment.
+
+Show All
+
+2) Lateral Malfunction Scenario:
+
+The failure of the lateral control took place during a long left-hand bend. At a speed of 50 km/h, the AV malfunctioned in planning the right trajectory and drifted straight towards a car parked on the right-hand hard shoulder (see Fig. 4.b ). From the time of leaving the ideal trajectory, the participants had a time budget of 3.7 seconds to regain control of the vehicle and avoid a collision with the parked car. The deviation from the ideal trajectory was difficult to perceive in the beginning, so that we extended the time budget by approximately one second compared to the longitudinal malfunction. This scenario is based on [5] , [75] , [76] , investigating similar malfunction and system limit scenarios for partially automated driving on highways. We classified this scenario as having high urgency, low predictability, high criticality and medium complexity of the necessary driver response [71] . During this scenario, the ARHUD displayed the malfunctioning trajectory heading towards the parked car via the single boomerang. Meanwhile, the instrument cluster presented the free driving mode.
+F. Procedure
+
+The duration of the experiment was 75 minutes. After the welcoming, participants had to read and sign the safety instruction and declaration of consent. Afterwards, participants had to fill out the demographic questionnaire. Participants were instructed in written form for reasons of standardization about the driving simulator, the capabilities of the partially ADS, the possibility of malfunctions and, depending on the ARHUD or Baseline condition, about the HMI concept. After entering the vehicle and adjusting the mirrors and seat, an 8-minute familiarization drive took place. During the familiarization drive, participants had to drive manually and then experienced an automated drive with two request to intervene scenarios by using the Baseline concept. A malfunction did not occur during the familiarization drive. Then the eye-tracking system was calibrated and the 27-minute experimental drive was started. Each take-over during the experimental drive was followed by an intermediate survey. After the experimental drive, a follow-up questionnaire was conducted. The experiment was concluded with payment of a compensation of 10 ¬.
+G. Statistical Analysis
+
+Data preparation and visualization was done with Matlab and MS Excel. We used JASP 0.12 [77] for the statistical analysis. We checked the normality distribution and equality of variances by using the Shapiro–Wilk test and Levene’s test. If these assumptions for parametric tests were not met, we used the non-parametric alternative. We conducted an ANOVA independently of the assumption of normal distribution, since this seems to be robust against a violation of normal distribution [78] . Single items on Likert-scales were classified as ordinal data [79] . All other data were considered as interval scaled. A significance level of α = 0.05 was applied. In case of multiple comparisons, a Bonferroni-Holm correction [80] was performed and the resulting α H o l m was reported in the test statistics. We interpreted the effect sizes based on Cohen’s benchmark (small: d = 0.20, r = 0.10, partial η 2 = 0.01; medium: d = 0.50, r = 0.30 partial η 2 = 0.06; large: d = 0.80, r = 0.50 partial η 2 = 0.14) [81] . Due to crashes or a lack of eye-tracking quality, which led to exclusions of participants regarding the take-over quality or visual attention, the sample sizes for all objective metrics are reported in the following.
+SECTION V.
+Results
+A. Driving Data
+
+The take-over time is visualized in Fig. 5 . The corresponding descriptive statistics are given in Table IV . All participants took over vehicle guidance during the malfunction scenario, so that none of them caused a crash without an intervention. A mixed ANOVA revealed a significant effect on take-over time for the HMI concept ( F (1,46) = 7.173, p = 0.010, partial η 2 = 0.135) and for the malfunction scenario ( F (1,46) = 687.590, p < 0.001 , partial η 2 = 0.937). There was no significant interaction effect between the HMI concept and the malfunction scenario ( F (1,46) = 2.278, p = 0.138). An exploratory analysis showed that 24 participants in the Baseline and 12 participants in the ARHUD group had a time budget of 0.90 seconds or less for collision avoidance in the lateral malfunction at the time they took over vehicle guidance. For the longitudinal malfunction, eight participants in the Baseline and five participants in the ARHUD group had 0.90 seconds or less for collision avoidance at the time when they took over vehicle guidance.
+TABLE IV Means (and Standard Deviations) for Dependent Measures of Take-Over Time and Quality
+Table IV- Means (and Standard Deviations) for Dependent Measures of Take-Over Time and Quality
+Fig. 5. - Boxplots of the take-over time during the lateral and longitudinal malfunction (x shows the mean value).
+Fig. 5.
+
+Boxplots of the take-over time during the lateral and longitudinal malfunction (x shows the mean value).
+
+Show All
+
+During the longitudinal malfunction, 41.7% of the Baseline group and 25.0% of the ARHUD group crashed. Three participants did not cause a crash with the stopped vehicle, but came off the road and collided with a street lamp. For the lateral malfunction, the crash rates reached 83.3% for the Baseline group and 37.5% for the ARHUD group. It was found that the ARHUD leads to considerably fewer crashes than the Baseline. Furthermore, the lateral malfunction led to more crashes than the longitudinal malfunction independent of the HMI concept. Since the collision object (parked vehicle) was not located in the lane of the AV in case of the lateral malfunction, we could not determine the mTTC due to missing recorded data; we therefore listed the mTTC only for the longitudinal malfunction ( Table IV ). We found no significant effect between the Baseline and ARHUD for the mTTC ( t (30) = 0.229, p = 0.820). Since we had to exclude participants that caused a crash from the analysis of the minimum longitudinal and lateral acceleration, this resulted in a very small sample size for the lateral malfunction scenario. Therefore, no statistical analysis of accelerations was possible in this scenario. Neither was it possible to compare the two scenarios in terms of acceleration. We only considered the accelerations during the lateral malfunction on a descriptive level. Since there were violations of the assumption of the normality distribution for the longitudinal acceleration and the lateral acceleration during the longitudinal malfunction, we conducted Mann-Whitney tests in these cases. No significant effect was revealed for longitudinal acceleration ( Table IV ) during the longitudinal malfunction ( U = 135.0, p = 0.750) between both HMI concepts. Although longitudinal acceleration for the lateral malfunction descriptively shows a lower mean value for the ARHUD compared to the Baseline, no real evaluation can be made because of the small sample size. The lateral acceleration ( Table IV ) showed no significant effect for the longitudinal malfunction ( U = 120.0, p = 0.837) comparing the Baseline and ARHUD. On a descriptive level, lateral acceleration showed also no difference for the lateral malfunction.
+B. Eye-Tracking Data
+
+The eye-tracking data of one participant was missing due to technical problems. Additionally, the eye-tracking data of two participants were excluded due to a data availability of less than 70.0% for both 10-minute automated drives before the malfunction [82] . This resulted in 23 valid datasets of the ARHUD group and 22 valid datasets of the Baseline group for the eye-tracking data. The remaining datasets had a mean data availability of 94.0% for the Baseline and of 92.9% for the ARHUD which is classified as good [82] . Fig. 6 shows the boxplots of the attention ratio on the AOIs Road Ahead and Instrument Cluster . The ARHUD resulted in a mean attention ratio of M = 89.9% ( SD = 5.0%) on the Road Ahead and in an M = 1.7% ( SD = 1.2%) on the Instrument Cluster . In comparison, the Baseline resulted in an M = 88.7% ( SD = 3.3%) on the Road Ahead and in an M = 4.0% ( SD = 2.6%) on the Instrument Cluster . The data of the attention ratio were not normally distributed and additionally, the assumption for equal variances were not fulfilled for the Instrument Cluster . There was no significant difference for the Road Ahead ( U = 321.0, p = 0.126, α H o l m = 0.010). In contrast, the Instrument Cluster showed a significant lower attention ratio for the ARHUD compared to the Baseline ( U = 100.0, p < 0.001 , r = 0.605, α H o l m = 0.008).
+Fig. 6. - Boxplots of the visual attention ratio on the AOIs Road Ahead und Instrument Cluster for both 10-minute automated drives before the malfunctions (x shows the mean value).
+Fig. 6.
+
+Boxplots of the visual attention ratio on the AOIs Road Ahead und Instrument Cluster for both 10-minute automated drives before the malfunctions (x shows the mean value).
+
+Show All
+
+Regarding the attention ratio during the malfunction scenarios, the data of three participants for the lateral malfunction and the data of two participants for the longitudinal malfunction had to be excluded because of a data availability of less than 70% [82] . In order to analyze the attention ratio during the malfunction scenarios, Mann-Whitney tests were performed because of the violation of the normality distribution ( Table V ).
+TABLE V Means (Standard Deviations) and Statistics Comparing the Visual Attention Ratio on the AOIs Road Ahead and Instrument Cluster during the Malfunction Scenarios
+Table V- Means (Standard Deviations) and Statistics Comparing the Visual Attention Ratio on the AOIs Road Ahead and Instrument Cluster during the Malfunction Scenarios
+
+We found the mean number of off-road glances longer than 2 seconds of M = 1.09 ( SD = 1.54) for the Baseline and M = 0.74 ( SD = 0.96) for the ARHUD. Due to the violation of the normality distribution, we conducted a Mann-Whitney test showing no significant difference between the Baseline and ARHUD ( U = 234.5, p = 0.657).
+C. Subjective Data
+
+The usability score ( Fig. 7 ) had a mean of M = 66.04 ( SD = 16.12) for the Baseline and a mean of M = 73.85 ( SD = 14.01) for the ARHUD. An independent t-test revealed a significantly higher usability for the ARHUD ( t (46) = −1.792, p = 0.040, d = 0.517, one-tailed). The trust in automation score ( Fig. 7 ) revealed a significantly higher trust ( t (46) = 1.876, p = 0.033, d = 0.542, one-tailed) for the ARHUD M = 3.00 ( SD = 0.51) compared to the Baseline M = 2.70 ( SD = 0.58). An exploratory analysis of trust scores in the ARHUD condition showed no reduction in trust with no crash ( M = 2.84, SD = 0.41, n = 11) compared to one crash ( M = 3.15, SD = 0.59, n = 11) and two crashes ( M = 3.08, SD = 0.56, n = 2) at a descriptive level. The acceptance rating ( Fig. 7 ) consisted of the usefulness and satisfaction score. The participants reported no significantly higher satisfaction ( t (46) = −1.942, p = 0.029, α H o l m = 0.025, one-tailed) for the ARHUD ( M = 0.93, SD = 0.69) compared to the Baseline ( M = 0.50, SD = 0.82). Due to the violation of the normality assumption, a conducted Mann-Whitney test ( U = 237.5, p = 0.150, α H o l m = 0.05, one-tailed) revealed no higher usefulness rating for the ARHUD ( M = 0.89, SD = 0.61) than for the Baseline ( M = 0.56, SD = 0.90). Table VI displays the means and standard deviations of the subjective workload for the longitudinal and lateral malfunction. The conducted ANOVA for the subjective workload showed neither a significant effect for the HMI concept ( F (1,46) = 2.252, p = 0.140), nor for the malfunction scenario ( F (1,46) = 2.498, p = 0.121) or the interaction effect between the HMI concept and scenario ( F (1,46) = 0.039, p = 0.845).
+TABLE VI Means (and Standard Deviations) for Subjective Workload (n = 48)
+Table VI- Means (and Standard Deviations) for Subjective Workload (n = 48)
+Fig. 7. - Boxplots of the usability score, trust in automation score, usefulness and satisfaction score (x shows the mean value).
+Fig. 7.
+
+Boxplots of the usability score, trust in automation score, usefulness and satisfaction score (x shows the mean value).
+
+Show All
+
+We compared the rating of the characteristics of the scenarios between the two different malfunction scenarios. The medians and the statistics are presented in Table VII . There were no significant differences between the malfunction scenarios for the time budget, criticality and complexity. In contrast, there was a significant higher rated predictability for the lateral malfunction scenario.
+TABLE VII Medians and Statistics Comparing the Characteristics Rating of the Malfunction Scenarios (n = 48)
+Table VII- Medians and Statistics Comparing the Characteristics Rating of the Malfunction Scenarios (n = 48)
+
+SECTION VI.
+Discussion and Limitations
+A. Take-Over Time and Quality
+
+The statistical analysis showed a significantly shorter take-over time for ARHUD. Considering the take-over time for both malfunction scenarios separately, it seems that this is mainly due to the faster take-over time of the ARHUD during lateral malfunction. Even though there was only a difference of 0.21 seconds on the average take-over time between ARHUD and Baseline, we nevertheless assume that even this difference might be essential for the reduction of the crash rate. Emergency brake assistants initiate an intervention at a time budget of 0.90 seconds [6] , since this is the last point in time at which the collision can be avoided by braking only. Therefore, we believe it makes a difference whether participants have a remaining average time budget of 0.88 seconds in the ARHUD compared 0.67 seconds in the Baseline condition to avoid a collision after they took over vehicle guidance in the lateral malfunction. On a descriptive level, both HMI concepts have a similar impact on the take-over time during longitudinal malfunction. The participants could detect that the AV is in danger of frontal collision with the stopped vehicle independently of the HMI concept. In this case, the ARHUD does not seem to provide faster intervention. In contrast, during lateral malfunction, the participants may be able to anticipate the trajectory of the AV better due to the more transparent visualization in the driving environment and thus to recognize the necessary intervention more quickly. This would be consistent with the literature stating that an ARHUD resulted in significantly faster response time in the case of a lateral malfunction (lane change failure) [38] , whereas no faster response time was detected in the case of a longitudinal malfunction (potential crash with front vehicle) [37] . Consequently, the scenario seems to have a considerable influence on the extent to which ARHUDs lead to a faster take-over time. On average, the ARHUD resulted in a take-over time of 2.8 seconds for the lateral malfunction with a time budget of 3.7 seconds, so that a time budget of 0.9 seconds remained to prevent the collision. These 0.9 seconds correspond to the moment when the displayed boomerang of the ARHUD reached the collision object, in this case the parked vehicle. Thus, there could be a great potential to display the single boomerang not 0.9 seconds in front of the vehicle but probably at the upper limit of 2 seconds [54] . There was a significant difference in the take-over time between both malfunction scenarios. In the longitudinal malfunction scenario, participants took over the vehicle guidance significantly faster. This could be caused by the fact that the takeover time increases with an increasing time budget [63] . This contradicts that the participants perceived no difference in the time budget of the two malfunction scenarios according to the rating of the scenario characteristics. We assume that it is more likely to be due to the slow deviation of the middle of the lane becoming clearly visible at a later point in time and therefore resulting in longer take-over times during the lateral malfunction scenario.
+
+When using the ARHUD, considerably fewer crashes occurred in both malfunction scenarios. This difference in the crash rate by the ARHUD is greater for the lateral malfunction than for the longitudinal malfunction. This could be due to the longer take-over times of the ARHUD during the lateral malfunction, since crashing drivers react slower than non-crashing drivers during the response process due to a malfunction [58] . Additionally, long braking reaction times lead to a higher crash probability [83] . In general, the investigated lateral malfunction seems to be less controllable than the longitudinal malfunction. The very high crash rate compared to previous studies [4] , [5] , [37] could be in consequence of the urban driving environment and the resulting high information density. An investigated urban malfunction during automated driving in a multi-vehicle simulation also showed a higher crash rate of 40% [39] . Thus, our investigated scenarios showed a higher time criticality compared to these studies. With regard to the other dependent variables of take-over quality, no differences were found between the HMI concepts. A comparison of the scenarios regarding these dependent variables was not possible. This was due to the small sample size, since participants with a collision were excluded from the analysis of the mTTC, minimum longitudinal acceleration and maximum lateral acceleration. Due to the reduced sample size, effects regarding the take-over quality might have not been detected. Although the ARHUD seems to provide significant support in terms of take-over time and quality, no controllability according to ISO 26262 [65] was demonstrated for the investigated malfunction scenarios as a result of the high crash rate for either HMI concept. This demonstrates the need for a fallback level for partially automated urban driving. Although partially automated driving according to the SAE International J3016 [1] does not take into account non-sustained functions such as emergency braking [84] , such functions may already contribute to a significant crash reduction if the driver fails to intervene adequately. The number of vehicles equipped with an automatic emergency brake assistant is already rapidly increasing [85] . Nevertheless, it is important that the emergency brake assistant is a redundant system so that, for example, if a sensor failure occurs that leads to a malfunction of the partially ADS, this failure does not also affect the emergency brake assistant.
+B. Visual Attention
+
+There were no differences in the attention ratio on the Road Ahead between the two HMI concepts. Both HMI concepts resulted in high visual attention to the Road Ahead , so we assume that inattention should not have a strong effect on the take-over performance. With a high proportion of eyes on the road, the prerequisite for being able to visually detect malfunctions at all seems to be fulfilled. However, it is apparently not enough to just have eyes on the road to realize that the vehicle cannot handle the situation and an intervention is necessary [4] . Based on the results of the take-over time and quality, the ARHUD seems to better indicate the need for intervention to the driver. Another factor that could have a negative impact on take-over despite high visual attention would be mind-wandering. During mind-wandering, participants shift their mental attention to spend time with their own thoughts, which could lead to longer braking response times [86] . The high attention ratios to the Road Ahead compared to [18] could be due to experiencing two take-over situations with a request to intervene during the familiarization drive or differences in the instruction. With regard to the attention ratio on the Instrument Cluster , the Baseline concept showed a significantly higher ratio. Since there was no difference in the number of off-road glances longer than 2 seconds between the two HMI concepts, it can be concluded that the higher attention ratio on the Instrument Cluster for the Baseline does not cause negative effects in the form of long off-road glances compared to the ARHUD. Nevertheless, even glances of normal duration can cause crashes if the timing is bad [87] , e.g., during the occurrence of the malfunction. Therefore, the ARHUD seems to be beneficial, since a lower attention ratio on the Instrument Cluster was necessary. The low absolute number of long off-road glances should nevertheless only be compared relatively between the two concepts. If participants were looking towards the vehicle interior and thus not on the AOIs Instrument Cluster or Road Ahead , the positioning of the three stationary eye-tracking cameras may have led to non-available data and off-road glances were not recorded as such.
+C. Subjective Ratings
+
+The ARHUD led to a significantly higher usability compared to the Baseline. The usability of the ARHUD can be classified as good and that of the Baseline as OK [88] . Consequently, the participants felt that the ARHUD was more effective, more efficient and more satisfactory in terms of handling malfunctions and for monitoring in partially automated driving. With regard to the acceptance rating, there were no significant differences between the two HMI concepts, so that it cannot be clearly concluded which of the systems the participants are more likely to use. However, the ARHUD seems to result in higher acceptance on a descriptive level. The ARHUD resulted in a significantly higher trust in automation, which could confirm the results of [32] , [34] . In any case, a crash during a take-over could reduce the trust level in the AV [89] . However, since the descriptive analysis of the trust scores in the ARHUD condition showed no decrease in trust because of a crash, it can be assumed that the increased trust in the ARHUD condition indeed is due to the design of the ARHUD. Whereas the pre-study by [32] showed a significantly lower workload when using an ARHUD to monitor the partially ADS, this could not be confirmed for the investigated malfunction scenarios. There was no significant difference in workload between the HMI concepts or between the scenarios. Reference [21] listed mean workload levels of automated driving studies, ranging from 10 to 42 for the NASA-TLX. Our results indicate higher workloads regardless of the HMI concept and scenario. From this, it could be concluded that the malfunctions were generally perceived as demanding in the context of automated driving. The ratings of the malfunction characteristics by the participants showed high criticality, relatively low predictability, medium complexity of the driver response and low to medium time budget. There were no significant differences except for predictability, which was perceived less predictable for the longitudinal malfunction compared to the lateral malfunction. This could be because the longitudinal malfunction was only detectable from the moment the van changed to the left lane and the stopped vehicle became visible. In the case of the lateral malfunction, the participants might perceive slow drifting away from the middle of the lane as more predictive.
+D. Further Limitations
+
+One limitation is the young average age of the sample of this study. This could limit the generalizability of the results, since younger participants showed better results than older participants in monitoring and detecting failures of an automated system [90] . Older participants may show longer reaction times during the monitoring task [90] , which in the context of this study could have a negative effect on the take-over time and quality. The participants of this study were not used to partially automated driving in urban areas and the presented HMI concepts. Reference [91] reported that drivers needed up to three weeks to be used to an ACC system. Thus, the results may change if the participants had already been accustomed to the investigated HMI concepts or ADS of this study. Even though we used a high-fidelity driving simulator to ensure a high degree of immersion, it cannot be completely ruled out that the simulator may have created a false sense of safety [92] . This could lead to higher risk tolerance, even though we could not see any indication for over-trust or any similar phenomena. In addition, the absolute values of the dependent variables longitudinal and lateral acceleration might be limited due to the missing vehicle dynamics of the static driving simulator compared to dynamic driving simulators or real vehicles [93] . Nevertheless, we consider our used driving simulator suitable for the relative comparison of the HMI concepts [93] .
+SECTION VII.
+Conclusion and Future Work
+
+The results indicate that the ARHUD supports drivers in partially automated driving better than the Baseline, resulting in shorter take-over times and fewer crashes. This effect is intensified in the case of the lateral malfunction scenario, which generally appears to be more difficult to control. Furthermore, both HMI concepts showed a high level of attention to the driving environment. Here the ARHUD could have a further advantage, since the participants had a lower attention ratio on the instrument cluster in the vehicle interior. In terms of trust in automation and usability, the ARHUD showed an increase, whereas no significant improvement was found for acceptance and workload. However, the high visual attention to the driving environment and the reduction of the take-over time by the ARHUD do not seem to be sufficient for crash avoidance, since the malfunctions were not classified as controllable in general. A fallback level for partially automated driving by a redundant system, for example an emergency brake assistant, seems to be indispensable in urban areas.
+
+In the future, it should be investigated whether the augmented reality visualization of the trajectory at a larger distance, e.g., 2 seconds in front of the AV, could further improve the controllability by the ARHUD. Furthermore, we suggest that a fallback level should be implemented and its effects on the controllability and subjective rating of the drivers should be investigated. In our investigations we have chosen very time-critical malfunction scenarios in urban areas. To what extent the effects found can be transferred to scenarios with a larger time budget will require a separate investigation.
+ACKNOWLEDGMENT
+
+The authors would like to thank Michael Rettenmaier for his advice and proofreading of the paper.
+
+Authors
+Figures
+References
+Citations
+Keywords
+Metrics
+More Like This
+Self-driving vehicle acknowledgement of pedestrian presence conveyed via Light-Emitting Diodes
+
+2015 International Conference on Humanoid, Nanotechnology, Information Technology,Communication and Control, Environment and Management (HNICEM)
+
+Published: 2015
+Comparing State-of-the-Art and Emerging Augmented Reality Interfaces for Autonomous Vehicle-to-Pedestrian Communication
+
+IEEE Transactions on Vehicular Technology
+
+Published: 2021
+Show More
+References
+1.
+Taxonomy and Definitions for Terms Related to Driving Automation Systems for On-Road Motor Vehicles .
+Show in Context CrossRef View it on PoliTO catalogue Google Scholar
+2.
+B. D. Seppelt and T. W. Victor, "Potential solutions to human factors challenges in road vehicle automation" in Road Vehicle Automation 3, Cham, Switzerland:Springer, pp. 131-148, 2016.
+Show in Context CrossRef View it on PoliTO catalogue Google Scholar
+3.
+S. M. Casner, E. L. Hutchins and D. Norman, "The challenges of partially automated driving", Commun. ACM , vol. 59, no. 5, pp. 70-77, 2016.
+Show in Context CrossRef View it on PoliTO catalogue Google Scholar
+4.
+T. W. Victor, E. Tivesten, P. Gustavsson, J. Johansson, F. Sangberg and M. L. Aust, "Automation expectation mismatch: Incorrect prediction despite eyes on threat and hands on wheel", Hum. Factors , vol. 60, no. 8, pp. 1095-1116, 2018.
+Show in Context CrossRef View it on PoliTO catalogue Google Scholar
+5.
+A. Boos, A. Feldhütter, J. Schwiebacher and K. Bengler, "Mode errors and intentional violations in visual monitoring of level 2 driving automation", Proc. IEEE 23rd Int. Conf. Intell. Transp. Syst. (ITSC) , pp. 1-7, Sep. 2020.
+Show in Context View Article
+Google Scholar
+6.
+M. Götze, "Entwicklung und Evaluation eines integrativen MMI Gesamtkonzeptes zur Handlungsunterstützung für den urbanen Verkehr", 2018, [online] Available: http://mediatum.ub.tum.de/?id=1379948.
+Show in Context View it on PoliTO catalogue Google Scholar
+7.
+L. Rittger and M. Götze, "HMI strategy—Recommended action" in UR: BAN Human Factors in Traffic: Approaches for Safe Efficient and Stress-Free Urban Traffic, Wiesbaden, Germany:Springer, pp. 119-150, 2018.
+Show in Context CrossRef View it on PoliTO catalogue Google Scholar
+8.
+A. Eriksson, I. S. Marcos, K. Kircher, D. Västfjäll and N. A. Stanton, "The development of a method to assess the effects of traffic situation and time pressure on driver information preferences" in Engineering Psychology and Cognitive Ergonomics, Cham, Switzerland:Springer, pp. 3-12, 2015.
+Show in Context CrossRef View it on PoliTO catalogue Google Scholar
+9.
+F. Naujoks, "Frühzeitige Fahrerinformation zur Konfliktvermeidung bei urbanen Verkehrskonflikten: Gestaltung und Absicherung", 2015.
+Show in Context View it on PoliTO catalogue Google Scholar
+10.
+K. Bengler, M. Rettenmaier, N. Fritz and A. Feierle, "From HMI to HMIs: Towards an HMI framework for automated driving", Information , vol. 11, no. 2, pp. 61, Jan. 2020.
+Show in Context CrossRef View it on PoliTO catalogue Google Scholar
+11.
+J. Drüke, C. Semmler and L. Bendewald, "The ‘HMI tool kit’ as a strategy for systematic derivation user-oriented HMI concepts driver assistance systems urban areas" in UR: BAN Human Factors Traffic: Approaches for Safe Efficient Stress-Free Urban Traffic, Wiesbaden, Germany:Springer, pp. 53-74, 2018.
+Show in Context CrossRef View it on PoliTO catalogue Google Scholar
+12.
+I. Othersen, Vom Fahrer zum Denker und Teilzeitlenker: Einflussfaktoren und Gestaltungsmerkmale nutzerorientierter Interaktionskonzepte für die Überwachungsaufgabe des Fahrers im teilautomatisierten Modus, Wiesbaden, Germany:Springer, 2016.
+Show in Context CrossRef View it on PoliTO catalogue Google Scholar
+13.
+A. P. van den Beukel, M. C. van der Voort and C. Mascha, "Design considerations on user-interaction for semi-automated driving", Proc. FISITA World Automot. Congr. , pp. 1-8, 2014.
+Show in Context View it on PoliTO catalogue Google Scholar
+14.
+M. Beggiato, F. Hartwich, K. Schleinitz, J. Krems, I. Othersen and I. Petermann-Stock, "What would drivers like to know during automated driving? Information needs at different levels of automation", Proc. 7th Tagung Fahrerassistenz , pp. 1-6, 2015.
+Show in Context View it on PoliTO catalogue Google Scholar
+15.
+A. Feierle, S. Danner, S. Steininger and K. Bengler, "Information needs and visual attention during urban highly automated driving—An investigation of potential influencing factors", Information , vol. 11, no. 2, pp. 62, 2020.
+Show in Context CrossRef View it on PoliTO catalogue Google Scholar
+16.
+A.-K. Kraft, F. Naujoks, J. Wörle and A. Neukum, "The impact of an in-vehicle display on glance distribution in partially automated driving in an on-road experiment", Transp. Res. F Traffic Psychol. Behav. , vol. 52, pp. 40-50, Jan. 2018.
+Show in Context CrossRef View it on PoliTO catalogue Google Scholar
+17.
+B. L. Hills, "Vision visibility and perception in driving", Perception , vol. 9, no. 2, pp. 183-216, Apr. 1980.
+Show in Context CrossRef View it on PoliTO catalogue Google Scholar
+18.
+S. Yang, J. Kuo and M. G. Lenné, "Patterns of sequential off-road glances indicate levels of distraction in automated driving", Proc. Hum. Factors Ergonom. Soc. Annu. Meeting , vol. 63, no. 1, pp. 2056-2060, 2019.
+Show in Context CrossRef View it on PoliTO catalogue Google Scholar
+19.
+E. Tivesten, T. W. Victor, P. Gustavsson, J. Johansson and M. L. Aust, "Out-of-the-loop crash prediction: The automation expectation mismatch (AEM) algorithm", IET Intell. Transp. Syst. , vol. 13, no. 8, pp. 1231-1240, Aug. 2019.
+Show in Context CrossRef View it on PoliTO catalogue Google Scholar
+20.
+O. Carsten and M. H. Martens, "How can humans understand their automated cars? HMI principles problems and solutions", Cognition Technol. Work , vol. 21, no. 1, pp. 3-20, Feb. 2019.
+Show in Context CrossRef View it on PoliTO catalogue Google Scholar
+21.
+D. D. Heikoop, J. C. F. de Winter, B. van Arem and N. A. Stanton, "Acclimatizing to automation: Driver workload and stress during partially automated car following in real traffic", Transp. Res. F Traffic Psychol. Behav. , vol. 65, pp. 503-517, Aug. 2019.
+Show in Context CrossRef View it on PoliTO catalogue Google Scholar
+22.
+E. Adell, "Driver experience and acceptance of driver support systems—A case of speed adaptation", 2009.
+Show in Context View it on PoliTO catalogue Google Scholar
+23.
+M. Körber, L. Prasch and K. Bengler, "Why do I have to drive now? Post hoc explanations of takeover requests", Hum. Factors , vol. 60, no. 3, pp. 305-323, 2018.
+Show in Context CrossRef View it on PoliTO catalogue Google Scholar
+24.
+J. D. Lee and K. A. See, "Trust in automation: Designing for appropriate reliance", Hum. Factors , vol. 46, no. 1, pp. 50-80, 2004.
+Show in Context CrossRef View it on PoliTO catalogue Google Scholar
+25.
+V. A. Banks, A. Eriksson, J. O’Donoghue and N. A. Stanton, "Is partially automated driving a bad idea? Observations from an on-road study", Appl. Ergonom. , vol. 68, pp. 138-145, Apr. 2018.
+Show in Context CrossRef View it on PoliTO catalogue Google Scholar
+26.
+Ergonomic Requirements for Office Work With Visual Display Terminals (VDTs)—Part 11: Guidance On Usability , 1999.
+Show in Context CrossRef View it on PoliTO catalogue Google Scholar
+27.
+H. Bubb, "Untersuchung über die Anzeige des Bremsweges im Kraftfahrzeug", 1975.
+Show in Context View it on PoliTO catalogue Google Scholar
+28.
+R. Azuma, Y. Baillot, R. Behringer, S. Feiner, S. Julier and B. MacIntyre, "Recent advances in augmented reality", IEEE Comput. Graph. Appl. , vol. 21, no. 6, pp. 34-47, Nov. 2001.
+Show in Context View Article
+Google Scholar
+29.
+T. Q. Khanh and W. Huhn, "Sichtverbesserungssysteme" in Handbuch Fahrerassistenzsysteme: Grundlagen Komponenten und Systeme für aktive Sicherheit und Komfort, Wiesbaden, Germany:Springer, pp. 815-839, 2015.
+Show in Context View it on PoliTO catalogue Google Scholar
+30.
+M. L. Rusch et al., "Directing driver attention with augmented reality cues", Transp. Res. F Traffic Psychol. Behav. , vol. 16, pp. 127-137, Jan. 2013.
+Show in Context CrossRef View it on PoliTO catalogue Google Scholar
+View More
+IEEE Personal Account
+
+    Change username/password 
+
+Purchase Details
+
+    Payment Options
+    View Purchased Documents 
+
+Profile Information
+
+    Communications Preferences
+    Profession and Education
+    Technical interests 
+
+Need Help?
+
+    US & Canada: +1 800 678 4333
+    Worldwide: +1 732 981 0060
+    Contact & Support 
+
+Follow
+
+About IEEE Xplore | Contact Us | Help | Accessibility | Terms of Use | Nondiscrimination Policy | IEEE Ethics Reporting | Sitemap | IEEE Privacy Policy
+
+A not-for-profit organization, IEEE is the world's largest technical professional organization dedicated to advancing technology for the benefit of humanity.
+
+© Copyright 2024 IEEE - All rights reserved, including rights for text and data mining and training of artificial intelligence and similar technologies.

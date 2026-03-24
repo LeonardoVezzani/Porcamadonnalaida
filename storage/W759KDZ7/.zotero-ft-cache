@@ -1,0 +1,1904 @@
+Get ready for automated driving using Virtual Reality
+Daniele Sportillo, Alexis Paljic, Luciano Ojeda
+To cite this version:
+Daniele Sportillo, Alexis Paljic, Luciano Ojeda. Get ready for automated driving using Virtual Reality. Accident Analysis & Prevention, 2018, 118, pp.102-113. ￿10.1016/j.aap.2018.06.003￿. ￿hal-01858450￿
+
+HAL Id: hal-01858450 https://hal.science/hal-01858450
+Submitted on 21 Aug 2018
+
+HAL is a multi-disciplinary open access archive for the deposit and dissemination of scientific research documents, whether they are published or not. The documents may come from teaching and research institutions in France or abroad, or from public or private research centers.
+
+L’archive ouverte pluridisciplinaire HAL, est destinée au dépôt et à la diffusion de documents scientifiques de niveau recherche, publiés ou non, émanant des établissements d’enseignement et de recherche français ou étrangers, des laboratoires publics ou privés.
+
+Get Ready for Automated Driving using Virtual Reality
+Daniele Sportilloa,b,∗, Alexis Paljica, Luciano Ojedab
+aMINES ParisTech, PSL Research University, Centre for robotics, 60 Bd St Michel 75006 Paris, France bPSA Group, Technical Center of Velizy
+
+Abstract
+In conditionally automated vehicles, drivers can engage in secondary activities while traveling to their destination. However, drivers are required to appropriately respond, in a limited amount of time, to a take-over request when the system reaches its functional boundaries. Interacting with the car in the proper way from the ﬁrst ride is crucial for car and road safety in general. For this reason, it is necessary to train drivers in a risk-free environment by providing them the best practice to use these complex systems. In this context, Virtual Reality (VR) systems represent a promising training and learning tool to properly familiarize drivers with the automated vehicle and allow them to interact with the novel equipment involved. In addition, Head-Mounted Display (HMD)-based VR (light VR) would allow for the easy deployment of such training systems in driving schools or car dealerships. In this study, the eﬀectiveness of a light Virtual Reality training program for acquiring interaction skills in automated cars was investigated. The eﬀectiveness of this training was compared to a user manual and a ﬁxed-base simulator with respect to both objective and self-reported measures. Sixty subjects were randomly assigned to one of the systems in which they went through a training phase followed by a test drive in a high-end driving simulator. Results show that the training system aﬀects the take-over performances. Moreover, self-reported measures indicate that the light VR training is preferred with respect to the other systems. Finally, another important outcome of this research is the evidence that VR plays a strategic role in the deﬁnition of the set of metrics for proﬁling proper driver interaction with the automated vehicle.
+Keywords: conditionally automated vehicles, virtual reality, head-mounted display, take-over request, training
+
+1. Introduction
+
+the variety of situations that the driver can face requires
+
+that drivers must have already acquired the core skills nec-
+
+Imagine you are reading this article in your car as you 25
+
+essary to securely interact with the automated car before
+
+drive on the highway. Suddenly, your car asks you to their ﬁrst ride. Establishing drivers’ role and avoiding con-
+
+“take-over”. What would you do? At the time of writ- fusion [3] is crucial for the safety of both the drivers them-
+
+5 ing, this scenario breaks numerous laws and is potentially selves and other road users.
+
+very dangerous. In the future, it would not only be le-
+
+At present, a vehicle’s functionalities are demonstrated
+
+gal and safe, but you would likely know how to react to 30
+
+to customers via an informal presentation by the car dealer
+
+your car’s demands to hand over control, keeping yourself, during the hand-over process; for further information, cus-
+
+passengers, and other vehicles out of harm’s way.
+
+tomers are required to read the car owner’s manual. For an
+
+10
+
+In future automated vehicles the above situation would automated vehicle, these traditional procedures would not
+
+be fairly common. In particular, conditionally automated be feasible to familiarize the new car owner with the auto-
+
+vehicles (SAE Level-3 [1]) do not require drivers to con35
+
+mated system, primarily because the acquisition of skills
+
+stantly monitor their driving environment; they can, there- by the customer is not ensured. In addition, car dealers
+
+fore, engage in secondary activities such as reading, writ- themselves must be trained and kept up to date of each
+
+15 ing emails and watching videos. However, when the au- new version of the system.
+
+tomated system encounters unexpected situations, it will
+
+In this context, Virtual Reality (VR) constitutes a po-
+
+assume that drivers who are suﬃciently warned will ade40
+
+tentially valuable learning and skill assessment tool which
+
+quately respond to a take-over request.
+
+would allow drivers to familiarize themselves with the au-
+
+The reestablishment of the driving context (i.e. rapid tomated vehicle and interact with the novel equipment
+
+20 onboarding) is one challenge of conditionally automated involved in a free-risk environment. VR allows for the
+
+vehicles [2] for the car industry. The revolution of the possibility of encountering dangerous driving conditions
+
+driving activity, the complexity of these new systems and 45
+
+without putting the driver at physical risk and enable the
+
+controllability and reproducibility of the scenario condi-
+
+∗Corresponding author
+
+tions [4].
+
+Email address: daniele.sportillo@mpsa.com, mines-paristech.fr (Daniele Sportillo)
+
+VR has usually been associated with high costs and
+
+Preprint submitted to Accident Analysis & Prevention
+
+June 5, 2018
+
+huge computational power. For these reasons immersive it helps to avoid stress that may lead to task failure or
+
+50 training based on CAVEs or Head-Mounted Displays has105 deterioration in performance.
+
+until now been prohibitive in mainstream settings. How-
+
+Although most of the studies in DS uses static screens
+
+ever, in recent years, technological progress and the in- as the display system, recent studies prove that HMD-
+
+volvement of dominant technology companies has allowed based DS leads to similar physiological response and driv-
+
+the development of aﬀordable VR devices.
+
+ing performance when compared to stereoscopic 3D or 2D
+
+55 The objective of this research is to explore the poten-110 screens [14]. Taheri et al. [15] presented a VR DS system
+
+tial of the role of light Virtual Reality systems, in particu- composed of HMD, steering wheel and pedals to analyze
+
+lar, for the acquisition of skills for the Transfer of Control drivers’ characteristics; Goedicke et al. [16] instead pro-
+
+(ToC) in highly automated cars. By using the adjective posed an implementation of an HMD in a real car to sim-
+
+light, we want to mark the diﬀerence between VR systems ulate automated driving as the vehicle travels on a road.
+
+60 that are portable and/or easy to set up (HMDs, mobile115 Even if the steering wheel is the most used driving in-
+
+VR) and systems that are cumbersome and require dedi- terface, novel HMD systems usually come with wireless
+
+cated space to operate (CAVE systems). The idea is that 6-DoF controllers which can be used to control a virtual
+
+thanks to the portability and the cost-eﬀectiveness, light car. In a pilot study, Sportillo et al. [17] compare steering
+
+VR systems could be easily deployed in car dealerships to wheel and controller-based interaction in HMD-based driv-
+
+65 train a large amount of people in an immersive environ-120 ing simulators. The authors conclude that even though
+
+ment in a safe and reliable way.
+
+objective measures do not provide decisive parameters for
+
+The light VR system proposed in this paper consists of determining the most adequate interaction modality, self-
+
+a consumer HMD and a racing wheel. This paper aims to report indicators show a signiﬁcant diﬀerence in favor of
+
+compare the eﬀectiveness of a training program based on the steering wheel.
+
+70 this system with a user manual and with a ﬁxed-base driv-125 Among other things, DS provides the opportunity to
+
+ing simulator. To validate the light VR system, user per- implement, in a forgiving environment, critical scenarios
+
+formances are evaluated during a test drive in a high-end and hazardous situations which are ethically not possi-
+
+driving simulator and self-reported measures are collected ble to evaluate on real roads [18]. For this reason and
+
+via questionnaires.
+
+to overcome the limited availability of physical prototypes
+
+130 for research purposes, DS is extensively used for studies on
+
+75 1.1. Related work
+
+automated vehicles to design future automotive HMI [19]
+
+Virtual Reality has been extensively used to train pro- for Take-Over Requests (TORs) and to investigate the be-
+
+fessionals and non-professionals in various domains. The havioral responses during the transition from automated
+
+unique characteristics of learning in the 3D environment to manual control [20].
+
+provided by immersive VR systems such as CAVEs or135
+
+A research area that is gaining interest in the auto-
+
+80 HMDs, can enable learning tasks that are not possible or mated driving community concerns the impact of non-
+
+not as eﬀective in 2D environments provided by traditional driving activities on take-over performance. To study driver’s
+
+desktop monitors. Dalgarno et al. [5] highlighted the ben- distraction during automated driving, researchers gener-
+
+eﬁts of this kind of 3D Virtual Learning Environments (3D ally use standardized and naturalistic tasks. Standardized
+
+VLEs) by proposing a model based on their distinctive fea-140 tasks (such as the cognitive n-back task [21], the SuRT task
+
+85 tures such as the representational ﬁdelity and the learner [21, 22], the Twenty Questions Task (TQT) [23]) provide
+
+interaction.
+
+experimental control, but they do not usually correspond
+
+More in detail, HMD-based VR turns out to be more to what the driver will do in the vehicle. Naturalistic tasks,
+
+eﬀective when compared to other training systems, for a instead, provide ecological validity, but they could intro-
+
+wide range of applications such as surgery [6] (HMD com-145 duce experimental bias. Important ﬁndings were found
+
+90 pared to video trainer), aircraft visual inspection [7] (HMD by Zeeb et al. [24] who studied how visual-cognitive load
+
+compared to PC-based training tool), power production [8] impacts take-over performance by examining the engage-
+
+(HMD compared to traditional training), mining industry ment in three diﬀerent naturalistic secondary tasks (writ-
+
+[9] (HMD compared to screen-based and projector-base ing an email, reading a news text, and watching a video
+
+training).
+
+150 clip). The authors found that the drivers’ engagement in
+
+95
+
+When it comes to Driving Simulation (DS), VR is used secondary tasks only slightly aﬀected the time required to
+
+to study several aspects of the driving task. In this con- regain the control of the vehicle, but non-distracted drivers
+
+text, moving-base simulators [10] are preferable to ﬁxed- performed better in the lane-keeping task.
+
+base simulators [11, 12] for their closer approach to real-
+
+Most of the studies in this domain implement safety-
+
+world driving [13].
+
+155 critical take-over scenarios caused by an obstacle (usually a
+
+100
+
+By investigating the physical, behavioral and cognitive broken down vehicle) on the current lane [24, 17, 21, 25, 23]
+
+validity of these kind of simulators with respect to the real and non-critical scenarios caused by the absence of lane
+
+driving task [11], it has been also shown that DS can be markings [24, 26]. To ensure security and to succeed in
+
+a useful tool for the initial resumption of driving, because the take-over process, it is important to understand how
+
+160 much time before a system boundary a driver who is out
+
+2
+
+of the loop should be warned. Gold et al. [22] indicate rote-memorized skills speciﬁc to the training situation [35].
+
+that shorter TOR-time leads to a faster but worse reac-
+
+The considerable ﬁndings from aviation and the intense
+
+tion. However, assessing the quality of the take-over per-220 scientiﬁc production in recent years suggest that the tran-
+
+formance remains an open problem. Reaction times (such sition of control in automated cars is a valuable research
+
+165 as gaze reaction time, hands on wheel time, and interven- topic worth investigating from the design stage to the ﬁ-
+
+tion time) are analyzed [21]. Time To Collision, lateral ac- nal implementation of the new systems. Moreover, the
+
+celerations and minimum clearance towards are objective compelling need and interest of the car industry to train a
+
+metrics used in obstacle avoidance scenarios [21]. Con-225 large amount of people in a reliable and cost-eﬀective way,
+
+cerning subjective measures, drivers are usually asked to without compromising security, make light virtual reality
+
+170 reply to questionnaires: the Driver Skill Inventory (DSI) system tools a promising solution for this purpose.
+
+[27] and Driver Behaviour Questionnaire (DBQ) [28] have
+
+been largely used to evaluate the self-assessment of driv- 2. Methods
+
+ing skills [29] in the last decades. In recent studies, ques-
+
+tionnaires have been used to investigate the importance of
+
+This study contained two parts: training and test drive.
+
+175 initial skilling and to predict the deskilling in automated230 The aim of the training was to introduce the principles of
+
+vehicles [30]. In the same ﬁeld, surveys have also been the Level 3 Automated Driving System (ADS)-equipped
+
+used to evaluate usefulness and satisfaction of take-over vehicle, present the novel Human-Machine Interface (HMI),
+
+requests [31].
+
+help the drivers to localize the HMI in the vehicle, and
+
+In the above studies it is not always clear how partic- describe the actions to perform in order to appropriately
+
+180 ipants were taught to use the automated system. Zeeb et235 respond to unplanned requests to intervene. The between-
+
+al. [24] used a traditional approach that provided the par- subject study with 60 participants was designed in order
+
+ticipants with a description of the system, the functional to compare a light Virtual Reality system to a user man-
+
+boundaries and the alert notiﬁcations. In the vehicle, par- ual and a ﬁxed-base driving simulator in terms of training
+
+ticipants were also instructed to activate and deactivate eﬀectiveness evaluated through a test drive. The test drive
+
+185 the automated driving system. This approach could not240 required the application of knowledge and skills acquired
+
+be adapted to the real case because it does not ensure the during the training.
+
+correct acquisition of knowledge; thus, the drivers would
+
+not be suﬃciently skilled to safely respond to a take-over 2.1. The target vehicle
+
+request. In other studies participants could freely practice
+
+This study takes into account Level 3 (Conditional
+
+190 in the high-end driving simulator before the actual test Driving Automation) automated vehicles. In this level of
+
+drive [22]. This solution would not be feasible in terms245 automation the ADS performs the Dynamic Driving Task
+
+of costs, space and maintenance because it would require (DDT) with the expectation that the human driver is re-
+
+every car dealership to be equipped with a simulator. A ceptive to a Take-Over Request (TOR), also known as re-
+
+lighter VR system, such as the one proposed in this pa- quest to intervene, and will respond appropriately. The
+
+195 per, could instead be more easily deployed and used for DDT includes [1] lateral vehicle motion control via steer-
+
+training purposes at a much lower cost.
+
+250 ing; longitudinal vehicle motion control via acceleration
+
+Payre et. al [26] addressed the problem of drivers’ and deceleration; monitoring the driving environment via
+
+training in an automated car by comparing two types of object and event detection, recognition, classiﬁcation, and
+
+training: a simple training based only on practice in a driv- response preparation; object and event response execu-
+
+200 ing simulator and an elaborated training which included tion; maneuver planning; enhancing conspicuity via light-
+
+a text, a tutorial video and a more elaborated practice in255 ing, signaling and gesturing, etc.
+
+the simulator. They found that participants in the elabo-
+
+For a more detailed taxonomy and description please
+
+rated training group trusted more the automated driving refer to the Recommended Practice by SAE [1]. A TOR
+
+and were able to take-over faster than those in the simple is a notiﬁcation by the ADS to a human driver that s/he
+
+205 training group.
+
+should promptly begin or resume performance of the DDT.
+
+Automated car research also has relevance in the ﬁeld260 Unplanned TORs are prompted by the ADS when it reaches
+
+of aviation [32], and in particular in studies concerning system boundaries because of unpredictable and poten-
+
+ﬂight simulation for pilot training [33]. Although this tially hazardous situations that it cannot handle. These
+
+kind of training is targeted towards professionals, impor- situations could be represented by an obstacle on the road,
+
+210 tant ﬁndings from this research include the occurrence of missing road markings or system failure. The target ve-
+
+positive transfer and the fact that abstracted rendering265 hicle provided two driving modes on highways: Manual
+
+simulators allow people to learn better than with the real Driving and Conditionally Automated Driving. The vehi-
+
+thing [34]. Pilots trained on a simulator are thus able to cle was not expected to execute automatic lane changes.
+
+co-pilot a craft immediately after their simulation train-
+
+In the implementation the vehicle had 5 possible states:
+
+215 ing [33]. However, it is crucial that the training practices (a) Manual driving: the human driver is in charge of all
+
+allow for the generalization of the skills acquired in the270
+
+the aspects of the dynamic driving task (execution
+
+virtual environment and not only for an application of the
+
+of steering and acceleration/deceleration)
+
+3
+
+(b) ADS available: the human driver can transfer control to the ADS, by operating the HMI.
+
+(c) ADS enabled: the ADS performs all the aspects of
+
+275
+
+the dynamic driving task, namely the control of the
+
+longitudinal and the lateral guidance.
+
+(d) Take-over request: the ADS reaches a system bound- Figure 1: The HUD of the target vehicle and the symbols that rep-
+
+ary and thus is no longer able to perform the dy- resent the states of the vehicle: (a) manual driving, (b) autonomous
+
+namic driving task. The human driver is notiﬁed
+
+driving system available (c) autonomous driving system activated, (d) take over request with countdown, (e) emergency brake. The
+
+280
+
+with a visual-auditory alert indicating the time bud- arrows represent the possible transition between the states.
+
+get s/he has to take-over.
+
+(e) Emergency brake: the human driver does not take during the automated driving and the best practice to re-
+
+over in the allotted amount of time and the vehicle 325
+
+spond to a take-over request.
+
+For all the participants,
+
+performs an emergency brake on the lane. The alert the training program started with an introduction video
+
+285
+
+continues until the control is transferred back to the that brieﬂy presented the main functionalities of a Level 3
+
+human driver.
+
+ADS-equipped car. The video was displayed onto a diﬀer-
+
+When the ADS was activated, the car kept a constant ent support according to the display system used during
+
+longitudinal speed of 90 km/h, accelerating or decelerating330 the training.
+
+if the speed at the activation was respectively lower or
+
+In the study three diﬀerent training systems were com-
+
+290 higher.
+
+pared (Figure 2)
+
+2.1.1. Human-Machine Interface
+
+• a User Manual (UM) displayed on a laptop;
+
+The Human-Machine Interface in the target vehicle consisted of a head-up display (HUD) and a button on335
+
+• a Fixed-Base driving simulator (FB) with real cockpit and controls (pedals and steering wheel);
+
+the steering wheel. The HUD (see Figure 1) showed infor295 mation about current speed, speed limit, distance traveled
+and current state of the vehicle. In Figure 1, the diﬀerent symbols representing the states of the system are illus-
+
+• a Light Virtual Reality (LVR) system consisting of a Head-mounted display (HMD) and a game racing wheel.
+
+trated; the arrows indicate the possible transition between These systems diﬀered in terms of level of immersion and
+
+states. The symbols are taken from previous studies [36].340 interaction they provided. “Immersion” refers to the tech-
+
+300 The background color of the HUD also changed according nological capabilities a system is able to deliver from an
+
+to the current state of the vehicle.
+
+objective point of view [37]. “Interaction” refers to the
+
+Take-over requests were notiﬁed to the human driver modality through which the user can perform actions in
+
+with a visual-auditory alert. The visual alert consisted of the virtual environment. Immersion and interaction do
+
+the symbol in Figure 1d with a countdown indicating the345 not apply to the User Manual group. The ﬁxed-base driv-
+
+305 budget of time available to take over. The auditory alert ing simulator and the LVR system shared the same inter-
+
+was a 0.7 second beep looped every second.
+
+action modalities, but the level of immersion was diﬀerent.
+
+In the implementation of the automated driving sys- In what follows, the three systems are described.
+
+tem, the human driver could activate the ADS (if avail-
+
+able) by pushing a button on the steering wheel. When the 2.2.1. User manual training
+
+310
+
+ADS was enabled, at any time the human driver could de350
+
+The user manual (UM) consisted of a slide presentation
+
+activate it and immediately take back control. This could displayed on a 13.3” screen of a laptop computer (Fig-
+
+be done in three ways: (i) pushing the same button on the ure 2a). First, the introduction video was played. Then,
+
+steering wheel, (ii) using the brake pedal, or (iii) using the the participants were asked to carefully read each of the
+
+accelerator pedal and the steering wheel.
+
+8 slides and to go to the next one when they felt ready.
+
+315
+
+Since all the participants were French speakers, all the 355
+
+They did not have any time limit. The slides used text and
+
+text in the HMI was displayed in French to avoid language images to present the actions to be performed during the
+
+comprehension problems.
+
+manual driving, the automated driving and the take-over
+
+2.2. The training
+
+requests. For each situation the correspondent icons were also presented. An animated slide was included to show
+
+The aim of the training was to teach drivers how to in-360 how to activate the automated driving.
+
+320 teract with automated cars in three situations: the manual
+
+This system represented the non-immersive and non-
+
+mode, automated mode and the take-over request. To do interacting training environment. The participants could
+
+so, the training introduced the participants to the HMI only browse forward and backward the slides, with no time
+
+for each situation, the actions they were free to perform
+
+4
+
+a
+
+b
+
+c
+
+Figure 2: The three training systems: (a) the user manual displayed on the laptop computer, (b) the ﬁxed-base driving simulator, (c) the light VR system
+
+limit; however, they were not involved in a driving situa-400 in the peripheral vision, which is one of the causes of sim-
+
+365 tion and they could not practice the action required with ulator sickness [38].
+
+the real equipment.
+
+At the beginning, the participants were immersed in
+
+a virtual room with white walls. This room represented
+
+2.2.2. Fixed-base simulator
+
+a transitional environment from the real world to the vir-
+
+The ﬁxed-base simulator (FB) consisted of an actual405 tual learning activity. A transparent eﬀect was applied
+
+car cockpit including a driving seat, a dashboard, a force- (Figure 3a) to the car to ease the transition to the vir-
+
+370 feedback steering wheel and a set of pedals (Figure 2b). tual world. The introduction video was displayed on the
+
+All of these components were real components of a Cit- front wall. We hypothesized that, at the beginning of the
+
+roen C3; this allowed participants to have a more natural experiment, a simpler environment with a few visual el-
+
+interaction with the driving controls. A 9.7” tablet used410 ements could help participants better accept the system
+
+by the driver to perform the secondary activity was placed [39]. The purpose of this environment was twofold. First,
+
+375 in the center console. To display the virtual environment novices of Virtual Reality and participants who were us-
+
+a 65” plasma screen was positioned behind the cockpit at ing an HMD for the ﬁrst time could become familiar with
+
+1.5m from the driver.
+
+the new system by experiencing the eﬀects of their actions
+
+This simulator represented the low-immersion training415 (head rotation, head movement) on the system. Second,
+
+environment. The limited size of the screen did not allow since the participants could not see their hands, they could
+
+380 the implementation a 1:1 scale between the virtual and become aware of the car controls, identifying the position
+
+the real world. Also, another implication of the reduced of the steering wheel, the button on the steering wheel,
+
+ﬁeld of view was the lack of isolation for the participant and the pedals.
+
+who was surrounded by the experimental room during the420
+
+The participants were located inside a virtual model of
+
+training.
+
+a Citr¨oen DS3 car [40]. To have a spatial correspondence
+
+between the real steering wheel and the virtual one, the
+
+385 2.2.3. Light Virtual Reality system
+
+steering wheel inside the virtual car was a 3D model of
+
+The light VR system (LVR) included an HMD as a dis- the real racing wheel with which the participants were inplay system, and a Logitech G25 Racing Wheel as driving425 teracting. Moreover, the position and the movements of system (Figure 2c). The HMD was an HTC Vive which the virtual model corresponded to the real one, allowing provides stereoscopic vision at 90 FPS, 2160 x 1200 (1080 for co-located manipulation. After this phase of acclima390 x 1200 per eye) resolution, a ﬁeld of view of 110 degrees tization, the virtual environment evolved into the training and low-latency positional tracking. Spatial sound was environment. The car was displayed with as much realism presented via headphones. Thanks to these features, the430 as possible. Thus, the participant performed the training LVR system represented the high-immersion training sys- described in Table 1.
+
+tem. The trainee was totally surrounded by the virtual 395 environment, but once wearing the headset s/he lost the 2.2.4. The Virtual Learning Environment
+
+possibility to see any part of his/her own body. Although
+
+For the training using the LVR system and the ﬁxed-
+
+the ﬁeld of view of the HTC Vive is not comparable with base driving simulator, a step-by-step tutorial was de-
+
+the human vision, the design choices for the training sce-435 veloped in the form of a Virtual Learning Environment
+
+nario (no traﬃc, straight lane) helped to reduce the stimuli (VLE). The VLE provided the same information and stim-
+
+5
+
+uli to the two groups of participants, except for the diﬀerences due to the nature and the limits of the two systems
+
+Table 1: The tasks in the Virtual Learning Environment. Each action was notiﬁed to the driver with visual and auditory messages.
+
+involved.
+
+440
+
+The characteristics of the target vehicle described in
+
+Section 2.1 were implemented in the VLE. The task of
+
+the participants consisted of interactions with the car fol-
+
+lowing the instruction of a virtual vocal assistant. The
+
+messages announced by the assistant were also displayed
+
+445 on a yellow panel in front of the trainee (Figure 3c). The
+
+panel appeared when the user intervention was required,
+
+and disappeared as soon as the trainee performed the re-
+
+quired actions. No other actions were possible other than
+
+the required one.
+
+450
+
+The driving scenario was a straight 2-lane road delim-
+
+ited by guardrails. No traﬃc was implemented. Only trees
+
+were placed on the roadside. A simple environment was
+
+speciﬁcally chosen to focus participants on the training
+
+task without any distractions, and to reduce the periph-
+
+455 eral optical ﬂow which can contribute to simulation sick-
+
+ness [41]. The training steps are described in Table 1.
+
+Before the driving scenario, an acclimatization virtual en-
+
+vironment was proposed to the participants to help them
+
+locate and identify the controls of the car.
+
+0 km Manual driving The trainee drove the car in the manual mode to familiarize with the simulator
+1 km Delegation of driving The trainee was required to activate the automated driving system by pushing the button on the steering wheel
+2 km Control take-over The trainee was required to switch back to manual mode by pushing the button on the steering wheel 2.75 km Delegation of driving 4.25 km Control take-over The trainee was required to switch back to manual mode by using the accelerator pedal and the steering wheel
+5 km Delegation of driving 5.75 km Accelerator override The trainee was required to use the accelerator pedal in order to increase the speed of the vehicle without deactivate the automated driving system. 6.5 km Steering override
+
+460 Secondary activity. This training also included a secondary activity that required the use of a tablet (a real one in the
+
+The trainee was asked to use the steering wheel to perform a lane change task without deactivate the
+
+case of the ﬁxed-base simulator, a virtual one in the case automated driving system.
+
+of LVR system). The tablet was used to distract the hu-
+
+7.5 km Take-over Request
+
+man driver from the driving task during the automated A 30-second TOR was issued. The trainee was as-
+
+465 driving. The distraction task was the same for all the sisted during the take-over phase
+
+participants and consisted of a video of a TEDx Talk in 8.25 km Delegation of driving
+
+French. The participants were asked, but not forced, to 9.25 km Take-over Request
+
+look at the tablet. The video was automatically played A 10-second TOR was issued and the trainee had to
+
+when the automated system was enabled and paused dur- take-back without any assistance. An obstacle was
+
+470 ing the manual driving and the take-over requests.
+
+placed 300 meter after. An emergency brake was
+
+performed if the trainee did not take-back in time.
+
+2.3. The test drive
+
+10 km Free driving
+
+After the training, the participant performed a test The trainee was free to practice the delegation of
+
+drive designed to evaluate their performance in a more driving and to take-back.
+
+realistic driving scenario. The system used for this pur-
+
+11 km End of the training
+
+475 pose was a high-end driving simulator consisting of the
+
+front part of a real car surrounded by a panoramic display
+
+(Figure 4). The display was placed 2.5m from the driver during autonomous driving and it displayed the message
+
+and covered a ﬁeld of view of 170 degrees. Three three- “Take back control” during the requests to intervene.
+
+chip DLP projectors displayed the scene. The rear part
+
+Before starting the test, participants were instructed
+
+480 of the car was substituted with a monitor that displayed about the use of the equipment inside the car and were
+
+the virtual environment from the rear window. The lateral495 shown the button to activate/deactivate the automated
+
+mirrors consisted of two LCD displays as well. The cockpit driving system.
+
+was also equipped with a microphone to communicate with
+
+The choice of a ﬁxed rather than a moving-base sim-
+
+the experimenter and 4 cameras to record the scene inside ulator was justiﬁed by the driving scenario which did not
+
+485 the car. Data including position, speed and acceleration provide important lateral or longitudinal acceleration.
+
+of the car, and current driving mode were recorded.
+
+Inside the car, a 10.8 inch tablet was placed in the500 2.3.1. Driving scenario
+
+center console. It provided 9 diﬀerent secondary activities:
+
+The driving scenario of the test drive represented a dual
+
+3 games (a solitary, 2048, Simon) and 6 videos (3 talks, 2 carriageway with two lanes in each direction. Dense traﬃc
+
+490 movies and 1 movie trailer). The tablet was only available was added to both directions. The aim of the test drive
+
+was to investigate the skills acquired by the participants
+
+6
+
+a
+
+b
+
+c
+
+Figure 3: The Virtual Learning Environment. In (a) the familiarization environment. The car is displayed with a transparent eﬀect and the panel on the front wall shows the indicators for the accelerator and brake pedal and for the steering wheel. In (b) a post-production illustration of a participant immersed in the virtual environment. In (c) a view of the interior of the car with the training message (on the yellow panel) and the virtual tablet used for the secondary activity
+
+a
+
+b
+
+Figure 4: The test drive simulator: (a) the real cabin with the 170 degree panoramic display and (b) a view of the cabin interior
+
+the simulator, the three TORs were issued after an au525 tonomous driving phase, at 11.5 km, 19km and 23km.
+During the autonomous driving, participants were asked to engage in one of the secondary activities proposed by the tablet.
+
+Figure 5: The test drive scenario with the three situations that provoked the TORs: (A) stationary car on the lane, (B) loss of ground
+
+2.4. Measures
+
+marking, (C) sensor failure
+
+530
+
+Deﬁning the quality of take-over is not an easy exercise,
+
+because assessing the ability to drive or to operate an au-
+
+tomated vehicle requires the evaluation of various aspects 505 during the training and their reaction when a non-planned related or not to the actual driving task. In literature there
+take-over request was issued. For this purpose, 3 requests exists a set of well-known parameters which can be used to intervene Figure 5 were issued during the test drive: 535 to evaluate performance in driving scenarios like the once
+
+(A) a 10-second TOR caused by a road narrowing pro-
+
+voked by a stationary car on the right lane; this situ-
+
+510
+
+ation (Obstacle) required the driver to brake and to
+
+used in the test-drive. To evaluate the training systems and the learning environment, objective and self-reported measures were collected and treated anonymously.
+
+change lane in order to avoid the obstacle.
+
+2.4.1. Self-reported measures
+
+(B) a 10-second TOR caused by a loss of road marking540
+
+In total 6 diﬀerent questionnaires were proposed to
+
+(Road Marking); this situation required the driver to the participants. A demographic questionnaire (contain-
+
+hold the vehicle inside the lane.
+
+ing also questions about driving habits, familiarity with
+
+515 (C) a 5-second TOR caused by a sensor failure (Failure); this situation did not require any speciﬁc ac-
+
+Virtual Reality and previous experiences with driving simulators) was administered at the begininning of the study
+
+tions from the driver.
+
+545 along with a survey about opinion concerning automated
+
+cars. This last survey was also administered at the end
+
+To control order eﬀects, the arrival order of TOR A and of the study. To evaluate the appreciation of the training,
+
+TOR B was randomized. TOR C was always issued as the participants were asked to answer to 10 questions survey
+
+520 last one in order.
+
+and to evaluate graphical and physical realism of the Vir-
+
+The test drive lasted for about 20 minutes time dur-550 tual Environment (only for FB and LVR groups). After
+
+ing which the participants drove for 24 km. After a ﬁrst the training, the Simulator Sickness Questionnaire [42] was
+
+phase of manual driving (4km) to familiarize drivers with
+
+7
+
+administered to the LVR group. After the test-drive, all600 Training (15 minutes). The training contained two parts:
+
+the groups answered to a ﬁnal questionnaire.
+
+the introductory video (2 minutes) and the actual training
+
+(slides for the user manual group, and the Virtual Learning
+
+2.4.2. Objective measures
+
+Environment for the ﬁxed-base and light VR system). The
+
+555
+
+To evaluate the take over quality and the state of the training for the user manual group generally lasted for less
+
+driver during the autonomous phase, objective measures605 time with respect to the LVE one.
+
+were used as performance factors in the test drive with the high-end simulator. According to the take over situation, both raw data from the simulator (such as position and 560 speed of the car, current driving mode, etc.) and video feeds were used to assess the following variables:
+
+Second questionnaire (5 minutes). The participants ﬁlled out questionnaire C. Participants of the VLE group ﬁlled out questionnaire D. Participant of the LVR group ﬁlled out also the questionnaire E.
+
+• Reaction time (measured in seconds), the elapsed610 Test Drive (20 minutes). The participants drove in the time from TOR until the driver takes back control. high-end simulator.
+
+• Maximum deviation from the lane center (measured Third questionnaire (5 minutes). The participants com-
+
+565
+
+in meters), within an interval of 30s after the take- pleted questionnaires F and B.
+
+over request.
+
+• Time To Collision (measured in seconds), “the time 3. Results
+
+required for two vehicles to collide if they continue
+
+at their present speed and on the same path”. This615
+
+All the participants completed the experiment. Self-
+
+570
+
+measure was used to evaluate the evasive maneuver report and performance variables were tested for group
+
+to avoid the stationary car [21].
+
+diﬀerences using ANOVAs (and Tukey’s HSD test for pair-
+
+wise comparison) for continuous normally distributed data
+
+• Stress and conﬁdence in the vehicle, during the au- and Kruskal-Wallis (and Fisher’s LSD for pairwise compar-
+
+tomated driving phases.
+
+620 ison) test for ordinal, categorical and non-normally dis-
+
+tributed data. Paired t-test was used for PrePost ques-
+
+2.5. Participants
+
+tionnaires. The signiﬁcance level of 5% was chosen for all
+
+575
+
+Sixty subjects participated in the experiment. The par- the tests.
+
+ticipants included 30 females (50%) and 30 males (50%) aged between 22 and 71 (M = 43, SD = 14). Three 3.1. Self-report measures
+
+groups of age were identiﬁed: the ﬁrst group contained625 Self-reported measures were collected through a set of
+
+participants aged between 22 and 34 years old (7 males, questions at the beginning of the test, after the training
+
+580 11 females); the second group participants aged between and after the test drive. The measures of user appreciation
+
+35 and 54 (14 males, 9 females); the third group partici- and simulator sickness were tested for group diﬀerences
+
+pants older than 55 (9 males, 10 females). They were ran- using Kruskal-Wallis test. In case of signiﬁcant diﬀerences
+
+domly assigned to one of the system in which they would630 among the three groups (p < 0.05), the Fisher’s LSD test
+
+be trained. The three groups contained 20 subjects each. was used to identify which pairs of means were signiﬁcantly
+
+585 All the subjects were volunteers recruited by a company diﬀerent, and which were not. The measure of conﬁdence
+
+specialized in hiring consumer tests participants and had on automated vehicles was tested using a paired t-test.
+
+a valid driving license. At the end of the experiment, each
+
+participant was rewarded with a 40 euros voucher.
+
+3.1.1. Appreciation of the training
+
+2.6. Procedures
+
+635
+
+To evaluate the appreciation of the training the partic-
+
+ipants ﬁlled out a 10-question survey containing questions
+
+590
+
+The duration of the full experiment was about 60 min- about perceived usefulness, easiness, pleasantness, realism
+
+utes for each participant. Participants were divided into and so on. The Likert results are reported in Figure 6. The
+
+three groups of 20. Each group underwent training with LVR scored better in all the questions, and in 4 of them
+
+one of the systems described above. The study consisted640 the diﬀerence was signiﬁcant. Moreover, to have a general
+
+of the following phases:
+
+score, all the questions were summed up. Up to a total
+
+of 50 points (the highest the better), results showed that
+
+595 Introduction (10 minutes). The participants were welcomed the LVR scored signiﬁcantly better (M = 43) than both
+
+and informed in detail about the purpose of the study. the ﬁxed-base simulator (M = 40, p < 0.05) and the user
+
+They signed the consent form.
+
+645 manual (M = 39.5, p < 0.05). The results of the survey
+
+about realism and comfort are reported in Figure 7. First questionnaire (5 minutes). The participants com-
+
+pleted questionnaires A and B.
+
+8
+
+Table 2: Demographic features distributed across the diﬀerent systems
+
+System
+UM FB LVR Total
+
+Gender (F/M) 11/9 10/10 9/11 30/30
+
+Age y (SD) 45 (12.9) 46.9 (15.5) 43.5 (13.9) 45.1 (14)
+
+Age Group
+5/9/6 7/6/7 6/8/6 18/23/19
+
+Car with Cruise Control? Yes (no use) / No 11(2) / 8 16(4) / 4 11(1) / 9 38(7) / 21
+
+First time in a driving simulator (Y/N) 16/3 16/4 14/6 46/13
+
+Figure 6: Likert responses to the questionnaire of training appreciation.
+
+Figure 7: Likert responses to the realism survey for FB and LVR
+
+groups
+
+Figure 8: Results of SSQ scores (Nausea, Oculomotor, Disorientation
+
+subscales and Total) for the LVR group. In orange, the percentile
+
+3.1.2. Simulator Sickness Questionnaire (SSQ)
+
+graph. The vertical blue lines represent the value of SSQ if all the symptoms were reported as “slight” on that subscale.
+
+The SSQ was ﬁlled out only by the participants who
+
+performed the training with the LVR. The Total Score 650 (TS) and the subscales relative to Nausea, Oculomotor (with symptoms related to vestibular disturbances such as
+and Discomfort symptoms were calculated according to665 dizziness and vertigo) registered the highest scores. This the formulas described by Kennedy et. al [42]. Results are result was expected and is mainly due to the nature of the reported in Table 3 and Figure 8. According to the catego- HMD, which causes conﬂicts between the vestibular and rization of SSQ proposed by Kennedy et. al. [43], 50% of the visual signal.
+
+655 the subjects reported no symptoms (TS = 0) or minimal symptoms (TS < 10). The highest scores were reported
+
+3.1.3. Pre-post Questionnaire on automated vehicles
+
+by a participant aﬀected by monocular vision impairment670
+
+At the beginning of the test, participants were asked to
+
+(TS = 71) and a participant aﬀected by kinetosis also in give a score from 1 to 5 to a set of 8 sentences to express
+
+traditional vehicles (TS = 97.24). However, they as well their opinions on automated vehicles. After the test drive,
+
+660 as all the other participants were able to complete the they reply to the same questionnaire for the second time.
+
+training (no dropouts occurred). There were no signiﬁ- The questionnaire contained sentences about conﬁdence in
+
+cant diﬀerences with respect to participants’ age or gen-675 the actions performed by the automated system, perceived
+
+der. Analyzing the subscales, the Disorientation subscale security, usefulness in the society and so on. The Wilcoxon
+
+Rank Sum Test was performed to compare the answers to
+
+9
+
+Table 3: Results of the Simulator Sickness Questionnaire.
+
+[N]ausea [O]culomotor [D]isorientation Total Score [TS]
+
+Mean 16.7 18.95 20.18 21.32
+
+Median 14.31 7.58 6.96 13.09
+
+SD 21.19 21.52 32.09 26.7
+
+Min 0 0 0 0
+
+Max 85.7 75.8 125.28 97.24
+
+710 to the ones trained with the user manual. Moreover, the reaction time of the second TOR of the User Manual group was signiﬁcantly higher than the reaction time of the ﬁrst TOR of the two other groups. No diﬀerence was observed for the third TOR between the three groups. The order
+715 of arrival of the three TORs did not impact the reaction time (p = 0.51).
+
+Figure 9: Mean of the answer to the pre-post questionnaires. A light-green bar indicates an increase in the post questionnaire for the given question. The values indicate the percentage of change in the questions.
+
+the pre and the post questionnaires. Results are reported in Figure 9 and they show a gen-
+680 eral increase of the post-questionnaire score. It is very interesting to point out that the sentence n. 5 is the only one for which the post-score was lower than the pre-score in all the system (“I think that the semi-autonomous car can reduce the risk of accident.” ). Nevertheless, the dif-
+685 ference for this question was not statistically signiﬁcant. Important increases in the post-questionnaire score can be observer in particular for the sentences 7 (“I see myself doing other tasks than driving in a semi-autonomous car”) and 8 (“I have conﬁdence in the decisions that the semi-
+690 autonomous car would take at my place”). The positive diﬀerence for n. 7 was signiﬁcant (p < 0.01) only for the LVR group; for n. 8 was signiﬁcant (p < 0.05) for all the three groups.
+
+(a) Mean and 95% Conﬁdence Interval of reaction times for each Take-Over Request.
+
+TOR 1 2 3 1, 2
+
+UM 7.36 (3.55)a 5.97 (3.06)a 3.20 (0.67) 6.66 (3.34)a
+
+FB 3.80 (1.61)b 3.01 (0.92)b 2.87 (0.71) 3.41 (1.37)b
+
+LVR 3.34 (0.95)b 3.275 (0.89)b 2.84 (0.83) 3.32 (0.91)b
+
+(superscripts indicate signiﬁcance groups)
+
+(b) Mean and Standard Deviation
+
+Figure 10: Take-over reaction times for each systems and for each TOR. The ﬁrst two were 10-second TORs; the last one was a 5-second TOR.
+
+3.2. Performance measures
+
+3.2.2. Deviation from lane center
+
+695
+
+The performance measures evaluated the quality of the
+
+Considering the TOR caused by loss of road marking,
+
+take-over in terms of reaction time, maximum deviation the stability of the trajectory was evaluated. Performing
+
+from the lane center, and the trajectory during an eva-720 lane change in situation in which is not required is usually
+
+sive maneuver. These variables were tested for group dif- considered a low-quality take over [44]. In the driving sce-
+
+ference using ANOVA (for normally distributed data) or nario, given that the width of the lane was lane w = 3m
+
+700 Kruskal-Wallis (for non-normal distributed data); in case and the width of the car was car w = 2m, the maxi-
+
+of signiﬁcant diﬀerences (p < 0.05) each pair was tested mum possible distance from the lane center beyond which
+
+with the Tukey’s HSD test (after ANOVA) or Fisher’s LSD725 the car does not cross the separation line is d = 0.75m.
+
+test (after Kruskal-Wallis test).
+
+For each participant, the maximum deviation from the
+
+lane center in the 10 seconds after the TOR was calcu-
+
+3.2.1. Reaction time
+
+lated. The value was kept with the sign (from −1.75m
+
+to +1.75m). The diﬀerence between this value and the
+
+705
+
+Three TORs were issued during the test drive after an automated driving phase. In Figure 10 the mean of the730
+
+maximum deviation was evaluated. Results are reported in Figure 11. It can be observed that even though the
+
+reaction time per TOR for each system is reported. For medians are not signiﬁcantly diﬀerent, the LVR group has
+
+the ﬁrst and the second TOR, the participants trained with the LVR and the FB simulator reacted faster with respect
+
+a lower standard deviation (σLVR = 0.48) than the UM (σUM = 1.05) and the FB (σFB = 1.03) group.
+
+10
+
+Figure 11: Box plot of deviation from lane center for each system. The two lanes are plotted. The value 0 in the y-axis represents the center of the right lane in the driving scenario.
+
+Figure 13: Means and 95% Conﬁdence Interval of the stress and conﬁdence score attributed to the participants during the 3 autonomous driving phases.
+Table 5: Number of gaze switch between the secondary activity and the road environment for each autonomous driving phase; Eyes-onRoad is the ratio between the total amount of time spent looking at the road and the duration of the autonomous driving phase
+
+UM
+
+FB
+
+LVR
+
+N. of gaze
+
+17.9 | 16 | 5 26.6 | 22.9 | 5.6 18 | 18.9 | 6.5
+
+Eyes-on-Road 0.25 | 0.32 | 0.16 0.21 | 0.33 | 0.15 0.22 | 0.25 | 0.16
+
+Figure 12: Time To Collision [21]: the red block represents the sta-
+
+tionary obstacle; the red line is the trajectory of the vehicle; in green,
+
+the position of the car when the TTC h is calculated; in blue, the position of the car when the TTC l is calculated.
+
+tablet in the car. Before the beginning of the test-drive, participants were instructed in using the tablet to switch
+
+between active (games) or passive activities (videos, movies).
+
+735 3.2.3. Time To Collision
+
+A score was attributed to each participant during the
+
+One of the TOR was issued because of a stationary760 three autonomous phases. The score ranged from 1 to 5
+
+car on the right lane. The task of the trainee was to take (the higher the better), where 1 corresponded to “Com-
+
+over and avoid the car. The quality of the maneuver was plete monitoring of the driving environment” and 5 corre-
+
+evaluated with the Time To Collision (TTC) Figure 12 in sponded to “Complete focus on the non-driving activity”.
+
+740 the same way described by Happee et al. [21]. The TTC The score of 3 was assigned to drivers who occasionally
+
+was
+
+computed
+
+using
+
+the
+
+following
+
+formula
+
+TTC
+
+=
+
+, dx 765
+v
+
+where dx was the distance of the car from the obstacle
+
+monitored the driving environment. To attribute this score several aspects were taken into
+
+and v was the speed of the car at that moment. Two TTC consideration, such as the rate of gaze switch between the
+
+were evaluated: TTC h was computed when the heading driving environment and the tablet and the length of the
+
+745 of the car no longer intersected the obstacle; TTC l was gazes, the insistence to talk to the experimenter, the po-
+
+computed when the full vehicle front was in the new lane.770 sition of the driver on the seat, the position of the hands.
+
+The results are shown in table Table 4 and no signiﬁcant In Table 5 are reported the number of gaze switch and
+
+diﬀerences were observed among the three groups.
+
+the ratio between the total amount of time spent looking
+
+at the road and the duration of each automated driving
+
+3.3. Stress and conﬁdence during autonomous driving
+
+phase.
+
+750
+
+To evaluate drivers stress and conﬁdence in the vehicle775
+
+Results are reported in Figure 13 and they show that the group trained with the User Manual scored less in
+
+during automated driving, the video feed recorded during the ﬁrst autonomous phase with respect to the others.
+
+the test drive was analyzed and annotated with a video- Considering that those participants were experiencing au-
+
+labeling tool developed by the authors.
+
+tonomous driving for the ﬁrst time, this behaviour is ex-
+
+755
+
+During the automated driving phase drivers were free to engage in non-driving related activities by using the780
+
+pected. It can be observed that the score for the UM group increases in the second autonomous phase, while for the
+
+FB and HMD groups the behaviour is almost the same.
+
+Table 4: Means (and standard deviation) of Time To Collision (TTC) and Distance To Collision (DTC) used to evaluate the evasive maneuver
+
+In the third and last phase the score for all the groups increases.
+
+UM
+
+FB
+
+LVR
+
+785 4. Discussion
+
+DTC h [m] 54.21 (35.61) 58.45 (49.63) 67.5 (62.72) p = .70
+
+DTC l [m] 18.64 (19.12) 33.35 (78.17) 23.8 (41.61) p = .67 TTC h [s] 4.01 (2.89) 3.87 (2.59) 3.43 (2.10) p = .77 TTC l [s] 1.27 (1.13) 1.09 (1.69) 1.25 (1.86) p = .93
+
+A ﬁrst outcome of the study is that the training allowed all the participants to respond to the Take-Over
+
+Requests. In summary, according to the objective metrics
+
+11
+
+measured during the test drive, it is possible to identify845 three groups. The questionnaire aimed at evaluating the
+
+790 two groups of participants that signiﬁcantly diﬀered for conﬁdence on automated cars in terms of usefulness, per-
+
+the reaction time. The group of participants trained with ceived security, willingness to perform secondary tasks and
+
+the Virtual Learning Environment (FB and LVR) were so on. While at the end of the study participants trusted
+
+able to respond to the take-over request faster than the more the actions of the automated system than the begin-
+
+group of participants trained with the user manual. After850 ning, they did not conﬁrm their expectations that the con-
+
+795 the take-over, the training system did not signiﬁcantly in- ditionally automated car could reduce the risk of accidents.
+
+ﬂuence the driving performance in the lane keeping task The hypothesis is that people tended to idealize the au-
+
+and in the evasive maneuver. Furthermore, self-reported tonomous car as a perfect entity, but then their perception
+
+measures showed responses in favor of the LVR training was inﬂuenced by the driving scenario. In fact, during the
+
+system. There are no variables (self-reported nor objec-855 test drive the automated driving system prompted three
+
+800 tive) for which the LVR system scored signiﬁcantly worse non-planned take-over requests in a short time. This could
+
+than the other training systems.
+
+let the participants think that this kind of TORs were more
+
+frequent than they actually are. Furthermore one of the
+
+4.1. Self-report measures
+
+TOR was caused by a critical situation (stationary car).
+
+Self-report measures showed statistically signiﬁcant re-860 This result suggests that the driving scenario should also
+
+sults. In particular, signiﬁcant diﬀerences were observed present planned take-over requests with longer time buﬀers
+
+805 in the answers to the training appreciation questionnaire and no critical situation. The participants were also asked
+
+in which participants evaluated, among other character- to self-evaluate on a 1-5 likert scale their readiness to drive
+
+istics, its usefulness, ease of understanding and pleasant- an automated vehicle after the training and after the test
+
+ness. In this questionnaire the LVR system scored sig-865 drive. The answer after the test drive was higher among
+
+niﬁcantly better than the ﬁxed-base simulator and user all the systems, but the diﬀerence (+10%) was signiﬁcant
+
+810 manual training. Analyzing each questions of the survey, only for the user manual group.
+
+we found that the participants considered the FB training
+
+more confusing than the LVR even though the training 4.2. Simulator Sickness
+
+program was exactly the same. Another interesting out-
+
+The aim of the evaluation of the SSQ was not to com-
+
+come is that the LVR-based training was considered easier 870
+
+pare the LVR and the FB groups since previous studies
+
+815 to understand than the other systems. Although it is pos- in literature already proved that HMDs usually produce
+
+sible that these results can be attributed to a VR “wow fac- more simulator sickness than ﬁxed base simulators [45, 14].
+
+tor”, participants’ previous experiences with driving sim- Instead, the experimental protocol included the SSQ [42]
+
+ulators (p = 0.41) and their knowledge of the concept of with the objective of investigating if the use of an HMD
+
+Virtual Reality (p = 0.25) did not signiﬁcantly impact the 875
+
+would prevent participants from being trained in an eﬀec-
+
+820 answers. A hypothesis to explain these results is that the tive way and analyzing the causes of sickness in case of
+
+technical characteristics exclusive to the LVR system, such dropouts. A ﬁrst promising outcome is that no dropouts
+
+as the large ﬁeld of view, the head tracking, the 1:1 scale occurred; this result is very important in particular be-
+
+between the real and the virtual world, aﬀected the per- cause 70% of participants in the LVR group used a Virtual
+
+ception of the learning. A second hypothesis is that since 880
+
+Reality headset for the ﬁrst time. Furthermore, the HMD
+
+825 the participants of the LVR group were isolated from the produced no or minimal symptoms of simulator sickness
+
+real world, both visually and acoustically, they could bet- in 50% of the cases. These results agree with Kennedy et.
+
+ter focus on the training.
+
+al [42] who showed that in their survey “the 0-value (the
+
+There were no signiﬁcant diﬀerences (p = .66) in the zero point) contained at least 40%, and as much as 75%, of
+
+answers of the questionnaire concerning the graphic real885
+
+the observations”. Although this study was not focused on
+
+830 ism and the physical realism of the simulator. This result the reduction of simulator sickness, we adopted some well-
+
+suggests that even if with the LVR the participants in- known strategies [38] on both the Virtual Environment
+
+teracted with a racing wheel instead of the real steering (such as straight road, simple environment and low periph-
+
+wheel and they were not able to see their hands, these fac- eral optical ﬂow) and the physical system (positional co-
+
+tors did not play a signiﬁcant role. Also, the transitional 890
+
+herence of the virtual and the real steering wheel) to limit
+
+835 environment (Figure 3a) from the real to the virtual world the manifestation of oculo-vestibular conﬂicts. Thanks to
+
+familiarized the participant with the lack of visual rep- these choices, the SSQ results (mean score T S = 21.32
+
+resentation of the hands. Some of the participants were and the absence of dropouts), are comparable, or even
+
+surprised to not see their hands, but then they realized in lower, than the score found in recent studies about simu-
+
+this environment that they could rely on proprioception 895
+
+lation sickness related to virtual reality driving simulation
+
+840 to interact in a natural way with the commands.
+
+[46, 14]. However, further studies focused on this issue are
+
+Analyzing the single questions of the pre-post question- needed to validate this result and to improve the training
+
+naire about automated cars, it is important to point out experience.
+
+that for all the questions but one, the post-questionnaire
+
+score was higher than the pre-questionnaire among all the
+
+12
+
+4.3. Objective and performance measures
+
+955 4.4. About learning-by-driving
+
+900
+
+In the test drive, data in the simulator were recorded
+
+An important observation which challenged the study
+
+to assess the take-over quality and the driver’s behaviors was the feeling that the participants trained with the VLE
+
+during the automated driving. The take-over quality was (FB and LVR groups) did not experience the training as an
+
+evaluated according to the reaction time, the maximum actual training program, but more like a session of auto-
+
+lateral position on the lane, and the time to collision during960 mated driving simulator. Let us recall that the aim of the
+
+905 the evasive maneuver to avoid the stationary car on the VLE was (i) to inform drivers about the characteristics of
+
+lane.
+
+the automated driving system, (ii) help them in identifying
+
+Concerning the reaction time in the two 10-second TORs, and localize the HMI in the car and (iii) teach the appro-
+
+the participants in the UM group reacted slower than the priate response (activation and deactivation of the auto-
+
+other two groups. No diﬀerences were instead observed965 mated driving system) to a given stimulus. For the last two
+
+910 comparing the FB and the LVR groups. For the 5-second objectives, a virtual vocal assistant provided instructions
+
+TOR the diﬀerence was not signiﬁcant among any of the to the participants; while instructions relative to the take-
+
+groups. This result suggests that participants who actu- over were provided to the subjects during the secondary
+
+ally performed a take-over during the training were able activity, those relative to the activation of the automated
+
+to respond better to the ﬁrst request to intervene in a970 driving systems were given to them while they were per-
+
+915 realistic situation. Furthermore, we hypothesize that the forming the driving task; in other words, participants were
+
+decrease of reaction time for the 5-second TOR is due to asked to aim attention at the training instructions while
+
+(i) a learning eﬀect and (ii) the results of Gold et al. [22] they were already focusing on a high-demand cognitive ac-
+
+who showed that the reaction time depends on the time tivity. However, the driving scenario during the training
+
+budget given for the take-over request. With respect to the975 was kept as simple as possible (no traﬃc, straight lane) in
+
+920 TOR caused by the stationary car on the right lane, not all order to limit driver interventions. Although this hypoth-
+
+participants were able to perform a safe evasive maneuver esis, all the trainees were able to assimilate the procedural
+
+to avoid the obstacle. However, no signiﬁcant diﬀerences skills. One of the research questions we will investigate in
+
+were observed between the three groups as far as the time the future study will be if learning-by-driving actually im-
+
+to collision is concerned. Furthermore, according to the980 proves the skill acquisition process, or if the driving task
+
+925 age group, no signiﬁcant diﬀerences were observed regard- requires a cognitive load which deteriorates the training
+
+ing the reaction time nor the maximum lateral position; performance.
+
+this result is in agreement with Korber et al. [23] who
+
+found that older drivers handle critical traﬃc events and adapt to the experience of take-over situations as well as
+
+5. Conclusion
+
+930 younger drivers. Finally, considering the TOR caused by
+
+The aim of this study was to investigate the eﬀective-
+
+loss of road marking, the stability of the trajectory in the 985
+
+ness of a light Virtual Reality system based on HMD for
+
+30 seconds after the TOR was evaluated and no signiﬁcant the training of conditionally automated vehicle drivers. To
+
+diﬀerences between the groups were observed comparing evaluate the usefulness of the system and to assess the ef-
+
+the maximum lateral distance from the center of the lane. fectiveness of the training, the LVR was compared to a
+
+935
+
+The absence of signiﬁcant diﬀerences in these measures ﬁxed-base simulator and a user manual; a test drive in a
+
+suggests that, although these metrics could be useful to as990
+
+high-end simulator was performed by the participants af-
+
+sess driving performance and driver behavior after a take- ter the training. To the best of our knowledge, this study
+
+over request, they are not suitable to compare training represents the ﬁrst attempt of use of HMD-based Virtual
+
+eﬀectiveness. In fact, evaluating driving and interaction Reality for training purposes in automated vehicles.
+
+940 skills in automated cars is a hard task because it is still
+
+The results of this research persuade us that light Vir-
+
+not clear what it means to be able to drive or operate 995
+
+tual Reality systems represent a valuable tool for the ac-
+
+this kind of vehicles. According to Walker et al. [47] lack quisition of operational skills in conditionally automated
+
+of practice arising from sustained automatic control could vehicles. The proposed training system, composed of an
+
+erode driving skills. The same concern about driving skills HMD and a game racing wheel, is a portable and cost-
+
+945 emerges from the paper of Stanton et al. [32] who asked eﬀective device that provides an adequate level of immer-
+
+“if drivers are not performing a function, how can they be 1000
+
+sion for teaching drivers how to respond to a take-over re-
+
+expected to take it over adequately when the automated quest in a safe environment. Therefore, this system could
+
+systems fail to cope?”.
+
+be employed for the training of future customers of au-
+
+Therefore, in the near future, traditional metrics could tomated cars before their ﬁrst ride. The step-by-step tu-
+
+950 no longer be relevant to assess driving performance in au- torial implemented in the Virtual Learning Environment
+
+tomated vehicles. The results of this work suggest that 1005
+
+impacted on the performance and provided faster reaction
+
+Virtual Reality represents a promising tool to evaluate as time in the test drive. Moreover, among all the train-
+
+well all those metrics that are not strictly related to the ing systems, participants preferred the light VR system in
+
+driving activity.
+
+terms of usefulness, ease of use and realism.
+
+13
+
+A direct outcome of these results is the acknowledg-
+
+to evaluate the eﬀects of experience and pc-based risk aware-
+
+1010 ment of VR as key player in the deﬁnition of the set of1070
+
+ness training on drivers’ decisions, Human factors 44 (2) (2002)
+
+metrics for proﬁling drivers’ behavior in automated vehi-
+
+287–302. [13] M. Klu¨ver, C. Herrigel, C. Heinrich, H.-P. Sch¨oner, H. Hecht,
+
+cles in order to ensure a safer interaction between humans
+
+The behavioral validity of dual-task driving performance in
+
+and automated systems.
+
+ﬁxed and moving base driving simulators, Transportation re-
+
+Starting from these results, in future work we will im-1075
+
+search part F: traﬃc psychology and behaviour 37 (2016) 78–96.
+
+1015 plement the training program in the form of a serious game
+
+[14] F. Weidner, A. Hoesch, S. Poeschl, W. Broll, Comparing VR and non-VR driving simulations: An experimental user study,
+
+in which the level of instruction adapts to the drivers’
+
+in: Virtual Reality (VR), 2017 IEEE, IEEE, 2017, pp. 281–282.
+
+needs in order to assess the acquisition of skill during the [15] S. M. Taheri, K. Matsushita, M. Sasaki, Development of a Driv-
+
+training itself. Furthermore, the need of the simulated1080
+
+ing Simulator with Analyzing Driver’s Characteristics Based on
+
+driving task during the training will be investigated. Fi-
+
+a Virtual Reality Head Mounted Display, Journal of Transportation Technologies 7 (03) (2017) 351.
+
+1020 nally, longer test-drives with real vehicles are considered [16] D. Goedicke, J. Li, V. Evers, W. Ju, Vr-oom: Virtual reality
+
+of primary importance to validate current results.
+
+on-road driving simulation, in: Proceedings of the 2018 CHI
+
+1085
+
+Conference on Human Factors in Computing Systems, ACM,
+
+2018, p. 165.
+
+Acknowledgement
+
+[17] D. Sportillo, A. Paljic, M. Boukhris, P. Fuchs, L. Ojeda, V. Roussarie, An immersive virtual reality system for semi-
+
+This research was supported by the French Foundation 1090
+of Technological Research under grant CIFRE 2015/1392
+
+autonomous driving simulation: a comparison between realistic and 6-dof controller-based interaction, in: Proceedings of the 9th International Conference on Computer and Automation
+
+1025 for the doctoral work of D. Sportillo at PSA Group.
+
+Engineering, ACM, 2017, pp. 6–10.
+
+[18] Q. C. Ihemedu-Steinke, R. Erbach, P. Halady, G. Meixner,
+
+M. Weber, Virtual reality driving simulator based on head-
+
+References
+
+1095
+
+mounted displays, in: Automotive User Interfaces, Springer,
+
+2017, pp. 401–428.
+
+[1] S. International, Taxonomy and Deﬁnitions for Terms Related [19] V. Melcher, S. Rauh, F. Diederichs, H. Widlroither, W. Bauer,
+
+to Driving Automation Systems for On-Road Motor Vehicles.
+
+Take-over requests for automated driving, Procedia Manufac-
+
+[2] S. M. Casner, E. L. Hutchins, D. Norman, The challenges of par-
+
+turing 3 (2015) 2867–2873.
+
+1030
+
+tially automated driving, Communications of the ACM 59 (5)1100 [20] N. Merat, A. H. Jamson, F. C. Lai, M. Daly, O. M. Carsten,
+
+(2016) 70–77.
+
+Transition to manual: Driver behaviour when resuming control
+
+[3] I. Y. Noy, D. Shinar, W. J. Horrey, Automated driving: Safety
+
+from a highly automated vehicle, Transportation research part
+
+blind spots, Safety Science 102 (2018) 68 – 78. doi:https:
+
+F: traﬃc psychology and behaviour 27 (2014) 274–282.
+
+//doi.org/10.1016/j.ssci.2017.07.018.
+
+[21] R. Happee, C. Gold, J. Radlmayr, S. Hergeth, K. Bengler, Take-
+
+1035
+
+URL http://www.sciencedirect.com/science/article/pii/1105
+
+over performance in evasive manoeuvres, Accident Analysis &
+
+S0925753517304198
+
+Prevention 106 (2017) 211–222.
+
+[4] J. De Winter, P. Van Leeuwen, R. Happee, Advantages and dis- [22] C. Gold, D. Dambo¨ck, L. Lorenz, K. Bengler, “Take over!” How
+
+advantages of driving simulators: a discussion, in: Proceedings
+
+long does it take to get the driver back into the loop?, in: Pro-
+
+of Measuring Behavior, 2012, pp. 47–50.
+
+ceedings of the Human Factors and Ergonomics Society Annual
+
+1040 [5] B. Dalgarno, M. J. Lee, What are the learning aﬀordances o1f110 3-d virtual environments?, British Journal of Educational Tech-
+
+Meeting, Vol. 57, SAGE Publications Sage CA: Los Angeles, CA, 2013, pp. 1938–1942.
+
+nology 41 (1) (2010) 10–32.
+
+[23] M. Ko¨rber, C. Gold, D. Lechner, K. Bengler, The inﬂuence
+
+[6] E. Hamilton, D. Scott, J. Fleming, R. Rege, R. Laycock,
+
+of age on the take-over of vehicle control in highly automated
+
+P. Bergen, S. Tesfay, D. Jones, Comparison of video trainer and
+
+driving, Transportation research part F: traﬃc psychology and
+
+1045
+
+virtual reality training systems on acquisition of laparoscopic1115
+
+behaviour 39 (2016) 19–32.
+
+skills, Surgical Endoscopy and Other Interventional Techniques [24] K. Zeeb, A. Buchner, M. Schrauf, Is take-over time all that mat-
+
+16 (3) (2002) 406–411.
+
+ters? The impact of visual-cognitive load on driver take-over
+
+[7] J. Vora, S. Nair, A. K. Gramopadhye, A. T. Duchowski, B. J.
+
+quality after conditionally automated driving, Accident Analy-
+
+Melloy, B. Kanki, Using virtual reality technology for aircraft vi-
+
+sis & Prevention 92 (2016) 230–239.
+
+1050
+
+sual inspection training: presence and comparison studies, Ap-1120 [25] J. Navarro, M. Fran¸cois, F. Mars, Obstacle avoidance under
+
+plied ergonomics 33 (6) (2002) 559–570.
+
+automated steering: impact on driving and gaze behaviours,
+
+[8] G. Avveduto, C. Tanca, C. Lorenzini, F. Tecchia, M. Car-
+
+Transportation research part F: traﬃc psychology and be-
+
+rozzino, M. Bergamasco, Safety training using virtual real-
+
+haviour 43 (2016) 315–324.
+
+ity: A comparative approach, in: International Conference on [26] W. Payre, J. Cestac, N.-T. Dang, F. Vienne, P. Delhomme,
+
+1055
+
+Augmented Reality, Virtual Reality and Computer Graphics1,125
+
+Impact of training and in-vehicle task performance on manual
+
+Springer, 2017, pp. 148–163.
+
+control recovery in an automated car, Transportation Research
+
+[9] H. Zhang, Head-mounted display-based intuitive virtual reality
+
+Part F: Traﬃc Psychology and Behaviour 46 (2017) 216 – 227.
+
+training system for the mining industry, International Journal
+
+doi:https://doi.org/10.1016/j.trf.2017.02.001.
+
+of Mining Science and Technology.
+
+URL http://www.sciencedirect.com/science/article/pii/
+
+1060 [10] W.-S. Lee, J.-H. Kim, J.-H. Cho, A driving simulator as a vir-1130
+
+S1369847816300651
+
+tual reality tool, in: Robotics and Automation, 1998. Proceed- [27] K. Spolander, Drivers’assessment of their own driving ability,
+
+ings. 1998 IEEE International Conference on, Vol. 1, IEEE,
+
+Tech. rep. (1983).
+
+1998, pp. 71–76.
+
+[28] J. Reason, A. Manstead, S. Stradling, J. Baxter, K. Camp-
+
+[11] I. Milleville-Pennel, C. Charron, Driving for real or on a ﬁxed-
+
+bell, Errors and violations on the roads: a real distinction?,
+
+1065
+
+base simulator: is it so diﬀerent? An explorative study, Presence1135
+
+Ergonomics 33 (10-11) (1990) 1315–1332.
+
+24 (1) (2015) 74–91.
+
+[29] M. M. Roy, M. J. Liersch, I am a better driver than you think:
+
+[12] D. L. Fisher, N. E. Laurie, R. Glaser, K. Connerney, A. Pollat-
+
+examining self-enhancement for driving ability, Journal of ap-
+
+sek, S. A. Duﬀy, J. Brock, Use of a ﬁxed-base driving simulator
+
+plied social psychology 43 (8) (2013) 1648–1659.
+
+[30] S. Tr¨osterer, M. G¨artner, A. Mirnig, A. Meschtscherjakov,
+
+14
+
+1140
+
+R. McCall, N. Louveton, M. Tscheligi, T. Engel, You Never
+
+Forget How to Drive: Driver Skilling and Deskilling in the Ad-
+
+vent of Autonomous Vehicles, in: Proceedings of the 8th Inter-
+
+national Conference on Automotive User Interfaces and Inter-
+
+active Vehicular Applications, ACM, 2016, pp. 209–216.
+
+1145 [31] P. Bazilinskyy, A. Eriksson, B. Petermeijer, J. de Winter, Use-
+
+fulness and satisfaction of take-over requests for highly auto-
+
+mated driving.
+
+[32] N. A. Stanton, P. Marsden, From ﬂy-by-wire to drive-by-wire:
+
+safety implications of automation in vehicles, Safety Science
+
+1150
+
+24 (1) (1996) 35–49.
+
+[33] J. Vince, 10 virtual reality techniques in ﬂight simulation, Vir-
+
+tual Reality Systems (1993) 135.
+
+[34] P. J. Stappers, W. Gaver, K. Overbeeke, Beyond the limits of
+
+real-time realism: Moving from stimulation correspondence to
+
+1155
+
+information correspondence, Virtual and adaptive environments
+
+(2003) 91–110.
+
+[35] S. M. Casner, R. W. Geven, K. T. Williams, The eﬀectiveness of
+
+airline pilot training for abnormal events, Human factors 55 (3)
+
+(2013) 477–485.
+
+1160 [36] M. Bueno, E. Dogan, F. H. Selem, E. Monacelli, S. Boverie,
+
+A. Guillaume, How diﬀerent mental workload levels aﬀect the
+
+take-over control after automated driving, in: Intelligent Trans-
+
+portation Systems (ITSC), 2016 IEEE 19th International Con-
+
+ference on, IEEE, 2016, pp. 2040–2045.
+
+1165 [37] M. Slater, A note on presence terminology, Presence connect
+
+3 (3) (2003) 1–5.
+
+[38] H. A. Stoner, D. L. Fisher, M. Mollenhauer, Simulator and sce-
+
+nario factors inﬂuencing simulator sickness.
+
+[39] M. Sisto, N. Wenk, N. Ouerhani, S. Gobron, A study of tran-
+
+1170
+
+sitional virtual environments, in: International Conference on
+
+Augmented Reality, Virtual Reality and Computer Graphics,
+
+Springer, 2017, pp. 35–49.
+
+[40] Citroen DS3, https://www.turbosquid.com/3d-models/
+
+citroen-ds3-city-car-max/577206.
+
+1175 [41] L. J. Hettinger, G. E. Riccio, Visually induced motion sickness
+
+in virtual environments, Presence: Teleoperators & Virtual En-
+
+vironments 1 (3) (1992) 306–310.
+
+[42] R. S. Kennedy, N. E. Lane, K. S. Berbaum, M. G. Lilien-
+
+thal, Simulator sickness questionnaire: An enhanced method
+
+1180
+
+for quantifying simulator sickness, The international journal of
+
+aviation psychology 3 (3) (1993) 203–220.
+
+[43] R. S. Kennedy, J. M. Drexler, D. E. Compton, K. M. Stan-
+
+ney, D. S. Lanham, D. L. Harm, Conﬁgural scoring of simulator
+
+sickness, cybersickness and space adaptation syndrome: Simi-
+
+1185
+
+larities and diﬀerences, Virtual and adaptive environments: Ap-
+
+plications, implications, and human performance issues (2003)
+
+247.
+
+[44] C. Braunagel, W. Rosenstiel, E. Kasneci, Ready for take-over?
+
+a new driver assistance system for an automated classiﬁcation
+
+1190
+
+of driver take-over readiness, IEEE Intelligent Transportation
+
+Systems Magazine 9 (4) (2017) 10–22.
+
+[45] B. Aykent, Z. Yang, F. Merienne, A. Kemeny, Simulation sick-
+
+ness comparison between a limited ﬁeld of view virtual reality
+
+head mounted display (oculus) and a medium range ﬁeld of view
+
+1195
+
+static ecological driving simulator (eco2), in: Driving Simula-
+
+tion Conference Europe 2014 Proceedings, Society for Modeling
+
+& Simulation International, 2014, pp. 65–71.
+
+[46] Q. C. Ihemedu-Steinke, S. Rangelova, M. Weber, R. Erbach,
+
+G. Meixner, N. Marsden, Simulation sickness related to virtual
+
+1200
+
+reality driving simulation, in: International Conference on Vir-
+
+tual, Augmented and Mixed Reality, Springer, 2017, pp. 521–
+
+532.
+
+[47] G. H. Walker, N. A. Stanton, Human factors in automotive
+
+engineering and technology, CRC Press, 2017.
+
+15
+

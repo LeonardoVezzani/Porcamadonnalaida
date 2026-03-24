@@ -1,0 +1,142 @@
+Using Gaze-Based Interactions in Automated Vehicles for Increased Road Safety
+Abstract
+The development of self-driving vehicles seems to go well with the growing demand for the daily use of mobile devices. However, autonomous vehicles will still need manual intervention in unforeseen or dangerous situations. Therefore, it is important for the driver to stay aware of the traffic situation around, and so to be quickly able to take over. We developed a prototype which represents media content on a simulated windshield display and uses gaze tracking as an additional form of input device for the driver. Although we intentionally pull away the driver’s gaze from the driving situation, this seems to be less of a distraction than using hand-held mobile devices or dash-integrated display devices. We hypothesize that the time to regain control with our prototype is shorter compared to traditional media presentation. This work-in-progress paper provides insight to the concept of the prototype while first results will be presented at the conference.
+Author Keywords
+Eye tracking; gaze based interaction; automotive; autonomous driving; automated driving; windshield display; head-up display; adaptive user interface; mobile device; driver distraction; road safety.
+Permission to make digital or hard copies of part or all of this work for personal or classroom use is granted without fee provided that copies are not made or distributed for profit or commercial advantage and that copies bear this notice and the full citation on the first page. Copyrights for third-party components of this work must be honored. For all other uses, contact the Owner/Author.
+AutomotiveUI '19 Adjunct, September 21–25, 2019, Utrecht, Netherlands © 2019 Copyright is held by the owner/author(s). ACM ISBN 978-1-4503-6920-6/19/09. https://doi.org/10.1145/3349263.3351910
+Holger Schmidt
+Stuttgart Media University Stuttgart, 70569, Germany schmidtho@hdm-stuttgart.de
+Gottfried Zimmermann Stuttgart Media University Stuttgart, 70569, Germany gzimmermann@acm.org
+Albrecht Schmidt LMU Munich Munich, 80337, Germany albrecht.schmidt@ifi.lmu.de
+AutomotiveUI '19 Adjunct, September 21-25, 2019, Utrecht, Netherlands
+321
+
+
+CCS Concepts
+• Human-centered computing~Graphical user
+interfaces • Human-centered computing~Displays and imagers • Human-centered computing~Gestural input • Human-centered computing~User interface toolkits
+Introduction
+Autonomous driving or self-driving vehicles are no longer a theory since several manufacturers already sell vehicles capable of self-driving in some degree, e.g. Tesla with the Model S [16]. The level of self-driving capability is internationally defined in the SAE taxonomy for autonomous cars SAE J3016 [15]. This definition includes a range of levels from Level 0 for a vehicle with no self-driving capability up to Level 5 where the vehicle is fully capable of driving from A to B without any presence of a human driver. The term ‘highly automated driving’ is also used to describe driving states comparable to the SAE Level 3 [5]. As result of the long development of Artificial Intelligence for cars, self-driving capability is limited to L3 cars for several years from now. In consequence, the driver’s attention is still necessary.
+While being in the transition towards road traffic with a significant portion of self-driving SAE L3 [5] vehicles, a driver of such vehicle needs to be able to regain control of the car at any given time and in a short period of time. Especially in a critical driving situation it is necessary for the driver to be able to react within a timeframe of under 7 seconds [7]. This self-driving situation in which the driver’s participation is mostly passive leads to a monotonous situation without a specific task for the driver. A consequence of this is the use of other devices for several side-activities like texting, reading, playing and communicating. As most
+of these side-activities distract the driver to a significant extent, there is a responsibility for the manufacturers to ensure the road safety especially in take-over-request situations until self-driving vehicles become SAE L5 capable.
+Several factors need to be addressed while researching this topic. Besides the reaction time between the induced signal for a take-over-situation of the vehicle and the driver’s physical reaction, especially the road perception and the situational awareness are very important for the topic of automated driving [12] and can have an impact on the quality of the driver’s takeover reaction.
+With our prototype, we evaluate the concept of reducing the distance the driver’s gaze is displaced from the road scene while maintaining its mental activity through a gaze based interaction with the media content representation on a windshield display. We aim towards a significant reduction in reaction time compared to traditional interaction techniques despite actively distracting the drivers gaze. An ongoing study is intended to evaluate whether the reduction of the reaction time is possible as intended. A following deeper study is planned to confirm the results with more diversity in side-activity applications and a focus on situational awareness.
+Related Work
+With regard to related work, we focus on the following topics: road safety, windshield based displays, and explicit gaze-based interactions on multimedia content.
+SAE J3016 Taxonomy for autonomous cars
+SAE Level
+Automation
+Steering and
+acceleration
+Monitoring of
+driving
+Fallback
+performance
+0
+No
+Automation
+Human
+Driver
+Human
+Driver
+Human
+Driver
+1
+Driver
+Assistance
+Human
+Driver and
+System
+Human
+Driver
+Human
+Driver
+2
+Partial
+Automation
+System
+Human
+Driver
+Human
+Driver
+3
+Conditional
+Automation
+System
+System
+Human
+Driver
+4
+High
+Automation
+System
+System
+System
+5
+Full
+Automation
+System
+System
+System
+AutomotiveUI '19 Adjunct, September 21-25, 2019, Utrecht, Netherlands
+322
+
+
+Road safety from the viewpoint of a vehicle’s driver includes their behavior behind the steering wheel and their physical condition. Distraction from the process of driving is the main reason for a reduction in road safety [13]. The physical condition of the driver is a second major reason for a reduced safety factor in case the mental activity is too low, e.g. fatigue or sleepiness [10]. An additional factor related to fatigue is boredom [1]. The monotonous self-driving situation naturally makes the driver to pursue pastimes, leading to sideactivities that distract the attention of the driver from the driving situation. Our approach focuses on distraction and therefore combines the reduction of the reaction times with the side-activities itself.
+A windshield-based display is similar to a
+conventional head-up display in its basic functionality. Where a head-up display is generally limited in size and position on the edge between dashboard and windshield, a dedicated windshield display can utilize up to the full space of the vehicles windshield [8]. With our prototype, we are able to simulate such a windshield display which are still unavailable on the market. We use the full front display area of the simulation, assuming that windshield displays can use this space in the future. The positioning of multimedia content on a windshield can have disadvantages for the driving and safety when placed in the central area of the driver’s viewport [4]. This has to be addressed when evaluating potential content presentation areas. On the other hand, a display near the driver’s viewport provides benefits towards awareness of the driving situation [11].
+Gaze-based Interaction extends the traditional use of eye tracking for post-study gaze analysis of a participant’s gaze behavior by analyzing fixations on predefined content areas (areas of interest) in real-time in order to generate artificial gaze events in the system. This can be used to control system functions by the participant’s gaze alone. In a simulated driving environment, the use of gaze for the explicit control of multimedia functions is technically viable [9]. Compared to this earlier approach for gaze interactions on separate displays aside the simulated driving, we use gaze-based interactions within the driving simulation itself. This enables the research for gaze based interactions closest possible to the center of the driving situation without losing perception of the road.
+Prototype Concept
+We use a Dikablis 3 marker based head-mounted gaze tracker [14]. The prototype for our research is a combination of a script-based extension of our driving simulator for representation of third-party sideactivities and a separate server tool for the link between our gaze tracker and the simulation. This tool collects the raw gaze data from the eye tracker and calculates area of interest matches based on marker detection. The tool sends its generated events back into the driving simulation for further gaze based media events. With this setup, we can simulate different sideactivity representations of secondary media content, e.g. a Sudoku Game (see figure 1), on a simulated windshield display within the context of the driving simulation.
+Figure 1: Approximation of the windshield prototype implementation. The design, color, transparency and position of the Sudoku game is still subject to change. This visualization is mainly for reference.
+Figure 2: This shows the setup with the tablet based Sudoku game mounted aside the steering wheel. The position resembles the traditional mounting position of a multimedia display in or on the dashboard of the vehicle. It is touch based.
+AutomotiveUI '19 Adjunct, September 21-25, 2019, Utrecht, Netherlands
+323
+
+
+In comparison to the prototype implementation, the traditional implementation uses a stand-alone tablet mounted aside the steering wheel for the representation of the same side-activity task. This position resembles a common mounting position in today’s cars whether it is a similar tablet or a dashintegrated touch-panel (see figure 2). At the take-over the simulator sends an audio queue and a visual indicator on the windshield in order to warn the driver. Our prototype presents an additional visual signal on the Sudoku Game as well as fading the game content.
+Study Design
+The first batch of simulations running on our prototype is an extension to our ongoing long-time study for the evaluation of learning effects for take-over requests of self-driving vehicles. This extension is dedicated to the proposed reduction of reaction times using gaze based interactions with respect to an increased potential for simulator sickness symptoms [3]. We want to verify our hypothesis of a possible reduction of the reaction time before testing a deeper prototype with several implemented media applications and a specific noninvasive task for road perception and situational awareness in road situations that lead to a critical takeover request. This first study is planned to use a total of 60 participants driving over 5 weeks for 45min per drive. While driving, the participants are asked to play a Sudoku game on the windshield display as a consistent and intense distraction task. The interaction with the game is based on their gaze as input mechanism, until the vehicle prompts a take-over request with textual warning on the windshield and an audio queue. Each drive contains at least two standard take-over situations and one additional random critical take-over events. For comparison, a control group will
+play Sudoku on a traditional tablet-based side-activity, using touch as input mechanism. After each drive, the participant fills a questionnaire regarding their perceived user experience (Likert Scale) and mental effort (RSME [2]), acceptance of the prototype and level of situational awareness. Based on this study, we plan to conduct a second study dedicated to a more diverse availability of side activities in order to avoid task related effects and with a focus on measurement of the situational awareness for the road scene.
+Expectations
+The first study in our two-step-approach will be completed at the time of this conference. We expect to see a significant decrease in reaction time of the driver when prompted for a take-over request using our windshield-prototype solution in comparison to the traditional use of a separate device with the same type of side activity used, e.g. tablet.
+Discussion
+With the presentation of the first findings at the conference, we look forward to discuss our concept and its potential for a future application in actual selfdriving vehicles. For our further research we need to compare to other new approaches that may not be published yet.
+Conclusion
+This paper describes our study design and prototype implementation. We expect to reduce the driver’s reaction times in take-over-situations by presenting media information on the windshield space around the driving viewport, and by employing the driver’s gaze as input mechanism. First study results will be provided at the conference.
+AutomotiveUI '19 Adjunct, September 21-25, 2019, Utrecht, Netherlands
+324
+
+
+References
+[1] John Eastwood, Alexandra Frischen, Mark Fenske, Daniel Smilek. 2012. The Unengaged Mind: Defining Boredom in Terms of Attention. Perspectives on Psychological Science. 7. 482-495.
+[2] Kathleen Eilers, Friedhelm Nachreiner, Kristina Hänecke. 1986. Entwicklung und Überprüfung einer Skala zur Erfassung subjektiv erlebter
+Anstrengung. Zeitschrift für Arbeitswissenschaft, 40(4), 215-224.
+[3] A. Flemming Seay, David M. Krum, Larry Hodges, William Ribarsky. 2002. Simulator sickness and presence in a high field-of-view virtual
+environment. In CHI '02 Extended Abstracts on Human Factors in Computing Systems (CHI EA '02). ACM, New York, NY, USA, 784-785.
+[4] David Foyle, Beverly D. Sanford, Robert S. McCann. 1991. Attentional issues in superimposed flight symbology. In R.S. Jensen (Ed.),
+Proceedings of the Sixth International Symposium on Aviation Psychology, 577-582.
+[5] Tom M. Gasser, Daniel Westhoff. 2012. BAStstudy: Definitions of automation and legal issues in Germany. In Proceedings of the 2012 Road Vehicle Automation Workshop.
+[6] Wilhelm R. Glaser, H. Waschulewski, D. Schmid. 2005. I-TSA - a standardized procedure to assess the safety impact of driver information and driver assistance systems. In "Der Fahrer im 21.
+Jahrhundert" (The driver in the 21st century), VDI-Berichte 1919, 17-10. Braunschweig.
+[7] Christian Gold, Moritz Körber, Davis Lechner, Klaus Bengler. 2016. Taking over control from highly automated vehicles in complex traffic situations: The role of traffic density. Human Factors, 58(4), 642 –652.
+[8] Renate Häuslschmid, Sven Osterwald, Marcus Lang, Andreas Butz. 2015. Augmenting the Driver's View with Peripheral Information on a Windshield Display. In Proceedings of the 20th International Conference on Intelligent User
+Interfaces (IUI '15). ACM, New York, NY, USA, 311-321.
+[9] Dagmar Kern, Angela Mahr, Sandro Castronovo, Albrecht Schmidt, Christian Müller. 2010. Making use of drivers' glances onto the screen for explicit gaze-based interaction. In Proceedings of the 2nd International Conference on Automotive User Interfaces and Interactive Vehicular Applications (AutomotiveUI '10). ACM, New York, NY, USA, 110-116.
+[10] Fridulf Sagberg, Paul Jackson, Hans-Peter Krüger, Alain Muzet, Adrian Williams. 2004. Fatigue, sleepiness and reduced alertness as risk factors in driving. TOI report 739/2004. Oslo: Institute of Transport Economics.
+[11] Grace Tai, Dagmar Kern, Albrecht Schmidt. 2009. Bridging the Communication Gap: A DriverPassenger Video Link. In Mensch & Computer 2009: Grenzenlos frei!? Interdisziplinäre
+Fachtagung (Mensch & Computer ‘09). Oldenbourg Verlag, Berlin, Germany, 73-82.
+[12] Tom Van Veen, Juffrizal Karjanto, Jacques Terken. 2017. Situation Awareness in Automated Vehicles through Proximal Peripheral Light Signals. In
+Proceedings of the 9th International Conference on Automotive User Interfaces and Interactive Vehicular Applications (AutomotiveUI '17). ACM, New York, NY, USA, 287-292.
+AutomotiveUI '19 Adjunct, September 21-25, 2019, Utrecht, Netherlands
+325
+
+
+[13] Kristie Young, Michael Regan. 2007. Driver distraction: A review of the literature. In: I.J. Faulks, M. Regan, M. Stevenson, J. Brown, A. Porter and J.D. Irwin (Eds.), Distracted driving (379-405). Sydney, NSW: Australasian College of Road Safety.
+[14] Ergoneers GmbH: Dikablis 3. Retrieved February 8, 2019 from https://www.ergoneers.com/ en/mobile-eye-tracker-dikablis-glasses-3/
+[15] SAE international: Taxonomy and definition for terms related to driving automation systems for on-road motor vehicles. 2018.
+[16] Your Autopilot has arrived. 2015. Retrieved
+February 8, 2019 from https://www.tesla.com/ pt_PT/blog/your-autopilot-has-arrived
+AutomotiveUI '19 Adjunct, September 21-25, 2019, Utrecht, Netherlands
+326

@@ -1,0 +1,328 @@
+hv
+photonics
+Article
+AR-HUD Optical System Design and Its Multiple Conﬁgurations Analysis
+Qubo Jiang * and Zhiyuan Guo
+Guangxi Key Laboratory of Optoelectronic Information Processing, School of Optoelectronic Engineering, Guilin University of Electronic Technology, Guilin 541004, China; 21082203005@mails.guet.edu.cn * Correspondence: guet-jqb@guet.edu.cn
+Abstract: The use of augmented reality head-up displays (AR-HUD) in automobile safety driving has drawn more and more interest in recent years. An AR-HUD display system should be developed to ﬁt the vehicle and the complicated trafﬁc environment in order to increase the driver’s driving concentration and improve the man–vehicle synchronization. In this article, we suggest an AR-HUD display system with dual-layer virtual-image displays for the near ﬁeld and far ﬁeld, as well as further research and design of the adjustment system for multi-depth displays of far-ﬁeld images. It also examines the EYEBOX horizontal adjustment margin of the dual light path. The analysis results show that the scale of EYEBOX is 120 × 60 mm2, the modulation transfer function (MTF) of near-ﬁeld light path > 0.2 @ 6.7 lp/mm, and the MTF of far-ﬁeld optical path > 0.4 @ 6.7 lp/mm. The distortion of the near-ﬁeld optical path is less than 0.86%, and that of the far-ﬁeld optical path is less than 2.2%. By modifying the folding mirror, the far-ﬁeld optical path creates an 8 m to 24 m multi-depth virtual picture display. Image quality can be maintained when the near-ﬁeld and far-ﬁeld optical paths are moved horizontally by 25 mm and 100 mm, respectively. This study offers guidelines for the multi-depth display, EYEBOX horizontal adjustment, and optical layout of augmented reality head-up displays.
+Keywords: optical design; ar-hud; eyebox; multi-depth
+
+Citation: Jiang, Q.; Guo, Z. AR-HUD Optical System Design and Its Multiple Conﬁgurations Analysis. Photonics 2023, 10, 954. https:// doi.org/10.3390/photonics10090954
+Received: 8 June 2023 Revised: 3 August 2023 Accepted: 14 August 2023 Published: 22 August 2023
+Copyright: © 2023 by the authors. Licensee MDPI, Basel, Switzerland. This article is an open access article distributed under the terms and conditions of the Creative Commons Attribution (CC BY) license (https:// creativecommons.org/licenses/by/ 4.0/).
+
+1. Introduction
+Head-up display (HUD) is a display technology based on vehicle–machine interactions that reﬂects vehicle driving information into the human eye through optical components so that the driver can read the information in a horizontal view to improve driving safety, such as speed, fuel consumption, navigation information, driver assistance information, warning information, etc. The ﬁrst use of HUD was in the 1950s, for aiming and shooting [1]. In 1960, the Hawker Siddeley Buccaneer ﬁrst used heads-up display technology in military aircraft [2]. HUD was ﬁrst deployed in commercial aviation in 1970 [3]. In 1988, HUD technology was initially made available in Oldsmobile and Pontiac models by General Motors (GM) [4]. At present, the Boeing 787 Dreamliner is the ﬁrst mainstream commercial aircraft to use HUD as the standard model [5]. The beneﬁt of HUD is that it allows the driver to avoid moving between the ﬂat (0–5◦) road conditions and the overhead (20–25◦) dashboard, which eliminates the need for constant switching between dark and light settings. The threshold for trafﬁc accidents is taking one’s eyes off the road for longer than two seconds, which is a primary contributor to trafﬁc accidents [6]. Equipped with HUD, system drivers can read vehicle driving information in a ﬂat perspective, especially to reduce the risk of trafﬁc accidents for senior drivers, enhance driving coordination, and improve man–machine efﬁciency.
+Combiner HUD (C-HUD), Windshield HUD (W-HUD), and Augmented Reality HUD (AR-HUD) are some of the existing head-up display systems for cars. W-HUD and ARHUD both reﬂect the image source into the driver’s eyes through the front windshield,
+
+Photonics 2023, 10, 954. https://doi.org/10.3390/photonics10090954
+
+https://www.mdpi.com/journal/photonics
+
+Photonics 2023, 10, 954
+
+2 of 13
+and AR-HUD can be seen as an upgraded version of W-HUD. Rear-mounted HUDs like the C-HUD, which also includes instrument panel and suspension types, pose a safety risk to drivers in the event of an accident. Front-mounted embedded HUD including such image generation units (PGUs), ﬂat reﬂector, freeform reﬂector, wedge-shaped front windscreen, etc., are called W-HUD and AR-HUD. W-HUD is the primary HUD product at the moment, with virtual image dimensions of 7~12 inches, a ﬁeld of view (FOV) of fewer than 10 degrees, and a virtual image distance (VID) of 1.8~2.5 m. The inevitable trend of HUD development is toward AR-HUD, which has a VID of more than 7 m, a FOV of more than 10◦, and a larger virtual image size. It can display information from advanced driver assistance systems and realize true human, vehicle, and road collaboration [7,8]. The global installed base of HUDs will reach 15 million units in 2025, with W-HUD serving as the primary product, and close to 35 million units in 2030, with AR-share HUD’s expanding quickly, according to Continental’s head-up display market development forecast data [9].
+According to the type of imaging, current AR-HUD optical systems can be divided into two categories: geometric optical imaging and physical optical imaging. Geometric optical imaging include the author-designed off-axis three-mirror HUD optical system, where the PGU, plane mirror, and freeform reﬂector were laid out in the same horizontal plane [10–12]. By using Solidworks’ basic mechanical assembly structure to determine the coordinates of the plane mirror and PGU, the light constraint equations were developed to guarantee unhindered light transmission [11]. The study could not have an augmented reality inﬂuence on the Advanced Driving Assistance System information that should have been given in the far-ﬁeld optical path because it was only designed and analyzed for the near-ﬁeld light path. To accomplish inﬁnity imaging with a FOV of 24◦ × 15◦, the authors created an off-axis quad-mirror HUD optical system for airplanes [12]. The initial spatial architecture of the four-mirror system was acquired by restricting the edge beam of the maximum FOV. In the end, the biological lens parallax was assessed and adjusted to produce inﬁnity imaging with a FOV of 24◦ × 15◦. The design of this aircraft head-up display system is only designed and analyzed for the virtual image at inﬁnity, which does not have the effect of layered display. Using lens eccentricity and tilt to correct for the aberrations and off-axis aberrations caused by the asymmetric FOV and the tilted and bent combiner, physical optical imaging researchers like the authors designed a holographic HUD optical system with an asymmetric large FOV [13–16]. However, physical optical imaging technology is still in its infancy and cannot currently handle the demand for batch use. Other AR-HUD optical systems exist that use two PGUs and a dual optical route separation design method, but these systems require more room to install. At the same time, we have yet to see an AR-HUD system that performs a continuous multi-depth display with a large range of far-ﬁeld light paths, which will not maximize the augmented reality effect of the AR system. Therefore, it is essential to suggest a new AR-HUD optical system with dual-layer display functionality that uses a coupling architecture of near-ﬁeld and far-ﬁeld dual optical routes. Based on this, the optimum augmented reality impact requires its far-ﬁeld optical channel to have a wide range of continuous multi-depth virtual image display capabilities. This article is devoted to exploring this problem.
+In this paper, we develop a single PGU approach for linking near-ﬁeld and far-ﬁeld dual optical routes in order to solve the issue of huge space occupation while designing nearﬁeld and far-ﬁeld split optical channels with dual PGUs for AR-HUD [13,14]. The design difference of the upper and lower FOV deviation allows the near-ﬁeld and far-ﬁeld dual optical paths to deviate in position on the free surface reﬂector, while the far-ﬁeld optical path is connected to the common image plane by a folding mirror and the near-ﬁeld optical path. The optical distortion of the near and far ﬁeld is less than 0.86% and 2.2%, respectively, and this design achieves an MTF of the near-ﬁeld optical path > 0.2 @ 6.7 lp/mm and an MTF of the far-ﬁeld optical path > 0.4 @ 6.7 lp/mm. The spot diagrams of the near- and far-ﬁeld light paths are also within the Airy disk. In addition, taking into account the requirement for far-ﬁeld image distance in various road scenes, a design analysis for a multi-depth variable VID for far-ﬁeld images from 8 to 24 m was carried out. This design
+
+Photonics 2023, 10, 954
+
+3 of 13
+
+analysis shows that the requirement for the multi-depth virtual image quality can be met only by adjusting the distance of three folding mirrors, while also guaranteeing the constant PGU position at various VIDs. It was discovered that there was no appreciable loss of image quality when the near-ﬁeld optical path was adjusted horizontally by 25 mm in the preset EYEBOX plane and by 100 mm in the far-ﬁeld optical path in the preset EYEBOX plane within the EYEBOX horizontal adjustment range (120 × 60 mm2) in the near-ﬁeld and far-ﬁeld optical paths.
+
+2. Optical Design
+2.1. Design Considerations and System Parameters
+The AR-HUD optical system consists of two optical routes: near ﬁeld and far ﬁeld, with the single PGU scheme and the double PGUs scheme being used for the two optical paths, respectively. The single PGU scheme divides a projection screen into near-ﬁeld and far-ﬁeld sections and creates two virtual images of various sizes and distances through two optical paths. This method has clear volumetric advantages and is the current development trend for AR-HUD systems. From the virtual image end to the human eye, then to the windshield, freeform reﬂector, folding mirror, and PGU, the AR-HUD optical path system uses an inverse optical path design. The AR-HUD optical route is intended to generate virtual images of various horizontal distances through various object distance settings and virtual images of various vertical heights through various up and down viewing angles. The windshield 3D model can be used to ﬁt the optical surface shape, and an optical reﬂection model can be built. Different models’ data for the windshield surface and inclination angle varies slightly. The design does the design analysis at a 45◦ tilt angle condition and cites the windshield face pattern data from the study [17]. As an off-axis, unobstructed reﬂective optical system, the HUD introduces a number of aberrations like a spherical aberration, coma, astigmatism, ﬁeld curvature, distortion, etc., due to the system architecture and hyperbolic features of the windshield glass surface. When designing an aberration, balance and correction are accomplished using a freeform reﬂector with strong aberration correction capability. Zernike polynomial and Seidel aberration have a direct mapping relationship that allows for the effective and individual correction of each aberration while also allowing for the conversion to a more processing-friendly XY polynomial surface type. The design of the freeform reﬂector uses the Zernike standard sag surface type. The Zernike Standard Sag surface is deﬁned by the same polynomial as the Even Aspheric surface (which supports planes, spheres, conics, and polynomial aspheres) plus additional aspheric terms deﬁned by the Zernike Standard coefﬁcients. The surface sag is of the form:
+
+z= 1+
+
+1
+
+cr2 − (1
+
++
+
+k)c2r2
+
++
+
+8
+∑
+i=1
+
+αi r2i
+
++
+
+N
+∑
+i=1
+
+Ai Zi (ρ,
+
+ϕ)
+
+(1)
+
+where c denotes the basal curvature, k is the aspheric coefﬁcient, r is the radial ray coordinate
+in lens units, αi is the coefﬁcient on the ith Even Aspheric polynomial, N is the number of Zernike coefﬁcients in the series, Ai is the coefﬁcient on the ith Zernike Standard polynomial, ρ is the normalized radial ray coordinate, and ϕ is the angular ray coordinate.
+The cut-off frequency of the modulation transfer function (MTF), which corresponds
+to the PGU pixel size of 75 µm in the design, is 6.7 lp/mm. The driver’s EYEBOX, which is
+where their eyes are focused when they are operating a vehicle, is where the virtual image
+that PGU projects may be seen. Its front and back depth can be adjusted, and its design size is 120 × 60 mm2. The preset distance of far-ﬁeld virtual image is not less than 7 m, the FOV is not less than 10◦, the distance of near-ﬁeld image is around 2 m, and the FOV is not less than 6◦. The authors used two freeform reﬂectors to design an AR-HUD optical system including only the far-ﬁeld optical path, with a horizontal FOV of 10◦ and a vertical FOV of 5◦ [8]. The authors used freeform reﬂector to design an AR system including only the near-ﬁeld optical path, with a horizontal FOV of 5◦ and a vertical FOV of 2.5◦ [11]. This
+
+Photonics 2023, 10, 954
+
+m, and the FOV is not less than 6°. The authors used two freeform reflectors to design an
+
+AR-HUD optical system including only the far-field optical path, with a horizontal FOV
+
+of 10° and a vertical FOV of 5° [8]. The authors used freeform reflector to design an AR
+
+system including only the near-field optical path, with a horizontal FOV of 5° and a ver-
+
+tical FOV of 2.5° [11]. This study suggests designing a dual-field AR-HUD optical 4syofs-13
+
+tem with a 6° × 2° FOV for the near-field optical path and a 10° × 3° FOV for the far-field
+
+optical path, taking into account the challenge of dual-optical path coupling design and
+
+thsteuudpypseurgagnedstlsodweesrigvniienwginagdaunagl-lﬁeedldevAiaRt-ioHnUoDf tohpetinceaal rs-yfisetledmawndithfaar-6fi◦el×d o2◦ptFicOaVl pfaotrhtsh.e Tnheeadr-eﬁseigldnoinpdtiecaxleps aotfhAaRnd-HaU1D0◦o×pt3ic◦aFlOsyVstfeomr tahreefashr-oﬁwelndionpTtiacballep1a.th, taking into account
+
+the challenge of dual-optical path coupling design and the upper and lower viewing angle Tdabevleia1t.iAonR-oHfUtDheopnteicaarl-ﬁsyesltdemanddesfiganr-iﬁnedledxeosp. tical paths. The design indexes of AR-HUD
+
+opticaPl asyrasmtemetearrse shown in TabNleea1r. -Field Image
+
+Far-Field Image
+
+VID
+
+2 m
+
+TablHe o1.riAzRon-HtaUlDFOopVtical system design−3in°~d3e°xe(s6.°)
+
+8 m −5°~5° (10°)
+
+VertiPcaarlaFmOeVters
+
+−4N°~e−a2r-°F(i2e°ld) Image
+
+−0F.5a°r-~F2i.e5l°d (I3m°)age
+
+Up/down viewVIiDng angle WindHshoireizldonrtaadl FiuOsV
+EYVEerBtOicaXl FOV UPpG/Udopwixnevliseiwzieng angle DesigWninwdEasYhvEieeBlledOnrXgatdhius
+MPTGFUvapliuxeel size
+
+−3° 2 m
+
+1°8 m
+
+7500 mm (−h3o◦r~iz3o◦ n(6t◦a)l)
+
+3500 m−m5◦~(v5◦er(t1i0c◦a)l)
+
+−4◦~−2◦ (2◦1) 20 × 60 mm
+
+−0.5◦~2.5◦ (3◦)
+
+−3◦
+
+75 μm
+
+1◦
+
+7500 mm (horizon4t8a6l1)~26056×n6m0 mm 3500 mm (vertical)
+
+>0.2@6.77l5pµ/mmm
+
+Design wavelength
+
+486~656 nm
+
+2.2. Optical MLaTyFouvat launed Design Methods
+
+>0.2 @ 6.7 lp/mm
+
+2.2.1. Two Possible Optical Layouts 2.2. TOhpetifcualllLyaryeofulet catnivdeDoepsitgicnaMl seythstoedms , which has flexible design forms and fewer optica2l.2c.1o.mTpwoonPenostssibthleanOpthtiecacloLnavyeonutitosnal refractive optical system, does not cause chromatic Tahbeerfrualtliyonreaﬂnedctiisvesuoiptatibclael fsoyrstbermoa, dw-shpicehcthruasmﬂaenxidblme udletsisigpnecftorraml ismaangdinfegw, eesrpoepcitaicl-al lycofmorploanrgenetsFOthVanatnhde claorngveenaptieorntaulrreeforpatcitcivale soypsttiecmal sdyesstiegmn,. dDouees ntoottchaeufsaeccthtrhoamt aotfifc-aaxbiesrchraatriaocntearnisdtiicssssutiitlal bnleecfeosrsibtraoteadu-psp- eacntrdumdoawnnd-mvieuwltisdpeevcitartailoinmsafgoirngA,Res-HpeUcDiallnyefaorr-fliaerldge aFnOd Vfaarn-fdielladrgoepatpicearlturroeuotepst,icfarleseyfosrtemmrdeeflseigctno.rDs umeatyo tphreofvaicdtethtawtooffo-patxiicsaclhlaaryaocutetrsi,staiscs shstoilwl nneicnesFsiigtautreeu1pa-,ba,nddedpoewndni-nvgieowndtehveiaretifolencstoforrs’ApRla-HceUmDennteaanr-gﬁleelsd. Tahnrdefeafro-ﬁldeilndgopmtiirc-al rororsutfeosld, frtheeefofarrm-fireeldﬂeocptotircsaml paaythpraonvdidceontwneocot pittitcoalalashyaoruetds,iamsasgheowplnanine wFiigtuhrteh1ean,be,adr-efipeeldndoipntgicoanl pthaethr,epﬂreoctvoirdsi’npglaacnemadejnutstamngelnets.mTahrrgeienftooldminaginmtaiirnrotrhsefoimldatgheepfalar-nﬁeepldoosiptitoicnal copnatshtaanntdthcroonungehcot uitttothaesehnasruedinigm8a~g2e4pmlanceonwtiitnhutohuesnmeaurl-tﬁi-edldepotphtivciarltupaalthim, pargoeviaddinjugsta-n maednjut.stment margin to maintain the image plane position constant throughout the ensuing 8~24 m continuous multi-depth virtual image adjustment.
+
+Figure 1. Schematic diagram of optical layouts: (a) optical layout 1 of AR-HUD; (b) optical layout 2 of AR-HUD.
+2.2.2. Design Method The optical arrangement of the dual optical channel is one of the challenges in the
+original design of the AR-HUD optical system. Several simulations were used to tweak the design to obtain the two optical conﬁgurations shown in Figure 1. The optical arrangement in Figure 1a produces the effect of multiple mirrors without blocking and dual optical
+
+Photonics 2023, 10, 954
+
+5 of 13
+
+routes with a common image plane. The design and analysis work of this study is focused on this optical layout. The coupling of the dual optical routes’ initial structures must be realized via ZEMAX’s multi-conﬁguration function since the two optical paths’ ﬁelds of view, VIDs, and upper and lower viewing angles are all out of alignment. The freeform reﬂector is shared by the two optical pathways, and because the near-ﬁeld optical path is relatively straightforward and heavily dependent on the placement angle of the freeform reﬂector, the priority design of the near-ﬁeld optical path can be taken into account. By repositioning several mirrors to create a double optical route without blocking coupling, the far-ﬁeld optical way is based on the near-ﬁeld optical path, and the multi-stage folding mirror is optimized to meet the requirements of the far-ﬁeld optical path design. The radius of curvature, rotation angle, and distance of each reﬂector, as well as the image plane coupling of the two optical channels, are the parameters that must be constrained during the design process.
+Although the design process should consider the F-number of the near-ﬁeld and far-ﬁeld optical paths, the design should be optimized using the full aperture of 134 mm. However, the image quality is evaluated for the size of the human eye pupil, considering the human eye pupil maximum. The system F-number will increase 16.75 times in the case of 8 mm. Using the diffraction limit equation as a guide [18]:
+
+∆θ = 1.22λ/D
+
+(2)
+
+where ∆θ is the minimum resolution angle of the optical system, λ is the wavelength, and D is the pupil diameter. When ∆θ is very small, sin∆θ ≈ ∆θ, which is approximately equal to D/f, D is the minimum resolution size, and f is the focal length, we can obtain:
+
+f /D = d/1.22λ
+
+(3)
+
+The diffraction limit aperture is 104.7 when the center wavelength is 0.587 um and the image element size is 75 µm. Consequently, when maximizing for an optical system with a human eye pupil of 8 mm at a full aperture of 134 mm, the system F-number should be close to 6.3 or even lower.
+
+2.2.3. Design Results and Analysis
+The varied amounts of aberrations in the dual optical routes are corrected after the synergistic optimization design of the near-ﬁeld and far-ﬁeld optical paths, and the superior image quality design under the dual structure is obtained. Figure 2 displays the outcomes of the dual optical route design, with the near-ﬁeld optical path illustrated in green and the far-ﬁeld optical path shown in blue. A freeform reﬂector and folding reﬂector are both present in the blue box. The far-ﬁeld optical path likewise has two spherical foldable mirrors and one aspheric foldable mirror, and the two optical channels share a freeform reﬂector. Photonics 2023, 10, x FOR PEER REVIETWhe entire EYEBOX domain can use the design results because the design procedure a6doofp1t3s a 134 mm pupil diameter. The human eye’s pupil can grow to 8 mm in diameter in complete darkness, and the optical system exhibits signiﬁcant aberration. The visual quality that the human eye sees in these circumstances is suitable for situations with smaller pupils.
+
+Figure 2. Structure diagram for two conﬁgurations of AR-HUD. Figure 2. Structure diagram for two configurations of AR-HUD.
+The near-field and far-field MTF curves are depicted in Figure 3a,b, respectively, with the spatial frequency acting as the horizontal coordinate and the value of the diffraction modulation transfer function acting as the vertical coordinate. The MTF at the Nyquist frequency of 6.7 lp/mm is greater than 0.2 in the virtual image range of 210 × 70 mm2 for the near-field optical path and is greater than 0.4 in the virtual image range of
+
+Photonics 2023, 10, 954
+
+Figure 2. Structure diagram for two configurations of AR-HUD.
+
+6 of 13
+
+The near-field and far-field MTF curves are depicted in Figure 3a,b, respectively,
+with Tthhee snpeaatri-aﬁleflrdeqaundenfcayr-ﬁacetlidngMaTsFtchuervheosriazroendteapl iccoteodrdiinnFatigeuarned3ath,be, rveaslpueectoivf etlhye, wdiitfhftrhaectsiopnatimalofdrueqlauteionncytraacntsinfegrafsutnhcetiohnoraizcotinntgalacsotohredivneartteicaanl dcotohredvinaalutee. oTfhteheMdTifFfraatcttihoen Nmyoqduuilsattfiorenqtureanncsfyeroffu6n.7ctlipo/nmamctiinsggaresattheer vtheratnic0a.l2coinortdhienvatiret.uTahl eimMaTgFe artanthgeeNofyq21u0is×t f7r0emqume2ncfoyrotfh6e.7nlepa/rm-fimeldisogprteiactaelrpthatahn a0n.2dinisthgerevaitretruathl aimna0g.4e rinantgheeovfir2t1u0a×l im70amgemr2anfogretohfe 1n4e0a0r-×ﬁe4ld20opmtimca2l fpoarththaendfairs-fgiereldateorptthicaanl 0p.4atihn.thTeheviirmtuaagl iinmgagqeuraalintygeoofft1h4e00d×ua4l 2o0pmticmal2 pfoarththise efaxrc-eﬁleleldnto. pTthiceailmpaagthe. qTuhaeliitmyaogfinthgeqnueaalrit-yfieolfdthoeptdiucaall poaptthicadlidpantohtischeaxnceglelesnigt.nTifhi-e ciamnatlgyewquhaenlittyhoefimthaegneepalra-ﬁneelmd oovpetidcainl ptahtehrdanidgenootf cahbaonugte±3sigmnmiﬁ,caanndtlythwe himenagtehequimalaitgye opflathnee fmaro-vfieedldinopthtiecarlapnagtehodfiadbnooutt c±h3anmgme s, iagnndifitchaenitmlyawgeheqnuaimlitaygoefptlhaenfeamr-ﬁoevleddoipnttihcael rpaantghedoidf anbootuctha±n10gemsmign. iTﬁhceanotplyticwahl esnysitmemag’es pdleapntehmofovfoecduisnitshaelsraonlgaergoefra, baonudt t±he10amxiaml . aTdhjuesotpmteicnatl msyasrtgemin’sofdethpethPoGfUfopcurosjiesctailosno lsacrrgeeern, aisndlatrhgeera,xaisalsahdojwusntminenFtigmuarerg4in′s oMf tThFe oPuGt-Uofp-froocjeucsticounrsvcer.eeFnigiusrlear5gae,rb, adsesphiocwt tnhiensFpiogturdeia4gsraMmTsFoofutth-oef-nfoecaur-sficeuldrvae.nFdigfaurr-efi5eald,b odpetpiciactl tphaethsps,ortedspiaegcrtaivmeslyo. fFt1h~eFn9ecaorr-ﬁreeslpdoannddtfoart-hﬁeelsdpootptdiciaagl rpaamthsso, frensipneectFivOeVly.pFo1in~tFs9. Tchorerensepaorn-fdietlod tohpetsicpaoltpdaitahgrAamirys ospf ontin’serFaOdiVuspiosin8t3s..5T5hμemnelaarr-gﬁeerldthoapntiictaslmpaatxhimAuirmy sRpMotS’s rraaddiiuuss oisf 8538..57552µmμmla,ragnerdththaenfiatsr-mfiealxdimoputmicaRlMpSatrhadAiiursyosfp5o8t.’7s5r2aµdmiu,sainsd71th.2e6faμrm-ﬁelaldrgoeprtthicaanl pitasthmAaxirimy supmotR’sMraSdriuasdiius s71o.f2616µ.m631laμrmge,rinthdaincaittisnmg athxiamt uthme RdMuaSl roapdtiiucaslopfa1t6h.6i3m1µagm-, iinngdirceastoinlugtitohnatrethaechdeusatlhoepdtifcfarlapctaitohnilmimagiti.ng resolution reaches the diffraction limit.
+
+Photonics 2023, 10, x FOR PEER REVIEW
+
+7 of 13
+
+FFiigguurree 3. MTF cuurrvveessooffAARRHHUUDD: :(a()aM) MTFTFcucruvrevoef ocof ncﬁongfuirgautrioantio1n; (b1;) (Mb)TFMcTuFrvceuorvf ecoonfﬁcgounrfaitgiounra2-. tion 2.
+
+FFiigguurree44. .DDeeffooccuusseeddMMTTFFccuurrvveess:: ((aa)) ddeeffooccuusseedd MMTTFF ccuurrvvee ooffccoonnﬁfigguurraattiioonn 11;;((bb))ddeeffooccuusseeddMMTTFF ccuurrvveeooffccoonnﬁfigguurraattiioonn22..
+The near-ﬁeld and far-ﬁeld optical routes have optical distortions that are less than 0.86% and 2.2%, respectively. Figure 6a,b illustrate the grid distortion effect, where the horizontal and vertical coordinates stand in for the horizontal FOV and the vertical FOV, respectively. The actual images have a slight distortion effect in comparison to the ideal image, but this does not affect how the images are used. The human eye’s pupil distance is
+
+Photonics 2023, 10, 954
+
+7 of 13
+65 mm, so when two people are observing the same object, there will be a parallax between their two eyes. Figure 7 displays the binocular parallax of the 2 m near-ﬁeld image system and the 8 m far-ﬁeld image system. As shown in Figure 7a, the near-ﬁeld system’s binocular divergence parallax is less than 1 mrad and its convergence parallax is less than 2 mrad. As shown in Figure 7b, the far-ﬁeld system’s binocular divergence parallax is around 1.5 mrad and its convergence parallax is less than 2 mrad, which meets the standard value of clause p4.a2rcF.a1uigl0rlvuaierxneow4fS.cAhoDenEenffiogAocuubSrssa8eet0diro5vnM5in2T[.g1F9ic]mu. ravIgtesea:sv(.ao)iddesfotchuesepdhMyTsiFoclourgviecaolf dcoinscfiogmurafotirotnc1a; u(bs)eddefboycubseindoMcTuFlar
+
+Photonics 2023, 10, x FOR PEER REVIEW Photonics 2023, 10, x FOR PEER REVIEW
+
+8 of 13 8 of 13
+
+FigFuirgeu5re. S5p. Sopt odtiadgiargarmams:s(:a()as)pspototddiaiaggrarammooffccoonnﬁfigguurraation 1; (bb)) ssppoottddiiaaggrraammoof fcoconnfiﬁgugruartaiotinon2.2.
+
+The near-field and far-field optical routes have optical distortions that are less than 0.86% and 2.2%, respectively. Figure 6a,b illustrate the grid distortion effect, where the horizontal and vertical coordinates stand in for the horizontal FOV and the vertical FOV, respectively. The actual images have a slight distortion effect in comparison to the ideal image, but this does not affect how the images are used. The human eye’s pupil distance is 65 mm, so when two people are observing the same object, there will be a parallax between their two eyes. Figure 7 displays the binocular parallax of the 2 m near-field image system and the 8 m far-field image system. As shown in Figure 7a, the near-field system’s binocular divergence parallax is less than 1 mrad and its convergence parallax Fisigluerses 6t.hGanrid2dmisrtoardti.oAn:s(as)hgorwidndinstoFritgiounreof7cbo,ntfhigeurfaatri-ofnie1ld; (bs)ygstreidmd’sistboirntioocnuolaf rcodnifvigeurgraetniocne FiFgi2pug.aurerrae6l6.la.GxGriridisddadirsiostotuornrttidioonn1::.(5(aa))mggrriaidddddaiisntodrtiitosn coofncvonefrﬁigggeuunrracatetiioopnna11r;a;((lbbla))xggrriiidsddldeisisstsotortrthitoiaonnno2offcmcoonrnfaiﬁgdgu,urwartaihtoiinocnh 2. 2.meets the standard value of clause 4.2.10 in SAE AS8055 [19]. It avoids the physiological discomfort caused by binocular parallax when observing images.
+
+FigFuirgeur7e. D7.ivDeirvgeerngceen/cec/ocnovnevregregnecnecepapraarlalallxa:x:(a()a)ddiviveregrgenencece//ccoonnvergence parallax of conﬁfigurationn 1; (bF)i1gd;ui(vbre)rd7gi.evDnecrivge/eerncgcoeenn/vccoenr/cgvoeennrvgceernpgceaenrpacalelraapxlalaoraxflcloaofxnc:oﬁ(nag)fuigdrauivtrieaortnigoe2nn.c2e. /convergence parallax of configuration
+1; (b) divergence/convergence parallax of configuration 2. 3. Multi-Structure Design Analysis
+3.3M.1.uMltui-lStit-rSutcrutucrtuerDe AesniaglnysAisnoaflFyasri-sField Image
+3.1. MuFlotri-Sbtertutecrtuarue gAmnaelnytseisdorfeFaalrit-yF,ietlhdeImAaRg-eHUD far-field virtual image must be merged withFomr abrekteterrs apulagcmedenatcerdosrseathlietyr,etahlewAoRrl-dHaUtDvafrairo-ufiselddisvtiarntuceasl,imwhagicehmsuugstgebsetsmtheragtetdhe
+
+Photonics 2023, 10, 954
+
+8 of 13
+
+3. Multi-Structure Design Analysis 3.1. Multi-Structure Analysis of Far-Field Image
+For better augmented reality, the AR-HUD far-ﬁeld virtual image must be merged with markers placed across the real world at various distances, which suggests that the far-ﬁeld virtual image is multi-depth adjustable. Two mirrors—a zoom mirror and a compensating mirror—make up the reﬂective zoom optical system. It is challenging to implement zoom in AR-HUD since it takes up a lot of room and is tough to design. The review mentions a variety of multi-focus display methods, and similarly, the design creates a multi-depth virtual image display by modifying the optics of conﬁguration 2 under the prototype of AR-HUD geometric imaging [20]. With reference to the coaxial zoom optical system, the zooming process maintains the size of the image plane by ﬂipping the ﬁeld-of-view and focal distance, as well as coordinating the change in image distance. In this case, a smaller ﬁeld-of-view, a larger VID, and coordinated focal distance change can be used to maintain the size of the virtual image plane. The center coordinates of the PGU image plane are constrained by the design optimization process to remain constant, and multi-depth virtual image distribution is only achieved by adjusting the total 4 distances (L2–L5) of the freeform reﬂector–folding mirror 1 (F1)–folding mirror 2 (F2)–folding mirror 3 (F3)–image plane. To achieve unhindered light during the adjustment under this optical structure, the distance L2 should rise as the VID increases. Throughout the design phase, the distance L2 is provided as an empirical number, along with the optimized distances L3, L4, and L5. Figure 8 depicts the isometric perspective, and Table 2 displays the speciﬁcations of the multi-depth virtual image system.
+
+Table 2. Multiple structure parameters for multi-depth VID.
+
+Parameter
+FOV Focal length Magniﬁcation Distance L1 Distance L2 Distance L3 Distance L4 Distance L5 Image center coordinate y Image center coordinate z
+
+Structure 1
+10◦ × 3◦ 813.3 mm
+7.9 8000 mm 225 mm 100 mm 285 mm 244.345 mm −245.606 mm 550.893 mm
+
+Structure 2
+5◦ × 1.5◦ 857.6 mm
+16.9 16,000 mm
+232 mm 126.319 mm 308.165 mm 258.073 mm −245.625 mm 550.892 mm
+
+Structure 3
+3.33◦ × 1◦ 889.2 mm
+27 24,000 mm
+239 mm 138.966 mm 317.244 mm 260.165 mm −245.632 mm 550.889 mm
+
+The coordinated shift in focal length makes optical design less challenging, and the decrease in FOV is accompanied by a decrease in the size of the PGU image and an increase in optical magniﬁcation. The design ensures that the fundamental position of the center of the PGU picture plane remains intact while allowing for an increase in VID by altering the distance between folding mirrors (EYEBOX plane is the global coordinate reference plane). Using samples for three depths of 8 m, 16 m, and 24 m, the design achieves continuous depth adjustment of the virtual picture from 8 m to 24 m. The three colors correspond to the positions of the folding mirror at three image depths, as shown in the adjustment schematic for the folding mirror at three virtual image depths in the bottom right of Figure 8. As seen in Figure 9, where Figure 9a depicts the MTF curve for the ﬁrst sample depth (8 m) as well as the far-ﬁeld optical path in Section 2.2.3. The MTF curves for the second sampling depth (16 m) and third sampling depth (24 m), respectively, are shown in Figure 9b,c. It can be seen that the MTF values of each FOV at the second and third sampling depths are slightly decreased by the adjustment of the three reﬂective elements. However, the overall image quality is still excellent and has little impact on how the virtual image is commonly used. In the actual use of the PGU far-ﬁeld projection screen should be added to the frame scaling function, in order to match the PGU frame reduction characteristics generated by the variable VIDs of the system.
+
+Photonics 2023, 10, 954
+
+Distance L4 Distance L5 Image center coor-
+dinate y Image center coor-
+dinate z
+
+285 mm 244.345 mm −245.606 mm
+550.893 mm
+
+308.165 mm 258.073 mm −245.625 mm
+550.892 mm
+
+317.244 mm 260.165 mm −245.632 mm
+550.889 mm 9 of 13
+
+Photonics 2023, 10, x FOR PEER REVIEW
+
+10 of 13
+
+reflective elements. However, the overall image quality is still excellent and has little impact on how the virtual image is commonly used. In the actual use of the PGU farfield projection screen should be added to the frame scaling function, in order to match FFiitgghuuerreeP88G.. UMMuufrlltatii-m-ddeepprttehhdvvuiircrtttuuioaalnl iimmchaaaggreeasscootfef rffaaisrrt--fiﬁcieesllddgeoonppettiirccaatlleppdaattbhhy.. the variable VIDs of the system.
+The coordinated shift in focal length makes optical design less challenging, and the decrease in FOV is accompanied by a decrease in the size of the PGU image and an increase in optical magnification. The design ensures that the fundamental position of the center of the PGU picture plane remains intact while allowing for an increase in VID by altering the distance between folding mirrors (EYEBOX plane is the global coordinate reference plane). Using samples for three depths of 8 m, 16 m, and 24 m, the design achieves continuous depth adjustment of the virtual picture from 8 m to 24 m. The three colors correspond to the positions of the folding mirror at three image depths, as shown in the adjustment schematic for the folding mirror at three virtual image depths in the bottom right of Figure 8. As seen in Figure 9, where Figure 9a depicts the MTF curve for the first sample depth (8 m) as well as the far-field optical path in Section 2.2.3. The MTF curves for the second sampling depth (16 m) and third sampling depth (24 m), respectively, are shown in Figure 9b,c. It can be seen that the MTF values of each FOV at the second and third sampling depths are slightly decreased by the adjustment of the three
+
+FiFgiugruere9.9M. MTFTFcucruvrevse:s(:a()aM) MTFTFcucruvrevefofrorVVIDIDofo8f 8mm; (;b()bM) MTFTFcucruvrevefofroVr VIDIDofo1f616mm; a;nadnd(c()cM) MTFTF cucruvrevfeofroVr IVDIDofo2f42m4 m. .
+3.32.2E. EYYEBEOBOXXMMulutilptilpeleStSrturcutcutruerAe Ananlaylsyisis
+ThTeheinitnentedneddeAdRA-HR-UHDUoDptoicpatlicsaylstseymsteEmYEEBYOEXBiOs Xat ias 9a0t0am9m00dmistmandceisftraonmcethfreofmrontht e wfirnodnsthwielidn;dnsehvieelrdth; enleevsse,rdthuerliensgs,redaulruinseg, rtheaeldursivee, rthweildl raidvjeurstwtihlleiardhjueasdt tshliegihr thlyeabdacskliagnhdtly fobrathck, wahnidchfowrtilhl,inwtehrifcehrewsiollmienwtehrfaetrwe istohmtheewirhaabt iwlitiythtothoebisreravbeilitthye tvoirotubasel rimveagthee. Ivnirtthueal syimsteamged. eInsigthneosfythsteermetrdoe-soipgtnicoafl pthaethr,eitrios-eoqputivcalepnatttho, tiht eisimeqpuaicvtaolfetnhtetomtihcreoi-madpjuasctmoef ntht e chmanicgreos-aidnjuthsetmspeantiaclhdanisgtaens cine othfethsepaotbiajelcdt iosntatnhceeiomf athge oqbujaelcityoonftthheeiPmGaUgeiqmuaaglietyploafnteh.e SePcGtiUoni2mcaognedpulcatnede.aCchoaupptleinr g2dceosnigdnucatneadlyasicsoounptlhinegcldoesesigranngaenaalnydsisdiostnantht educalolsoeprtiacnagl e
+and distant dual optical paths, which involved many variables. On the basis of Chapter 2, Section 3.1 implements the multi-depth virtual image analysis of the prospective light path only by adjusting the distance of the folding mirror. Only the EYEBOX horizontal adjustment margin of the near-field and far-field light path created by ZEMAX’s multi-
+
+Photonics 2023, 10, 954
+
+10 of 13
+
+paths, which involved many variables. On the basis of Section 2, Section 3.1 implements the multi-depth virtual image analysis of the prospective light path only by adjusting the distance of the folding mirror. Only the EYEBOX horizontal adjustment margin of the nearﬁeld and far-ﬁeld light path created by ZEMAX’s multi-conﬁguration functional analysis will be employed in this case because other optical components were not optimized. On the basis of Section 2, the distance between conﬁguration 1 and conﬁguration 2’s EYEBOX surfaces was changed in a triple structure, and the EYEBOX placements were discovered
+ics 2023, 10, x FOR PEER REVIEtWo have a negligible impact on the quality of the images. The EYEBOX surface with one
+step added or deleted for analysis is represented by the level 1 and level −1 structures in Figure 10, whereas the level 0 structure reﬂects the distance already designed in the previous section. Among them, the step size for conﬁguration 1 is 25 mm, and the step size for conﬁguration 2 is 100 mm.
+
+Figure 10. EYEBOX multi-level structure for conﬁgurations 1 and 2.
+FigurFeigu1r0e.1E1 YshEowBsOthXe mMTuFltciu-rlveevseolf tshterunecatru-ﬁreeldfooprticcoalnpfaitghuurnadteirothnesth1reaen-ldeve2l.
+EYEBOX structures of 925 mm, 900 mm, and 875 mm. Among them, Figure 11b (level 0)
+is theFMiTgFucruerve11of sthheonwears-ﬁtehldeopMticTalFpacthuirnv2.e2s.3,oanfdthFiegunree1a1ar,-cfsiheolwdthoepMtiTcFal pat
+curves of the near-ﬁeld optical path for increasing and decreasing the EYEBOX distance by
+E2Y5 EmBm,OreXspescttirvuelcy.tTuhreefsullo-ﬁfel9d2M5TFmvmalu,e 9of0t0hemlevmel 1, EaYnEdBO8X7s5trumctumre.isAgrmeatoerng the istthhtaahnn 2e0..11M7@@6T.76F.l7pl/cpmu/mmr.vmIte. iTsohkenfofutwhlln-eﬁtheanldtetMhaeTrnF-efavirae-lﬁuledeldofooplpetvitceailcl−paa1ltEhpYwEaitBthOhaX±isn2t5rum2ct.mu2r.he3oi,rsizbaoenntttdearl Figur cudirstvanecse aodfjustthmeennt beaaserd-foinetlhde doefpautiltcEaYlEpBOaXthsurffoacre (ilnevcerl e0)ahsaisnligttleatno ndo idmepcacrteasing booynptti2hcae5lvpimarttuhmailni,mSeracgetieso’spnq2eu.2ca.tl3ii,tvyw. ehFleigyrue.aresTF12ihgbue(rleefv1ue2lal0,lc)-ddfieeeppliiccdttsthtMheeMTMTFTFFcvucuravrveleus ffeoorr tothhfee fftaahrr--ﬁﬁeeellddlevel 1 gorpetaictael pratthhbaynalte0r.in1g7t@he6E.Y7EBlpOX/mdismtan.cTe bhye10f0umlml-,frieespldectiMvelTy. FThevfaulllu-ﬁeeldoMf TlFevel − bvMeatTltuFeevroafltuthheeaolfnelveev2le.1l1−E@1Y6EE.BY7OEBXlOpsXt/rmusctrtmuucret.uirsIetgisriebsaetetktrenrthtoahnwan0n.03.54t2@h@6a.67t.7ltplhp//memmmn. e.TOahnre-tffhuielel-bﬁladeslidsoptica hoofrthize oprnedteatelrmdiinsetdaEnYcEeBOaXdsjuurfsactem(leevnelt0)b, iat scaendbeosneentthhaet tdheeffaar-uﬁelltd EligYhtEpBatOh X sur tovisamrnyoogdrieiﬁametdlyp.hoarciztonotanllytbhye±v10i0rmtuma, lhoiwmevaegr,eth’esqquauliatyliotfyth.eFviirgtuualriema1g2ebwil(llneovt el 0) for the far-field optical path in Section 2.2.3, whereas Figure 12a,c
+for the far-field optical path by altering the EYEBOX distance by
+The full-field MTF value of the level 1 EYEBOX structure is greate
+The full-field MTF value of level −1 EYEBOX structure is better th
+the basis of the predetermined EYEBOX surface (level 0), it can be
+
+Photonics 2023, 10, 954
+
+for the far-field optical path by altering the EYEBOX distance by 100 mm, respectiv The full-field MTF value of the level 1 EYEBOX structure is greater than 0.35@6.7 lp/m The full-field MTF value of level −1 EYEBOX structure is better than 0.42@6.7 lp/mm the basis of the predetermined EYEBOX surface (level 0), it can be seen that the far-f light path is modified horizontally by ±100 mm, however, the quality o1f1tohf 1e3 virtual age will not vary greatly.
+
+Photonics 2023, 10, x FOR PEERFiRgEuVFrIiEegWu1re1.11M. MTTFFccuurvveessfofrotrhethneanr-eﬁaelrd-foipetlidcaol ppattihc:a(la)pMatThF:c(uar)veMofTtFhecluevrevle1 EoYf EtBhOeXl;e(vbe)1lM21TofFE13YEBOX MTFcucruvervoef tohfe tlehveelle0vEeYlE0BOEYX;EaBndO(Xc); ManTdF c(uc)rvMe oTfFthceulervveel −of1tEhYeElBeOvXe.l −1 EYEBOX.
+FiFgiugruer1e21.2M. MTFTFcucruvrevsefsofrotrhtehfeafra-ﬁr-eflideldopotpictaiclaplaptaht:h(:a()aM) MTFTFcucruvrevoefotfhtehleelveevle1l 1EYEEYBEOBOX;X(;b()bM) MTFTF cucruvrevoefotfhtehleevleevle0l E0YEEYBEOBXO;Xa;nadnd(c)(cM) MTFTcFucruvrevoefotfhtehleevleevle−l 1−1EEYYEEBBOOXX. .
+4.4C. Conocnlculsuisoinosns ThTeheprpiroirorcocnocnecpetpstsofosfisnignlgeleopotpictiaclapl aptahthdedseisgingnfofrornenaera-rﬁ-efiledldHHUUDDs sanadndfafra-rﬁ-efiledld
+AAR-RH-HUUDDs saraereinitnetgergartaetdedininthtihsisstsutduydytotocrceraetaetea adudaulaol potpictaiclapl aptahthcocuopulpeldedadajdujsutsatbalbele AAR-RH-HUUDDopotpictaiclaslyssytesmte.mT.oTaoctaucatluizaeliztheethcaetecgatoergizoerdizdedispdliasyploafyino-fvienh-ivcelehiicnlfeorinmfoartimonataiot n
+at 2 m and 8 m, a single PGU is separated into near-field and far-field display zones, with the far-field optical route being relayed using the folding mirrors. Only the axial movement of the three folding mirrors is required to show the ADAS information and navigation information of the far-field optical path at any distance between 8 m and 24
+
+Photonics 2023, 10, 954
+
+12 of 13
+
+2 m and 8 m, a single PGU is separated into near-ﬁeld and far-ﬁeld display zones, with the far-ﬁeld optical route being relayed using the folding mirrors. Only the axial movement of the three folding mirrors is required to show the ADAS information and navigation information of the far-ﬁeld optical path at any distance between 8 m and 24 m. Therefore, this AR-HUD has the following three advantages: dual optical paths for near-ﬁeld and far-ﬁeld categorized information display; the design method of single PGU improves the efﬁciency of space usage; and the wide range adjustable display of far-ﬁeld optical path plays a better augmented reality effect. This design concept is conducive to building a multi-dimensional man–machine interaction bridge and promoting the development of automotive intelligent cockpit. In the future, AR-HUD still has room for improvement in terms of display range, space efﬁciency, and projection source heat dissipation, in order to improve driving safety and man–machine efﬁciency.
+Author Contributions: Conceptualization, Q.J. and Z.G.; methodology, Q.J.; software, Z.G.; validation, Z.G.; investigation, Z.G.; resources, Q.J.; data curation, Z.G.; writing—original draft preparation, Z.G.; writing—review and editing, Q.J. All authors have read and agreed to the published version of the manuscript.
+Funding: This research was funded by the National Natural Science Foundation of China (No. 61965005), the Guangxi Key R&D Program (No. Guike AB22035047), and Director Fund Project of Guangxi Key Laboratory of Optoelectronic Information Processing (No. GD21101).
+Institutional Review Board Statement: Not applicable.
+Informed Consent Statement: Not applicable.
+Data Availability Statement: The data are not publicly available due to further study.
+Conﬂicts of Interest: The authors declare no conﬂict of interest.
+References
+1. Crawford, J.; Neal, A. A Review of the Perceptual and Cognitive Issues Associated with the Use of Head-up Displays in Commercial Aviation. Int. J. Aviat. Psychol. 2006, 16, 1–19. [CrossRef]
+2. The Emergency Lane: The History of the Head-Up Display. Available online: http://techzle.com/the-emergency-lane-thehistory-of-the-head-up-display (accessed on 31 May 2023).
+3. Cho, W.H.; Chao, T.L.; Chi, C.K.; Liao, B.; Lee, C.C. A Novel Head-up Display Using Inclined Al2O3 Column Array. In Proceedings of the Optical Interference Coatings 2013, Whistler, BC, Canada, 16–21 June 2013.
+4. Smith, S.; Fu, S.H. The relationships between automobile head-up display presentation images and drivers’ Kansei. Displays 2011, 32, 58–68. [CrossRef]
+5. Norris, G. Boeing 787 Dreamliner: Flying Redeﬁned; Aerospace Technical Publications International: Charlotte, NC, USA, 2005. 6. Kim, S.; Dey, A.K. Simulated augmented reality windshield display as a cognitive mapping aid for elder driver navigation.
+In Proceedings of the 27th International Conference on Human Factors in Computing Systems, CHI 2009, Boston, MA, USA, 4–9 April 2009. 7. China Head Up Display Industry Report C-HUD, W-HUD and AR-HUD. Available online: https://www.renrendoc.com/paper/ 127055129.html (accessed on 1 June 2023). 8. Cao, Y. Optimization Design of Optical Module for Vehicle Head Up Display System. Master’s Thesis, Xi’an Technological University, Xi’an, China, 2022. 9. Special Report on Automotive Intelligent Cabin: Core Entry of Incremental Value in the Intelligent Era. Available online: https://baijiahao.baidu.com/s?id=1691543015962744512&wfr=spider&for=pc (accessed on 2 June 2023). 10. Kim, B.H.; Park, S.C. Optical System Design for a Head-up Display Using Aberration Analysis of an Off-axis Two-mirror System. J. Opt. Soc. Korea 2016, 20, 481–487. [CrossRef] 11. Wei, S.L.; Fan, Z.C.; Zhu, Z.B.; Ma, D.L. Design of a head-up display based on freeform reﬂective systems for automotive applications. Appl. Opt. 2019, 58, 1675–1681. [CrossRef] [PubMed] 12. Gu, L.; Cheng, D.W.; Liu, Y.; Ni, J.H.; Wang, Y.T. Design and fabrication of an off-axis four-mirror system for head-up display. Appl. Opt. 2020, 59, 4893–4900. [CrossRef] [PubMed] 13. Lee, S.H.; Bang, K.; Lee, B. Design Method of Holographic Mirror and Freeform Mirror for Automotive Augmented Reality Head-up Display. In Proceedings of the OSA Optical Sensors and Sensing Congress 2021 (AIS, FTS, HISE, SENSORS, ES), Seoul, Republic of Korea, 1 January 2021. 14. Blanche, P.; Draper, C.T. Curved Holographic Waveguide Combiner for HUD and AR Display. In Proceedings of the OSA Imaging and Applied Optics Congress 2021 (3D, COSI, DH, ISA, pcAOP), Washington, DC, USA, 19 July 2021.
+
+Photonics 2023, 10, 954
+
+13 of 13
+
+15. Isomae, Y.; Shibata, Y.; Ishinabe, T.; Fujikake, H. Phase-Only Holographic Head Up Display Without Zero-Order Diffraction Light for Automobiles. IEEE Consum. Electron. Mag. 2019, 8, 99–104. [CrossRef]
+16. Peng, H.C.; Cheng, D.W.; Han, J.; Xu, C.; Song, W.T.; Ha, L.Z.; Yang, J.; Hu, Q.X.; Wang, Y.T. Design and fabrication of a holographic head-up display with asymmetric ﬁeld of view. Appl. Opt. 2014, 53, H177–H185. [CrossRef] [PubMed]
+17. Qin, Z.; Lin, S.M.; Luo, K.T.; Chen, C.H.; Huang, Y.P. Dual-focal-plane augmented reality head-up display using a single picture generation unit and a single freeform mirror. Appl. Opt. 2019, 58, 5366–5374. [CrossRef] [PubMed]
+18. Yu, D.Y.; Tan, H.Y. Engineering Optics, 4th ed.; China Machine Press: Beijing, China, 2016; p. 216. 19. AS8055; Minimum Performance Standard for Airborne Head up Display (HUD). SAE Aerospace Standard: Charlotte, NC, USA,
+2008. 20. Zhan, T.; Xiong, J.; Zou, J.; Wu, S.T. Multifocal displays: Review and prospect. PhotoniX 2020, 1, 10. [CrossRef]
+Disclaimer/Publisher’s Note: The statements, opinions and data contained in all publications are solely those of the individual author(s) and contributor(s) and not of MDPI and/or the editor(s). MDPI and/or the editor(s) disclaim responsibility for any injury to people or property resulting from any ideas, methods, instructions or products referred to in the content.
+

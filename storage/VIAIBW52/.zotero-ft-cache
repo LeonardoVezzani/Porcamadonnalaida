@@ -1,0 +1,264 @@
+Proceedings of the 16th International IEEE Annual Conference on Intelligent Transportation Systems (ITSC 2013), The Hague, The Netherlands, October 6-9, 2013
+
+TuD1.2
+
+Evolution of a full-windshield HUn designed for current VANET communication standards
+Vassilis CharissisI, Stylianos Papanastasiou2, Warren ChanI, Evtim Peytchev2
+
+Abstract- Aspects of contemporary automotive research on infotainment and safety notifications have enjoyed mainstream adoption by vehicle manufacturers either as dashboard or Head-Up Display (RUD) visual cues. Such notifications, going beyond the traditional fueVspeedometer indicators, have proven popular with drivers and exhibit great safety-enhancing poten­ tial. In previous work, we proposed a HUD design which showed substantial promise towards aiding driver reactions under low visibility conditions. In this paper, we present an evolution of the original design which aims to improve on it both in terms of efficiency and cost. Alongside the new HUD design we present a newly developed medium-fidelity driving simulator that can make use of real road-traffic traces and improve on realism by considering wireless communication limitations. We use the new simulator to evaluate our RUD design and show that it compares favourably with our past efforts.
+I. INTRODUCTION
+Identifying and presenting road condition information in a vehicular environment can be a daunting process, which, if handled improperly, can place great strain on the drivers satiated attention. Various technological advances have been employed in the past in view of improving this process by prioritizing information and presenting it in a meaningful manner. Such a task becomes more difficult under adverse weather conditions where human spatial awareness is re­ duced significantly, increasing the probability of collision [1], [2].
+Head-Up Displays (HUDs) may be viewed as a potential solution to this problem as they provide the user with information directly on the field of view, keeping the eye gaze focused on the road. Drawing on the conclusions of previous work on this issue [3], [4], [5] we have proposed a full windshield HUD interface design for collision avoidance under low visibility conditions - such conditions typically hinder the driver's decision making process and performance [6]. In this work, we present an evolution of that HUD design, which improves upon the original both in terms of deployment cost and, as we aspire more future trials will show, efficiency.
+Intuitively, evaluation of any prototype automotive system that interacts directly with the driver requires extensive ex­ perimentation in a safe environment. Driving simulators offer a customisable virtual environment to which amendments and iterations can be applied and tested safely [7]. As such, a
+1 Department of Computer, Communication and Interactive Systems, School of Engineering and Built Environment, Glasgow Caledonian Uni­
+versity, G4 DBA, UK {vassilis.charissis, warren.chan} at gcu.ac.uk 2Department of Computing Science, School of Science and Technology,
+Nottingham Trent University, NGll 8NS, UK {stylianos.papanastasiou, evtim.peytchev} at ntu.ac.uk
+
+number of different simulation systems have been employed in the literature for evaluation purposes depending on the task and the profile of the users [8]. Generally, driving simulators vary with respect to the display system, graphics fidelity, motion simulation, and overall immersion; typically, how­ ever, simulators are of low fidelity, monoscopic (i.e. viewed in 2D) and cost effective. On the offset, medium fidelity simulators typically offer 2D/3D stereo visual projection and realistic motion simulation. Finally, high fidelity simulators support 3D stereo visuals and vehicular dynamics in a 360 degrees dome projection environment [9]; intuitively, the costs involved in this configuration are considerable.
+In this work, we present a custom, medium fidelity sim­ ulator with full 3D stereoscopic projection, surround audio and minimum motion simulation. Our simulator makes use of vehicular communication aspects derived from the well­ established NS-3 simulator [10] in order to accurately reflect realistic timings in data transfers for display cues that require cooperative communications functionality. The simulator can optionally make use of vehicular traffic information provided by a dedicated traffic simulator, which in turn can be provided with real-traffic traces from a traffic information system, when available from municipality authorities.
+The rest of the paper is organised as follows. The next section presents the main features of our newly proposed HUD design and contrasts it with its previously proposed iteration. Section III discusses the main features of the new driving simulator and outlines its integration features with respect to wireless conununications and actual vehicular traffic representation. Then, section IV presents the results of user trials conducted with the new HUD so as to appraise its efficacy in the context of the new simulator. Section V concludes the paper with a summary of the main features of both the proposed HUD and the driving simulator and presents a tentative plan for future trials and evaluation.
+II. EV OLUTION OF HUD DESIGN
+A. Motivation
+The proliferation of in-vehicle sensors and the advent of standardisation of wireless vehicular capabilities have lead to an increase in expectations of what can be estimated about the road conditions around the vehicle. A primary goal of the new HUD design is to include realistically realisable features, i.e. achievable with current technology. To this end, some elements of the original have been redesigned to more closely align with recent manufacturing realities. Another important goal of the evolved design is to reflect recent
+
+978-1-4799-2914-613/$31.00 ©2013 IEEE
+
+1637
+
+Authorized licensed use limited to: Politecnico di Torino. Downloaded on March 30,2023 at 06:57:14 UTC from IEEE Xplore. Restrictions apply.
+
+(a) Pathway symbol
+
+(b) Lead vehicle symbol
+
+(c) Tum symbol
+
+(d) Transient hazards symbol
+
+v
+(e) Traffic congestion symbol
+
+Fig. 1: Illustration of the main driving aid symbols used in the HUD
+
+research advances and improve effectiveness drawing from contemporary research experience.
+B. Evolved Design Comparison
+The original HUD design aims to guide the driver and act as a collision avoidance warning system under adverse weather conditions. In particular, the main use case of the proposed HUD is driving on a motorway in low visibility conditions (that is weather conditions such as fog, rain or some other visual impairment factor). Overall, in order to achieve the goal of designing attention-seeking symbols the visual cues are colour-coded and have the property of variability in dimension and visual intensity as illustrated in Figure 1. The major challenge was to provide supporting information to the driver without averting significant mind­ share from the primary task of driving. At the same time it was necessary to avoid creating visual effects so subtle that would go unnoticed. Through numerous iterations a set of symbols were designed to fulfil the aforementioned require­ ments, namely the pathway symbol, lead vehicle symbol, turn symbol and traffic congestion symbol [1]. These are illustrated in Figure 1 and, in detail, function as follows.
+The pathway symbol (Figure la) is depicted by two lines following the lane shape of the road, indicating clearly the lane borders and acting primarily as a guidance system for the driver. As a secondary role the colour coding of the lines operate as a warning of rear incoming vehicles, which might not be visible due to the vehicles blind spots. A red coloured lane warns the driver against a potentially dangerous lane change, which is particularly useful if the driver is unaware of an incoming vehicle situated at a blind spot.
+The lead vehicle symbol (Figure 1b) acts as a rear collision warning system by highlighting leading vehicles. Its function is to enhance the driver's spatial and situational awareness and, in particular, draw attention to the distance to vehicles in front. In addition, there exists a lead vehicle on the same lane symbol which looks identical to the lead vehicle symbol except it includes an inverted triangle on top thereby increasing its visibility and reflecting the higher probability of collision. Note that the lead vehicle symbol depicted in Figure Ib is the one used in the newly proposed HUD and, as discussed below, has a slightly different function to the lead vehicle symbol in the older design.
+The turn symbol (Figure lc) indicates a sharp and po­ tentially unsafe turn under adverse weather conditions. This
+
+symbol appears 150 meters prior entering the curve negoti­ ation.
+The traffic congestion symbol (Figure Ie) indicates that along the route followed traffic congestion presently occurs. The symbol appears approximately a kilometre away from the start of the congestion queue. It is particularly informative when the traffic bottleneck is not directly visible to the driver (e.g. around a blind corner).
+The updated proposed version of the HUD interface maintains the main functionality of the original system and investigates alternatives to the symbolic representations aiming to reduce the systems complexity and lower the deployment cost. To this end, we have modified the purpose of the lead vehicle symbol. In the original design the lead vehicle symbol required tracking all leading vehicles and superimposing images on each. The processing complexity involved in acquiring information on leading vehicles, track­ ing and superimposing the images on the windshield was quite extensive. Further, three projection devices would be required to achieve the desired effect resulting in high actual implementation costs.
+In this iteration of the design, the lead vehicle symbol simply refers to the position of the closest leading vehicle on the same lane. This change implies tracking only a single vehicle, thus reducing computational requirements, and re­ quires the existence of a single projector to the windshield, as opposed to three in the old design. Ultimately, the design becomes more realistically implementable as windshield projection distortion can be tamed efficiently using a single projector [11].
+C. Relocation of the Side Lane Vehicle Cue
+The pathway symbol in this design features an additional indication function which cautions the driver of the existence of leading vehicles on the side lanes. The visual cue is achieved with simple square symbols that reside on the front end of the lane indicators. Their colour coding highlights the proximity to the front vehicles without altering the size of the symbols as done previously. Notably, the superimposition of images that track lead vehicles on the side lanes is no longer required - the HUD system projection now only superimposes imagery for lead vehicles in the same lane thereby reducing the projection surface.
+There is some loss of information provided to the driver in that the location of vehicles in side lanes is no longer
+
+978-1-4799-2914-613/$31.00 ©2013 IEEE
+
+1638
+
+Authorized licensed use limited to: Politecnico di Torino. Downloaded on March 30,2023 at 06:57:14 UTC from IEEE Xplore. Restrictions apply.
+
+(a) Low-fidelity, monoscopic simulator based on TOReS
+
+(b) Medium-fidelity stereoscopic simulator based on VEGA
+
+Fig. 2: Previous iterations of the driving simulator used in our work: (a) TORCS-based, (b) VEGA-based
+
+explicitly portrayed - the driver only gets some indication that a vehicle in a side lane is in close proximity. Nonetheless, the new cue maintains the critical aspect of the previous design's functionality, i.e. warning the driver of vehicles in close proximity on the side lanes, whilst foregoing non-critical, and perhaps difficult to realise, functionality which makes the cost of implementation prohibitively high.
+D. New Symbol - Transient hazards
+We introduce a new symbol to inform the driver of tran­ sient hazardous road conditions such as slippery spots. This symbol, depicted in Figure Id, is projected in the lower band of the HUD interface next to the turn symbol and appears 150 meters ahead of the slippery section. The functionality of the symbol is enabled by leading vehicles that experience the hazardous condition, such as an aqua planning effect recorded by the anti blocking system. Intuitively, a large number of similar activations in a small period of time denotes the presence of a transient hazard (a slippery spot), which prompts the affected vehicles to send a warning of the hazard's existence to follow-up neighbours.
+III. DRIV ING SIMULATOR
+A. Motivation
+To evaluate the proposed new HUD design we have opted to develop a new driving simulator in view of improving on graphics and physics fidelity over previous works [9].
+Specifically, our first simulator, based on The Open Racing Car Simulator (TORCS) [12] used two-dimensional projec­ tion for both the HUD and the simulated environment, which limited immersion and realism. Critically, the depth percep­ tion of the projected HUD interface could not be achieved in 2D monoscopic projection. To alleviate this limitation, the second iteration of the simulator [9] used the VEGA prime software, typically employed in defence systems simulations, which allows the driver through stereoscopic vision with depth of field to experience more accurately the sense of driving under low visibility conditions using a windshield projected HUD.
+The drawback of the VEGA prime system was the high acquisition and maintenance costs as well as the complexity
+
+of customizing the simulation environment and vehicular artificial intelligence. An example of both the VEGA prime and TORCS based systems used previously is shown, for reference, in Figure 2.
+We have developed a third and more advanced simulator, which maintains the photo-realistic graphics and stereoscopic capacity of VEGA, whilst being easily customizable, and cost effective. The new system's customisability is further evinced by its integration with a network and traffic simulator as presented in the following sections.
+B. Enhanced Fidelity
+Graphical fidelity is very important in driving simulators in order to maintain immersion and present a convincing facsimile of the driving environment to the user. After an extensive survey we concluded that the most suitable quality 3D framework combining ease of use, affordability and flex­ ibility was Unity3D [ l3]. The Unity3D framework has a rich ecosystem of libraries and add-ons that we utilised to achieve quick turnaround times during the creation and evaluation of successive design iterations of the HUD prototype. Further, due to its wide deployment in the gaming industry, it has allowed us to hire a readily competent development team which sped up development considerably.
+We consider that the final prototype developed offers enhanced visual and audio fidelity compared to our previous efforts whilst supporting real-time high-definition stereo­ scopic projection. An example of the visual fidelity afforded by the simulator may be seen in Figure 3a. An overall view of the driving experience is depicted in Figure 3b where a front non-dome configuration of the driving simulator is shown while in use by a test driver. Note, we would prefer to use an open-source alternative for reasons of transparency and reproducibility - however, financial and time considerations make such a proposition, at this time, a prohibitive one.
+C. Wireless Communications Requirements
+Recent developments in cooperative vehicular systems indicate that wireless conununications between vehicles will be an important part of proposed traffic safety systems [14]. Importantly, visual cues proposed in our HUD design
+
+978-1-4799-2914-613/$31.00 ©2013 IEEE
+
+1639
+
+Authorized licensed use limited to: Politecnico di Torino. Downloaded on March 30,2023 at 06:57:14 UTC from IEEE Xplore. Restrictions apply.
+
+(a) Current Unity3D based driving simulator without HUD
+
+(b) User driving using the simulator with HUD enabled
+
+Fig. 3: A screenshot of the simulator at its present state of development is shown in (a). The driving environment (without enclosure) is shown in (b): the "blurriness" of the image is due to the stereoscopic projection - note the 3D glasses on the driver
+
+(such as the traffic congestion indicator) are most readily realisable through inter-vehicle communications. As such, considering the limitations and characteristics of wireless communications is an important goal allowing the simulator to reflect a realistic driving experience.
+There are two possibilities available to reflect wireless communications operations in the simulator; off-line and on­ line (or real-time). Off-line refers to the prior simulation of "expected" traffic situations which when encountered during a trial result in particular successful packet reception char­ acteristics. The on-line aspect refers to real-time interaction between the driving simulator and a packet level network simulator, which simulates both packet transmissions and the actual algorithms supporting the function of the visual cues in the HUD whilst getting vehicle position information from the driving simulation. We are pursuing both avenues while prioritising the off-line integration. In both cases, we make use of the actively developed and widely used NS-3 simulator [10].
+The off-line wireless communication model is integrated in the simulator using a coarse "on/off" paradigm for visual cue functions depending on the driver's location. A trial scenario is assumed whereby the driver is called upon to react within an "evaluation area" to a "critical event" which is designed (up to that point) in such a way so that her reactions do not affect the driving behaviour of other vehicles. Such a scenario occurs, for instance, when a sole vehicle experiencing light traffic conditions approaches a blind corner where a traffic jam exists.
+In this case, different drivers participating in the trial (unaware of the leading traffic jam) may opt for different approach speeds or may even try to overtake a vehicle or two which act as leading traffic. Regardless, the driver's behaviour will not affect (significantly or at all) the behaviour of surrounding vehicles. So, assuming that surrounding traffic is unaffected we thus simulate a number of "expected driving approaches" to this situation within the "evaluation area" and calculate the effects on the functionality of the HUD indication cues (i.e. with what delay a cue will activate,
+
+if at all). When the trial occurs the simulator consults this compendium of potential scenarios and when a near match is found (near the "critical event") the visual cues on the HUD activate at a time appropriate to the vehicle's location and speed characteristics.
+The off-line approach is an intuitively simple and com­ putationally undemanding method of injecting realism in the simulator. It further allows the use of realistic and complex physical and channel layer simulation models which accurately reflect real vehicular communication conditions [15]. However, there are two important drawbacks to it; first, it presupposes reasonable driver reactions as only a limited number of approach speeds and angles are considered. Sec­ ond, and perhaps more importantly, the scenarios that can be considered using this approach are limited by the fact that the other vehicles may not alter their courses at any time - off-line simulation requires that most vehicles have predetermined behaviour, otherwise the number of potential scenarios grows prohibitively large.
+It should be noted that we have also implemented a proof­ of-concept on-line integration with NS-3, which natively supports real-time operations, but have opted to complete the integration of off-line wireless cOlmnunication as a primary goal due to the complexity and substantial engineering effort required for the on-line counterpart.
+D. False Positives Integration
+Intuitively, considerations of the wireless conditions in the driving simulator may lead to failing to timely warn the driver, for instance, about leading traffic congestion. Of further interest is the situation when a visual cue warns about an non-existing condition due to lack of information or because of algorithmic deficiencies. These are important in evaluating the impact of the system in a state of uncertainty to the driver.
+Such cases of false positives are triggered in the simulator in two ways. First, algorithmic malfunctions due to inade­ quate design or the fact that communication conditions are not ideal (reflected by the wireless simulator back-end) may lead to erroneous conclusions and spurious visual triggers.
+
+978-1-4799-2914-613/$31.00 ©2013 IEEE
+
+1640
+
+Authorized licensed use limited to: Politecnico di Torino. Downloaded on March 30,2023 at 06:57:14 UTC from IEEE Xplore. Restrictions apply.
+
+,.
+F
+
+(a) Road topology data from OpenStreetMap
+
+(b) Road topology reflected in SUMO
+
+Fig. 4: Illustration of the importing of traffic traces in the driving simulator using OpenStreetMap (OSM) and SUMO. Topology data is provided by OSM (a), which after sanitisation (discarding of extraneous information) is converted into a SUMO map. SUMO then consults some traffic information source to accurately reflect real (recorded) traffic in a particular road segment (b). The data provided to the driving simulator must be about traffic that does not interact with the driver.
+
+We term such events "natural" false positives. Second, false positives may be activated by trigger events pre-programmed specifically for evaluation purposes; these are labelled "artifi­ cial". In such cases communications is assumed to be perfect so that "natural" events do not interject with "artificial" ones.
+E. Traffic Simulator Integration
+We have designed the simulator so that traffic informa­ tion may be incorporated from dedicated traffic simulation systems. In particular, traffic conditions as estimated on actual road topologies by the SUMO traffic simulator [16] are incorporated in some of our trial scenarios. We have further included a proof-of-concept implementation which integrates real-traffic information as collected by modern traffic management systems in cities with rich infrastructure to accurately mirror road traffic.
+Traffic simulator integration allows the scenarios used in trials to be reflective of actual road layouts in real cities and allows the driver to experience real-life road conditions. Additionally, it allows us to quickly create scenarios to evaluate driver reactions in real life accident "hotspots".
+The SUMO simulator used is a widely used microscopic traffic simulator, which accounts for the position of indi­ vidual vehicles in the road network. Although some real­ time operation is theoretically possible, SUMO is primarily designed for off-line operation whereby traffic information is provided in terms of start, destination values for vehicles and then the actual motion and route of the vehicles is simulated using a car-following model with law-abiding driving agents [16].
+Currently SUMO integration is bound by the same lim­ itations as the off-line wireless communications integration described in Section III-C. The surrounding traffic does not react to the driver's reactions and thus is only representative of reality provided the driver does not interact with other vehicles. Such a setup is useful when considering that network cOlmnunications in cooperative vehicular systems
+
+depends on the presence of participating vehicles; it is clearly desirable to evaluate the effectiveness of the HUD over a realistic scenario setup, that is one based on actual traffic traces. When using the SUMO integration, the scenarios are chosen so that traffic surrounding the simulator vehicle is largely independent, for e.g. very light traffic on different lanes, traffic along surrounding streets or even traffic on opposite lanes at intersections governed by traffic lights.
+An example of the conversion process from real topology (an OpenStreetMap definition of a section of the city of Nottingham in the UK) to a road map used in SUMO simulations is shown in Figure 4. Note that only areas of interest (i.e. roads) are included the topology map of Figure 4b- the extra information contained in the OpenStreetMap topology in Figure 4a is discarded. The SUMO derived mobility patterns are used in the driving simulator.
+IV. EVALUATION
+We have performed a preliminary user study to evaluate the performance of the new HUD design against that of a standard dashboard. We present the results of a single scenario in this work while we continue evaluating the efficacy of the system with more users and in the context of other scenarios.
+A. Simulation Trial Setup
+The HUD evaluation scenario used here is identical to the one employed in our previous work [1]; its description is repeated below to provide context.
+The driver is invited to proceed along a sparsely occupied motorway under foggy and thus challenging visibility con­ ditions. After having travelled a distance of about 2km the leading vehicles break abruptly thereby creating a collision hazard, which prompts the driver to take immediate and decisive action. As discussed in [1] this scenario represents a "car-following" crash event that is often encountered in actual incident reports.
+
+978-1-4799-2914-613/$31.00 ©2013 IEEE
+
+1641
+
+Authorized licensed use limited to: Politecnico di Torino. Downloaded on March 30,2023 at 06:57:14 UTC from IEEE Xplore. Restrictions apply.
+
+Method
+HUD NoHUD
+
+clean run
+15
+2
+
+collision
+5 18
+
+TABLE I: Number of users experiencing at least one collision or performing a clean run
+
+The trials are setup as follows. Users are set to use the driving simulator in an environment that resembles actual driving conditions. Each driver is briefed beforehand on the meaning of the HUD symbols and is given sometime on the simulator to familiarise themselves with the controls and get accustomed to driving under the test conditions. The participant then proceeds through the trial scenario with the standard dashboard configuration. During the trial we record the driving behaviour and note if a collision occurs. Afterwards, the participant repeats the trial using a HUD configuration. For half the users, the order of the trials is reversed; first a HUD and then a dashboard configuration trial is attempted so as to avoid any bias occurring due to the user being aware of what to "expect" on the second trial.
+We tested the driving performance of 20 users in total. All participants held a valid driving licence. It should be noted that the driving simulator was configured to assume perfect wireless communications in a range of 800 meters around each vehicle. So, within that range the accuracy of the visual cues was perfect and the delay in cue activation near zero. In these trials we did not employ real vehicle traffic traces; the vehicle positions were identical to the one we used previously [1].
+B. User Study Results
+The trial results below gauge the effectiveness of the pro­ posed new HUD in terms of collisions occurring during trials. This treatment is consistent with evaluations for previous HUD variants we have introduced in other works [1].
+Table I presents the number of users that experienced at least one collision during the trial scenario, with and without the HUD interface. Clearly, the use of the HUD resulted in a drastic drop in the number of cases where a collision occurred and a sharp increase in the number of clean runs. Specifically, in an ordinary setting 19 out of 20 users experienced at least one crash incident, while when a HUD was deployed only 5 users experienced a collision. This provides strong indication to the efficacy of the HUD variant deployed.
+To ensure consistency with previous evaluation [1] we have also calculated the Wilson score intervals at the 95% confidence level on the number of collisions experienced in this scenario and present them in Figure 5. Given a binary outcome (collision or no collision) the probability of a user experiencing a collision drops sharply from a range of (76.4%,99.7%) when a HUD is not in use to a range of (1 l.2%,46.9%) when a HUD is employed. Although not definitive, due to the limited number of trials, these results point to the positive effect of the HUD on driving behaviour in the presence of a collision hazard.
+
+�
+
+T 0.997
+
+� 0.950
+
+'" 0
+
+c
+
+0
+
+�
+
+<D
+0
+
+"8
+
+'0
+
+�
+
+:.0. ..
+
+.0
+Ie
+
+0
+
+"-
+
+N
+0
+
+0
+0
+
+; -'- 0.764
+
+T 0.469
+i
+j j � 0.250
+!
+i
+1. 0.112
+
+HUD
+
+Type of display
+
+NO HUD
+
+Fig. 5: Wilson score interval at the 95% level for the probability that a user will experience a collision during the trial
+
+14
+12
+10
+g
+� g 8
+o
+1: � 6
+z
+
+Fig. 6: Number of collisions observed per user during the trial scenario with and without the use of a HUD
+Figure 6 displays in more detail the frequency of collisions per user during the trials. During the trial scenario, there were numerous opportunities for a driver to collide with leading vehicles that would break abruptly at pre-arranged intervals. After the first collision had occurred the driver may have experienced further collision events as they would try to evade the leading vehicle or perform panic manoeuvres.
+As clearly noted by the bar chart in Figure 6 most drivers experienced more than one collision during their trial, ranging from 2-11 collision events. Generally, drivers that did experience a collision event using the HUD had less follow-up collisions than when using a standard setup. A
+
+978-1-4799-2914-613/$31.00 ©2013 IEEE
+
+1642
+
+Authorized licensed use limited to: Politecnico di Torino. Downloaded on March 30,2023 at 06:57:14 UTC from IEEE Xplore. Restrictions apply.
+
+characteristic example of this is user 10, who experienced a single collision with the HUD as opposed to three with the traditional configuration. The number of trials conducted were too few to characterise this observation as a general trend; nonetheless, it seems that the HUD makes drivers more aware of the possibility of an incident so that even in the case of an accident their follow up reactions are more restrained and reasonable.
+The results presented above are in concert with the format used in our previous HUD design evaluations [1]. However, the results in [1] are not directly comparable to those presented in this paper for two reasons. First, the simulator used here is more sophisticated and imrnersive (in terms of graphics fidelity) and thus the current and past trial driving experiences are not identical. Second, the wireless communications model used in the new simulator limits the HUD's efficacy as the system is no longer omniscient but is restricted by wireless communication limitations. We aim to evaluate the new HUD design against our older proposals in the future.
+V. CONCLUSIONS
+We have presented the design considerations and ultimate decisions made when creating an improved driving simulator which builds upon our previous work and experience. The ultimate purpose of this work is to incorporate realistic traffic models and network simulation facilities in the driving sim­ ulator which will in turn allow to more accurately represent reality when considering the efficacy of our proposed HUD designs. We have also conducted limited evaluation on the effectiveness of the new HUD design in a collision hazard scenario using the new simulator; our results indicate that the new HUD design helps avoid collisions compared to traditional instrumentation and may help improve overall driving behaviour in the case of an incident.
+In the future we will further evaluate the effect of both the new simulator and the HUD design on the user's driving experience. First, we aim to evaluate the effect of the new simulator on drivers by evaluating our older proposed HUD design in a series of experiments that mirror our previous evaluation. This will provide a way of accounting for new effects introduced by the simulator, if any, and will provide for a base case to compare our new design to. Then we will evaluate the efficacy of the new HUD design, which may prompt the need for new symbol introductions or other modifications in view of improving driving behaviour.
+
+REF ERENCES
+[I] Y. Charissis, S. Papanastasiou, and G. Vlachos, "Comparative study of prototype automotive hud vs. hdd: Collision avoidance simulation and results," in P roceedings of the Society of Automotive Engineers World Congress 2008, SAE Technical Paper 2008-01-0203, 2008.
+[2] G. Weinberg, B. Harsham, and Z. Medenica, "Evaluating the usability of a head-up display for selection from choice lists in cars," in Proceedings of the 3rd International Conference on Automotive User Interfaces and Interactive Vehicular Applications, AutomotiveUI '11, (New York, NY, USA), pp. 39-46, ACM, 2011.
+[3] T. Sasaki, A. Hotta, A. Moriya, T. Murata, H. Okumura, K. Horiuchi, N. Okada, T. Kogure, and K. Takagi, "72.2: Depth perception effects of a monocular head-up display on the moving automobile under real space condition," SID Symposium Digest of Technical Papers, vol. 43, no. 1, pp. 973-976, 2012.
+[4] S. Cheng, A. Doshi, and M. Trivedi, "Active heads-up display based speed compliance aid for driver assistance: A novel interface and comparative experimental studies," in Intelligent Vehicles Symposium, 2007 IEEE, pp. 594 -599, june 2007.
+[5] K. Tangmanee and S. Teeravarunyou, "Effects of guided arrows on head-up display towards the vehicle windshield," in Network of Ergonomics Societies Conference (SEANES), 2012 Southeast Asian, pp. 1 -6, july 2012.
+[6] Y. Charissis and S. Papanastasiou, "Human-machine collaboration through vehicle head up display interface," Cognition, Technology & Work, vol. 12, pp. 41-50, 2010.
+[7] 1. De Winter, S. De Groot, M. Mulder, P. Wieringa, 1. Dankelman, and 1. Mulder, "Relationships between driving simulator performance and driving test results," Ergonomics, vol. 52, no. 2, pp. 137-153, 2009.
+[8] G. Underwood, D. Crundall, and P. Chapman, "Driving simulator validation with hazard perception," Transportation Research Part F: Traffic Psychology and Behaviour, vol. 14, no. 6, pp. 435 - 446, 2011. Special Issue: Driving Simulation in Traffic Psychology.
+[9] Y. Charissis and M. Naef, "Evaluation of prototype automotive head­ up display interface: Testing driver's focusing ability through a vr simulation," in Intelligent Vehicles Symposium, 2007 IEEE, pp. 560 -565, june 2007.
+[l0] "Ns-3 network simulator." http://www.nsnam.org/. [11] W. Wu, F. Blaicher, 1. Yang, T. Seder, and D. Cui, "A prototype of
+landmark-based car navigation using a full-windshield head-up display system," in Proceedings of the 2009 workshop on Ambient media computing, AMC '09, (New York, NY, USA), pp. 21-28, ACM, 2009. [12] "The open racing car simulator (torcs)." http://tores. soureeforge.net/. [13] U. Technologies, "Unity - game engine." http://unity3d.eom/. [l4] Y. T. S. I. T. S. Committee, I. of Electrical, E. Engineers, and I.-S. S. Board, Norma IEEE Std 1609.1-2006. IEEE std, IEEE, 2006. [15] 1. Mittag, S. Papanastasiou, H. Hartenstein, and E. Strom, "Enabling accurate cross-layer phy/mac/net simulation studies of vehicular com­ munication networks," Proceedings of the IEEE, vol. 99, pp. 1311 -1326, july 2011. [l6] M. Behrisch, L. Bieker, 1. Erdmann, and D. Krajzewicz, "Sumo simulation of urban mobility: An overview," in SIMUL 2011, T he T hird International Conference on Advances in System Simulation, (Barcelona, Spain), 2011.
+
+978-1-4799-2914-613/$31.00 ©2013 IEEE
+
+1643
+
+Authorized licensed use limited to: Politecnico di Torino. Downloaded on March 30,2023 at 06:57:14 UTC from IEEE Xplore. Restrictions apply.
+

@@ -1,0 +1,43 @@
+Taking AR into Large Scale Industrial Environments: Navigation and Information Access with Mobile Computers
+Xiang Zhang Yakup Genc Nassir Navab Imaging and Visualization Department Siemens Corporate Research
+{Xiang.Zhang,Yakup.Genc,Nassir.Navab}@scr.siemens.com
+
+Abstract
+This paper presents a framework of applications based on AR technologies. This framework is designed for spatial data access, on-site navigation, as well as real-time video augmentation, and is applicable to different scenarios in large industrial settings.
+In the core of our framework lies a mobile computer equipped with a camera. The camera observes the environment for visual coded markers. These markers are registered to a global coordinate system through available drawings or ﬂoor plans. The tracker software processes images coming from the camera at moderate frame rates (typically 12fps) and estimates the location of the user. The system then can guide the user through the environment, provide the user with location relevant data from a spatial database, and augment the view of the user through the camera. Data exchange is done via a wireless network and the user interface allows the user to access various types of data without considerable eﬀort.
+1 Introduction
+AR is a relatively new ﬁeld and seeks applications in many areas ranging from medicine to industry ([3]). It has been a common practice to develop a dedicated system for each particular case. In many industrial applications, the user needs to access location related information, for example, maintenance data and documentation. In a large environment, the user also needs to be guided to navigate through the environment.
+We present a framework, which is general enough to be applicable to diﬀerent kinds of scenarios in large industrial environments. In the heart of our framework lies a mobile computer equipped with a camera. The camera observes the environment for visual coded markers. These markers are registered to a global coordinate system through available drawings or ﬂoor plans. Therefore, spatial information can be linked to corresponding areas on the ﬂoor-map through the registered visual markers that are placed on the ground of
+
+the working environment. The tracker software processes images coming from the camera at moderate frame rates (≥ 10fps) and estimates the position and orientation of the user. The system then can guide the user to navigate through the environment, provide the user with location relevant data from remote databases, and augment the view of the user through the camera. Data exchange is done via a wireless network. The user interface allows the user to browse various types of data without considerable eﬀort.
+This framework can be implemented using the underlying technologies of AR, i.e., motion tracking, camera calibration, and virtual object superimposition. In our current implementation, we use a set of specially designed coded visual markers for tracking (as did in [1, 2]), and a homography based camera calibration algorithm for pose estimation.
+2 The Framework
+Large scale industrial environments are often very complicated. It is important for people working inside to access related information in real-time. The idea of our AR and localization platform is to provide the mobile computer user with the ﬂoor-map with navigation guidance and the access to data over the network, as shown in Figures 2 and 3.
+We achieve on-site navigation and data access by applying AR technologies together with wireless LAN connection. Figure 1 depicts the framework of our platform. On this platform, the tracker processes the video of the immediate environment for marker detection and pose estimation. Coded visual markers are placed in the environment and are mapped onto the ﬂoor-map. The users thus can browse location related information from hyper-linked ﬁles, websites, and databases that are linked to diﬀerent regions on the ﬂoor-map through the registered visual markers.
+In addition, we attach a socket server to our AR and localization platform. This socket server allows other network clients to connect and get localization
+
+Authorized licensed use limited to: Politecnico di Torino. Downloaded on July 12,2024 at 09:40:40 UTC from IEEE Xplore. Restrictions apply.
+
+Figure 3 shows another case when the user points the camera to an equipment, the system automatically switches the display from the ﬂoor-map to a industrial drawing of the equipment of interest. There is a web browser automatically connecting the user to the corresponding data resource.
+
+Figure 1: Framework of the AR, navigation, and informa-
+tion access platform.
+information for multiple user deﬁned applications such as a cooperative application.
+3 Application Examples
+The core applications currently implemented on our AR and localization platform are navigation and data access/interaction. Using the monitor of the mobile computer as a video-see-through display, we also augment the video captured by the attached camera to provide additional information to the user.
+Figure 2: Navigation and augmenting the video with a
+navigation guidance arrow and text.
+Figure 2 shows an example of the visualization of the localization result used for navigation guidance. The scenario is that the mobile computer user is working in a large industrial building and the user is surrounded by huge containers, pipes, and other equipments. A ﬂoor-map of the working site is displayed in the main window of the application. There is a red dot showing the position of the user. A green line is shown on the ﬂoor-map as a navigation guidance.
+We augment the real-time video with text and virtual objects to provide the mobile computer user with more information. For example, we can carpet the ﬂoor in the image with the ﬂoor map and put arrows on the ﬂoor as a navigation guidance, as shown in Figure 2.
+
+Figure 3: When the camera is pointing to a marker next to
+a valve, the location of the valve on the industrial drawing is displayed and a web browser automatically connects the user to related data.
+4 Conclusion
+We present a software framework for augmented reality operation, localization, and data navigation in large scale industrial environments with mobile computers. Our framework can be used to i) Provide reliable localization results including both the position and the orientation in large scale industrial environments. ii) Augment the real-time view of the working environment with 3D object or additional information. iii) Provide ﬂexible ways for data interaction using a popup web browser that automatically connects the user to corresponding spatial data resources. iv) Provide a network interface for other users connected to the network to plug in their own applications that obtain the localization result and make use of it.
+References
+[1] H. Kato and M. Billinghurst. Marker tracking and hmd calibration for a video-based augmented reality conferencing system. In Proc. IEEE International Workshop on Augmented Reality, pages 125– 133, 1999.
+[2] J. Rekimoto and Y Ayatsuka. Cybercode: Designing augmented reality environments with visual tags. In Proc. Conf. Designing Augmented Reality Environments, 2000.
+[3] X. Zhang, N. Navab, and S. Liou. E-commerce direct marketing using augmented reality. In Proc. of IEEE International Conference on Multimedia & Expo., 2000.
+
+Authorized licensed use limited to: Politecnico di Torino. Downloaded on July 12,2024 at 09:40:40 UTC from IEEE Xplore. Restrictions apply.
+

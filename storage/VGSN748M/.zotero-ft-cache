@@ -1,0 +1,427 @@
+See discussions, stats, and author profiles for this publication at: https://www.researchgate.net/publication/377719059
+
+The Inﬂuence of Motion-Cueing, Sound and Vibration Feedback on Driving Behavior and Experience$-$A Virtual Teleoperation Experiment
+
+Article in IEEE Transactions on Intelligent Transportation Systems · August 2024
+DOI: 10.1109/TITS.2024.3353465
+CITATIONS
+11
+6 authors, including:
+Lin Zhao KTH Royal Institute of Technology 25 PUBLICATIONS 311 CITATIONS
+SEE PROFILE
+Lars Drugge KTH Royal Institute of Technology 129 PUBLICATIONS 1,151 CITATIONS
+SEE PROFILE
+
+READS
+587
+Mikael Nybacka KTH Royal Institute of Technology 70 PUBLICATIONS 531 CITATIONS
+SEE PROFILE
+Malte Rothhämel KTH Royal Institute of Technology 56 PUBLICATIONS 241 CITATIONS
+SEE PROFILE
+
+All content following this page was uploaded by Lin Zhao on 27 January 2024. The user has requested enhancement of the downloaded file.
+
+This article has been accepted for inclusion in a future issue of this journal. Content is final as presented, with the exception of pagination.
+
+IEEE TRANSACTIONS ON INTELLIGENT TRANSPORTATION SYSTEMS
+
+1
+
+The Influence of Motion-Cueing, Sound and Vibration Feedback on Driving Behavior and Experience−A Virtual Teleoperation Experiment
+Lin Zhao , Mikael Nybacka , Lars Drugge , Malte Rothhämel , Azra Habibovic , and Henrik Hvitfeldt
+
+Abstract— Driving feedback is an important factor that can affect the perceptions of remote drivers of the surrounding environment during teleoperation. This paper focuses on investigating the influence of motion-cueing, sound and vibration feedback on driving behaviour and experience. A prototype teleoperation station is developed with feedback from audio, vibration actuators, and motion cues. Using this prototype, the experiment is carried out in two scenarios: a low-speed disturbance scenario with 30 participants and a dynamic driving scenario with 22 participants. Objective and subjective assessment methods are used to evaluate driving behaviour and experience separately. The results indicate that the combination of motion-cueing, sound and vibration feedback provides the most favourable driving experience for the participants. Specifically, sound and vibration feedback enhance drivers’ sense of speed, while motion-cueing feedback helps in road surface sensing, leading to increased throttle reversal rate in the low-speed disturbance scenario. However, it is noteworthy that motion-cueing feedback does not significantly improve driving performance in the dynamic driving scenario of this study.
+Index Terms— Driving behavior, driving experience, driving feedback, motion cueing, subjective assessment, objective assessment, sound and vibration feedback, teleoperation.
+Manuscript received 6 January 2023; revised 15 August 2023 and 9 November 2023; accepted 8 January 2024. This work was supported in part by the Transport Research Environment with Novel Perspectives (TRENoP) and Integrated Transport Research Laboratory (ITRL), KTH Royal Institute of Technology; and in part by the Strategic Vehicle Research and Innovation (FFI) under Grant 2019-03068. The Associate Editor for this article was Y. Zhang. (Corresponding author: Lin Zhao.)
+This work involved human subjects or animals in its research. Approval of all ethical and experimental procedures and protocols was granted by the Ethical Standards of the National Research Committee under Application No. 2020-05020.
+Lin Zhao is with the Department of Engineering Mechanics, KTH Royal Institute of Technology, SE-100 44 Stockholm, Sweden, and also with the Integrated Transportation Research Laboratory (ITRL), KTH Royal Institute of Technology, SE-114 28 Stockholm, Sweden (e-mail: linzhao@kth.se).
+Mikael Nybacka and Malte Rothhämel are with the Department of Engineering Mechanics and the Centre for ECO2 Vehicle Design, KTH Royal Institute of Technology, SE-100 44 Stockholm, Sweden, and also with the Integrated Transportation Research Laboratory (ITRL), KTH Royal Institute of Technology, SE-114 28 Stockholm, Sweden (e-mail: mnybacka@kth.se; m2rotmal@kth.se).
+Lars Drugge and Henrik Hvitfeldt are with the Department of Engineering Mechanics and the Centre for ECO2 Vehicle Design, KTH Royal Institute of Technology, SE-100 44 Stockholm, Sweden (e-mail: larsd@kth.se; hhv@kth.se).
+Azra Habibovic is with Scania CV AB, SE-151 87 Södertälje, Sweden (e-mail: azra.habibovic@scania.com).
+Digital Object Identifier 10.1109/TITS.2024.3353465
+
+I. INTRODUCTION
+THE concept of autonomous vehicles (AVs) has been in focus for several years and a great deal of progress has been made recently [1]. Some robotaxis, such as DiDi [2] and Waymo [3], can be seen in some cities, such as Shanghai and San Francisco. However, current AVs still have limitations, such as computational efficiency and low robustness [4]. They can encounter difficulties in unexpected scenarios, including public events and roadworks. To address these challenges, teleoperation emerges as an effective intervention method for AVs when they are unable to handle such situations. Therefore, it can be an effective method to bridge the gap between Level 4 and 5 AVs [5], and to accelerate the commercialisation of AVs. Generally, teleoperation modes are categorized into remote monitoring, remote assistance, and remote driving [6]. In remote monitoring mode, operators solely act as observers, without exerting direct influence on the performance of the dynamic driving task. Remote assistance mode comes into play when AVs confront situations outside their operating design domain and require advice. On the other hand, remote driving mode necessitates remote drivers to assume full control of the vehicle using steering, throttle, and brake pedals. The remote driving mode would be the focus of the study in this article, as it presents additional challenges due to the altered driving environment in a remote driving station. Furthermore, there are various challenges when it comes to driving behaviour and experience of remote drivers, since they rely on transmitted video and audio, which introduce latency and reduced resolution compared to real-life driving. Consequently, corresponding risks can emerge, such as distraction or inattention of remote drivers [7]. To establish clearer liability standards of remote driving in real traffic, the UK Law Commission recommends that drivers should bear the same responsibility as conventional drivers, except for faults beyond their control, such as loss of connection [8].
+A literature review reveals numerous obstacles faced by remote driving. Firstly, there is a latency between the real vehicle and the remote control tower when transmitting the signal [9]. This latency, which is a combination of sensor latency, network latency, actuator latency, etc., could decrease driving performance in comparison with driving in a real car. Second, remote drivers’ ability to perceive the surrounding environment could also be reduced due to the decreased quality of the view compared to the view in a real car [10].
+
+1558-0016 © 2024 IEEE. Personal use is permitted, but republication/redistribution requires IEEE permission. See https://www.ieee.org/publications/rights/index.html for more information.
+
+Authorized licensed use limited to: KTH Royal Institute of Technology. Downloaded on January 27,2024 at 09:52:05 UTC from IEEE Xplore. Restrictions apply.
+
+This article has been accepted for inclusion in a future issue of this journal. Content is final as presented, with the exception of pagination.
+
+2
+
+IEEE TRANSACTIONS ON INTELLIGENT TRANSPORTATION SYSTEMS
+
+Furthermore, remote drivers will experience different motion cues and audio information compared to real-life driving. This could potentially impact drivers’ ability to accurately judge vehicle states, such as acceleration and speed. As a result, driving behaviour and experience can be affected.
+The driving behaviour in teleoperation is closely linked to both motion comfort and safety. According to Papaioannou et al. [11], the behaviour of the steering, particularly the steering velocity, can significantly influence the level of motion sickness and comfort experienced by passengers in a remote driving car. Similarly, research by Zhao et al. [12] indicates that steering force feedback in teleoperation can impact the steering behaviour. This suggests that the design of the driving station plays a vital role in influencing driving behaviour, which in turn affects the comfort of passengers and their susceptibility to motion sickness. Additionally, Zhao et al. also discover that teleoperation leads to an increase in lane-following deviation, which can be attributed to specific characteristics of the steering force feedback, such as steering returnability. This has potential implications for driving safety during teleoperation. Hence, there is a critical need to conduct comprehensive studies on driving behaviour and its implications in teleoperation.
+The driving experience has the potential to significantly influence both driving performance and behaviour. Gómez et al. [13], [14] discover a correlation between a driver’s experience and behaviour metrics, such as the relationship between steering feel and vehicle handling. This correlation provides insights into how the driving experience, specifically steering feedback, influences behaviours in remote driving. Additionally, Almallah et al. [15] find that an enhanced feeling of presence through improved display resolution could reduce simulator sickness. Similarly, Hosseini and Lienkamp [16] utilize head-mounted displays (HMDs) to enhance the telepresence feeling of remote drivers, leading to improved driving performance and reduced workload for these drivers. Furthermore, studies [17], [18] demonstrate that a driver’s emotional state significantly impacts driving performance, where feelings of anger and happiness can lead to risky driving behaviours. These findings underscore the necessity of enhancing the driving experience during remote driving. Although some of these studies are conducted on driving simulators, they offer valuable insights applicable to teleoperation due to similar driving station settings.
+The driving behaviour and experience can be related to the fidelity of the driving station [19]. The design of it in teleoperation can share some similarities with driving simulator studies, such as interface design and driving feedback. Therefore, driving simulator studies can offer valuable insights into how driving behaviour and experience are influenced by the driving station fidelity in teleoperation. Several driving simulator studies have explored the impacts of simulator fidelity on driver behaviour and experience, particularly regarding sound and motion-cueing feedback. For the sound feedback, Merat and Jamson [20] find that without auditory cues, drivers struggle to maintain a specific speed and tend to travel faster than the required speed. Hellier et al. [21] reach similar conclusions, observing that drivers with no or low auditory feedback tend
+
+to drive faster. Furthermore, Bringoux et al. [22] discover that synthesizing sound to evoke motion dynamics, such as pitch variation, has a greater impact on drivers’ behaviour during emergency braking compared to traditional sound.
+For the motion-cueing feedback, driving simulator studies in [23] and [24] demonstrate that full motion cues can assist drivers in braking more smoothly before reaching a target stop point, in contrast to situations without motion cues. Wang et al. [25] further investigate the impact of motion cues on driving performance on highway roads, revealing their significant influence on speed control while navigating up-grade roads. Moreover, drivers provided with motion-cueing feedback report experiencing less discomfort and tiredness. However, the study in [26] suggests that motion cues do not have a significant and substantial effect on the performance of curve negotiation tasks.
+Numerous driving simulator studies have examined the influence of motion-cueing and sound feedback on drivers. However, most of these studies have been conducted individually, and only a few have directly compared the two feedback types in practical teleoperation scenarios. Understanding the differences in the effects of these feedback modes on drivers’ behaviour and experience is crucial in the context of teleoperation. Such understanding can serve as a valuable reference for designing remote driving stations and avoiding redundant feedback modes in cases where similarities exist between them. Therefore, a comparative study is essential to gain relevant insights for remote driving.
+This paper presents a virtual teleoperation study conducted using a driving simulator to investigate the influence of different driving feedback modes on driving behaviour and experience. The study includes four driving feedback modes: No feedback (NF), Motion-cueing feedback (MF), Sound and vibration feedback (SF), and a combination of motion-cueing, sound and vibration feedback (CF).
+This study is guided by the following research objectives (ROs):
+RO 1: Investigate the impact of different types of driving feedback modes on driving behaviour and experience in a low-speed disturbance scenario.
+RO 2: Examine how different types of driving feedback modes influence driving performance during dynamic driving scenarios.
+RO 3: Explore the relationship between drivers’ driving experience and their driving behaviour.
+The remaining part of this paper is organised as follows. The simulator setup and feedback design, such as teleoperation prototype, motion-cueing feedback, and sound and vibration feedback, are described in Section II. Section III presents the experimental method. The results and discussion are presented in Section IV. Finally, Section V presents the conclusions and discusses future work.
+II. SIMULATOR SETUP AND FEEDBACK DESIGN
+A. Remote Control Tower Prototype
+To conduct the virtual teleoperation study, a remote control tower driving station (RCTDS) is built and configured at the
+
+Authorized licensed use limited to: KTH Royal Institute of Technology. Downloaded on January 27,2024 at 09:52:05 UTC from IEEE Xplore. Restrictions apply.
+
+This article has been accepted for inclusion in a future issue of this journal. Content is final as presented, with the exception of pagination.
+
+ZHAO et al.: INFLUENCE OF MOTION-CUEING, SOUND AND VIBRATION FEEDBACK
+
+3
+
+Fig. 1. Remote control tower driving station prototype.
+Integrated Transport Research Lab (ITRL) at KTH, as shown in Fig. 1. This prototype mainly focuses on the study of human factors during teleoperation. Firstly, the six degree-of-freedom (DOF) hexapod driving simulator from DOF Reality is used to feed vehicle motion and low-frequency road disturbances back to operators. Secondly, four high-frequency vibration actuators from Dayton Audio are installed under the seat to generate vehicle engine and high-frequency road surface vibration. Subsequently, a Fanatec DD2 steering motor with high fidelity is used to generate steering feedback force and the physical steering force feedback model that is used in [12] is implemented. Furthermore, Logitech 5.1 surround speakers are used to feed back the vehicle sound. Finally, a 55-inch Samsung monitor is used to show the video, including rearview mirrors, so that operators can localise the vehicle. In addition, the SimTools software package is used to simulate engine sound and vibration by controlling speakers and vibration actuators, which uses the source signals of the engine RPM from the car in IPG CarMaker.
+B. Vehicle Motion Feedback
+The motion feedback of the vehicle is realised on the small size six DOF hexapod platform. RCTDS focuses on providing remote operators with information about the real vehicle states and surrounding environments, such as yaw rate, speed and road surface feeling, etc. Compared with existing remote driving stations, RCTDS intends to replicate the driving experience of a passenger car so that it can be used in real scenarios. For example, it can replicate both the low-frequency vehicle motion cues and high-frequency vibrations from road surface, such as cobblestone and gravel. To enhance the road surface feeling, RCTDS simulates the
+
+vibration data of a real vehicle that are recorded from the real application scenarios, such as cobblestone. Although the size of the motion platform is small, it can generate almost the same roll and pitch angular rates as a real vehicle, and almost half of the yaw rate in normal operation. In contrast, due to the limited motion space of the simulator, the linear acceleration components Ax, Ay and Az are not used in the motion cues. However, the tilt angles transformed from accelerations are instead used to help remote operators sense the acceleration [27].
+For the angular rate control of the driving simulator, the integration and washout filter-based methods are used separately. Traditionally, roll rate and pitch rate are not as large as yaw rate. The roll and pitch angles in the simulator are directly generated by integrating the pitch and roll rates of the vehicle signal, as shown in (1), which can provide almost the same roll and the pitch rates as the real vehicle.
+
+t
+
+Psim = P Rveh
+
+0 t
+
+Rsim = R Rveh
+
+(1)
+
+0
+
+where Psim and Rsim are the pitch and roll angles of the driving simulator; P Rveh and R Rveh are the pitch and roll rates of the vehicle, which are measured by the inertial measurement
+
+unit (IMU) on the vehicle; and t is the timestamp.
+
+To generate the yaw rate, the washout filter-based method
+
+is used, as the limited space cannot completely replicate the
+
+movement of the yaw angle of the real vehicle [27]. The
+
+transfer function of the washout filter is a combination of
+
+the first- and second-order high-pass filters, as shown in (2),
+
+which are used to filter the low-frequency signal and help
+
+the simulator return to the neutral position when there is a
+
+continuous input of the yaw rate in one direction.
+
+Y Rsim (s) Y Rveh(s)
+
+=
+
+K. s
+
+s .
++ ω1 s2
+
++
+
+s2 2ω2ζ s
+
++
+
+ω22
+
+(2)
+
+where K is the filter gain; Y Rsim and Y Rveh are the yaw rates of the simulator and vehicle, respectively; ζ is the damping
+
+coefficient, which is set as 0.5 in this experiment; ω1 and ω2 are the angular frequencies of first- and second-order high-
+pass filters, respectively, which are set as 0.01.
+
+The performance of the driving simulator is shown in Fig. 2.
+
+As presented in Figs. 2(a)-(b), the simulator can generate a
+
+similar pitch rate trend as the real vehicle when it passes
+
+through a broken road section, which means that the road
+
+surface misses a piece of asphalt so that both the left and right
+
+sides can experience the disturbance. The time gap between the
+
+signals of the driving simulator and CarMaker is caused by the
+
+latency in the mechanical system. Fig. 2(b) shows the response
+
+of the yaw rate during a slalom manoeuvre in the dynamic
+
+driving scenario. The maximum yaw rate amplitude of the
+
+simulator is set to almost 1/3 of the amplitude of the vehicle,
+
+as it is found through pre-experiments that it is difficult
+
+for operators to control the vehicle with a high-amplitude
+
+driving simulator response. The amplitude of the yaw rate in
+
+Scenario 1 (low-speed scenario) is set to 2/3 of that of the
+
+vehicle, since there is a lower dynamic response at low speeds.
+
+Authorized licensed use limited to: KTH Royal Institute of Technology. Downloaded on January 27,2024 at 09:52:05 UTC from IEEE Xplore. Restrictions apply.
+
+This article has been accepted for inclusion in a future issue of this journal. Content is final as presented, with the exception of pagination.
+
+4
+
+IEEE TRANSACTIONS ON INTELLIGENT TRANSPORTATION SYSTEMS
+
+Fig. 2. Vehicle motion feedback. (a): Broken road; (b): Slalom.
+
+Fig. 4. (a): Scenario 1. Simulated low-speed scenario with road disturbances, such as speed bumps, broken road, cobblestone, etc. (b): First view from participants.
+real car. However, the high-frequency vibrations disappeared in the real car. In the driving simulator, the vibration has another peak at near 50 Hz, which is generated by the vibration actuators. This is used for helping participants feel more road surface. The realistic feeling of provided feedback is verified by several experienced drivers during the design process before the formal experiment.
+
+Fig. 3. (a): Engine RPM and simulated engine vibration acceleration; (b): Vibration acceleration on cobblestone road; (c): PSD of vibration acceleration on cobblestone road. (Note: Az is the vertical acceleration.)
+C. Sound and Vibration Feedback
+To help operators judge the vehicle speed states, simulated engine vibration and sound are used. In this experiment, SimTools’ GameVibe software is used to control the vibration actuators and speakers. This is the basic sound generation version that can simulate engine RPM and wind change as speed changes. The feedback effect can be further improved if more factors are added, such as the sound from tyres and suspensions. As shown in Fig. 3(a), the vibration amplitude would increase with increasing RPM. The speakers also have the same control method. Furthermore, for simulating vehicle vibration on the cobblestone road, the source cobblestone vibration data are recorded from a real cobblestone road using a Nissan Leaf car (a mid-size passenger car). The combination of hexapod driving simulator and vibration actuators is used for simulating the vibration in this manoeuvre. The hexapod driving simulator is used to simulate the low-frequency vibration, and vibration actuators are used for simulating the high-frequency vibration. The raw vibration data is presented in Fig. 3(b) and the power spectrum density (PSD) analysis is shown in Fig. 3(c). These data show that the driving simulator has almost the same peak value at low frequencies as the
+
+III. EXPERIMENT METHOD
+A. Experiment Design of Scenario 1
+1) Driving Scenario Design: The main research purpose of Scenario 1 is to investigate the influence of feedback types on driving behaviour and experience in a low-speed scenario (30 km/h) with road disturbances, similar to situations encountered on campuses or within communities. As shown in Fig. 4(a), disturbances include speed bumps, broken road, cobblestones, and manholes. Fig. 4(b) shows the view of the participants on the cobblestone road. The within-subjects design method is used with four feedback modes including No Feedback (NF), Motion-cueing Feedback (MF), Sound and vibration Feedback (SF), and Combination of motion cueing, sound and vibration Feedback (CF). In addition, each disturbance is added twice in the scenario, appearing in different sequences, to enhance the driving experience. A 30 km/h speed limit sign is also placed on the surface of the road, and the physical speed limit of the vehicle is set to 40 km/h. The entire scenario can be completed in 5 minutes.
+2) Participants: There are 30 participants (20 male and 10 female) in the Scenario 1 test, and all of them are students and research engineers at KTH. The average age of the participants is 26.4 years (SD = 3.59). All participants have a passenger-car driving licence.
+3) Questionnaire Design: To address the research objective of investigating how driving feedback influences driving experience, a written questionnaire is compiled (Table I).
+
+Authorized licensed use limited to: KTH Royal Institute of Technology. Downloaded on January 27,2024 at 09:52:05 UTC from IEEE Xplore. Restrictions apply.
+
+This article has been accepted for inclusion in a future issue of this journal. Content is final as presented, with the exception of pagination.
+
+ZHAO et al.: INFLUENCE OF MOTION-CUEING, SOUND AND VIBRATION FEEDBACK
+
+5
+
+TABLE I SUBJECTIVE ASSESSMENT QUESTIONNAIRE
+
+The questions related to presence are adapted from [28] and [29]; the emotional state question is adapted from the NASA TLX questionnaire; and the motion sickness question is adapted from [30]. For other aspects, such as vehicle behaviour understanding, etc., no existing questionnaire is found to be useful. Therefore, questions are developed that could answer the research questions, such as realistic feeling, understanding of vehicle behaviour, usability, and confidence/trust in driving. These questions are used to investigate the intuitive part of driving feeling in some specific topics and do not include many detailed questions, since participants are not experts in assessing vehicles and could easily become exhausted if they had to answer a large number of questions.
+4) Interview With Participants: In order to explore the driving experience in a broader field and collect more suggestions for the future application of teleoperation, a 10-minute interview process is immediately arranged after the experiment with the following three main topics:
+Topic 1: Could you rank the four driving feedback modes you feel during your driving (1st means the best and 4th means the worst case.)? NF, MF, SF, CF.
+Topic 2: What do you think of your driving experience, such as your emotional feeling, motion feedback feeling, sound and vibration feedback feeling, comfortable feeling, etc.?
+Topic 3: What would you think if the car you are driving is a real teleoperated car, such as in terms of its degree of safety, reliability, etc.? What other requirement would you have if it is a real teleoperated car?
+Upon completing the entire experiment, the interview content is subjected to qualitative analysis. Considering the inherent randomness of the interview responses, themes are
+
+subjectively classified based on the topics discussed, and the frequency of each mentioned theme is also recorded. This approach allowed for the representation of factors that participants prioritized during driving, offering significant insights to inform future driving feedback design.
+5) Experiment Protocol: Participants are firstly informed that they are participating in a virtual teleoperation experiment, which includes an explanation of teleoperation. They are also instructed to assume the role of a remote driver for the study. In order to familiarise drivers with the experiment, they are first introduced to the driving station setup, such as the hexapod platform and vibration actuators. Secondly, the driving scenario is introduced to the drivers so that they would be familiar with the entire driving environment. Then, the driving task is introduced to the drivers. They are asked to pay attention to the feedback from the driving simulator, and are told that they should drive the vehicle in the simulator as they would drive a real car and try to drive in the centre of the road if no objects appeared, and finally, to obey the traffic rules, such as speed limits.
+Before the formal test, a training process is arranged for each driver. They are required to practise three laps in a scaled-down scenario, but without disturbances from the road surface. In these laps, they experience the feedback from the driving simulator separately, i.e., no feedback, motion-cueing feedback, and sound and vibration feedback. In the formal test, the sequence of four feedback modes is changed for each driver to reduce the influence of the sequence. The drivers would drive two laps in each feedback mode, so they have more time to reflect on what they really feel. The questionnaire is also explained to the drivers before the test to make sure that they can understand it. To obtain more accurate answers
+
+Authorized licensed use limited to: KTH Royal Institute of Technology. Downloaded on January 27,2024 at 09:52:05 UTC from IEEE Xplore. Restrictions apply.
+
+This article has been accepted for inclusion in a future issue of this journal. Content is final as presented, with the exception of pagination.
+
+6
+
+IEEE TRANSACTIONS ON INTELLIGENT TRANSPORTATION SYSTEMS
+
+Fig. 5. Scenario 2. Simulated dynamic driving scenario combined with DLC and slalom manoeuvres.
+from the drivers, questions are immediately asked after each driving lap.
+B. Experiment Design of Scenario 2
+1) Driving Scenario Design: The main purpose of Scenario 2 is to investigate the influence of driving feedback on driving behaviour in a dynamic driving scenario with higher speed compared to Scenario 1. This is because this scenario tries to simulate the dynamic driving tasks on city roads. Therefore, the objective assessment is used. To evaluate this, three manoeuvres are used, including slalom, double lane change (DLC), and centre lane keeping (CLK), as shown in Fig. 5. For the slalom, the drivers are supposed to cross five cones spaced 25 metres apart. For the DLC, the ISO3888-1 is used, which is an international standard on designing the DLC manoeuvre for testing the vehicle dynamic metrics of road vehicles, while an additional 0.5-metre width is added between the cones to provide a better view of the cones’ positions. For the CLK, drivers are instructed to keep the car in the centre of the road. Cornering manoeuvres are then added between the slalom and DLC manoeuvres to simulate normal driving situations. In addition, the within-subjects design method is also used with the four driving feedback modes. It takes 3-4 mins for drivers to drive one lap.
+2) Participants: Of the 30 participants from the Scenario 1 experiment, 22 participants join the Scenario 2 experiment (16 male and 6 female). The time interval between participation of the drivers in Scenario 1 and Scenario 2 experiments is at least 10 days. In addition, the participants also practise about six minutes in a condensed version of Scenario 2, which needs about two minutes for each round. The average age of the drivers is 27.64 years (SD = 4.24). The other information concerning the drivers is the same as that of Scenario 1.
+3) Experiment Protocol: Due to the different research focus of Scenario 2, the instructions to drivers are also different from those of Scenario 1. To investigate driving performance, drivers are told to keep the car in the centre of the road and as close to the cones as possible without hitting them when driving through the slalom. In DLC, the drivers should keep the car in the centre between the cones. For speed control, drivers are required to drive as fast as they feel comfortable and feel they could perform the tasks safely. The physical speed limit of the vehicle is set to 60 km/h and is conveyed verbally to participants instead of being displayed on the road surface, given its uncommon occurrence in city road settings. In the formal test, drivers only drive one lap in each driving feedback mode due to the longer driving distance of this scenario compared to Scenario 1. The other experimental settings are the same as those of Scenario 1.
+
+C. Statistical Methods
+
+Data analysis begins with foundational descriptive statistics, such as the mean and standard deviation, to elucidate the primary trends within the dataset. Following this, the statistics Toolbox in Matlab (2020b) is used for statistical analysis. A one-way repeated measures analysis of variance (ANOVA) is performed to assess the significance among the feedback modes. Data within the 10th and 90th percentiles are utilized for each group to mitigate the influence of outliers [31]. To compare the effect size among groups, the partial eta squared (η2) criterion is calculated [32]. A η2 value of 0.01 indicates a small effect, 0.06 indicates a medium effect, and 0.14 indicates a large effect. The related F value, P value, and effect size are reported in the following section. Subsequently, post-hoc comparisons are conducted between each group to identify differences between pairs of variables. For these pairwise comparisons, the t-test is employed. In order to reduce the Type I error rate during the multiple t-test comparisons, the Bonferroni crrection method [33] is used in this paper. Therefore, statistically significant results are evaluated at the αc = 0.0083 level, which is calculated as
+
+αc = α/n
+
+(3)
+
+where α is threshold of significant value, which is set as 0.05 in this paper. αc is the value of corrected α and n is the number of hypotheses tested, which is 6 in this study. In order to
+show the significance level of the paried t-test, the asterisk is
+used in the boxplots as presented in Fig. 6, where “∗” denotes p ≤ 0.0083, “∗∗” denotes p ≤ 0.0017, and “∗ ∗ ∗” denotes p ≤ 0.00017, the values of them are set by considering the Bonferroni correction as presented in (3).
+
+IV. RESULTS AND DISCUSSION
+To explore the influences of driving feedback on driving behaviour and experience in the two scenarios, data analysis results are presented separately. Firstly, the results in Scenario 1 are presented, which include the subjective assessment of driving experience and the objective assessment of driving behaviours. Then, the results of Scenario 2 are presented, where the driving behaviours in DLC and slalom manoeuvres are presented separately. Finally, the comparative analysis between Scenario 1 and 2 are presented, where the driving performance and experience are qualitatively discussed.
+In addition, most of the results are shown in the form of boxplots. The cyan-coloured square points in boxplot figures are the mean values of the dataset, where the blue line shows the trend of the mean value; the bottom and top edges of the box indicate the 25th and 75th percentiles; the central mark in red indicates the median value; the red marker “+” represents the detected outliers.
+
+A. Results in Scenario 1
+1) Subjective Assessment: In this section, the results of the subjective assessment of driving experience are reported and discussed in the same order as the questionnaire.
+
+Authorized licensed use limited to: KTH Royal Institute of Technology. Downloaded on January 27,2024 at 09:52:05 UTC from IEEE Xplore. Restrictions apply.
+
+This article has been accepted for inclusion in a future issue of this journal. Content is final as presented, with the exception of pagination.
+
+ZHAO et al.: INFLUENCE OF MOTION-CUEING, SOUND AND VIBRATION FEEDBACK
+
+7
+
+Fig. 6. Subjective assessment results. (a): Results regarding Question 1 (Overall Assessment); (b): Results regarding Question 2 (Realistic feeling); (c): Results regarding Question 3 (Paying attention); (d): Results regarding Question 5 (Sense of speed); (e): Results regarding Question 6 (Prediction of behaviour); (f): Results regarding Question 7 (Road surface feeling); (g): Results regarding Question 10 (Usability); (h): Results regarding Question 11 (Confidence/trust in driving). (Note: The abbreviations in the figure are explained as follows: NF: No Feedback; MF: Motion-cueing Feedback; SF: Sound and vibration Feedback; CF: Combination of motion cueing, sound and vibration Feedback.)
+
+a) Overall assessment: Fig. 6(a) shows the distribution of the overall assessment under different feedback modes, which include No Feedback (NF), Motion-cueing Feedback (MF), Sound and vibration Feedback (SF), and Combination of Motion-cueing, sound and vibration Feedback (CF). It shows that CF (M = 3.98, S D = 0.57) gets the highest rating, followed by MF (M = 3.65, S D = 0.70); SF (M = 3.32, S D = 0.47) comes in third and NF (M = 2.69, S D = 0.70) gets the lowest rating, where M and S D denote the mean value and standard deviation respectively. This trend indicates that CF is the most suitable feedback mode from the perspective of drivers. NF is, as expected, the worst case during driving due to little feedback information. In addition, the significant main effect is also found among these feedback modes (F(3,188) = 33.84, p < 0.001, η2 = 0.37).
+b) Realistic: The results of realistic feeling show a trend similar to that of the overall assessment (F(3,188) = 54.35, p < 0.001, η2 = 0.48), as shown in Fig. 6(b). The results show that CF (M = 3.78, S D = 0.42) could provide drivers with the best realistic feeling and that NF (M = 1.95, S D = 0.55) is the least realistic. Unlike the results of the overall assessment, the difference between MF (M = 3.00, S D = 0.81) and SF (M = 3.09, S D = 0.80) is not significant ( p = 0.0725). This suggests that drivers have a similar realistic feeling in MF and SF modes.
+c) Presence: The feeling of presence is investigated using two questions, namely paying attention and the feeling of presence, the Questions 3 and 4 in Table I. For paying attention, there is a significant main effect of the feedback modes (F(3,188) = 2.92, p = 0.035, η2 = 0.04), which is illustrated in Fig. 6(c). The post hoc t-test results show that the value of CF (M = 3.96, S D = 0.69) is significantly higher than that of the other three variables ( p < 0.0083).
+
+This means that CF could give participants more attention than other feedback modes. As for the feeling of presence in Question 4, it has a similar trend to the realistic feeling in Question 2.
+d) Vehicle behaviour understanding: This section investigates the understanding of vehicle behaviour related to driving, including the sense of vehicle speed, the prediction of vehicle behaviour, and the sense of the road surface, as shown in Fig. 6(d)-(f). The results of sense of speed are presented in Fig. 6(d) (F(3,188) = 68.38, p < 0.001, η2 = 0.54). It is significant that SF (M = 3.24, S D = 0.74) and CF (M = 3.52, S D = 0.73) could provide better speed sense than NF (M = 1.71, S D = 0.70) and MF (M = 2.07, S D = 0.63). This result suggests that sound and vibration feedback could help participants improve speed sense in Scenario 1, as there is sound and vibration feedback in both SF and CF. The distribution of prediction of vehicle behaviour is similar to the sense of speed (F(3,188) = 28.21, p < 0.001, η2 = 0.33), as shown in Fig. 6(e). However, the difference between MF (M = 3.13, S D = 0.79) and SF (M = 3.23, S D = 0.75) is not significant ( p = 0.0665). This could be because sound feedback provides more help in predicting longitudinal behaviour, such as speed. However, motion feedback provides more help in predicting the behaviours of vehicle motion, such as angular rates and accelerations. Both behaviours are important when driving, so the drivers do not seem to feel significant differences when they feel them separately.
+For the distribution of road surface detection (F(3,188) = 85.93, p < 0.001, η2 = 0.58), Fig. 6(f) shows a clear trend in that the values of CF (M = 3.98, S D = 0.64) and MF (M = 3.98, S D = 0.52) are significantly higher than those of NF (M = 2.32, S D = 0.91) and SF (M = 2.38, S D = 0.95). Both modes include motion-cueing feedback, which
+
+Authorized licensed use limited to: KTH Royal Institute of Technology. Downloaded on January 27,2024 at 09:52:05 UTC from IEEE Xplore. Restrictions apply.
+
+This article has been accepted for inclusion in a future issue of this journal. Content is final as presented, with the exception of pagination.
+
+8
+
+IEEE TRANSACTIONS ON INTELLIGENT TRANSPORTATION SYSTEMS
+
+TABLE II INTERVIEW RESULTS
+
+can simulate the motion of the vehicle when going through a disturbance, such as a speed bump. Drivers therefore can detect the states of the road surface through provided motioncueing feedback. But sound and vibration feedback is built up to pass through the high-frequency disturbances, so larger surface changes, such as speed bumps, will not come through the vibration feedback. This could be one explanation for the drivers’ report of low surface sensing with only sound and vibration feedback.
+e) Unpleasant emotion and motion sickness: There are no clear differences among the investigated groups for the questions concerning unpleasant emotion and motion sickness. For unpleasant emotion, all median values remain at the same levels and it is difficult to conclude that there are differences among them. More detailed questionnaires and experiments need to be designed to explore more detailed emotional differences. As for motion sickness, it does not show up in the experiment; all mean and median values also remain in almost the same low-level state. However, this does not mean that there is no influence of these variables on motion sickness because the driving time in this test is not long enough for drivers to experience motion sickness.
+f) Usability and confidence: Fig. 6(g) shows the distribution of usability in each feedback mode (F(3,188) = 36.32, p < 0.001, η2 = 0.41). CF (M = 4.14, S D = 0.52) still receives the highest rating, followed by MF (M = 3.76, S D = 0.43) and SF (M = 3.36, S D = 0.76), and NF (M = 2.49, S D = 1.02) still receives the lowest rating. The differences of all inter-group comparisons within these four groups are significant ( p < 0.0017) under the t-test based post-hoc comparison. This indicates that CF is the most useful feedback mode among these modes. This is due to the fact that both sound and motion feedback could help
+
+drivers have greater awareness of the current situation, such as speed and surface sensing of the road. It also shows that the mean value of MF is significantly higher than that of SF ( p < 0.00017). This indicates that motion feedback gives drivers more help than sound feedback, probably because they need to use the feeling of disturbance to know the state of the vehicle in this scenario. Furthermore, the trend of the feeling of confidence/trust in driving, which the distribution is presented in Fig. 6(h) (F(3,188) = 29.92, p < 0.001, η2 = 0.32), is almost the same as that of the usability-based trend in Fig. 6(g). The overall value in Fig. 6(h) is lower than that of Fig. 6(g). The median value shows that it is difficult for the driver to experience a high level of trust in the driving task. This gives the indication that it is not enough to provide only driving feedback.
+In addition to the questionnaire, the interview results also show the usability of different channels and the confidence of the drivers in the teleoperation. As shown in Table II, comments on different topics of teleoperation are summarised separately. The themes mentioned more than four times are shown in italics, which means that the drivers are more concerned about these during driving. Table II shows that the drivers mentioned sound 11 times, which is the most mentions among the themes. This indicates that sound is one of the most important factors that can affect driving. Apart from this, some drivers expect vibration from the throttle pedal so that they could feel more speed. They also think that the motion of the seat can help them judge the state of the car. For reliability, five drivers mention that it is reliable and four do not think so. These opinions sometimes depend on personal experience. Some drivers think that a wider view would help remote drivers, especially in a scenario with many corners. Finally, many other opinions are proposed by the drivers.
+
+Authorized licensed use limited to: KTH Royal Institute of Technology. Downloaded on January 27,2024 at 09:52:05 UTC from IEEE Xplore. Restrictions apply.
+
+This article has been accepted for inclusion in a future issue of this journal. Content is final as presented, with the exception of pagination.
+
+ZHAO et al.: INFLUENCE OF MOTION-CUEING, SOUND AND VIBRATION FEEDBACK
+
+9
+
+Fig. 8. Road surface sensing vs Decreased speed.
+
+Fig. 7. Two-second driving behaviour before speed bump. (a): Decreased speed; (b): Throttle engagement.
+Although the frequency of appearance is not high, they are still good suggestions that can be considered in future teleoperation development and research.
+2) Driving Behaviour Investigation: a) Driving behaviour before speed bump: To investigate
+the driver’s behaviour when meeting the speed bump, the objective metrics, such as speed and throttle engagement, are analysed during a two-second window before the speed bump, as shown in Figs. 7(a)-(b). In this figure, decreased speed indicates the decrease in speed value within two seconds before the speed bump. The balance throttle in the legend indicates the throttle engagement value needed to maintain the cruising speed. This reference value is the average throttle engagement of the driver model in IPG CarMaker, with a cruising speed of 30 km/h in this scenario. This means that the car will start to brake using mechanical transmission friction when the throttle engagement value is less than 10%.
+Fig. 7(a) shows that drivers using MF (M = −1.76, S D = 2.13) and CF (M = −2.16, S D = 2.12) tend to reduce speed more before reaching the speed bump than those with NF (M = −1.36, S D = 1.81) and SF (M = −0.83, S D = 1.42). This trend could be attributed to the enhanced road surface perception provided by both MF and CF (Fig. 6(f)), leading drivers to exercise greater caution when encountering speed bumps on the road surface. Simultaneously, a significant main
+
+effect is observed (F(3,380) = 8.55, p < 0.001, η2 = 0.064), with the corresponding data of two speed bumps in each lap used to validate the results. Similarly, the throttle engagement metric in Fig. 7(b) has the similar trend, where the drivers with MF (M = 7.46, S D = 6.19) and CF (M = 5.95, S D = 4.80) tend to apply less throttle compared with NF (M = 8.84, S D = 5.28) and SF (M = 9.81, S D = 4.10) before reaching the speed bump, and a significant main effect is found (F(3,380) = 10.73, p < 0.001, η2 = 0.0752). These findings indicate that driving feedback significantly influences throttle engagement and speed control when approaching speed bumps.
+To explore how road surface perception influences driving behaviour before speed bumps, an association between decreased speed and road surface sensing is constructed (Fig. 8). The mean value of decreased speed before the two bumps in each lap is matched with the corresponding assessment result in the questionnaire, where it uses the assessment results ranging from subjective rating level 1 to 5. Fig. 8 indicates that drivers are more inclined to reduce speed as their road surface sensing increases, as evident of the shift from subjective rating level 1 with a mean (M) of -0.42 to subjective rating level 5 with a mean of -2.37. In addition, a significant main effect is found among various subjective rating levels (F(4,187) = 5.25, p < 0.001, η2 = 0.104). This suggests that road surface perception, as influenced by the provided feedback, can indirectly affect speed control behaviour. For the post-hoc comparison in this metric, the two-sample t-test is used instead of the paired t-test due to the different sample sizes of each rating group.
+b) Throttle reversal rate (TRR): To explore how drivers tune the throttle on the road with disturbances, the TRR metric is calculated. It has a similar calculation method to the steering reversal rate (SRR) [34]. The value of the TRR metric will increase by 1 when the change in throttle pedal travel is greater than 5% of the entire pedal travel. The throttle engagement signal is filtered using a fourth-order Butterworth low-pass filter. The cut-off frequency is set to 10 Hz. The higher TRR value means the higher tuning frequency of the throttle. The throttle engagement dataset is extracted from the segments
+
+Authorized licensed use limited to: KTH Royal Institute of Technology. Downloaded on January 27,2024 at 09:52:05 UTC from IEEE Xplore. Restrictions apply.
+
+This article has been accepted for inclusion in a future issue of this journal. Content is final as presented, with the exception of pagination.
+
+10
+
+IEEE TRANSACTIONS ON INTELLIGENT TRANSPORTATION SYSTEMS
+
+Fig. 10. Driving behaviour in DLC manoeuvre. (a): Mean trajectory of COG position in DLC; (b): Path deviation; (c): Vehicle speed.
+
+indicating that drivers’ sense of the road surface can impact throttle tuning frequency.
+
+Fig. 9. (a). Throttle reversal rate. (b). Road surface sensing vs TRR.
+with intense disturbances and there are two segments in each lap.
+Fig. 9(a) clearly depicts significant differences in TRR values under various feedback modes (F(3,380) = 38.31, p < 0.001, η2 = 0.23). TRR values with MF (M = 20.24, S D = 7.13) and CF (M = 19.58, S D = 6.30) are significantly higher than those with NF (M = 13.42, S D = 5.95) and SF (M = 12.57, S D = 6.00). This observation suggests that drivers with MF and CF tend to adjust the throttle more frequently compared to those with NF and SF. The enhanced perception of road surfaces provided by motion-cueing feedback in MF and CF (Fig. 6(f)) encourages drivers to use throttle adjustments to control their speed when encountering road disturbances, consequently increasing the TRR values.
+Furthermore, to examine how road surface sensing influences TRR, an association between TRR and road surface sensing is explored. Fig. 9(b) shows that there is a significant ( p < 0.0017) increase of TRR values from subjective rating level 3 (M = 13.62, S D = 6.51) to level 4 (M = 19.57, S D = 6.09). This implies that drivers with good and very good road surface sensing are more inclined to adjust their speed using the throttle when encountering road disturbances, aligning with driving behaviour in real car driving. A significant main effect among different subjective rating levels is also found (F(4,187) = 11.86, p < 0.001, η2 = 0.20),
+
+B. Results in Scenario 2
+1) Driving Behaviour in DLC: Figs. 10(a)-(c) illustrate the driving performance and behaviour during the DLC manoeuver. In Fig. 10(a), the mean trajectories under each feedback mode are presented. These trajectories represent the mean value of the center of gravity (COG) position path for all drivers under each feedback mode and are used for comparison with the reference trajectory (RT), which is set as the center lane of the DLC as shown in Fig. 10(a). The figure indicates that the trajectory with SF closely aligns with the RT. A clear difference is shown in the final part of the DLC, from 975 m to the end of the DLC. Fig. 10(b) displays the Root Mean Square (RMS) value of the deviation from the reference lane during the final part of the DLC, showing that the deviation with SF (M = 0.24, S D = 0.11) mode is tend to be lower. However, no significant main effect is found among these feedback modes (F(3,136) = 1.80, p = 0.148, η2 = 0.038). Regarding speed control, the main effect is not significant (F(3,136) = 0.354, p = 0.786, η2 = 0.0078), although there is a tendency for the speed with SF (M = 46.24, S D = 10.58) to be lower. This could be because the driving speed in this experiment is not high enough for drivers to encounter difficulties in passing the DLC manoeuvre. Therefore, further studies are needed to explore the influence of driving feedback under different driving speeds.
+2) Driving Behaviour in Slalom: The driving trajectory of the slalom is shown in Fig. 11(a). It shows that the peak points with MF and CF appear later than those of the NF and SF modes. Fig. 11(b) shows the statistic results of the distance between the peak positions and cones in the X direction with
+
+Authorized licensed use limited to: KTH Royal Institute of Technology. Downloaded on January 27,2024 at 09:52:05 UTC from IEEE Xplore. Restrictions apply.
+
+This article has been accepted for inclusion in a future issue of this journal. Content is final as presented, with the exception of pagination.
+
+ZHAO et al.: INFLUENCE OF MOTION-CUEING, SOUND AND VIBRATION FEEDBACK
+
+11
+
+Fig. 12. The rankings and scores of four feedback modes in Scenarios 1 and 2. (Note: On the left side of the Y-axis, the feedback mode rank is presented, with 1st indicating the best and 4th the worst case. This rank is determined by scores from participants, and these scores are displayed on the right side of Y-axis.)
+
+Fig. 11. Driving performance in slalom manoeuvre. (a): Slalom trajectory; (b): Distance between vehicle COG position to the cones in X direction.
+the MF (M = 2.23, S D = 1.59) and CF (M = 2.46, S D = 1.57) modes are significantly longer than that of the NF (M = 1.27, S D = 1.53) and SF (M = 1.06, S D = 1.69) based modes ( p < 0.00017). The main difference between MF/CF and NF/SF is that there is motion-cueing feedback from the seat for MF and CF. Based on the experience of real car driving, the steering reaction of drivers would keep in line with the motion of the car, i.e., drivers would be prone to turn the vehicle back after feeling the corresponding yaw rate in the continuous slalom manoeuvre. The motion actuators of the driving simulator have a latency close to 120 ms. Therefore, drivers would feel the motion later than the real car’s motion. The steering behaviour could be unintentionally delayed by this latency. For the NF and SF modes, drivers rely on visual information to turn the steering wheel, which could exclude the influence of this latency.
+C. Comparative Analysis
+To compare drivers’ preferences for driving feedback modes in Scenarios 1 and 2, the final rankings for each mode are determined by asking participants to assess the feedback modes after each test (Fig. 12). In this ranking, 1st indicates the most preferred and 4th indicates the least preferred. Significant differences in preferences are observed for various feedback modes in both Scenario 1 (F(3,116) = 135.56, p < 0.001, η2 = 0.78) and Scenario 2 (F(3,84) = 39.82, p < 0.001, η2 = 0.58). The CF (M = 3.87, S D = 0.43) receives the highest preference score, while NF (M = 1.07, S D = 0.37) receives the lowest preference score in
+
+Scenario 1. The similar pattern is observed in Scenario 2, but the order of MF and SF differs between the two scenarios. MF (M = 2.62, S D = 0.62) is assessed higher than SF (M = 2.43, S D = 0.63) in Scenario 1, while the opposite is observed in Scenario 2. This difference is possibly influenced by the road design in each scenario. In Scenario 1, drivers rely more on motion-cueing feedback to control the vehicle, especially when facing disturbances. On the other hand, in Scenario 2, where there are no disturbances on the road, drivers use sound and vibration feedback more to gauge vehicle speed states. This could explain why drivers prefer SF in Scenario 2.
+Additionally, the results in Scenarios 1 and 2 demonstrate that the advantages of driving feedback modes vary when evaluated from different perspectives, such as assessment methods and scenarios. From the subjective assessment in Scenario 1, CF is comprehensively rated higher than other feedback modes, as it provides drivers with a better driving experience, including a realistic feeling and improved perception of speed, among other factors. Similarly, participants also rate CF as the best in Scenario 2. From an objective assessment perspective, MF and CF demonstrate similar effects in Scenario 1. For instance, drivers with MF and CF find it easier to slow down before a speed bump compared to those with NF and SF. However, MF and CF may lead to delayed reaction times due to actuator latency in motion-cueing feedback. Hence, while CF enhances driving experience and performance in low-speed scenarios, it may introduce disadvantages in dynamic driving scenarios due to the latency in motion-cueing feedback.
+V. CONCLUSION AND FUTURE WORK
+A comparative study is conducted to investigate the impact of driving feedback on driving behaviour and experience in a virtual teleoperation experiment. Regarding RO 1, it is found that Motion-cueing feedback, when combined with sound and vibration feedback, significantly improve the driving experience in low-speed disturbance scenarios, leading to better subjective feelings. Moreover, it enhanced drivers’ attention to throttle and speed control, particularly when encountering road disturbances like speed bumps. In relation
+
+Authorized licensed use limited to: KTH Royal Institute of Technology. Downloaded on January 27,2024 at 09:52:05 UTC from IEEE Xplore. Restrictions apply.
+
+This article has been accepted for inclusion in a future issue of this journal. Content is final as presented, with the exception of pagination.
+
+12
+
+IEEE TRANSACTIONS ON INTELLIGENT TRANSPORTATION SYSTEMS
+
+to RO 2, it is observed that motion-cueing feedback results in longer reaction times during the slalom manoeuvre due to actuator latency. This underscores a potential limitation of motion-cueing feedback in the context of teleoperation. For RO 3, the study reveals that road surface sensing can influence the TRR metric. Additionally, it demonstrates that sound and vibration feedback outperform motion-cueing feedback in terms of speed perception from the perspective subjective assessment in Scenario 1.
+In future research, it would be beneficial to explore speed- and scenario-based adaptive amplitude motion-cueing feedback to provide remote operators with relevant motion information when needed. Additionally, the integration of vehicle dynamic information, such as disturbances and grip level, with audio and other feedback to remote operators could be worth investigating. In the next step, the real-life teleoperation experiments with various driving feedback modes will be conducted. Finally, it is essential to systematically study the influence of actuator latency on remote operators’ reaction time and consider potential methods to overcome it.
+Limitations of the study: There are two main limitations in this study. Firstly, although the experiment is conducted using a virtual teleoperation platform with efforts to maximize the driving simulator’s realism, differences still remain between the simulator and real-life teleoperation. For example, the sound feedback used in this experiment is the simulated sound of the engine and wind. In real-life teleoperation, the sound from the surrounding environments and tyres could also be provided. Secondly, the questionnaire employed in Scenario 1 is not considered in Scenario 2. Several potential research points could still be explored based on this. For example, the influence of drivers’ feeling on driving accuracy and lateral dynamic control. Therefore, a future study could be done based on the following two aspects: first, the real-life teleoperation experiment will be designed to explore the influences of different driving feedback, and second, to explore the influences of driving feeling on drivers’ lateral dynamic control and performance.
+ACKNOWLEDGMENT
+Informed Consent: Informed consent was obtained from all individual participants included in the study.
+Ethical approval: All procedures performed in studies involving human participants were in accordance with the Ethical Standards of the National Research Committee (Swedish Ethical Review Authority Ref no.: 2020-05020).
+REFERENCES
+[1] P. Ghorai, A. Eskandarian, Y.-K. Kim, and G. Mehr, “State estimation and motion prediction of vehicles and vulnerable road users for cooperative autonomous driving: A survey,” IEEE Trans. Intell. Transp. Syst., vol. 23, no. 10, pp. 16983–17002, Oct. 2022.
+[2] IoT Automotive News. (Jun. 2020). Didi Robotaxi Service Begins Operation in Shanghai. [Online]. Available: https://iot-automotive.news/didirobotaxi-service-begins-operation-in-shanghai/
+[3] TechCrunch. (Mar. 2022). Waymo Opens Driverless Robotaxi Service to SF Employees. [Online]. Available: https://techcrunch. com/2022/03/30/waymo
+[4] A. Eskandarian, C. Wu, and C. Sun, “Research advances and challenges of autonomous and connected ground vehicles,” IEEE Trans. Intell. Transp. Syst., vol. 22, no. 2, pp. 683–711, Feb. 2021.
+
+[5] On-Road Automated Driving (ORAD) Committee. J3016_202104: Taxonomy and Definitions for Terms Related to Driving Automation Systems for on-Road Motor Vehicles—SAE International. Accessed: Jul. 14, 2023. [Online]. Available: https://www.sae.org/standards/content/j3016_ 202104/
+[6] O. Amador, M. Aramrattana, and A. Vinel, “A survey on remote operation of road vehicles,” IEEE Access, vol. 10, pp. 130135–130154, 2022.
+[7] O. Carsten, “Human factors challenges of remote support and control a position paper from HF-IRADS,” in Proc. Working Party Automated/Autonomous Connected Vehicles, Sep. 2020, pp. 1–9. [Online]. Available: https://api.semanticscholar.org/CorpusID:221999246
+[8] Society for Computers and Law. (Feb. 2023). Law Commission Says That Robust Regulation Needed Before Technology is on U.K. Roads. [Online]. Available: https://www.scl.org/news/12818-law-commission
+[9] J.-M. Georg, J. Feiler, S. Hoffmann, and F. Diermeyer, “Sensor and actuator latency during teleoperation of automated vehicles,” in Proc. IEEE Intell. Vehicles Symp. (IV), Las Vegas, NV, USA, Oct. 2020, pp. 760–766.
+[10] J.-M. Georg, E. Putz, and F. Diermeyer, “Longtime effects of videoquality, videocanvases and displays on situation awareness during teleoperation of automated vehicles,” in Proc. IEEE Int. Conf. Syst., Man, Cybern. (SMC), Toronto, ON, Canada, Oct. 2020, pp. 248–255.
+[11] G. Papaioannou, L. Zhao, M. Nybacka, J. Jerrelind, R. Happee, and L. Drugge, “Motion comfort and driver feel: An explorative study about their relation in remote driving,” 2023, arXiv:2305.07370.
+[12] L. Zhao et al., “Study of different steering feedback models influence during remote driving,” in Advances in Dynamics of Vehicles on Roads and Tracks II. Cham, Switzerland: Springer, 2021, pp. 836–853.
+[13] G. L. Gil Gómez, M. Nybacka, E. Bakker, and L. Drugge, “Objective metrics for vehicle handling and steering and their correlations with subjective assessments,” Int. J. Automot. Technol., vol. 17, no. 5, pp. 777–794, Oct. 2016.
+[14] G. L. G. Gómez, M. Nybacka, E. Bakker, and L. Drugge, “Correlations of subjective assessments and objective metrics for vehicle handling and steering: A walk through history,” Int. J. Vehicle Design, vol. 72, no. 1, p. 17, 2016.
+[15] M. Almallah, Q. Hussain, N. Reinolsmann, and W. K. M. Alhajyaseen, “Driving simulation sickness and the sense of presence: Correlation and contributing factors,” Transp. Res. F, Traffic Psychol. Behaviour, vol. 78, pp. 180–193, Apr. 2021.
+[16] A. Hosseini and M. Lienkamp, “Enhancing telepresence during the teleoperation of road vehicles using HMD-based mixed reality,” in Proc. IEEE Intell. Vehicles Symp. (IV), Gothenburg, Sweden, Jun. 2016, pp. 1366–1373.
+[17] M. Jeon, B. N. Walker, and J.-B. Yim, “Effects of specific emotions on subjective judgment, driving performance, and perceived workload,” Transp. Res. F, Traffic Psychol. Behav., vol. 24, pp. 197–209, May 2014.
+[18] Q. Zhang, W. Qu, Y. Ge, X. Sun, and K. Zhang, “The effect of the emotional state on driving performance in a simulated car-following task,” Transp. Res. F, Traffic Psychol. Behav., vol. 69, pp. 349–361, Feb. 2020.
+[19] L. Zhao, M. Nybacka, and M. Rothhämel, “A survey of teleoperation: Driving feedback,” in Proc. IEEE Intell. Vehicles Symp. (IV), Anchorage, AK, USA, Jun. 2023, pp. 1–8.
+[20] N. Merat and H. Jamson, “A driving simulator study to examine the role of vehicle acoustics on drivers’ speed perception,” in Proc. 6th Int. Driving Symp. Hum. Factors Driver Assessment, Training, Vehicle Design, Driving Assessment, 2011, pp. 226–232.
+[21] E. Hellier, A. Naweed, G. Walker, P. Husband, and J. Edworthy, “The influence of auditory feedback on speed choice, violations and comfort in a driving simulation game,” Transp. Res. F, Traffic Psychol. Behav., vol. 14, no. 6, pp. 591–599, Nov. 2011.
+[22] L. Bringoux et al., “Influence of speed-related auditory feedback on braking in a 3D-driving simulator,” Transp. Res. F, Traffic Psychol. Behav., vol. 44, pp. 76–89, Jan. 2017.
+[23] S. El Hamdani, P. Bouchner, T. Kunclova, and D. Lehet, “The impact of physical motion cues on driver braking performance: A clinical study using driving simulator and eye tracker,” Sensors, vol. 23, no. 1, p. 42, Dec. 2022.
+[24] S. El Hamdani, P. Bouchner, T. Kunclova, P. Toman, J. Svoboda, and S. Novotný, “Fidelity assessment of motion platform cueing: Comparison of driving behavior under various motion levels,” Sensors, vol. 23, no. 12, p. 5428, Jun. 2023.
+
+Authorized licensed use limited to: KTH Royal Institute of Technology. Downloaded on January 27,2024 at 09:52:05 UTC from IEEE Xplore. Restrictions apply.
+
+This article has been accepted for inclusion in a future issue of this journal. Content is final as presented, with the exception of pagination.
+
+ZHAO et al.: INFLUENCE OF MOTION-CUEING, SOUND AND VIBRATION FEEDBACK
+
+13
+
+[25] X. Wang, X. Ye, D. Hurwitz, X. Wang, C. Schost, and D. Noyce, “Effect of motion cues on highway driving performance in simulated driving,” Transp. Res. Rec., J. Transp. Res. Board, vol. 2677, no. 6, pp. 93–112, Jun. 2023.
+[26] H. J. Damveld, M. Wentink, P. M. van Leeuwen, and R. Happee, “Effects of motion cueing on curve driving,” in Proc. Driving Simulation Conf., Paris, France, Sep. 2012, pp. 1–9.
+[27] N. Murgovski, “Vehicle modelling and washout filter tuning for the Chalmers vehicle simulator,” M.S. thesis, Dept. Signals Syst., Chalmers Univ. Technol., Gothenburg, Sweden, 2009.
+[28] B. G. Witmer and M. J. Singer, “Measuring presence in virtual environments: A presence questionnaire,” Presence, vol. 7, no. 3, pp. 225–240, Jun. 1998.
+[29] P. Vorderer et al., “MEC spatial presence questionnaire (MEC-SPQ): Short documentation and instructions for application,” Report to the European Community, Project Presence, Hanover, Germany, Tech. Rep., IST-2001-37661, pp. 1–14, 2004. [Online]. Available: https://www.researchgate.net/publication/318531435_MEC_spatial_pres ence_questionnaire_MEC-SPQ_Short_documentation_and_instructions_ for_application
+[30] R. S. Kennedy, N. E. Lane, K. S. Berbaum, and M. G. Lilienthal, “Simulator sickness questionnaire: An enhanced method for quantifying simulator sickness,” Int. J. Aviation Psychol., vol. 3, no. 3, pp. 203–220, Jul. 1993.
+[31] H. Liao, Y. Li, and G. Brooks, “Outlier impact and accommodation methods: Multiple comparisons of type i error rates,” J. Mod. Appl. Stat. Methods, vol. 15, no. 1, pp. 452–471, May 2016.
+[32] J. T. E. Richardson, “Eta squared and partial eta squared as measures of effect size in educational research,” Educ. Res. Rev., vol. 6, no. 2, pp. 135–147, Jan. 2011.
+[33] S. Lee and D. K. Lee, “What is the proper way to apply the multiple comparison test?” Korean J. Anesthesiol., vol. 71, no. 5, pp. 353–360, Oct. 2018.
+[34] G. Markkula and J. Engstroem, “A steering wheel reversal rate metric for assessing effects of visual and cognitive secondary task load,” in Proc. 13th ITS World Congr., London, U.K., Oct. 2006, pp. 1–12.
+
+Lars Drugge received the M.Sc. degree in mechanical engineering and the Ph.D. degree in computer aided design from the Luleå University of Technology, Sweden, in 1994 and 2000, respectively. He is currently an Associate Professor of vehicle dynamics with the Department of Engineering Mechanics, School of Engineering Sciences, KTH Royal Institute of Technology, Stockholm, Sweden. He is also the Head of the Vehicle Dynamics, Rail Vehicles and Conceptual Vehicle Design Group. His research interests include vehicle dynamics of overactuated vehicles, energy-efficient control, driver vehicle interaction, and driving simulators.
+Malte Rothhämel was born in Stuttgart, Germany. He received the Dipl.-Ing. degree in automotive engineering from Technical University Dresden, Germany, in 2006, and the Ph.D. degree from the KTH Royal Institute of Technology, Stockholm, Sweden, in 2013. From 2014 to 2016, he was a Guest Researcher with the Volkswagen Global Research, Germany. From 2017 to 2020, he developed fail-operational chassis systems and E/E-architecture for driver-controlled and autonomous heavy trucks with Scania Research and Development. He is currently an Assistant Professor with the Department of Engineering Mechanics, School of Engineering Sciences, KTH Royal Institute of Technology. His research interests include steering feel, autonomous vehicles, human factors, vehicle system dynamics, rolling resistance, and comfort.
+
+Lin Zhao was born in Hebei, China. He received the M.Sc. degree in automotive engineering from Chongqing University, Chongqing, China, in 2019. He is currently pursuing the Ph.D. degree with the Department of Engineering Mechanics, School of Engineering Sciences, KTH Royal Institute of Technology, Stockholm, Sweden.
+From 2017 to 2018, he was a Visiting Student with the State Key Laboratory of Automotive Safety and Energy, Tsinghua University, Beijing, China. From 2019 to 2020, he was a Research Engineer with the Intelligent Vehicle Research and Development Center, Gelly Automobile. His research interests include teleoperation, autonomous vehicles, human factors, vehicle system dynamics and control, driving simulator control, steering dynamics, and dynamic game theory.
+
+Azra Habibovic received the M.Sc. degree in electrical and electronics engineering and the Ph.D. degree in vehicle safety systems from the Chalmers University of Technology, Sweden, in 2006 and 2012, respectively. She is currently the Technology Leader of the Human Factors and Automation, Scania CV AB, where she is responsible for defining and driving forward Scania’s roadmap for early stage research in these two fields. Prior to joining Scania, she was with the RISE Research Institutes, Sweden, as a Senior Researcher and the Project Leader, and with the Research Center SAFER, as the Research Area Director of the Road User Behavior. Her research interests include improving traffic safety and user experience by means of automation and connectivity. Her special interest is the design and evaluation of interactions in and around automated vehicles, including interactions related to remote operation of automated vehicles.
+
+Mikael Nybacka received the Mechanical Engineering and Ph.D. degrees from the Luleå University of Technology in 2005 and 2009, respectively. He is currently an Associate Professor of vehicle dynamics with the KTH Royal Institute of Technology. He is active with the Research Centre’s Integrated Transport Research Laboratory (ITRL) and ECO2 Vehicle Design. His research interests include vehicle validation and driver vehicle interaction and also various aspects concerning over-actuated vehicles, e.g., design of over-actuation and urban vehicle concepts, control of autonomous vehicles, and fault-tolerant control.
+
+Henrik Hvitfeldt received the bachelor’s and M.Sc. degrees from the Department of Engineering Mechanics, KTH Royal Institute of Technology, Stockholm, Sweden, in 2014 and 2017, respectively. He is currently pursuing the Ph.D. degree with the Department of Engineering Mechanics, School of Engineering Sciences, KTH Royal Institute of Technology. His research interests include driving simulator control and vehicle system dynamics.
+
+Authorized licensed use limited to: KTH Royal Institute of Technology. Downloaded on January 27,2024 at 09:52:05 UTC from IEEE Xplore. Restrictions apply.
+View publication stats
+

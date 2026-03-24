@@ -1,0 +1,477 @@
+This article has been accepted for publication in IEEE Transactions on Intelligent Vehicles. This is the author's version which has not been fully edited and content may change prior to final publication. Citation information: DOI 10.1109/TIV.2024.3373773
+
+IEEE TRANSACTIONS ON INTELLIGENT VEHICLES, VOL. 00, NO. 0, 2024
+
+1
+
+Impediments to Environmental Awareness in Autonomous Driving Systems and its Effect on
+User Adoption
+Zheng Xu, Changshuai Wang, Tanghan Jiang, Zhiyuan Liu, and Nan Zheng
+
+Abstract—User adoption and technological advances are crucial for the widespread implementation of Autonomous Vehicles (AVs) in the existing transportation system. This study focuses on user adoption, with respect to the skepticism towards the environmental awareness of Autonomous Driving Systems (ADS). It leverages emerging simulation technology and examines the perceptual differences between ADS and human riders in highlevel autonomous driving scenarios. Based on a virtual-realityenabled human-in-the-loop experiment, it is found that human drivers (1) tend to perceive their roles as “drivers” rather than as “passengers” during autonomous driving, in contrast to people who do not know how to drive; (2) demonstrate a heightened sensitivity to traffic environments, including traffic signals and the movements of surrounding and cutting-in vehicles, compared to the ADS. Clearly there exists inconsistency between humans and ADS in environmental awareness, which leads to rider interventions and consequently affects user adoption of the AV technology. Furthermore, the gaze patterns of the riders are collected and analyzed during the experiment. A strategy using visual and audio cues is developed and implemented, so as to prevent unnecessary interventions. It is found that these cues are indeed helpful and decrease the number of interventions. The insights and methodologies are critical for improving the fundamental intelligence systems integral to autonomous driving.
+Index Terms—Autonomous driving system, Virtual reality, Perception system, Rider intervention behavior, User adoption.
+I. INTRODUCTION
+T HE necessity of a “safety driver” in Autonomous Vehicles (AVs) remains a contentious topic in both academic and industrial circles, casting doubts on the public’s trust in AV technology [1]–[5]. Despite tests involving 1,400 Autonomous Driving Systems (ADS) across 36 states in the U.S. showing fewer accidents with ADS than conventional cars [6], public
+Manuscript received 26 February 2024; accepted 3 March 2024. (Corresponding author: Zhiyuan Liu and Nan Zheng.)
+Zheng Xu, Tanghan Jiang, and Nan Zheng are with the Department of Civil Engineering, Institute of Transport Studies, Monash University, Melbourne, VIC 3800, Australia (email:Zheng.Xu3@monash.edu; Tanghan.Jiang1@monash.edu; Nan.Zheng@monash.edu)
+Changshuai Wang is with the Department of Civil Engineering, Institute of Transport Studies, Monash University, Melbourne, VIC 3800, Australia; and the School of Transportation, Southeast University, Si Pai Lou #2, Nanjing, China, 210096 (email: chdwcs@gmail.com).
+Zhiyuan Liu is with the Jiangsu Key Laboratory of Urban ITS, Jiangsu Province Collaborative Innovation Center of Modern Urban Traffic Technologies, School of Transportation, Southeast University, Nanjing 210096, China (e-mail: zhiyuanl@seu.edu.cn).
+Approval of all ethical and experimental procedures and protocols was granted by Monash University Human Research Ethics Committee (MUHREC) under Application No. 30131.
+Digital Object Identifier 10.1109/TIV.2024.337377
+
+confidence remains tepid. Only 55% of Americans believe in the capability of ADS to operate without a “safety driver”, and merely 29% of these supporters are comfortable being driven by a fully autonomous car [6]. Typically, onboard “safety drivers”, usually experienced drivers, are considered more reliable and acceptable to the public as they monitor ADS performance based on human judgment [2]. Consequently, personifying the decision-making process of ADS to enhance user adoption has emerged as a prominent research area [7]– [11].
+Modeling a human-like decision-making strategy in ADS necessitates a deep understanding of fundamental ADS perception functions. Considering that traffic scenarios deemed safe by AVs might be perceived as unsafe by human drivers [12], recent studies have focused on the disparity in hazard perception between ADS and humans. Xu et al. (2022) utilized a human-in-the-loop study to analyze driving pattern differences, revealing significant gaps in risk perception between AI and human drivers. Notably, the ADS exhibited a higher tolerance for risk, contributing to its ability to maintain shorter headways [13]. Following this clue, Wang et al. (2020) conducted an empirical study in Xian, China, translating human drivers’ risk perceptions during lane changes into a human-like lane change model for ADS. Their results indicated that incorporating such a model could enhance user acceptance of AV technology in lane-change scenarios [14]. Furthermore, He et al. (2022) established a link between human-perceived risks and trust in AV technology, focusing their simulation study on motorway merging and hard braking events. Their findings underscored the positive impact of a human-centered automation design in boosting user adoption of AV technology [15].
+On the other hand, the heterogeneity of human perception and behavior poses a challenge to the pursuit of a humancentered collaboration model in advanced intelligent systems. Xing et al. (2021) suggested that such an approach might inadvertently impair the development of situational awareness capabilities in these systems [16]. Consequently, the role of the Human-Machine Interface (HMI) in fostering mutual understanding between humans and vehicular autonomy has become a key area of research [17]. While vehicle autonomy is expected to adaptively make decisions that are either humanlike or accepted by humans, frequent interaction with HMI may not necessarily transition the role of individuals from “driver” to “passenger” in autonomous driving. As Carsten et al. (2019) highlighted, this interaction could paradoxically increase driver workload and reduce situational awareness
+
+Authorized licensed use limited to: Politecnico di Torino. Downloaded on June 12,2024 at 15:56:30 UTC from IEEE Xplore. Restrictions apply. © 2024 IEEE. Personal use is permitted, but republication/redistribution requires IEEE permission.See https://www.ieee.org/publications/rights/index.html for more information.
+
+This article has been accepted for publication in IEEE Transactions on Intelligent Vehicles. This is the author's version which has not been fully edited and content may change prior to final publication. Citation information: DOI 10.1109/TIV.2024.3373773
+
+IEEE TRANSACTIONS ON INTELLIGENT VEHICLES, VOL. 00, NO. 0, 2024
+
+2
+
+[18]. This points out the urgent need to develop a collaborative strategy that balances the operational characteristics of ADS, public trust, and the extent to which the ADS can effectively emulate human-like interactions.
+To realize the potential of advanced human-machine collaboration, the availability of appropriate training and testing tools is crucial. The use of virtual environments for testing ADS is widely accepted, with renowned platforms such as CARLA [19], NVIDIA Drive [20], and Waymo CarCraft [21] providing realistic testing scenarios. These platforms take into account the impacts of the Operational Design Domain (ODD) on autonomous driving. However, there remains a gap in addressing drivers’ characteristics within naturalistic driving environments during deep reinforcement learning processes [22]. Therefore, future efforts are expected to develop more sophisticated experiments and algorithms that incorporate human decisions and feedback into the learning loop of collaboration strategies [16].
+Inspired by preceding studies and advancements in the field, our research attempts to further explore the perceptual differences between ADS and human riders using a simulationbased approach. We have enhanced the CARLA platform by incorporating more realistic traffic dynamics for human-in-theloop analysis. This enhancement enables the consideration of riders’ socioeconomic characteristics in a variety of conditions across numerous scenarios. Central to our study are the following research questions:
+1) What are the key features that influence the attention focus of both humans and the ADS?
+2) Under what specific conditions are human riders likely to intervene during high-level autonomous driving?
+3) Whether the rider intervention behavior could be effectively prevented if they are unnecessary?
+4) How can the training algorithm of the ADS be refined to better enhance environmental awareness?
+
+environment is achieved. Fig. 1 offers illustrative examples of the development of this naturalistic driving environment.
+
+B. Safety-critical Events Assessment for the Mixed Traffic Environment
+
+The safety performance of ADS is the paramount indicator for demonstrating the reliability of vehicular autonomy. In this study, surrogate safety measures are used to assess the performance of autonomous driving within a mixed-traffic environment. A modified time-to-collision metric serves as the key indicator for calculating vehicle-level risk. Specifically, this study adopts the collision risk assessment methodology for mixed environments from Katrakazas et al. (2019) [25]. This approach evaluates potential risks between the ego-vehicle (i.e., the ADS) and surrounding vehicles based on various motions of the ego-vehicle. The risk assessment fundamentally relies on two key metrics: time-to-collision and distance-tocollision. Mathematically, they are expressed as follows:
+
+T T Cnt
+
+=
+
+∆pTt ∆vt ∆vtT ∆vt
+
+(1)
+
+δnt = ∆pTt ∆pt − T T Cnt pTt ∆vt
+
+(2)
+
+where T T Cnt and δnt represent the time and relative position between the ADS and the conflicting vehicle, respectively.
+They are used to calculate the time and distance to collision between the ego-vehicle (i.e., the ADS) and vehicle n at the specific moment t , which serves as a surrogate measure for
+gauging the relative positioning of two potentially conflicting road users. In these equations, ∆pt represents the relative position between the ADS and vehicle n at time t. The smaller the T T Cnt and δnt are, the higher the probability the collision would occur.
+
+II. GENERATION OF TESTING SCENARIOS FOR AUTONOMOUS DRIVING
+A. Development of the Naturalistic Driving Environment
+At the core of the driving environment is a co-simulation strategy that integrates virtual environments with traffic microsimulation. Specifically, we utilize a range of scenes provided by CARLA [19], comprising 3 large-scale maps (over 100 km2), 3 moderate-scale maps (around 50 km2), and 5 small-scale maps (around 20 km2). These maps form the basis of the virtual environment. Corresponding real-world traffic flows, rules, and management strategies are modeled in VISSIM. In addition to the Wiedemann 99 behavioral model [23], the Reciprocal Velocity Obstacles (RVO) algorithm [24] and a multi-layer behavior model strategy are incorporated into CARLA. This integration aims to enhance the realism of simulated road users, including the modeling of road users’ misconduct. Moreover, the integration of meteorological data within CARLA facilitates the simulation of dynamic and realistic weather conditions. In conjunction with traffic dynamics, this feature enables the recreation of a broad spectrum of driving scenarios. As a result, a naturalistic simulation
+
+Fig. 1. Illustrative examples of the development of this naturalistic driving environment.
+
+Authorized licensed use limited to: Politecnico di Torino. Downloaded on June 12,2024 at 15:56:30 UTC from IEEE Xplore. Restrictions apply. © 2024 IEEE. Personal use is permitted, but republication/redistribution requires IEEE permission.See https://www.ieee.org/publications/rights/index.html for more information.
+
+This article has been accepted for publication in IEEE Transactions on Intelligent Vehicles. This is the author's version which has not been fully edited and content may change prior to final publication. Citation information: DOI 10.1109/TIV.2024.3373773
+
+IEEE TRANSACTIONS ON INTELLIGENT VEHICLES, VOL. 00, NO. 0, 2024
+
+3
+
+Considering the variations in behaviors of the simulated road users, an indicator function Fk is introduced to further quantify the thresholds of the safety-critical events. This function considers behaviors of the interacting vehicle, including general operating, dangerous brakes, lane changes, and stops. Theoretically, it is expressed as follows:
+
+Fk = f (T T Cnt−1) =
+
+1 : dangerous, if T T Cnt → 0 0 : saf e
+
+(3)
+
+C. ADS Training based on the Deep Deterministic Policy Gradient (DDPG) Algorithm
+
+The primary objective of ADS training is to ensure that
+
+Dynamic Driving Tasks (DDTs) are executed securely and
+
+efficiently. In the simulation environment, the Operational
+
+Design Domain (ODD) limitations can be mitigated with
+
+adequate training. To achieve this, the Deep Deterministic
+
+Policy Gradient (DDPG) algorithm has been selected for ADS
+
+training within the driving environment created by our co-
+
+simulation strategy. This deep learning algorithm is widely
+
+recognized for its efficiency in exploration and stability in the
+
+learning process, making it highly suitable for the development
+
+of ADS.
+
+In this study, the training goal is to maintain the Fk of 0
+
+throughout autonomous driving in all testing scenarios. The agent (i.e., ADS) is continuously taking actions a ∈ RN
+
+at each state st+1 for rewards r(st, at) to be returned in
+
+each environment. The agent behavior is governed by the
+
+policy π : S → P (A), which defines the basic traffic
+
+rule and interactions in a stochastic environment E. DDPG
+
+allows the agent to learn the value function and policy model
+
+simultaneously, following the basic rule of the Actor-Critic
+
+method [26]. In the training sessions, the performance of
+
+the ADS is determined by the output of a given state. This
+
+performance is quantified as the sum of all future rewards,
+
+adjusted by a discount factor:
+
+T i−t
+
+γ(i−t)r(st
+
+,
+
+at).
+
+During
+
+this period, the expected ADS action at could be taken in
+
+the state st, where the Q-function is activated to ensure the
+
+policy π to be followed:
+
+Qπ(st, at) = Eri≥t,s≥t∽E,ai≥t∽π[Rt|st, at]
+
+(4)
+
+Furthermore, the Bellman equation is used to refine the Qfunction during the training, with a deterministic policy µ:
+
+A = Ert,st+1 ∽ E[r(st, at)]
+
+(5)
+
+B = γQµ(st+1, µ(st + 1))
+
+(6)
+
+Qµ(st, at) = A + B
+
+(7)
+
+Therefore, the Q-function defined in Eq. (4) can be updated, with a discounted reward rd introduced for the current action:
+
+rd = r(st, at) + γQ[st+1, µ(st+1|θQ)]
+
+(8)
+
+where θ denotes the policy parameters according to the suggestions of the Critic.
+Then, the loss of the function could be optimized based on the function approximators parameterized by θQ:
+L(θQ) = Est∽ϕβ,at∽β,rt∽E [(Q(st, at|θQ) − rd)2] (9)
+
+Fig. 2. Outcomes of the ADS Training in Developed Testing Scenarios: (a) Visualized training session depicting vehicular interaction; (b) Statistical representation of ADS performance in terms of safety and lateral control over the course of the training; (c) Quantified safety performance of the ADS during the training period
+where β denotes stochastic policy, ϕ is the discounted distribution of visitation for an action probabilistic.
+Through these updates, the function Q(s, a) of the Critic within the system can be accurately determined. The updates to the Actor are conducted by following the gradient of the expected value of the initial distribution D, following the neural network parameters of the Actor. This process represents the gradient ascent on the policy performance.
+∇θQ D ≈ Est∽ϕβ [∇θQ Q(s, a|θQ)|s=st,a=µ(st|θµ)] (10)
+The outcome of the ADS training, after more than 10,000 iterations, showcases a marked advancement in its intelligence, leading to effective and safe operational states. This is evidenced by highly accurate collision avoidance capabilities across all developed environments in most scenarios, with an accident rate of less than 0.04, despite some exceptions due to occasional illegal maneuvers by simulated road users. The model’s outcomes progress linearly with the number of iterations. Notably, the safety performance of the ADS, enhanced through DDPG algorithm training, surpassed that
+
+Authorized licensed use limited to: Politecnico di Torino. Downloaded on June 12,2024 at 15:56:30 UTC from IEEE Xplore. Restrictions apply. © 2024 IEEE. Personal use is permitted, but republication/redistribution requires IEEE permission.See https://www.ieee.org/publications/rights/index.html for more information.
+
+This article has been accepted for publication in IEEE Transactions on Intelligent Vehicles. This is the author's version which has not been fully edited and content may change prior to final publication. Citation information: DOI 10.1109/TIV.2024.3373773
+
+IEEE TRANSACTIONS ON INTELLIGENT VEHICLES, VOL. 00, NO. 0, 2024
+
+4
+
+of the original ADS setup in CARLA’s default scenarios (which exclude VISSIM input), achieving an accident rate of about 0.035. Fig. 2 presents these training outcomes in detail: Fig. 2(a) captures vehicular interactions at a specific training instance, showcasing perceptions from LiDAR and logarithmic sensors; Fig. 2(b) illustrates the ADS’s learning curve, emphasizing improved stability in collision avoidance and lateral positioning. It demonstrates how the ADS’s intelligence has advanced from a less-controlled operation, with a lateral deviation of approximately 0.7 meters and an accident rate over 0.4, to a more centralized driving position, significantly reducing the accident rate to below 0.04. Finally, Fig. 2(c) highlights the statistical analysis of safety performance Fk throughout the training process, showing a significant decrease in safety-critical events, particularly after the 6400th iteration.
+III. EXPERIMENT DESIGN
+This study employs a comparative experimental design to assess and integrate human riders’ perceptions into the safety performance of the fine-tuned ADS, to improve overall safety performance. To this end, the experiments are conducted in two parts, involving two groups with subjects evenly distributed across both. Notably, the behavioral results identified in group one are quantified and applied to the tests for group two. Apart from this, the testing scenarios for both groups are essentially identical. In general, the controlled variables in this study are the testing scenarios, attributes of the sample population, and the duration of the experimental period. Details are provided in the following subsections.
+A. Sample Determination
+In this study, we develop over 970 autonomous driving scenarios across 11 CARLA maps for human-in-the-loop analysis. These scenarios are classified based on road type, traffic flow, weather, and lighting conditions. Each scenario involves a driving duration of 120 to 150 seconds under varying conditions. To comprehensively represent these scenarios’ characteristics, the ideal sample size was calculated to be 276 for a 95% confidence level. However, due to constraints, we opted for an alternative sampling method and recruited a total of 46 participants (26 males and 20 females), each experiencing 6 different scenarios during the experiment.
+The participant pool recruited for this study reflects a diverse range of attributes, including varying genders, a wide age spectrum (M ean = 29.43, SD =6.44), and different levels of driving and VR experience. Participants are assigned to two different experimental groups randomly, with their attributes evenly distributed. Particularly, each group is composed as follows: 4 non-drivers aged between 18 and 22; 6 less experienced drivers with 1 to 3 years of driving experience, aged between 20 and 25; 7 general drivers with 5 to 10 years of driving experience, aged between 24 and 35; and 6 experienced drivers with 10 to 20 years of driving experience, aged between 28 and 49. Furthermore, all participants have prior VR experience, ranging from a minimum of three uses to more than ten.
+
+B. Experiment Setup
+The experiment utilizes a portable VR driving simulator (Fig. 3), comprising the Logitech G923 driving set and HTC VIVE Pro Eye. The simulator runs on a PC equipped with a high-performance NVIDIA GeForce RTX 3090 graphics card, ensuring smooth and efficient operation of both the ADS training and the VR experiment. Within the defined experimental framework, the experiments for group one and group two are conducted separately. The primary distinction in the experiment settings between the two groups lies in the Formal VR Experiment phase. After evaluating the performance of participants in Group One, tailored visual and audio assistance systems (Fig. 3) are developed and integrated into the scenarios for Group Two. In this study, interventions that undermine transport efficiency, expand conflict zones, or potentially lead to road accidents are categorized as unnecessary, compared to the performance of the fine-tuned ADS. A key factor driving these interventions is the discrepancy in safety perceptions between the ADS and human riders, posing a significant obstacle to widespread adoption of AV technologies. Our research contributes a novel approach to mitigating this perception gap by using visual and auditory cues to discourage unnecessary interventions. As depicted in Fig. 3, when the ADS approaches a situation that could induce an intervention, visual effects are displayed, featuring the messages “Safe Condition” in black and “No Intervention Needed” in red. Simultaneously, an audio message stating “Safe Condition, No Intervention Needed” is played twice at a slow pace, using a female voice. This integration aims to serve as a preliminary approach to reduce unnecessary rider interventions during autonomous driving, thereby enhancing overall safety. Consequently, there is a one-month gap between the experiments conducted with group one and group two to allow for these adjustments.
+However, both groups follow the same procedure:
+1) Pre-experiment Survey (3-5 min): Before the experiment, each participant must complete a Simulation Sickness Questionnaire (SSQ) [27]. This is to confirm their suitability for participating in the VR experiment. Additionally, the survey results serve as a baseline for assessing any side effects of the experiment in terms of simulation sickness levels.
+2) Formal VR Experiment (15-20 min): Each participant is assigned six driving scenarios, randomly selected from the 11 available maps. It is ensured that no participant encounters repetitive scenarios. Each scenario, lasting 120 to 150 seconds, involves Level 4 autonomous driving under various conditions. During the experiments, participants have two options for initiating intervention behavior (Fig. 4). They can deactivate autopilot mode by pressing a designated button on the steering wheel, or they can directly intervene by turning the steering wheel or stepping on the brake pedal whenever they feel unsafe or uncomfortable. To reactivate autopilot mode, participants can either press the autopilot button again or, If there is no intervention for three consecutive seconds, the ADS resumes autopilot mode. Participants have the
+
+Authorized licensed use limited to: Politecnico di Torino. Downloaded on June 12,2024 at 15:56:30 UTC from IEEE Xplore. Restrictions apply. © 2024 IEEE. Personal use is permitted, but republication/redistribution requires IEEE permission.See https://www.ieee.org/publications/rights/index.html for more information.
+
+This article has been accepted for publication in IEEE Transactions on Intelligent Vehicles. This is the author's version which has not been fully edited and content may change prior to final publication. Citation information: DOI 10.1109/TIV.2024.3373773
+
+IEEE TRANSACTIONS ON INTELLIGENT VEHICLES, VOL. 00, NO. 0, 2024
+
+5
+
+freedom to intervene at any point during the experiment. Importantly, a rest period of 1-3 minutes is allotted between each testing scenario to minimize crossover effects during the experiment. The experiment can be terminated at any time if a participant feels extremely uncomfortable, without any penalty. 3) After-experiment Survey (3-5 min): After the experiment, participants are asked to fill out the SSQ survey again to report their simulation sickness level. Additionally, a self-awareness questionnaire, adhering to the talk-aloud protocols [28], [29], is administered. This questionnaire collects participants’ subjective feedback on the experiment and allows them to describe their behavior during the experiment without providing explanations.
+C. Data Collection and Processing
+During the experiment, both objective and subjective data are collected. Subjective data is gathered through questionnaire surveys, which assess participants’ simulation sickness levels and their feedback on the simulation study. Objective data collection encompasses several components: (1) observed intentions of intervention, (2) recorded execution of intervention, and (3) participants’ eye movement and gaze patterns. The recorded execution of intervention is automatically documented by CARLA during the experiment, and participants’ eye movement and gaze patterns are captured using the VR goggle integrated with Tobii eye-tracking SDKs [30]. In terms of the intention of intervention, it is classified into three categories: a. Slight intention, indicated by either turning or braking for less than 10 seconds. b. Moderate intention,
+
+indicated by both turning and braking for over 10 seconds. c. Strong intention, indicated by both turning and braking for most of the experiment.
+In this study, the collected objective data provides the direct and most relevant information with respect to the user adoption during the autonomous driving, in which the measured perception plays a critical role. Theoretically, actions can be induced according to the triggers perceived, and the link between visual attentions and subsequent actions can be modelled and quantified via modelling.
+For the specific needs of this experiment, we utilized the visual attention model to analyze the eye patterns of group one participants [31]. This model quantifies three primary features — color, intensity, and orientation — during the human perception process, measuring the correlation between eye movements and cognitive processing in free-viewing tasks. Essentially, the model processes the human view as an image, which is then subsampled into a Gaussian pyramid characterized by features such as Red (R), Green (G), Blue (B), Yellow (Y ), Intensity (I), and local orientations (O). This allows the identification of “attention attractors” based on specific “feature maps” of views. These maps are linearly combined and normalized to form “conspicuity maps”, which guide the focus of attention. Mathematically, these “conspicuity maps” are derived as a sum of the “feature maps”:
+
+CI = fI , CC = N
+
+fl , CO = N
+
+fl (11)
+
+l∈LC
+
+l∈LO
+
+LI = I, LC = RG, BY , LO = 0◦, 45◦, 90◦, 135◦ (12)
+
+where N represents the map normalization operator, and l ∈ LI ∪ LC ∪ LO denotes the features involved in a view. Finally,
+
+Fig. 3. Experimental setup.
+
+Fig. 4. A flow chart depicting the sequence of general interventions encountered during the experimental sessions. i. Activation-based intervention through the use of an autopilot button: This feature is integrated into the Logitech G923 steering wheel, enabling participants to manually deactivate the autopilot to assume control of the vehicle. Participants have the flexibility to reactivate autopilot mode at their discretion, at which point the ADS will seamlessly resume intelligent driving operations. ii. Direct Intervention: Participants can directly intervene by either turning the steering wheel or stepping on the brake pedal. This method aligns with the participants’ intervention intentions, allowing for a seamless transition between human and automated control. If no intervention occurs within three seconds, the ADS automatically reverts to autopilot mode. Importantly, even when manual intervention is active under this intervention approach, the system’s intelligence continues to provide driving assistance, such as activating Autonomous Emergency Braking (AEB) in emergencies, ensuring overall ongoing safety.
+
+Authorized licensed use limited to: Politecnico di Torino. Downloaded on June 12,2024 at 15:56:30 UTC from IEEE Xplore. Restrictions apply. © 2024 IEEE. Personal use is permitted, but republication/redistribution requires IEEE permission.See https://www.ieee.org/publications/rights/index.html for more information.
+
+This article has been accepted for publication in IEEE Transactions on Intelligent Vehicles. This is the author's version which has not been fully edited and content may change prior to final publication. Citation information: DOI 10.1109/TIV.2024.3373773
+
+IEEE TRANSACTIONS ON INTELLIGENT VEHICLES, VOL. 00, NO. 0, 2024
+
+6
+
+the quantification of “conspicuity maps” is obtained as their linear combination:
+
+S = 1 [N (I¯) + N (C¯) + N (O¯)]
+
+(13)
+
+3
+
+At any given moment, the highest value of S in the percep-
+
+tion image identifies the most prominent feature, indicating
+
+where attention is focused.
+
+Subsequently, we adapt the decision-theoretic model to
+
+create a link between recognition and decision-making pro-
+
+cesses [32]. This model specifically quantifies the posterior
+
+probability of a decision concerning the computed saliency
+
+of a particular perception state. Considering a set of features
+
+L = L1, L2, L3, . . . , Ll, a perception state p, and a class label CL, with CLp = 0 representing samples from the surrounding region and CLp = 1 from a smaller central region centered at p, the posterior probability is calculated using the Bayesian
+
+rule: P (CLp = 1|L = fl) =
+
+σ log P (L = fl|CLp = 1)P (CLp = 1)
+
+(14)
+
+P (L = fl|CLp = 0)P (CLp = 0)
+
+where
+
+σ(x) =
+
+1 1+e−x
+
+is
+
+the
+
+sigmoid
+
+function.
+
+These analyses play a critical role in the development of the
+
+assistance system (as depicted in Fig. 3), which is designed to
+
+prevent unnecessary interventions during the experiments for
+
+participants from group two.
+
+IV. RESULTS AND ANALYSIS
+This section presents an analysis of the experiment results. The comparative data on environmental awareness between participants and the ADS provides valuable insights into the acceptance of AV technology. Additionally, it sheds light on how individuals behaviorally adapt during autonomous driving.
+A. Inconsistency in Safety Perception between ADS and Human Riders
+Fig. 5 illustrates the perceived differences in environmental awareness between human drivers, non-drivers, and the ADS. It reveals that human drivers, particularly experienced ones, exhibit greater caution than the ADS. This heightened sensitivity is especially noticeable in responses to the braking actions of the preceding vehicle, traffic signals, and the sudden entry of other vehicles. As depicted in Fig. 5(a), participant eye movements rank the features drawing their attention during the experiment. Unlike the ADS, which maintains a stable focus on specific features affecting operation safety, human drivers often scan a wider range of potential hazards, even though traveling at higher speeds (Fig. 5(b)). This divergent perception, as contrasted with the reinforcement learning result (i.e., the ADS) that prioritizes the most relevant obstacles, is evident in Fig. 5(c). The ADS employs a processing system that extracts key characteristics of its surroundings, such as pedestrian skeletons, to identify and avoid potential obstacles. This object-oriented approach to perceiving environmental features is fundamentally different from human perception, even though it is designed to ensure safety.
+As a result, when sitting in a high-level ADS, human drivers anticipate a slower speed when there are top-ranked attention-affecting features in a scenario, preferring a smoother reduction rate over the ADS’s more efficient linear control algorithm. As shown in Fig. 5(d), over a specified 10-second interval, human drivers tend to prefer initiating braking earlier. This would allow for a smoother reduction in speed compared to the more instantaneous braking performance of the ADS. Interestingly, the gaze patterns of non-drivers revealed a distinct tendency, as illustrated in the lower two graphics of Fig. 5(b). Unlike drivers, non-drivers tend to focus on the surrounding environment rather than on the driving task itself. Their gaze patterns resembled those of sightseers more than drivers, indicating a preference for the role of a passenger rather than that of a driver. This suggests that non-drivers are more inclined to enjoy the journey and the scenery, rather than engage in judgment and decision-making related to autonomous driving.
+
+Fig. 5. Comparative analysis of perception discrepancies between experienced drivers, non-drivers, and the ADS: (a) the attention-tracking feature ranking for human drivers and the ADS during autonomous driving; (b) typical scenarios highlighting the focus points of different participant groups; (c) a graphical representation illustrating the variance in environmental awareness between human drivers and the ADS; (d) the change in instantaneous speed over a specified period, comparing the decision-making process of the ADS with the expected tendencies of human drivers.
+
+B. Rider Intervention and Adoption
+Across the 276 testing scenarios conducted by participants, the study identifies 469 instances of intended intervention and 177 actual executions. Given the fine-tuned ADS maintains an accident rate of 0.035, we can theoretically expect safetycritical events in fewer than 10 cases. This implies that, out of over 177 interventions executed during the experiments, the
+
+Authorized licensed use limited to: Politecnico di Torino. Downloaded on June 12,2024 at 15:56:30 UTC from IEEE Xplore. Restrictions apply. © 2024 IEEE. Personal use is permitted, but republication/redistribution requires IEEE permission.See https://www.ieee.org/publications/rights/index.html for more information.
+
+This article has been accepted for publication in IEEE Transactions on Intelligent Vehicles. This is the author's version which has not been fully edited and content may change prior to final publication. Citation information: DOI 10.1109/TIV.2024.3373773
+
+IEEE TRANSACTIONS ON INTELLIGENT VEHICLES, VOL. 00, NO. 0, 2024
+
+7
+
+majority could be deemed unnecessary. In general, the distribution of intentions is similar in both experimental groups, with 257 in group one and 212 in group two. As shown in Fig. 6(a), the most common type of intention is slight, followed by moderate and strong intentions in both groups. However, a notable difference is observed in the execution of interventions: 90.96% of the 177 executions are carried out by group one participants, 145 more than in group two. This significant disparity highlights the effectiveness of the added visual and audio effects in reducing unnecessary interventions.
+Additionally, drivers with 5 to 10 years of experience are more inclined to perform intervention compared to both new and very experienced drivers. From a road safety perspective, fewer interventions led to a substantial decrease in near-misses, as evidenced by higher TTC values in group two’s experiments (Fig. 6(c)). Most intervention executions occurred while the ADS was approaching red lights at high relative speeds (Fig. 6(d)), with the majority (35 out of 46 participants) choosing to intervene in such scenarios. This pattern reinforces the observation that the top-ranked attention-attracting features do not always correlate with actual action.
+Delving into the primary triggers for intervention behavior when the ADS approaches traffic signals, Fig. 7 showcases
+
+Fig. 7. The comparative results regarding trajectories of the ADS and adjacent vehicles in signal-approaching scenarios.
+
+comparative trajectories of the ADS and nearby vehicles in signal-approaching scenarios, complemented by two illustrative examples. A key observation is that the relative speed difference between the ADS and other road users is a major factor contributing to riders’ discomfort, often leading to interventions. For instance, as the ADS approaches red lights, it tends to decelerate more sharply than what riders, particularly less experienced drivers, anticipate. This discrepancy, combined with the possibility of being overtaken during these moments, raises concerns about the reliability of autonomous driving. It is noteworthy that all 6 instances of intervention by less experienced drivers occurred in scenarios where the ADS is approaching traffic signals. This pattern indicates a need for further refinements, particularly in smoothing the ADS’s relative speed in such scenarios, to enhance user acceptance and trust in the system.
+
+Fig. 6. The summarized resutls in relation to rider intervention and adoption during autonomous driving: (a) the obsersed intentions of intervention; (b) the recorded executions of intervention; (c) the calculated TTC values during the experiments for both groups; (d) the typical intervened scenario during the experiment.
+
+C. Simulation Factors
+Simulation sickness is recognized as a significant factor that negatively affects participant performance in simulator studies [33]–[35]. The SSQ serves as a comprehensive tool for monitoring the level of sickness in participants following exposure to VR experiments, finding extensive application across various simulation-based studies [33], [36], [37]. The SSQ categorizes symptoms into three main groups: nausea, which includes issues like vomiting and dizziness; oculomotor problems, such as eyestrain, blurred vision, and headaches; and disorientation, characterized by vertigo, imbalance, and a general sense of discomfort [27]. Its scoring system utilizes a principal factor analysis technique to accurately assess the overall intensity of simulation sickness and provides detailed
+
+Authorized licensed use limited to: Politecnico di Torino. Downloaded on June 12,2024 at 15:56:30 UTC from IEEE Xplore. Restrictions apply. © 2024 IEEE. Personal use is permitted, but republication/redistribution requires IEEE permission.See https://www.ieee.org/publications/rights/index.html for more information.
+
+This article has been accepted for publication in IEEE Transactions on Intelligent Vehicles. This is the author's version which has not been fully edited and content may change prior to final publication. Citation information: DOI 10.1109/TIV.2024.3373773
+
+IEEE TRANSACTIONS ON INTELLIGENT VEHICLES, VOL. 00, NO. 0, 2024
+
+8
+
+subscale scores for diagnostic purposes. This involves using unit weights on variables clarified by varimax rotation, a method that simplifies the representation of subspaces with a few significant items. As a result, a four-level scoring scale from none (0) to severe (3) has been developed, earning broad acceptance in the research community for its effectiveness in measuring simulation sickness. Participants’ simulation sickness levels, as measured by the SSQ, are detailed in Table 1. After the experiment, the reported symptoms included dizziness, eyestrain, nausea, and sweating, all of which were of slight severity. Despite these symptoms, all experimental scenarios are completed successfully and accurately. Notably, the analysis reveals no significant difference in sickness levels between the two groups. This finding suggests that the introduction of additional visual and sound effects did not exacerbate participants’ sickness levels.
+Furthermore, the results of the self-awareness questionnaire are presented in Table II, indicating that the participants’ actions during the experiments were not adversely influenced by simulation factors subjectively. Notably, all participants reported that their behavior was unaffected by simulation sickness, with a high average score (Mean of 4.11 on a 5-point Likert scale) reflecting their agreement that their intervention actions were spontaneous (Mean of 4.27). A majority of the participants (40 out of 46) rated the visualization and 3D effects of the simulation platform very highly, and all participants responded positively to the simulated futuristic scenarios. From a statistical perspective, the questionnaire achieved a Cronbach’s α value of 0.74, denoting good internal consistency in the participants’ positive responses.
+
+TABLE I RESULTS OF THE SSQ SURVEY
+
+Symptoms
+
+Group one: mean(SD) Group two: mean(SD)
+
+Before
+
+After
+
+Before
+
+After
+
+Dizzy (eye closed)
+Eyestrain Nausea Sweating
+
+0.04 (0.20)
+0 (0) 0.04 (0.20)
+0 (0)
+
+0.17 (0.38)
+0.13 (0.34) 0.17 (0.38) 0.08 (0.28)
+
+0 (0)
+0.04 (0.20) 0 (0) 0 (0)
+
+0.13 (0.34)
+0.17 (0.38) 0.08 (0.28) 0.04 (0.20)
+
+V. CONCLUSIONS
+This study underscores that individuals, particularly experienced drivers, are prone to intervene in high-level autonomous driving scenarios if they perceive a safety risk, despite the ADS maintaining an extremely low accident rate. In response, we propose a strategy aimed at preventing unnecessary interventions that could disrupt the ADS’s optimal functioning. This strategy, based on understanding human perception, employs visual and auditory cues to reassure riders about the nonnecessity of intervention. Our findings highlight the critical need for a human-centric approach in the development of ADS technology, such as during the Deep Reinforcement Learning (DRL) process. This is particularly vital in complex driving scenarios, including approaching traffic lights, responding to other vehicles cutting in, and maneuvering through dense traffic flows. A key insight is that maintaining a relatively low relative speed can significantly enhance rider comfort.
+While advancements in multisensory systems have significantly improved the detection accuracy of ADS [38], the aspect of rider trust remains a critical challenge in the widespread adoption of AVs, as highlighted in recent studies [37], [39]. This aspect often receives less attention in the pursuit of achieving extreme precision in ADS functionality. Given that drivers are likely to be the primary and largest user group for AVs, it is crucial to reshape their perception and trust in ADS to encourage broader acceptance of AV technology. Our work reveals the limitations in the environmental awareness of the ADS as a result of the existing DRL strategy, contributing insights on enhancing user adoption of AVs, either by anticipating and preventing unnecessary interventions or by subtly shifting their focus from driving, thereby redefining their role from drivers to passengers.
+We recognize the objective limitations of the present study concerning the sample size and composition. The selection criteria for participants may introduce bias, potentially limiting the generalizability of our findings on enhancing the ADS algorithm in terms of environmental awareness. Despite these constraints, our study explores a wide array of autonomous driving scenarios. This comprehensive approach has enabled us to identify key differences in perception between humans and the ADS, offering valuable insights for future research aimed at improving the ADS perception system.
+
+TABLE II RESULTS OF THE SELF-AWARENESS QUESTIONNAIRE
+
+Survey Contents
+
+Descriptive results Mean SD
+
+Cronbach’s α
+
+Performance was not
+
+affected due to
+
+4.11
+
+0.64
+
+simulation sickness
+
+0.74
+
+Actions were performed spontaneously
+
+4.27
+
+0.78
+
+Good visualization
+
+4.78
+
+0.92
+
+Reasonable futuristic scenarios
+
+4.14
+
+1.12
+
+REFERENCES
+[1] M. M. Waldrop, “No drivers required,” Nature, vol. 518, no. 7537, pp. 20–23, 2015.
+[2] A. Reschka, “Safety concept for autonomous vehicles. autonomous driving-technical, legal and social aspects,” pp. 473–496, 2016.
+[3] M. Mart´ınez-D´ıaz and F. Soriguera, “Autonomous vehicles: theoretical and practical challenges,” Transportation Research Procedia, vol. 33, pp. 275–282, 2018.
+[4] K. Sonoda and T. Wada, “Displaying system situation awareness increases driver trust in automated driving,” IEEE Transactions on Intelligent Vehicles, vol. 2, no. 3, pp. 185–193, 2017.
+[5] F. Roche and S. Brandenburg, “Should the urgency of visual-tactile takeover requests match the criticality of takeover situations?” IEEE Transactions on Intelligent Vehicles, vol. 5, no. 2, pp. 306–313, 2020.
+[6] N. Kisling and L. Redick. (2023, 11) Self-driving car accident statistics. [Online]. Available: https://www.knrlegal.com/ car-accident-lawyer/self-driving-car-accident-statistics/
+
+Authorized licensed use limited to: Politecnico di Torino. Downloaded on June 12,2024 at 15:56:30 UTC from IEEE Xplore. Restrictions apply. © 2024 IEEE. Personal use is permitted, but republication/redistribution requires IEEE permission.See https://www.ieee.org/publications/rights/index.html for more information.
+
+This article has been accepted for publication in IEEE Transactions on Intelligent Vehicles. This is the author's version which has not been fully edited and content may change prior to final publication. Citation information: DOI 10.1109/TIV.2024.3373773
+
+IEEE TRANSACTIONS ON INTELLIGENT VEHICLES, VOL. 00, NO. 0, 2024
+
+9
+
+[7] J.-G. Lee, K. J. Kim, S. Lee, and D.-H. Shin, “Can autonomous vehicles be safe and trustworthy? effects of appearance and autonomy of unmanned driving systems,” International Journal of Human-Computer Interaction, vol. 31, no. 10, pp. 682–691, 2015.
+[8] L. Li, K. Ota, and M. Dong, “Humanlike driving: Empirical decisionmaking system for autonomous vehicles,” IEEE Transactions on Vehicular Technology, vol. 67, no. 8, pp. 6814–6823, 2018.
+[9] T. Zhang, J. Zhan, J. Shi, J. Xin, and N. Zheng, “Human-like decisionmaking of autonomous vehicles in dynamic traffic scenarios,” IEEE/CAA Journal of Automatica Sinica, vol. 10, no. 10, pp. 1905–1917, 2023.
+[10] T. Saito, T. Wada, and K. Sonoda, “Control authority transfer method for automated-to-manual driving via a shared authority mode,” IEEE Transactions on Intelligent Vehicles, vol. 3, no. 2, pp. 198–207, 2018.
+[11] C. Olaverri-Monreal and T. Jizba, “Human factors in the design of human–machine interaction: An overview emphasizing v2x communication,” IEEE Transactions on Intelligent Vehicles, vol. 1, no. 4, pp. 302–313, 2016.
+[12] W. Wang, X. Na, D. Cao, J. Gong, J. Xi, Y. Xing, and F.-Y. Wang, “Decision-making in driver-automation shared control: A review and perspectives,” IEEE/CAA Journal of Automatica Sinica, vol. 7, no. 5, pp. 1289–1307, 2020.
+[13] Z. Xu, Y. Fang, N. Zheng, and H. L. Vu, “Analyzing the inconsistency in driving patterns between manual and autonomous modes under complex driving scenarios with a vr-enabled simulation platform,” Journal of Intelligent and Connected Vehicles, vol. 5, no. 3, pp. 215–234, 2022.
+[14] C. Wang, Q. Sun, Z. Li, and H. Zhang, “Human-like lane change decision model for autonomous vehicles that considers the risk perception of drivers in mixed traffic,” Sensors, vol. 20, no. 8, p. 2259, 2020.
+[15] X. He, J. Stapel, M. Wang, and R. Happee, “Modelling perceived risk and trust in driving automation reacting to merging and braking vehicles,” Transportation research part F: traffic psychology and behaviour, vol. 86, pp. 178–195, 2022.
+[16] Y. Xing, C. Lv, D. Cao, and P. Hang, “Toward human-vehicle collaboration: Review and perspectives on human-centered collaborative automated driving,” Transportation research part C: emerging technologies, vol. 128, p. 103199, 2021.
+[17] K. Bengler, M. Rettenmaier, N. Fritz, and A. Feierle, “From hmi to hmis: Towards an hmi framework for automated driving,” Information, vol. 11, no. 2, p. 61, 2020.
+[18] O. Carsten and M. H. Martens, “How can humans understand their automated cars? hmi principles, problems and solutions,” Cognition, Technology & Work, vol. 21, no. 1, pp. 3–20, 2019.
+[19] A. Dosovitskiy, G. Ros, F. Codevilla, A. Lopez, and V. Koltun, “Carla: An open urban driving simulator,” in Conference on robot learning. PMLR, 2017, pp. 1–16.
+[20] NVIDIA. (2019, 10) Nvidia drive constellation virtual reality autonomous vehicle validation platform. [Online]. Available: https://www.nvidia.com/content/dam/en-zz/Solutions/self-driving-cars/ drive-constellation/nvidia-drive-constellation-datasheet-2019-oct.pdf
+[21] A. C. Madrigal, “Inside waymo’s secret world for training self-driving cars,” The Atlantic, vol. 23, pp. 1–3, 2017.
+[22] S. Feng, X. Yan, H. Sun, Y. Feng, and H. X. Liu, “Intelligent driving intelligence test for autonomous vehicles with naturalistic and adversarial environment,” Nature communications, vol. 12, no. 1, pp. 748–761, 2021.
+[23] R. Wiedemann and U. Reiter, “Microscopic traffic simulation: the simulation system mission, background and actual state,” Project ICARUS (V1052) Final Report, vol. 2, pp. 1–53, 1992.
+[24] M. Colledanchise and L. Natale, “On the implementation of behavior trees in robotics,” IEEE Robotics and Automation Letters, vol. 6, no. 3, pp. 5929–5936, 2021.
+[25] C. Katrakazas, M. Quddus, and W.-H. Chen, “A new integrated collision risk assessment methodology for autonomous vehicles,” Accident Analysis & Prevention, vol. 127, pp. 61–79, 2019.
+[26] O´ . Pe´rez-Gil, R. Barea, E. Lo´pez-Guille´n, L. M. Bergasa, C. GomezHuelamo, R. Gutie´rrez, and A. Diaz-Diaz, “Deep reinforcement learning based control for autonomous vehicles in carla,” Multimedia Tools and Applications, vol. 81, no. 3, pp. 3553–3576, 2022.
+[27] R. S. Kennedy, N. E. Lane, K. S. Berbaum, and M. G. Lilienthal, “Simulator sickness questionnaire: An enhanced method for quantifying simulator sickness,” The international journal of aviation psychology, vol. 3, no. 3, pp. 203–220, 1993.
+[28] P. Afflerbach, “Verbal reports and protocol analysis,” Handbook of reading research, 2001.
+[29] H. Chen, X. Zhao, Z. Li, Q. Fu, Q. Wang, and L. Zhao, “Construction and analysis of driver takeover behavior modes based on situation
+
+awareness theory,” IEEE Transactions on Intelligent Vehicles, pp. 1–15, 2023. [30] A. Gibaldi, M. Vanegas, P. J. Bex, and G. Maiello, “Evaluation of the tobii eyex eye tracking controller and matlab toolkit for research,” Behavior research methods, vol. 49, pp. 923–946, 2017. [31] L. Itti, C. Koch, and E. Niebur, “A model of saliency-based visual attention for rapid scene analysis,” IEEE Transactions on pattern analysis and machine intelligence, vol. 20, no. 11, pp. 1254–1259, 1998. [32] D. Gao and N. Vasconcelos, “Discriminant saliency for visual recognition from cluttered scenes,” Advances in neural information processing systems, vol. 17, pp. 1–8, 2004. [33] L. Tijerina, M. Blommer, R. Curry, R. Swaminathan, D. S. Kochhar, and W. Talamonti, “An exploratory study of driver response to reduced system confidence notifications in automated driving,” IEEE Transactions on Intelligent Vehicles, vol. 1, no. 4, pp. 325–334, 2016. [34] H. Asadi, C. P. Lim, S. Mohamed, D. Nahavandi, and S. Nahavandi, “Increasing motion fidelity in driving simulators using a fuzzy-based washout filter,” IEEE Transactions on Intelligent Vehicles, vol. 4, no. 2, pp. 298–308, 2019. [35] M. R. C. Qazani, H. Asadi, and S. Nahavandi, “An optimal motion cueing algorithm using the inverse kinematic solution of the hexapod simulation platform,” IEEE Transactions on Intelligent Vehicles, vol. 7, no. 1, pp. 73–82, 2021. [36] Y. Hwang, D. Yoon, H. S. Kim, and K.-H. Kim, “A validation study on a subjective driving workload prediction tool,” IEEE Transactions on Intelligent Transportation Systems, vol. 15, no. 4, pp. 1835–1843, 2014. [37] Z. Xu, N. Zheng, Y. Lv, Y. Fang, and H. L. Vu, “Analyzing scenario criticality and rider’s intervention behavior during high-level autonomous driving: A vr-enabled approach and empirical insights,” Transportation research part C: emerging technologies, vol. 158, p. 104451, 2024. [38] K. Muhammad, A. Ullah, J. Lloret, J. Del Ser, and V. H. C. de Albuquerque, “Deep learning for safe autonomous driving: Current challenges and future directions,” IEEE Transactions on Intelligent Transportation Systems, vol. 22, no. 7, pp. 4316–4336, 2020. [39] J. Yang, Q. Ni, G. Luo, Q. Cheng, L. Oukhellou, and S. Han, “A trustworthy internet of vehicles: The dao to safe, secure, and collaborative autonomous driving,” IEEE Transactions on Intelligent Vehicles, vol. 8, no. 12, pp. 4678–4681, 2023.
+Zheng Xu received his BSc and MSc degrees in Transportation Engineering from the Central South University (China) and Monash University (Australia) in 2017 and 2019, respectively. As a PhD candidate in the Faculty of Civil Engineering, Monash University, his research is focused on autonomous vehicles involved simulation studies, 3D modeling and VR-enabled human–machine interaction studies.
+Changshuai Wang received the B.Eng. and M.Eng. degrees in transportation planning and management from Chang’an University, Xi’an, China, in 2017 and 2020, respectively. He is currently working toward a Ph.D. degree with the Key Laboratory of Traffic Planning and Management, School of Transportation, Southeast University, Nanjing, China. His research interests are traffic safety, driving behavior, and simulator research.
+
+Authorized licensed use limited to: Politecnico di Torino. Downloaded on June 12,2024 at 15:56:30 UTC from IEEE Xplore. Restrictions apply. © 2024 IEEE. Personal use is permitted, but republication/redistribution requires IEEE permission.See https://www.ieee.org/publications/rights/index.html for more information.
+
+This article has been accepted for publication in IEEE Transactions on Intelligent Vehicles. This is the author's version which has not been fully edited and content may change prior to final publication. Citation information: DOI 10.1109/TIV.2024.3373773
+
+IEEE TRANSACTIONS ON INTELLIGENT VEHICLES, VOL. 00, NO. 0, 2024
+
+10
+
+Tanghan Jiang received the joint B.E. degree from Central South University and Monash University in 2021. She is currently a PhD candidate at Monash University, with her research primarily revolves around VR-assisted simulation studies. Her focus areas include occupational safety management and behavioral analysis.
+
+Zhiyuan Liu (Senior Member, IEEE) received the B.Eng. degree from Southeast University, China, and the Ph.D. degree in transportation engineering from the National University of Singapore, Singapore. He is currently a Full Professor with the School of Transportation, Southeast University. He has published over 100 peerreviewed articles in prestigious journals. His research interests include transportation network modeling, public transportation, and intelligent transportation systems. He serves as the Managing Editor for Multimodal Transportation, as well as an Associate Editor for IEEE Intelligent Transportation Systems Magazine, IET Intelligent Transport Systems, and Journal of Transportation Engineering, Part A: Systems.
+Nan Zheng received his BSc, MSc and PhD degrees in Transportation Engineering from the Southeast University (China), Delft University of Technology, E´ cole polytechnique fe´de´rale de Lausanne (EPFL), in 2007, 2009 and 2014, respectively. From November 2014 to August 2015, September 2015 to September 2016, he was appointed as a Post-Doc by EPFL and the Federal Institute of Technology Zurich (ETHZ). Since October 2016, he was with Beihang University in Beijing as an Associate Professor in the School of Transportation. He recently joined the Institute of Transport Studies at Monash University as a Senior Lecturer. Dr Nan Zheng’s research interests include traffic flow theory, traffic big data, urban traffic operation and control, multi-modal and new-generation traffic management.
+
+Authorized licensed use limited to: Politecnico di Torino. Downloaded on June 12,2024 at 15:56:30 UTC from IEEE Xplore. Restrictions apply. © 2024 IEEE. Personal use is permitted, but republication/redistribution requires IEEE permission.See https://www.ieee.org/publications/rights/index.html for more information.
+

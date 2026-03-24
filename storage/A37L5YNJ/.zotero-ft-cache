@@ -1,0 +1,650 @@
+SPECIAL ISSUE PAPER 307
+
+Vehicle dynamics modelling for the National Advanced Driving Simulator
+
+G J Heydinger1*, M K Salaani, W R Garrott3 and P A Grygier3 1S.E.A. Inc., Columbus, Ohio, USA 2Transportation Research Center Inc., East Liberty, Ohio, USA 3National Highway TraYc Safety Administration, East Liberty, Ohio, USA
+
+Abstract: This paper provides an overview of the development of a vehicle dynamics simulation model for use on the National Highway TraYc Safety Administration’s (NHTSA’s) National Advanced Driving Simulator. The paper describes fundamental aspects of models used to represent rigid body chassis and suspension systems, powertrain, tyres, brakes, steering and aerodynamics. Representative data from laboratory measurements, instrumented eld tests and simulation runs of a 1997 Jeep Cherokee Sport are presented to illustrate simulation development and validation eVorts. A companion paper to this one also uses Jeep Cherokee data. Both papers highlight current capabilities and methodologies employed by two organizations that have worked, often collaboratively, to advance the state of the art of vehicle dynamics modelling and simulation validation. This paper features work done by NHTSA’s Vehicle Research and Test Center; the companion paper reports on work done by Systems Technology, Incorporated (STI ).
+Keywords: National Advanced Driving Simulator, simulator, simulation, vehicle dynamics, model, validation
+
+1 INTRODUCTION
+The National Highway TraYc Safety Administration (NHTSA) has funded development of the National Advanced Driving Simulator (NADS ), a driver-in-theloop, high delity and real-time driving simulator. The NADS, shown in Fig. 1, is the most advanced driving simulator in the world and it has been designed to immerse the test subject (driver) fully into the driving scenario. The NADS provides a safe, eYcient tool for driver impairment studies, for driver workload and adaptation studies, and it can be used to support development of automotive safety regulations [1].
+Four vehicles have been modelled and are currently available for use on NADS: a Ford Taurus, a Chevrolet Malibu, a Jeep Cherokee and a tractor–semitrailer. One of the vehicles is mounted in the NADS dome. For the light vehicles, the entire vehicle is placed in the dome; for the heavy truck just the tractor cab plus front hood is used. The dome contains a visual system that uses 15 projectors to provide the test subject with a 360° eld of
+The MS was received on 28 March 2001 and was accepted after revision for publication on 13 September 2001. * Corresponding author: S.E.A. Inc., 7349 Worthington-Galena Road, Columbus, OH 43085, USA.
+D03601 © IMechE 2002
+
+Fig. 1 National Advanced Driving Simulator
+view. Current visual and terrain scenarios include urban, rural, residential, mountainous and other environments that can be populated with traYc, pedestrians and controlled traYc signals and signage. The NADS contains a high delity audio system that provides the test subject with realistic audio feedback from the vehicle and environment. Terrain (road ) features such as surface
+Proc Instn Mech Engrs Vol 216 Part D: J Automobile Engineering
+
+308
+
+G J HEYDINGER, M K SALAANI, W R GARROTT AND P A GRYGIER
+
+type and friction, wet, icy, etc. and terrain pro les such as slopes, cross grades, potholes, curbs, etc. are modelled and synchronized with the visual and audio cues.
+The vehicle dynamics simulation computes the response of the vehicle as a result of the test subject (driver) inputs for steering wheel motion, throttle displacement, brake pedal displacement, clutch engagement and transmission gear position. Each of the NADS vehicles is tted with the NADS Control Feel System (CFS) hardware that provides driver feedback through the driver controls: steering wheel, throttle, brakes, clutch and gearshift mechanisms. The terrain features and pro les are modelled as inputs to the vehicle dynamics simulation, In addition, the vehicle dynamics simulation computes the aerodynamic forces arising from simulated steady and gusting winds and those caused by passing vehicles.
+The responses computed by the vehicle dynamics simulation include the position, velocity and acceleration states of the vehicle. The visual system image generators that project the real-time images of the driving scenario use these variables. These variables are also used to determine the position of the vehicle on the terrain. They are also used to drive the NADS motion system, which moves the dome to replicate the motions of an actual vehicle driving through the simulated scenario.
+The NADS motion system has nine degrees of freedom as indicated on Fig. 1. It has a 330° range of motion yaw ring between its six-degree-of-freedom hexapod and the dome containing the vehicle. The hexapod is mounted on a 20 m ×20 m X–Y motion system that provides for large horizontal excursions and two additional degrees of freedom.
+To simulate high frequency road disturbances and high frequency loads through the tyres and suspension, NADS contains four vibration actuators, mounted at points of suspension–chassis interaction. These vibration actuators are mounted between the oor of the dome and vehicle, and they act only in the bounce direction of the chassis. The vibration actuators were designed with vibration isolator counterweights to minimize vibrations transmitted to the dome. The vibration actuators can be driven on the basis of forces computed from the vehicle dynamics simulation and/or on the basis of random forces to mimic road disturbances.
+Realistic mathematical vehicle dynamics models are a prerequisite for successful NADS operation. This paper highlights eVorts made by NHTSA’s Vehicle Research and Test Center ( VRTC ) to provide such models. In addition to describing general aspects of the NADS vehicle dynamics simulation, the paper focuses on required laboratory measurements to obtain meaningful parametric values for vehicle models, instrumented eld testing for full model evaluation and simulation model validation. The overall methodology presented is a culmination of over a decade of eVort by VRTC to re ne and streamline simulation development and evaluation.
+Proc Instn Mech Engrs Vol 216 Part D: J Automobile Engineering
+
+A series of papers have been written describing details of the light vehicle models [2–5] and their validation [6–8]. Papers describing the heavy truck model and its validation are forthcoming. This paper oVers more of an overview rather than focusing on particular details of the models. The Jeep Cherokee model and its validation are used here as an exemplar of the overall processes that were used for developing all vehicle models.
+2 NADS VEHICLE DYNAMICS
+A general purpose, multibody, dynamics program, Real Time Recursive Dynamics ( RTRD), developed by the University of Iowa’s Center for Computer-Aided Design, is the core dynamics code of NADS vehicle dynamics simulation, NADSdyna [9]. NADSdyna includes vehicle subsystems that interact with the RTRD. Six vehicle submodels are included in NADSdyna: powertrain, cruise control, tyres, brakes, steering and aerodynamics. These submodules provide NADSdyna with a broad range of functional capabilities and allow most production vehicles to be simulated. In the NADS application, the inputs to NADSdyna come from the test subject (driver) inputs, from the modelled terrain features and pro le and from the modelled wind. The outputs from NADSdyna at each simulation time step are used to drive the vehicle through the scenario and to direct the motion, visual and audio systems to respond accordingly.
+The RTRD is used to model the rigid body behaviour of chassis, wheels and suspension and steering linkages. It oVers great capabilities in terms of rigid body mechanism modelling and accounts for non-linear kinematic and dynamic eVects, such as roll steer, roll centres and squat/lift forces. The RTRD is based on a topological analysis of a rigid body mechanism formulated using minimum relative joint coordinates. It can model either open or closed loop chains. Its constraint library supports revolute, spherical, translational, universal, spherical–translational, revolute–spherical and translational– revolute joints. For closed chains, distance constraints, spherical, and revolute–spherical cut-joint types are supported. Springs, dampers, antiroll bars and leaf springs are modelled as external forces. Non-linear elements can be used.
+Two fundamental requirements of a vehicle dynamics simulation used with a driving simulator are that it executes faster than real time and that it provides suYcient delity to the actual vehicle to convince a simulator driver that they are driving the actual vehicle. These two requirements are con icting in that higher simulation delity requires greater model complexity and longer run times. NADSdyna has been developed to meet both of these requirements. NADSdyna has been shown to provide simulated responses that capture the essence of vehicle behaviour necessary for realistic simu-
+D03601 © IMechE 2002
+
+VEHICLE DYNAMICS MODELLING FOR THE NATIONAL ADVANCED DRIVING SIMULATOR
+
+309
+
+lator operation. The basic responses of the vehicle to driver inputs of steering, braking and throttle are adequately predicted, as are understeer characteristics. Tyre and suspension responses to varying terrains and road obstacles are also predicted by NADSdyna well enough to provide the driver with realistic feedback.
+NADSdyna does not include models for bushing compliance. Instead, suspension compliance characteristics are added to suspension kinematics, as is typical of lumped parameter based simulation models. NADSdyna also does not include models for non-rigid bodies (e.g. the chassis is modelled as a rigid body). These modelling decisions were made so as not to lengthen simulation run times and not to make NADSdyna more complex than necessary for successful NADS operation.
+The exemplar vehicle modelled and tested is a 1997 Jeep Cherokee Sport. It has a 4.0 l I6 engine, four-speed automatic transmission, cruise control, pitman arm power-assisted steering, four-wheel antilock brakes and P255/75R15 Goodyear Wrangler RT/S OWL tyres with cold in ation pressure of 36 lbf/in2.
+
+2.1 Multibody dynamics modelling
+A thorough exposure to the multibody dynamics formalisms used by the RTRD goes beyond the scope of this document. Interested parties should refer to specialized references. The RTRD has a recursive formulation that requires rigid bodies to be connected in an open loop structure, or a spanning tree [10, 11]. The Jeep model contains six closed loops. A joint on each loop is cut to obtain a spanning tree and constraint equations associated with Lagrange multipliers are imposed at these cut joints to force kinematically admissible motion. The procedure cuts joints that will result in a model with optimum computational eYciency characterized by a minimum number of coordinates and constraint equations [12]. The overall RTRD model for the Jeep Cherokee is shown in Fig. 2. Table 1 summarizes the rigid bodies and joints modelled.
+VRTC subcontracted with SEA, Incorporated, to measure suspension kinematics and compliances, shock absorber characteristics, vehicle and suspension component geometry and centre-of-gravity and inertial properties of the vehicle and suspension components [13]. SEA, Incorporated, used its Vehicle Inertia Measurement Facility to determine vehicle weight, centre-of-gravity longitudinal, lateral and height positions, vehicle roll mass of inertia, pitch mass of inertia, yaw mass of inertia and roll/yaw mass product of inertia. The suspension linkages’ inertial properties were measured using bi lar and tri lar pendulums. The suspension kinematic and compliance measurements were made by SEA using in-house equipment. The shock absorbers were tested at Detroit Testing Labs.
+The measurements were used to provide parameters
+D03601 © IMechE 2002
+
+Fig. 2 RTRD multibody model of the Jeep Cherokee
+
+Table 1 Rigid bodies and joints used to model the Jeep Cherokee
+
+Rigid bodies
+
+Comments
+
+PA DL F axle LLCA ULCA LRCA URCA T bar R axle–left and
+right wheel Front left wheel Front right
+wheel Chassis
+
+Pitman arm Drag link Front axle Lower left control arm Upper left control arm Lower right control arm Upper right control arm Track bar Rear axle and two attached wheels as one rigid
+body Front left wheel independent of the front axle Front right wheel independent of the front axle
+Chassis, passengers, drivers, and cargo as one rigid body
+
+Joints Comments
+
+Number used
+
+S
+
+Spherical
+
+7
+
+R
+
+Revolute
+
+3
+
+U
+
+Universal
+
+5
+
+D
+
+Distance constraint
+
+1
+
+TR
+
+Translational revolute composite joint 1
+
+$
+
+Cut constraint
+
+6
+
+used in the NADSdyna model/simulation. Also, the suspension kinematic tests were used to verify the accuracy of the multibody suspension model. The model was exercised in bounce and roll, and wheel steer and camber angle motions were checked against measured suspension characteristics. Simulation predictions of overall
+Proc Instn Mech Engrs Vol 216 Part D: J Automobile Engineering
+
+310
+
+G J HEYDINGER, M K SALAANI, W R GARROTT AND P A GRYGIER
+
+front and rear roll stiVness and ride rates were also checked against measured responses. These types of checks are vital parts of evaluating the overall simulation. They provide con dence that the model is formulated correctly and that the parameters used are correct. These sanity checks can uncover problems that might otherwise go unnoticed or lead to problems later on when comparing against eld test data. Experience has taught the present authors that it is better to identify model and/or parameter problems early in model development than when the full simulation, with all of its submodels and their complex interactions, is being used.
+Other sanity checks were performed prior to attempting to validate against eld test data. The simulated wheelbase and track widths were con rmed, as was Ackerman steering behaviour. The simulated wheel loads were checked against vehicle weight, and steady state lateral and longitudinal load transfers were checked against simple theory.
+
+2.2 Suspension force elements
+
+The Cherokee front suspension has a solid axle and coil springs. Coil spring and bump stop characteristics are consolidated and modelled using translational spring– damper–actuator ( TSDA) elements. The top graph of Fig. 3 shows measured force–de ection curves that are used in non-linear TSDA models for front suspension springs and bump stops. TSDA elements use cubic spline interpolation to determine spring force on the basis of de ection. The line of action of the force is determined by spring end point positions.
+The Cherokee rear suspension contains a solid axle and leaf springs. As shown in the bottom graph of Fig. 3, leaf springs exhibit greater hysteresis than coil springs. The leaf spring model used in NADSdyna is adopted from Fancher et al. [14] and accounts for hysteresis. Spring force is empirically formulated as a rst-order diVerential equation:
+
+qF qä
+
+=
+
+Fenv ­ â
+
+F
+
+(1)
+
+where
+
+F
+
+spring force
+
+Fäenv
+
+upper or lower boundary envelope force spring de ection
+
+â
+
+decay constant (can diVer for
+
+increasing/decreasing load )
+
+For suYciently small time steps, a valid solution is
+
+Fi=Fenvi+(FiÕ 1­Fenvi) exp(­|äi­äiÕ1|/â)
+
+(2)
+
+where subscript i indicates the current time step and i­1
+
+the previous time step. The upper and lower envelopes
+
+are computed using cubic spline interpolation. This
+
+model is good for up to 25 Hz of road disturbance input
+
+Proc Instn Mech Engrs Vol 216 Part D: J Automobile Engineering
+
+Fig. 3 Front and rear spring and bump stop characteristic curves
+[14, 15]. In NADSdyna, leaf spring forces are applied at the line of action between two connecting points on the chassis and axle.
+Shock absorbers in the front and rear suspensions and the steering shock absorber were modelled using TSDA cubic spline curve elements that relate damping forces to relative velocities between two rigid bodies connecting each shock. Figure 4 shows measured front shock absorber characteristic curves and the t to data that was used in the NADSdyna model.
+The damping is dependent on excitation frequency. As frequency increases, hysteresis loop sizes increase. The method used in NADSdyna does not model this eVect; it is based on a nominal frequency (1–2 Hz). Modelling the damper extensively goes beyond the simulator’s objective and would add unnecessary complexities to modelling eVorts, The force–velocity relation used is suYcient for the needs of NADS.
+The Cherokee’s front and rear suspensions have antiroll (stabilizer) bars. Antiroll bars have a large in uence on lateral load transfer, understeer characteristics and
+D03601 © IMechE 2002
+
+VEHICLE DYNAMICS MODELLING FOR THE NATIONAL ADVANCED DRIVING SIMULATOR
+
+311
+
+ing steer or camber angles quasi-statically or by including stiV translational and rotational springs at bushing locations. Quasi-static implementation is used in NADSdyna since compliance eVects have high frequency. Their inclusion would result in a rigid body dynamics that required a dramatically smaller integration time step, impeding real-time computing.
+Front and rear aligning moment and lateral force compliance steer, and front and rear lateral force compliance camber, are included in NADSdyna models. Steer and camber compliances are modelled as linear functions of load ( lateral force and aligning moment) and added to steer and camber angles determined by suspension kinematics [16 ].
+
+Fig. 4 Front shock absorber characteristic curves and curve t used in NADSdyna modelling
+
+vehicle handling and stability. In NADSdyna models, the physical geometry of the antiroll bars is not modelled with the multibody dynamics model. Rather, vertical forces are applied to the spindles as a function of roll angle to account for antiroll bar eVects, as explained in reference [16 ]. This modelling method was selected to reduce the computational burden caused by including more bodies and stiV springs.
+Roll stiVness of the antiroll bar is computed from overall stiVness by deducting roll stiVness due to suspension springs and tyre stiVnesses. The antiroll bar stiVness and suspension stiVness are in parallel and tyre stiVness is in series with their composite. The front and rear antiroll bar stiVness is computed as follows:
+
+Kaux
+
+=
+
+Kö
+
+Kw
+
+(T
+
+s2
+
+/2
+
+)
+
++ KöKT(Tr2 KT (T r2 /2 )
+
+/2 ) ­ ­ Kö
+
+KwKTT
+
+s2(Tr2
+
+/4
+
+)
+
+(3)
+
+where
+
+Kö measured overall suspension roll stiVness
+
+Kw KT
+
+measured suspension vertical stiVness measured tyre vertical stiVness
+
+TTsr
+
+suspension springs lateral distance track width
+
+2.3 Suspension system compliance
+Compliances result from exibility and de ection of suspension components, mainly bushings. These de ections cause, most importantly, additional steer and camber angles to be produced by road wheels which aVect understeer properties and consequently lateral/directional handling and stability. Static and dynamic stiVness characteristics of bushings are non-linear and much stiVer than other compliant elements used in a suspension. This compliance can be modelled either by chang-
+D03601 © IMechE 2002
+
+2.4 Vehicle subsystems modelling
+
+For a complete vehicle model, the multibody formalism is augmented by other subsystems: powertrain, cruise control, wheels, brakes, tyres, steering and aerodynamic forces. Each of the subsystem models is coupled to the RTRD code and computations are completed for each of them at each simulation time step. This section describes the models of each subsystem for the 1997 Jeep Cherokee Sport.
+
+2.4.1 Powertrain
+
+The powertrain subsystem is based on a one-dimensional torque formulation that includes torque and angular velocity transmitted through each model component [9]. Cherokee components include engine, torque converter, automatic transmission gearbox, four-two-wheel drive transfer case, diVerential and nal drive.
+The engine is modelled using a quasi-static engine map that relates throttle input and engine speed to engine torque. This model neglects torque pulsation due to combustion in individual cylinders and also neglects variantinertia torque due to reciprocating motion of the pistons. In the actual vehicle, these high frequency torque variations are ltered by the torque converter. In NADSdyna, a rst-order lag is applied to throttle input to account for fuel system and throttle lags. The lag time constant can be tuned to match temporally the simulated engine’s response to the actual vehicle’s response. The engine formulation is
+
+Jö¨ e =Te ­Tac­Ttci
+
+(4)
+
+where
+
+J
+
+equivalent engine inertia
+
+öTTT¨ eatecci
+
+engine angular acceleration indicated engine torque accessory engine torque torque converter input torque
+
+Engine torque is obtained from engine map surface data
+
+using bilinear interpolation of throttle input and engine
+
+Proc Instn Mech Engrs Vol 216 Part D: J Automobile Engineering
+
+312
+
+G J HEYDINGER, M K SALAANI, W R GARROTT AND P A GRYGIER
+
+speed:
+
+Te=¼(öÇ e , öf )
+
+(5)
+
+where
+
+öö¼Ç fe
+
+throttle input engine speed engine surface data relation
+
+Accessory torque is torque lost because of engine friction and pumping losses. It is estimated as a linear function of engine speed:
+
+Tac=a0+a1öÇ e
+
+(6)
+
+whTeorerqau0eainndpuat1
+
+are constants. to the torque converter
+
+is
+
+Ttci
+
+=
+
+öÇ 2e K2
+
+(7)
+
+where K is the torque converter capacity factor. The torque converter is assumed inertialess and to
+be always operating at capacity. Therefore, it can be adequately modelled by its steady-state performance characteristics. These assumptions are deemed justi able since studies of torque converter dynamics have shown the quasi-steady-state model to be adequate for engine velocity disturbances with frequency content less than twice per revolution [9].
+The converter output torque passed to the transmission is
+
+Ttco = çTtci
+
+(8)
+
+where ç is the torque ratio. Torque ratio and capacity
+
+factor are functions of input to output speed ratio
+
+(Fig. 5). They are obtained from torque converter
+
+characteristic curves using cubic spline interpolation:
+
+A B K=¡
+
+öÇ e öÇ ti
+
+(9)
+
+and
+
+A B ç=¾
+
+öÇ e öÇ ti
+
+(10)
+
+The Cherokee automatic transmission has six ranges and
+
+shift lever positions. Park, reverse and neutral are con-
+
+ventional and mechanically operated. The ‘1–2’, ‘3’ and
+
+‘D’ (drive) ranges provide electronically controlled shift-
+
+ing. Position ‘1–2’ provides rst and second gears only,
+
+position ‘3’ provides rst, second and third gears and
+
+‘D’ provides rst through fourth gears.
+
+The transmission input shaft is connected to the
+
+torque converter, and the output shaft is linked to the
+
+diVerential. Gear shifting operation is determined on the
+
+basis of current gear position, throttle input, output
+
+shaft speed and a shift logic map. The gear ratios are
+
+listed in Table 2 with an assumed eYciency of 95 per
+
+cent.
+
+Proc Instn Mech Engrs Vol 216 Part D: J Automobile Engineering
+
+Fig. 5 Torque converter torque ratio and capacity factor
+
+Table 2 Transmission gear ratios
+
+Gear
+
+Ratio
+
+1st 2nd 3rd 4th Reverse
+
+2.80 1.55 1.00 0.75 ­2.39
+
+D03601 © IMechE 2002
+
+VEHICLE DYNAMICS MODELLING FOR THE NATIONAL ADVANCED DRIVING SIMULATOR
+
+313
+
+The shift logic map is shown in Fig. 6 where the output
+
+shaft speed is the speed of the shaft linked to the gear set.
+
+The transmission is assumed inertialess, but blending
+
+functions at the time of shifting represent torque and
+
+speed transitions. Shapes for these functions are pro-
+
+vided in reference [4]. These functions provide for
+
+smooth gear transitions in 1 s.
+
+The Cherokee transfer case provides for part-time
+
+four-wheel drive. When engaged, both the front and the
+
+rear axles are mechanically locked together and turn at
+
+the same speed. The moments of inertia of the gear com-
+
+ponents are assumed negligible, torque distribution
+
+to the two output shafts is assumed symmetric and
+
+eYciency of the transfer case is approximated to be
+
+95 per cent.
+
+The transfer case input portioned between the two
+
+dtorirvqeuseh, aTftTs:,
+
+is
+
+evenly
+
+pro-
+
+TFS=TRS=21ntc nef TT
+
+(11)
+
+where
+
+TFS front shaft torque
+
+TnnetRcfS
+
+rear shaft torque transfer case eYciency (0.95) transfer case ratio
+
+The transmission provides for two four-wheel drive
+
+oweqphuTteiaohellnetdsod:rii4VTvHeeTr,.ewtnhitteihadlnrtgicve=ear1trsaaeintnddii4svLirdeweasirt-thwonhrqtecue=le d2br.e7ivt2we.eFweonitrhrtiwTgohR-St
+
+and left axle shafts. It allows axle shafts to turn at diVer-
+
+ent speeds when turning corners. The Cherokee has a
+
+limited slip diVerential.
+
+The NADSdyna diVerential model allows a variable
+
+torque split based on output shaft speed diVerence [9].
+
+Fig. 6 Automatic shift logic map
+D03601 © IMechE 2002
+
+This model can simulate a conventional diVerential by
+
+reducing bias torque to zero. The model assumes an
+
+inertialess diVerential, and that torque distribution is a
+
+function of speed diVerence only. Details of this model
+
+can be found in reference [4].
+
+The ratio between the drive axle and the wheels is
+
+expressed by the following ratio and assumed eYciency:
+
+Nfd the
+
+=3.55 and nal drive
+
+aènfdd=èf0d.9is8,towrqhueree
+
+eNYfcdieisncthye.
+
+gear
+
+ratio
+
+of
+
+2.4.2 Cruise control
+
+The vehicle speed control system is electronically controlled and vacuum operated. When engaged, this system takes over accelerator operations at speeds greater than 35 miles/h (60 km/h) and less than 85 miles/h (137 km/h). Controls are mounted on the steering wheel and consist of ON/OFF, SET, RESUME/ACCEL, CANCEL and COAST.
+The cruise control model uses a proportional-integral controller to make errors between desired speed and actual vehicle speed tend towards zero for disturbances such as grade changes, aerodynamics, rolling resistance, etc. This model can be used with any conventional cruise control; only the driver interface changes. The basic controller mathematics is
+
+e = ud u
+
+(12)
+
+öf = kp e+ki e /s
+
+(13)
+
+where
+
+e error between desired and actual speed
+
+uud
+
+desired vehicle speed actual vehicle speed
+
+s
+
+Laplace transform
+
+öf throttle command
+
+These control equations are complemented with logical
+
+statements in NADSdyna so as to have the same cruise
+
+control commands as in the actual vehicle.
+
+2.4.3 Wheel modelling
+
+The road wheels are not modelled as rigid bodies; only the spin degree of freedom is formulated using
+
+Jö¨ w=T­Fx r
+
+(14)
+
+where
+
+J
+
+wheel spin inertia
+
+T
+
+applied torque
+
+öFr¨ xw
+
+wheel spin acceleration tyre longitudinal force rolling radius
+
+The wheel orientation is the same as the suspension’s spindle body.
+The longitudinal and lateral slip equations are solved using rst-order diVerential equations as suggested by Bernard and Clover [17] and presented in reference [4].
+
+Proc Instn Mech Engrs Vol 216 Part D: J Automobile Engineering
+
+314
+
+G J HEYDINGER, M K SALAANI, W R GARROTT AND P A GRYGIER
+
+2.4.4 Tyre model
+NADSdyna supports the System Technology, Incorporated (STI ) tyre model [18], a look-up table tyre model and a user-de ned interface tyre model. Using the user-de ned interface subroutine, the user can implement any desired tyre model (e.g. Pajecka Magic Formula Model ). The STI tyre model includes pertinent quasi-static tyre dynamics as well as lateral and longitudinal lag dynamics. Comparisons of tyre model predictions with test data are provided in the companion paper [19]. The tests performed on the Cherokee’s P225/75R15 tyres to obtain data for the model included steering, cambering, braking/driving, combined and discrete sinusoidal (to measure tyre lag characteristics) [4].
+2.4.5 Aerodynamic forces and moments
+The SAE J1594 aerodynamic recommended practice is used to model aerodynamic forces [20]. The mathematical application is similar to reference [16 ]. NADSdyna also contains a model for wind gusts resulting from passing vehicles. The wind gust model is based on work by HeZey [21].
+Aerodynamic force and moment coeYcients for the 1997 Jeep Cherokee were measured at Lockheed Aeronautical Systems Company’s Low Speed Wind Tunnel [22]. The vehicle was installed in the low speed test section on an external balance, four-point, support system. Data were acquired at nominal velocities of 45, 65 and 90 miles/h and at yaw angles spanning from 0° to 180° at 10° increments. The coeYcients shown in Fig. 7 as a function of aerodynamic (wind ) heading angle, â, include lift coeYcient (CL), drag coeYcient (CD), side
+
+force coeYcient (CS ), pitch moment coeYcient (CPM ), yaw moment coeYcient (CYM ) and roll moment coeYcient (CRM ).
+2.4.6 Brake system
+Power-assisted front disc and rear drum brakes are standard equipment for the Cherokee. The 1997 Cherokee is equipped with a xed rear pressure-proportioning valve. Brake system dynamics is modelled by including a rst-order lag between brake pedal force and pressure at the brake lines. See reference [4] for the mathematical formulation used.
+Measurements of brake pedal force, front line brake pressure and rear line brake pressure were done at VRTC. The vehicle was stationary, with engine running, as a cyclic increasing brake pedal force was slowly applied. The brake pedal force to front line brake pressure relation was obtained, and linear regression was used to determine curve data points used in NADSdyna. Rear brake pressure line to front brake pressure line proportioning was similarly determined. The knee point and slope (rear/front) were determined using linear regression at increasing pressures. Hysteresis was not considered for rear-to-front pressure proportioning data. The brake line pressure to brake torque relation is measured using VRTC’s Road Transducer Plates. Brake torques were determined from measured tyre forces multiplied by wheel rolling radii. Linear regression was used to determine curve data points for front and rear brakes used in NADSdyna. The time delay between brake force and front brake line pressure is estimated from a brake force step input test to be 0.2 s.
+The ABS model uses a proportional plus derivative controller to drive wheel slip control to a set point. Modulated pressure is computed individually for each wheel so that computations can proceed in parallel with those for wheel brake torque. Basic ABS controller formulations are explained in reference [3 ].
+2.4.7 Steering system
+On NADS, actual, measured steering wheel angles and rates are fed in real time as inputs to NADSdyna. NADSdyna computes vehicle responses and resulting forces acting on the steering ‘rack’. For the Cherokee, ‘rack’ force is the force at the lower end of the pitman arm. Power steering eVects are handled by NADS CFS software and hardware. CFS models steering feedback on the basis of steering forces and motions and includes a model for on-centre steering lash.
+
+Fig. 7 Aerodynamic coeYcients
+Proc Instn Mech Engrs Vol 216 Part D: J Automobile Engineering
+
+3 SIMULATION VALIDATION
+The simulation validation methodology used for the NADSdyna Cherokee model has been developed over a number of years by VRTC [23]. The methodology con-
+D03601 © IMechE 2002
+
+VEHICLE DYNAMICS MODELLING FOR THE NATIONAL ADVANCED DRIVING SIMULATOR
+
+315
+
+sists of three main phases: experimental data collection from instrumented vehicle tests, vehicle parameter measurement and comparison of simulation predictions with experimental data. As mentioned, prior to comparing full simulation predictions with eld test data, numerous sanity checks and independent checks of subsystem models are made. Trying to nd sources of discrepancy between simulations and experiments by looking at the vehicle as one unit is often a hopeless eVort owing to complex interactions between many subsystems.
+Simulation validation is performed in both time and frequency domains. Experimental driver inputs (steering, braking and throttle) are used as inputs. Simulation predictions are compared with experimental outputs. Time domain validation is good for demonstrating that the simulation can correctly predict steady state conditions and that non-linear eVects are properly modelled. High frequency transient phenomena, however, are diYcult to study in the time domain. They are best examined through frequency domain studies.
+
+lateral acceleration is achieved. At high steering angles, front tyre force saturation comes into play and lateral acceleration reaches its limit. Simulation predictions matched measured lateral acceleration quite well, con-
+rming appropriate understeer. Simulated roll gradient also matched measured response relatively well. These results indicate appropriate non-linear vehicle model properties as well as appropriate tyre model forces up to saturation.
+3.2.2 Step steer input
+This manoeuvre is a pseudo-step input of handwheel angle; Fig. 8. It is used to determine steady state as well
+
+3.1 Vehicle eld testing
+VRTC has done extensive vehicle testing to provide data for NADSdyna evaluation. The Cherokee instrumentation and eld testing are similar to those used to test the Ford Taurus [24]. Vehicle eld testing minimized eVects of driver variability and provided repeatable open-loop data. For most manoeuvres, the driver control inputs were repeated and mean values and 95 per cent con dence intervals were computed. The simulation is driven using mean values.
+Test data from the following manoeuvres are compared with simulation predictions: slowly increasing steer, step steer, pulse steer, double lane change, straight line braking and straight line acceleration. Developing simulation models which result in analytical predictions that compare well with experimental measurements is not an easy task, particularly when extreme manoeuvring conditions are considered. For limit performance manoeuvres, only correct trends or relatively close results should be expected, since the mechanics of these extreme conditions (especially tyres) are extremely diYcult to model. For NADS, the vehicle simulations are limited to near loss of control conditions, and the simulation is stopped if severe yaw rates (spin-outs) or high roll angles (imminent tip-ups) are predicted.
+
+3.2 Vehicle directional dynamics
+3.2.1 Slowly increasing steer
+For this manoeuvre, a measured, slowly increasing, handwheel angle (about 10°/s) is input to NADSdyna while maintaining constant vehicle speed until maximum
+D03601 © IMechE 2002
+
+Fig. 8 Simulated and measured step steer—12 m/s
+Proc Instn Mech Engrs Vol 216 Part D: J Automobile Engineering
+
+316
+
+G J HEYDINGER, M K SALAANI, W R GARROTT AND P A GRYGIER
+
+as transient responses. The experimental mean values and 95 per cent con dence limits are shown on the graphs. The timing and peak levels of the vehicle responses for simulation and experiment closely match.
+3.2.3 Lane change manoeuvres
+Besides evaluation of steady state, transient and frequency response predictions, NADSdyna is checked against manoeuvres that replicate real-world complex scenarios such as lane-change manoeuvres. No statistical analysis was done since only one run was performed for each manoeuvre. The steering input represents driver– vehicle closed-loop performance, with suYcient amplitude to produce moderate to high lateral accelerations. Figure 9 shows that NADSdyna does a good job of predicting timing and peaks of vehicle responses.
+3.2.4 Pulse steer frequency response
+Pulse steer manoeuvres are used to generate vehicle frequency responses to steering inputs. By selecting a short duration of pulse input, it is possible to excite a full range of frequencies using a single experimental test or simulation run. In eld experiments, a pulse with duration of about 0.2 s is generated which produces good steering power up to 3–4 Hz [25].
+NADSdyna frequency response predictions were in
+
+generally good agreement with experimental results, particularly below 10 rad/s. Above about 10 rad/s, NADSdyna does not fully capture all of the higher-order dynamics of the actual vehicle. Nonetheless, the predictions are believed to be acceptable for NADS. ( The companion paper [19] contains frequency response graphs comparing VDANL simulation with experimental results for the Cherokee.)
+3.3 Longitudinal dynamics
+3.3.1 Straight-line braking
+This manoeuvre is performed from mild to severe conditions. Figure 10 contains results from severe braking runs. The results show that NADSdyna predicted reasonable longitudinal deceleration and longitudinal speed consistent with the deceleration. The brake line pressures were also well predicted by the brake model.
+An algorithm was added to the NADSdyna wheel spin dynamics to model kinetic energy and damping considerations at the end of severe braking. This logic provides a smooth transition from a state of high longitudinal tyre forces down to a state of relatively low forces required once the vehicle comes to a complete stop.
+3.3.2 Straight-line acceleration
+This manoeuvre uses a step throttle input starting from zero vehicle speed. The results show that acceleration, wheel spin rates and vehicle speed are well predicted. The trends in engine speed are similar. EVorts to tune modelled transmission shift points are currently underway. Preliminary testing on NADS has indicated that the current powertrain models provide an acceptable degree of delity for use with NADS.
+
+Fig. 9 Simulated and measured lane change—22.5 m/s
+Proc Instn Mech Engrs Vol 216 Part D: J Automobile Engineering
+
+4 CONCLUSIONS
+This paper has presented an overview of major components of NADSdyna, the vehicle dynamics simulation used on NADS. The model and parameter measurement processes for a Jeep Cherokee were discussed to represent the methodologies used.
+Evaluation of the Jeep Cherokee model (and other vehicles modelled ) has shown that NADSdyna predicts fundamental mechanics of vehicle handling responses. Simulation predictions were compared with experimental responses for slowly increasing steer, step steer and lane change manoeuvres. The simulation evaluation included comparisons of vehicle frequency responses for pulse steer tests. In addition, straight-line braking and accelerating manoeuvres were evaluated.
+The ultimate evaluation of NADSdyna will come when it is fully used in NADS. EVorts are well underway to incorporate NADSdyna into NADS. NADSdyna
+D03601 © IMechE 2002
+
+VEHICLE DYNAMICS MODELLING FOR THE NATIONAL ADVANCED DRIVING SIMULATOR
+
+317
+
+Fig. 10 Simulated and measured severe braking
+has been evaluated oV line using mostly open-loop manoeuvres and simulation conditions. Tuning of several NADSdyna models and parameters has been necessary as a result of running the simulation in the closedloop NADS environment. These preliminary studies using NADS suggest that NADSdyna is comprehensive, accurate and fast enough for reliable use in a high
+delity simulator. When all NADS systems, including NADSdyna, are fully integrated and tuned, NADS promises to be the world’s most advanced high delity driving simulator.
+D03601 © IMechE 2002
+
+REFERENCES
+1 Haug, E. J., Anderson, D., Berbaum, K., Evas, D., Hinrichs, J., Kim, S. S., Kuhl, J., Lee, W. S., Lenel, J., Stener, J., Tsai, F. F., Bernard, J., Malwitz, D., Turpin, D, Sinacori, J., Allen, W. and McAreavy, J. Feasibility study and design of a national advanced simulator. Report DOTHS-807-597, March 1990.
+2 Salaani, M. K., Chrstos, J. P. and Guenther, D. A. Parameter measurement and development of a NADSdyna validation data set for a 1994 Ford Taurus, SAE paper 970564, February 1997.
+3 Salaani, M. K. Powertrain and brake modeling of the 1994 Ford Taurus for the National Advanced Driving Simulator. SAE paper 981190, February 1998.
+4 Salaani, M. K., Guenther, D. A. and Heydinger, G. J. Vehicle dynamics modeling for the National Advanced Driving Simulator of a 1997 Jeep Cheroke. SAE paper 1999-01-0121, February 1999.
+5 Salaani, M. K., Heydinger, G. J. and Grygier, P. A. Parameter determination and vehicle dynamics modeling for the NADS of the 1998 Chevrolet Malibu. SAE paper 2001-01-0140, March 2001.
+6 Salaani, M. K., Heydinger, G. J. and Guenther, D. A. Validation results from using NADSdyna vehicle dynamics simulation. SAE paper 970565, February 1997.
+7 Salaani, M. K. and Heydinger, G. J. Model validation of the 1997 Jeep Cherokee for the National Advanced Driving Simulation. SAE paper 2000-01-07000, March 2000.
+8 Salaani, M. K., Grygier, P. A. and Heydinger, G. J. Model validation of the 1998 Chevrolet Malibu for the National Advanced Driving Simulator. SAE paper 2001-01-0141, March 2001.
+9 NADS Vehicle Dynamics Simulation, Release 4.0, 1994 (Center for Computer-Aided Design, National Advanced Driving Simulator, University of Iowa, Iowa City, Iowa).
+10 Bae, D. S. and Haug, E. J. A recursive formulation for constrained mechanical systems. Part I: open loop. Mech. Struct. Mach., 1987, 15(3), 359–382.
+11 Bae, D. S. and Haug, E. J. A recursive formulation for constrained mechanical systems. Part II: closed loop. Mech. Struct. Mach., 1987, 15(4), 481–506.
+12 Tsai, F. F. and Haug, E. J. Automated methods for high speed simulation for multi-body dynamic systems. Technical Report R-47, Center for Computer Aided Design, University of Iowa, 1989.
+13 Heydinger, G. J. Vehicle inertia measurement facility, suspension kinematics and compliance, shock absorber, and suspension component geometric and inertia measurement for 1997 Jeep Cherokee Sport. Final Report Contract DTNH22-97-P-08122, SEA Incorporated, July 1997.
+14 Fancher, P. S., Ervin, R. D., MacAdam, C. C. and Winkler, C. B. Measurement and representation of mechanical properties of truck leaf springs. SAE paper 800905, 1980.
+15 Cebon, D. Simulation of the response of leaf springs to broad band random excitation. Veh. Systems Dynamics, 1986, 15, 375–392.
+16 Salaani, M. K. Development and validation of a vehicle model for the National Advanced Driving Simulator. PhD dissertation, Ohio State University, Columbus, Ohio, 1996.
+17 Bernard, J. and Clover, C. Tire modeling for low-speed and high-speed calculation. SAE paper 950311, February 1995.
+Proc Instn Mech Engrs Vol 216 Part D: J Automobile Engineering
+
+318
+
+G J HEYDINGER, M K SALAANI, W R GARROTT AND P A GRYGIER
+
+18 Allen, R. W., Rosenthal, T. J. and Chrstos, J. P. A vehicle dynamics tire model for both pavement and oV-road conditions. SAE paper 970559, February 1997.
+19 Allen R. W., Chrstos, J. P., Howe, J. G., Klyde, D. H. and Rosenthal, T. J. A computer simulation for vehicle dynamics analysis, 2001 IMechE, 2001.
+20 Vehicle aerodynamics terminology. SAE recommended practice, SAE J1594 JUN87. In SAE Handbook, Vol. 4, 1991 (Society of Automotive Engineers, Dearborn, Michigan).
+21 HeZey, R. K, Aerodynamics of passenger vehicles in close proximity to trucks and buses. SAE paper 730235, 1973.
+22 Brown L. P. Low speed wind tunnel test to measure sixcomponent balance data on a 1997 Jeep Cherokee 4× 4.
+
+Lockheed Martin Aeronautical Systems, Marietta Georgia, July 1997. 23 Garrott, W. R., Grygier, P. A., Chrstos, J. P., Heydinger, G. J., Salaani, K., Howe, J. G. and Guenther, D. A. Methodology for validating the National Advanced Driving Simulator’s vehicle dynamics (NADSdyna). SAE paper 970563, February 1997. 24 Chrstos, J. P. and Grygier, P. A. Experimental testing of a 1994 Ford Taurus for NADSdyna validation. SAE paper 970563, February 1997. 25 Heydinger, G. J., Grygier, P. A. and Lee, S. Pulse testing techniques applied to vehicle handling dynamics. SAE paper 930828, February 1993.
+
+Proc Instn Mech Engrs Vol 216 Part D: J Automobile Engineering
+
+D03601 © IMechE 2002
+

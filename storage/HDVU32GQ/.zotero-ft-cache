@@ -1,0 +1,359 @@
+2024 International Conference on Recent Advances in Electrical, Electronics, Ubiquitous Communication, and Computational Intelligence (RAEEUCCI) | 979-8-3503-5453-9/24/$31.00 ©2024 IEEE | DOI: 10.1109/RAEEUCCI61380.2024.10547860
+
+Augmented Reality Navigation: A vision for safer roads and seamless driving experience
+
+Rakesh Prusty, Heli Ashar, Venkatesh Iyer and K. Vijayan *
+Department of Electronics and Communication Engineering, SRM Institute of Science and Technology, Kattankulathur, Tamil Nadu-603203
+*Corresponding author: vijayank:@srmist.edu.in
+
+Abstract - This paper introduces a novel in-vehicle navigation system that tackles the well-documented distraction risks of traditional navigation interfaces, known to increase driver reaction times by up to 1.5 seconds. Unlike existing systems that force drivers to look away from the road, this proposed method leverages Augmented Reality (AR) technology. By utilizing a Heads-Up Display (BUD), the system overlays navigational instructions directly within the driver's field of view. This approach minimizes distraction and ensures focus remains on the road, potentially leading to a 30% reduction in reaction times to navigation cues compared to traditional in-dash displays. Further differentiating itself, the system incorporates AI-sourced navigation data. This offers a significant leap in accuracy and real-time functionality compared to static map data employed in conventional systems. AI-powered navigation can achieve update frequencies as high as every 30 seconds, depending on the specific model and data source, compared to the typical refresh rate of 5-10 minutes for traditional map data. This real-time advantage translates to more accurate route optimization, particularly in congested areas where traffic conditions can change rapidly. Uniquely, the proposed system prioritizes driver safety by integrating a comprehensive suite of features. These features include accident alerts triggered by gyroscope sensors, proximity sensors to ensure proper helmet wear, and even gas sensors to deter drunk driving. By combining these functionalities with traditional GPS and GSM technology for accurate positioning and emergency messaging, this project has the potential to significantly improve driver focus, safety awareness, and create a more holistic and safer in-vehicle experience.
+Keywords - Augmented reality navigation, Al-powered
+navigation, Accident prevention, Heads-up display (HUD), Driver assistance systems (DAS).
+I. INTRODUCTION The proliferation of road accidents necessitates exploration of innovative solutions to bolster rider safety. While traditional helmets offer essential head protection,
+
+they lack functionalities to address scenarios beyond physical impact as shown in fig 1. This research investigates the potential of smart helmets, which integrate various sensors and technologies, to enhance situational awareness, provide real-time assistance, and expedite emergency response in the event of accidents [6, 7, 10-13].
+These advancements, however, present challenges including increased weight and potential durability concerns [4], privacy anxieties related to continuous location monitoring and data usage [4, 12], reliance on technology and potential for malfunctions compromising system effectiveness [6, 10, 11 ]), and user interface complexity leading to driver distraction and errors [6].
+Despite these limitations, the potential benefits of smart helmets in reducing accidents, saving lives, and promoting responsible riding practices necessitates further exploration and development [5,8,9]. This research will critically evaluate existing solutions, identify their strengths and limitations, and propose potential advancements to address the identified challenges, ultimately contributing to a safer and more responsible riding environment for all.
+
+tlr
+
+A«cfdtAI\
+
+% dlllli!t �" er prnlouJ period
+
+.....lit�
+
+%ebU�O\'tt pm'iou' period
+
+PmOIIJ ln]url!d
+
+201�
+
+4.9�,tm
+
+t,so,m
+
+4.9�.624
+
+2017
+
+4.64.910
+
+-3.2�
+
+201
+
+�.6?.(14-1
+
+OA6
+
+1,47,9U
+
+·1.9
+
+1,51,411
+
+2,37
+
+-1,70,�7� -1,69,41
+
+1(119
+
+4.49,002
+
+-3.86
+
+1.51,113
+
+-0.2
+
+4 1,361
+
+20,0
+
+3.64, l,lH
+
+-18,46
+
+1,31,714
+
+-12.84
+
+,48,279
+
+202L
+
+4,12,432
+
+1.2.64
+
+1,5�.971
+
+11\.9
+
+3.$4,44
+
+Fig 1. Accidents, Fatalities and Persons Injured 2016 to 2021 Source: Govt of India, MoRTH
+
+Authorized licensed use limited to: Politecnico di Torino. Downloaded on June 03,2025 at 11:40:20 UTC from IEEE Xplore. Restrictions apply.
+
+ll.DESIGN METHODOLOGY
+
+..-..
+q3:)>
+-· �
+0 (30
+8u::l
+::J OJ
+q"N
+OU'l =0"1 roo
+"'"t
+'-"
+
+HUO DISPLAY •To displily information
+
+Fig 2. Design methodology of proposed system
+Fig 2. Discusses the block diagram of the proposed system. This proposed smart helmet design integrates various sensors for enhanced rider safety. An MQ-2 gas sensor detects alcohol, a gyroscope detects accidents, and an IR sensor verifies proper helmet placement. GPS and GSM modules offer live tracking and emergency communication, while the GPT API server efficiently takes in commands and potentially personalizes information displayed on the HUD. This information, includes navigation and direction as of now but can be made to display alcohol readings, accident alerts, navigation instructions, and emergency contacts, if using a self-fabricated user-friendly HUD for minimal distraction. The system prioritizes safety certifications, user-friendliness, and ethical data privacy considerations during development and testing.
+A.MICROCONTROLLERS 1. ARDUINO MEGA The Arduino Mega is a microcontroller board designed for electronic prototyping and development purposes. It is an extended version of the popular Arduino Uno, offering an increased number of input and output pins, memory resources, and overall capabilities. Manufactured by Arduino LLC, the Mega is based on the ATmega2560 microcontroller, which provides 256 KB of flash memory, 8 KB of SRAM and 4 KB of EEPROM.
+
+2.ESP8266 The ESP8266 is a highly integrated Wi-Fi module that has gained widespread popularity in the realm of Internet of Things (loT) and wireless connectivity. Developed by Espressif Systems, this compact module integrates a Tensilica L106 32-bit microcontroller and a Wi-Fi transceiver, providing a cost-effective solution for embedding Wi-Fi functionality into various electronic devices. The ESP8266 is particularly known for its low power consumption, compact size, and ease of integration.
+B. MQ3 GAS SENSOR The proposed in-vehicle navigation system incorporates an alcohol detection gas sensor, similar to the MQ3 sensor used by law enforcement in breathalyzers. This sensor, embedded at the center of the steering wheel within the Internet of Things (loT) framework, continuously measures the driver's alcohol level through exhalation. The system analyzes this level against a pre-programem d "safe" limit, currently set at the Indian legal standard of 0.03% Blood Alcohol Content (BAC) ( 30 microliters of alcohol per 100 milliliters of blood). If the sensor detects alcohol exceeding this limit, it triggers an alarm or buzzer to prevent engine ignition and ensure safe driving conditions. (Ref. [4]). Fig 3 shows concentration of any gas using the Rs/Ro ratio (Rs = sensor resistance in gas, Ro =resistance in clean air) to estimate gas level. which is:
+Rati.o=­ Rs Ro
+When measuring at clean air, ratio= 9.83
+Fig 3. Mathematical formula for Rs/Ro ratio
+C. GPS/GSM MODULE This combined module offers two crucial functionalities: real-time location tracking and emergency communication. The GPS component utilizes a network of satellites to pinpoint the rider's location with sub-meter level accuracy when employing differential correction techniques. This precise information is critical for emergency response teams to locate riders in the event of an accident (Ref. [6, 7, 1 0, 14]).
+
+Authorized licensed use limited to: Politecnico di Torino. Downloaded on June 03,2025 at 11:40:20 UTC from IEEE Xplore. Restrictions apply.
+
+Additionally, the GSM component facilitates emergency communication by enabling the system to send text messages or initiate calls to pre-designated contacts or emergency services [14]. This communication capability allows riders to seek immediate assistance in critical situations (Ref.[4]).Fig 4(A) Shows circuit of GPS module with LCD display to show message that accident occurred and 4(B) shows the notification the guardians or emergency contacts receive if the rider gets into an accident or is drunk driving.
+Fig 4 ( A). Circuit diagram of GPS, GSM and LCD
+Fig 4 (B). Notification received from GSM module D.GYROSCOPE SENSOR The gyroscope sensor acts as a silent guardian, continuously monitoring the helmet's orientation and acceleration. By analyzing these parameters, the system can detect sudden changes in motion indicative of a potential accident, such as a rapid change in direction or a forceful impact ( similar to Refs. [6, 7, 1 1, 1 2]).
+
+The accuracy of accident detection depends on various factors, including the chosen algorithm and the sensitivity of the gyroscope itself. However, this technology holds immense potential for prompting timely medical intervention and potentially saving lives. Fig 5. Records the changes in three axis of the gyroscope (Yaw, Pitch, Roll) as three different lines in the graph as alpha rate, beta rate, gamam rate. The four scenarios considered are tilt from left to right, tilt from right to left, tilt from up to down and flip from front view to back view.
+
+800
+
+60 ¥ 1 ::
+
+�€ 0 ---
+
+·200 0
+
+0.5
+
+1
+
+"""_ ' . ._ ,,. _______
+
+.5
+
+2
+
+2.5
+
+3.5
+
+3 -400
+� ·600
+<
+-800
+
+·1000
+
+Tlme(sl
+
+-I>.LPHA RA1"E -BETA RAT< -GAMMA RA1"E
+
+(a) Tilt from right to left
+1SOO
+
+·;. A.2-5 -3.5
+
+-1000
+
+Time (s) -ALPHA RATE -j!fTA RATt -GAMMA RATE
+
+800
+600
+� 400
+� 200
+€ 0
+j ·200 0
+.!i..oo
+��
+< -800
+·1000
+
+(b) Ttlt from left to right
+3.5
+Tlme(s) -ALPHA RAT£ -SETA RATE -GAMMA RATE
+
+(c) Ttlt from up to down
+BOO
+
+600
+
+1400
+
+";:200
+
+�] 0 ·200 °
+
+0,5
+
+} -400
+"'.soo
+
+2.5
+
+3.5
+
+·BOO
+
+Tlme lsi
+
+-ALPHA RATE -BETA RATE -GAMMA RATE
+
+(d) Flip from vertical front-view to horizontal back-view
+
+Fig 5. Response recorded from GyroScope Module when subjected to different angles.
+
+Authorized licensed use limited to: Politecnico di Torino. Downloaded on June 03,2025 at 11:40:20 UTC from IEEE Xplore. Restrictions apply.
+
+E.IRSENSOR
+This unobtrusive sensor plays a vital role in ensuring the effectiveness of the entire safety system. It utilizes infrared technology to detect the presence and proper placement of the helmet on the rider's head.
+This is crucial because a loose helmet might render other safety features like the gyroscope or the gas sensor less effective (inspired by Ref. [4]). The high accuracy ofiR sensors, with minimal false positives or negatives, contributes to the overall reliability and trustworthiness of
+the entire system. Fig 6. Depicts the pin configuration and
+the detection angle of the IR sensor put inside the helmet as well as the range it covers. IR sensor detects objects in a single line which is better suited for the application as it'll only detect the forehead if the helmet is correctly placed.
+
+PIN
+
+NOTES
+
+vee
+
+3.3-5V DC input
+
+GND
+
+Ground
+
+OUT
+
+Outputs a digital signal = input voltage. High (3.3 - 5V) =no reflection detected. Low (1110 VCC) =reflection is detected.
+
+RANGE
+
+2-30cm CCW lowers detection distance; CW increases detection distance.
+
+DETECTION
+
+35°
+
+ANGLE
+
+Fig 6. PIN setup and configuration of theIR Sensor
+
+F. OLED DISPLAY
+Unlike traditional displays, OLED displays don't require backlighting, leading to lower power consumption, a crucial factor for battery life in a portable device like a smart helmet. Additionally, high contrast and resolution ensure that critical information remains clear and easily readable even in bright sunlight, minimizing distractions for the rider and promoting safe riding practices.
+Fig 7 shows how the OLED display is connected to the NODE MCU which sends input data to display the contents. This OLED is then used to create a heads-up display by placing it at an angle next to a reflector. On which the rider will be able to see the navigation and directions of his waypoint.
+
+Fig 7. Circuit diagram ofOLED Display
+G. AI GPT SERVER
+The AI GPT server can access real-time weather updates, identify nearby points of interest, and even provide personalized safety alerts based on your preferences and environmental conditions. In the event of an emergency, the GPT server can interact with emergency services, potentially initiating calls or sending text messages with your location and critical information.
+Fig8 discusses how the user response is taken as input via
+microphone then sent to the GPT server for processing and is stored in the cloud where it further transmits as output from the speaker.The GPT server is based on LLMs(Large language models) which during training, tries to predict the next word or phrase. A loss function measures the difference between the LLMs prediction and the actual text. It generally uses but is not limited to three formulas.[l7]
+Attention(Q, K, V) = softmax( Q *KAT /Vd_k) * V
+where,Q (Query): Represents the current information the LLM is focusing on,K (Key): Represents the "key" elements from the input sequence relevant to the query, V (Value): Represents the actual values associated with the keys, d_k: Dimensionality of the key vectors, softmax:
+Softmax function ensures the attention weights sum to 1 ,
+distributing focus across relevant parts o f the input,
+*: Matrix multiplication, I vd_k: Scaling factor to prevent
+exploding gradients during trainingThis formula essentially calculates a weight for each element in the
+input sequence (V) based on its relevance to the current
+query (Q) and key (K). The weighted values are then sumem d to create a context vector that informs the LLMs next output.
+
+Authorized licensed use limited to: Politecnico di Torino. Downloaded on June 03,2025 at 11:40:20 UTC from IEEE Xplore. Restrictions apply.
+
+Feedforward Network(y) = o( W * x +b)
+where, y: Output of the neuron, cr: Activation function
+(e.g., ReLU, sigmoid), W: Weight matrix of the neuron, x: Input vector to the neuron., b: Bias term of the neuron. The feedforward network multiplies the input vector (x) by the weight matrix (W) and adds a bias term (b). The
+activation function (cr) introduces non-linearity, allowing
+the network to learn complex relationships in the data.
+Training Loss = -:!: (y_true * log(y_pred))
+where, �: Sumam tion over all positions in the output sequence, y_true: One-hot encoded vector representing the true target word at a specific position, y_pred: The LLM's predicted probability distribution for the word at that position. The cross-entropy loss measures the difference between the true probability distribution (y_true) and the LLMs predicted distribution (y_pred). The LLM is trained to minimize this loss function, leading it to improve its predictions over time.
+SPEAKER
+Fig 8 shows the working and connection of the GPT (Generative pre-trained transformer) server model.
+lli.RESULT
+This paper presents the development and characterization of a novel smart helmet system designed to enhance rider safety through a multi-sensorial approach. The system integrates a suite of sensors, including an MQ3 gas sensor, a gyroscope sensor, an IR sensor, and a GPS/GSM module, offering unique functionalities and potential safety benefits.
+
+During the testing the MQ3 gas sensor was able to detect alcohol almost 98 out of 100 times, which comes at a 98% accuracy and could possibly lead to at least 10% reduction in alcohol-related accidents, potentially saving 10 lives per 100 accidents.[15]
+Moreover in-vehicle navigation systems create distraction risks, known to increase driver reaction times by up to 1.5 seconds [1]. Unlike existing systems that force drivers to look away from the road, this proposed method leverages Augmented Reality (AR) technology in form of a IillD display where the navigation will overlap the user's vision reducing the reaction to almost 0.5 sees.
+The GPS/GSM module was able to detect the correct position and send messages to the emergency contacts almost 36 out of 40 times, which results in a 90% accuracy. While the GSM was working as expected the GPS module failed to detect the correct location sometimes when placed inside a closed room or covered with an object.Still when compared to the traditional way of calling the emergency contacts manually this process resulted in 40-50% faster emergency response which could translate to a decrease in the risk of death, potentially saving 8 lives per 10 accidents.[14]
+The gyroscope sensor was able to detect accidents and trigger medical assistance, almost 40 out of 40 times, potentially leading to a significant overall reduction in fatalities and a decrease in serious injuries all because the medical help would be provided at the right time.[16]
+Also with all the added components the weight of the prototype helmet increased almost 200-250 gm which is one of the application constraints along with the reduction in accuracy of the MQ3 gas sensor if a person is riding with a mask on.
+The cost in making can be brought down to �3500 given that we manufacture our own pcb and module.Moreover comprehensive and innovative smart helmet system presents a promising approach to enhancing rider safety and promoting responsible riding practices. The system leverages readily available sensors with established accuracy ranges. Fig 9 shows the entire specification of the prototype helmet model used.
+
+Authorized licensed use limited to: Politecnico di Torino. Downloaded on June 03,2025 at 11:40:20 UTC from IEEE Xplore. Restrictions apply.
+
+Brand
+Model Serial No
+Weight
+Size Standard Cost in making
+
+Suzuki
+Helmet ECOOF (Black) 99000F l 0 649COONUOLncL
+900gm (base helmet) 1 1 50gm (with components)
+59-60cm (circumference) lSI Certified
+�9500/- (approx.)
+
+Fig 9: Specification of the Prototype Helmet Model
+Further research and development can refine the design and explore additional functionalities, ultimately contributing to a safer and more responsible riding environment for all. Fig 10 shows the prototype model built including the circuit system as well as HUD display which is based on Augmented Reality.
+
+Fig 10. A prototype model for the smart safety helmet Glass Section (Right) and Helmet Section(Left)
+IV. CONCLUSION
+This research presented a design for a smart helmet system integrating various sensors and technologies to promote responsible riding practices and enhance rider safety. The proposed system offers real-time monitoring capabilities, potential accident detection, and emergency communication functionalities. Further research and development are crucial to refine the design, address potential challenges like data privacy considerations.
+
+While user interface optimization is rigorously tested by the system's effectiveness in real-world scenarios. By continuing to explore innovative technologies and ensuring ethical considerations, smart helmet development holds immense potential to contribute to a safer and more responsible riding environment for all.
+
+V. FU TURE SCOPE
+Advancements like exploring more accurate alcohol detection sensors, integrating biometric sensors for health monitoring, and enabling V 2X communication for real-time hazard awareness can significantly enhance safety. The future holds promise for integrating augmented reality displays for intuitive navigation and leveraging AI for predictive accident detection and personalized safety features. By navigating ethical considerations and fostering collaboration, this technology can revolutionize rider safety by creating a connected, intelligent, and proactive safety ecosystem.
+
+REFERENCES
+
+[ 1 ] Bram-Larbi, Kweku F., Vassilis Charissis, Soheeb Khan, David K. Harrison and Dirnitris Drikakis. "Improving Emergency Vehicles' Response Times with the Use of Augmented Reality and Artificial Intelligence." Interacci6n (2020).
+
+[2] Dange, Varsha, Ayush Patni, Rohit Patil, Rahul Ponnuru, Siddhant Pawar and Pavan Bhadane. "lOT based detection of vehicle accident and emergency help using the application interface." Microsystem Technologies 29 (2023): 1455-1463.
+
+[3] Regan, Michael & Oviedo-Trespalacios, Oscar.(2022). Driver
+
+Distraction:
+
+Mechanisms,
+
+Evidence,Prevention,
+
+and
+
+Mitigation. 10.1 007/978-3-030-76505-7_38.
+
+[4] Prof. Dr. D.G. Jha and Swapnil Buva, "Alcohol Detection in Real-Time To Prevent Drunken Driving," IOSR Journal of Computer Engineering (2018): 66-71 .
+[5] Anaida Fernandez Garcia; Xabier Oregui Biain; Konstantinos Lingos; Konstantinos Konstantoudakis , "Smart Helmet: Combining Sensors, AI, Augmented Reality, and Personal Protection to Enhance First Responders' Situational Awareness", 2023, IT Professional.
+[6] Thota Jaya Chandra Sai; Syed Abdul Rehaman; Sembeti Sriya; D Dhanalakshmi, "Prevention of Road Accidents Through Smart Assistive Technology with Artificial Intelligence Approach", 2023, International Conference on System, Computation, Automation and Networking (ICSCAN).
+
+Authorized licensed use limited to: Politecnico di Torino. Downloaded on June 03,2025 at 11:40:20 UTC from IEEE Xplore. Restrictions apply.
+
+[7] Shahnaz Parvin Mila; Jogesh Roy, "Design a Smart Helmet as a Quick Responder Safety Solution for the Bikers", 2023, International Conference on Information and Communication Technology for Sustainable Development (ICT4SD).
+[8] Jayasri Suresh Vani; Hemanth Jagadeeswari Selvaraj; Kavya Mishra; M Anita, Helmet Guard:IOT-ENabled Smart Helmet for Enhanced Safety", 2023, Third International conference on smart technologies communication and Robotics (STCR).
+[9] Mahesh S Gour; Druva Kumar S;Pradeep Kumara; Manjunatha S, "Arduino based smart and intelligent helmet system for two-wheelers, 2022 IEEE International Conference on Distributed Computing, VLSI, Electrical Circuits and Robotics (DISCOVER).
+[10] R. Shree Char;arn Rahul Kumar Dubey, "Two-Wheeler Vehicle Traffic Violations Detection and Automated Ticketing for Indian Road Scenario",2020,IEEE Transactions on Intelligent Transportation Systems.
+[ 1 1 ] M Navin Kumar; S Pravin Kumar; R Prem Kumar; L Navaneethakrishnan, "Smart Characterization of vehicle impact and accident reporting system" , 202 1 , 7th International Conference on Advanced Computing and Communication Systems (ICADEE).
+[12] Nazia Parveen; Ashif Ali; Aleem Ali, "lOT Based Automatic Vehicle Nazia Parveen; Ashif Ali; Aleem Ali, "lOT Based Automatic Vehicle Accident Alert System ",2020,2020 IEEE 5th International Conference on Computing Communication and Automation (ICCCA).
+[13] Dhanya S; Aiswarya Vasudev, "Automated Accident Alert ", 2018, International Conference on Emerging Trends and Innovations in Engineering and Technological Research (ICETIETR) .
+[14] Tummanapally, Shraddha Shree and Saideep Sunkari. "Smart Vehicle Tracking System using GPS and GSM Technologies." SSRN Electronic Journal (2021): n. Pag.
+[15] Sakib , Mohammad, Syeda Shanaz Pervez, and A. B. M. S. U. Doulah. 2023. "Towards Smart Helmet for Motorcyclists: Automatic Stress Level Detection Using Wearable Accelerometer Sensor System," May.
+[16] Zhuang, Yiyang, Qingbo Yang, Taihao Han, Ryan O'Malley, Aditya Kumar, Rex E. Gerald, and Jie Huang. 202 1 . "Fiber Optic Sensor Embedded Smart Helmet for Real-Time lmpact Sensing and Analysis
+through Machine Learning." Journal of Neuroscience Methods 351
+(March): 1 09073.
+[17] Miao, Xupeng, Gabriele Oliaro, Zhihao Zhang, Xinhao Cheng, Hongyi Jin, Tianqi Chen and Zhihao Jia. "Towards Efficient Generative Large Language Model Serving: A Survey from Algorithms to Systems." ArXiv abs/23 12. 1 5234 (2023): n. pag.
+Authorized licensed use limited to: Politecnico di Torino. Downloaded on June 03,2025 at 11:40:20 UTC from IEEE Xplore. Restrictions apply.
+

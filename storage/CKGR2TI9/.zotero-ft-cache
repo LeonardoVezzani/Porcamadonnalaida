@@ -1,0 +1,182 @@
+ 
+JavaScript is disabled on your browser. Please enable JavaScript to use all the features on this page. Skip to main content Skip to article 
+Elsevier logo ScienceDirect 
+ 
+    Journals & Books  
+ 
+    Help 
+    Search 
+ 
+My account 
+Sign in 
+ 
+    Purchase PDF 
+    Access through another organization  
+ 
+Article preview 
+ 
+    Abstract 
+    Introduction 
+    Section snippets 
+    References (28) 
+    Cited by (5)  
+ 
+Elsevier 
+Displays 
+Volume 78 , July 2023, 102453 
+Displays 
+HUDNet: A dynamic calibration method for automotive augmented reality head-up-displays ☆ 
+Author links open overlay panel Nan Xu a , Fangzheng Yu a , Jiao Xu b , Dajiang Jin b , Huajun Feng a , Zhihai Xu a , Qi Li a , Yueting Chen a 
+Show more 
+Add to Mendeley 
+Share 
+Cite 
+https://doi.org/10.1016/j.displa.2023.102453 Get rights and content 
+Highlights 
+ 
+    • 
+    It is effective to decouple disparity and distortion in calibrating AR-HUD. 
+    • 
+    Positional coding and proper data processing improve the accuracy of the network. 
+    • 
+    Deep learning improves the mobility of calibration data among different products. 
+ 
+Abstract 
+The automotive augmented reality head-up-display (AR-HUD) system relies on multiple free-form surfaces to project the virtual image into human eyes. A wide range of views and the extensive display area result in extraordinarily complex distortions. Providing a way to correct such distortions is a major leap forward. Methods widely used for calibration, such as lookup tables and interpolation, require considerable memory capacity, complicated calibration procedures, etc. Additionally, when attempting to meet the high-accuracy requirements for such systems, computational memory grow rapidly. In this context, we propose a fully connected neural network (HUDNet) for an automotive AR-HUD to correct dynamic distortion. Here, we propose a parallel prediction framework for the center and the edge of the image, and separate the distortion information from the disparity information in order to balance the unstable central field of view error. Ultimately, we introduce the transfer learning method to improve accuracy and its effect on accuracy is assessed. The present study provides a reference for us to apply deep learning methods to predict dynamic image distortion of various complex multi-freeform surface reflection systems in the future. 
+Graphical abstract 
+ 
+    Download: Download high-res image (130KB) 
+    Download: Download full-size image  
+ 
+Introduction 
+Modern automobiles are being equipped with ever more innovative technology, as the industry develops rapidly. Augmented reality is a tool to enhance people’s daily life, recreation, and work-related activities. There are several distinctive solutions for automotive augmented reality (AR), including augmented reality head-up display (AR-HUD), which is able to project road tips, signs, and warnings on the windshield in real-time [1]. AR-HUD offers outstanding advantages in terms of improved driving experience and enhanced road safety. 
+The idea of using HUD as an Augmented Reality device was originally introduced and explored for avionic applications [2], [3]. While an automotive AR-HUD system is an augmented reality display that utilizes the windshield as an optical combiner. The projector system projects the roads’ navigation information or other necessary information on the free-form surface combiner through another pair of free-form surface reflectors, and the driver obtains the fusion information from the virtual image and the world outside. Therefore, drivers are no longer required to bow their heads and turn their attention to mobile information. They can always be aware of road conditions and respond to all kinds of emergencies more quickly, which increases both safety and comfort. 
+However, in AR-HUDs, if the user views the virtual image from different perspectives, the image will exhibit varying degrees of distortion and overall translation, as is illustrated in Fig. 1(a). The inaccessibility of the retinal image signifies an additional challenge for the multi-directional dynamic calibration of AR-HUDs [4]. Before it is put into use, the one-to-one correspondence between the human eye position and distortion must be calibrated in a particular manner. During use, the eye-tracking camera obtains eye position [5], [6], [7], and the real-time dynamic distortion correction is carried out according to the offline calibration, as shown in Fig. 1(b). Also, the high degree of freedom of the eye position, the complex projector, and the large virtual image size are factors that impede calibration. The complexity and unreliability of the calibration procedures are the major obstacles to the widespread adoption of AR-HUDs in industrial applications. Also, the dynamic alignment between the projected image and the real world (monocular motion disparity) is also one of the issues to be solved. The sum of the effects of the above two issues (distortion and monocular motion disparity) is regarded as a generalized distortion. 
+Therefore, better calibration is vital for creating a safer and more comfortable driving environment, but it also faces tremendous challenges. 
+This section outlines some related work and discusses why our solution can be superior to similar ones. 
+Fixed viewpoint calibration. In the early stages of the development of AR-HUDs, distortion correction was primarily achieved by the design of two free-form surfaces in the projector [8], [9], [10]. By designing a free-form surface reflection system suitable for the shape of the windshield, the distortion is minimized at a certain viewpoint. Later, Wu et al. [11] constructed an interior system focusing primarily on distortion correction with fixed angle viewing and fixed head positioning on the basis of pre-warped points and interpolation. These methods correct the distortion in a fixed viewpoint. When people change positions, distortion and disparity will always happen, resulting in a bad effect of correction. 
+Traditional dynamic calibration. Wientapper et al. [12] first proposed dynamic distortion correction for vehicle AR-HUD system. They correct the optical distortion using a polynomial regression model. It is limited to a small display area, and the process of calibration involves complex components. Therefore, some subsequent work has been supplemented on this basis [13] or put forward better improvement schemes [14], [15], [16]. Basically, these methods establish and store a relationship table of pre-distortion maps for some eye positions, and then use an interpolation method for the other eye positions. This interpolation method is now widely used by the industry to correct distortion [14]. 
+A substantial amount of data is required to form the look-up table, which has high requirements for the storage of the system, and the interpolation of distortion models in different viewpoints will inevitably lead to the hopping of distortion correction [17] and negatively impact the user experience. In the process of converting a distortion map into a pre-distortion map, surface fitting and inverse transformation methods are utilized, and the improvement in fitting accuracy leads to an exponential increase in calculation time. To date, the projection virtual image resolution is still low (about 400 × 800 pixels). As resolution increases, the amount of data will need more storage and processing, and it is more difficult to achieve better overall image distortion correction. 
+Dynamic calibration based on deep learning. Due to the shortcomings of traditional methods, we propose the method of constructing a fully connected neural network. HUDNet can be used to predict the pre-distortion warping map according to each input eye position to achieve image correction. A neural network method offers superior generalization abilities and processing efficiency as compared to the traditional method. At the same time, it is helpful for eliminating the problems caused by interpolation. The application prospects are exciting. In comparison to Li’s [17], ours puts forward new ideas including position coding, subfield prediction, and disparity decoupling. By exploring the properties of neural networks, we can achieve better results on this task. 
+Other works. Optical See-Through Head-Mounted-Displays (OSTHMD) share many similarities with HUDs as they also use a translucent reflector as a combination to create virtual images in front of the eyes. There are several methods [18], [19], [20], [21] available for estimating projective properties. Most of these methods rely on user interaction, in which several virtual points must be aligned with the actual points in the scene. As the eye position in an HMD is fixed, it does not provide a useful reference for the HUD. 
+In this paper, we propose a deep-learning solution to predict the one-to-one correspondence between eye position and distortion. When calibrating offline, a standard lattice is projected. Inspired by Owen et al. [22], we use an auxiliary camera mounted on a mechanical arm to replace the human eye, and collect the distorted images of the lattice from various viewpoints. A dataset can be obtained for training HUDNet by recognizing the lattice images. The generalized distortion is corrected directly as a whole in the previous works. However, because the variation of parallax is large, the variation of distortion is complex, which will increase the error of generalized distortion prediction. We decouple disparity information from distortion information, which greatly reduces the difficulty of distortion prediction. Furthermore, based on our analysis, we find that the lattice distortion variable in the center of the image is extremely small. Consequently, if it is predicted directly by the neural network, more distortion will be introduced as a result of prediction error. We, therefore, present a more accurate method for predicting the distortion of the central field of view. 
+In summary, our contribution includes the following: 
+ 
+    (i) 
+    We propose a three-input HUDNet based on position coding. To achieve higher accuracy of prediction, the network outputs both the disparity and distortion separately. Our study investigates the relationship between the properties of neural networks and the task of distortion prediction. 
+    (ii) 
+    We propose a progressive data pre-processing strategy. This is the first attempt at decoupling disparity information from distortion information and using the percentage of distortion to the FOV to predict the small distortion in the center of the field of view. In the distortion correction work, for the first time, we consider the influence of the disparity problem on the alignment of the projected image and the real scene, which provides a better interface for the subsequent process. 
+ 
+In Section 2, we present the specific conceptual foundations of our proposed method. Section 3 outlines the results, verifying the effectiveness and feasibility of our method. The major lessons learned thus far are summarized in the concluding Section 4. 
+Section snippets 
+Method 
+The following section presents an overview of the process of acquiring HUD data and the method for estimating the distortion of display elements and explains how our approach overcomes the limitations of existing methods. 
+Experimental results 
+We will present our experimental results in this section. First, we compare the accuracy of the prediction with Li’s method, and then we examine the utility of the solution we propose in this paper. Finally, we explore a generalization of neural networks and collect a small amount of data to achieve higher accuracy. 
+Conclusion 
+AR-HUD demand is rapidly increasing, and this technology will soon become an essential part of the automotive industry. Current HUDs, however, are far from perfect. 
+In this paper, we propose a complete calibration process, including data acquisition, data preprocessing, calibration, pre-distortion prediction, and post-processing. This paper applies deep learning to the dynamic distortion calibration of AR-HUD systems. In light of the characteristics of deep learning, we recommend that 
+Declaration of Competing Interest 
+The authors declare that they have no known competing financial interests or personal relationships that could have appeared to influence the work reported in this paper. 
+References (28) 
+ 
+    Gilson S.J. et al. 
+    Spatial calibration of an optical see-through head-mounted display 
+    J. Neurosci. Methods 
+    (2008) 
+    Hornik K. et al. 
+    Multilayer feedforward networks are universal approximators 
+    Neural Netw. 
+    (1989) 
+    Wolfgang N. et al. 
+    A new visualization concept for navigation systems 
+    Quarrington C. 
+    The Future of the Pilot’s Head-up Display: A description of the origins of H.U.D. systems and their future application in military and civil fields 
+    Aircr. Eng. Aerosp. Technol. 
+    (1966) 
+    Sheridan T. et al. 
+    Some novel display techniques for driving simulation 
+    IEEE Trans. Hum. Fact. Electron. 
+    (1964) 
+    Plopski A. et al. 
+    Corneal-imaging calibration for optical see-through head-mounted displays 
+    IEEE Trans. Vis. Comput. Graphics 
+    (2015) 
+    Itoh Y. et al. 
+    Interaction-free calibration for optical see-through head-mounted displays based on 3D eye localization 
+    Hu X. et al. 
+    Rotation-constrained optical see-through headset calibration with bare-hand alignment 
+    An Z. et al. 
+    Design and performance of an off-axis free-form mirror for a rear mounted augmented-reality head-up display system 
+    IEEE Photonics J. 
+    (2021) 
+    Park Y.-D. et al. 
+    A study on the ultra precision machining of free-form molds for advanced head-up display device 
+    J. Korea Academia-Ind. Coop. Soc. 
+    (2019) 
+ 
+View more references 
+Cited by (5) 
+ 
+    In-vehicle human–machine interface guidelines for augmented reality head-up displays: A review, guideline formulation, and future research directions 
+    2024, Transportation Research Part F: Traffic Psychology and Behaviour 
+    Citation Excerpt : 
+ 
+    The study suggests that the FoV of around 12 degrees horizontal and 6 degrees vertical is appropriate for automobile AR-HUD systems (Ren et al., 2016). Lastly, Xu et al. (2023) proposed a fully connected neural network (HUDNet) for an automotive AR-HUD to correct dynamic distortion. A parallel prediction framework was developed for the image's center and edge, and the distortion information was separated from the disparity information to balance the unstable central field of view error. 
+    Show abstract 
+    Accommodation-capable holographic waveguide head-up display with extended field of view 
+    2024, Displays 
+    Citation Excerpt : 
+ 
+    Augmented-reality (AR) displays provide users with realistic and immersive three- dimensional (3D) experiences, which opens up new opportunities for interacting with digital Content and the real world [1–4]. 
+    Show abstract 
+    A Review of Augmented Reality Heads Up Display in Vehicles: Effectiveness, Application, and Safety 
+    2025, International Journal of Human-Computer Interaction 
+    Enlarged Eye-Box Accommodation-Capable Augmented Reality with Hologram Replicas 
+    2024, Sensors 
+    Dynamic Distortion Assessment in Automobile Head-Up Displays with Subjective Methods 
+    2024, Guangxue Xuebao/Acta Optica Sinica 
+ 
+☆ 
+    This paper was recommended for publication by Shibiao Xu. 
+ 
+View full text 
+© 2023 Elsevier B.V. All rights reserved. 
+Recommended articles 
+ 
+    Introducing Augmented Reality in Next Generation Industrial Learning Tools: A Case Study on Electric and Hybrid Vehicles 
+    Procedia Engineering, Volume 132, 2015, pp. 251-258 
+    A. Perdikakis , …, D. Kiritsis 
+    Stereoscopic image discomfort prediction using dual-stream multi-level interactive network 
+    Displays, Volume 78, 2023, Article 102444 
+    Yang Zhou , …, Zhu Li 
+    VSBSIS: A verifiable SVD-based secret image sharing scheme for lossless and efficient reconstruction 
+    Displays, Volume 78, 2023, Article 102455 
+    Krishnendu Maity , Susanta Mukhopadhyay 
+ 
+Show 3 more articles 
+Article Metrics 
+Citations 
+ 
+    Citation Indexes 5  
+ 
+Captures 
+ 
+    Mendeley Readers 10  
+ 
+PlumX Metrics Logo View details 
+Elsevier logo with wordmark 
+ 
+    About ScienceDirect 
+    Remote access 
+    Advertise 
+    Contact and support 
+    Terms and conditions 
+    Privacy policy  
+ 
+Cookies are used by this site. Cookie Settings 
+ 
+All content on this site: Copyright © 2025 or its licensors and contributors. All rights are reserved, including those for text and data mining, AI training, and similar technologies. For all open access content, the relevant licensing terms apply. 
+RELX group home page 
+Feedback 
+Get citation 

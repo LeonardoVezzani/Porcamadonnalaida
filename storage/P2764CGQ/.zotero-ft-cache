@@ -1,0 +1,1042 @@
+Can You Hazard a Guess? Evaluating the Efects of Augmented Reality Cues on Driver Hazard Prediction
+
+Thomas Goodge
+2605440G@student.gla.ac.uk Social AI CDT, School of Computing
+Science, University of Glasgow United Kingdom
+
+Frank Pollick
+frank.pollick@glasgow.ac.uk School of Psychology, University of
+Glasgow United Kingdom
+
+Stephen Brewster
+stephen.brewster@glasgow.ac.uk Glasgow Interactive Systems Section,
+School of Computing Science, University of Glasgow United Kingdom
+
+Figure 1: Examples of the Augmented Reality cues from Study 1 (left - gem popping game presented in AR in front of road environment) and Study 2 (right - keypad task)
+
+ABSTRACT
+Semi-autonomous vehicles allow drivers to engage with non-driving related tasks (NDRTs). However, these tasks interfere with the driver’s situational awareness, key when they need to safely retake control of the vehicle. This paper investigates if Augmented Reality (AR) could be used to present NDRTs to reduce their impact on situational awareness. Two experiments compared driver performance on a hazard prediction task whilst interacting with an NDRT, presented either as an AR Heads-Up Display or a traditional Heads-Down Display. The results demonstrate that an AR display including a novel dynamic attentional cue improves situational awareness, depending on the workload of the NDRT and design of the cue. The results provide novel insights for designers of incar systems about how to design NDRTs to aid driver situational awareness in future vehicles.
+
+CCS CONCEPTS
+• Applied computing → Transportation; • Human-centered computing → Empirical studies in HCI; Mixed / augmented reality.
+KEYWORDS
+Autonomous vehicles, Augmented Reality, In-car, Takeover Request, Cueing, Attention, Situational Awareness
+ACM Reference Format: Thomas Goodge, Frank Pollick, and Stephen Brewster. 2024. Can You Hazard a Guess? Evaluating the Efects of Augmented Reality Cues on Driver Hazard Prediction. In Proceedings of the CHI Conference on Human Factors in Computing Systems (CHI ’24), May 11–16, 2024, Honolulu, HI, USA. ACM, New York, NY, USA, 28 pages. https://doi.org/10.1145/3613904.3642300
+
+This work is licensed under a Creative Commons Attribution-Share Alike International 4.0 License.
+CHI ’24, May 11–16, 2024, Honolulu, HI, USA © 2024 Copyright held by the owner/author(s). ACM ISBN 979-8-4007-0330-0/24/05 https://doi.org/10.1145/3613904.3642300
+
+CHI ’24, May 11–16, 2024, Honolulu, HI, USA
+1 INTRODUCTION
+When a vehicle is in autonomous mode, the driver can engage in non-driving related tasks (NDRTs), such as reading, playing games or using a smartphone. Taking away the responsibility for driving and freeing up time for NDRTs is one of the main motivations for purchasing an autonomous vehicle (AV) [59, 80]. However, current vehicles still require driver supervision as a failsafe; the driver must be ready to take over if the vehicle can no longer drive itself. This will continue for many years until AVs reach the higher levels of full automation defned by the SAE [43]. Until then, drivers of Level 3 AVs will be required to monitor the road in case a Take-Over Request (TOR) is issued by the vehicle and they need to take control. Prolonged supervision is not what humans are predisposed to [4], and studies have shown how fatigue and low mental workload are present at higher automation levels [27]. Engagement with NDRTs can help reduce fatigue and beneft attention during prolonged supervision [71]. Few studies have investigated the situational awareness state of the driver whilst engaged with an NDRT. Having awareness of the vehicle and its environment are key for a successful TOR [74], which is reduced if the driver is engaged with an NDRT [45]. This paper investigates whether using Augmented Reality to interact with NDRTs can keep drivers engaged and situationally aware, if additional attentional cues are necessary, or whether any engagement with an NDRT is too distracting for drivers to remain aware of the road.
+The current assumption is that a timely alert for a TOR is sufcient for drivers to change their role from a passive supervisor to an active controller. Previous research has shown that if drivers are not fully situationally aware of the road, their judgement is impeded [23, 74]. Furthermore, it takes time for awareness to be acquired, which may not available in the case of an urgent TOR [31]. The lack of motivation to maintain vigilance during an automated drive, paired with a TOR which may not provide adequate information for the driver to make a decision on what action needs to be taken, has dangerous implications for road safety. Allowing drivers to engage with a distracting NDRT when they are required to maintain supervision of the AV and the road can make the problem worse. The challenge, therefore, is how to keep drivers situationally aware of their driving environment without sacrifcing the benefts of automation.
+Augmented Reality (AR), where virtual objects are superimposed onto the real world [3], has been suggested as one solution to keeping drivers in the loop through an AR Heads-Up Display (HUD) [87]. An AR HUD allows the driver to interact with non-driving related content overlaid on top of the view out of the front of the car, potentially allowing them to monitor the road and be ready if a TOR occurs. Much research has demonstrated the benefts of HUDs on driver performance [13, 63]. However, few have investigated how interacting with an NDRT through a HUD impacts the underlying perception of the driving situation and road hazards, necessary for an efective TOR.
+Many studies demonstrate the ‘Look But Fail To See’ phenomenon, where humans perceive but fail to adequately process information presented to them [39, 99, 110]. This also afects the perception of a driving scene, including drivers failing to see pedestrians, cyclists and motorcycles despite fxating on them [10, 15, 52]. This is
+
+Thomas Goodge, Frank Pollick, and Stephen Brewster
+key for ascertaining if drivers can maintain situational awareness whilst engaged with an NDRT in an AV context. Just because a driver fxates on a hazard does not mean they are attending to it. AR is a potentially useful method of presentation for these NDRTs, but it is still unclear whether the Heads-Up view would facilitate situational awareness or allow them to perform the NDRT efectively. Previous work highlights how including driving-related cues in an informational AR HUD can aid driver situational awareness [17, 92]. If displaying NDRTs in an AR HUD by itself does not aid situational awareness, could including an additional attentional cue combat the ‘Look But Fail To See’ efect?
+This paper presents two experiments which investigate how the situational awareness of drivers is afected by engaging with an NDRT. NDRT presentation was compared between an augmented reality Heads-up display (HUD, with and without an attentional cue), a Heads-down display (HDD, currently used for in-vehicle infotainment) and a Control condition, where participants only focused on the driving task. The ability to predict hazards (a key component of situational awareness), confdence and subjective attention were measured, as well as perceived workload and performance on the NDRT. Results showed that participants were able to maintain some awareness whilst engaged with an NDRT in all presentation conditions, but always worse than when solely watching the road. Including an attentional cue in the AR HUD increased awareness compared to the HDD condition, but only when the NDRT was less demanding. This suggests that current heads-down presentations of in-car NDRTs are not suitable for keeping drivers situationally aware of their environment. New presentation methods for NDRTs are necessary to facilitate driver attention towards the road. This paper discusses the implications of this and how future in-car interfaces should be designed to facilitate driver awareness as well as the suitability of AR as a presentation method. This paper contributes:
+• Two empirical studies that show drivers can predict hazards whilst engaged with a distracting NDRT, but their performance is worse than when focusing entirely on the road;
+• A comparison of augmented reality HUDs and HDDs for presenting NDRTs which shows that, whilst traditional HDDs hinder driver awareness, HUD presentation actually provides no additional beneft by itself;
+• Design and evaluation of novel attentional cues in AR HUDs to signal a hazardous road event, which demonstrate that the workload of the NDRT moderates the efectiveness of an attentional cue;
+• Recommendations for designers of in-car AR HUDs for displaying NDRTs to support situational awareness in L3 automated vehicles.
+2 BACKGROUND
+2.1 Driver attention in automated vehicles
+Driving is a complex cognitive task which requires quick appraisal and decision-making skills to take safe and appropriate actions. Many factors must be taken into account to inform these decisions, which can only be done when drivers are fully aware of the driving environment [108]. The advent of autonomous vehicles (AVs) allows drivers to hand over control of driving tasks, such as speed control,
+
+Can You Hazard a Guess?
+lane discipline and hazard perception, to the vehicle. This changes to role of the human driver to more of that of a passenger, and allows them to engage with NDRTs safely. [56, 70].
+It has been shown that driver ability to maintain supervision of automated tasks is limited [38]. However, Level 3 AVs currently available to consumers still require a human operator to maintain vehicle supervision as a fail-safe [43]. To alleviate this, AVs employ alerts to indicate when the driver should take control the vehicle, known as a Takeover Request (TOR). A signifcant amount of work has been invested in researching and designing TORs that can efectively alert the driver [82, 84, 85, 93]. However, being alerted to a hazardous event is diferent to appraising it. Failure to perceive hazards reveals a fundamental failure in what Endsley describes as ‘Situational Awareness’ (SA) [21]: the ability to 1) perceive the environment, 2) comprehend what is occurring and then 3) predict what might be about to happen based on prior knowledge. If a driver does not perceive a motorcycle or pedestrian, they will not be able to predict their actions, much less act safely should they be required to. Further to this, if drivers struggle to maintain situational awareness whilst fully in control of a vehicle, this is worsened when supervising an AV where there is no requirement or motivation to be engaged in the driving task [22, 23, 83]. Studies investigating sustained attention on automated processes indicate a marked drop in cognitive performance as the time spent monitoring increases [26, 38], which suggests that drivers are likely to neglect these important supervision tasks.
+2.2 Keeping drivers in the loop
+One suggestion for providing information to the driver is to use a Heads-Up Display (HUD), where information is presented at the driver’s eye level. Following research demonstrating their benefts in the aviation industry [42], HUDs are now appearing in cars. They provide easier access to relevant information compared to traditional Heads-Down Displays (HDD) presented via an instrument cluster or a centre console, which require drivers to take their eyes of the road. Previous work exploring HUDs in cars suggests that driving performance was less impaired and preferred to traditional cockpit displays [48, 72, 100]. The use of HUDs as a driver awareness aid, e.g. a crash warning system, has been shown to help reduce mental workload [95] and reduce reaction times in manual driving [55, 109]. Current HUDs, however, are limited to small, unintrusive displays showing static information such as speed or navigational aids. There are important considerations for designing HUDs to display more content to drivers in a way that is not distracting from the driving task. In particular, factors such as the visual complexity of the driving scene and mental workload afect a driver’s eye movements and visual scanning patterns [16, 50]. A busy and attention-capturing HUD is more likely to distract attention than assist awareness of the road [54, 60], yet there is a lot of information that drivers need to be kept informed of, especially if supervising an AV. A balance needs to be struck between presenting information to the driver that keeps their eyes on the road, but is not so overloading that it intrudes on the driving task.
+
+CHI ’24, May 11–16, 2024, Honolulu, HI, USA
+2.3 Using Augmented Reality to display information to drivers
+Augmented Reality (AR), where virtual images are superimposed onto the real world [3] has become a popular means of displaying information to drivers. An AR HUD is distinguished from a conventional HUD as it allows more detailed information to be displayed in a dynamic fashion, such as highlighting specifc objects on the road rather than just displaying driving information [29, 51, 87]. AR HUDs with more dynamic visual cues have also been shown to aid driving performance. Jing et al. [47] found that AR HUDs were able to reduce distraction when focusing on dangerous driving scenarios, and Bark et al. [5] showed that a navigational AR HUD aided turn decisions, but this difered between 2D and 3D displays. Lindemann et al. [62] found that an AR HUDs showing a variety of driving-related information such as threat markers and oncoming trafc indicators improved situational awareness of drivers. This fnding was echoed by Karatas et al. who showed that an AR HUD highlighting hazards led to quicker recognition compared to a traditional HUD [51]. Rusch et al. [92] showed that specifcally directing attention with AR cues increased detection rates of pedestrians and warning signs. In an AV context, de Oliveira Faria et al. [17] found that that AR cues helped improve driver behaviour after a TOR as well reducing the number of driver-initiated TORs.
+However, these studies typically measure driver performance when supervising the driving task in a L1 or L2 setting, not whilst engaged in a potentially distracting NDRT. This is the likely next use for AR HUDs in AVs [61]. The UK & Scottish Law commission states that NDRTs are permissible in AVs if they "do not prevent the driver from responding to demands from the automated driving system" The resolution states that the user should be “ready and able to take control" and "maintains the capabilities necessary to fulfl their respective duties." [12]. It is unclear whether engaging with an NDRT when supervising an AV afects driver’s abilities to maintain awareness of the road. A review by Riegler et al. into the use of AR applications for automated driving found that most research focuses on the use of AR for safety and driver assistance, not for presenting NDRTs. Concepts have been suggested to use AR to encourage attention to aspects of driving [96, 97]. This concept has been demonstrated for passengers [70, 104], and Muguro et al. [75] found that interacting with a gamifed AR HUD reduced reaction time to popup trafc events. Steinberger et al. [101] found that a gamifed coasting challenge in AR was shown to reduce boredom on long simulated drives. and Nachiappan et al. [77] found that, despite perceptions of increasing workload, a letter recognition NDRT presented via an AR HUD increased driving performance during monotonous manual drives. This came with increased attention to the AR HUD and not the road though. Nonetheless, previous work indicates that AR HUDs can be benefcial in providing information to drivers to improve both their driving ability and their situational awareness. The next step is to explore whether these benefts translate to drivers of AVs whilst they are engaged with an NDRT.
+
+CHI ’24, May 11–16, 2024, Honolulu, HI, USA
+2.4 Measuring driver awareness
+Previous studies typically rely on measures such as reaction time to a TOR to infer whether a driver has noticed a hazard. This is similar to the standard task used to test driver awareness, the Hazard Perception test [41], which is the current method used by the UK government [19] as part of the licensing procedure. However, hazard perception is not wholly representative of the driving task. It does not probe the higher level of situational awareness of Endsley’s model [21] that are necessary for making safe driving decisions. Measuring a driver’s situational awareness in the moment is challenging outside of fully realistic driving simulations or on-road studies. However, these are resource-intensive not always available to researchers. Situational Awareness assessment tools that focus on measuring the driver’s awareness state at specifc moments during a driving task, whilst difcult to design, are useful for evaluating the driver’s representation of the road scene on a moment-by-moment basis. The Situational Awareness Global Assessment Tool (SAGAT) [24] is one such tool that tests participants on their understanding of a scenario by freezing the scene and asking comprehension questions, i.e. showing a video of a road scene, cutting the video to black and asking participants to predict what happens next. This method can provide a better way of assessing driver ability [14, 34, 105] as it taps into the third level of Endsley’s situational awareness model: prediction. Experienced drivers are able to use their prior knowledge and experience on the road, in conjunction with what they perceive to more accurately predict what happens next compared to less experienced drivers [14]. Using the SAGAT method, Radlmayr et al. [86] showed that displaying a visual NDRT in the form of a balloon-popping game via an AR HUD impacted driver’s situational awareness compared to no NDRT. Riegler et al. [90] suggest that investigating the design of NDRTs, how they are presented in AR and the transition between NDRT and manual driving warrants further investigation. This is specifcally aimed at measuring drivers’ situational awareness beyond reaction time and evaluate whether an AR display helps or hinders driver awareness.
+2.5 Summary and Research Questions
+Whilst previous studies have established the benefts of presenting information to drivers via an AR HUD, the efect of presenting an NDRT in this way on situational awareness is still not clear. Questions remain over whether presenting an NDRT as a HUD benefts situational awareness, or serves as a distraction from the driving task, as demonstrated by the Look-but-Fail-to-See phenomenon. This paper sets out to examine:
+• RQ1 Can driver’s maintain situational awareness when they are engaged with a NDRT?
+• RQ2 Does presenting a NDRT via a HUD have benefts for situational awareness over a traditional HDD?
+• RQ3 Does including attentional cues to direct attention to the road in the design of the NDRT aid situational awareness?
+
+Thomas Goodge, Frank Pollick, and Stephen Brewster
+3 STUDY 1: HAZARD PREDICTION ABILITY WHILST USING AR HUD VS HDD
+A study was conducted to compare driver situational awareness, as measured through their Hazard Prediction ability, whilst engaged with an NDRT presented either via a HUD or a HDD. The following section reports the methods, procedure and results from this study, as well as a brief discussion of the results.
+3.1 Design
+The experiment was designed to measure how Hazard Prediction ability was afected by performing an NDRT across diferent presentation methods. A repeated measures experimental design was employed, with Hazard Prediction score and subjective confdence rating as dependent variables. The independent variable was Presentation Method with fve levels: Baseline (no NDRT), AR HUD, Cued AR HUD, AR HDD and Tablet HDD.
+The Hazard Prediction test scores were used to answer RQ1. If scores were above the chance level of 25%, this indicated that the participants were able to predict what happened next in the video clips and supposedly would be able to take over control of an AV safely. Diferences in the scores between each of the presentation methods would answer RQ2. If scores in the HUD conditions are higher than in the HDD which takes attention down of the road, it suggests that this eyes-on-road presentation method provides some beneft to situational awareness. To answer RQ3 and measure a lack of awareness caused by the ’Look-but-Fail-to-See efect, an AR HUD condition which used a specifc attentional cue to direct attention towards the hazard was included. This was to evaluate whether an AR HUD by itself is benefcial for situational awareness or it requires specifc design considerations to do so. Feedback about how demanding each of the presentation conditions was and how confdent participants felt in their answers provided insight into the workload caused by engaging with an NDRT for each presentation method.
+3.2 Participants
+24 Participants (11 female, 13 male, mean age = 33.1 years, sd = 9.4) were recruited via online forums and around the University of Glasgow Computer Science and Psychology departments. All had normal or corrected to normal eyesight and had held a driving licence for at least 2 years. Since previous research has shown the Hazard Prediction test to be culturally agnostic [106], this was not limited to drivers from the UK (10 UK, 2 Germany, 2 Greece, 1 Denmark, 1 France, 1 Italy, 1 Taiwan, 1 Spain, 1 Philippines, 1 Malaysia, 1 Indonesia, 1 Bulgaria and 1 held licenses from both Saudi Arabia & New Zealand).
+The average total driving experience was 13.7 years (min = 2, max = 41, sd = 8.04) , the average UK driving experience for non-UK license holders was 2.04 years (min = 0, max = 6, sd = 2.04). 18 people reported they had experience of driving in the Glasgow area where hazard clips were flmed, with an average of 3.7 years (min = 0, max = 26, sd = 6.16). 9 reported having used an AR headset before, 7 reported using mobile AR and 6 reported never having used AR. 1 participant reported never having heard of AR.
+
+Can You Hazard a Guess?
+3.3 Materials
+3.3.1 Hazard Prediction Test. A modifed version of the SAGAT test was presented to measure situational awareness, known as the Hazard Prediction or ’What Happens Next’ (WHN) test [14]. A GoPro Hero 360 Max camera was attached to the windscreen of a Citroen C3 car to capture the road from the driver’s perspective. Footage from in and around the Greater Glasgow area was collected at various times throughout the day between March and May. This footage was then reviewed and edited into 40 hazard clips, which cut away moments before a hazard occurred. The defnition for a hazard was taken from the UK Government’s Hazard Perception test as "something that would cause you to take action, like changing speed or direction" [19]. The cutof was chosen at the point just before action from the camera car driver was required, which was deduced from viewing their behaviour in the video. These hazards were not staged beforehand but naturally encountered on the road during flming.
+Participants were presented with the 40 hazard clips whilst sitting in a driving simulator. Since it was not possible to capture unobstructed footage from the side windows of the vehicle, the side monitors were turned of to avoid distracting participants and only the forward view out of the windscreen was presented, akin to the current version of the Hazard Perception test [19]. The experiment was built using PsychoPy v2021.2.3 [46] and displayed on an Asus VX279 27-inch monitor approximately 1m from their face. A multiple choice list of 4 potential scenarios was presented, which they selected one using a button on a Logitech G29 steering wheel (see Figure 2). The false multiple-choice scenarios were created by looking at the last few frames in each clip and creating plausible answers based on other vehicles or road features visible. For instance, if the hazard in a clip was ’pedestrians stepping out from behind a parked car from the left’, an example foil answer could be about a) the position of the hazard: ’pedestrians step out from a parked car from the right’, b) the subject of the hazard: ’a cyclist pulls in front of you from the left’ or c) another vehicle/ feature altogether: ’a white van pulls into the road from the right’ (See Appendix A).
+3.3.2 Design of the NDRTs. Four presentation conditions were designed to display the NDRTs: AR HUD, Cued AR HUD, AR HDD and Tablet HDD. The AR tasks were developed in Unity (version 20203.26f1) using the Mixed Reality Toolkit (MRTK - version 2.7.2) and were presented using the HoloLens 2 Augmented Reality headset. Guidelines for placing and displaying Mixed Reality content from [73] were followed for the placement, size and opacity of images, where it did not interfere with the design of the experiment. Images were displayed at the same distance from the user as the real life screen in order to reduce potential discomfort caused by shifting focus between near and far objects. An AR game was designed similar to that used by Radlmayr et al.. Coloured gems would appear in the 3D space in front of the monitor displayed at random intervals. Participants were asked to ‘pop’ all the gems they could as quickly as possible by looking at them. The gems lasted for between 1.5 and 2 seconds, and participants received a point for each gem they popped. Performance was measured by counting the number of gems popped compared to the number of gems spawned to get the accuracy level. The gems stopped spawning when the Hazard Prediction prompt appeared. An eye-tracking
+
+CHI ’24, May 11–16, 2024, Honolulu, HI, USA
+task was selected as it did not require the hands, which could rest on the steering wheel, and allowed the hazard clips to be easily visible. This task was world-locked to the monitor to emulate a windscreen display.
+For the AR HUD condition, the gems appeared randomly in front of the screen. This condition was included to measure whether a HUD presentation would provide any beneft over a HDD. In the Cued AR HUD condition, a red gem would appear as an attentional cue in the area below where the hazard on the screen would appear, 4 seconds before it’s onset (based on recommendations from Dijkstra et al.) (See Figure 2). This condition was used to examine the efect of the Look-but-Fail-to-See phenomenon, comparing performance with the AR HUD conditions. In the AR HDD condition, the same game task as described above was displayed down below the level of the screen to bring participant’s attention away from the road. They used mid-air touch gestures, rather than gaze tracking, detected by the HoloLens 2, to interact with the gems and score points. This was designed to emulate interacting with a central console that is currently being suggested for NDRTs, but still within the AR domain. Finally, as more realistic or common NDRT, a Samsung Galaxy tablet was mounted onto the driving simulator for the Tablet HDD condition. This condition was to represent the type of NDRT drivers are likely to engage with, as well as what is currently legal in the UK. The mobile game Bejeweled [2] was presented, which requires players to align gems into a row of three to clear the board and gain points. Whilst the demand of this task and the input methods are diferent from the AR NDRTs, it was included as a realistic alternative to the other NDRT conditions. Though specifc comparisons between this task and the others cannot be made, it provides a broad indication of the diferences between an AR NDRT and the touchscreen based one that are currently available in cars, such as recent Tesla models [102] and BMWs iDrive [37].
+3.4 Procedure
+After consenting to take part, participants provided demographic and driving experience information via online questionnaire platform Qualtrics. They were then shown an example WHN clip to practice giving their responses, as well as given a practice interaction with the headset. Participants saw the WHN clips in the 5 diferent presentation conditions in blocks of 8. First, without any NDRT as a baseline, and then through the four counterbalanced NDRT task conditions with 24 total iterations. After watching each clip, participants were asked to predict what happens next from the list of multiple-choice answers. They were also asked to rate their confdence in their answer on a 0-100 scale. The NASA Task Load Index (TLX) [36] was administered via Qualtrics after each condition to assess perceived workload. Finally, participants were asked to rate their attention to the driving task on a 0-100 scale at the end of each condition. (See Table 1 for a full list of measures and Figure 3 for a diagram showing the procedure).
+On top of the £10 compensation for taking part, participants were told they could win an extra £5 reward if they performed the best in both the NDRT and the WHN task out of all other participants, to incentivise attention and performance on both tasks. The study took around 60 minutes to complete and the study design was approved by the institution’s Ethics Committee.
+
+CHI ’24, May 11–16, 2024, Honolulu, HI, USA
+
+Thomas Goodge, Frank Pollick, and Stephen Brewster
+
+Figure 2: Experimental setup, with a) the What Happens Next (WHN) Hazard Prediction task on the centre screen and the Tablet displaying the NDRT mounted on the simulator rig, with representations of the b) AR HUD c) Cued AR HUD d) AR HDD and e) Tablet HDD conditions
+
+Dependent variable
+
+Scale
+
+Timepoint measured
+
+Hazard Prediction scores Correct or Incorrect After each clip
+
+Confdence
+
+0-100 scale
+
+After each clip
+
+Attention
+
+0-100 scale
+
+End of condition
+
+NASA -TLX (Hartland 1988) 6-item 0-100 scale End of condition
+
+Table 1: Table showing the diferent dependent variables measured and what timepoint in the experiment they were collected.
+
+The total correct scores of the 8 Hazard Prediction clips per condition, as well as the average of each of the other measures
+
+between each condition were compared.
+
+3.5 Study 1 Results
+The results were analysed using R Studio 2022.07.01 Build 554 using the lme4 [8], lmerTest [57] and report [66] R packages. Given the hierarchical nature of the data from the repeated measures design, Generalised Linear Mixed Efects Models were ftted to the data for Hazard Prediction score and Confdence ratings, estimated using Maximum Likelihood (ML) and the bobyqa optimizer. Confdence Intervals (CI = 95%) and p-values were computed using a Wald t-distribution approximation. Repeated measures ANOVAs were conducted on the Attention and NDRT Performance scores as these were not nested data and so a mixed-efects model was not suitable. This section contains analyses for the AR NDRTs conditions for Hazard Prediction performance, confdence, attention and NASA TLX ratings. Due to diferences in task scoring and interaction method, the Tablet HDD condition cannot be directly compared to the other NDRT conditions. However, as it as meant to act as a realworld comparison to the types of NDRT which are currently legal for automated driving in the UK, it was included in the analyses.
+3.5.1 Hazard Prediction scores. Models were ftted estimating the fxed efect of holding a UK license, number of years of driving experience, driving experience in the UK, and local Glasgow driving
+
+experience on Hazard Prediction scores, as well as models including participant as a random efect. However, following a backward step wise model selection approach where variables are systematically removed from models and their fts compared, none of these models were found to provide signifcantly greater explanation of the variance compared to the models presented below. The least signifcant variables were sequentially removed until arriving at the simplest model following the ’keeping it maximal’ approach suggested by Barr et al. [6]. As such, all participants were analysed together, regardless of what country they received their driving license from or their driving experience.
+Average scores for the Hazard Prediction task for each of the 5 Presentation Method conditions (Baseline, AR HUD, Cued AR HUD, AR HDD and Tablet HDD) were compared (See Table 2). A generalised linear mixed model was ftted to predict the main efects of Presentation Method including hazard clip (���h) as a random intercept for each group with the formula:
+
+Can You Hazard a Guess?
+
+CHI ’24, May 11–16, 2024, Honolulu, HI, USA
+
+Figure 3: Flowchart showing the experimental procedure.
+
+Hazard Prediction Score��� ��� = ���0 + ���1 · Condition��� ��� + ���0��� + ������ ��� 1
+The model’s total explanatory power was moderate (conditional R2 = 0.22) 2. Within this model, the average Hazard Prediction score for the AR HUD (-0.99, p< 0.001), Cued AR HUD (-0.59, p = 0.011), AR HDD (-1.22, p < 0.001) and Tablet HDD (-1.37, p < 0.001) conditions were signifcantly lower than Baseline scores (see Figure 4). After refactoring the model to use Cued AR HUD as the intercept, the scores in the AR HDD p = (-0.57, 0.012), and Tablet HDD (-0.72, p < .001) were found to be signifcantly lower than the Cued AR HUD condition. However, the scores in the AR HUD condition were not signifcantly diferent from the Cued AR HUD condition. Refactoring the model with AR HUD, AR HDD as intercepts produced no signifcant diferences not already accounted for in the models above (See Table 3 for a full list of model comparisons).
+3.5.2 Confidence Ratings. Average scores for the Confdence rating for Hazard Prediction responses in each of the 4 NDRT Presentation
+1- Hazard Prediction Score��� ��� is the response variable for the ���-th observation in the ��� th group. - ���0 is the fxed intercept. - ���1 is the fxed efect coefcient for the Condition variable. - Condition��� ��� is the value of the Condition variable for the ���-th observation in the ��� -th group. - ���0��� is the random intercept for the ���-th group. - ������ ��� represents the residual error term for the ���-th observation in the ��� -th group. The fxed efects are denoted by ��� coefcients, and the random efects are represented by ��� terms. 2Whilst it is difcult to calculate the actual R2 value for generalised linear models, the theoretical value was calculated using the MuMIn package [7]. Despite frst appearances that the low value indicates the model ft is poor, R2 values above 0.2 are generally considered good [69]. For full discussion see [78]
+
+Block
+
+Score (%) Std Error Lower CI Upper CI
+
+Baseline AR HUD
+
+0.824014 0.032292 0.751633 0.878706 0.635925 0.045151 0.543761 0.719089
+
+Cued AR HUD 0.710261 0.041391 0.623033 0.784293
+
+AR HDD
+
+0.580037 0.046729 0.486738 0.667945
+
+Tablet HDD 0.543329 0.047297 0.450202 0.633522
+
+Table 2: Summary statistics for average percentage of correct
+
+Hazard Prediction scores for each Presentation method in
+
+Study 1, as well as the standard error and both lower and
+
+upper confdence intervals as reported from the mixed efects
+
+model.
+
+Methods (AR HUD, Cued AR HUD, AR HDD and Tablet HDD) were compared to baseline ratings (See Table 4). A generalised linear mixed model was ftted to predict the main efects of Condition including participant (���p) and hazard clip (���h) as random efects, with the formula:
+Confdence Rating��� ��� = ���0 + ���1 · Condition��� ��� + ���0��� + ���1��� + ������ ��� 3 :
+3- Confdence Rating��� ��� is the response variable for the ���-th observation for the ��� -th participant. - ���0 is the fxed intercept. - ���1 is the fxed efect coefcient for the Condition variable. - Condition��� ��� is the value of the Condition variable for the ���-th observation for the ��� -th participant. - ���0��� is the random intercept for the ���-th participant, drawn from a normal distribution with mean zero and some participant-specifc variance. ���1��� is the random intercept for the ��� -th Hazard Clip, drawn from a normal distribution
+
+CHI ’24, May 11–16, 2024, Honolulu, HI, USA
+
+Thomas Goodge, Frank Pollick, and Stephen Brewster
+
+Figure 4: A graph showing the average score on the Hazard Prediction task, confdence rating and subjective attention in each Presentation Method condition for Study 1. Each of the conditions showed a signifcant decrease in both average score, confdence and attention in all of the NDRT presentation conditions compared to Baseline.
+
+Comparison
+
+Hazard Prediction
+
+Baseline
+
+AR HUD
+
+Cued AR HUD
+
+AR HDD
+
+Tablet HDD
+
+Model Intercept Estimate
+
+SE
+
+Sig. Estimate
+
+SE
+
+Sig.
+
+Estimate
+
+SE
+
+Sig. Estimate
+
+SE
+
+Sig.
+
+Estimate
+
+SE
+
+Sig.
+
+Baseline
+
+1.5
+
+(SE = 0.22)
+
+-0.99
+
+(SE = 0.25) p <0.001*** -0.65
+
+(SE = 0.25) p = 0.011* 1.22
+
+(SE = 0.25) p <0.001*** 1.37
+
+(SE = 0.23) p <0.01***
+
+AR HUD
+
+0.56
+
+(SE = 0.2)
+
+0.34
+
+(SE = 0.23 p = 0.142 -0.23
+
+(SE = 0.22) p = 0.29 -0.38
+
+(SE = 0.22) p = 0.08
+
+Cued AR HUD
+
+0.9
+
+(SE = 0.2)
+
+-0.57
+
+(SE = 0.23) p = 0.012* -0.72
+
+(SE = 0.23) p = 0.002**
+
+AR HDD
+
+0.3
+
+(SE = 0.19)
+
+-0.15
+
+(SE = 0.22) p = 0.49
+
+Tablet HDD
+
+0.17
+
+(SE = 0.19)
+
+Table 3: A table showing the Model Estimates, Standard Error (SE) and p values obtained through Wald’s approximation for
+
+each of the generalised linear mixed efects models for each of the 4 Presentation Methods and Baseline Hazard Prediction
+
+scores. Each row corresponds to a model with the named presentation condition as the intercept, the column representing each
+
+of the other presentation conditions compared to the intercept. Repeat comparisons were omitted for clarity, but represent the
+
+inverse of the estimate presented.
+
+The model’s total explanatory power was moderate (conditional R2 = 0.22). Within this model, the score for the AR HUD (-1.13, p< 0.001), Cued AR HUD (-0.59, p = 0.031), AR HDD (-1.86, p < 0.001) and Tablet HDD (-1.64, p < 0.0001) conditions were signifcantly lower than Baseline confdence ratings. After refactoring the model to use Cued AR HUD as the intercept, confdence ratings in the AR
+with mean zero and some Hazard Clip-specifc variance. - ������ ��� represents the residual error term for the ���-th observation for the ��� -th participant. The fxed efects are denoted by ��� coefcients, and the random efects are represented by ��� terms.
+
+HUD (-0.53, p = 0.027), AR HDD (-1.27, p < 0.001), and Tablet HDD (-1.04, p < 0.001) were signifcantly lower than the Cued AR HUD condition. Refactoring with AR HUD as the intercept, confdence ratings in the AR HDD (-0.74, p < 0.001) and the Tablet HDD (-0.51, p = 0.023) were signifcantly lower than the AR HUD condition. There were no signifcant diferences between confdence ratings for the AR HDD and the Tablet HDD conditions (See Table 4).
+
+Can You Hazard a Guess?
+
+CHI ’24, May 11–16, 2024, Honolulu, HI, USA
+
+Comparison
+
+Confdence
+
+Baseline
+
+AR HUD
+
+Cued AR HUD
+
+AR HDD
+
+Tablet HDD
+
+Model Intercept Estimate
+
+SE
+
+Sig. Estimate
+
+SE
+
+Sig.
+
+Estimate
+
+SE
+
+Sig. Estimate
+
+SE
+
+Sig.
+
+Estimate
+
+SE
+
+Sig.
+
+Baseline
+
+1.87
+
+(SE = 0.25)
+
+-1.12
+
+(SE = 0.27) p <0.001*** -0.59
+
+(SE = 0.28) p = 0.031* -1.86
+
+(SE = 0.26) p <0.001*** -1.63
+
+(SE = 0.26) p <0.001***
+
+HUD
+
+0.74
+
+(SE = 0.21)
+
+0.53
+
+(SE = 0.24) p = 0.027* -0.74
+
+(SE = 0.22) p = 0.001** -0.51
+
+(SE = 0.22) p = 0.023*
+
+Cued AR HUD
+
+1.28
+
+(SE = 0.22)
+
+-1.27
+
+(SE = 0.24) p <0.001*** -1.04
+
+(SE = 0.24) p <0.001***
+
+HDD
+
+0.01
+
+(SE = 0.2)
+
+0.23
+
+(SE = 0.24) p = 0.3
+
+Tablet HDD
+
+0.24
+
+(SE = 0.2)
+
+Table 4: A table showing the Model Estimates for Confdence ratings, with the Standard Error (SE) and p values obtained
+
+through Wald’s approximation for each of the generalised linear mixed efects models for each of the 5 Presentation Methods.
+
+Each row corresponds to a model with the named presentation condition as the intercept, the column representing each of
+
+the other presentation conditions compared to the intercept. Repeat comparisons were omitted for clarity, but represent the
+
+inverse of the estimate presented.
+
+3.5.3 Atention Ratings. Since the Attention ratings were only recorded at the end of each condition, the data were not nested and thus a mixed efects model was not suitable. A repeated measures ANOVA found a signifcant diference between the Presentation Methods (F (4, 92) = 21.5, p < 0.0001, ���2 = 0.35). Post hoc analyses with a Bonferroni adjustment revealed that Attention ratings in all presentation conditions were signifcantly lower (p < 0.001) than Baseline in all conditions. However, none of the comparisons between conditions were signifcantly diferent.
+3.5.4 Perceived Workload. A repeated measures ANOVA was conducted on the raw total NASA TLX ratings at each condition. The Total rating was statistically signifcantly diferent across diferent blocks (F(2.91, 64.02) =20.59, p < 0.001, ���2 = 0.31). Post hoc analyses with a Bonferroni adjustment revealed that the pairwise comparisons between the Baseline condition ratings and both the AR HDD (p < 0.001) and the Tablet HDD (p = 0.004) conditions were signifcantly diferent, but not the AR HUD or Cued AR HUD conditions (See Figure 5). There were also signifcant diferences between the the Cued AR HUD condition and both the AR HDD (p = 0.002) and the Tablet HDD (p = 0.03). No other comparisons between conditions were signifcantly diferent however. For full breakdown of NASA TLX scores, subscales and comparisons, see Appendix B.
+3.5.5 NDRT Performance. Performance on the AR NDRTs was conducted to compare performance between them. This was calculated by taking the number of gems spawned during the block and the number of gems popped to work out the proportion of gems that participants looked at and scored a point. The average scores for each condition was 47.5 % (sd = 16.5) for the AR HUD condition, 50.2% (sd = 16.53) for the Cued AR HUD and 22.2% (sd = 11.2) for the AR HDD condition. Performance on the Tablet HDD was not compared as the task had diferent requirements and scoring measure to the AR NDRTs. A repeated measures ANOVA was conducted on the task performance measures for only the AR NDRTs. The proportion of gems popped was statistically signifcantly diferent between conditions, F(1.56) = 80.91, p < 0.0001***, ���2 = 0.42. Post hocanalyses with a Bonferroni adjustment revealed a signifcantly higher proportion of gems popped in both the AR HUD condition ( p < 0.001) and the Cued AR HUD condition (p < 0.001) compared to the AR HDD condition. However, there was no signifcant diference between AR conditions.
+
+3.6 Study 1 Discussion
+Results from this experiment showed that participants were able to maintain situational awareness of the driving task whilst engaged with an NDRT. Hazard Prediction scores in all conditions were higher than chance, indicating the participants were able to use their driving experience to correctly predict what happened next in the hazard clips. However, there was no clear beneft observed when presenting the NDRT via an AR HUD compared to the HDD conditions, contrary to what previous research into AR HUDs [47, 62] may suggest. This indicates that the distracting nature of an NDRT hinders driver’s abilities to monitor the road, regardless of the presentation condition. Only when an attentional cue indicating the location of the hazard was included in the AR HUD was there any beneft to situational awareness. However, this was still lower than when participants focused solely on the driving task in the Baseline condition. Therefore, the presentation of NDRTs to drivers that are still required to maintain supervision of an AV does not beneft from a HUD presentation.
+3.6.1 Real World Comparison - Baseline vs Tablet HDD. The Tablet HDD condition was included to ofer a real-world comparison with Bejeweled, a commercial application with 25 million users[1] used as the NDRT. This type of task is currently legal in the UK in L3 vehicle in autonomous mode, so this comparison represented the efects of using a real application likely to be used in an AV. The Hazard Prediction scores from this condition were signifcantly lower than the Baseline condition. This is signifcant since car manufacturers currently employ HDDs for their in-car infotainment systems [30]. Despite UK law stating that these types of displays are legal, results from this study suggest that this type of NDRT presentation is detrimental to situational awareness, and contradicts the "do not prevent the driver from responding to demands from the automated driving system" requirement from the UK & Scottish Law Commission [12]. Though specifc comparisons cannot be made in this study, the results suggest presenting the NDRT using an AR HUD with an attentional cue towards dangers on the road is better for driver awareness than current HDD methods.
+3.6.2 Efect of the Atentional Cue. Including an attentional cue in the Cued AR HUD did lead to better prediction scores compared to the HDD conditions. However, there was no diference when compared to the HUD without a cue, and was worse than full attention to the road. These results may be because the design of the
+
+CHI ’24, May 11–16, 2024, Honolulu, HI, USA
+
+Thomas Goodge, Frank Pollick, and Stephen Brewster
+
+Figure 5: Raw Total NASA TLX scores for each NDRT presentation condition for Study 1
+
+attentional cue not efectively communicating a warning to participants. The red gem used as a cue here did not disrupt performance in the NDRT and only appeared on the screen near the area of the hazard, with only it’s presence signalling a hazard. Compared to other attentional alerts that are multimodal [84, 85], the cue was not as attention capturing. This may explain why there were no signifcant diferences between the Cued AR HUD and AR HUD conditions; the AR content in both of these conditions did not obstruct view of the road, similar to the Pokémon Drive concept from Schroeter and Steinberger, [97] or zombie shooting from Togwell et al. [104]. However, this unintrusive design does not necessarily refect the type of tasks that people report wanting to engage with as NDRTs. Tasks such as answering emails, browsing the internet or watching flms are all popular suggestions as NDRTs that AVs will allow [70, 80] which would be more obstructive of the road view. The results from this study show how a HUD presentation is not necessarily benefcial for awareness for RQ2, but does not help us understand the complexities behind how including attentional cues in NDRTs afects driver awareness, as asked in RQ3.
+3.7 Task Design Changes and Expert Opinions on Cue Design
+Results from this frst study suggest a visual attentional cue is needed to be incorporated into the NDRT for a HUD presentation to aid situational awareness. Yet from the design of this study there are still outstanding questions:
+• Do these results persist with a more realistic NDRT?
+
+• Does the design of the attentional cue impact on how it aids situational awareness?
+To further explore these questions, a follow-up study was conducted to expand on the results collected here. A keypad dialling task was selected as to represent the type of text input tasks drivers engage with in cars, as well as being a task used in similar research evaluating input devices for NDRTs [49, 58]. Furthermore, to make more specifc comparisons between HUDs and HDDs, a task that required the same manner of interaction was needed to evaluate how the specifc demands of the NDRT impacted Hazard Prediction ability. The HUD conditions in Study 1 only required eye-gaze to perform, whereas the HDD conditions required a touch input. These diferent input methods may explain the signifcant diference in results beyond the change in Presentation Method.
+It was deemed necessary to include a more dynamic attentional cue which drew attention to not just the road, but a specifc location of interest i.e. a dangerous hazard. Given the novelty of engaging with an NDRT whilst supervising an AV, there are few examples of how such a cue could be designed to impart situational awareness that does not involve full attention capture. A group of Automotive UI and HCI experts were consulted to gain insight into possible cue designs. This was with the focus on making use of the dynamic aspects of an AR HUD to communicate information to the driver. Design sessions to create informative attentional cues raised the importance of colour change and motion to indicate the location of hazards, as well as the level of danger associated with them. These designs ideas were consolidated and implemented into a keypad dialling task to create a Dynamic AR HUD condition, signalling to the participants areas of the road where a hazard was located.
+
+Can You Hazard a Guess?
+4 STUDY 2: EFFECT OF DYNAMIC CUES ON HAZARD PREDICTION ABILITY
+A study was conducted to compare driver situational awareness, as measured through their Hazard Prediction ability whilst engaged with a distracting NDRT presented either via a HUD or a HDD. The designs produced from the expert discussion were used to inform the attentional cue used in Study 2. Specifcally, the designs around changing the colour and location of the display to indicate danger were chosen, as these were the most common ideas discussed and the simplest to prototype and evaluate. The following section reports the methods, procedure and results from this study.
+4.1 Design
+The study followed the same repeated measures experimental design as Study 1, with Hazard Prediction score and subjective confdence ratings as dependent variables, and Presentation Method (Control, Static AR HUD, Dynamic AR HUD and AR HDD) as independent variables. The Baseline condition from Study 1 was changed into the Control condition, to ensure that the results were not due to any order efects. For the Static AR HUD condition, the NDRT was presented in front of the driving task with participants required to look through the keypad to see the road. In the Dynamic AR HUD condition, the keys would change to red and would move to create a window 4 seconds before the hazard occurred, so participants could view the part of the road where the hazard was about to occur. This was to expand on the results collected during Study 1 by replicating the procedure with a more obstructive NDRT and a more informative design for the attentional cue. For the AR HDD condition, the static keypad was displayed down below eye level, so participants had to take their eyes of the driving task and down towards the keypad.
+4.2 Participants
+24 new Participants (11 female, 13 male, mean age = 33.1 years, min = 22, max = 75, sd = 13) were recruited via online forums and around the University of Glasgow Computer Science and Psychology departments. All participants had normal or corrected to normal eyesight. All were required to have held a driving license for at least 2 years but, as in Study 1, this was not limited to drivers from the UK (11 UK, 3 Indonesia, 2 India, 2 Greece, 1 Bulgaria, 1 China, 1 France, 1 Israel, 1 Thailand & 1 USA). The average total driving experience was 12.14 years (min = 1, max = 54, sd = 12.5) and the average UK driving experience for non-UK license holders was 0.8 years (min = 0, max = 8, sd = 2.24). 12 people reported experience driving around the Glasgow area where the hazard clips were flmed, with an average experience of 5.9 years (min = 0, max = 28, sd = 10.3). 5 reported having used an AR headset before, 10 reported using mobile AR and 9 reported never having used AR, but had heard of it. Participants who took part in Study 1 were excluded from taking part.
+4.3 Materials
+Participants were presented with the same 40 video clips as Study 1 in blocks of 10 (See 3.3.1). Participants saw these clips in 4 Presentation Method conditions: Control, Static AR HUD, Dynamic AR HUD and AR HDD.
+
+CHI ’24, May 11–16, 2024, Honolulu, HI, USA
+4.4 Augmented Reality Keypad Task
+The NDRT was taken from previous work investigating distraction and mental workload in cars. A keypad dialling task similar to ones used by Jung et al., Large et al. was taken and adapted to be displayed in the AR headset. This was developed in Unity (version 20203.26f1) using the Mixed Reality Toolkit (MRTK -version 2.7.2) and were presented using the HoloLens 2 AR headset.
+For the Static AR HUD task, the keypad was displayed to participants with numbers (0-9) on top of the driving scene, partially occluding the view but with spaces and translucent textures so participants could still view the road. In the Dynamic AR HUD condition, the same AR task was presented, but the keys would move and change colour to indicate a hazard, four seconds before its onset (based on recommendations from Dijkstra et al.). The keys would move depending on the participant’s head position in relation to the position of the hazard on screen, meaning the keypad would have a slightly diferent layout each trial but would always move to create a consistent size window to view the hazard. The AR HDD condition displayed the same keypad from the Static condition, but down below the level of the monitor drawing participant’s eyes away from the view of the road (See Figure 6). Participants’ reaction time for dialling each 11-digit number correctly, errors, total number of correctly typed numbers, and total keypresses were measured to evaluate their performance on the task. As in Study 1, participants were ofered a £10 incentive if they performed the best at both tasks of all participants.
+4.5 Procedure
+The same experimental procedure as Study 1 was adapted for Study 2 (See subsection 3.4. After giving their consent to take part in the experiment, participants provided demographic information. They were then shown an example WHN clip to practice giving their responses, as well as given a brief practice interaction with the headset. Participants saw the WHN clips in the 4 diferent Presentation Method conditions in blocks of 10. The four conditions were presented in a counterbalanced order with 24 total iterations.
+4.6 Study 2 Results
+The results were analysed using the same methods as Study 1. The same model ft procedure as Study 1 was followed (See subsection 3.5.)
+4.6.1 Hazard Prediction. Average scores for the Hazard Prediction task for each of the 4 conditions (Static AR HUD, Dynamic AR HUD, AR HDD and Control) were compared (See Table 5). A linear mixed model was ftted to predict the main efects of Condition on Hazard Prediction score with a random intercept for each participant and a random intercept for each Hazard Clip, with the formula:
+Hazard Prediction Score��� ��� = ���0 + ���1 · Condition��� ��� +���0��� +���1��� +������ ��� 4 :
+4- Hazard Prediction Score��� ��� is the response variable for the ���-th observation for the ��� -th participant. - ���0 is the fxed intercept. - ���1 is the fxed efect coefcient for the Condition variable. - Condition��� ��� is the value of the Condition variable for the ���-th observation for the ��� -th participant. - ���0��� is the random intercept for the ���-th participant, drawn from a normal distribution with mean zero and some participantspecifc variance. - ���1��� is the random intercept for the ��� -th image_fle, drawn from a normal distribution with mean zero and some image_fle-specifc variance. - ������ ��� represents the residual error term for the ���-th observation for the ��� -th participant. The
+
+CHI ’24, May 11–16, 2024, Honolulu, HI, USA
+
+Thomas Goodge, Frank Pollick, and Stephen Brewster
+
+Figure 6: The Keypad NDRT used in Study 2, showing a) & b) the Static AR HUD, c) AR HDD (bottom centre) implementations) and d) & e) Dynamic AR HUD with keys moved to show the hazard approaching (top and bottom right)
+
+The model’s total explanatory power was moderate (conditional R2 = 0.38). Within this model, the score for the HUD (-0.98, p< 0.001), Dynamic HUD (-0.66, p = 0.004), HDD (-0.96, p < 0.001) conditions were signifcantly lower than scores in the Control condition (see Figure 7). Refactoring the model with HUD, Dynamic HUD or HDD as intercepts produced no signifcant diferences not already accounted for in the model described above (See Table 6 for a full list of model comparisons).
+
+Block
+
+Score (%) Std Error Lower CI Upper CI
+
+Control
+
+0.810077 0.046559 0.702115 0.885303
+
+Static AR HUD 0.610416 0.068203 0.471768 0.73325
+
+Dynamic AR HUD 0.682104 0.06074 0.553404 0.787928
+
+AR HDD
+
+0.612918 0.063356 0.484054 0.727701
+
+Table 5: Summary statistics for average percentage of correct
+
+Hazard Prediction scores for each Presentation method in
+
+Study 1, as well as the standard error and both lower and
+
+upper confdence intervals as reported from the mixed efects
+
+model.
+
+fxed efects are denoted by ��� coefcients, and the random efects are represented by ��� terms.
+
+4.6.2 Confidence Ratings. Average scores for Confdence ratings were compared for each of the NDRT presentation conditions (HUD, Dynamic HUD, HDD and Control) (See Table 7). A linear mixed model was ftted to predict the main efects of Condition with a random intercept for each participant and a random intercept for each Hazard Clip, with the same formula as study 1 (See 3.5.2)
+The model’s total explanatory power was moderate (conditional R2 = 0.34). Within this model, the score for the HUD (-1.35 p< 0.001), Dynamic AR HUD (-0.81, p = 0.001), HDD (-1.5, p < 0.001) and Tablet HDD (p < 0.0001) conditions were signifcantly lower than Baseline confdence ratings. After refactoring the model to use Dynamic AR HUD as the intercept, Confdence ratings in the Static AR HUD (-0.54, p = 0.017) and AR HDD (-0.69, p = 0.002) were found to be signifcantly lower than the Dynamic AR HUD condition. There were no signifcant diferences between confdence ratings for the Static AR HUD and AR HDD conditions (See Table 7 for a full list of model comparisons).
+4.6.3 Atention Ratings. A repeated measures ANOVA was conducted on the Attention ratings. As above a mixed efects model was deemed not suitable due to the nature of the data. The Attention rating was statistically signifcantly diferent at the diferent time points (F(3, 69) = 20.28, p < 0.001, ���2 = 0.28). Post hoc analyses with a Bonferroni adjustment revealed that attention ratings in all presentation conditions were signifcantly lower (p < 0.001)
+
+Can You Hazard a Guess?
+
+CHI ’24, May 11–16, 2024, Honolulu, HI, USA
+
+Comparison
+
+WHN
+
+Control
+
+HUD
+
+Dynamic HUD
+
+HDD
+
+Estimate
+
+SE
+
+Sig. Estimate
+
+SE
+
+Sig.
+
+Estimate
+
+SE
+
+Sig. Estimate
+
+SE
+
+Sig.
+
+Control
+
+1.42
+
+(SE = 0.29)
+
+-0.98
+
+(SE = 0.23) p <0.001*** -0.66
+
+(SE = 0.23) p = 0.004 -0.96
+
+(SE = 0.23) p <0.001***
+
+HUD
+
+0.44
+
+(SE = 0.27)
+
+0.32
+
+(SE = 0.22) p = 0.145 0.02
+
+(SE = 0.22) p = 0.91
+
+Dynamic HUD
+
+0.76
+
+(SE = 0.28)
+
+-0.33
+
+(SE = 0.23) p = 0.17
+
+HDD
+
+0.46
+
+(SE = 0.27)
+
+Table 6: A table showing the Model Estimates for Hazard Prediction Scores for Study 2, with the Standard Error (SE) and p values
+
+obtained through Wald’s approximation for each of the generalised linear mixed efects models for each of the 4 presentation
+
+conditions. Each row corresponds to a model with the named presentation condition as the intercept, the column representing
+
+each of the other presentation conditions compared to the intercept. Repeat comparisons were omitted for clarity, but represent
+
+the inverse of the estimate presented.
+
+Comparison
+
+Confdence
+
+Control
+
+HUD
+
+Dynamic HUD
+
+HDD
+
+Estimate SE Sig. Estimate
+
+SE
+
+Sig.
+
+Estimate
+
+SE
+
+Sig.
+
+Estimate
+
+SE
+
+Sig.
+
+Control
+
+1.73
+
+(SE = 0.3)
+
+-1.35
+
+(SE = 0.24) p <0.001*** -0.81
+
+(SE = 0.25) p <0.001*** -1.5
+
+(SE = 0.24) p <0.001***
+
+HUD
+
+0.38
+
+(SE = 0.27)
+
+0.54
+
+(SE = 0.22) p = 0.017* -0.15
+
+(SE = 0.21) p = 0.48
+
+Dynamic HUD
+
+0.92
+
+(SE = 0.28)
+
+-0.33
+
+(SE = 0.23) p = 0.17
+
+HDD
+
+0.23
+
+(SE = 0.27)
+
+Table 7: A table showing the Model Estimates for Confdence Ratings for Study 2, with the Standard Error (SE) and p values
+
+obtained through Wald’s approximation for each of the generalised linear mixed efects models for each of the 4 presentation
+
+conditions. Each row corresponds to a model with the named presentation condition as the intercept, the column representing
+
+each of the other presentation conditions compared to the intercept. Repeat comparisons were omitted for clarity, but represent
+
+the inverse of the estimate presented.
+
+than Control in all conditions. However, none of the comparisons between the conditions were signifcantly diferent.
+4.6.4 Perceived Workload. A repeated measures ANOVA was conducted on the total NASA TLX ratings at each condition. The Total rating was statistically signifcantly diferent across diferent blocks, F(3, 69) =39.74, p < 0.001, ���2 = 0.28. Post hoc analyses with a Bonferroni adjustment revealed that the pairwise comparisons between the Control condition ratings and all other presentation conditions showed that attention ratings were signifcantly lower (p < 0.001) than Control in all conditions. However, none of the comparisons between the NDRT conditions were signifcantly diferent (See Figure 8). For each of the 6 individual scales, there were signifcant diferences on all scales between ratings for the Control and each of the NDRT presentation conditions (p < 0.001), but no diferences between each NDRT presentation condition. This was except for Efort, where the Cue condition was also rated as requiring signifcantly less efort than the HDD condition (p = 0.023) (See Appendix C for a full list of statistical comparisons).
+4.6.5 NDRT Performance. A series of repeated measures ANOVAs were conducted on the task performance measures for the NDRT. The amount of numbers dialled was signifcantly diferent between conditions (F(2,56) = 6.81, p < 0.002, ���2 = 0.07). Post hoc analyses with a Bonferroni adjustment revealed there were signifcantly higher numbers dialled in the Cue condition compared to both the HUD condition (p = 0.02) and the HDD condition (p = 0.001). The number of errors was also signifcantly diferent between conditions, F(2,56) = 9.53, p < 0.0001, ���2 = 0.16. Post hoc analyses with a Bonferroni adjustment revealed there were signifcantly higher numbers dialled in the Cue condition compared to both the HUD condition (p <
+
+0.001) and the HDD condition (p = 0.046). However, there was no signifcant diference between the number of keypresses, nor the mean reaction time for any of the conditions.
+4.6.6 Comparison with Study 1. To evaluate any diferences between the studies, between subjects ANOVAs were conducted comparing the Hazard Prediction scores, Confdence ratings, Attention ratings and NASA TLX scores between Study 1 and Study 2. NDRT Presentation Method conditions were compared across the two studies (Study 1 Baseline - Study 2 Control, Study 1 AR HUD Study 2 Static AR HUD, Study 1 Cued AR HUD - Study 2 Dynamic AR HUD, Study 1 AR HDD - Study 2 AR HDD). No signifcant diferences were found between Hazard Prediction scores between comparable conditions, nor were there any signifcant diferences found between confdence or attention ratings between Study 1 and Study 2. There were also no signifcant diference between NASA TLX scores for any of the presentation conditions, except for the both of the conditions with attentional cues. A between subjects ANOVA comparing Total NASA TLX score found the workload of the Cued condition of the keypad dialling task in Study 2 was rated as signifcantly higher than the Cued AR HUD condition in Study 1 (F(46) = 5.85, p = 0.02 ���2 = 0.11).
+4.7 Study 2 Discussion
+This results of this experiment found that performing an NDRT was detrimental to situational awareness, regardless of the presentation method. This was also refected in the lower confdence and attention ratings for each of the NDRT presentation conditions, although confdence ratings were signifcantly higher in the Dynamic AR HUD condition compared to the AR HDD condition. Notably,
+
+CHI ’24, May 11–16, 2024, Honolulu, HI, USA
+
+Thomas Goodge, Frank Pollick, and Stephen Brewster
+
+Figure 7: A graph showing the average score on the Hazard Prediction task,average confdence rating and subjective attention ratings for each presentation condition for Study 2.
+
+the benefts of the Cued AR HUD condition in Study 1 were lost with a diferent, more obstructive NDRT and a more disruptive attentional cue. Participants’ performance in the NDRT was signifcantly greater in the HUD conditions than the HDD presentation, although they were not rated as signifcantly diferent on the NASA TLX scale. One potential signifcant factor was the participant’s ability to interact with the AR task. Nine participants reported no experience with AR before this experiment which may have affected their ability to pay attention to the driving task when using the AR NDRTs. Despite having a training session where they were able to practice the task, many participants anecdotally reported struggling to operate the keypad interface using the headset’s hand tracking, which required visual attention to read the target number, digit recall to store and retrieve the target number from memory whilst inputting it plus hand-eye co-ordination to press the button in the AR display. Additionally, the movement and position of the keys in the Dynamic AR HUD condition was dependent on the location of the hazard on screen in relation to the participant’s head position. This was done to create a window around the hazard and ensure that it was always visible when the buttons moved. This
+
+may have had the opposite efect in participant unfamiliar with AR, where the movement of the keys was more a distraction to those trying to process these new layouts than an attentional cue. Future designs should balance the attention capturing nature of these cues, so that they do not capture too much attention and prove detrimental to situational awareness.
+5 OVERALL DISCUSSION
+5.1 Summary of Findings
+The two studies presented here evaluated whether using AR to present NDRTs can help driver’s situational awareness. The results showed that an AR HUD provided no additional benefts over an HDD on Hazard Prediction ability, except when an attentional cue was included into the design of the NDRT. However, this was dependent on the workload of the NDRT, with a more demanding task not showing the beneft of an attentional cue.
+
+Can You Hazard a Guess?
+
+CHI ’24, May 11–16, 2024, Honolulu, HI, USA
+
+Figure 8: Raw Total NASA TLX scores for each NDRT presentation condition for Study 2
+
+These experiments help to answer the research questions in the following ways:
+• RQ1) Can drivers maintain situational awareness while engaged with an NDRT?
+Participants were able to predict hazards with an above-chance performance in all the NDRT presentation conditions, but still lower than with full attention on the driving task. Though these results do not rule out NDRTs during supervision, it shows that there is a cost to engaging with an NDRT in terms of awareness. Alternative designs, interactions, and presentation methods should be investigated to lessen the negative efect on awareness and ensure safe takeovers.
+• RQ2) Does presenting an NDRT via an AR HUD have benefts for situational awareness over a traditional HDD?
+There were no signifcant diferences between the HUD and HDD conditions in either experiment by themselves. Presenting an NDRT via a HUD alone does not have any signifcant benefts on hazard prediction performance compared to a HDD. This is perhaps due to the attentional requirement of the NDRT, or occlusion of the road scene preventing similar awareness levels being acquired. This suggests that simply presenting an NDRT via a HUD would not be enough to improve situational awareness
+• RQ3) Does including an attentional cue in the AR HUD aid situational awareness?
+Adding a dynamic attentional cue to the AR HUD helped bring attention to the road in Study 1 compared to the HDD conditions, whereas the AR HUD condition itself did not. However, the attentional cue did not prove useful in Study 2, where there was
+
+no diference with other NDRT conditions. The keypad dialling task with the dynamic cue in Study 2 was rated as having a higher workload than gem-popping game with a red gem cue in Study 1, which may explain the disparity in results. This suggests that attentional cues can provide beneft to situational awareness but what constitutes an efective cue requires further research.
+5.2 Limitations and Recommendations for Future Work
+The Hazard Prediction task presented here is a valid SAGAT variation which has had success in discriminating between novice and experienced drivers [14, 105] This is not entirely representative of the driving task as a whole, as it requires only a short period of attention in a controlled setting for the duration of the clip, rather than sustained attention over a longer period of time. This is not necessarily the technique used in longer driving scenarios where supervision is more likely to occur. i.e. motorways, etc. Here, factors such as fatigue, distraction or the length of the drive are likely to afect attention to the road [53, 103].
+Similarly, whilst footage was collected from a wide range of road types and environments, the majority of hazard clips occurred in close urban or suburban roads. This is consistent with areas where most road collisions occur [33], so this is likely where TORs would be common, as well as more driving in general. However, this task cannot measure a driver’s predictive ability for more novel or environmental hazards that are difcult to predict, such as a patch of ice on the road or an oncoming vehicle obscured by a bend. Navigating these hazards relies more on faster reactions and
+
+CHI ’24, May 11–16, 2024, Honolulu, HI, USA
+attention to the road rather than predicting what is about to happen, as they are unpredictable.
+Additionally, the stimuli presented in both studies were visual. Politis et al. have shown that multimodal interfaces are much more efective at attracting driver attention in the event of a TOR [84, 85]. Pakdamanian et al. [79] also showed that cueing attention multimodally leads to increased situational awareness and safer management of takeovers, and Ma et al. [65] found diferent neural activation patterns for unimodal and multimodal interfaces, though there were no diferences in workload or locating notifcations . It has been shown that performing tasks that compete for the same resources simultaneously results in poorer performance [11, 40], something which is also apparent for in-car NDRT inputs [91]. This may explain the lack of efectiveness of the attentional cues compared to baseline performance in both studies. NDRTs with lower attentional requirements or that require diferent cognitive resources such as voice interfaces or auditory tasks may receive a greater beneft from attentional cues. Further research should compare NDRTs using diferent modalities and how conficting versus compatible modalities moderate the efectiveness of attentional cues. Furthermore, future work should also investigate whether an AR HUD would beneft from multimodal cues, or if a multimodal NDRT has a greater impact on situational awareness. Finally, follow-up research into how drivers pay attention to attentional cues during an extended automated drive would also reveal how they can be used when a TOR is not needed.
+5.3 AR HUDs: Help or Hindrance for NDRTs?
+The beneft of using HUDs to display information is not a new fnding [48, 72, 100], but there has been little research into how presenting a non-driving related task afects the underlying hazard awareness of the driver. While most AR HUD concepts tend to focus on displaying driving-relevant information to the driver [20, 28], people report wanting to engage with NDRTs in AVs [80]. The time for a driver to regain situational awareness is around 10 seconds [107], which is increased when using a handheld device for an NDRT [114] as well as when engaged with an NDRT presented in a HUD [61]. The results from the studies presented here corroborate the fndings that any heads-down activity impairs the driver’s ability to maintain awareness of the road [64]. However, they also indicate that that, unlike driving-related information, engaging with NDRTs via a HUD also hinders driver awareness. This is important since current regulations and guidelines allow drivers of AVs to engage with NDRTs such as playing games or watching movies within the car [9], as long as they are able to regain control of the vehicle if needed[12]. To maintain driver awareness whilst engaged with an NDRT, simply switching from an HDD to a HUD does not provide the benefts seen with driving-related information [47, 62]. Design considerations must be made to account for the distracting nature of NDRTs.
+Schömig and Metz [94] have shown that drivers can engage with NDRTs in a situationally aware way, and previous studies have investigated the feasibility of AR interfaces for NDRTs during the supervision [89, 90]. However, these are not the same results as found here, where AR HUDs provided no beneft to hazard awareness over their HDD counterparts, with all NDRT conditions
+
+Thomas Goodge, Frank Pollick, and Stephen Brewster
+sufering worse hazard prediction performance than full attention. This is similar to Radlmayr et al. [86]’s fndings that presenting a balloon-popping game via a HUD led to poor performance on a SAGAT test compared to no secondary task. A distracting AR HUD could lead to inappropriate or delayed reactions to a critical TOR based on poor situational awareness. Even though AR content was overlaid onto the driving task, the ’Look but Fail to See’ phenomenon [110] persisted. While the NDRT in Study 1 was designed to have a relatively low impact on awareness, the constant vigilance for non-driving content may have been one cause for the decrease in performance. Furthermore, the NDRT and the Hazard Prediction task were both visual. This is concordant with previous work showing that the workload of diferent NDRTs afected TOR performance [76, 113]. When driver attention is not on the driving task, the benefts of an AR HUD may be lost if the task is displayed at eye level without design changes. It is not enough to display NDRTs via an AR HUD, as this still draws attention away from supervision.
+Modifying the NDRT to take advantage of the dynamic spatial and visual aspects the display ofers however can be used to aid situational awareness. Pakdamanian et al. [79] found that providing contextual awareness notifcations for diferent NDRT modalities led to increased situational awareness and smoother takeover requests. Jiang et al. [46] also found that certain types of "situational" mobile games increased situational awareness compared to more distracting games. These studies suggest that providing contextual attentional information to drivers when they are engaged in an NDRT to aid awareness could be possible. The attentional cues presented in Study 1 were a frst attempt to measure this regarding presenting an NDRT via an AR HUD. Concepts exploring how this could be applied to a gamifed HUD involve displaying game elements over important road features [96, 104]. However, this efect did not carry over to Study 2. The diference here being that the attentional cue was more visually distracting and the NDRT obscured the road more, leading to a greater perceived workload. This suggests that the attentional cue’s design is important. A distracting cue which draws more attention than the danger it is supposed to be cueing will have the opposite efect on driver awareness, which is one of the biggest challenges for realising in-car AR [88].
+5.4 Implications for Designs of AR HUDs
+The use of HUDS in AVs for non-driving related tasks provide a greater challenge than simply presenting information, as they create competition for driver attention. The results from the experiments described here suggest that simply presenting an NDRT in a HUD is not enough if drivers are still required to be aware of the road. Current discussions around responsibility and awareness between humans and AVs mostly assumes a binary relationship with either the human (User-in-Charge) or the computer (No-User-In-Charge) in control [12]. However, it is likely that driver awareness will be impaired following a system-initiated TOR if attending to an NDRT [45]. A more comprehensive approach would be to model the relationship as continuum of responsibility that shifts between the driver and the AV throughout the drive [68]. Janssen et al. [45] set out a framework that highlights diferent stages of disengaging and
+
+Can You Hazard a Guess?
+reengaging with an NDRT during an automated drive, and how driver attention progresses through these stages, rather than instantly switching task from non-driving to driving task. Importantly, they point out how driver awareness is likely to be impaired if a binary transfer of control is enacted without sufcient prior warning.
+Whilst the role of driver lessens as the capabilities of AVs increase, full automation is still many years away. Hazard prediction is one of the key challenges for reaching L4 AVs [67, 98]. L3 vehicles, however, are now being sold in the US and Germany [35], and the UK Government is creating legislation defning who is responsible in an AV both with and without a driver able to take control [81]. Issues with implementation has resulted in a slower rollout of L4 vehicles than anticipated [32]. L3 vehicles are therefore a more realistic goal for automated driving, which can use driver expertise in hazard prediction as a failsafe. However, systems which can keep drivers attending to the road without negating the benefts that automation can bring are needed. A dynamic HUD which allows drivers to engage with NDRTs which also preserves their awareness of the road through attentional cues is one solution to this issue. For example, with the AV in control, the driver is free to engage in NDRTs and take their attention of the road. As the AV starts to lose confdence in it’s ability to predict a complex road scene, or its ability to safely navigate, it could start to notify the driver by modifying the NDRT to include information about the road e.g. the colours surrounding a HUD displaying emails start to change [112], or the elements of a game change to refect objects on the road [111]. If the AV is not able to resolve these issues itself, it can then start to notify the driver that they should be prepared for a TOR. Rather than being expected to assume absolute control with no awareness of the road environment, a driver being shown these dynamic cues would be able to take on more responsibility for the driving task without needing to spend time reacquainting themselves with the road. In extreme cases, the driver would be able to safely take control of the vehicle rather being thrust into a dangerous driving scene and have to make a decision based on poor awareness.
+This all needs to be considered with the ultimate aim of still allowing drivers to engage with NDRTs, so as not to lose the benefts of automation. Previous research shows how novelty could prove more attention capturing than the cue itself [25, 44], which may be an explanation for the results in Study 2. An interface which, upon detecting a hazard, opens up to reveal the road beneath may allow drivers full view of the hazard, but the disruption to the task actually draws attention away from the road. The balance between creating an attentional cue which provides important information but does not capture too much attention requires further research if attentional cues are to be incorporated into NDRTs.
+5.5 Recommendations
+The results from these two studies have implications for designers of in-car infotainment systems that can be used for NDRTs during automated driving. Whilst currently confned to a heads-down internal screen, the progression to higher levels of driving automation along with an increase of in-car mixed reality displays will allow more sophisticated interfaces to be implemented. The results from the two studies presented here indicate that simply presenting
+
+CHI ’24, May 11–16, 2024, Honolulu, HI, USA
+non-driving content in a HUD does not provide signifcant benefts to driver awareness by itself. From this, we set out a list of recommendations for designers of in-car infotainment displays in order to limit the impact they may have on driver awareness and take advantage of the dynamic nature that mixed reality interfaces can provide:
+• Include dynamic attentional cues which draw attention to the road Simply displaying NDRTs in an AR HUD is not enough to facilitate situational awareness, and can even be distracting to the driver. NDRTs should include a dynamic cue that brings attention to specifc areas of the road.
+• Utilise change in colour and positioning Giving attentional cues a distinctive appearance that separates them from other NDRT elements and enhances their ability to capture attention. Creating a visually attentioncapturing cue requires it to be visually distinct from the underlying task.
+• Do not disrupt performance of the NDRT A dynamic cue which violates user assumptions of how to perform the NDRT can be more distracting, and so the design of dynamic attentional cues should consider the design of the NDRT and ft into how users typically engage with and what they expect of the task.
+• Consider the overall workload of the non-driving task A more demanding task requires more attentional resources, which leads to less attention available to monitor the road. The increased workload of tasks such as reading text or inputting information needs to be considered when trying to draw driver attention back to the road with an attentional cue.
+6 CONCLUSIONS
+As more advanced AVs become available to consumers, drivers can engage with NDRTs while in autonomous mode. However, if the driver is still required to maintain supervision as a failsafe, there is a confict between the benefts of automation and what is necessary for safety. AR HUDs are one way to mitigate this problem. However, drivers using them could sufer the Look-but-Fail-to-See phenomenon, where their attention is not on the road as they are engaged with a non-driving task. Study 1 investigated the efect of engaging with a NDRT presented via AR on a Hazard Prediction task. Participant performance on this task was signifcantly impaired compared to a baseline without any non-driving task as a distraction. Presentation in an AR HUD with an attentional cue showed signifcantly less impact than heads-down conditions. Study 2 investigated the efect of a more realistic non-driving task on performance on the same Hazard Prediction task. Participants performance on this task was signifcantly impaired compared to baseline without any non-driving task as a distraction, regardless of presentation method. Simply presenting the non-driving tasks via an AR HUD may not be the solution to keeping drivers in the loop. Including attentional cues within the non-driving task may help reduce the distraction caused by it and increase situational awareness of the road. However, this is moderated by the workload of the NDRT, with the benefts of an attentional cue lost with
+
+CHI ’24, May 11–16, 2024, Honolulu, HI, USA
+a more visually obstructive NDRT. Designers of in-car interfaces
+should consider these results when creating in-car interfaces and
+incorporate dynamic cues into their designs that can help prompt
+attention towards the road and consider the workload of the NDRTs
+that drivers might engage with.
+ACKNOWLEDGMENTS
+This work was supported by the UKRI Centre for Doctoral Training
+in Socially Intelligent Artifcial Agents, Grant Number EP/S02266X/1.
+and the European Research Council (ERC) under the European
+Union’s Horizon 2020 research and innovation programme (#835197,
+ViAjeRo). The authors would like to thank Tobias Thejll-Madsen
+for his advice regarding the statistical analysis of Study 1 and inter-
+pretation of the output. The authors would also like to thank the
+members of the Multimodal Interaction Group for their advice on
+presenting this paper.
+REFERENCES
+[1] 2023. Bejeweled Player Count and Stats (2023). https://videogamesstats.com/ bejeweled/
+[2] Electronic Arts. 2021. Bejeweled Classic. [3] Ronald T Azuma. 1997. A survey of augmented reality. Presence: teleoperators &
+virtual environments 6, 4 (1997), 355–385. [4] Lisanne Bainbridge. 1983. Ironies of automation. In Analysis, design and evalua-
+tion of man–machine systems. Elsevier, 129–135. [5] Karlin Bark, Cuong Tran, Kikuo Fujimura, and Victor Ng-Thow-Hing. 2014.
+Personal navi: Benefts of an augmented reality navigational aid using a seethru 3d volumetric hud. In Proceedings of the 6th International Conference on Automotive User Interfaces and Interactive Vehicular Applications. 1–8. [6] Dale J Barr, Roger Levy, Christoph Scheepers, and Harry J Tily. 2013. Random efects structure for confrmatory hypothesis testing: Keep it maximal. Journal of memory and language 68, 3 (2013), 255–278. [7] Kamil Bartoń. 2023. MuMIn: Multi-Model Inference. https://CRAN.R-project. org/package=MuMIn R package version 1.47.5. [8] Douglas Bates, Martin Mächler, Ben Bolker, and Steve Walker. 2015. Fitting Linear Mixed-Efects Models Using lme4. Journal of Statistical Software 67, 1 (2015), 1–48. https://doi.org/10.18637/jss.v067.i01 [9] BBC. 2022. Highway Code: Watching TV in self-driving cars to be allowed. https://www.bbc.co.uk/news/technology- 61155735 [10] Vanessa Beanland, Michael G Lenné, and Geofrey Underwood. 2014. Safety in numbers: Target prevalence afects the detection of vehicles during simulated driving. Attention, Perception, & Psychophysics 76 (2014), 805–813. [11] Roland Brünken, Susan Steinbacher, Jan L Plass, and Detlev Leutner. 2002. Assessment of cognitive load in multimedia learning using dual-task methodology. Experimental psychology 49, 2 (2002), 109. [12] Law Commission, Scottish Law Commission, et al. [n. d.]. Automated Vehicles: Consultation Paper 3-A Regulatory Framework for Automated Vehicles A Joint Consultation Paper, 2020. [13] Jennifer Crawford and Andrew Neal. 2006. A review of the perceptual and cognitive issues associated with the use of head-up displays in commercial aviation. https://doi.org/10.1207/s15327108ijap1601{_}1 [14] David Crundall. 2016. Hazard prediction discriminates between novice and experienced drivers. Accident Analysis & Prevention 86 (2016), 47–58. [15] David Crundall, Elizabeth Crundall, David Clarke, and Amit Shahar. 2012. Why do car drivers fail to give way to motorcycles at t-junctions? Accident Analysis & Prevention 44, 1 (2012), 88–96. [16] David E Crundall and Geofrey Underwood. 1998. Efects of experience and processing demands on visual information acquisition in drivers. Ergonomics 41, 4 (1998), 448–458. [17] Nayara de Oliveira Faria, Coleman Merenda, Richard Greatbatch, Kyle Tanous, Chihiro Suga, Kumar Akash, Teruhisa Misu, and Joseph Gabbard. 2021. The efect of augmented reality cues on glance behavior and driver-initiated takeover on SAE Level 2 automated-driving. In Proceedings of the Human Factors and Ergonomics Society Annual Meeting, Vol. 65. SAGE Publications Sage CA: Los Angeles, CA, 1342–1346. [18] Atze Dijkstra, Paula Marchesini, Frits Bijleveld, Vincent Kars, Hans Drolenga, and Martin Van Maarseveen. 2010. Do calculated conficts in microsimulation model predict number of crashes? Transportation research record 2147, 1 (2010), 105–112. [19] Driving and Vehicle Standards Agency. 2023. Theory test: cars. https://www. gov.uk/theory- test/hazard- perception- test
+
+Thomas Goodge, Frank Pollick, and Stephen Brewster
+[20] Samuel Winfeld D’Arcy. 2022. AR-HUD: A Heads Up On the Road Ahead. https: //blog.huawei.com/2022/01/04/ar- hud- road- ahead- transportation/
+[21] Mica R Endsley. 1995. Measurement of situation awareness in dynamic systems. Human factors 37, 1 (1995), 65–84.
+[22] Mica R Endsley. 2019. Situation awareness in future autonomous vehicles: Beware of the unexpected. In Proceedings of the 20th Congress of the International Ergonomics Association (IEA 2018) Volume VII: Ergonomics in Design, Design for All, Activity Theories for Work Analysis and Design, Afective Design 20. Springer, 303–309.
+[23] Mica R Endsley and Esin O Kiris. 1995. The out-of-the-loop performance problem and level of control in automation. Human factors 37, 2 (1995), 381–394.
+[24] Mica R Endsley, Stephen J Selcon, Thomas D Hardiman, and Darryl G Croft. 1998. A comparative analysis of SAGAT and SART for evaluations of situation awareness. In Proceedings of the human factors and ergonomics society annual meeting, Vol. 42. SAGE Publications Sage CA: Los Angeles, CA, 82–86.
+[25] Daniel Ernst, Stefanie Becker, and Gernot Horstmann. 2020. Novelty competes with saliency for attention. Vision research 168 (2020), 42–52.
+[26] Michael Esterman and David Rothlein. 2019. Models of sustained attention. Current opinion in psychology 29 (2019), 174–180.
+[27] Nikol Figalová, Hans-Joachim Bieg, Michael Schulz, Jürgen Pichen, Martin Baumann, Lewis L Chuang, and Olga Pollatos. 2023. Fatigue and mental underload further pronounced in L3 conditionally automated driving: Results from an EEG experiment on a test track. In Companion Proceedings of the 28th International Conference on Intelligent User Interfaces. 64–67.
+[28] Mike Firth. 2019. Introduction to automotive augmented reality head-up displays using TI DLP® technology. Technical document, May (2019).
+[29] Joseph L Gabbard, Gregory M Fitch, and Hyungil Kim. 2014. Behind the glass: Driver challenges and opportunities for AR automotive applications. Proc. IEEE 102, 2 (2014), 124–136.
+[30] Aaron Gold. [n. d.]. Comfort - Mixed Reality design guidelines. https://www. motortrend.com/news/2022- mercedes- eqs- ev- hyperscreen- ces/
+[31] Christian Gold, Moritz Körber, David Lechner, and Klaus Bengler. 2016. Taking over control from highly automated vehicles in complex trafc situations: The role of trafc density. Human factors 58, 4 (2016), 642–652.
+[32] Aaron Gordon. 2023. California DMV Suspends Cruise’s Self-Driving Car License After Pedestrian Injury. https://www.vice.com/en/article/4a3ba3/californiadmv- suspends- cruises- self- driving- car- license- after- pedestrian- injury 24/11/2023.
+[33] UK Goverment. 2022. Statistical data set: Reported road collisions, vehicles and casualties tables for Great Britain. https://www.gov.uk/government/statisticaldata- sets/reported- road- accidents- vehicles- and- casualties- tables- for- greatbritain
+[34] Andrés Gugliotta, Petya Ventsislavova, Pedro Garcia-Fernandez, Elsa PeñaSuarez, Eduardo Eisman, David Crundall, and Candida Castro. 2017. Are situation awareness and decision-making in driving totally conscious processes? Results of a hazard prediction task. Transportation Research Part F: Trafc Psychology and Behaviour (2017). https://doi.org/10.1016/j.trf.2016.11.005
+[35] Michael Harley. 2023. Testing (And Trusting) Mercedes-Benz Level 3 Drive Pilot In Germany. https://www.forbes.com/sites/michaelharley/2022/08/02/testingand-trusting-mercedes-benz-level-3-drive-pilot-in-germany/ 24/11/2023.
+[36] Sandra G Hart and Lowell E Staveland. 1988. Development of NASA-TLX (Task Load Index): Results of empirical and theoretical research. In Advances in psychology. Vol. 52. Elsevier, 139–183.
+[37] Andrew J. Hawkins. 2021. BMW’s new curved iDrive display is a ‘major step’ toward autonomous driving. https://www.theverge.com/2021/3/15/22332131/ bmw- idrive- update- curved- screen- autonomous- electric- ix
+[38] James Head and William S Helton. 2014. Sustained attention failures are primarily due to sustained cognitive load not task monotony. Acta psychologica 153 (2014), 87–94.
+[39] Brian L Hills. 1980. Vision, visibility, and perception in driving. Perception 9, 2 (1980), 183–216.
+[40] William J Horrey and John D Wickens. 2003. Multiple resource modeling of task interference in vehicle control, hazard awareness and in-vehicle task performance. In Driving Assessment Conference, Vol. 2. University of Iowa.
+[41] Mark S Horswill and Frank P McKenna. 2004. Drivers’ hazard perception ability: Situation awareness on the road. A cognitive approach to situation awareness: Theory and application (2004), 155–175.
+[42] Anders Ingman. 2005. The Head Up Display Concept: A Summary with Special Attention to the Civil Aviation Industry. (2005).
+[43] Sae International. 2018. Taxonomy and defnitions for terms related to driving automation systems for on-road motor vehicles. SAE international 4970, 724 (2018), 1–5.
+[44] Laurent Itti and Pierre Baldi. 2005. Bayesian surprise attracts human attention. Advances in neural information processing systems 18 (2005).
+[45] Christian P Janssen, Shamsi T Iqbal, Andrew L Kun, and Stella F Donker. 2019. Interrupted by my car? Implications of interruption and interleaving research for automated vehicles. International Journal of Human-Computer Studies 130 (2019), 221–233.
+
+Can You Hazard a Guess?
+[46] Tingwei Jiang, Ying Wang, and Rixin Tang. 2023. Playing Games Guiding Attention Improves Situation Awareness and Takeover Quality during Automated Driving. International Journal of Human–Computer Interaction (2023), 1–14.
+[47] Chunhui Jing, Chenguang Shang, Dongyu Yu, Yaodong Chen, and Jinyi Zhi. 2022. The impact of diferent AR-HUD virtual warning interfaces on the takeover performance and visual characteristics of autonomous vehicles. Trafc injury prevention 23, 5 (2022), 277–282.
+[48] Richie Jose, Gun A Lee, and Mark Billinghurst. 2016. A comparative study of simulated augmented reality displays for vehicle navigation. In Proceedings of the 28th Australian conference on computer-human interaction. 40–48.
+[49] Suhwan Jung, Jaehyun Park, Jungchul Park, Mungyeong Choe, Taehun Kim, Myungbin Choi, and Seunghwan Lee. 2021. Efect of touch button interface on in-vehicle information systems usability. International Journal of Human– Computer Interaction 37, 15 (2021), 1404–1422.
+[50] Bronisław Kapitaniak, Marta Walczak, Marcin Kosobudzki, Zbigniew Jóźwiak, and Alicja Bortkiewicz. 2015. Application of eye-tracking in drivers testing: A review of research. International journal of occupational medicine and environmental health 28, 6 (2015).
+[51] Nihan Karatas, Takahiro Tanaka, Kazuhiro Fujikakc, Yuki Yoshihara, Hitoshi Kanamori, Yoshitaka Fuwamoto, and Morihiko Yoshida. 2020. Evaluation of AR-HUD interface during an automated intervention in manual driving. In 2020 IEEE Intelligent Vehicles Symposium (IV). IEEE, 2158–2164.
+[52] Nazli Kaya, Joelle Girgis, Braden Hansma, and Birsen Donmez. 2021. Hey, watch where you’re going! An on-road study of driver scanning failures towards pedestrians and cyclists. Accident Analysis & Prevention 162 (2021), 106380.
+[53] S Kee, Shamsul Bahri Mohd Tamrin, and Y Goh. 2010. Driving fatigue and performance among occupational drivers in simulated prolonged driving. Global Journal of Health Science 2, 1 (2010), 167–177.
+[54] Hyungil Kim and Joseph L Gabbard. 2022. Assessing distraction potential of augmented reality head-up displays for vehicle drivers. Human factors 64, 5 (2022), 852–865.
+[55] Hyungil Kim, Xuefang Wu, Joseph L Gabbard, and Nicholas F Polys. 2013. Exploring head-up augmented reality interfaces for crash warning systems. In Proceedings of the 5th International Conference on Automotive User Interfaces and Interactive Vehicular Applications. 224–227.
+[56] Andrew L Kun et al. 2018. Human-machine interaction for vehicles: Review and outlook. Foundations and Trends® in Human–Computer Interaction 11, 4 (2018), 201–293.
+[57] Alexandra Kuznetsova, Per B. Brockhof, and Rune H. B. Christensen. 2017. lmerTest Package: Tests in Linear Mixed Efects Models. Journal of Statistical Software 82, 13 (2017), 1–26. https://doi.org/10.18637/jss.v082.i13
+[58] David R Large, Gary Burnett, Elizabeth Crundall, Glyn Lawson, and Lee Skrypchuk. 2016. Twist it, touch it, push it, swipe it: evaluating secondary input devices for use with an automotive touchscreen HMI. In Proceedings of the 8th International Conference on Automotive User Interfaces and Interactive Vehicular Applications. 161–168.
+[59] Scott Le Vine, Alireza Zolfaghari, and John Polak. 2015. Autonomous cars: The tension between occupant experience and intersection capacity. Transportation Research Part C: Emerging Technologies 52 (2015), 1–14.
+[60] Hyunjin Lee, Sunyoung Bang, and Woontack Woo. 2020. Efects of background complexity and viewing distance on an ar visual search task. In 2020 IEEE International Symposium on Mixed and Augmented Reality Adjunct (ISMARAdjunct). IEEE, 189–194.
+[61] Xiaomeng Li, Ronald Schroeter, Andry Rakotonirainy, Jonny Kuo, and Michael G Lenné. 2020. Efects of diferent non-driving-related-task display modes on drivers’ eye-movement patterns during take-over in an automated vehicle. Transportation research part F: trafc psychology and behaviour 70 (2020), 135– 148.
+[62] Patrick Lindemann, Tae-Young Lee, and Gerhard Rigoll. 2018. Supporting driver situation awareness for autonomous urban driving with an augmentedreality windshield display. In 2018 IEEE International Symposium on Mixed and Augmented Reality Adjunct (ISMAR-Adjunct). IEEE, 358–363.
+[63] Yung Ching Liu and Ming Hui Wen. 2004. Comparison of head-up display (HUD) vs. head-down display (HDD): Driving performance of commercial vehicle operators in Taiwan. International Journal of Human Computer Studies (2004). https://doi.org/10.1016/j.ijhcs.2004.06.002
+[64] Yung-Ching Liu and Ming-Hui Wen. 2004. Comparison of head-up display (HUD) vs. head-down display (HDD): driving performance of commercial vehicle operators in Taiwan. International Journal of Human-Computer Studies 61, 5 (2004), 679–697.
+[65] Shih-Yu Ma, Nolan Robert Brady, Xu Han, Neng-Hao Yu, and Tom Yeh. 2023. Exploring Mixed-Reality for Enhancing Driver Warning Systems: A Preliminary Study on Attention-Shifting Methods and Hazard Perception. In Adjunct Proceedings of the 15th International Conference on Automotive User Interfaces and Interactive Vehicular Applications. 87–92.
+[66] Dominique Makowski, Daniel Lüdecke, Indrajeet Patil, Rémi Thériault, Mattan S. Ben-Shachar, and Brenton M. Wiernik. 2023. Automated Results Reporting as a Practical Tool to Improve Reproducibility and Methodological Best Practices
+
+CHI ’24, May 11–16, 2024, Honolulu, HI, USA
+Adoption. CRAN (2023). https://easystats.github.io/report/ [67] Piergiuseppe Mallozzi, Patrizio Pelliccione, Alessia Knauss, Christian Berger,
+and Nassar Mohammadiha. 2019. Autonomous vehicles: state of the art, future trends, and challenges. Automotive systems and software engineering: State of the art and future trends (2019), 347–367. [68] Mauricio Marcano, Sergio Díaz, Joshué Pérez, and Eloy Irigoyen. 2020. A review of shared control for automated vehicles: Theory and applications. IEEE Transactions on Human-Machine Systems 50, 6 (2020), 475–491. [69] Daniel McFadden. 2021. Quantitative methods for analysing travel behaviour of individuals: some recent developments. In Behavioural travel modelling. Routledge, 279–318. [70] Mark McGill and Stephen A Brewster. 2017. I am the passenger: Challenges in supporting AR/VR HMDs in-motion. In Proceedings of the 9th International Conference on Automotive User Interfaces and Interactive Vehicular Applications Adjunct. 251–251. [71] Angus McKerral, Kristen Pammer, and Cassandra Gauld. 2023. Supervising the self-driving car: Situation awareness and fatigue during highly automated driving. Accident Analysis & Prevention 187 (2023), 107068. [72] Zeljko Medenica, Andrew L Kun, Tim Paek, and Oskar Palinko. 2011. Augmented reality vs. street views: a driving simulator study comparing two emerging navigation aids. In Proceedings of the 13th International Conference on Human Computer Interaction with Mobile Devices and Services. 265–274. [73] Microsoft. [n. d.]. Comfort - Mixed Reality design guidelines. https://learn. microsoft.com/en- us/windows/mixed- reality/design/comfort [74] Walter Morales-Alvarez, Oscar Sipele, Régis Léberon, Hadj Hamma Tadjine, and Cristina Olaverri-Monreal. 2020. Automated driving: A literature review of the take over request in conditional automation. Electronics 9, 12 (2020), 2087. [75] Joseph K Muguro, Pringgo Widyo Laksono, Yuta Sasatake, Kojiro Matsushita, and Minoru Sasaki. 2021. User Monitoring in Autonomous Driving System Using Gamifed Task: A Case for VR/AR In-Car Gaming. Multimodal Technologies and Interaction 5, 8 (2021), 40. [76] Andreas Lars Müller, Natacha Fernandes-Estrela, Ruben Hetfeisch, Lukas Zecha, and Bettina Abendroth. 2021. Efects of non-driving related tasks on mental workload and take-over times during conditional automated driving. European transport research review 13, 1 (2021), 1–15. [77] Anvitha Nachiappan, Nayara de Oliveira Faria, and Joseph L Gabbard. 2021. Can Augmented-Reality Head-Up Display Improve Driving Performance on Monotonous Drives?. In Proceedings of the 2021 Institute of Industrial and Systems Engineers (IISE) Annual Conference. [78] Shinichi Nakagawa and Holger Schielzeth. 2013. A general and simple method for obtaining R2 from generalized linear mixed-efects models. Methods in ecology and evolution 4, 2 (2013), 133–142. [79] Erfan Pakdamanian, Erzhen Hu, Shili Sheng, Sarit Kraus, Seongkook Heo, and Lu Feng. 2022. Enjoy the Ride Consciously with CAWA: Context-Aware Advisory Warnings for Automated Driving. In Proceedings of the 14th International Conference on Automotive User Interfaces and Interactive Vehicular Applications. 75–85. [80] Ilias Panagiotopoulos and George Dimitrakopoulos. 2018. An empirical investigation on consumers’ intentions towards autonomous driving. Transportation research part C: emerging technologies 95 (2018), 773–784. [81] UK Parliament. 2023. Autonomous Vehicle Bill 2023. https://bills.parliament.uk/ publications/52908/documents/3984 24/11/2023. [82] Evan M Peck, Emily Carlin, and Robert Jacob. 2015. Designing brain-computer interfaces for attention-aware systems. Computer 48, 10 (2015), 34–42. [83] Linda Pipkorn, Marco Dozza, and Emma Tivesten. 2022. Driver visual attention before and after take-over requests during automated driving on public roads. Human factors (2022), 00187208221093863. [84] Ioannis Politis, Stephen Brewster, and Frank Pollick. 2017. Using multimodal displays to signify critical handovers of control to distracted autonomous car drivers. International Journal of Mobile Human Computer Interaction (IJMHCI) 9, 3 (2017), 1–16. [85] Ioannis Politis, Stephen A Brewster, and Frank Pollick. 2014. Evaluating multimodal driver displays under varying situational urgency. In Proceedings of the SIGCHI conference on Human Factors in Computing Systems. 4067–4076. [86] Jonas Radlmayr, Karin Brüch, Kathrin Schmidt, Christine Solbeck, and Tristan Wehner. 2018. Peripheral monitoring of trafc in conditionally automated driving. In Proceedings of the Human Factors and Ergonomics Society Annual Meeting, Vol. 62. SAGE Publications Sage CA: Los Angeles, CA, 1828–1832. [87] Andreas Riegler, Andreas Riener, and Clemens Holzmann. 2019. A systematic review of augmented reality applications for automated driving: 2009–2020. PRESENCE: Virtual and Augmented Reality 28 (2019), 87–126. [88] Andreas Riegler, Andreas Riener, and Clemens Holzmann. 2020. A research agenda for mixed reality in automated vehicles. In Proceedings of the 19th International Conference on Mobile and Ubiquitous Multimedia. 119–131. [89] Andreas Riegler, Andreas Riener, and Clemens Holzmann. 2022. Towards personalized 3d augmented reality windshield displays in the context of automated driving. Frontiers in future transportation 3 (2022), 1.
+
+CHI ’24, May 11–16, 2024, Honolulu, HI, USA
+[90] Andreas Riegler, Philipp Wintersberger, Andreas Riener, and Clemens Holzmann. 2019. Augmented reality windshield displays and their potential to enhance user experience in automated driving. i-com 18, 2 (2019), 127–149.
+[91] Florian Roider, Sonja Rümelin, Bastian Pfeging, and Tom Gross. 2017. The efects of situational demands on gaze, speech and gesture input in the vehicle. In Proceedings of the 9th International Conference on Automotive User Interfaces and Interactive Vehicular Applications. 94–102.
+[92] Michelle L Rusch, Mark C Schall Jr, Patrick Gavin, John D Lee, Jefrey D Dawson, Shaun Vecera, and Matthew Rizzo. 2013. Directing driver attention with augmented reality cues. Transportation research part F: trafc psychology and behaviour 16 (2013), 127–137.
+[93] Kevin Joel Salubre and Dan Nathan-Roberts. 2021. Takeover request design in automated driving: a systematic review. In Proceedings of the Human Factors and Ergonomics Society Annual Meeting, Vol. 65. SAGE Publications Sage CA: Los Angeles, CA, 868–872.
+[94] Nadja Schömig and Barbara Metz. 2013. Three levels of situation awareness in driving with secondary tasks. Safety Science 56 (2013), 44–51.
+[95] Nadja Schömig, Katharina Wiedemann, Frederik Naujoks, Alexandra Neukum, Bettina Leuchtenberg, and Thomas Vöhringer-Kuhnt. 2018. An augmented reality display for conditionally automated driving. In Adjunct proceedings of the 10th international conference on automotive user interfaces and interactive vehicular applications. 137–141.
+[96] Ronald Schroeter, Jim Oxtoby, and Daniel Johnson. 2014. AR and gamifcation concepts to reduce driver boredom and risk taking behaviours. In Proceedings of the 6th international conference on automotive user interfaces and interactive vehicular applications. 1–8.
+[97] Ronald Schroeter and Fabius Steinberger. 2016. Pokémon DRIVE: towards increased situational awareness in semi-automated driving. In Proceedings of the 28th australian conference on computer-human interaction. 25–29.
+[98] Edward Schwalb. 2021. Analysis of hazards for autonomous driving. Journal of Autonomous Vehicles and Systems 1, 2 (2021), 021003.
+[99] Daniel J. Simons and Christopher F. Chabris. 1999. Gorillas in our midst: Sustained inattentional blindness for dynamic events. Perception 28, 9 (1999), 1059–1074. https://doi.org/10.1068/p281059
+[100] Missie Smith, Jillian Streeter, Gary Burnett, and Joseph L Gabbard. 2015. Visual search tasks: the efects of head-up displays on driving and task performance. In Proceedings of the 7th international conference on Automotive User Interfaces and Interactive Vehicular Applications. 80–87.
+[101] Fabius Steinberger, Ronald Schroeter, and Christopher N Watling. 2017. From road distraction to safe driving: Evaluating the efects of boredom and gamifcation on driving behaviour, physiological arousal, and subjective experience. Computers in Human Behavior 75 (2017), 714–726.
+[102] Tesla. 2023. Touchscreen | Meet Your Model 3. https://www.tesla.com/support/ videos/watch/touchscreen- meet- your- model- 3
+[103] Ping-Huang Ting, Jiun-Ren Hwang, Ji-Liang Doong, and Ming-Chang Jeng. 2008. Driver fatigue and highway driving: A simulator study. Physiology & behavior 94, 3 (2008), 448–453.
+[104] Henry Togwell, Mark McGill, Graham Wilson, Daniel Medeiros, and Stephen Anthony Brewster. 2022. In-cAR Gaming: Exploring the use of AR headsets to Leverage Passenger Travel Environments for Mixed Reality Gameplay. In CHI Conference on Human Factors in Computing Systems Extended Abstracts. 1–7.
+[105] Petya Ventsislavova and David Crundall. 2018. The hazard prediction test: A comparison of free-response and multiple-choice formats. Safety Science (2018). https://doi.org/10.1016/j.ssci.2018.06.004
+[106] Petya Ventsislavova, David Crundall, Thom Baguley, Candida Castro, Andrés Gugliotta, Pedro Garcia-Fernandez, Wei Zhang, Yutao Ba, and Qiucheng Li. 2019. A comparison of hazard perception and hazard prediction tests across China, Spain and the UK. Accident Analysis & Prevention 122 (2019), 268–286.
+[107] Marcel Walch, Kristin Mühl, Johannes Kraus, Tanja Stoll, Martin Baumann, and Michael Weber. 2017. From car-driver-handovers to cooperative interfaces: Visions for driver–vehicle interaction in automated driving. Automotive user interfaces: Creating interactive experiences in the car (2017), 273–294.
+[108] Guy H Walker, Neville A Stanton, Tara A Kazi, Paul M Salmon, and Daniel P Jenkins. 2009. Does advanced driver training improve situational awareness? Applied ergonomics 40, 4 (2009), 678–687.
+[109] Philipp Wintersberger, Andreas Riener, Clemens Schartmüller, Anna-Katharina Frison, and Klemens Weigl. 2018. Let me fnish before I take over: Towards attention aware device integration in highly automated vehicles. In Proceedings of the 10th international conference on automotive user interfaces and interactive vehicular applications. 53–65.
+[110] Jeremy M Wolfe, Anna Kosovicheva, and Benjamin Wolfe. 2022. Normal blindness: when we Look But Fail To See. Trends in Cognitive Sciences (2022).
+[111] Yue Wu, Linhao Ye, Xianzhe Zheng, Hanfei Zhu, and Wei Xiang. 2023. Dangerous Slime: A Game for Improving Situation Awareness in Automated Driving. In Proceedings of the 15th International Conference on Automotive User Interfaces and Interactive Vehicular Applications. 136–144.
+[112] Yucheng Yang, Burak Karakaya, Giancarlo Caccia Dominioni, Kyosuke Kawabe, and Klaus Bengler. 2018. An hmi concept to improve driver’s visual behavior and
+
+Thomas Goodge, Frank Pollick, and Stephen Brewster
+situation awareness in automated vehicle. In 2018 21st International Conference on Intelligent Transportation Systems (ITSC). IEEE, 650–655. [113] Sol Hee Yoon and Yong Gu Ji. 2019. Non-driving-related tasks, workload, and takeover performance in highly automated driving contexts. Transportation research part F: trafc psychology and behaviour 60 (2019), 620–631. [114] Bo Zhang, Joost De Winter, Silvia Varotto, Riender Happee, and Marieke Martens. 2019. Determinants of take-over time from automated driving: A meta-analysis of 129 studies. Transportation research part F: trafc psychology and behaviour 64 (2019), 285–307.
+
+Can You Hazard a Guess?
+
+CHI ’24, May 11–16, 2024, Honolulu, HI, USA
+
+A APPENDIX: HAZARD PREDICTION CLIP ANSWERS
+Table 8: Table showing all the Hazard Clips and the false answers presented to participants
+
+Hazard Prediction Clips Clip01WHN Clip02WHN Clip03WHN Clip04WHN Clip05WHN Clip06WHN Clip07WHN Clip08WHN Clip09WHN Clip10WHN
+
+Responses
+The cyclist on the left pulls into your lane A pedestrian steps out from behind the van parked on the left A pedestrian steps out from between cars in the oncoming lane A car pulls out from the side road on the right
+The blue car on the left pulls of in front of you Pedestrians step out into the road from the right The white lorry on the right pulls round into your lane A cyclist pulls out from behind the parked cars on the left
+The door of the car parked on the left swings open and the driver steps out A pedestrian at the bus stop steps out into the road A car pulls out from the side road on the right An oncoming car comes round the corner in your lane
+A pedestrian steps out from behind the car parked on the left A pedestrian steps out from behind the van parked on the right A van pulls out from the side road on the left A child runs into the road from the school on the right
+A pedestrian steps out from behind the car parked on the left A pedestrian walks across the road from the right A car parked on the left pulls of in front of you A cyclist pulls into your lane from the right
+The white parked car on the left pulls of in front of you The white van pulls out of the side road on the left The black oncoming car pulls across your lane into the side road on the left A delivery worker steps out from behind the white van parked on the left
+The black parked car on the left pulls of in front of you A pedestrian steps into the road from the right An car takes a wrong turn and pulls into your lane A pedestrian steps into the road from behind the car parked on the left
+The black parked car on the left pulls of in front of you The pedestrians in the bus stop step into the road from the right A car stopped in the road ahead forces you to swerve to avoid it The cyclist on the left swerves into the road
+A pedestrian steps out from behind the car parked on the right The red car parked on the left pulls of in front of you The white van on the right speeds up and pulls in front of yo A pedestrian steps into the road from behind the car parked on the left
+A car door opens from the left and the driver steps out A car pulls out from the road on the right The blue car parked on the left pulls of in front of you A delivery van reverses into the road from the right
+
+Answer Position 4 2 1 3 1 2 4 3 4 1
+
+CHI ’24, May 11–16, 2024, Honolulu, HI, USA
+
+Thomas Goodge, Frank Pollick, and Stephen Brewster
+
+Clip11WHN Clip12WHN Clip13WHN Clip14WHN Clip15WHN Clip16WHN Clip17WHN Clip18WHN Clip19WHN Clip20WHN Clip21WHN
+
+3 A delivery worker steps into the road from behind the white van on the left The pedestrian on the right runs across the road The car in front brakes to allow a parked car to pull of A carpet tube falls into the road from the delivery van on the left
+3 A pedestrian steps out from the left at the crossing A car pulls out from the road on the left The oncoming car pulls across the road in front of you The red parked car pulls of and performs a u-turn in front of you
+4 A van pulls out into the road from the side road on the left A pedestrian steps out from behind the car parked on your left The grey car on the left pulls of in front of you The car ahead brakes in the road, forcing you to slow down to avoid it
+2 A police car pulls out into the road from the side road on the left A pedestrian walks across the road from the right The white car on the left pulls of in front of you A group of school children run across the road from the left
+2 A delivery worker steps into the road from behind the white van on the left Oncoming cyclists encroach on your lane A pedestrian steps out from behind the car parked on the right The door of the white car parked on the right opens and the driver steps out
+1 An oncoming van comes round the corner in your lane A car pulls out into the road from the side road on the left The pedestrians in the bus stop step into the road from the left A pedestrian steps out from between cars in the oncoming lane
+4 The car in the right lane pulls sharply across into your lane A pedestrian at the bus on the left top steps out into the road The white van on the left pulls of in front of you A delivery worker steps into the road from behind the white van on the left
+3 A pedestrian steps out from the left at the bus stop The silver car parked on the left pulls of in front of you The black van ahead brakes in the road, forcing you to slow down to avoid it A delivery van reverses into the road from the right
+2 A car jumps the lights and pulls across you from the right Pedestrians step out into the road from the left at the crossing A cyclist swerves into the road from the left The white car parked on the left pulls of in front of you
+3 A pedestrian steps out from behind the car parked on the left A car pulls out of the side road on the left The white car on the right reverses into the road A pedestrian steps out from behind the car parked on the right
+4 The white van on the left starts to reverse into the road Pedestrians step out from the left The silver van on the right pulls out in front of you The white car ahead brakes, forcing you to go around it
+
+Can You Hazard a Guess?
+Clip22WHN Clip23WHN Clip24WHN Clip25WHN Clip26WHN Clip27WHN Clip28WHN Clip29WHN Clip30WHN Clip31WHN Clip32WHN
+
+CHI ’24, May 11–16, 2024, Honolulu, HI, USA
+2 The blue car on the garage forecourt pulls out in front of you The white car on the left pulls into your lane The car ahead brakes sharply A pedestrian steps onto the road from the central reservation on the right
+3 The white car on the left pulls of in front of you A worker steps into the road from the left A white van pulls out from the road on the right The blue car ahead brake suddenly for congestion
+2 The oncoming car pulls across your lane A van stopped in the road ahead blocks your path The black car pulls out from the side road on the left The jogger runs across the road in front of you from the left
+1 A lorry stopped in the road ahead blocks your path The silver car on the left pulls of in front of you A lorry pulls out from the recycling centre ahead on the left The black car ahead starts reversing towards you
+3 The red car on the left starts to pull out in front of you The white van on the right pulls across into your lane The blue car on the right pulls across into your lane A car pulls out from in front of the cars parked on the left
+1 A car pulls out from in front of the cars parked on the left Pedestrians step into the road from the left The red car parked across the street performs a u-turn in front of you The cyclist on the right sets of into the road in front of you
+4 The oncoming car pulls across your lane The grey car on the left starts to pull out in front of you A car pulls out from in front of the cars parked on the left A pedestrian steps out from behind the car parked on the left
+4 A pedestrian steps out from behind the car parked on the left A pedestrian steps out from the right The red car on the left pulls of in front of you The black car ahead starts reversing towards you
+1 A car pulls out from the road on the right The blue car on the left pulls of in front of you A cyclist pulls out from the side road on the left A pedestrian steps out from the right
+2 The taxi on the left pulls of in front of you Pedestrians step into the road from the right The van ahead brakes suddenly A pedestrian steps out from the left
+1 A car pulls out from the right behind the oncoming bus The police van on the left turns it’s sirens on and pulls of in front of you The bus pulls out into your lane to go around the stationary bus A pedestrian steps out into the road from the right behind the bus
+
+CHI ’24, May 11–16, 2024, Honolulu, HI, USA
+
+Thomas Goodge, Frank Pollick, and Stephen Brewster
+
+Clip33WHN Clip34WHN Clip35WHN Clip36WHN Clip37WHN Clip38WHN Clip39WHN Clip40WHN
+
+2 The red car on the left starts to pull out in front of you The oncoming car encroaches on your lane A pedestrian steps out into the road from the right behind the bus A car reverses out of the driveway on the left
+3 A car pulls out from the side road on the left The white car on the left pulls into your lane A cyclist pulls out from the from the central reservation on the right A car door opens from the parked car on the left
+4 The car ahead indicating to turn left suddenly swings back out infront of you The yellow car on the left starts reversing into the road The car ahead brakes sharply to stop for the bus A pedestrian runs across the road from the right
+1 A car reverses backwards into the road ahead of you A pedestrian steps out from the right A pedestrian steps out from behind the parked cars on the left The black car parked on the left pulls of in front of you
+3 A car pulls out from the side road on the left A pedestrian steps out from the left A group of school children run into the road from the right The silver car parked on the left pulls of in front of you
+4 The white van pulls out of the side road on the left The oncoming car encroaches on your lane A pedestrian steps into the road from the bus stop on the left The white car pulls out of the road on the right
+2 The red car on the left starts to pull out in front of you A car from the centre lane pulls into your lane The oncoming van encroaches on your lane A pedestrian steps out from between the parked cars on the left
+1 The oncoming van encroaches on your lane The cyclist on the left pull out into the road The white car parked ahead on the left pulls out in front of you The red car parked on the right performs a u turn and pulls out in front of you
+
+Can You Hazard a Guess?
+
+CHI ’24, May 11–16, 2024, Honolulu, HI, USA
+
+B APPENDIX: STUDY 1 NASA TLX ANALYSIS
+Breaking it down by each scale, there was a signifcant efect of Block on Mental Demand (F(2.9, 63.83) =16.91, p < 0.001, ���2 = 0.22), with Post-hoc comparisons showing signifcant diferences between Baseline and both the AR HDD (p = 0.001) and Tablet HDD (p = 0.001) conditions. There was a signifcant efect of Block on Physical Demand (F(4, 56) = 7.32, p < 0.001, ���2 = 0.21), with Post-hoc comparisons showing signifcant diferences between Baseline and AR HDD (p = 0.02) and Tablet HDD (p = 0.001) conditions. There was a signifcant efect of Block on Temporal Demand (F(2.77, 58.22) = 11.28, p < 0.001, ���2 = 0.2), with Post-hoc comparisons showing signifcant diferences between Baseline and AR HUD (p = 0.02) and AR HDD (p = 0.02) conditions. There was a signifcant efect of Block on Overall Performance (which were inverted for analysis) (F(2.57, 56.43) = 13.31, p < 0.001, ���2 = 0.28), with Post-hoc comparisons showing signifcant diferences between Baseline and AR HDD (p < 0.001) and Tablet HDD (p = 0.01) conditions. There were also signifcant diferences between the AR HUD and AR HDD conditions (p = 0.02), as well as between the Cued AR HUD condition and both the AR HDD (p < 0.001) and Tablet HDD (p = 0.004) conditions. There was a signifcant efect of Block on Efort (F(4, 88) = 13.71, p < 0.001, ���2 = 0.19), with Post-hoc comparisons showing a signifcant diference between Baseline and the AR HDD condition (p = 0.002), as well as between the Cued AR HUD and AR HUD conditions (p = 0.02). Finally, there was a signifcant efect of Block on Frustration (F(2.79, 53.07) = 14.49, p < 0.001, ���2 = 0.23), with Post-hoc comparisons showing a signifcant diference between Baseline and AR HDD (p = 0.003), as well as between the Cued AR HUD and AR HDD condition (p = 0.048).
+Table 9: Table showing summary statistics for NASA TLX scores and it’s subscales for Study 1
+
+Block n Total TLX Mean Total SD Mental Demand Mean Mental Demand SD Physical Demand Mean Physical Demand SD Temporal Demand Mean Temporal Demand SD Overall Performance Mean (inverted) Overall Performance SD Frustration Mean Frustration SD Efort Mean Efort SD
+
+Control 24
+78.08 34.49 38.21 21.71 5.76 7.26 21.39 13.93
+39.88
+23.11 22.18 23.65
+36 24.02
+
+AR HUD 24
+106.5 41.21 54.04 24.53
+15 14.99 41.17 23.24
+52.46
+20.79 39.43 29.63 53.13 27.31
+
+Cued AR HUD 24 87
+34.11 46.38 22.46 13.29 10.56
+32 18.6
+40.63
+15.86 31.39 26.97 42.46 20.08
+
+AR HDD 24
+140.25 37.85 68.58 21.87 28.5 25.76 50.21 27.16
+71.67
+21.07 58.42 33.24 66.42 25.03
+
+Tablet HDD 24
+131.79 37.57 65.96 21.95 23.29 19.5 45.35 27.01
+65.83
+24.84 50.82 35.03 55.42 23.72
+
+CHI ’24, May 11–16, 2024, Honolulu, HI, USA
+
+Thomas Goodge, Frank Pollick, and Stephen Brewster
+
+Table 10: Within subjects ANOVAs and Post hoc comparisons for NASA TLX Ratings for each Presentation method in Study 1
+
+Total (F(2.91, 64.02) =20.59, p <0.001, ���2 = 0.31)
+Mental Demand (F(2.9, 63.83) =16.91, p <0.001, ���2 = 0.22)
+Physical Demand (F(4, 56) = 7.32, p <0.001, ���2 = 0.21)
+Temporal Demand (F(2.77, 58.22) = 11.28, p <0.001, ���2 = 0.2)
+Overall Performance (F(2.57, 56.43) = 13.31, p <0.001, ���2 = 0.28)
+Efort (F(4, 88) = 13.71, p <0.001, ���2 = 0.19)
+Frustration (F(2.79, 53.07) = 14.49, p <0.001, ���2 = 0.23)
+
+Condition Baseline AR HUD Cue AR HUD AR HDD Tablet HDD Baseline AR HUD Cue AR HUD AR HDD Tablet HDD Baseline AR HUD Cue AR HUD AR HDD Tablet HDD Baseline AR HUD Cue AR HUD AR HDD Tablet HDD Baseline AR HUD Cue AR HUD AR HDD Tablet HDD Baseline AR HUD Cue AR HUD AR HDD Tablet HDD Baseline AR HUD Cue AR HUD AR HDD Tablet HDD
+
+AR HUD p = 0.26 \
+p = 0.22 \
+p = 0.29 \
+p = 0.02* \
+p = 0.37 \
+p = 0.16 \
+p = 0.44 \
+
+Cue AR HUD p = 0.51 p = 0.51 \
+p = 0.7 p = 0.9 \
+p = 0.29 p = 0.87 \
+p = 0.3 p = 0.52 \
+p = 0.99 p = 0.22 \
+p = 0.42 p = 0.42 \
+p = 0.45 p = 0.45 \
+
+AR HDD p <0.001*** p = 0.061 p = 0.002** \
+p = 0.001** p = 0.22 p = 0.054‘ \
+p = 0.016* p = 0.3 p = 0.29 \
+p = 0.018* p = 0.52 p = 0.21 \
+p <0.001*** p = 0.02* p <0.001*** \
+p = 0.002** p = 0.42 p = 0.02* \
+p = 0.003** p = 0.35 p = 0.048* \
+
+Tablet HDD p = 0.005** p = 0.33 p = 0.028* p = 0.51 \ p = 0.001** p = 0.22 p = 0.054 p = 0.9 \ p = 0.001** p = 0.3 p = 0.29 p = 0.87 \ p = 0.12 p = 0.6 p = 0.52 p = 0.6 \ p = 0.014* p = 0.22 p = 0.004** p = 0.97 \ p = 0.09 p = 0.81 p = 0.42 p = 0.42 \ p = 0.11 p = 0.44 p = 0.44 p = 0.45 \
+
+Can You Hazard a Guess?
+
+CHI ’24, May 11–16, 2024, Honolulu, HI, USA
+
+C APPENDIX: STUDY 2 NASA TLX ANALYSIS
+Breaking it down by each scale, there was a signifcant efect of Block on Mental Demand (F(3, 69) = 20.21, p < 0.001, ���2 = 0.28), with Post-hoc comparisons showing signifcant diferences between Control and AR HUD (p < 0.001), Cue AR HUD (p < 0.001) and AR HDD (p < 0.001) conditions. No other comparisons were signifcant however. There was a signifcant efect of Block on Physical Demand (F2.42, 55.58) = 11.33, p < 0.001, ���2 = 0.14), with Post-hoc comparisons showing signifcant diferences between Control and AR HUD (p = 0.001), Cue AR HUD (p < 0.005) and AR HDD (p < 0.001) conditions. No other comparisons were signifcant. There was a signifcant efect of Block on Temporal Demand (F(2.25,51.76) = 22.09, p < 0.001, ���2 = 0.28), with Post-hoc comparisons showing signifcant diferences between Control and AR HUD (p = 0.001), Cue AR HUD (p < 0.001) and AR HDD (p < 0.001) conditions. No other comparisons were signifcant. There was a signifcant efect of Block on Overall Performance (which were inverted for analysis) (F(2.35,54.36) = 14.4, p < 0.001, ���2 = 0.18), with Post-hoc comparisons showing signifcant diferences between Control and AR HUD (p < 0.001), Cue AR HUD (p = 0.003) and AR HDD (p < 0.001) conditions. No other comparisons were signifcant. There was a signifcant efect of Block on Efort (F(3,69) = 12.84, p < 0.001, ���2 = 0.18), with Post-hoc comparisons showing a signifcant diference between Control and AR HUD (p = 0.005), Cue AR HUD (p = 0.003) and AR HDD (p < 0.001) conditions. There was also a signifcant diference between the Cued AR HUD and AR HDD conditions (p = 0.023). Finally, there was a signifcant efect of Block on Frustration (F(2.18,50.17) = 38.82, p < 0.001, ���2 = 0.28), with Post-hoc comparisons showing a signifcant diference between Control and AR HUD (p < 0.001), Cue AR HUD (p < 0.001) and AR HDD (p < 0.001) conditions. No other comparisons were signifcant however.
+Table 11: Table showing summary statistics for NASA TLX scores and it’s subscales for Study 2
+
+Block n Total TLX Score Mean Total TLX Score SD Mental Demand Mean Mental Demand SD Physical Demand Mean Physical Demand SD Temporal Demand Mean Temporal Demand SD Overall Performance Mean (inverted) Overall Performance SD Frustration Mean Frustration SD Efort Mean Efort SD
+
+Control 24
+65.13 41.09 35.71 24.02 29.42 21.78 21.25 18.79 34.83 23.70 29.42 21.78 16.54 19.87
+
+HUD 24
+127.38 44.05 64.04 23.17 63.33 24.96 53.67 25.94 64.46 26.56 63.33 24.96 43.67 34.19
+
+Cue 24
+115.17 45.74 56.25 23.49 58.92 25.99 46.00 24.23 58.04 28.51 58.92 25.99 34.75 29.06
+
+HDD 24
+129.21 41.14 63.75 22.92 65.46 22.07 54.00 26.83 63.29 26.74 65.46 22.07 53.13 32.10
+
+CHI ’24, May 11–16, 2024, Honolulu, HI, USA
+
+Thomas Goodge, Frank Pollick, and Stephen Brewster
+
+Table 12: Within subjects ANOVAs and Post hoc comparisons for NASA TLX Ratings for each Presentation method in Study 2
+
+Total TLX Score (F(3,69) =39.74, p <0.001, ���2 = 0.28)
+Mental Demand (F(3,69) =20.21, p <0.001, ���2 = 0.2)
+Physical Demand (F(2.42,55.58) =11.33, p <0.001, ���2 = 0.14)
+Temporal Demand (F(2.25,51.76) =22.09, p <0.001 ���2 = 0.28)
+Overall Performance (F(2.36,54.36) =14.4, p <0.001, ���2 = 0.18)
+Efort (F(3,69) =12.84, p <0.001, ���2 = 0.18)
+Frustration (F(2.18,50.17) =38.82, p <0.001, ���2 = 0.28)
+
+Condition Control AR HUD Cue AR HUD AR HDD Control AR HUD Cue AR HUD AR HDD Control AR HUD Cue AR HUD AR HDD Control AR HUD Cue AR HUD AR HDD Control AR HUD Cue AR HUD AR HDD Control AR HUD Cue AR HUD AR HDD Control AR HUD Cue AR HUD AR HDD
+
+AR HUD p <0.001*** \
+p <0.001*** \
+p = 0.001** \
+p <0.001*** \
+p <0.001*** \
+p = 0.005** \
+p <0.001*** \
+
+Cue AR HUD p <0.001*** p = 0.46 \
+p <0.001*** p = 0.5 \
+p = 0.005** p = 1 \
+p <0.001*** p = 0.52 \
+p = 0.003** p = 0.38 \
+p = 0.003** p = 1 \
+p <0.001*** p = 0.95 \
+
+AR HDD p <0.001*** p = 1 p = 0.26 \ p <0.001*** p = 1 p = 0.5 \ p <0.001*** p = 1 p = 0.71 \ p <0.001*** p = 1 p = 0.65 \ p <0.001*** p = 1 p = 1 \ p <0.001*** p = 0.35 p = 0.023* \ p <0.001*** p = 1 p = 0.32 \
+

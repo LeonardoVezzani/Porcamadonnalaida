@@ -1,0 +1,517 @@
+Vehicle System Dynamics
+ISSN: 0042-3114 (Print) 1744-5159 (Online) Journal homepage: www.tandfonline.com/journals/nvsd20
+Role of steering wheel feedback on driver performance: driving simulator and modeling analysis
+D. Toﬃn, G. Reymond, A. Kemeny & J. Droulez
+To cite this article: D. Toﬃn, G. Reymond, A. Kemeny & J. Droulez (2007) Role of steering wheel feedback on driver performance: driving simulator and modeling analysis, Vehicle System Dynamics, 45:4, 375-388, DOI: 10.1080/00423110601058874 To link to this article: https://doi.org/10.1080/00423110601058874
+Published online: 21 Mar 2007. Submit your article to this journal Article views: 1588 View related articles Citing articles: 10 View citing articles
+Full Terms & Conditions of access and use can be found at https://www.tandfonline.com/action/journalInformation?journalCode=nvsd20
+
+Vehicle System Dynamics Vol. 45, No. 4, April 2007, 375–388
+Role of steering wheel feedback on driver performance: driving simulator and modeling analysis
+D. TOFFIN*†‡, G. REYMOND†, A. KEMENY†‡ and J. DROULEZ‡
+†Renault – Technical Centre for Simulation, Renault Technocentre, 1 avenue du Golf, 78288 Guyancourt cedex, France
+‡Laboratoire de Physiologie de la Perception et de l’Action, CNRS – Collège de France, 11 place M. Berthelot, 75005 Paris, France
+When driving in curves, how do drivers use the force appearing on the steering wheel? As it carries information related to lateral acceleration, this force could be necessary for drivers to tune their internal model of vehicle dynamics; alternatively, being opposed to the drivers’ efforts, it could just help them stabilize the steering wheel position. To assess these two hypotheses, we designed an experiment on a motion-based driving simulator. The steering characteristics of the vehicle were modiﬁed in the course of driving, unknown to drivers. Results obtained with standard drivers showed a surprisingly wide range of adaptation, except for exaggerated modiﬁcations of the steering force feedback. A two-level driver model, combining a preview of vehicle dynamics and a neuromuscular steering control, reproduces these experimental results qualitatively and indicates that adaptation occurs at the haptic level rather than in the internal model of vehicle dynamics. This effect is related to other theories on the manual control of dynamics systems, wherein force feedback characteristics are abstracted at the position control level. This research also illustrates the use of driving simulation for the study of driver behavior and future intelligent steering assistance systems.
+Keywords: Driving simulator; Haptic feedback; Driver model; Motor control
+1. Introduction
+Automobile driving is often regarded as a visually guided task mainly due to its early description by Gibson and Crooks [1]. Subsequent works have identiﬁed the sources of visual information available to the driver related to vehicle control, such as time-to-contact [2], tangent point [3], and splay angle [4]. However, these visual cues determine only indirectly the actual driving commands on the steering wheel, pedals, etc., because of the relative complexity of the vehicle dynamics.
+Through their initial training and further practice, drivers acquire an internal model of the dynamic behavior of their vehicle, allowing them in particular to anticipate its future course in response to their actions of the steering wheel. The construction of this internal model is possible from visual information only, but is generally enhanced by the presence of haptic feedback on the system controls. Experiments on the manipulation of a
+*Corresponding author. Email: david.tofﬁn@renault.com
+Vehicle System Dynamics ISSN 0042-3114 print/ISSN 1744-5159 online © 2007 Taylor & Francis
+http://www.tandf.co.uk/journals DOI: 10.1080/00423110601058874
+
+376
+
+D. Tofﬁn et al.
+
+system of a priori unknown dynamics show that the presence of haptic feedback signiﬁcantly helps the operator in a visually guided tracking task [5]. Similar results have been identiﬁed in teleoperation tasks in the ﬁeld of robotics. In particular, Hannaford and Wood [6] compared manipulation performance under three conditions: direct manual control, and remote telerobotic control with and without force feedback. In teleoperation conditions, it was found that the presence of force feedback increased operator performance signiﬁcantly (30% reduction in operation time, 60% decrease in positioning error, 7-fold reduction in exerted force). Similarly, Howe and Kontarinis [7] compared operator performance in a two degreeof-freedom peg-insertion task with and without force feedback. Their results showed that time-to-completion was reduced by a factor of two with force feedback. In the case of vehicle steering, Bertollini and Hogan [8] showed on a dynamic driving simulator that the drivers’ preference for steering wheel torque feedback is dependant on vehicle speed, in agreement with previous ﬁndings on real vehicles [9] showing that drivers prefer steering effort to increase with vehicle speed.
+Drivers steer their vehicle by means of a steering system composed typically of a wheel, steering column, Cardan joint, rack-and-pinion, and tierods steering arms connected to the wheels’ kingpins. The torque appearing on the steering wheel is the resultant of the road contact forces applied to the tyres, transmitted by the steering system. Additional power steering systems can modify this resulting torque for enhanced driver comfort using either hydraulic or electric technology. Future ‘steer-by-wire’ systems will allow the mechanical decoupling of the steering wheel from the driving wheels, and the generation of any type of steering force feedback.
+However, whatever the design of the system, the static steering force feedback is approximately proportional to the steering angle at a given vehicle speed and road adherence, and within limited vehicle rates of turn. In fact, the force appearing at the road–tyre interface is mainly proportional to the vehicle lateral acceleration, and this force is transmitted to the steering wheel with minimal distortion at low steering angles [10]. Therefore, the steering wheel force feedback is carrying relevant information regarding the instantaneous dynamics of the driven vehicle. This information – being physically related to vehicle speed and trajectory curvature – could be used by drivers to reinforce the visual information used to steer their vehicle. For instance, driving experiments on a real car and driving simulator have shown that perceived lateral acceleration is a cue actually used by drivers to adjust their speed in curves [11]. Yet, no experiments were carried out to show whether steering wheel force feedback is actually used by drivers to adjust their internal model of the vehicle dynamics. Alternatively, the role of steering force feedback could also be to help drivers control their steering wheel position in a robust way. Indeed, experiments on the manual control of dynamic systems have shown that underlying neuromuscular mechanisms must somehow integrate a representation of the mechanical compliance (i.e. force in relation to displacement) of both the corresponding limbs and the control actuators [12]. Another study has demonstrated that compensatory movements in response to changes in visuomotor coupling were not consciously detected, and that subjects adapted their motor control strategy unconsciously within certain limits [13].
+To test these two hypotheses, we designed a new driving experiment on the RENAULT dynamic driving simulator, allowing us to render different types of steering force feedback in the same driving task. Results show a very wide range of adaptation of the drivers to the various steering wheel dynamics tested. We propose a new driver model to reproduce this effect, and to analyse whether this adaptation is taking place at a haptic level or at a different level related to the internal model of car dynamics.
+
+Role of steering wheel feedback
+
+377
+
+2. Experimentation
+
+2.1 Driving simulator
+The RENAULT dynamic driving simulator used in this experiment is based on an actual Clio II cockpit with fully operational commands (steering wheel, pedals, gearshift, etc.) and animated dashboards dials (ﬁgure 1). An electric force feedback system is coupled to the steering wheel to render the steering torque up to 8 Nm in the conﬁguration used in the experiments, which is computed by the real-time advanced vehicle dynamics simulation software MADA developed by RENAULT. This model is a high-end simulation tool used by vehicle engineers for the design of drivetrains and vehicle systems; its multi-body structure computes the dynamics of the chassis, wheels, engine and steering column, based on numerical data describing the behavior of the tyres, wind resistance, and brakes. A REXROTHHYDRAUDYNE (Boxtel, The Netherlands) 1000 kg six-axes electric motion platform is used to produce cockpit accelerations of up to 0.5 g within a limited motion envelope, therefore rendering a part of the car dynamics in normal driving situations [14]. The driver is fully immersed in a virtual scene of the road, composed of a 150◦ wide frontal image and three back-projection screens for the rear-view mirrors. Real-time digital images are computed by a SGI ONYX2 workstation and by PC-based image generators. Six projectors display the road scene, three for the front view and three for the rear-view mirrors. A complete description of the simulator conﬁguration can be found in Reymond and Kemeny [15].
+
+Figure 1. RENAULT driving simulator is used during the experiment.
+
+378
+
+D. Tofﬁn et al.
+
+2.2 Protocol
+Five participants from the RENAULT staff completed the experiment (mean age 29, average driving mileage 15.000 km/year). Among them, one participant (S3) was quite experienced in driving this simulator; the others had never driven on a simulator before. Drivers with no simulator experience were chosen deliberately to avoid the ‘adaptability’ of experimented drivers to simulator artifacts, which could mask the effect considered in this experiment.
+Drivers were placed on a realistic virtual reproduction of one of RENAULT’s proving grounds (ﬁgure 2) and drove ﬁve laps in a row for each experiment. Instructions were given to drive at a constant speed (60 km/h) and to keep in the middle of the lane. Steering force feedback modiﬁcations were activated by the simulator in a straight part of the road (see circle in ﬁgure 2), so that the drivers would not be aware of it. During the simulation, several data were recorded at 20 Hz: steering wheel angle, absolute vehicle position, lateral position, vehicle speed, vehicle acceleration, and local road curvature. Only the data recorded in the ﬁrst two curves after the modiﬁcation of steering feedback are presented in this study. Modiﬁcations of the steering force feedback used in the experiment were chosen to be very clearly distinguishable in a non-driving control situation.
+
+2.2.1 Experiment 1: Modiﬁcation of steering wheel torque with two linear laws. During the ﬁrst three laps, a steering feedback law K1 was used in the simulator and was then changed to K2 before the fourth lap. These two feedback laws are linear relative to steering angle, and may be represented by a stiffness coefﬁcient 1.5 Nm/rad for K1 and 2.5 Nm/rad for K2 (ﬁgure 3).
+
+Figure 2. Test track used in the simulator experiment. Steering force feedback modiﬁcations were triggered just before the ﬁrst curve (white spot).
+
+Role of steering wheel feedback
+
+379
+
+Figure 3. Different steering force feedback laws used in the experiments, K1 being the reference condition.
+2.2.2 Experiment 2: Modiﬁcation of steering wheel torque by using linear and nonlinear laws. The same protocol was used, the ﬁrst law being again K1 as in Experiment 1, and the second being a non-linear law K3 with a parabolic proﬁle saturated at 4 Nm (ﬁgure 3).
+2.2.3 Control experiment: Non-realistic force feedbacks. In this third experiment, two steering feedback laws were used: a zero steering wheel torque K4 = 0; an inverted wheel torque K5 = −K1. Two drivers from the same group drove several laps on the same road with these steering conﬁgurations, which were not changed after the third lap as in Experiments 1 and 2.
+2.3 Analysis
+For each driver and for each of the different recorded variables (steering wheel angle, lateral deviation, and lateral acceleration), a root mean square (RMS) difference, deﬁned by RMS(x, y) = ni=1(xi − yi)2/n, was computed between conﬁgurations K1 and K2, and between K1 and K3. This RMS difference expresses the increase or decrease of steering variability, and is therefore chosen as an indicator of driver adaptation to a modiﬁcation of the simulated vehicle characteristics. A reference value is computed separately for K1 by comparing the RMS difference between the ﬁrst and second laps before the steering modiﬁcation occurs. This reference value expresses the basic variability of vehicle steering for each driver, and is expressed for each recorded variable.
+
+380
+
+D. Tofﬁn et al.
+
+The RMS obtained in conﬁgurations K2 and K3 are compared to the reference RMS K1. The differences obtained are expressed in m/s2 for lateral acceleration, in meters for lateral deviation, and in degrees for steering angle (table 1). When this difference is negative or below a certain threshold, the steering variability has decreased, thus indicating an adaptation of steering strategy to the new steering force conﬁguration. A threshold is chosen for each variable to identify the modiﬁcation of the driver’s strategy. For the lateral acceleration, this threshold value is 0.05 m/s2; corresponding to a vestibular detection psychophysical threshold [16]. For lateral deviation, the threshold value is 0.125 m, corresponding to an error of 5% inside a 2.5 m wide lane. For steering angle, the threshold value is 3◦, corresponding to an error of 5% relative to the 60◦ steering angle in the sharpest turn (R = 40 m). When the difference is positive and above these thresholds, the steering variability has increased, and the steering performance has degraded in response to the change of steering conﬁguration.
+The variables recorded during these experimentations have different meanings relative to the steering control task. The main performance criterion is the lateral deviation, since driving instructions were to stay in the middle of the lane. However, lateral acceleration and steering angle have also been analysed to help characterize the modiﬁcations in steering control strategy.
+
+2.4 Results
+The RMS results of lateral acceleration (table 1) show that the drivers S1 (ﬁgure 4) and S4 have modiﬁed their vehicle control behavior when the steering force feedback was modiﬁed to K2, and that for driver S2 the difference was below the 5% threshold. The result for driver S5 in this case is probably accidental, considering his correct adaptation with the K3 conﬁguration. With the steering force feedback K3, drivers S2, S4, and S5 show a behavior also comparable to the steering force feedback K1.
+The RMS results for lateral deviation (table 1) show that all ﬁve drivers have changed their vehicle control behavior by maintaining their steering control performance with the force feedback modiﬁcation K2. With the steering force feedback K3, drivers S2, S4, and S5 show the same change of their vehicle control behavior, since the RMS difference in lateral deviation was below the 0.1 m threshold.
+The RMS results for the steering angle (Table 1) show that the drivers S1, S2, S3, and S4 have changed their steering behavior to the force feedback K2. The result for driver S5 in this case is again probably accidental, considering his correct adaptation with the K3 conﬁguration and the similar observation for the lateral acceleration. With the law K3, a negative difference was observed for the drivers S2, S3, and S4, and a positive difference was observed for the driver S1 but below the threshold.
+In total, adaptation of steering behavior has occurred for all of the ﬁve drivers in both conﬁgurations, as indicated by a signiﬁcant decrease in steering variability shown by at least one experimental variable.
+
+2.4.1 Control experiment. For this experiment where particular steering wheel torque feedback was used (K4 = 0 and K5 = −K1), the observation is that no driver could drive properly, nor adapt his vehicle control strategy. All drivers stopped the experiment voluntarily because they could not control correctly the position on their vehicle in the middle of the lane.
+
+2.5 Discussion
+The RMS study of the steering behavior with force feedback conﬁgurations K1, K2, K3 shows that drivers adapt their vehicle control behavior in response to a modiﬁcation of the steering
+
+Table 1. RMS variations obtained in driving simulation experiment.
+
+Lateral acceleration (m/s2)
+
+Lateral deviation (m)
+
+RMS
+
+RMS
+
+RMS
+
+RMS
+
+K1
+
+K2 (K2–K1) K3 (K3–K1) K1
+
+K2
+
+(K2–K1) K3 (K3–K1)
+
+K1
+
+S1 1.15 1.08 S2 1.44 1.46 S3 0.71 0.84 S4 1.14 0.75 S5 0.35 0.71
+
+−0.07 0.02 0.13
+−0.39 0.36
+
+1.35
+
+0.20
+
+0.45
+
+0.39
+
+−0.06
+
+0.78
+
+0.33
+
+1.14
+
+−0.30
+
+0.85
+
+0.53
+
+−0.32
+
+0.89
+
+0.04
+
+1.33
+
+0.62
+
+0.71
+
+0.49
+
+−0.22
+
+0.91
+
+0.20
+
+0.36
+
+−0.78
+
+0.69
+
+0.55
+
+−0.14
+
+0.77
+
+0.08
+
+0.34
+
+−0.01
+
+0.41
+
+0.4
+
+−0.01
+
+0.37
+
+−0.04
+
+10.22 22.68 18.04 14.9 5.41
+
+Note: Values below thresholds are marked in gray, and correspond to a good adaptation of drivers to changes in the steering feedback conﬁguration.
+
+Steering wheel angle (◦)
+
+RMS
+
+K2
+
+(K2–K1)
+
+K3
+
+8.46 11.87 9.88
+9.17 11.02
+
+−1.76 −10.81
+−8.16 −5.73
+5.61
+
+11.8 14.71 10.52
+4.58 5.04
+
+RMS (K3–K1)
+−1.58 −7.97 −7.52 −10.32 −0.37
+
+381
+
+Role of steering wheel feedback
+
+382
+
+D. Tofﬁn et al.
+
+Figure 4. (A) Lateral acceleration and (B) steering wheel angle data, recorded in two successive curves with steering force feedback conﬁgurations K1 (in lap 3) and K2 (in lap 4), for subject S1.
+feedback characteristics. However, such adaptation could not be found for unusual steering feedback characteristics, including zero force feedback and an inverted torque. Therefore, this experiment shows that driver behavior adaptation can occur efﬁciently only for a range of steering force feedback conﬁgurations, but this range is limited by certain acceptability constraints.
+Results in driving performance are consistent in terms of lateral acceleration and steering proﬁles during the modiﬁcation of steering feedback. This consistency suggests that adaptation has not occurred at the level of the drivers’ internal model of vehicle dynamics. Indeed, a modiﬁcation in perceived vehicle dynamics would have led to a quite different driving behavior, at least in terms of lateral acceleration safety limit management, in reference to the curve driving experiments carried out on the same simulator [11]. The alternative is that adaptation has occurred at the steering control level. A new driver is proposed to analyse these results and to assess this hypothesis.
+3. Model
+Driver steering models are generally ‘preview’ models, based on the observation that drivers control the anticipated lateral position of their vehicle on the road at a look-ahead distance equivalent to a ﬁxed preview time [17, 18]. In such models, visual information available to the driver [3] is generally considered sufﬁcient to estimate accurately this preview position on the road. The desired steering angle has to be transformed into an actual steering wheel position, a task that requires haptic interaction with a steering system. Corresponding models for the motor control of complex dynamic systems are generally based on the ‘crossover’ model, based on the observation that human operators adapt their manual control in such a way that the resulting coupled system has a crossover frequency ωc equal to that of the stand-alone dynamic system [19].
+By combining these two classical models, we propose a two-level driver model representing the interaction between the driver vehicle steering strategy and the haptic control mechanism executing it (ﬁgure 5). This model, implemented in a simple form, comprises only two main driver parameters, which represent the internal models of the vehicle angular dynamics, and of the steering force feedback characteristics. McAdam [20] proposed a similar model scheme with two main driver parameters, and explained that the characterization of driver behavior cannot be separated into a purely mechanical and a purely human component, but is rather to
+
+Role of steering wheel feedback
+
+383
+
+Figure 5. General layout of the driver/vehicle model.
+be treated as a whole. The adjustment of these parameters to the driven vehicle characteristics represents a mechanism of driver adaptation. The robustness of this adaptation is studied with our model in order to reproduce and analyse our experimental results, in terms of driver behavior adaptation to different force feedback conﬁgurations.
+3.1 Vehicle model
+The vehicle model part represents the dynamic response of the vehicle to a steering angle α in terms of lateral deviation y relative to the road centerline (ﬁgure 6).
+The planar dynamics of the vehicle are modeled using a ﬁrst-order approximation of the classical ‘bicycle model’ [10]. It is assumed that this overly simpliﬁed model is representative of the internal model that drivers actually use to adjust their steering to enter a curve.
+
+Figure 6. Variables used in the preview steering model.
+
+384
+
+D. Tofﬁn et al.
+
+When considering only steady-state conditions, very low speeds, and neglecting side-slip angle, the radius of turn of a vehicle is simply RV = L/ϕ, where L is the vehicle wheelbase, and ϕ is the turn angle of the front wheels (ﬁgure 6). For small turn angles, we approximate ϕ as being proportional to the steering wheel angle α, hence = α/k where k is the steering ratio considered here to be constant. For a given steering angle, the vehicle follows a circular
+path and we use the following approximations to express its lateral deviation y relative to the
+curved road. From ﬁgure 6, and neglecting the angular deviation of the vehicle relative to the
+centerline tangent, we can express the variation of y as being geometrically equal to the variation of ε − εr, hence y¨ = ε¨ − ε¨r. The ﬁrst term ε¨ is actually identical to the lateral acceleration of the vehicle ε¨ = V /RV, and the second term ε¨r represents the lateral acceleration of a virtual point on the road centerline, following the vehicle at the same speed V , thus ε¨r = V /Rr. The lateral deviation of the vehicle is therefore, in Laplace notation:
+
+y = 1 αV − V s2 Lk Rr
+More realistic models for the vehicle dynamics may be used though, while still assuming that the drivers’ internal model of their vehicle is based on this simpler linear model, as described further. For instance, a linear ‘bicycle model’ including side-slip angle on the basis of ref. [21] was tested later on: it produced only minor differences in driving performance on the scenarios considered in our experiment, and mainly during fast steering phases as expected. Developing a driver model that would account for these second-order effects is out of the present scope, but could be considered nonetheless within the framework of our general model.
+
+3.2 Preview steering model
+The steering model part represents the driver steering response α to control the vehicle lateral
+deviation y, knowing the road geometry ahead.
+As a direct application of McAdam’s preview model, the driver is assumed to look ahead
+on the road at a certain distance deﬁned by a ﬁxed preview time Tp, and to steer the vehicle in order to bring the estimated future vehicle path in line with the future desired path using a
+simple negative feedback mechanism. The estimation of the future lateral position of the vehicle y(t + Tp) is assumed to be
+the result of a second-order extrapolation from its current position y(t): y(t + Tp) = y(t) + Tpy˙(t) + (Tp2/2)y¨(t) − εr(Tp). The correction term εr(Tp) for y accounts for the curvature of the road centerline and is geometrically deﬁned by εr(Tp) = Rr[1 − cos(V Tp/Rr)]; for usual values of Tp of few seconds, a simple Taylor expansion yields εr(Tp) = (V Tp)2/2Rr. The performance of this preview estimation mechanism can be shown experimentally to be
+quite good even when only optic ﬂow cues are available [22]. The difference between y(t + Tp) and the desired future lateral position y0(t + Tp) is used
+as a feedback term to deﬁne a corrective steering angle α = Ke−Ts(y0(t + Tp) − y(t + Tp)). The time delay expressed in Laplace notation e−Ts represents the amount of time necessary for the driver to process the visual information and estimate y(t + Tp). The transfer function K = αSW/y(t + Tp) represents the lateral deviation of the vehicle from its initial straight course, measured after a preview time Tp with constant steer angle. This deviation is geometrically identical to the above expression of εr(Tp), using a radius of turn RV = Lk/α deﬁned by the driver steering angle. From this, K is derived as K = 2Lkˆ/V 2Tp2, where the parameter kˆ represents the driver internal model of the angular dynamics of the vehicle, which is equal to
+the actual steering ratio k if the driver adaptation is perfect.
+
+Role of steering wheel feedback
+
+385
+
+In the experimental conditions used on the simulator, the task was to follow the center of the lane, so we can assume y0(t + Tp) = 0 at all times. The resulting driver model, in Laplace notation, is therefore
+
+α
+
+=
+
+− 2Lkˆ V 2Tp2
+
+e−Ts
+
+1
+
++
+
+Tps
+
++
+
+Tp2 2
+
+s2
+
+y−
+
+V Tp 2 2Rr
+
+3.3 Motor control
+The motor control model part represents the desired steering angle applied to the wheel to achieve an actual steer angle α.
+The ‘crossover’ model of McRuer [19] for visuo-motor tasks is used. This model is based on the observation that the transfer function G of a coupled system composed of an operator H manipulating a system S is: G = H · S = ωc(e−Ts/s), where ωc is the natural crossover frequency of S and T is a neuromuscular response time. This model therefore expresses the adaptation of the operator’s response to the dynamics of the system and yields the following operator transfer function H = S−1ωc(e−Ts/s).
+We apply this model to the case of the driver H operating a steering wheel with a simpliﬁed spring-like force feedback (more complex models could also be used, e.g. including damping). The dynamics of the steering wheel is in that case J α¨ = C − ZVα, where J is the steering wheel inertia and ZV is the steering force feedback stiffness. The steering system√transfer function is therefore S = 1/(J s + ZV) with a natural crossover frequency ωc = ZV /J . From the above crossover model, a driver transfer function H is derived. It represents the transformation between the desired steering angle and the actual steering angle
+
+H = αactual = αdesired
+
+Zˆ V e−Ts J s + ZV
+
+J
+
+s
+
+The parameter Zˆ V represents the internal model of the steering force feedback characteristics, and is equal to ZV if the driver has perfectly adapted to the steering force feedback, in which case the crossover frequency of the whole driver–vehicle system becomes equal to ωc itself, as predicted by McRuer’s model.
+
+3.4 Simulation results
+The model was used to reproduce the results of the above simulator experiments. Model parameters were kept identical to the vehicle dynamics model in the simulator: steering ratio kV = 20; vehicle wheelbase L = 2.8 m; and steering wheel inertia J = 0.1 kg m2. Driver model parameters were taken from usual values in the literature: driver preview time: Tp = 0.5 s [23]; driver response time: T = 0.1 s [24]. Driver internal model of steering ratio kˆV and of steering impedance Zˆ V were assumed to be perfectly tuned to match the actual characteristics kV and ZV = K1, K2, . . . , K5. The model was implemented in Matlab6.5/Simulink. The same road proﬁle and set speed (60 km/h) were used as in the driving simulator experiment. The average steering angle response of drivers S1,…, S5 in the two ﬁrst laps was used as input data for the model. The steering angle RMS difference between the model simulations and experimental results was computed for each different value of steering wheel torque feedback ZV = K1, K2, . . . , K5. The model RMS response (table 2) is close ( RMS < 3◦)
+
+386
+
+D. Tofﬁn et al.
+
+Table 2. Comparison of driver model predictions and driving simulator experimental results in terms of steering
+angle RMS variability (in degree).
+
+RMSModel
+
+RMSExperiment
+
+K1
+
+11.13
+
+K2
+
+6.93
+
+K3
+
+12.18
+
+K4
+
+29.79
+
+K5
+
+∞
+
+13.18 9.17
+11.40 – –
+
+to the average experimental results for the steering feedback conﬁgurations to which drivers could adapt easily (K1, K2, and K3), and shows very inaccurate driving (RMS > 25◦) for
+conﬁgurations K4 and K5, which drivers could not use.
+Other vehicle conﬁgurations can be explored with this model to predict their limits of drivability. Still assuming perfect driver adaptation (Zˆ V = ZV and kˆV = kV), the steering response of the model in the same driving situation was computed for different vehicle parameters ZV = 0.3 − 3.2 and kV = 0.7 − 29. The steering angle RMS variability for each vehicle conﬁguration was compared with the nominal vehicle ZV = 1.5 and kV = 20. Results show (table 3) that the predicted steering variability diverges from the nominal conﬁguration (marked in gray) abruptly when ZV ≥ 3.2 or ZV ≤ 0.3, and when kV ≥ 29 or kV ≤ 0.7 (these limits correspond to an increase in model RMS superior to 5% of the nominal value). As expected, the
+steering feedback K1, K2, and K3 used in the simulator experiment are within the predicted driveable conﬁgurations: according to the model, driver adaptation ( RMS < 3◦ i.e. 5%) is possible within the parameter range ZV ∈ [0.4; 3.1] and kV ∈ [0.9; 28]. When these limits are reached, steering accuracy degrades rapidly and adaptation becomes impossible. In accor-
+dance with the observations of the simulator experiment, the model steering parameters kV, K1, K2, and K3 belong to the adaptation range, while the control conﬁgurations K4 = 0, and K5 = −K1 do not.
+The driver model was also used to test whether a variation of vehicle parameter ZV could be compensated for by an adaptation of kˆV (and reciprocally kV by Zˆ V). Model simulations that were carried out showed that this is not the case: no values of kˆV could yield a correct driving performance when ZV is modiﬁed from K1 to K2 while Zˆ V remains unchanged.
+
+Table 3. Comparison of model and experimental results in terms of RMS variations of steering angle response for different vehicle conﬁgurations (ZV: steering wheel compliance; kV: steering ratio).
+
+ZV
+
+RMS (◦)
+
+Difference
+
+kV
+
+RMS (◦)
+
+Difference
+
+0.3
+
+7.08
+
+0.71
+
+0.7
+
+6.93
+
+0.56
+
+0.4
+
+6.38
+
+0.01
+
+0.8
+
+6.70
+
+0.33
+
+0.5
+
+6.37
+
+0.00
+
+0.9
+
+6.64
+
+0.27
+
+1
+
+6.37
+
+0.00
+
+1
+
+6.58
+
+0.21
+
+1.5
+
+6.37
+
+5
+
+6.37
+
+0.00
+
+2.5
+
+6.37
+
+0.00
+
+10
+
+6.37
+
+0.00
+
+3
+
+6.37
+
+0.00
+
+20
+
+6.37
+
+3.1
+
+6.38
+
+0.01
+
+25
+
+6.37
+
+0.00
+
+3.2
+
+28.96
+
+22.59
+
+28
+
+6.37
+
+0.00
+
+29
+
+6.88
+
+0.51
+
+Note: Gray values correspond to the reference vehicle.
+
+Role of steering wheel feedback
+
+387
+
+3.5 Discussion
+By assuming an ideal adaptation, the driver model is able to reproduce the steering performance observed in the simulator experiment with different steering conﬁgurations. The model also shows that adaptation can occur for a range of vehicle dynamics parameters, but that accurate steering is impossible in extreme situations, e.g. with a very stiff steering wheel or with a total absence of force feedback.
+The model also shows that a change of one vehicle physical parameter (kV or ZV) cannot be compensated for by adapting another internal driver parameter. Therefore, a modiﬁcation in steering wheel force feedback is not likely to be interpreted by drivers as a change of the vehicle dynamics, and is to be compensated for by an adaptation of their internal model of the steering wheel compliance. This suggests that steering force feedback is an input only used by drivers in the manual control of the steering wheel, even though it carries information tightly coupled to the vehicle dynamics.
+However, the actual preference of standard drivers may favor a narrower range of conﬁgurations for everyday driving than indicated by the model adaptation range. In particular, expert or racing drivers may have quite different requirements, as being able to fully exploit haptic information for better driving performance. Besides, the preferred increase in steering stiffness with vehicle speed mentioned by Green et al. [9] is not addressed in the present model; this effect could be related to a requirement of increased steering accuracy, represented in the model by the ωc crossover frequency parameter.
+Further developments of the proposed model could include the role of steering force feedback as a cognitive cue, in particular indicating sudden drops of road adherence calling for immediate driver action. Similarly, a more realistic vehicle dynamics model could be included in the model to represent the effects of e.g. side-slip, load transfer, oversteer/understeer on the steering performance of the car. However, under stable handling conditions, the same driver model should apply as well, based on the assumption that the ‘internal model’ parameters kˆV and Zˆ V correspond to estimations of the linearized steering behavior of the car.
+
+4. Conclusion
+The adaptation to steering force feedback modiﬁcations observed in our experiment suggests that drivers act as controllers of a steering wheel position instead of a steering torque. Indeed, in order to achieve the same driving performance in terms of steering accuracy in response to a force feedback modiﬁcation, the driver must apply a different steering torque while performing the same movements.
+Other results could be related to our ﬁndings. In a purely haptic task, in which operators are asked to reproduce the direction of a force without visual information [25], it can be shown that the haptic force exerted is related to a displacement of the arm’s equilibrium point, independently of the mechanical impedance characteristics of the manipulated system. In this experiment, when the initially isotropic impedance of the mechanical system becomes anisotropic, the direction of the force to be reproduced by subjects is modiﬁed, because they reproduce a displacement instead. Moreover, in visuo-motor tasks, subject adaptation has also been shown to happen unconsciously [13], although subjects would notice the change in the manipulated system when visual feedback is not available. It is interesting to note that, in our experiment, the modiﬁcation of the wheel impedance also resulted in a reproduction of the angular position of the steering wheel by drivers, without their being aware of the modiﬁcation itself.
+
+388
+
+D. Tofﬁn et al.
+
+This experiment and driver model therefore contradicts the hypothesis whereby haptic steering information could be used by standard drivers as a cue reﬂecting the dynamics of their vehicle. The driver’s internal model of the vehicle dynamics is more likely built separately from other visual and vestibular information. The build-up mechanism of such an internal model from multi-sensory information should be further investigated, using high-performance dynamic simulators which were not available at the time of our experiment. Future developments of intelligent steering assistance (i.e. electric power steering and ‘steer-by-wire’systems) may beneﬁt from this driver behavior study methodology and model, by designing steering force feedback strategies that are best adapted to the visuo-motor characteristics of the drivers.
+
+References
+[1] Gibson, J.J. and Crooks, L.E., 1938, A theoretical ﬁeld analysis of automobile-driving. American Journal of Psychology, 51, 453–471.
+[2] Lee, D.N., 1976, A theory of visual control of braking based on information about time-to-collision. Perception, 5, 437–459.
+[3] Land, M.F. and Lee, D.N., 1994, Where we look when we steer? Nature, 369, 742–744. [4] Beall, A.C. and Loomis, J.M., 1996, Visual control of steering without course information. Perception, 25,
+481–494. [5] Hanneton, S., Berthoz, A., Droulez, J. and Slotine, J.J., 1997, Does the brain use sliding variables for the control
+of movements? Biological Cybernetics, 77, 381–393. [6] Hannaford, B. and Wood, L., 1989, Performance evaluation of a 6-axis high ﬁdelity generalized force reﬂecting
+teleoperator. Proceedings of NASA Conference on Space Telerobotics, 2, 87–96. [7] Howe, R. and Kontarinis, D., 1992, Task performance with a dextrous teleoperated hand system. Proceedings
+of SPIE, 1833, 199–207. [8] Bertollini, G.P. and Hogan, R.M., 1999, Applying driving simulation to quantify steering effort preference as a
+function of vehicle speed. Society of Automobile Engineers, 1999-01-0394 [9] Green, P., Gillespie, T., Reifeis, S., Wei-Hass, L. and Ottens, O., 1984, Subjective evaluation of steering effort
+levels. UMYRI-84-39. [10] Gillespie, T.D., 1992, Fundamentals of Vehicle Dynamics (Warrendale, PA: Society of Automobile Engineers). [11] Reymond, G., Kemeny, A., Droulez, J. and Berthoz, A., 2001, Role of lateral acceleration in driving: experiments
+on a real vehicle and a driving simulator. Human Factors, 43, 483–495. [12] Lacquaniti, F., Borghese, N.A. and Carrozzo, M., 1992, Internal models of limb geometry in the control of hand
+compliance. Journal of Neuroscience, 12, 1750–1762. [13] Knoblich, G. and Kircher, T.T., 2004, Deceiving oneself about being in control: conscious detection of changes in
+visuomotor coupling. Journal of Experimental Psychology: Human Perception and Performance, 30, 657–666. [14] Kemeny, A. and Panerai, F., 2003, Evaluation perception in driving simulation experiments. Trends in Cognitive
+Sciences, 7, 31–37. [15] Reymond, G. and Kemeny, A., 2000, Motion cueing in the Renault driving simulator. Vehicle System Dynamics,
+34, 249–259. [16] Benson, A.J., Spencer, M.B. and Scott, J.R.R., 1986, Thresholds for the detection of the direction of whole-body,
+linear movement in the horizontal plane. Aviation, Space and Environmental Medicine, 60, 1088–1096. [17] McAdam, C.C., 1980, An optimal preview control for linear systems. Journal of Dynamics Systems,
+Measurements and Control, 102, 188–190. [18] McAdam, C.C., 1981, Application of an optimal preview control for simulation of closed-loop automobile
+driving. IEEE Transactions on Systems, Man, and Cybernetics, SMC-11, 393–399. [19] McRuer, D., 1980, Human dynamics in man–machine systems. Automatica, 16, 237–283. [20] McAdam, C.C., 2003, Understanding and modeling the human driver. Vehicle System Dynamics, 40, 101–134. [21] Yih, P., Ryu, J. and Gerdes, J.C., 2004, Vehicle state estimation using steering torque. Proceedings of the 2004
+American Control Conference, Boston, MA, pp. 2116–2121. [22] Warren, W.H., Morris, M.W. and Kalish, M., 1988, Perception of translation heading from optical ﬂow. Journal
+of Experimental Psychology: Human Perception and Performance, 14, 646–660. [23] Ungoren, A.Y. and Peng, H., 2005, An adaptive lateral preview driver model. Vehicle System Dynamics, 43,
+245–259. [24] McRuer, D., Graham, D., Krendel, E. and Reisener, W., 1965, Human pilot dynamics in compensatory systems –
+theory, models, and experiments with controlled element and forcing function variables, AFFDL-TR-65-15. [25] Tofﬁn, D., McIntyre, J., Droulez, J., Kemeny, A. and Berthoz, A., 2003, Perception and Reproduction of force
+in the horizontal plane. Journal of Neurophysiology, 90, 3040.
+

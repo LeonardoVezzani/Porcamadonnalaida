@@ -1,0 +1,511 @@
+Skip to Main Content
+
+    IEEE.org
+    IEEE Xplore
+    IEEE SA
+    IEEE Spectrum
+    More Sites 
+
+SUBSCRIBE
+
+        Cart 
+        Create Account
+        Personal Sign In 
+
+IEEE Xplore logo - Link to home
+
+    Browse
+    My Settings
+    Help
+
+Institutional Sign In
+IEEE logo - Link to IEEE main site homepage
+ADVANCED SEARCH
+Journals & Magazines > IEEE Access > Volume: 9
+Does Augmented-Reality Head-Up Display Help? A Preliminary Study on Driving Performance Through a VR-Simulated Eye Movement Analysis
+Publisher: IEEE
+Cite This
+PDF
+Xiangdong Ma ; Mengting Jia ; Zhicong Hong ; Alex Pak Ki Kwok ; Mian Yan
+All Authors
+4
+Paper
+Citations
+1130
+Full
+Text Views
+Open Access
+Comment(s)
+
+    Alerts
+
+Under a Creative Commons License
+Abstract
+Document Sections
+
+    I.
+    Introduction
+    II.
+    Related Work
+    III.
+    VR-Based Driving Simulator for AR-HUD Evaluation
+    IV.
+    AR-HUD Driving System Performance Testing
+    V.
+    Result
+
+Show Full Outline
+Authors
+Figures
+References
+Citations
+Keywords
+Metrics
+Footnotes
+Abstract:
+Augmented reality heads-up display (AR-HUD) is becoming increasingly popular as a way to keep drivers focusing on roads. By overlaying visuals on the windshield, AR-HUDs improve the drivers’ view of the environment outside the car, creating a stronger sense of awareness of the surroundings. However, whether AR-HUD and to what extent different AR-HUD layouts could improve drivers’ driving performance are still questionable. Unfortunately, AR-HUD is still at a research stage, not yet fully commercialized. Hence, there are few actual products in the market available for testing. For this reason, this study developed a virtual reality driving simulator to tested drivers’ driving performance environment under three scenarios: without AR-HUD, dispersed layout (AR-HUD1), and dense layout (AR-HUD2). Twelve subjects were invited to join the experiment. Their driving performance was measured in various aspects. This study showed that AR-HUD with interfaces that conform to human-computer interaction principles and visual design rules could improve cognitive resource allocation and promote driving safety. Conversely, a poor designed AR-HUD could negatively impact driving safety.
+Published in: IEEE Access ( Volume: 9 )
+Page(s): 129951 - 129964
+Date of Publication: 13 September 2021
+Electronic ISSN: 2169-3536
+DOI: 10.1109/ACCESS.2021.3112240
+Publisher: IEEE
+Funding Agency:
+Augmented-Reality Head-Up Display system test logic diagram.
+Hide Full Abstract
+CCBY - IEEE is not the copyright holder of this material. Please follow the instructions via https :// creativecommons . org / licenses / by / 4 . 0 / to obtain full-text articles and stipulations in the API documentation.
+SECTION I.
+Introduction
+
+Driving is a complex task that requires various characteristics and skills such as vision, attention, memory, and perceptual-motor skills. People are often distracted while driving, especially when attending to secondary (e.g., engaging with GPS navigation) and tertiary tasks (e.g., manipulating entertainment controls, using a cell phone). In the US, there is ample evidence that the role of distraction in accidents is increasing [1] . According to the National Highway Traffic Safety Administration, distraction was responsible for 10% of all death incidents, 18% of injury crashes, and 16% of motor vehicle traffic crashes in 2012 [2] . Moreover, Smith et al. [3] pointed out that any driver activity that diverted their attention away from the road environment could increase the collision risk. Additionally, when drivers receive information from touch sensors or in-vehicle terminals, they could encounter driving loads, including visual, auditory, psychomotor, and cognitive loads. In particular, drivers get 80% of information visually while looking forward at the road to support safe driving practices [4] , [5] . Therefore, augmented reality-based head-up devices (AR-HUD) were proposed to augment safety information onto the vehicles’ windshields to maximize visual resources and allow drivers to focus on driving safely. AR-HUD could display information precisely in front of eyes [6] , [7] . With AR-HUD, drivers could see vital information such as speed, warning signals, and indicator arrows for navigation without glancing down to the instrument cluster or secondary display. Hence, AR-HUD could enable drivers to spend more time gazing at the road and less time straining their eyes for a more enjoyable driving experience [8] . For these benefits, automotive manufacturers have begun to provide augmented reality head-up displays (86 models in the United States offered HUDs in 2018), with marketing teams pushing for increasingly capable AR-HUD user interfaces. Hersteller Initiative Software Automotive estimated that 9.1 million HUDs would be sold by 2020 [9] .
+
+The current research on AR-HUD focused on optical presentation, hardware design, device size, and cost. Less research was conducted on AR-HUDs’ utility and the allocation of cognitive resources to drivers. Technically, AR-HUD could assist drivers in viewing and perceiving necessary information during driving. However, it was argued whether augmenting and showing information on vehicles’ windshields could adversely affect driving safety. For example, a large amount of driving information displayed on the windscreen simultaneously may block the view ahead, and frequent observation over a long period may result in cognitive distraction. Therefore, this paper focused on whether AR-HUD systems could improve driving safety and how the layout of different AR-HUDs could affect driving safety.
+
+Moreover, while many researchers and practitioners focused on improving the design of AR-HUD systems, they did not demonstrate how and to what extent AR-HUD could affect driver performance. Without knowing this question, AR-HUD manufacturers could only rely on ancient knowledge of traditional in-vehicle information systems to design AR-HUDs’ user interfaces and their usefulness. Nowadays, standard in-vehicle display assessment methods were established based on car data in the early 2000s. However, Smith et al. [3] showed that these assessment methods are not suitable for AR-HUD. Hence, researchers and engineers needed to develop an appropriate method to testify the usefulness of AR-HUD from users’ perspectives in a controlled environment. Users’ attitude towards a new technology would affect their intention to use and adapt that technology [10] . Unfortunately, since AR-HUD is not yet a commercial product and its display contains an excessive number of variables, it is not a simple task to develop and conduct such an experiment. Therefore, this paper proposed testing various AR-HUD designs using virtual reality (VR). A VR-based driving simulator was built in this study to compare and testify whether different AR-HUD designs could affect drivers’ driving performance in a controlled setting. Compared with existing studies using flatted screens (e.g., [9] ), VR could immerse subjects (drivers) in a realistic experience. Subjects could engage with 3D worlds rather than simply viewing a flat screen in front of them. Hence, the research findings should more accurately represent reality.
+
+This study is novel in using VR (together with eye-tracking function) to assess AR-HUD performance. The research should help promote a standardized AR-HUD interface design process in the future and offer a scientific reference for AR-HUD interface design.
+SECTION II.
+Related Work
+A. Augmented Reality Head-Up Display
+
+In 1999, General Motors Corporation started the development of a vehicle-installed head-up display (HUD). HUD is a technology that overcomes the limitations of traditional flat-screen systems by displaying important information in front of the line of sight [11] , avoiding the need for drivers to look down at the driving instruments. AR technology was first used in vehicles in 2010 due to the rapid development of the smartphone but only provided limited information to a designated area on a vehicle’s windshield [12] , [13] .
+
+AR-HUD could provide direct superimposition of information onto the real spatiotemporal context, assisting drivers in detecting, analyzing, and reacting appropriately [14] . For example, Narzt et al. [15] and Levy et al. [16] proposed to project colored lines on the road in front of drivers as road guidance. Gabbard et al. [17] discovered that utilizing AR to emphasize cue landmarks improved navigation. Park and Kim [18] created an in-vehicle AR-HUD system that could intelligently recognize driving safety information and project it into the flat view, compensating for the shortcomings of traditional HUD displays. Hence, it was believed that AR-HUD could assist drivers in regaining situational awareness and adopting a safer driving style [19] .
+
+Moreover, algorithms for evaluating real-time traffic situations and information optical display technologies are increasingly advanced in AR-HUD research. However, the present AR-HUD systems lack a uniform interface provision, resulting in a rough and crowded system display interface design. These flaws could harm the driving experience. For example, Soro et al. [20] assessed six AR-HUD systems interfaces in a semi-natural simulated driving environment. Kim et al. [21] created a pedestrian detection interface to identify and show pedestrians in front of the field of vision on the windshield. Their interface outperformed the prior display interface in terms of performance. However, the single pedestrian detection interface was still not unified with the other safety detection interfaces that comprised the design architecture. As a result, this study tried to build a VR-based driving simulator to evaluate the AR-HUD user interfaces’ usefulness to help engineers build a better AR-HUD system.
+B. Virtual Reality Driving
+
+Virtual reality (VR) is a novel human-machine interaction technology that weaves a virtual world artificially to generate a virtual digital picture with a high level of immersion, believability, and interactivity [22] . VR technology was extensively used in experiments where the cost and risk of carrying out such an experiment in the actual world are high. For example, Tagliabue et al. [23] conducted a VR simulation to reveal the link between color and perceived thermal comfort. Schultheis et al. [24] used a VR driving simulator to evaluate driving performance at Stop Sign intersections between people with and without acquired brain damage. Hence, VR could provide a platform for engineers to test their driving-related products safely repeatedly and at a low cost.
+
+However, while an increasing number of studies attempted to investigate behavior in a driving simulator, few of them included eye-movement analysis, particularly in the context of AR-HUD and VR-driving simulators. Vision is critical for driving since drivers need to see things to their sides ahead, evaluate them, and decide how to respond. Hence, it is essential to analyze drivers’ eye movements during a driving-related experiment. For example, Wilson et al. [25] investigated the impact of different driving states on drivers’ eye movements on windy roads. However, like many similar studies, their experiment was performed in front of a plasma screen instead of VR. Compared to flat displays, VR could provide a more realistic and immersive driving experience to subjects. Hence, the study results based on VR should better reflect realism than plasma screens.
+C. Eye Tracking in VR
+
+Eye movements reflect how the human mind works, which can provide insight into drivers’ visual behavior based on the distribution of the ephemeral visual points of human eyes. Oculomotors are often employed to track a tiny diffuse region centered on the user’s eye gaze’s midpoint [26] , [27] . The principle of tracking is to send infrared light into the user’s eyes, reflected by the pupil and then mapped out on an electronic display as a reception point. Only the central concave visual part represents the area where the user’s attention is currently focused [28] . The places that demand attention are those where the user thinks repetitively about the information and whose eyes are briefly fixated [27] . This multi-channel interaction has become a dominant form of evaluation. In recent years, eye movement analysis has been used in traffic driving research. SiweiMa et al. utilized driving simulation and eye-tracking systems to investigate the efficacy of improved traffic signs and pavement markings (PSM) at flashing-light-controlled grade crossings [29] . Anh Son Le et al. introduced a novel method for simulating involuntary eye movement by combining the vestibular-ocular reflex model and the optokinetic response. The difference between the predicted and observed eye movements was then assumed to measure the level of cognitive distraction [30] . Compared with the traditional way of head tracking to locate the field of view, the eye-tracking technology can obtain a more accurate and complete field of view, and the powerful interactivity with the system enhances the virtual effect of the system and improves the user experience. At the same time, the analysis of eye movement trajectory inferred human thinking ability and perception ability, which fits the focus of this paper on the behavioral characteristics of the subjects during driving. Some researchers have started exploring eye-tracking in VR environments, but the research is still immature, and the products are not well-targeted [26] . Limited by the inability of traditional data transmission methods to meet the streaming of 3D dynamic models required for virtual environments and the information processing capacity of existing computers to withstand the massive amount of data, research on eye tracking in VR environments is difficult to advance. In this study, by embedding an eye-tracking device into a VR headset, the trajectory of the human eye’s gaze point is detected in real-time, and the attention allocation pattern of the participating drivers is obtained. Participants’ visual attention consumption areas are analyzed according to their eye movement range results. Thus, the impact of different AR-HUD interfaces on driving performance was assessed.
+D. Research Objectives
+
+Based on the broad application prospects of AR-HUD and the limitations of prior driving-related research, this study aimed to investigate the usefulness of using AR-HUD devices in driving and the impact of AR-HUD user interface design on driving performance. It would also describe the experiences in developing a VR-based driving simulator to investigate the influence of AR-HUD usage on drivers’ performance and behavior. This study investigated the following two research questions:
+
+RQ1: Does the AR-HUD system improve driving performance?
+
+RQ2: What is the impact of different AR-HUD interface layouts on driving performance?
+SECTION III.
+VR-Based Driving Simulator for AR-HUD Evaluation
+
+A VR-based driving simulator was developed to test the utility of AR-HUD in a safe virtual environment without affecting the real world. The simulator could circumvent the challenges of assessing AR-HUDs in the natural environment.
+A. Virtual Driving Environment Construction
+
+Given that the VR-based driving simulator’s purpose is to evaluate the functioning of the AR-HUD, the simulator should be capable of simulating the lighting, weather conditions, traffic, and any physical collisions during driving. Hence, relevant building models and associated object models were selected and integrated during the construction process using the UNITY editor. Lighting was implemented using both baked and real-time techniques. To ensure visual authenticity, static items’ surface lighting was baked, and real-time lighting was also used to assess the brightness of all objects over time. Global illumination (GI) technology was used to generate light refraction and reflection between objects, significantly improving the realism of lighting. Each weather condition was incorporated utilizing image resources such as sunlight, rain, snow, sandstorm, twilight, and various special effects. Besides, an application programming interface (API) was used to enable prefabricated bodies to actualize weather changes. The traffic system resource package was employed to build traffic lights at city intersections, add automobiles and pedestrians to the road and pavements, and manage their driving patterns to imitate the real road environment. Moreover, by adding colliders and rigid body components for vehicles, pedestrians, and buildings, a collision system was used to simulate real-world objects impacted by gravity and collision. Figure 1 depicts a schematic design of the virtual driving environment’s development.
+FIGURE 1. - Diagram of the surrounding driving environment in VR.
+FIGURE 1.
+
+Diagram of the surrounding driving environment in VR.
+
+Show All
+
+B. AR-HUD Design
+
+Information identification, reception, and processing are inextricably linked to the driver himself. The driver’s brain collects exterior traffic and road information and reacts to the information via internal transmission and processing mechanism, changing the vehicle’s driving status. Therefore, the AR-HUD interface design should take into account the information processing process of human brains. The primary concern is the elements involved in the information processing flow of the brain, as seen in Figure 2 . Moreover, the amount of information displayed on the AR-HUD interface, the display time of individual details, the scope of information layout, and the information priority on the interface was constrained. The number of items displayed in a single interface was restricted to 7-9. The length of a single warning message was set to 3 seconds. The timespan of an emergency hazard warning message was constrained to 10–15 seconds. The range of information layout was related to the speed. The AR-HUD interface was situated within 65°of the visual field when the speed was less than 75km/h, and within 40°of the binocular visual field, the speed was greater than 75km/h. The display was in the form of clear and straightforward text icons, with placement determined by priority. Color, brightness, and opacity were all controlled. Since critical information should be recognized quickly and easily, the design of the AR-HUD interface information display must completely address the five factors listed in Table 1 . Besides, color, brightness, and opacity were all controlled.
+TABLE 1 Vehicle Information Display Module
+Table 1- Vehicle Information Display Module
+FIGURE 2. - Perception, processing, and execution steps for driving information.
+FIGURE 2.
+
+Perception, processing, and execution steps for driving information.
+
+Show All
+
+Elements such as small arrows for AR navigation, alert boxes for AR pedestrian detection, AR vehicle warning icons, AR vehicle speed display, small icons for collision detection, fuel level display, navigation mini-map, event alerts, residential area display, and remaining distance were put on the AR-HUD interface. To replicate AR-HUD’s impact in a real-world context, the particle shader was utilized to render AR-HUD components into a translucent sprite state to display AR-HUD elements on the vehicle’s windshield. Besides, conspicuous red color was used in alerts such as AR pedestrian detection alert box, AR body collision warning, and AR vehicle warning elements to grab attention and enhance their reaction time to unexpected occurrences. Furthermore, soft hues such as cyan or blue were used to design driving aids such as AR navigation arrows, speed display, fuel level display, navigation mini-map, event tips, residential area tips, and remaining distance to decrease eye strain.
+
+Lastly, a driving path that includes passing automobiles and pedestrians at crossings was designed for the experiment to replicate real-world city traffic situations. Two junctions were also set up along the route where the surrounding vehicles would unexpectedly accelerate to evaluate the usefulness of AR-HUD’s warning. This study only selected one straight road and two junctions without adding other roads. Because turning and overtaking would introduce many irrelevant variables. For example, when changing lanes, you needed to pay attention to the exterior rearview mirror, which has nothing to do with the information displayed on AR-HUD. However, observing the rearview mirror changed the driver’s visual allocation strategy. Moreover, the throttle used strategy would be different because it depended on divers’ hobit. These reasons led to a comparative experiment but had no help for our research objective. On the other hand, simple driving tasks would be challenging to distinguish the driving performance with and without AR-HUD. In contrast, complex driving tasks would disrupt the driver’s visual cognitive strategies, resulting in large fluctuations in eye movement data. Considering that most participants lack virtual driving experience, a straight road with two intersections was designed to determine reasonable driving tasks and control unnecessary variables. Furthermore, drivers were required to maintain a stable speed during driving and paid attention to pedestrians, vehicles and surrounding buildings.
+C. Data Acquisition
+
+Three groups of data were obtained in this experiment. The first category comprised data obtained directly from the head-mounted device (HMD), such as pupil diameter, eye-opening size, and relative location of the eyes in the HMD sensor. These data could be directly called out from the HMD using its software development kits. The second group of data was created along with the interaction between the human eye and the virtual environment, which comprised the windshield gaze point and gaze point distance. To obtain the data for the windshield gaze, a collision body was placed on the windshield in the virtual environment to receive the gaze point. Another ray was emitted to collide with the virtual environment to obtain the gaze point distance data. The distance between the eye and the point of collision of this ray could be calculated. The third group of data includes the pedaling information and steering wheel angle. This data was obtained directly from the pressure sensors and cornering sensors connecting to the computer. All data were exported to a Microsoft Excel file for further analysis.
+D. System Architecture
+
+The virtual driving environment was displayed using HTC VIVE Pro Eye, which connected relevant ports to a high-performance computer. Other physical devices such as foot pedals and steering wheels were also connected to the computer via USB ports. The computer processed the collected data and transferred them into Unity, and the headset then took the images in Unity for display. Simultaneously, the eye-tracking device in the HTC VIVE Pro Eye, foot pedal sensor, and steering wheel sensor was constantly monitoring and collecting data and synchronously importing it to the data repository according to the data import algorithm. The virtual reality-based driving simulator system architecture contained four modules: Main computer, Unity, Headset VR devices, and Driving equipment, as shown in Figure 3 .
+FIGURE 3. - The system architecture of the VR-based driving simulator.
+FIGURE 3.
+
+The system architecture of the VR-based driving simulator.
+
+Show All
+
+SECTION IV.
+AR-HUD Driving System Performance Testing
+
+This study aimed to the impact of different AR-HUD interface layouts on driving performance. Hence, a controlled experiment was conducted using the VR-based driving simulator with (1) without AR-HUD, (2) dispersed layout (AR-HUD1), and (3) dense layout (AR-HUD2). This study adhered to the American Psychological Association’s Code of Ethics and was authorized by the authors’ institution’s Institutional Review Board. Each participant needed to sign an informed consent form before the study began. The informed consent form consisted of three major components (1) disclosure - introducing the study’s background and information necessary to make an autonomous decision to the subjects; (2) capacity - stating the subject’s capacity to comprehend the information presented and to make a reasonable judgment based on the possible repercussions of their decision; (3) voluntariness - reinforcing the voluntary nature of the decision.
+A. Participants
+
+Twelve subjects(six males and six females) were randomly recruited by placing a volunteer recruitment notice on the student service website of the authors’ institution, with a gender ratio of 1:1. These subjects were aged between 21-25, with at least three years of driving experience. They all reported to having the experience of using VR devices. Before the experiment, they were instructed not to consume alcohol that might reduce or increase their reflexes on the experiment day. They were also asked not to engage in vigorous activities three hours before the experiment.
+B. Procedures
+
+The experiment lasted for around10 minutes and was composed of the following steps:
+
+    The subjects were invited to enter the laboratory, familiar with the VR laboratory environment, and fill out the pre-test questionnaire.
+
+    After the subjects had sat and settled, they were then required to enter a virtual interface to measure their eye characteristics to ensure the eye-tracking device functioned. They were also asked to adjust their chair’s position and height to sit and see comfortably.
+
+    To let the subjects be familiar with the virtual vehicle and the experiment instruments, the subjects were allowed to drive freely inside the virtual world before the start of the actual test. They needed to adapt to the steering wheel and the sensitivity of the foot pedals during this trial.
+
+    After the subjects got used to the virtual driving, the researchers started introducing the driving task for the experiment. The subjects could request the researchers to repeat if they did not understand. After that, the subjects could start the driving task.
+
+    While the subjects were driving, the researchers sat off the sight of the subjects and did not make any noise.
+
+    Each subject needed to complete three driving tasks, associating to the without AR-HUD case, the dispersed AR-HUD (AR-HUD1) case, and the dense AR-HUD (AR-HUD2) case.
+
+The driving test was conducted by the logic depicted in Figure 4 .
+FIGURE 4. - Driving test design logic.
+FIGURE 4.
+
+Driving test design logic.
+
+Show All
+
+All subjects were instructed to follow the following rules during their driving task:
+
+    Maintain a speed of 40 meters per second throughout the driving process. Keep the speed of the car stable throughout the driving process.
+
+    Drive safely, always pay attention to pedestrians and vehicles nearby and slow down at intersections.
+
+    Pay attention to the green ‘building’ icon displayed on the AR-HUD interface during driving. (The building icons were employed to give the subject’s information about the nearby buildings, simulating the actual navigation function of AR-HUD.)
+
+    Avoid pedestrians and vehicles, pay attention to information prompts on the navigation, and follow the correct lane.
+
+Figure 5 shows the virtual route and surrounding environment of the experiment.
+FIGURE 5. - Virtual test route and surrounding environment.
+FIGURE 5.
+
+Virtual test route and surrounding environment.
+
+Show All
+
+C. Measuring Variables
+
+This experiment quantitatively analyzed the subjects’ eye movement data, speed, and brake usage to determine the driving performance under different driving scenarios.
+
+    Regional attention duration: Regional attention duration is the total attention duration of the statistical gaze point on each position on the windshield. The information that subjects mainly focus on during the driving process was analyzed by distributing subjects’ gaze points.
+
+    Visual search breadth: Visual search breadth indicates the visual search range in horizontal and vertical directions. The standard deviation of the vertical and horizontal viewpoints was used as an index to evaluate the search breadth, which was used to reflect the discrete degree of the subject’s viewpoint distribution during the driving process [31] .
+
+    Sweep amplitude and speed: Sweep amplitude is the straight line distance from the starting point in a sweep process. Sweep speed is the sweep distance divided by the time [31] . Sweep amplitude means the distance between the positions where adjacent information is obtained. Sweep speed reflects the efficiency of the driver to obtain information under normal circumstances. However in a tense driving environment, flustered drivers will also increase the scanning speed, but this behavior is ineffective. Therefore, before testing each driver, they will be familiar with the environment and tasks to avoid panic.
+
+    Blink data: The subject’s physiological state was analyzed by observing the frequency of the subject’s blink. The blink data was used to analyze the subject’s tension and fatigue level [32] .
+
+    Vehicle speed: Vehicle speed is the logical speed of the virtual vehicle when driving in the VR environment. The longitudinal driving characteristics reflect the subject’s performance in controlling the car and reacting in an emergency.
+
+    Pedal data: Pedal data is the extent to which the subject pressed the pedal during driving. For example, the brake pedal frequency could reflect subjects’ driving strategy and performance [33] .
+
+SECTION V.
+Result
+
+The study compared the three cases: driving without AR-HUD, with AR-HUD1, and with AR-HUD2 using the abovementioned indicators. Section V-A used the ANOVA statistical analysis method to compare without AR-HUD to AR-HUD1 and AR-HUD2 to determine the influence of the AR-HUD system on driving performance. Section V-B investigated driving performance with two different user interface layouts, AR-HUD1 and AR-HUD2. Sections V-A and V-B should provide quantitative data to answer these two primary concerns (research questions) about the usefulness of the AR-HUD and the influence of the AR-HUD interface layout on driving performance.
+A. Driving Performance With and Without AR-HUD
+
+One-way ANOVA was used to investigate the differences among the three driving cases on the accelerator’s average amplitude, the brake’s average amplitude, steering wheel angle, average blink time, blink frequency, horizontal view, vertical view, vehicle speed, and sweep angle. From Table 2 , there was no significant difference among the three driving cases regarding the average amplitude of the brake, steering wheel angle, average blink time, vertical view, and sweep angle (p>0.05). In contrast, a significant difference was found among the three driving cases regarding the average amplitude of the accelerator (p<0.05), blink frequency (p<0.01), horizontal viewing angle (p<0.05), and vehicle speed (p<0.01). In detail:
+
+    A significant difference was found in average accelerator amplitude ( F = 4.183 , p = 0.024 ). (“Without AR-HUD>AR-HUD1; AR- HUD 2>AR-HUD1”).
+
+    A significant difference was found in blink frequency ( F = 5.686 , p = 0.008 ) (“Without AR-HUD>AR-HUD2”).
+
+    A significant difference was found in the horizontal view ( F = 4.312 , p = 0.022 ) (“With AR-HUD1>AR-HUD2”).
+
+    A significant difference was found in vehicle speed ( F = 166.990 , p = 0.000 ) (“Without AR-HUD>AR-HUD1; AR-HUD2>Without AR-HUD; AR-HUD2>AR-HUD1. AR-HUD2>AR-HUD1”).
+
+TABLE 2 One-Way ANOVA Analysis Results
+Table 2- One-Way ANOVA Analysis Results
+
+B. Driving Performance Under Different AR-HUD Layouts
+
+Section V-B focused on analyzing the driving performance difference between the two AR-HUD interface layouts: dispersed (AR-HUD1) and dense (AR-HUD2). The data from the without AR-HUD case was also used as a reference to quantify AR-HUD’s positive or adverse effects.
+1) Visual Search Breadth
+
+The subject’s visual ephemeral area was collected by the eye-tracking sensor in the HTC VIVE Pro Eye and plotted as a hotspot map, as shown in Figure 6 . From the hotspot diagram, it could be qualitatively seen that the subject’s visual gaze preference in AR-HUD cases was greater than that without AR-HUD. Besides, the visual gaze was more dispersed in AR-HUD1 than AR-HUD2. The visual search breadth was also analyzed to investigate whether AR-HUD could help improve the efficiency of cognitive resources and enhance the response in an emergency. Visual search breadth contained both horizontal visual search range and vertical visual search range. The standard deviation of the vertical and horizontal visual fields was used as an index to evaluate the search breadth, thus reflecting the discrete degree of the visual field distribution of driving during the driving process.
+FIGURE 6. - Heat map of driving gaze points without AR-HUD, AR-HUD1, and AR-HUD2.
+FIGURE 6.
+
+Heat map of driving gaze points without AR-HUD, AR-HUD1, and AR-HUD2.
+
+Show All
+
+2) Sweeping Amplitude and Speed
+a: Peak Sweep Speed
+
+The peak sweep speed was the speed value corresponding to the two sampling points that span the largest part of one sweep behavior. According to the subject’s current fixation point C ( x 0 , y 0 , z 0 ) , the previous fixation point A ( x 1 , y 1 , z 1 ) , and the next fixation point B ( x 2 , y 2 , z 2 ) , the following parameters were obtained by calculating the coordinates in the virtual coordinate system: tan 1 = tan 2 = tan 3 = ( x 1 − x 0 ) 2 − ( y 1 − y 0 ) 2 + ( z 1 − z 0 ) 2 − − − − − − − − − − − − − − − − − − − − − − − − − − − √ ( x 2 − x 0 ) 2 − ( y 2 − y 0 ) 2 + ( z 2 − z 0 ) 2 − − − − − − − − − − − − − − − − − − − − − − − − − − − √ ( x 1 − x 2 ) 2 − ( y 1 − y 2 ) 2 + ( z 1 − z 2 ) 2 − − − − − − − − − − − − − − − − − − − − − − − − − − − √ (1) View Source Right-click on figure for MathML and additional features. \begin{align*} \tan _{1}=&\sqrt {\left ({x_{1}-x_{0}}\right)^{2}-\left ({y_{1}-y_{0}}\right)^{2}+\left ({z_{1}-z_{0}}\right)^{2}} \\ \tan _{2}=&\sqrt {\left ({x_{2}-x_{0}}\right)^{2}-\left ({y_{2}-y_{0}}\right)^{2}+\left ({z_{2}-z_{0}}\right)^{2}} \\ \tan _{3}=&\sqrt {\left ({x_{1}-x_{2}}\right)^{2}-\left ({y_{1}-y_{2}}\right)^{2}+\left ({z_{1}-z_{2}}\right)^{2}}\tag{1}\end{align*}
+
+Obtain the corresponding Angle:   angle  = arccos ( tan 1 + tan 2 − tan 3 2 tan 1 tan 2 ) (2) View Source Right-click on figure for MathML and additional features. \begin{equation*} {~\text {angle }}=\arccos \left ({\frac {\tan _{1}+\tan _{2}-\tan _{3}}{2 \tan _{1} \tan _{2}}}\right)\tag{2}\end{equation*}
+
+Obtain sweep speed: v =   angle  t (3) View Source Right-click on figure for MathML and additional features. \begin{equation*} v=\frac {{~\text {angle }}}{t}\tag{3}\end{equation*}
+
+The peak sweep speed was 7607°/s for the without AR-HUD case, 5977°/s for the AR-HUD1 case, and 6147°/s for the AR-HUD2 case. Hence, the gaze targets were more precise when there was AR-HUD assistance. The subject did not look for other targets of interest when making broad shifts. However, in the case of no AR-HUD aid, the subject’s gaze was unclear and could be easily distracted by other objects between the gaze targets when shifting the gaze, resulting in a lower peak sweep speed. Therefore, AR-HUD was effective in helping drivers to identify the primary target of interest.
+b: Average Sweep Speed
+
+The average sweep speed was defined as the ratio of sweep amplitude to sweep duration in °/s. The average sweep speed could indicate the speed of information processing during the previous gaze and the search speed for the next target. The average sweep speed of the subjects in the cases: without AR-HUD, with AR-HUD1 and with AR-HUD2 were counted separately, as shown in Figure 7 .
+FIGURE 7. - Average sweep speed at different speed ranges.
+FIGURE 7.
+
+Average sweep speed at different speed ranges.
+
+Show All
+
+For 50-100°/s and 100-150°/s, subjects’ sweep speed in the case of without AR-HUD was higher than that of AR-HUD1 and AR-HUD2. However, for 150-450°/s, the subjects’ sweep speed in the without AR-HUD case was significantly lower than that with AR-HUD1 and AR-HUD2.
+
+This result indicated that subjects’ frequency of low-amplitude searches increased when driving without AR-HUD. This phenomenon could be because of the cognitive distraction compensation mechanism. For example, some of the attentional resources were used for distraction tasks, and the remaining resources were not sufficient to process the information acquired during a broad sweep when driving at a relatively high level of the typical sample was performed by dividing the entire sequence of speed values into four partial numbers by quartiles. The positions corresponding to the lower, middle, and upper quartiles: Q 1 , Q 2 and Q 3 were calculated using the following equations. Q 1 = n + 1 4 , Q 2 = 2 ( n + 1 ) 4 = n + 1 2 , Q 3 = 3 ( n + 1 ) 4 (4) View Source Right-click on figure for MathML and additional features. \begin{equation*} Q_{1}\!=\!\frac {n\!+\!1}{4},\quad Q_{2}\!=\!\frac {2(n\!+\!1)}{4}\!=\!\frac {n\!+\!1}{2},\quad Q_{3}\!=\!\frac {3(n\!+\!1)}{4}\tag{4}\end{equation*}
+
+N denotes the number of phases of the sequence.
+
+The statistical indicators of vehicle speed data in a typical case are shown in Table 3 .
+TABLE 3 Vehicle Speed Quad Score Across Different Driving Cases
+Table 3- Vehicle Speed Quad Score Across Different Driving Cases
+
+From the standard deviation point, the speed dispersion degree for the without AR-HUD case was higher than the AR-HUD1 and AR-HUD2 cases. In addition, the upper quartile value was the smallest, and the lower quartile value was the largest in the without AR-HUD case. This result meant that the speed fluctuation in the without AR-HUD case was much higher than the other two cases. As a result, drivers could better control the vehicle speed with AR-HUD assistance, thus reducing the risk.
+3) Pedal Data
+a: Accelerator Pedal
+
+Firstly, the pedal data were obtained without pressing the pedal (at the time when the data-pedal closure amplitude was zero). Then, the pre-processed data were divided into 12 groups according to the number of people in each of the 3 AR-HUD cases (total 3 × 12 = 36 groups). The average value of each group’s data was obtained, i.e., 36 (3 cases × 12 subjects) data of average amplitude were obtained. An example of the accelerator pedal and brake pedal openness change pattern was shown in Figure 8 . Finally, a t-test was performed on these data, resulting in six box plots, as shown in Figure 9 . Intuitively, when AR-HUD was used during driving, the subjects adopted a minor multi-frequency adjustment of the accelerator pedal with high control accuracy. In contrast, the number of times the subjects adjusted the accelerator pedal was relatively lower, and the adjustment range was more extensive without AR-HUD. The t-test result showed a significant difference between AR-HUD1 and AR-HUD2 (the t-value = 2.52 and the p-value = 0.0269). The average amplitude of the AR-HUD1 case was significantly lower than that of the AR-HUD2 case. This result implied that AR-HUD1 could effectively improve the accelerator control precision, thus achieving a better driving effect than AR-HUD2. In other words, AR-HUD1 was significantly better than AR-HUD2 in helping drivers.
+FIGURE 8. - An example of the accelerator pedal and Brake Pedal openness change pattern.
+FIGURE 8.
+
+An example of the accelerator pedal and Brake Pedal openness change pattern.
+
+Show All
+FIGURE 9. - Box plots of various driving indicators in AR-HUD1 and AR-HUD2 cases.
+FIGURE 9.
+
+Box plots of various driving indicators in AR-HUD1 and AR-HUD2 cases.
+
+Show All
+
+b: Brake Pedal
+
+The experiment involved three unexpected situations. When AR-HUD was used, the driver could receive the alert in advance, decreasing the braking amplitude. Therefore, the lower the braking amplitude, the more efficient and reasonable the response to the unexpected situation with AR-HUD, and the safer the driving environment. According to the t-test results, the t-value for the without AR-HUD - AR-HUD1 case comparison was 0.95, and the p-value was 0.361 (p>0.05). The t-value for the AR-HUD1 - AR-HUD2 case comparison was 2.51, and the p-value was 0.0272 (p<0.05). Together with Figure 8 , it could be seen that the average amplitude of AR-HUD2 was significantly lower than that when driving AR-HUD1. Therefore, AR-HUD2 could effectively improve the driver’s ability to respond to unexpected situations, no significant difference was found between the without AR-HUD case and AR-HUD1 case.
+c: The Brake’s Average Amplitude
+
+The brake’s average amplitude was calculated from the brake pedal amplitude data. A t-test was performed. The t-value for the without AR-HUD - AR-HUD1 case comparison was 0.95, and the p-value was 0.361 (p>0.05). The t-value for the AR-HUD1 - AR-HUD2 case comparison was 2.51, and the p-value was 0.0272 (p<0.05). This result indicates that drivers could obtain hazard information earlier and take appropriate measures with AR-HUD2 assistance.
+SECTION VI.
+Discussion
+A. Cognitive Resource Allocation Based on Fixation Point Distribution
+
+Eye movement metrics are a direct measure for evaluating visual attention throughout the perception phase [34] . They can quantify various visual perception characteristics [34] , [35] . This study discovered that the dispersed AR-HUD (AR-HUD1) layout’s visual search breadth had the highest values in both the horizontal and numerical directions, while the dense AR-HUD (AR-HUD2) design had the second highest. The visual search breadth was the lowest in the without AR-HUD case. Hence, AR-HUD could broaden the width of gaze point dispersion of drivers. Besides, a significant number of gaze points were dispersed beyond the center region (e.g., car instruments and displays). The phenomenon that resulted in a drop in gaze time in the core area and decreased overall gaze length was a visual distraction [36] . The visual attention shift caused by the visual task in the AR-HUD experiment shifted the cognitive resources to the onboard driving assistance information. This distraction could jeopardize driving safety. However, AR-HUD could provide peripheral driving information to drivers in real-time. The sensor-based information could reduce drivers’ burden to observe the surroundings.
+B. Resource Processing Based on Sweep and Gaze Data
+
+The use of a HUD could highly affect both the depth perception offset of individuals from the target location and the confidence level of participants [37] . However, most available HUDs in the market do not have a variable focal depth, which means drivers would continually judge the distance while using AR-HUDs in vehicles. In this study, the vehicle speed, small map, and fuel volume information were placed on the windshield; the arrow navigation was paved on the road ahead, and the monitoring reminder box for vehicles and pedestrians was placed directly on vehicles’ and pedestrians’ real position. Such experimental operation could better reduce the influence caused by visual depth. By analyzing the sweep data, the peak sweep speed in the without AR-HUD case was 7607°/s, higher than that of 5977°/s in the AR-HUD1 case. The peak sweep speed of AR-HUD2 was somewhere in between. Regarding the various conditions data results under the high-speed sweep, the sweep speed without AR-HUD was much lower than the sweep speed with AR-HUD. The continuous gaze point could be separated into two phases: gazing and eye-hopping [38] , [39] . The gaze point moved quicker throughout the visual field during the eye-hopping phase, often greater than 100 °/s, and slower across the visual field during the gazing phase, generally less than 100 °/s [39] .
+
+As a result, the total gaze time of AR-HUD1 was shorter than that of the without AR-HUD case. Besides, the sweep duration was longer than the counterparts in the other two situations. Thus, drivers increased the frequency of low magnitude search in the without HUD case. This phenomenon could be due to the cognitive distraction compensation mechanism in which some of the attentional resources were used for distraction tasks. The remaining resources were insufficient to process the information acquired during a broad sweep when driving at a relatively high level of drivability [12] . In addition, the average blink times of AR-HUD1 and AR-HUD2 were not significantly different from the average blink time without AR-HUD. According to the t-test results in Table 2 , the t-value for the without AR-HUD - AR-HUD1 case comparison was 2.2, and the p-value was 0.0475 (p<0.05). Besides, the t-value result for the AR-HUD1 - AR-HUD2 case comparison was 3.3, and the p-value was 0.0064 (p<0.01). Hence, the average blink frequency in the AR-HUD1 and AR-HUD2 cases was significantly lower than without AR-HUD, indicating that drivers were more relaxed with the assistance of AR-HUD1 and AR-HUD2.
+C. Driving Response Assessment
+
+The driving task in this experiment involved three unexpected driving situations. According to an examination of the speed sample quartiles, the speed dispersion for driving without AR-HUD was more significant than that for driving with AR-HUD. The average amplitude of the accelerator pedal in the AR-HUD1 case was much lower than the without AR-HUD and AR-HUD2 cases. Similarly, the brake pedal’s opening variation pattern results, comparable to those for the accelerator pedal, demonstrated that subjects’ longitudinal speed control became more stable in the case with AR-HUD versus the case without AR-HUD. According to the vehicle speed, the accelerator pedal, and the brake pedal data analysis, it was concluded that AR-HUD could improve drivers’ response to unexpected scenarios.
+D. Answers to the Two Research Questions
+
+The two questions posed at the beginning of this paper were answered after analyzing the numerous indicators from Section VI-A to Section VI-D .
+
+RQ1: Does the AR-HUD improve driving performance?
+
+The experiment was carried out with and without AR-HUD assistance. A one-way ANOVA was performed on the physiological and psychological indicators of the three driving cases. The average speed was reduced with the AR-HUD assistance, and the vehicle’s driving was more stable than without AR-HUD. Besides, according to the analyses in Section VI-B to Section VI-D , sweeping, blinking, and vehicle motion measurements, an interface architecture that suits human cognitive resource acquisition could enhance cognitive resource efficiency. In addition, the AR-HUD2 case showed that an overly monolithic and centralized design would hinder drivers’ driving performance. Therefore, the currently attempted dense AR-HUD interface might not lead to good driving performance than a dispersed AR-HUD interface that fits people’s access to information resources. As a result, there is no simple answer on whether AR-HUD could increase driving performance. This study showed that AR-HUD with interfaces that conform to human-computer interaction principles and visual design rules could improve cognitive resource allocation and promote driving safety. Conversely, a poorly designed AR-HUD might negatively impact driving safety.
+
+RQ2: What is the impact of different AR-HUD interface layouts on driving performance?
+
+The difference in AR-HUD interface displays primarily influenced the driver’s allocation of cognitive resources. As a result, an appropriate AR-HUD interface layout could increase the efficiency of cognitive resource acquisition, allowing drivers to perceive all aspects of information more reasonably and comprehensively, improving drivers’ cognition of their surroundings, facilitating early detection of driving safety hazards, and improving driving performance in response to hazardous driving environments.
+SECTION VII.
+Limitation and Future Work
+
+It should be stressed that this study is only a preliminary study on whether AR-HUD could assist driving. Hence, only 12 subjects were invited to this experiment, and each person was tested in three driving cases. Hence, the data from this experiment could only be used for a priori data analysis. Further research should be performed to invite more subjects to join the study. Furthermore, more accurate driving performance analysis could be conducted if physiological indications such as Electroencephalography (EEG) could be imaged. Although virtual reality can highly reproduce the real world, there is still a gap between the virtual reality world and the real world, such as virtual depth. In the future, research should be carried out to analyze the visual depth, which is affected by the speed of change, lighting conditions and AR graphic contrast. Find out the influencing factors and reduce the depth cues available to participants to reduce the impact of visual depth on the driving experience. Moreover, the virtual driving experiment undertaken in this study was relatively simple to control the variables. The influence of the AR-HUD interface on driving performance could be better understood by allowing drivers to conduct other driving operations, such as turning, overtaking, and reversing.
+SECTION VIII.
+Conclusion
+
+VR can provide a safe, immersive, and repeatable environment for testing. Hence, this study proposed a VR-based driving simulator to assess the utility of AR-HUD in driving and analyze how different AR-HUD layouts affect driving performance. The eye-movement data from the VR HMD was used in the test to more fully and objectively examine how different interface designs would affect driving outcomes. The driving without AR-HUD assistance was also compared to the dense AR-HUD layout and the dispersed AR-HUD layout. It was found that AR-HUD could make the visual gaze more dispersed, the AR-HUD-assisted driving allocates more driving resources to places other than the central driving area, and the cognitive resource allocation strategy was changed compared to normal driving. This study is novel in using VR (together with eye-tracking function) to assess AR-HUD performance. The research should help promote a standardized AR-HUD interface design process in the future and offer a reliable reference for AR-HUD interface design.
+
+Authors
+Figures
+References
+Citations
+Keywords
+Metrics
+Footnotes
+More Like This
+Real Time Driving-Aid System for Different Lighting Conditions, on Board a Road Vehicle
+
+IECON 2006 - 32nd Annual Conference on IEEE Industrial Electronics
+
+Published: 2006
+Adaptive Front Light Systems of Vehicle for Road Safety
+
+2015 International Conference on Computing Communication Control and Automation
+
+Published: 2015
+Show More
+References
+1.
+F. A. Wilson and J. P. Stimpson, "Trends in fatalities from distracted driving in the United States 1999 to 2008", Amer. J. Public Health , vol. 100, no. 11, pp. 2213-2219, Nov. 2010.
+Show in Context CrossRef Google Scholar
+2.
+Y. Hwang, B.-J. Park and K.-H. Kim, "The effects of augmented-reality head-up display system usage on drivers? Risk perception and psychological change", ETRI J. , vol. 38, no. 4, pp. 757-766, Apr. 2016.
+Show in Context CrossRef Google Scholar
+3.
+D. L. Smith, J. Chang, R. Glassco, J. Foley and D. Cohen, "Methodology for capturing driver eye glance behavior during in-vehicle secondary tasks", Transp. Res. Rec. J. Transp. Res. Board , vol. 1937, no. 1, pp. 61-65, Jan. 2005.
+Show in Context CrossRef Google Scholar
+4.
+R. Venkatasawmy, The Digitization of Cinematic Visual Effects: Hollywood’s Coming of Age, Washington, DC, USA:Lexington Books, 2012.
+Show in Context Google Scholar
+5.
+A. S. Cohen, "Feed forward programming of car drivers’ eye movement behavior. A system theoretical approach", 1980.
+Show in Context Google Scholar
+6.
+S. Patterson, J. Farrer and R. Sargent, "Automotive head-up display" in Automotive Displays and Industrial Illumination, Bellingham, WA, USA:SPIE, Oct. 1988.
+Show in Context CrossRef Google Scholar
+7.
+N. J. Ward and A. Parkes, "Head-up displays and their automotive application: An overview of human factors issues affecting safety", Accident Anal. Prevention , vol. 26, no. 6, pp. 703-717, Dec. 1994.
+Show in Context CrossRef Google Scholar
+8.
+W. Wang, X. Zhu, K. Chan and P. Tsang, "Digital holographic system for automotive augmented reality head-up-display", Proc. IEEE 27th Int. Symp. Ind. Electron. (ISIE) , pp. 1327-1330, Jun. 2018.
+Show in Context View Article
+Google Scholar
+9.
+J. L. Gabbard, M. Smith, K. Tanous, H. Kim and B. Jonas, "AR DriveSim: An immersive driving simulator for augmented reality head-up display research", Frontiers Robot. AI , vol. 6, pp. 98, Oct. 2019.
+Show in Context CrossRef Google Scholar
+10.
+P. K. Kwok, M. Yan, T. Qu and H. Y. K. Lau, "User acceptance of virtual reality technology for practicing digital twin-based crisis management", Int. J. Comput. Integr. Manuf. , vol. 34, no. 7, pp. 874-887, Aug. 2020.
+Show in Context CrossRef Google Scholar
+11.
+S. M. Pampel, K. Lamb, G. Burnett, L. Skrypchuk, C. Hare and A. Mouzakitis, "An investigation of the effects of driver age when using novel navigation systems in a head-up display", PRESENCE: Virtual Augmented Reality , vol. 27, no. 1, pp. 32-45, Mar. 2019.
+Show in Context View Article
+Google Scholar
+12.
+Y. Liao, S. E. Li, W. Wang, Y. Wang, G. Li and B. Cheng, "The impact of driver cognitive distraction on vehicle performance at stop-controlled intersections", Proc. IEEE Intell. Vehicles Symp. (IV) , pp. 946-951, Jun. 2015.
+Show in Context View Article
+Google Scholar
+13.
+F. Saremi, O. Fatemieh, H. Ahmadi, H. Wang, T. F. Abdelzaher, R. K. Ganti, et al., "Experiences with greenGPS—Fuel-efficient navigation using participatory sensing", IEEE Trans. Mobile Comput. , vol. 15, no. 3, pp. 672-689, 2016.
+Show in Context View Article
+Google Scholar
+14.
+A. Pauzie, "Head up display in automotive: A new reality for the driver" in Design User Experience and Usability: Interactive Experience Design, Los Angeles, CA, USA:Springer, pp. 505-516, 2015.
+Show in Context Google Scholar
+15.
+W. Narzt, G. Pomberger, A. Ferscha, D. Kolb, R. Müller, J. Wieghardt, et al., "Augmented reality navigation systems", Universal Access Inf. Soc. , vol. 4, no. 3, pp. 177-187, Dec. 2005.
+Show in Context Google Scholar
+16.
+M. Levy, S. M. Dascalu and F. C. Harris, "ARS VEHO: Augmented reality system for vehicle operation" in Computers and Their Applications, New Orleans, LA, USA:ISCA, pp. 282-289, 2005.
+Show in Context Google Scholar
+17.
+J. L. Gabbard, G. M. Fitch and H. Kim, "Behind the glass: Driver challenges and opportunities for AR automotive applications", Proc. IEEE , vol. 102, no. 2, pp. 124-136, Feb. 2014.
+Show in Context View Article
+Google Scholar
+18.
+H. S. Park and K.-H. Kim, "AR-based vehicular safety information system for forward collision warning" in Virtual Augmented and Mixed Reality. Applications of Virtual and Augmented Reality, Heraklion, Greece:Springer, pp. 435-442, 2014.
+Show in Context CrossRef Google Scholar
+19.
+S. Langlois and B. Soualmi, "Augmented reality versus classical HUD to take over from automated driving: An aid to smooth reactions and to anticipate maneuvers", Proc. IEEE 19th Int. Conf. Intell. Transp. Syst. (ITSC) , pp. 1571-1578, Nov. 2016.
+Show in Context View Article
+Google Scholar
+20.
+A. Soro, A. Rakotonirainy, R. Schroeter and S. Wollstädter, "Using augmented video to test in-car user experiences of context analog HUDs", Proc. 6th Int. Conf. Automot. User Interfaces Interact. Veh. Appl. (AutomotiveUI) , pp. 1-6, 2014.
+Show in Context CrossRef Google Scholar
+21.
+J. Wierbilowicz, A. Cappelletti, D. Giovanelli, A. Pasqualotto, A. Bentenuto, E. Farella, et al., "Look at me and grab this! Materiality and the practices around negotiation of social attention with children on the autistic spectrum", Proc. Shaping Exper. Shaping Soc. 11th Nordic Conf. Hum.-Comput. Interact. (NordiCHI) , pp. 1-5, 2020.
+Show in Context CrossRef Google Scholar
+22.
+C. Suryanarayana, "Mechanical alloying and milling", Prog. Mater. Sci. , vol. 46, no. 1, pp. 1-184, 2001.
+Show in Context CrossRef Google Scholar
+23.
+L. C. Tagliabue, G. W. Scurati, G. Massetti, R. Etzi, S. Huang, F. Ferrise, et al., "Testing multisensory stimuli to drive thermal comfort and space perception using VR/AR: A design strategy to achieve energy saving", J. Architectural Res. Develop. , vol. 4, no. 1, 2020.
+Show in Context CrossRef Google Scholar
+24.
+M. T. Schultheis, L. K. Simone, E. Roseman, R. Nead, J. Rebimbas and R. Mourant, "Stopping behavior in a VR driving simulator: A new clinical measure for the assessment of driving", Proc. Int. Conf. IEEE Eng. Med. Biol. Soc. , pp. 4921-4924, Aug. 2006.
+Show in Context View Article
+Google Scholar
+25.
+M. Wilson, M. Chattington and D. E. Marple-Horvat, "Eye movements drive steering: Reduced eye movement distribution impairs steering and driving performance", J. Motor Behav. , vol. 40, no. 3, pp. 190-202, May 2008.
+Show in Context CrossRef Google Scholar
+26.
+S. C. Simon and T. Greitemeyer, "The impact of immersion on the perception of pornography: A virtual reality study", Comput. Hum. Behav. , vol. 93, pp. 141-148, Apr. 2019.
+Show in Context CrossRef Google Scholar
+27.
+C. H. Morimoto and M. R. M. Mimica, "Eye gaze tracking techniques for interactive applications", Comput. Vis. Image Understand. , vol. 98, no. 1, pp. 4-24, 2005.
+Show in Context Google Scholar
+28.
+R. Spence, Information Visualization, New York, NY, USA:Springer, vol. 1, 2001.
+Show in Context Google Scholar
+29.
+S. Ma and X. Yan, "Examining the efficacy of improved traffic signs and markings at flashing-light-controlled grade crossings based on driving simulation and eye tracking systems", Transp. Res. F: Traffic Psychol. Behav. , vol. 81, pp. 173-189, Aug. 2021.
+Show in Context CrossRef Google Scholar
+30.
+A. S. Le, T. Suzuki and H. Aoki, "Evaluating driver cognitive distraction by eye tracking: From simulator to driving", Transp. Res. Interdiscipl. Perspect. , vol. 4, Mar. 2020.
+Show in Context CrossRef Google Scholar
+31.
+T. H. Rockwell, "Eye movement analysis of visual information acquisition in driving: An overview", Proc. 6th Austral. Road Res. Board (ARRB) Conf. , vol. 6, no. 3, pp. 316-331, 1972.
+Show in Context Google Scholar
+32.
+P. E. Dux and R. Marois, "The attentional blink: A review of data and theory", Attention Perception Psychophys. , vol. 71, no. 8, pp. 1683-1700, Nov. 2009.
+Show in Context CrossRef Google Scholar
+33.
+Y. Wu, L. N. Boyle, D. McGehee, C. A. Roe, K. Ebe and J. Foley, "Modeling types of pedal applications using a driving simulator", Hum. Factors , vol. 57, no. 7, pp. 1276-1288, 2015.
+Show in Context CrossRef Google Scholar
+34.
+D. Crundall, G. Underwood and P. Chapman, "Driving experience and the functional field of view", Perception , vol. 28, no. 9, pp. 1075-1087, Sep. 1999.
+Show in Context CrossRef Google Scholar
+35.
+D. E. Crundall and G. Underwood, "Effects of experience and processing demands on visual information acquisition in drivers", Ergonomics , vol. 41, no. 4, pp. 448-458, Apr. 1998.
+Show in Context CrossRef Google Scholar
+36.
+D. D. Salvucci, "Modeling driver behavior in a cognitive architecture", Hum. Factors , vol. 48, no. 2, pp. 362-380, 2006.
+Show in Context CrossRef Google Scholar
+37.
+M. Smith, N. Doutcheva, J. L. Gabbard and G. Burnett, "Optical see-through head up displays’ effect on depth judgments of real world objects", Proc. IEEE Virtual Reality (VR) , pp. 401-405, Mar. 2015.
+Show in Context View Article
+Google Scholar
+38.
+T. W. Victor, J. L. Harbluk and J. A. Engström, "Sensitivity of eyemovement measures to in-vehicle task difficulty", Transp. Res. F Traffic Psychol. Behav. , vol. 8, no. 2, pp. 167-190, 2005.
+Show in Context CrossRef Google Scholar
+39.
+W.-T. Peng, W.-T. Chu, C.-H. Chang, C.-N. Chou, W.-J. Huang, W.-Y. Chang, et al., "Editing by viewing: Automatic home video summarization by viewing behavior analysis", IEEE Trans. Multimedia , vol. 13, no. 3, pp. 539-550, 2011.
+Show in Context View Article
+Google Scholar
+IEEE Personal Account
+
+    Change username/password 
+
+Purchase Details
+
+    Payment Options
+    View Purchased Documents 
+
+Profile Information
+
+    Communications Preferences
+    Profession and Education
+    Technical interests 
+
+Need Help?
+
+    US & Canada: +1 800 678 4333
+    Worldwide: +1 732 981 0060
+    Contact & Support 
+
+Follow
+
+About IEEE Xplore | Contact Us | Help | Accessibility | Terms of Use | Nondiscrimination Policy | IEEE Ethics Reporting | Sitemap | IEEE Privacy Policy
+
+A not-for-profit organization, IEEE is the world's largest technical professional organization dedicated to advancing technology for the benefit of humanity.
+
+© Copyright 2023 IEEE - All rights reserved.
+PDF Help

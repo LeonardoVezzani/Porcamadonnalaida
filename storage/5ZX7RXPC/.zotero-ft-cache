@@ -1,0 +1,403 @@
+Virtual Reality (2025) 29:34 https://doi.org/10.1007/s10055-024-01068-y
+ORIGINAL ARTICLE
+
+In-vehicle full-window augmented reality system (FARS) for passengers: effects on spatial knowledge and user experience
+Hyunjeong Kim1 · In-Kwon Lee1
+Received: 10 January 2024 / Accepted: 30 October 2024 / Published online: 5 February 2025 © The Author(s) 2025
+Abstract In recent years, automobiles have introduced various infotainment systems for drivers and passengers, providing a hightech interactive space. While the focus has been on head-up display (HUD)-oriented services for the driver, advances in autonomous driving technology are increasingly driving research into improving the experience for non-driver passengers. However, HUD systems for passengers are limited, and few studies have empirically evaluated their effectiveness or preferences. In this paper, we propose a novel infotainment system for passengers in moving vehicles, the Full-window Augmented Reality System (FARS), and empirically verify its impact on passengers’ spatial perception and riding experience. The FARS is implemented in a real vehicle using a short-throw projector and a transparent AR film to create an AR display on the entire right window of the passenger seat. To explore the impact of FARS on users’ spatial knowledge and preferences, we further conducted a user study comparing the difference between FARS and the Seat Back Display (SBD), commonly used in passenger mobility services. The results suggest that the FARS is a valuable infotainment system for passengers and has advantages in memorizing the features or locations of specific environments outside the vehicle while enhancing the user’s travel experience.
+Keywords  Augmented reality · Head-up display · Windshield display · Full-windshield display · RTK · Spatial knowledge
+
+1 Introduction
+Vehicle technology innovation is increasingly focused on the in-vehicle experience, which is becoming a high-tech, interactive space offering a variety of infotainment systems (e.g., music players, navigation, vehicle information, etc.). Much of the past research on infotainment systems has focused on system and functionality innovations for the driver. However, in most countries, more than half of all vehicles carry at least one passenger in addition to the driver (in the United States, 56 percent of all vehicles carried at least one passenger in addition to the driver in 2020). Needless to say, many people are passengers, especially in public transportation
+ In-Kwon Lee iklee@yonsei.ac.kr Hyunjeong Kim hcihjkim@yonsei.ac.kr
+1 Department of Computer Science, Yonsei University, 50 Yonsei-ro, Seodaemun-gu, Seoul 03722, Republic of Korea
+
+such as buses, taxis, and trains. Recent advances in autonomous vehicle technology are taking more of the load off the driver. In highly automated driving (SAE Level 3) (Committee et al. 2014), the human driver no longer performs the driving task, transforming the vehicle into a new mobile platform. Therefore, this research trend increases the importance of research that can further improve the experience of non-driving passengers.
+Some studies have shown that AR systems that combine context-based and external environment-related data can improve passengers’ experience (Inbar and Tractinsky 2011; Matsumura and Kirk 2018). In this regard, it is necessary to design a high-level UX (User Experience) by introducing a user interface that allows passengers to observe the external environment and learn relevant information (Pfleging et al. 2016). Especially in public transportation such as buses, where passengers often look out the window, showing the location of specific buildings in augmented reality can be used as an intuitive and accurate advertisement. The augmented reality system can easily explain information about specific terrain or buildings, which can be useful in
+
+1 3
+
+34  Page 2 of 16
+
+Virtual Reality (2025) 29:34
+
+marketing and tourism. It can also be useful for people, such as drivers and tour guides, who are trained to remember information by matching the information with the external environment. In fact, one of the tests for taxi drivers, the New York City HACK license, requires drivers to memorize the names of buildings and places. In addition to drivers, passengers also need to remember information about the space around them in order to navigate streets or specific locations. However, while there are a growing number of AR services and studies that allow users in a vehicle to view information about buildings or landmarks based on their location in the environment (Bolton et al. 2015; Chu et al. 2017; Rehman and Cao 2016), few studies have evaluated whether in-vehicle AR systems actually help users with spatial knowledge. Therefore, we need to investigate the impact of AR-based infotainment systems on passengers’ spatial cognition.
+A head-up display (HUD) is a typical device in an infotainment system that projects information from the vehicle directly onto the windshield in the occupant’s direct line of sight instead of onto the instrument panel, allowing the driver to view information without lowering their gaze. Therefore, HUD can greatly improve the user’s information retrieval ability and response time (Cheng et al. 2007; Haeuslschmid et al. 2016a). However, HUDs are typically 5 to 6 inches in size, have limited information, and are limited to the driver’s field of view, making them difficult for other passengers to view. The Windshield Display (WSD) is an enhanced HUD that visualizes a specific area or the entire face of a vehicle’s windshield, giving the driver a larger field of view (Haeuslschmid et al. 2016b). WSDs can use a larger area to display information and reduce the need to look away from the external environment to get information from the display. WSDs have the potential to support the transition process from manual to automated driving because they can display a variety of content using AR technology and virtual content projection. However, most of the research based on WSDs is still driver-centric, and there is a need for research on devices for non-drivers.
+As we envisioned an in-vehicle information system for non-driving passengers, we faced the following research questions:
+Fig. 1  Overview of the full-window augmented reality system (FARS): a the system architecture of the FARS, b a picture of the FARS mounted on a real vehicle
+
+● RQ1: What devices should be used to improve the precision of the information system for non-driving passengers?
+● RQ2: What information system would be ideal for improving the spatial knowledge of non-driving passengers?
+● RQ3: Overall, what information system would maximize the experience of non-driving passengers?
+In this study, we propose a Full-Window Augmented Reality System (FARS), an AR display system to improve passenger services (Fig. 1). FARS implemented an augmented reality screen in the rear passenger side window of the vehicle, allowing passengers to experience the AR system firsthand. To take into account the external environment, FARS is built in a real vehicle using a short-throw projector and a transparent display film, so that the entire side window of the passenger can be used as an AR display. We implemented the 3D Coordinates Augmented Reality (3DCAR) algorithm to provide passengers with AR content that takes into account their surroundings. 3DCAR augments the virtual information displayed on the window screen by taking into account the location of real-world buildings along the vehicle’s path, their distance from the vehicle, and the orientation of the building, allowing users to interact with their surroundings. To reflect the real-time position of the vehicle, a Real-Time Kinematic (RTK) (Wanninger 2004; Edwards et al. 1999) device was used instead of the commonly used Global Positioning System (GPS). RTK devices are used to display location-based AR content that contains information about the environment on top of the external environment visible through the window. The AR content is augmented on top of the surrounding buildings, and the location and information of the buildings can be viewed through the window. To validate our system, we conducted the user test with the following three hypotheses:
+● H1: In-car system using RTK device will be able to display AR content in a more accurate location than using GPS device.
+
+1 3
+
+Virtual Reality (2025) 29:34
+
+Page 3 of 16  34
+
+● H2: Full-window Augmented Reality System (FARS) will enhance passengers’ spatial knowledge over seatback display (SBD) system.
+● H3: Compared to seat-back displays (SBD), Full-window Augmented Reality System (FARS) will further improve the overall riding experience, including occupant workload, motion sickness, technology acceptance, and usability.
+In this study, we show that it is more effective to use RTK than GPS in FARS, an AR display system for passengers. Through user studies, we have empirically confirmed that FARS is effective in enhancing human spatial knowledge and improving the riding experience compared to SBD. To the best of our knowledge, our work is the first to compare passengers’ spatial knowledge in in-vehicle AR systems using real moving vehicles. This study aims to implement a novel infotainment system for non-driver passengers in a moving vehicle and provides detailed insights into the design of future in-vehicle AR systems that can enhance passengers’ spatial knowledge and improve their riding experience.
+2  Related work
+2.1  Infotainment systems for passengers
+The automotive industry and researchers have been trying to improve the experience of non-driver passengers by introducing rear seat infotainment systems to create a unique ride experience (Berger et al. 2019). In particular, mobility services including public transportation such as taxis, buses, and airplanes have been increasingly using "seatback displays" (SBDs) - monitors mounted on the back of the front seats - to display information to passengers (Ng et al. 2021). Furthermore, these studies are becoming increasingly important as the development of autonomous vehicles will allow vehicles to be used as offices or mobile entertainment spaces when the driver becomes a passenger (Schartmüller et al. 2018).
+HUDs were developed in the military in the late 1950 s to display flight-related information in a pilot’s field of vision, Prinzel III and Risser (2004) and began to be used in automobiles in the 1980 s to display information in a driver’s field of vision by projecting light onto a windshield or combiner screen, Weihrauch et al. (1989). HUDs are superior to head down displays (HDDs), such as center stack displays, in terms of safety and usability because they do not require the driver to look down to view navigation or vehicle information, and can reduce driver tension and stress (Beck et al. 2019). Therefore, there has been a lot of research on using
+
+in-vehicle HUDs to display various information in the driver and passenger’s field of view (Park and Park 2019; Liu and Wen 2004; Beck et al. 2019). Liu and Wen (2004) reported that HUDs improved driver performance and reduced mental stress compared to HDDs. However, even with HUDs, the effect is not maximized unless the information is properly combined with real-world objects.
+Augmented Reality (AR) HUDs have been researched to overcome these shortcomings of HUDs (Bauerfeind et al. 2019, 2022; Kim and Dey 2009; Lindemann et al. 2018; Bengler et al. 2015). Augmented Reality (AR) displays can accurately superimpose virtual information with associated real-world objects in the external environment while preserving perspective. The spatial proximity of real and virtual objects in an AR environment allows users to comprehend information quickly and easily. Rusch et al. (2013) reported that information presented by AR displays can be easily mapped to real-world traffic conditions, making them effective in providing users with event awareness of the external environment. Previous studies have shown that users require less mental effort to understand and interpret information when viewing an AR HUD compared to a HUD or HDD without AR information, which can reduce cognitive load (Pfannmüller et al. 2015; Kim and Dey 2009; Bengler et al. 2015). AR can increase drivers’ situational awareness, allowing them to better anticipate lane change behavior (Langlois and Soualmi 2016), and contribute to a positive impact on driving behavior by providing drivers with visual safety and a sense of relaxation (Okumura and Shinohara 2016; Calvi et al. 2020). In these services, AR technology has been used to enhance passengers’ travel experience and alleviate motion sickness (Elbanhawi et al. 2015; Berger et al. 2021). In addition, superimposing information related to external environmental landmarks on AR using AR HUD technology provides a positive experience for users (Wang et al. 2016, 2019). AR enables 3D visualization by projecting depth-conscious content in the real environment, which can improve users’ situational awareness and comfort. This is an important consideration for creating spatial navigation applications.
+2.2  Windshield display
+Conventional HUDs have a small display area (about 3-6 inches), which limits the information they can display, and they are spatially isolated from the external environment, requiring occupants to map the information on the screen to the actual external situation. Therefore, researchers have been working on Windshield Display (WSD), which extends the display area to the entire windshield (Sato et al. 2006; Charissis et al. 2013; Wu et al. 2009). WSDs allow drivers to use the windshield as an interaction surface or display,
+
+1 3
+
+34  Page 4 of 16
+
+Virtual Reality (2025) 29:34
+
+covering a large field of view (FOV) area (Häuslschmid et al. 2015). It can also increase driving safety (Gabbard et al. 2014) and trust (Wintersberger et al. 2018) because drivers do not have to change their gaze from the external environment to obtain information while driving. In addition, focusing on objects at different distances requires less effort between the real scene and virtual AR compared to HUDs (Häuslschmid et al. 2015). Schartmüller et al. (2018) conducted a user study and found a higher preference for WSD over HDD when performing work-related tasks. Furthermore, it is important to consider the location and perspective of the external environment when creating AR content (Takaki et al. 2011). Riegler et al. (2020) found that dynamically displaying AR content on WSD based on the location of the external environment improved task performance and reduced error rates.
+WSD research is evolving into full-windshield HUD (FHUD) research, which extends the entire front of a vehicle’s windshield as a display area. Sato et al. (2006) developed a FHUD and proposed a new navigation system that allows the driver to see visual cues with little eye movement. The system was implemented by using a projector mounted on the roof of the vehicle and reflecting the projected image through a mirror. FHUD can help give drivers more information and reduce the frequency with which they look down (Charissis and Papanastasiou 2010). Other researchers have used driving simulators with a real vehicle parked in a simulated VR space, typically using a projection screen on the wall (Zhang et al. 2021; Fu et al. 2013; Gabbard et al. 2019; Bolton et al. 2015). For example, Zhang et al. (2021) implemented FHUDs on windshields and studied driver attention in different weather scenarios and found that FHUDs improved drivers’ visual attention allocation and helped them recognize signals more effectively. While these studies have shown that FHUDs improve driver performance and confirm the usefulness of the system, most of these studies have only tested drivers using in-cabin simulations.
+There are also studies that have implemented FHUD in passenger seats using projectors and simulators (Wang et al. 2016, 2017, 2019). Wang et al. (2019) proposed an infotainment application for rear-seat passengers using a VR simulator in a Cave Augmented Virtual Environment (CAVE) room, and received a favorable evaluation of the system efficiency and positive user feedback. Their other studies (Wang et al. 2016, 2017) reported that gaming applications based on the environment can be used to engage passengers and reduce driver distraction. However, these studies implemented their systems using software simulations rather than real vehicles, so they were unable to validate their systems in a moving vehicle. They also failed to account for errors in the actual distance to objects outside the vehicle, which can
+
+be caused by errors in location-based sensors, such as GPS, and the external environment, such as illumination.
+2.3  Spatial knowledge
+Navigation is a fundamental task in wayfinding and traveling to remember the location of a target object, to remember what is around it, or to navigate through space. Passengers in public transportation, such as buses and trains, need to recognize the location of the vehicle and explore the surrounding information to find their destination while traveling. Similarly, when getting off a mobility service, it is necessary to recognize the exact location of the destination and remember the surrounding information to reach the desired destination (path-finding). For example, you can find your destination by remembering the location and information about buildings, such as the city hall to the north and the pharmacy to the right of the city hall. Spatial knowledge plays an essential role in navigation and is used by humans to remember the location of objects and routes to find previously visited places (Burgess et al. 2001). Spatial knowledge enables the driver of a vehicle to navigate to a destination and passengers to understand their surroundings and find the places they want to go.
+Spatial knowledge in navigation is related to the coordinates and information (e.g. names) of objects. This is why commercial navigation services show you the buildings around you and label them with their names. The convergence of virtuality and reality superimposes virtual information on real space, making it easier for users to perceive spatial information (Chu et al. 2017; Scarr et al. 2013). In particular, AR content can intuitively display information about an object in addition to the location of a visible object (e.g., a building, a landmark). Juan et al. (2014) developed a tool to measure spatial knowledge in AR and showed that it was able to assess children’s spatial knowledge. MunozMontoya et al. (2018) placed virtual AR objects in a realworld environment and measured users’ recall, and found that users remembered the locations of virtual objects better when using AR than when simply viewing photos of the environment. In addition, previous studies have shown that 3D AR content helps users acquire spatial abilities and increases their interest (Shakeri et al. 2023; Shaghaghian et al. 2024; Özçakır and Çakıroğlu 2022).
+Many services and studies have used smartphones or AR devices to display information about buildings or landmarks in the environment based on location. Chu et al. (2017) proposed a mobile AR tool that guides users to destinations by augmenting virtual 2D icons with the real-world environment captured by the smartphone camera, and showed that the AR tool was significantly better than a flat map in terms of accuracy and task completion time. Rehman and Cao
+
+1 3
+
+Virtual Reality (2025) 29:34
+
+Page 5 of 16  34
+
+(2016) compared navigation systems using Google Glass, smartphones, and paper maps, and found that users perceived the AR content on Google Glass as the most accurate tool with the lowest workload and execution time. These studies also emphasize the importance of spatial knowledge, or how users perceive space through the combination of their surroundings and AR virtual objects.
+In the past, metrics for studying spatial knowledge have included: i) object recall accuracy (e.g., how accurately a person remembers objects that appear on a path) (Buttussi and Chittaro 2023), and ii) object location accuracy (e.g., how accurately a person marks the location of an object on a map) (Buttussi and Chittaro 2023; Langbehn et al. 2018). These types of spatial knowledge are strongly interrelated, as people can often use one type of spatial knowledge to infer other types of spatial knowledge. On the other hand, each type of spatial knowledge can also be used independently, e.g., humans may not remember the exact location of a particular object, but they can easily remember the relationship between that object and another object.
+A few researchers have proposed designs for interactive AR infotainment systems for rear-seat passengers that attach an LCD to the rear side window to display Points of Interest (POIs) such as restaurants, hotels, etc. Li et al. (2013); Rao et al. (2014). However, these studies are limited by the fact that they are prototype designs and do not take into account GPS systems, algorithms to link the vehicle location to the surrounding environment, etc. Bolton et al. (2015) found that a system using AR to highlight landmarks in a driving simulator could improve driver navigation performance by reducing driver response time and success rate, and significantly reducing workload. However, in the study, landmarks were simply displayed as boxes or arrows, with no information for the user to identify information about the landmark (e.g., the name of the building), and the system was not evaluated for its effect on spatial knowledge. Therefore, it would be meaningful to validate how effective an in-cabin AR system would be in terms of spatial knowledge.
+2.4  RTK device
+Most popular devices, such as smartphones and headsets, implement AR in a confined, slow-moving environment (Guarese and Maciel 2019). However, in fast-moving environments such as vehicles, it is difficult to place objects based on the exact position of the vehicle and the target. In particular, implementing AR systems on roads is very difficult due to the problem of accurately tracking the position and orientation of vehicles in real time (Gabbard et al. 2019). To augment virtual objects in a moving environment, localization is used to ensure that virtual objects are augmented to Points of Interest (POIs) defined in the Earth’s
+
+coordinate system using the Global Positioning System (GPS), which determines the position and orientation of the vehicle in the global coordinate system (Scheibert 2020). However, despite a steady stream of research into the performance of GPS (Zangenehnejad and Gao 2021), it is difficult to measure precise locations because GPS typically exhibits an accuracy range of 1 to 10 ms (MacIntyre and Coelho 2000; Li et al. 2015).
+To overcome the inaccuracies of GPS, a growing number of systems use Real-Time Kinematic (RTK) (Lenain et al. 2003; Ling et al. 2019). RTK uses carrier phase measurements of the signal in addition to information from the satellite signal and provides real-time corrections from a single reference station or interpolated virtual stations to provide accuracies down to the centimeter level (Wanninger 2004; Edwards et al. 1999). Previous study integrating RTK device with wearable AR device showed that RTK device have higher accuracy than GPS devices, and can achieve 1 cm accuracy in open spaces (De Pace and Kaufmann 2023). However, previous study verified that accuracy dramatically reduces in the proximity of obstacles or buildings. We need to evaluate whether the integration of an AR interface and RTK device is advantageous for vehicles traveling between buildings.
+3  Full-window augmented reality system (FARS)
+3.1  System architecture
+FARS consists of an interface that allows rear-seat passengers to access external information in real-time via location-based sensors, as shown in Fig. 2. To implement the FARS in a real vehicle, the system was developed in a Mercedes-Benz C-Class. A custom transparent display AR film from Anyactive (AnyRactive) was applied to the rear side window. The film is produced by a combined vision control method that uses light blocking and light diffusion control techniques to reflect light from the projector, allowing AR content to be displayed on the external environment visible through the transparent glass window. A short-throw projector (AnyRactive) with a resolution of 1280 × 800 pixels, a brightness of 3,500 lumens, and a size of 198 × 30.8 × 21.6mm (W × H × D) was mounted on a tripod in the center of the rear seat, and AR content was projected onto the rear side window. The projection area displaying the AR content is 550mm wide and 400mm high. To obtain the precise position of the vehicle, we used the EM-TL30KL (EM Wave), which is a network RTK modem model that provides centimeter-level accuracy using the ZED-F9P (U-blox) module. The EM-TL30KL uses the
+
+1 3
+
+34  Page 6 of 16
+
+Virtual Reality (2025) 29:34
+
+Fig. 2  Hardware configuration of full-window augmented reality system (FARS)
+Sierra WP7609 LTE module to access the U+ NTRIP server and receive GPS correction signals to transmit highly accurate location information. We used the RTK device through a wired connection to the laptop running Windows OS. We also implemented a system using GPS instead of RTK, with the GPS sensor wired to the laptop for accuracy comparison between the GPS and RTK based systems.
+3.2  AR algorithms
+We have implemented 3DCAR (3D Coordinate Augmented Reality), an AR algorithm for implementing location-based, depth-reflecting AR content in in-vehicle AR systems (Fig. 3). 3DCAR consists of a map editor and an AR client. The map editor stores the information of buildings on the map in a 3D coordinate system and maps AR content, and the AR client collects the location of the vehicle in real time and displays AR content around the vehicle on the screen. Each technology is described in detail below.
+RTK data
+Fig. 3  A software structure that combines the location information of cars collected through RTK devices and 3D models of buildings created with a map editor into AR content
+
+To obtain the exact position of the vehicle, the latitude, longitude and altitude coordinates were received from the ZED-F9T device to the laptop using a program written in C#. To receive the packets, we used standard GGA (Global Positioning System Fix Data) packets with NMEA protocol from GNSS (Global Navigation Satellite System) and NAV-HPPOSLLLH (High Precision Position Solution in Latitude, Longitude, and Height) packets with UBX protocol according to the instructions in the ZED-F9T manual provided by u-blox company (U-blox).
+As shown in Fig. 3, the received position data is passed to the Unity client installed on the laptop. Since the RTK position data is represented in the coordinate system of the real world, and the information to be exposed as AR content is represented by the coordinates in the virtual world, it is necessary to convert the coordinate data of the building into the coordinate system and distance unit of the Unity client in order to map the geospatial information in the virtual space. Therefore, based on existing research (Bekele 2019), we went through the process of converting position data (latitude, longitude, altitude) into Unity coordinates.
+The forward direction vector of the vehicle is the normalized vector from the previous frame position to the current frame position, and the camera viewing direction for AR content rendering is the normal vector of the forward direction vector facing the AR display.
+Map editor To collect information about the environment, we built a map editor (Fig. 3) as a web application that allows users to enter the location and shape of buildings on the web. The user clicks to enter the vertices that make up the plane of the building on the 2D map displayed by the map editor. The coordinates are computed as latitude and longitude using the Google Maps API (Google Maps). The height and name of the building are entered and saved manually by the user. Once the coordinate data is entered, the map editor
+
+1 3
+
+Virtual Reality (2025) 29:34
+
+Page 7 of 16  34
+
+Fig. 4  The figures show the three cases of repositioning AR objects based on the vehicle position, where AR objects are colored yellow, C is the position of the vehicle, OP and OQ are the selected walls on
+
+which the AR object is to be projected, X is the calculated projection position of the AR object, and θ is the angle between the wall and the vehicle: a0 ≤ θ < 90◦, b90 ≤ θ < 135◦, and c135 ≤ θ < 180◦
+
+visualizes the location of the buildings on the map and displays the building information stored on the web through the list. All stored building data is stored on the server and can be extracted in JSON format and accessed by calling the API from the Unity client. Building information can be added or modified using the map editor, and changes are reflected in real time and delivered to the Unity client.
+AR contents The content projected onto the AR display was created using the Unity 3D engine, and the stored data required for 3D rendering, as shown in Fig. 3, is based on JSON data extracted from the map editor and configured for real-time loading from the cloud server to the Unity client. Based on the coordinates converted to Unity coordinates, a 3D model of the buildings was created by sequencing the list of coordinates for each building, with green lines indicating the location and shape of the buildings, as shown in the AR content of Fig. 3. We created a path for the AR objects along the wall of the building and calculated the position of the AR objects through a ‘wall detection’ process to augment the virtual object at the location on the nearest wall of the building closest to the moving vehicle (Fig. 4). In Fig. 4a, if the angle θ between the vehicle and the wall is greater than 0 and less than 90 degrees, the AR object is drawn so that its center is at the head position X of the projection of the vector O⃗C onto the wall. Since the vehicle is constantly moving, the AR object naturally moves forward on the selected wall. In Fig. 4b, when θ is greater than 90 degrees and less than 135 degrees, the AR object is drawn exactly at the origin O (the vertex closest to the vehicle) and does not move. Figure 4c represents when θ is greater than 135 degrees and less than 180 degrees, in which case the selected wall is changed to an adjacent wall. Because we implemented the AR object in a 3D shape, so that the position and rotation values of the AR object change in real time based on the position of the vehicle, perspective is applied so that the size and orientation of the AR object looks different depending on the distance and direction of the vehicle and the building. The AR
+
+Fig. 5  Scene with AR content. Top: A scene with buildings and AR objects. The buildings are rendered as wireframes. Bottom: A scene with AR objects augmented on top of the real world environment
+object is a yellow plane with text displayed on it to provide information about the building as seen Fig. 5. Due to the nature of light, the black background of the scene is transparent when illuminated by the light of a projector, so we implemented the system by making all backgrounds except for the virtual objects black so that the real environment outside the window is visible.
+4  Study 1: system performance
+In Study 1, we conduct a preliminary experiment to evaluate the performance of the system before conducting user study. The goal of Study 1 is to determine: 1) whether the 3DCAR algorithm works well in a FARS vehicle, and 2) the difference in performance of the FARS system when using GPS and RTK devices. The experiment was conducted by
+
+1 3
+
+34  Page 8 of 16
+
+Virtual Reality (2025) 29:34
+
+repeatedly driving a vehicle equipped with a FARS system along a predetermined route with only the driver and no passengers.
+4.1 Measurements
+Update distance We calculated the update distance to observe how quickly
+the vehicle’s position was updated. The update distance evaluates the difference between the position data collected by each location-based sensor between frames and calculates the average value. Since the vehicle is constantly moving, a smaller update distance value means that the position data is changing at a faster rate.
+Rendering frequency To measure how often the AR content projected onto the screen is rendered, we calculated the update rate of the AR objects per second for each of the GPS and RTK methods. To get the rendering frequency of the object, we measured how often the position of the vehicle (latitude, longitude) was updated. However, we avoided updating the position if the same value occurred repeatedly. While traversing the experimental path, we extracted the position values of the vehicle as raw data and calculated the frames per second (fps) based on whether the data changed or not. Positioning error For each GPS and RTK method, we collected data on whether the FARS system followed the correct path when following a given route. The correct route was defined by the center of the road within the defined path on Google Maps. Positioning error was calculated as the shortest distance from the collected location to the prescribed route. The lower the value, the more accurate the path.
+Fig. 6  RTK (left) and GPS (right) update distance results
+
+4.2 Procedure
+This experiment was conducted under the same conditions with different positioning devices (RTK and GPS) to compare FARS performance. The experiments were conducted with a real FARS-equipped vehicle on a university campus in a controlled environment with few vehicles and pedestrians and no distractions such as traffic lights. Out of dozens of trials, we took only 20 valid trials each for GPS and RTK, excluding trials that were interrupted by other vehicles or people. The vehicle was driven by an experienced driver at a constant speed (M = 15.2 km/h, SD = 0.9) along a predetermined 435 m route.
+4.3  Experimental results
+The experiment involved calculating the average value of data collected over 20 repetitions of the entire experimental route without interference from other vehicles or pedestrians. The results confirmed the normal functioning of the 3DCAR algorithm across all trials. In particular, the accuracy of driving along the designated path inevitably influenced the positioning error results. However, the same experienced driver performed several practice runs, and the influence of the driver was reduced to some extent by analyzing the average of the total number of trials.
+Update distance Figure 6 shows the result of plotting the vehicle’s actual location (latitude, longitude) on a map. Each axis is the relative coordinates in meters, with the horizontal axis showing east meters and the vertical axis showing north meters. In the case of RTK, the vehicle’s position changes in centimeters (M = 4.2 cm) and is plotted as points along the route, almost like a curve. On the other hand, when GPS is used, the position of the vehicle is changed in meters (M = 126.4 cm), and the gap between the obtained positions is large, which shows that the exact position is not obtained consistently. Rendering frequency Figure 7a shows the results of how often the AR object is rendered. In the RTK condition, the average rendering frequency was 29.57 fps (SD = 0.49), while in the GPS condition, the average was 1.71 fps (SD = 0.66). The experimental results showed that the RTK condition rendered the AR object 17.63 times faster than the GPS condition, resulting in a more natural movement of the object. Positioning error Figure 7b shows the positioning error of the vehicle in centimeters (cm) relative to the specified path. In the RTK condition, the positioning error averaged 7.53 cm (SD = 5.09), while in the GPS condition, it averaged 61.15 cm (SD = 48.04).
+
+1 3
+
+Virtual Reality (2025) 29:34
+
+Page 9 of 16  34
+research to investigate the effects of FARS using RTK on users’ spatial knowledge and riding experience in the next user study.
+
+5  Study 2: user study
+
+5.1  Design and implementation
+
+Fig. 7  Results of a rendering frequency and b positioning error for RTK and GPS, respectively
+Fig. 8  The seatback display (SBD) system in a real vehicle
+4.4 Discussion Using RTK in FARS, the rendering frequency was 17.63 times faster than GPS. We found that when using GPS sensors, AR objects are rendered at a significantly lower rate, which can lead to stuttering of the AR object’s movement, making it difficult for users to determine their current location. As you can see in Figs. 6 and 7b, the update distance is 122.2 cm greater for the RTK condition than for the GPS condition, while the positioning error is 53.62 cm greater for the GPS condition than for the RTK condition, indicating that the position from GPS is relatively inaccurate. These results suggest that RTK is more suitable for implementing AR systems in moving vehicles. We conducted further
+
+In Study 2, we conducted an experiment comparing FARS with the SeatBack Display (SBD) system commonly used in conventional infotainment systems to test the usability of the FARS system. In the FARS condition, we used the same system as in Study 1, and both conditions used RTK as the location-based sensor. For the comparison experiment, the SBD condition was implemented by changing the display type, as shown in Fig. 8, and a 12-inch surface tablet is mounted on the back of the front passenger seat so that the screen can be viewed by the passenger sitting in the back seat. In the SBD condition, the external environment around the building visible through the window was captured by a smartphone camera and displayed on the SBD screen in real time, similar to the previous studies that implemented an AR HDD (Rao et al. 2014; Shahriar and Kun 2018). AR objects were augmented on the building in the video for SBD in the same way as in FARS. The smartphone camera was placed on the rear side window at the same eye level as the participant, and the position of the smartphone was adjusted to avoid lens distortion and light reflection. The smartphone camera and tablet were wired together to ensure no delay in video transmission.
+During the experiment, AR objects appeared on eight designated buildings, each labeled with the name of a different fruit. While traveling in a vehicle, participants had to remember as accurately as possible the name of the fruit and the location of the building to which the fruit name was attached, as shown on the display. Different fruit names were used in the FARS and SBD conditions. After reaching the destination, participants wrote the name of the fruit they remembered at that location on the paper map showing the experimental route and the location of the buildings. The order of the FARS and SBD conditions was counterbalanced.
+5.2  Experimental evaluation
+For quantitative measures, we measured two things in each condition (1) the number of fruit names in participants’ responses that actually appeared as the AR objects (Name accuracy), and (2) the number of correct matches between the location of the building and the fruit name (Matching accuracy).
+
+1 3
+
+34  Page 10 of 16
+
+Virtual Reality (2025) 29:34
+
+For the qualitative measures, participants completed four post-test questionnaires for each condition. The first three were traditional multidimensional assessment tools, namely the NASA-TLX (Hart and Staveland 1988) (Task Load Index), TAM (Davis 1993) (Technology Acceptance Model), and SUS (Brooke et al. 1996) (System Usability Scale). The NASA-TLX is a standard questionnaire for assessing user-perceived task difficulty and is often used to assess task performance and efficiency for cognitive load in a specific task. For example, it can be used as a tool to subjectively assess the mental workload of viewing HUD information in a vehicle. The questionnaire has six subscales, including Mental Demand (MD), Physical Demand (PD), Temporal Demand (TD), Own Performance (OP), Effort (EF), and Frustration Level (FL). The TAM is the most widely used model of user acceptance and technology use and is answered on a 7-point Likert scale. In our study, we used two subscales of the TAM: perceived usefulness (PU) and perceived ease of use (PEoU). The SUS consists of 10 items on a 5-point Likert scale and is a popular questionnaire for measuring the usability of a system. In addition to these three questionnaires, we used the System, a customized 7-point Likert scale questionnaire designed to investigate users’ perspectives on using the system, and the participants were interviewed after completing all tasks. The five questions of the System were as follows:
+(1) AR Mapping: “It is easy to find out where virtual objects are located".
+(2) Building Location: “It is easy to find out where a building is located".
+(3) Display Size: “I am satisfied with the size of this display".
+(4) Preference: “Overall, I am satisfied with this system". (5) Motion Sickness: “I feel dizzy".
+5.3 Procedure
+Upon arrival at the research lab for the experiment, participants were informed of the purpose of the research and signed an IRB-approved consent form. Participants received safety instructions and completed basic information about their age, gender, and AR experience. Before the experiment began, participants were given sufficient time to familiarize themselves with the system and to calibrate the position of the AR content displayed on the system to their eye level. The experiment was conducted on a university campus where the vehicle was under control and free from distractions such as traffic lights. The participant was seated in the right rear seat of the vehicle, and the participant’s head was kept as still as possible to avoid the effects of gaze shifts. Participants were instructed to keep their face toward the
+
+right window in the FARS condition and toward the screen in front of them in the SBD condition, but we made sure that the view in SBD was as similar as possible to the view in FARS (we mounted a camera on the side of the vehicle to do this). During the experiments, the vehicle was driven at a constant speed (M = 15.1, SD = 1.2 km/h) along the designated experimental route (682.1 m) by a trained driver.
+In the main experiment, participants attempted to remember the name and location of a fruit when an AR object with the name of a particular fruit was augmented on a building while traveling along an experimental path in each of the two conditions (FARS and SBD). Based on the method described in Fig. 3.2, the AR objects were augmented along the walls of the 3D building at locations closest to the vehicle. Upon arrival at the destination, the participant wrote the name of the fruit augmented by the AR object on the map at the location of the correct building. The participant then completed self-report questionnaires (NASA-TLX, TAM, SUS, System) based on the task. Participants were rewarded at the end of the experiment. The experiments were conducted in a within-subjects design, with the two conditions counterbalanced. All experiments were conducted in the early evening when traffic was light and light levels were constant. We conducted interviews after the experiments to obtain the participants’ opinions about the system.
+5.4 Participants
+A total of 16 participants (female = 6, 37.5%) participated in the experiment, with a mean age of 27 years, ranging from 23 to 34 years. 7 participants (44%) had previous experience with AR. All participants had normal or corrected-tonormal vision. All participants were college students and were recruited through on-campus advertising. All participants had walked the campus route but had never driven, so there was essentially no difference in their familiarity with the university environment. In addition, because the participants were already familiar with the route and the buildings, the experiment did not use the names of the campus buildings, but asked them to remember the names of the fruits attached to the buildings. In fact, when we interviewed the participants after the experiment, many of them said that it was very confusing to remember the names and locations of the fruits, regardless of their familiarity with the campus.
+5.5  Experimental results
+We used a within-subject analysis of variance to compare users’ spatial cognitive abilities and preferences in the two conditions (FARS and SBD). We performed the ShapiroWilk and Levene test for normality but did not find a normal
+
+1 3
+
+Virtual Reality (2025) 29:34
+
+Page 11 of 16  34
+
+Fig. 9  Visualization of spatial knowledge results between FARS and SBD conditions. Both Name accuracy and Matching accuracy are higher in the FARS condition than in the SBD condition (***p < .001 )
+
+Table 1  The mean and standard deviation for the results of the selfreported questionnaires (FARS: Full-Window Augmented Reality System, SBD: SheetBack Display, NASA-TLX: NASA Task Load Index, TAM: Technology Acceptance Model, SUS: System Usability Scale)
+
+Questionnaires Scale
+
+FARS SBD p-value
+
+Average
+
+17.25 (8.92)
+
+37.94 <.001 (14.62)
+
+Mental demand 20.31 37.81 <.001
+
+(MD)
+
+(22.32) (28.28)
+
+Physical demand 17.19 25.63 <.05
+
+(PD)
+
+(14.94) (25.29)
+
+NASA-TLX
+
+Temporal demand (TD)
+
+10.63 10.94 >.748 (11.53) (9.70)
+
+(lower is better) Own performance (OP)
+
+17.81 45.00 <.001 (11.97) (22.66)
+
+Effort (EF)
+
+19.37 47.19 <.005 (10.94) (26.89)
+
+Frustration level 12.81 41.56 <.001
+
+(FL)
+
+(11.40) (18.77)
+
+TAM
+
+Perceived useful- 5.56
+
+ness (PU)
+
+(0.89)
+
+2.31 <.001 (0.48)
+
+(higher is better) Perceived ease 5.19 of use (PEoU) (0.83)
+
+3.63 <.001 (0.50)
+
+SUS
+
+77.81 51.88 <.001
+
+(9.57) (9.90)
+
+(higher is better)
+
+System
+
+AR mapping
+
+4.94 (1.00)
+
+1.81 <.001 (0.83)
+
+(higher is better Building location 4.94 (1.12)
+
+2.38 <.001 (0.72)
+
+Motion sickness : Display size
+
+5.62 (0.81)
+
+3.44 <.001 (1.37)
+
+lower is better) Preference
+
+5.25 (1.00)
+
+3.00 <.001 (0.63)
+
+Motion sickness 2.56 (0.73)
+
+4.25 <.005 (1.13)
+
+distribution, so we used non-parametric tests for all data sets.
+Spatial knowledge We compared two variables (Name accuracy and Matching accuracy) with a Wilcoxon signed-rank test to determine the difference in spatial knowledge in the two conditions (FARS and SBD). The quantitative difference in spatial knowledge between the two groups is shown in Fig. 9. This result shows a significant difference (Z = −3.619, p < .001 ) in Name accuracy between the two conditions. The mean value of Name accuracy is 7.38 (SD = 0.78) in the FARS condition and 5.88 (SD = 0.86) in the SBD condition, which is higher in the FARS condition than in the SBD condition. Matching accuracy is also significantly higher in the FARS condition compared to the SBD condition (Z = −3.559, p < 0.001), with a mean value of 6.19 (SD = 1.13) in the FARS condition and 4.00 (SD = 1.46) in the SBD condition. Self-reported questionnaires We used self-reported questionnaires (NASA-TLX, TAM, and SUS) to compare user satisfaction in the two conditions (FARS and SBD), and all results were analyzed using Wilcoxon signed-rank tests (Table 1). The mean score of the NASA-TLX, where lower is better, showed a significant difference between the two conditions, with lower scores in the FARS condition. Among the detailed items of the NASA-TLX questionnaire, there were significant differences for MD (Z = −3.520, p < .001), PD (Z = −3.193, p < .001), OP (Z = −2.324, p < .05), EF (Z = −3.315, p < .001), FL (Z = −2.902, p < .005), but not for TD (Z = −.322, p = .748). However, the FARS condition scored higher on all items. On the TAM questionnaire, where higher scores are better, the subscales for PU (Z = −3.524, p < .001) and PEoU (Z = −3.345, p < .001 ) both showed significant differences between the two conditions, with higher scores in the FARS condition than in the SBD condition. The results of the SUS questionnaire, where higher scores are better, also showed a significant difference between the two conditions (Z = −3.524, p < .001), with the FARS condition scoring higher than the SBD condition. In the customized System questionnaire, the results for AR Mapping, which asks participants to identify the location of virtual objects, were significantly better in the FARS condition than in the SBD condition (Z = −3.594, p < .001). The result for Building Location (Z = −3.438, p < .001), which asks whether the location of the building was understood, was also higher in the FARS condition. For Display Size, which asks about satisfaction with the size of the display, the FARS condition yielded significantly higher scores than the SBD condition (Z = −3.438, p < .001), and for Preference, which asks about overall preference for the system, the FARS condition yielded significantly higher scores
+
+1 3
+
+34  Page 12 of 16
+
+Virtual Reality (2025) 29:34
+
+(Z = −3.59, p < .001). For Motion Sickness, which asks about the degree of post-task dizziness, the FARS condition yielded a significantly lower score than the SBD condition (Z = −3.097, p < .005).
+6 Discussion
+6.1  System performance
+We extended the previous FHUD research (Wang et al. 2016, 2019) by proposing FARS for passengers in a real vehicle and performed empirical validation, which revealed some interesting findings. We developed a 3DCAR algorithm that creates in-vehicle AR content based on real external environments to validate usability. In addition, we implemented the system using a custom-made AR film because the content is not visible when projected directly onto a transparent screen (Coni et al. 2017). Most previous studies (Fu et al. 2013; Bolton et al. 2015; Gabbard et al. 2019; Zhang et al. 2021) have relied on simulations to conduct their experiments because it is difficult to accurately determine the position of the vehicle in real-world scenarios and accurately measure the distance from external objects to supplement AR objects. On the other hand, we implemented a FARS system in a real vehicle that is part of the environment and tested the system by driving the vehicle, demonstrating that AR-based infotainment systems can be implemented in real vehicles.
+We considered three research questions and the corresponding hypotheses about the effect of different variables, and our results support most of the hypotheses. First, hypothesis 1 confirms that RTK has higher accuracy, similar to existing research (Lenain et al. 2003; Ling et al. 2019). In Study 1, we observed that the use of RTK results in a higher rendering frequency and lower values of update distance and position error compared to the use of GPS. As shown in Fig. 6, the distribution of points representing detected positions is significantly different for the two conditions, even with the naked eye. We observed that the AR objects stuttered and made it difficult to determine the position due to the inaccurate data under GPS. In particular, we found that the GPS conditions were navigated incorrectly and had bouncing data, causing objects to be intermittently rendered in the wrong locations on the display. These results show that when implementing an AR system in a vehicle traveling at high speed, using RTK instead of GPS can provide smoother rendering and higher system performance.
+One of the most difficult technical challenges to consider during the design process is that the view of the environment through the side window can pass very quickly in the back seat or front passenger seat, making it difficult for the
+
+system to identify and present external information (Charissis and Naef 2007). Previous studies that have implemented FHUDs in passenger cabins have not considered these difficulties and have used simulators to present information over pre-recorded video. FARS was designed to display information about the external environment for as long as possible while taking perspective into account, and the AR objects moved along the walls of the building based on the position of the vehicle. While our research was focused on passenger cars, the nature of the system could be more useful for public transportation, such as buses and trains. The system could display station information to passengers or show the vehicle’s route. It could also be used for location-based advertising, such as displaying information about nearby restaurants, cafes, etc.
+6.2  Results of user study
+The results of the spatial knowledge test showed that participants remembered the names of more objects in the FARS condition than in the SBD condition and were better at matching locations in the external environment with information about virtual objects. These results support previous studies and hypothesis 2 that have shown better results with systems using AR devices than with smartphones or paper maps (Rehman and Cao 2016; Chu et al. 2017). Existing studies have shown that augmenting landmark information with AR significantly reduces user workload (Bolton et al. 2015), and that information about places represented in AR provides users with positive feelings (Pamuru et al. 2021). Therefore, our results show that AR services using our system can be useful in landmark-centric advertising services that need to provide positive contexts in vehicles, or in training that requires memorizing information about roads and the environment.
+In our study, participants reported that the visual comfort of AR provided by the large HUD and the perspective were the main benefits that increased their preference. In the interview results, most participants were satisfied with the large screen in the FARS condition and reported that the position of 3D objects was intuitively consistent with the external environment and easy to identify. While the SBD received a lower usability score than the FARS due to its limited display size, posture and viewing angle, the FARS can alleviate these problems due to its large screen and 3D depth. Therefore, we have shown that when implementing in-vehicle infotainment systems, it is important to properly map the external environment and virtual information considering the large screen and perspective to improve user preference. While current infotainment systems are typically configured with a limited size and fixed position, recent concepts
+
+1 3
+
+Virtual Reality (2025) 29:34
+
+Page 13 of 16  34
+
+introduced by car manufacturers apply higher levels of AR combined with vehicle automation (Wiegand et al. 2019).
+Most questionnaire results showed that FARS is more useful than SBD, easier to use, preferred, and overall more satisfied with the system. These results supported our hypothesis 3 that the AR system provides a more positive travel experience than the HDD (Bengler et al. 2015; Berger et al. 2021; Wang et al. 2019). In the FARS condition, participants reported that they felt less cognitive load and were able to work more efficiently, and that they could easily identify the location of AR objects and buildings. These results suggest that FARS is a useful system for improving passenger experience and understanding of external environmental information, and contribute to the empirical evaluation of user satisfaction. FHUD in the passenger compartment can be applied in real driving environments, and is expected to increase user acceptance for various applications beyond navigation and vehicle information (Wu et al. 2009).
+FARS gave the user a sense of perspective by varying the size of the virtual object according to the distance from the vehicle to the wall of the building on which it was projected. Participants reported that it was easier to map buildings and virtual objects in the FARS condition than in the SBD condition. In the FARS condition, participants looked through a glass window at a virtual object augmented on top of a real building, which allowed users to intuitively estimate the distance of the object from their vehicle and more easily map the object and the building in 3D.
+In the SBD condition, some participants reported discomfort from constantly turning their heads to alternate between looking out the window and looking at the monitor screen. Five participants reported severe motion sickness in the SBD condition. Looking at the seatback monitor in a moving vehicle made them feel as if they were reading a book in a moving vehicle, whereas they reported less motion sickness in the FARS condition, which showed the wide external environment. These results suggest that in order to reduce motion sickness, a system design is needed that meets ecological validity by preventing the user’s visual focus from shifting between the real and virtual worlds (Abdi and Meddeb 2018).
+To implement and use FARS in a real car, we need to consider several things: First, we need to use higher lumens to ensure that the AR content is clearly visible even in bright outdoor environments. Second, we need to make sure that the projector is well mounted on the car to prevent slight vibrations of the projected screen as the car moves. Third, we need a power supply that can provide enough power for both the projector and the PC. Fourth, we need to consider the cost of power, servers, and RTK devices to implement FARS.
+
+6.3  Limitation & future works
+This study has several limitations. First, there were problems with interference from other vehicles and pedestrians while driving on real roads. For Study 1, we only collected and analyzed data from trials where there was no interference from vehicles and pedestrians. For Study 2, we scheduled our trials at off-peak times, and there were very few situations where our vehicle came to a complete stop. Second, the vibrations of the vehicle were reflected on the screen due to the movement of the vehicle, so it is necessary to install the projector in a way that can absorb the vibrations of the vehicle as much as possible. Third, we examined differences between the two systems only in terms of short-term spatial cognition. It would be useful to conduct follow-up studies to investigate the effects of FARS on long-term spatial cognition and memory. Fourthly, for safety reasons, we only conducted the experiment on the university campus. However, maximizing the effectiveness of RTK is difficult in road environments where there are not enough RTK base stations or where tall buildings are densely packed. For these cases, we may consider allowing FARS to selectively use RTK or GPS. Finally, it is difficult to conduct experiments during daylight hours because sunlight interferes with the light from the projector. Thus, we were limited to conducting the experiment during daylight hours because the AR objects projected on the rear window screen were difficult to see in bright light. This is a common limitation of projectionbased AR using light. To overcome this limitation, we need a way to adjust the brightness of the projection according to the brightness of the current environment (Sato et al. 2006).
+7 Conclusion
+We built a Full-Window Augmented Reality System (FARS) for passengers in a vehicle and conducted experiments in a real vehicle to evaluate the system’s performance and user experience. The 3DCAR algorithm used in the FARS system makes it possible to create AR content that takes into account depth in real-world environments, and future researchers can further refine the algorithm and develop it into a form that can be used in real vehicles. The experimental results showed that for a windowed AR system in a fast-moving vehicle, where the alignment of real buildings and virtual objects is important, using a more accurate RTK sensor instead of a GPS with a high error rate can improve the accuracy of the data. The results of the user study empirically confirmed that the FARS system is more effective than the SeatBack Display (SBD) in enhancing human spatial knowledge and improving the user’s riding experience. Through these results, we have empirically confirmed that
+
+1 3
+
+34  Page 14 of 16
+
+Virtual Reality (2025) 29:34
+
+the full-window augmented reality system can be applied in real vehicles and demonstrated that the system can enhance users’ spatial knowledge and preferences. We believe that this work provides an important foundation for demonstrating the effectiveness and superiority of the method of displaying virtual objects based on their location in the environment, with the potential to be extended to various in-vehicle infotainment services.
+As future work, it is necessary to implement and test additional system designs such as entertainment, communication platforms, and task support, which are highly demanded by the passengers in the vehicles (Osswald et al. 2013). We expect that the effectiveness of FARS can be enhanced by combining AR content with joystick and hand tracker interactions. In addition, it is worth exploring the application of AI object recognition to detect and augment information about dynamic external environments rather than predetermined static buildings. There is also a need for UX design and further research into whether the system can have a positive impact on passengers in vehicles traveling at higher speeds. It is necessary to verify whether there is an effect on long-term memory in addition to short-term memory within FARS to further prove the effect on spatial cognition. The results of the spatial cognition study are expected to be useful not only for navigation, but also for advertising and training.
+Supplementary Information  The online version contains supplementary material available at ​h​t​t​p​s​:​/​/​d​o​i​.​o​r​g​/​1​0​.​1​0​0​7​/​s​1​0​0​5​5​-​0​ 2​4​-​0​1​0​6​8​-​y​.​
+Acknowledgements  The authors wish to thank AnyRactive Co.,Ltd. for equipment and technical support. This work was supported by the National Research Foundation of Korea (No. RS-2024-00348094) and Korea Radio Promotion Association (No. RNIX20230200) grant funded by the Korea government (MSIT).
+Open Access  This article is licensed under a Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License, which permits any non-commercial use, sharing, distribution and reproduction in any medium or format, as long as you give appropriate credit to the original author(s) and the source, provide a link to the Creative Commons licence, and indicate if you modified the licensed material. You do not have permission under this licence to share adapted material derived from this article or parts of it. The images or other third party material in this article are included in the article’s Creative Commons licence, unless indicated otherwise in a credit line to the material. If material is not included in the article’s Creative Commons licence and your intended use is not permitted by statutory regulation or exceeds the permitted use, you will need to obtain permission directly from the copyright holder. To view a copy of this licence, visit http://c​ reative​ commons​ .org​/licenses/by-nc-nd/4.0/.
+
+References
+Abdi L, Meddeb A (2018) In-vehicle augmented reality system to provide driving safety information. J Visual 21:163–184
+AnyRactive Co.,Ltd. https://​ anyract​ ive.com​ /en/h​ ome-english/ Bauerfeind K, Drüke J, Bendewald L, Baumann M (2022) How does
+navigating with augmented reality information affect drivers’ glance behaviour in terms of attention allocation? Front Virt Reality 3:930117 Bauerfeind K, Drüke J, Bendewald L, Baumann M (2019) When does the driver benefit from ar-information in a navigation task compared to a head-up display? results of a driving simulator study. Proceedings of the Human Factors and Ergonomics Society Europe, 219–230 Beck D, Jung J, Park J, Park W (2019) A study on user experience of automotive hud systems: contexts of information use and userperceived design improvement points. Int J Human-Comput Int 35(20):1936–1946 Bekele MK (2019) Walkable mixed reality map as interaction interface for virtual heritage. Digit Appl Arch Cult Heritage 15:00127 Bengler K, Götze M, Pfannmüller L, Zaindl A (2015) To see or not to see-innovative display technologies as enablers for ergonomic cockpit concepts. In: Proceedings of the Electronic Displays Conference Berger M, Bernhaupt R, Pfleging B (2019) A tactile interaction concept for in-car passenger infotainment systems. In: Proceedings of the 11th International Conference on Automotive User Interfaces and Interactive Vehicular Applications: Adjunct Proceedings, pp. 109–114 Berger M, Dandekar A, Bernhaupt R, Pfleging B (2021) An ar-enabled interactive car door to extend in-car infotainment systems for rear seat passengers. In: Extended Abstracts of the 2021 CHI Conference on Human Factors in Computing Systems, pp. 1–6 Bolton A, Burnett G, Large DR (2015) An investigation of augmented reality presentations of landmark-based navigation using a headup display. In: Proceedings of the 7th International Conference on Automotive User Interfaces and Interactive Vehicular Applications, pp. 56–63 Brooke J et al (1996) Sus-a quick and dirty usability scale. Usability Eval Indus 189(194):4–7 Burgess N, Becker S, King JA, O’Keefe J (2001) Memory for events and their spatial context: models and experiments philosophical transactions of the royal society of London. Series B: Biol Sci 356(1413):1493–1503 Buttussi F, Chittaro L (2023) Acquisition and retention of spatial knowledge through virtual reality experiences: Effects of vr setup and locomotion technique. Int J Human-Comput Stud 177:103067 Calvi A, D’Amico F, Ferrante C, Ciampoli LB (2020) Effectiveness of augmented reality warnings on driving behaviour whilst approaching pedestrian crossings: A driving simulator study. Accident Anal Prevent 147:105760 Charissis V, Papanastasiou S (2010) Human-machine collaboration through vehicle head up display interface. Cognition Technol Work 12:41–50 Charissis V, Papanastasiou S, Chan W, Peytchev E (2013) Evolution of a full-windshield hud designed for current vanet communication standards. In: 16th International IEEE Conference on Intelligent Transportation Systems (ITSC 2013), pp. 1637–1643. IEEE Charissis V, Naef M (2007) Evaluation of prototype automotive headup display interface: testing driver’s focusing ability through a vr simulation. In: 2007 IEEE Intelligent Vehicles Symposium, pp. 560–565. IEEE Cheng SY, Doshi A, Trivedi MM (2007) Active heads-up display based speed compliance aid for driver assistance: A novel interface and
+
+1 3
+
+Virtual Reality (2025) 29:34
+
+Page 15 of 16  34
+
+comparative experimental studies. In: 2007 IEEE Intelligent Vehicles Symposium, pp. 594–599. IEEE Chu C-H, Wang S-L, Tseng B-C (2017) Mobile navigation services with augmented reality. IEEJ Trans Electr Eng 12:95–103 Committee SO-RAVS et al (2014) Taxonomy and definitions for terms related to on-road motor vehicle automated driving systems. SAE Standard J 3016(1):1–16 Coni P, Bardon JL et al (2017) A 3d full windshield head up display. SAE Int J Aerospace 10(2):92 Davis FD (1993) User acceptance of information technology: system characteristics, user perceptions and behavioral impacts. Int J Man-Machine Stud 38(3):475–487 De Pace F, Kaufmann H (2023) A systematic evaluation of an rtk-gps device for wearable augmented reality. Virtual Reality, 1–15 EM Wave Co., Ltd. http://www.emwave.co.kr/ Edwards S, Cross P, Barnes J, Betaille D (1999) A methodology for benchmarking real time kinematic gps. Surv Rev 35(273):163–174 Elbanhawi M, Simic M, Jazar R (2015) In the passenger seat: investigating ride comfort measures in autonomous cars. IEEE Intel Syst Magaz 7(3):4–17 Fu W-T, Gasper J, Kim S-W (2013) Effects of an in-car augmented reality system on improving safety of younger and older drivers. In: 2013 IEEE International Symposium on Mixed and Augmented Reality (ISMAR), pp. 59–66. IEEE Gabbard JL, Fitch GM, Kim H (2014) Behind the glass: driver challenges and opportunities for ar automotive applications. Proc IEEE 102(2):124–136 Gabbard JL, Smith M, Tanous K, Kim H, Jonas B (2019) Ar drivesim: an immersive driving simulator for augmented reality head-up display research. Front Robot AI 6:98 Google Maps Platform. https:​//developer​ s.goo​gl​e​.com/maps/ Guarese RLM, Maciel A (2019) Development and usability analysis of a mixed reality gps navigation application for the microsoft hololens. In: Advances in Computer Graphics: 36th Computer Graphics International Conference, CGI 2019, Calgary, AB, Canada, June 17–20, 2019, Proceedings, pp. 431–437. Springer Haeuslschmid R, Shou Y, O’Donovan J, Burnett G, Butz A (2016) First steps towards a view management concept for large-sized head-up displays with continuous depth. In: Proceedings of the 8th International Conference on Automotive User Interfaces and Interactive Vehicular Applications, pp. 1–8 Haeuslschmid R, Pfleging B, Alt F (2016) A design space to support the development of windshield applications for the car. In: Proceedings of the 2016 CHI Conference on Human Factors in Computing Systems, pp. 5076–5091 Hart SG, Staveland LE (1988) Development of nasa-tlx (task load index): Results of empirical and theoretical research 52, 139–183 Häuslschmid R, Osterwald S, Lang M, Butz A (2015) Augmenting the driver’s view with peripheral information on a windshield display. In: Proceedings of the 20th International Conference on Intelligent User Interfaces, pp. 311–321 Inbar O, Tractinsky N (2011) Make a trip an experience: sharing in-car information with passengers. In: CHI’11 Extended Abstracts on Human Factors in Computing Systems, 1243–1248 Juan M-C, Mendez-Lopez M, Perez-Hernandez E, Albiol-Perez S (2014) Augmented reality for the assessment of children’s spatial memory in real settings. PloS one 9(12):113751 Kim S, Dey AK (2009) Simulated augmented reality windshield display as a cognitive mapping aid for elder driver navigation. In: Proceedings of the SIGCHI Conference on Human Factors in Computing Systems, pp. 133–142 Langbehn E, Lubos P, Steinicke F (2018) Evaluation of locomotion techniques for room-scale vr: Joystick, teleportation, and redirected walking. In: Proceedings of the Virtual Reality International Conference-Laval Virtual, pp. 1–9
+
+Langlois S, Soualmi B (2016) Augmented reality versus classical hud to take over from automated driving: An aid to smooth reactions and to anticipate maneuvers. In: 2016 IEEE 19th International Conference on Intelligent Transportation Systems (ITSC), pp. 1571–1578. IEEE
+Lenain R, Thuilot B, Cariou C, Martinet P (2003) Adaptive control for car like vehicles guidance relying on rtk gps: rejection of sliding effects in agricultural applications. In: 2003 IEEE International Conference on Robotics and Automation (Cat. No. 03CH37422), vol. 1, pp. 115–120. IEEE
+Li X, Ge M, Dai X, Ren X, Fritsche M, Wickert J, Schuh H (2015) Accuracy and reliability of multi-gnss real-time precise positioning: Gps, glonass, beidou, and galileo. J Geodesy 89(6):607–635
+Li J, Sharlin E, Greenberg S, Rounding M (2013) Designing the car iwindow: exploring interaction through vehicle side windows. In: CHI’13 Extended Abstracts on Human Factors in Computing Systems, pp. 1665–1670
+Lindemann P, Lee T-Y, Rigoll G (2018) Catch my drift: elevating situation awareness for highly automated driving with an explanatory windshield display user interface. Multi Technol Inter 2(4):71
+Ling FF, Elvezio C, Bullock J, Henderson S, Feiner S (2019) A hybrid rtk gnss and slam outdoor augmented reality system. In: 2019 IEEE Conference on Virtual Reality and 3D User Interfaces (VR), pp. 1044–1045. IEEE
+Liu Y-C, Wen M-H (2004) Comparison of head-up display (hud) versus head-down display (hdd): driving performance of commercial vehicle operators in taiwan. Int J Human-Comput Stud 61(5):679–697
+MacIntyre B, Coelho EM (2000) Adapting to dynamic registration errors using level of error (loe) filtering. In: Proceedings IEEE and ACM International Symposium on Augmented Reality (ISAR 2000), pp. 85–88. IEEE
+Matsumura K, Kirk DS (2018) On active passengering: supporting incar experiences. Proc ACM Interactive, Mobile, Wearable Ubiquitous Technol 1(4):1–23
+Munoz-Montoya F, Juan M-C, Mendez-Lopez M, Fidalgo C (2018) Augmented reality based on slam to assess spatial short-term memory. IEEE Access 7:2453–2466
+Ng A, Medeiros D, McGill M, Williamson J, Brewster S (2021) The passenger experience of mixed reality virtual display layouts in airplane environments. In: 2021 IEEE International Symposium on Mixed and Augmented Reality (ISMAR), pp. 265–274. IEEE
+Okumura H, Shinohara K (2016) Human attention and fatigue for ar head-up displays. In: 2016 IEEE International Symposium on Mixed and Augmented Reality (ISMAR-Adjunct), pp. 306–309. IEEE
+Osswald S, Sundström P, Tscheligi M (2013) The front seat passenger: How to transfer qualitative findings into design. International journal of vehicular technology 2013
+Özçakır B, Çakıroğlu E (2022) Fostering spatial abilities of middle school students through augmented reality: spatial strategies. Edu Inf Technol 27(3):2977–3010
+Pamuru V, Khern-am-nuai W, Kannan K (2021) The impact of an augmented-reality game on local businesses: a study of pokémon go on restaurants. Inf Syst Res 32(3):950–966
+Park J, Park W (2019) Functional requirements of automotive head-up displays: a systematic review of literature from 1994 to present. Appl Ergonomics 76:130–146
+Pfannmüller L, Kramer M, Senner B, Bengler K (2015) A comparison of display concepts for a navigation system in an automotive contact analog head-up display. Procedia Manufac 3:2722–2729
+Pfleging B, Rang M, Broy N (2016) Investigating user needs for non-driving-related activities during automated driving. In: Proceedings of the 15th International Conference on Mobile and Ubiquitous Multimedia, pp. 91–99
+
+1 3
+
+34  Page 16 of 16
+
+Virtual Reality (2025) 29:34
+
+Prinzel III LJ, Risser M (2004) Head-up displays and attention capture. Technical report
+Rao Q, Grünler C, Hammori M, Chakraborty S (2014) Design methods for augmented reality in-vehicle infotainment systems. In: Proceedings of the 51st Annual Design Automation Conference, pp. 1–6
+Rao Q, Tropper T, Grünler C, Hammori M, Chakraborty S (2014) Ar-ivi–implementation of in-vehicle augmented reality. In: 2014 IEEE International Symposium on Mixed and Augmented Reality (ISMAR), pp. 3–8. IEEE
+Rehman U, Cao S (2016) Augmented-reality-based indoor navigation: a comparative analysis of handheld devices versus google glass. IEEE Trans Human-Machine Syst 47(1):140–151
+Riegler A, Weigl K, Riener A, Holzmann C (2020) Stickywsd: Investigating content positioning on a windshield display for automated driving. In: Proceedings of the 19th International Conference on Mobile and Ubiquitous Multimedia, pp. 143–151
+Rusch ML, Schall MC Jr, Gavin P, Lee JD, Dawson JD, Vecera S, Rizzo M (2013) Directing driver attention with augmented reality cues. Trans Res Part F: Traffic Psyc Behav 16:127–137
+Sato A, Kitahara I, Kameda Y, Ohta Y, et al. (2006) Visual navigation system on windshield head-up display. In: Proc. 13th World Congress on Intelligent Transort Systems, CD-ROM
+Scarr J, Cockburn A, Gutwin C et al (2013) Supporting and exploiting spatial memory in user interfaces. Found Trends Human-Comput Inter 6(1):1–84
+Schartmüller C, Riener A, Wintersberger P, Frison A-K (2018) Workaholistic: on balancing typing-and handover-performance in automated driving. In: Proceedings of the 20th International Conference on Human-computer Interaction with Mobile Devices and Services, pp. 1–12
+Scheibert O (2020) Overcoming the problem of uncertain tracking errors in an ar navigation application. PhD thesis, Hochschulbibliothek der Technischen Hochschule Köln
+Shaghaghian Z, Burte H, Song D, Yan W (2024) An augmented reality application and experiment for understanding and learning spatial transformation matrices. Virtual Reality 28(1):1–18
+Shahriar ST, Kun AL (2018) Camera-view augmented reality: Overlaying navigation instructions on a real-time view of the road. In: Proceedings of the 10th International Conference on Automotive User Interfaces and Interactive Vehicular Applications, pp. 146–154
+Shakeri M, Park H, Jeon I, Sadeghi-Niaraki A, Woo W (2023) User behavior modeling for ar personalized recommendations in spatial transitions. Virtual Reality, 1–18
+
+Takaki Y, Urano Y, Kashiwada S, Ando H, Nakamura K (2011) Super multi-view windshield display for long-distance image information presentation. Optics express 19(2):704–716
+U-blox F9 High Precision GNSS Module Integration Manual. ​h​t​t​p​s​:​/​/​ w​w​w​.​u​-​b​l​o​x​.​c​o​m​/​e​n​/​
+Wang S, Charissis V, Harrison DK (2017) Augmented reality prototype hud for passenger infotainment in a vehicular environment. Adv Sci Technol Eng Syst 2(3):634–641
+Wang S, Charissis V, Campbell J, Chan W, Moore D, Harrison D (2016) An investigation into the use of virtual reality technology for passenger infotainment in a vehicular environment. In: 2016 International Conference on Advanced Materials for Science and Engineering (ICAMSE), pp. 404–407. IEEE
+Wang S, Charissis V, Lagoo R, Campbell J, Harrison DK (2019) Reducing driver distraction by utilizing augmented reality headup display system for rear passengers. In: 2019 IEEE International Conference on Consumer Electronics (ICCE), pp. 1–6. IEEE
+Wanninger L (2004) Introduction to network rtk. IAG Working Group 4(1):2003–2007
+Weihrauch M, Meloeny G, Goesch T (1989) The first head up display introduced by general motors. Technical report, SAE Technical Paper
+Wiegand G, Mai C, Holländer K, Hussmann H (2019) Incarar: A design space towards 3d augmented reality applications in vehicles. In: Proceedings of the 11th International Conference on Automotive User Interfaces and Interactive Vehicular Applications, pp. 1–13
+Wintersberger P, Frison A-K, Riener A, Tv Sawitzky (2018) Fostering user acceptance and trust in fully automated vehicles evaluating the potential of augmented reality. Pres Virt Augment Reality 27(1):46–62
+Wu W, Blaicher F, Yang J, Seder T, Cui D (2009) A prototype of landmark-based car navigation using a full-windshield head-up display system. In: Proceedings of the 2009 Workshop on Ambient Media Computing, pp. 21–28
+Zangenehnejad F, Gao Y (2021) Gnss smartphones positioning: Advances, challenges, opportunities, and future perspectives. Satellite Navigation 2:1–23
+Zhang Y, Yang T, Zhang X, Zhang Y, Sun Y (2021) Effects of full windshield head-up display on visual attention allocation. Ergonomics 64(10):1310–1321
+Publisher's Note  Springer Nature remains neutral with regard to jurisdictional claims in published maps and institutional affiliations.
+
+1 3
+

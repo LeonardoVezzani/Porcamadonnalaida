@@ -1,0 +1,818 @@
+Interaction design for Augmented Reality Head-Up Displays
+Developing graphics design and evaluating perceptual and safety aspects for navigation use cases
+Johan Hansols
+Industrial Design Engineering, master's level 2022
+Luleå University of Technology Department of Social Sciences, Technology and Arts
+
+Interaction design for Augmented Reality Head-Up Displays
+- Developing graphics design and evaluating perceptual and safety aspects for navigation use cases
+Johan Hansols
+2022
+SUPERVISOR: Jörgen Normark (LTU) SUPERVISOR: David Hermann (Volvo Cars)
+REVIEWER: David Blomgren REVIEWER: Eva-Lena Bäckström EXAMINER: Åsa Wikberg Nilsson
+MSc in INDUSTRIAL DESIGN ENGINEERING Department of Business Administration, Technology and Social Sciences
+Luleå University of Technology
+
+CIVILINGENJÖR I TEKNISK DESIGN Master of Science Thesis in Industrial Design Engineering
+Interaction design for Augmented Reality Head-Up Displays Developing graphics design and evaluating perceptual and safety aspects for navigation use cases
+© Johan Hansols
+Published and distributed by Luleå University of Technology SE-971 87 Luleå, Sweden Telephone: + 46 (0) 920 49 00 00
+Cover: Illustration by Johan Hansols
+Printed in Luleå Sweden by Luleå University of Technology Reproservice Luleå, 2022
+
+ACKNOWLEDGEMENT
+I would like to thank everyone at Volvo Cars for having me this spring and making me feel very welcome. A special thanks to David Hermann for guiding me, discussing thoughts and ideas, and sharing your excellent knowledge. I would also like to thank all the other employees within the display team for including me in your team and showing interest in my project. It has been a pleasure. I want to express my gratitude to Daniel Bark for your assistance developing the code for the project, being patient with all my questions, and sharing all your software development knowledge. I would also like to thank Anton Berneving for keeping me company at the office and being there to bounce ideas. You have made the time at Volvo Cars much more fun. My classmates Anna Mellqvist and Simon Vicini also deserve my expressed gratitude for taking the time to discuss our thesis projects at Volvo Cars and sharing your thoughts with me. It has been inspirational for me to take part in your project and having you guys participating in my work. It has been nice having friends around when moving to a new city. Lastly, I would like to express my gratitude to Jörgen Normark for being my supervisor at Lulea University of Technology. You have given great guidance about the expectations from the university, and the weekly meetings have contributed a lot to making this thesis project reach the result it did.
+Thank you!
+Johan Hansols Gothenburg June 5th, 2022
+i
+
+ABSTRACT
+The interactions with everyday products and technology are often done without being noticed or reflected upon. Interactions driving a vehicle are happening automatically for most people when having experience driving. With the innovative shift within the automotive industry toward connectivity and autonomous driving, new demands on the interaction and communication between humans and machines are created.
+This thesis project was carried out in collaboration with Volvo Cars and the Research Institute of Sweden (RISE) within their joint research project SCREENS. Their project aims to investigate whether implementing Augmented Reality in Head-Up Displays (AR-HUD), and other vehicle technologies can benefit users in perceiving and understanding the environment when driving. Misapplied technology may result in users misperceiving visual information causing faulty decision making resulting in accidents and interaction errors. Their research objective implementing automotive technology benefitting safer driving, better cars, and competitive advantages for Volvo Cars. This thesis objective was to design visual information for a navigation feature in AR-HUD and implement the graphics into a Volvo XC60 concept car. The implemented graphics were then evaluated with users operating the vehicle in realistic environments. The results were analyzed to investigate if positive perceptual, attentional, and safety aspects using AR-HUD could be indicated. The project aim was to design and explore the user interactions resulting in valuable insights from an industrial design engineering perspective for future research.
+The thesis project had a human-centered design approach following a modified version of the iterative cycle for human-centered design process. Stages of ideating, implementing, evaluating, and analyzing were iterated two times during the twenty-week project. The user experiences from interacting with the system were fundamental during the project, relating design decisions to qualitative and quantitative data collected during evaluations.
+From the user evaluations could indications be found that AR-HUD aided the driver in keeping their eyes on the road more frequently using AR guidance compared to traditional HUD guidance. Aspects to consider when designing visual navigation information were found and related to relevant theory about visual perception and human information processing. The most critical aspect regarding the implementation of visual information was the timing of when graphics appear. Qualitative and quantitative data collected indicated that easily perceived information presented at the right time and duration was the most important aspect to consider when creating human-machine interfaces providing good user interactions.
+Keywords: industrial design engineering, human-centered design, user experience
+design, Augmented reality head-up displays, visual perception, AR-HUD navigation, automotive industry, user-testing
+ii
+
+SAMMANFATTNING
+Interaktioner med vardagliga produkter och teknik görs ofta utan att de uppmärksammas och reflekteras över. Att köra bil är en interaktion med ett fordon som för många människor sker automatiskt tack vare erfarenhet användarna har att köra bil. Med det innovativa skiftet inom fordonsindustrin mot uppkopplingsbara och självkörande fordon skapar nya krav på interaktionerna och kommunikationen mellan människan och maskinen.
+Detta examensarbete genomfördes i samarbete med Volvo Cars och Research Institute of Sweden (RISE) inom deras gemensamma forskningsprojekt SCREENS. Deras projekt syftar till att undersöka implementeringen av förstärkt verklighet i Head-Up-displayer (AR-HUD) samt andra fordonsteknologier och om det kan gynna användare när de uppfattar och förstår miljön när de kör bil. Feltillämpad teknik kan leda till att användare missuppfattar visuell information, vilket orsakar felaktigt beslutsfattande som leder till olyckor och interaktionsfel. Deras forskningsmål är att implementera fordonsteknik som gynnar säkrare körning, bättre bilar och konkurrensfördelar för Volvo Cars. Målet med detta examensarbete var att designa visuell information för en navigeringsfunktion i AR-HUD och implementera grafiken i en Volvo XC60 konceptbil. Den implementerade grafiken utvärderades sedan med användare som körde fordonet i realistiska miljöer. Resultaten analyserades för att undersöka om positiva perceptuella, uppmärksamhets- och säkerhetsaspekter med AR-HUD kunde indikeras. Projektets syfte var att designa och utforska användarinteraktionerna resulterande i värdefulla insikter ur ett industridesigntekniskt perspektiv för framtida forskning.
+Examensarbetet hade en användarcentrerad designstrategi och har följt en modifierad version av designprocessen iterativa cykeln för användarcentrerad design. Stadier av idégenerering, implementering, utvärdering och analys upprepades två gånger under det tjugo veckor långa projektet. Användarnas erfarenheter från interaktionen med systemet var central under projektet och designbeslut baserades på kvalitativa och kvantitativa data som samlats in under användarutvärderingarna.
+Från användarutvärderingarna upptäcktes indikationer att AR-HUD hjälpte förare att hålla ögonen på vägen mer när de använde AR-vägledning, jämfört med traditionell HUDvägledning. Aspekter att beakta vid design av visuell navigeringsinformation hittades och relaterades till relevant teori om visuell perception och mänsklig informationsbehandling. Den viktigaste aspekten som indikerades när det gäller implementeringen av visuell information var timingen för när grafik visas. Kvalitativa och kvantitativa data som samlats in visade att lättuppfattad information presenterad vid rätt tidpunkt och varaktighet var den viktigaste aspekten att ta hänsyn till när man skapar gränssnitt för kommunikationen mellan människa och maskin som resulterar i bra användarinteraktioner.
+Nyckelord: teknisk design, användarcentrerad design, användarupplevelsedesign, head-
+up-displayer med förstärkt verklighet, visuell perception, AR-HUD-navigering, fordonsindustri, användartestning
+iii
+
+CONTENTS
+1 INTRODUCTION ...................................... 1
+1.1 BACKGROUND ...........................................1 1.2 STAKEHOLDERS ...................................... 2 1.3 OBJECTIVES AND AIMS ......................... 2 1.4 PROJECT SCOPE ..................................... 2 1.5 THESIS OUTLINE ...................................... 3
+2 CONTEXT IMMERSION........................ 4
+2.1 PREVIOUS AR-HUD PROJECT .............. 4 2.2 THE AUTOMOTIVE INDUSTRY .............. 4 2.3 VOLVO CARS ............................................ 4 2.4 AUGMENTED REALITY ........................... 4 2.5 HEAD-UP DISPLAYS ............................... 5
+2.5.1 ENVISICS AR-HUD TECHNOLOGY ................ 5
+2.6 AUTOMOTIVE NAVIGATION SYSTEMS ........................................................................... 6 2.7 COMPETITOR ANALYSIS ....................... 6
+2.7.1 TRY IT YOURSELF ............................................. 8
+3 THEORETICAL FRAMEWORK............. 9
+3.1 INDUSTRIAL DESIGN ENGINEERING . 9 3.2 USER EXPERIENCE DESIGN ................ 9 3.3 HUMAN-MACHINE INTERFACES ....... 11 3.4 HUMAN INFORMATION PROCESSING ......................................................................... 12
+3.4.1 ACQUIRING VISUAL INFORMATION .......... 12 3.4.2 DECODING INFORMATION ......................... 13 3.4.3 MEMORY ......................................................... 13 3.4.4 ATTENTION...................................................... 13
+3.5 SITUATION AWARENESS .................... 14 3.6 VISUAL PERCEPTION ........................... 15
+3.6.1 CONSTRUCTIVE PERCEPTION THEORY.... 15 3.6.2 ECOLOGICAL PERCEPTION THEORY ........ 15 3.6.3 GESTALT GROUPING PRINCIPLES ............ 16
+4 METHOD AND IMPLEMENTATION.. 18
+4.1 PROCESS ................................................. 18 4.2 PROJECT PLANNING............................ 19 4.3 CONTEXT IMMERSION ........................ 19
+4.3.1 COMPETITOR ANALYSIS............................... 19 4.3.2 TRY IT YOURSELF ......................................... 20
+4.4 LITERATURE REVIEW .......................... 20
+
+4.5 FIRST ITERATION - IDEATE.................20
+4.5.1 SKETCHING .....................................................20 4.5.2 IDEA GENERATING WORKSHOPS..............21
+4.7 FIRST ITERATION - IMPLEMENT ....... 22
+4.7.1 DIGITALIZING GRAPHICS ............................. 22 4.7.2 IMPLEMENTING IN THE CONCEPT CAR...23
+4.8 FIRST ITERATION - EVALUATE........... 23
+4.8.1 COGNITIVE TASK ANALYSIS ........................ 23 4.8.2 LIKERT SCALES..............................................24
+4.9 FIRST ITERATION – ANALYZE............ 24
+4.9.1 ANALYZING CTA .............................................24 4.9.2 ANALYZING LIKERT-TYPE DATA................. 25
+4.10 SECOND ITERATION – RE-DESIGN 25 4.11 SECOND ITERATION – IMPLEMENT25 4.12 SECOND ITERATION – EVALUATE .. 27
+4.12.1 OBSERVATION .............................................. 27
+4.13 SECOND ITERATION – ANALYZE .... 27 4.14 METHOD DISCUSSION...................... 28
+5 RESULTS.............................................. 30
+5.1 FIRST ITERATION...................................30
+5.1.1 IDEATE...............................................................30 5.1.3 IMPLEMENTATION.........................................33 5.1.2 EVALUATION AND ANALYSIS ...................... 37
+5.2 SECOND ITERATION ............................ 42
+5.2.1 RE-DESIGN ......................................................42 5.2.2 IMPLEMENT....................................................43 5.2.3 EVALUATE .......................................................43 5.2.4 ANALYZE..........................................................44
+5.3 SUMMARY OF RESULTS.....................48
+6 DISCUSSION....................................... 49
+6.1 POSITIONING THE RESULT................. 49 6.2 RELEVANCE ........................................... 50 6.3 REFLECTION .......................................... 50 6.4 CONCLUSIONS ...................................... 51
+6.4.1 PROJECT OBJECTIVE AND AIMS ................51 6.4.2 RESEARCH QUESTIONS...............................51
+6.5 RECOMMENDATIONS ......................... 54
+7 REFERENCES ..................................... 55
+
+LIST OF APPENDICES
+APPENDIX A - WORKSHOP PLAN………………………………………………….……….……… 1 PAGE APPENDIX B – EVALUATION FORM: DESIGN ………………….….……………….……… 4 PAGES APPENDIX C - EVALUATION FORM: DRIVING ……………………………………………… 3 PAGES APPENDIX D –REVERSED BRAINSTORMING.………………………………………………... 1 PAGE
+
+LIST OF FIGURES
+Figure 1: Illustration of different virtual image distances of projection between ARHUD and conventional HUD..................... 6
+Figure 2: The identified need for local guidance. The left illustrates graphics seen in Volkswagens UI, right illustrates an example of alternative graphics to communicate a lane change. .................... 8
+Figure 3: Modern UX-design perspectives. Inspired by Hassenzahl & Tractinsky (2006) pp.95. Illustrated by Johan Hansols..................................................... 10
+Figure 4: Cycle of an HMI process. Illustrating interaction and bridges between human and machine. Inspired by Osvalder & Ulfvengren (2015) pp.401. Illustrated by Johan Hansols. .................. 11
+Figure 5: A model for human information processing. Inspired by Wickens et al., (2013) pp.102. Illustrated by Johan Hansols. .....................................................12
+Figure 6: Anatomy of the eye. Inspired by Ashcraft & Radvansky (2009) pp.67. Illustrated by Johan Hansols. ..................12
+Figure 7: Illustration of how the same letter H is perceived as an H in "THE" and an A in "CAT" because of the context we perceive and read it in. Inspired by Preece et al. (1994) pp. 78. Illustrated by Johan Hansols. .................................................................... 15
+Figure 8: Affordance of different door handles suggesting different actions. Inspired by Gaver (1991) pp. 80. Illustrated by Johan Hansols. ................................... 16
+Figure 9: Visualization of gestalt laws for an organization. Inspired by Preece et.al. (1994). Illustrated by Johan Hansols. .... 16
+Figure 10: Iterative cycle of humancentered design (modified). Inspired by Norman (2013) pp. 222. Illustrated by Johan Hansols. ........................................ 18
+Figure 11: Project timeframe................... 19
+
+Figure 12: A4 template for sketching ideas during the workshop, illustrating a drivers' view of a three-lane road. ....................... 22
+Figure 13: The two projection fields in the AR-HUD system used in concept car.... 25
+Figure 14: Explanation of how the test route was set up in the car. .................... 26
+Figure 15: The small difference in eyes focusing on road and near-field. ............ 28
+Figure 16: Sketches of scenarios and timing of graphics. (a) visualizing how a prior lane change can eliminate upcoming actions. (b) & (c) illustrating the timing of when graphics should appear in different scenarios. ................................................. 30
+Figure 17: Simple sketches of ideas. ...... 31
+Figure 18: Example of scanned post-it sketches from the first ideation session. .................................................................. 32
+Figure 19: Scanned example of how color was used to visualize graphics ideas during the workshop........................................... 32
+Figure 20: Concept A graphics inspired by traditional navigation arrows.................. 33
+Figure 21: Photographs of the result after implementing concept A into the concept car............................................................. 33
+Figure 22: Concept B visualizing navigation information with horizontal lines. .................................................................. 34
+Figure 23: Photographs of concept B graphics projected in the concept car. .. 34
+Figure 24: Concept C with a rectangle in perspective representing the position of the car. ..................................................... 35
+Figure 25: Photographs showing concept C when being projected on the windshield. .................................................................. 35
+Figure 26: Photograph from the perspective of sitting in behind the wheel of the car. Showing the size of
+
+implemented graphics. Left turn graphic projected in the concept car. ..................36
+Figure 27: Different colored graphics to evaluate. ................................................... 37
+Figure 28: Results of the formal questions prior to evaluation. ................................... 37
+Figure 29: Results from CTA. Showing how well each concept performed for the actions. .....................................................38
+Figure 30: Median value for understandability, desirability, and visibility for the three concepts. ............................38
+Figure 31: Frequency of answers for understandability for the three concepts. ................................................................... 39
+Figure 32: Frequency of answers for desirability for the three concepts..........39
+Figure 33: Frequency of answers for visibility toward outside environment for the three concepts...................................40
+Figure 34: The different colors evaluated and some comments from users............40
+Figure 35: Photograph of the different colors in concept car. .............................. 41
+Figure 36: Median values for animated graphics regarding understandability, desirability, and visibility. ........................ 41
+Figure 37: Result of re-design/refinement of graphic based on results from first evaluation. ................................................42
+
+Figure 38: Screenshot of the table where coordinates, distances, and graphics were defined. .................................................... 43
+Figure 39: First route of evaluation with guidance from AR-graphics. Map source (Google, 2022). Illustrated by Johan Hansols. ................................................... 43
+Figure 40: Second route of evaluation with guidance from traditional navigation graphics. Map source (Google, 2022). Illustrated by Johan Hansols.................. 44
+Figure 41: Results from formal questions before driving evaluation. ....................... 44
+Figure 42: Distribution of scale answers for the frequency of responses regarding the user's experience of safely operating the vehicle. ..................................................... 45
+Figure 43: Distribution of scale answers for the distribution of responses regarding the user's experience of the usefulness of the information............................................... 45
+Figure 44: Distribution of scale answers showing the frequency of responses regarding the user's experience of the timing of graphics. .................................. 46
+Figure 45: Number of glances in near-field or DIM per second of driving. Observed from video recordings. ............................ 47
+
+LIST OF ABBREVIATIONS
+
+HUD
+
+-
+
+AR-HUD -
+
+AR
+
+-
+
+VR
+
+-
+
+UX
+
+-
+
+UI
+
+-
+
+HMI
+
+-
+
+GPS
+
+-
+
+LTM
+
+-
+
+STM
+
+-
+
+CTA
+
+-
+
+DIM
+
+-
+
+Head-Up Display Augmented Reality Head-Up Display Augmented Reality Virtual Reality User Experience User Interface Human-Machine Interface Global Positioning System Long-Term Memory Short-Term Memory Cognitive Task Analysis Drivers Information Module (Display behind steering wheel)
+
+1 INTRODUCTION
+This project cover research and exploration of interaction design with an Augmented Reality Head-Up Display (AR-HUD), developing navigation features. Cars are the leading mean of transportation in personal mobility, and the number of cars in Europe reached 242,7 million in 2019 (Acea, 2021). The automotive industry is evolving towards a future of electrification, autonomous vehicles, and connectivity, creating a need to explore user experience and technology innovation (Hermann & Singh, 2020). The evolution of automotive technology has made the development of Human-Machine Interfaces (HMI) have user-centered approaches as the standard considering user perspectives in achieving usable systems (François, Osiurak, Fort, Crave, & Navarro, 2016).
+The project is carried out in Gothenburg at Volvo Cars, and Volvo Cars have a vision of zero people getting injured or killed in a new Volvo car (Volvo Cars, n.d.). The project aims to explore the user experience and interaction with the navigation feature in AR-HUD, including investigating if better perceptual and safety aspects can be achieved with the AR-HUD technology. When exploring the user interaction, graphics were designed, implemented in a concept car, and evaluated with users. The work was evaluating whether navigation in ARHUD can be used safely and correctly and if it could contribute to a safer driving environment and less cognitive workload for drivers.
+This project is a master’s thesis in Industrial design engineering at Lulea University of Technology in the spring of 2022. The project is a part of the SCREENS1 research project carried out by Volvo Cars and the Research Institute of Sweden (RISE). The goal is to contribute with industrial design engineering perspectives to the SCREENS projects’ future research about implementation of AR-HUDs in cars which include the user experiences for HMI-design.
+1.1 BACKGROUND
+Drivers’ information is historically positioned on the dashboard in cars forcing drivers to direct attention away from the road, which could ultimately cause accidents (Lee, Koo, Park, & Lee, 2021). To provide the necessary information without distracting the drivers’ attention, manufacturers started implementing Head-Up Displays (HUDs) projecting 2-dimensional (2D) visual information. This information could be recognized quickly and reduce distractions from the road. Efforts to create graphics of the surrounding road environment were found hard using 2D graphics. Lee et al. (2021) argues that 3-dimensional (3D) graphics projecting virtual images of the real environment became possible when Augmented Reality (AR) started to be explored in HUDs. AR, a relatively new technology (Boboc, Gîrbacia, & Butilă, 2020), created possibilities to integrate virtual information and objects into real environments (Himperich, 2007).
+The first AR applications were video-based screens that presented a video with AR overlays, and later technological innovation progressed into see-through windshield applications (Gabbard, Fitch, & Kim, 2014). With technological advancements, the most successful ARHUD solutions are believed to be developed by those who consider perceptual and attentional aspects in their development (Gabbard et al., 2014). Where to present information, what information to include, how users interact with the system, how to measure usability, and
+1 Vinnova project ID – Dnr: 2020–05129
+1
+
+whom to evaluate it with are significant challenges in developing driver information systems. Driving is the primary task, needing local guidance and global awareness from navigation. Local guidance refers to situational awareness and drivers’ tasks, and global awareness refers to knowing the route towards the destination and the strategic steps of getting there (Gabbard et al., 2014).
+1.2 STAKEHOLDERS
+The project’s primary internal stakeholders are Volvo Cars and RISE. They are the primary beneficiaries of conclusions contributing to the SCREENS projects parallel research.
+External stakeholders are people in a traffic environment, both the driver operating vehicles and pedestrians. This project has a user-centered approach, which implies that external stakeholders are included in the process e.g., evaluating design concepts.
+1.3 OBJECTIVES AND AIMS
+In an innovative environment like the automotive industry, exploring new technological implementations is crucial if it can benefit the user and gain competitiveness.
+The project objective is to research, ideate, implement, and evaluate a user interface design for a navigation feature in an AR-HUD. Existing technological limitations, human perception, and cognitive psychology are considered throughout the development process to develop a feasible concept to implement and evaluate.
+The project aims to design and evaluate the user interaction in an AR-HUD to achieve good user experiences and evaluate whether AR-HUD contributes to safer driving. The aim can be divided into two parts: part one aim to evaluate visual information designs. The second part evaluates user experience with drivers operating an AR-HUD car regarding perception, attention, and safety. The results of the project aim to contribute with valuable insights for future research within the subject of AR-HUDs from an industrial design engineering perspective.
+Three research questions to be answered were formulated for this project:
+1) How can information be designed and implemented to be perceived correctly and safely in an AR-HUD?
+2) What information is suitable for drivers regarding a navigation feature in an AR-HUD?
+3) How does AR-HUD affect driver attention and distraction?
+1.4 PROJECT SCOPE
+The project was performed with a human-centered design approach to evaluate the user experience for interactions with a car equipped with AR-HUD. The concept car used in this project were a Volvo XC60 equipped with an AR-HUD system from the company Envisics. Therefore, the project process could involve users at Volvo Cars to evaluate user experience and interaction with the system in a realistic environment. The focus was the interaction between driver and car, and the primary user involvement occurred in testing, but to some extent in the development of graphics.
+2
+
+The project is carried out over 20 weeks by one student working full time, and the project is equal to 30 ECTS (European Credit Transfer System). The project’s scope was limited to exploring the implementation of a navigation feature. Working alone, limiting the number of features explored was necessary to enable a thorough process and execution.
+1.5 THESIS OUTLINE
+In this section is an overview and description of the main chapters for the project presented.
+Chapter 1: Introduction
+The first chapter of this thesis report presents the background for this project and the objectives and aims. It also presents the stakeholders and research questions.
+Chapter 2: Context
+The second part of this report explains the context of the research area. Researching current practices and trends within the research field, the stakeholders working within the area, an explanation of the technology used in the area, and an analysis of competitors.
+Chapter 3: Theoretical framework
+The third chapter presents the theoretical framework relevant to this project. This chapter includes theories about Industrial design engineering, User experience design, Humanmachine interfaces, human vision, and visual perception.
+Chapter 4: Method and implementation
+The fourth chapter of the thesis report presents the process and methods used. It explains how the process were done, what the methods were and how they were performed during the process. The chapter ends with a method discussion including reflection about the process.
+Chapter 5: Result
+The fifth chapter present the results from each phase of the development process.
+Chapter 6: Discussion
+The final chapter discusses results and the relevance of the findings. Reflections about the results and the process is presented together with conclusions where the objectives and aims of the project are discussed, research questions answered, and recommendations for future work given.
+3
+
+2 CONTEXT IMMERSION
+The following chapter presents the project’s starting point and the context it is carried out within. The section present insights from an earlier project on the subject, technological innovation within the automotive industry, an overview of the technologies used, and what similar products there are today.
+2.1 PREVIOUS AR-HUD PROJECT
+In fall 2021, at Lulea University of Technology, a similar project on creating visual information in an AR-HUD was carried out. The project aimed to design conceptual prototypes and evaluate them with users. A team of students2 did this project, seen as a pilot study. Prototypes and concepts in this project did not consider any technical limitations, which decreased the feasibility of the results and conclusions. These facts considered, insights and conclusions can still be helpful in this project.
+The project’s helpful insights are that the amount of information is essential for users to perceive AR-HUD as a useful aid. Timing of graphics was concluded as a factor of a successful implementation and affordance of the graphics design. Colors were also tested, which gave insights into color usage in AR-HUD. The pilot project showed it was difficult to interview users regarding AR-HUD technology because it is new and unavailable to the public. It was difficult for users to express or define needs being unfamiliar with the technology.
+2.2 THE AUTOMOTIVE INDUSTRY
+One of the most prominent industries in Europe is the automotive industry (Casper & Sundin, 2021), and the sales of new cars in Europe in 2021 were 9,7 million vehicles (Acea, 2021). Being at the forefront of technological advancements is the goal of companies within many industries, and the automotive industry has always pioneered in taking advantage of advancements in technology (Boboc, Gîrbacia, & Butilă, 2020). AR caught the industry’s interest for its potential and accessibility to implement new and innovative solutions. Areas of advanced manufacturing, virtual prototyping, vehicle safety automation, and user-friendly interface design that improve user and driving experience are areas where the automotive industry has advanced over the recent years with the implementation of AR (Boboc, et al., 2020).
+2.3 VOLVO CARS
+As one of the stakeholders for this project, Volvo Cars have implemented HUD solutions projecting information on the driver’s windshield (Volvo Cars, 2020). Volvo’s HUDs display information on current speed, cruise control, navigation, road signs, and warning messages on a single virtual image plane projected at two meters in front of the driver (Volvo Cars, 2020).
+2.4 AUGMENTED REALITY
+The meaning of the word Augment is strengthened or amplified (NE, n.d.) which gives the meaning of Augmented Reality (AR) being strengthening- or amplifying reality.
+2 Aly Bardan, Linnea Bergensten, Jenny Gräsvik, Johan Hansols & Simon Vicini.
+4
+
+A definition, without limitations of technology, of Augmented Reality has the following characteristics (Azuma, 1997; Rebbani, Azougagh, Bahatti, & Bouattane, 2021):
+1) Combination of virtual and real objects in a real-world environment. 2) Interactions in real time. 3) Both virtual and real objects align and are registered in three dimensions.
+AR is a variation of Virtual Reality (VR) (Azuma, 1997). In VR, users are completely immersed in a virtual environment and cannot experience their surroundings. In AR, the user can experience the real world with virtual graphics superimposing the real world (Azuma, 1997; Rebbani et al., 2021). AR supplements reality with virtual graphics without replacing it, enabling the real world and digital objects to be perceived as co-existing (Rebbani et al., 2021). AR helps users notice information from their surroundings with digital information enriching objects that users cannot notice directly and help perform tasks in the real world (Azuma, 1997).
+2.5 HEAD-UP DISPLAYS
+A Head-Up Display (HUD) is a display system superimposing virtual images upon a seethrough display in the users’ field of view, either the windshield or a separate combiner (Stevens, Quimby, Board, Kersloot, & Burns, 2002). Historically, first being implemented in fighter jets for pilots to have information presented in their field of view (Rizov, Kjosevski, & Tashevski, 2017). The automotive industry first saw a HUD implemented into a car in 1988 when an Oldsmobile Cutlass Supreme was equipped with a HUD (Pauzie, 2015; Rizov et al., 2017). Interest from manufacturers and users was back then low due to issues with the technology. It has taken until recent years for the maturity and advancements of HUD technology to be sufficient for the vehicle industry to gain interest (Pauzie, 2015).
+Advantages with HUD technology are reducing the need to adjust views between the road and displays on the dashboard and other parts of the vehicle interior. This reduces the need for drivers to adjust eye focus between information displays and the road and increases time keeping their eyes on the road (Rizov et al., 2017).
+2.5.1 ENVISICS AR-HUD TECHNOLOGY Technology from Envisics installed in the concept car has their Dynamic Holographic platform, which can simultaneously project graphics displayed at multiple distances, enabling AR graphics to be projected at a further virtual image distance than conventional HUD technology (Envisics, 2022). The virtual image distance of Envisics technology is 8 to 10 meters (Envisics, 2022), whereas conventional HUDs have an image depth of 2 to 3 meters (Lee, et al., 2020), see Figure 1. A further virtual image distance help reducing the eyes frequently refocusing (Deng, Ye, Chen, & Yang, 2021).
+Other HUD systems have a loss of more than 90% of illumination during projection. This wastes energy and creates heat, whereas with their technology that harnesses and controls lasers, it utilizes these wastes, and losses are decreased while generating high levels of clarity, depth, and saturation of the imagery (Envisics, 2022).
+5
+
+Figure 1: Illustration of different virtual image distances of projection between AR-HUD and conventional HUD.
+2.6 AUTOMOTIVE NAVIGATION SYSTEMS
+The main objective of automotive navigation systems is to guide drivers from location A to destination B (Schaub, Hipp, Kargl, & Weber, 2013). It utilizes Global Positioning Systems (GPS) that collect geographical coordinates of objects on the earth’s surface and present an exact location and velocity in real time (Hofmann-Wellenhof, Lichtenegger, & Collins, 2012).
+Different features are integrated into HMI systems to communicate the route during guidance (Schaub, et al., 2013). Most systems have three primary display sources: an electronic map, turn-by-turn directions, and a list of maneuvers (Lavie, Oron-Gilad, & Meyer, 2011). Electronic maps are used to visually represent areas around the vehicle where the route is indicated with color, and some cursor indicates the vehicle. When driving on the given route, the display scrolls down, showing future navigation on the map. Users should only need to glance at electronic maps and other navigation displays when searching for guidance, which gives importance to systems designed to give information clearly and easily perceived (Lavie, et al., 2011).
+2.7 COMPETITOR ANALYSIS
+Today there are few existing solutions for an AR-HUD in cars implemented on the market. Two manufacturers have launched car models with AR-HUD as an option: Mercedes Benz (Mercedes Benz, n.d.) and Volkswagen (Volkswagen, 2021). In addition to these manufacturers, other car manufacturers and technological companies also develop conceptual solutions of AR-HUD systems. Skoda and Peugeot (PSA), and the technological developers AGC Glass and Envisics has created concepts for AR-HUD.
+Because of not having access to most car models with AR-HUD, different car reviewer videos were used to explore the competitors. The following list of criteria is based on initial hypotheses of what is essential for design of AR-HUD graphics:
+o What color do the navigation elements have? o How are visual elements designed? o Are graphical elements static, or are there animations? o Are elements see-through, and are they covering the surrounding driving
+environment? o What information is presented by the visual elements? o In what traffic situations are the solutions aiding drivers?
+6
+
+When the analysis was performed, the solutions were analyzed based on the criteria above and summarized in Table 1 below. This table shows the differences between the design and attributes of the solutions.
+Table 1: Summary of the competitor solutions analyzed.
+7
+
+Analyzed solutions highlight indications of upcoming turns e.g., having chevrons hovering over an intersection informing the driver to turn in a certain direction. How information is presented differs between manufacturers. Mercedes Benz´s graphics pivot around in real time and animate to create instructions, while Volkswagen and Skoda have static graphics changing in size, creating a perceived image depth. Envisics, Peugeot, and AGC Glass´s concepts all have two graphic elements indicating the route. They use either chevrons or arrows showing directions to drive and highlighting lanes with carpets that follow the lane.
+The use of colors is all some variation of blue color hue. Most of the graphics have a cyan nuance for their navigation elements. The use of cyan probably relates to research indicating that cyan is one of the most stable and reliable colors to use in HUDs towards real environment backgrounds (Zhou & Yin, 2021; Meranda, Smith, Gabbard, Burnett, & Large, 2016). Mercedes Benz, Peugeot, and AGC Glass utilize different nuances of blue to contrast borders to fill graphics.
+2.7.1 TRY IT YOURSELF In this project, the technology is still unexplored and can be challenging for users to imagine, making Try it yourself a great way to explore an existing product. Volvo Cars have competitor cars and the possibility to test drive a Volkswagen ID3 equipped with an AR-HUD. Test driving the car in Gothenburg without previous experience of the city’s traffic environment made for excellent conditions to try the navigation feature.
+Volkswagens AR-HUD navigation did not provide information on where to position the car, only displaying arrows for right-/left turns and keep going straight. In situation (A), illustrated in Figure 2, the situation was not understood as needing changing into one of the two leftmost lanes to follow the road going left. The need for graphics giving guidance locally and information on where to position the car was a key takeaway from driving the ID3. Alternative graphics should communicate the placement of the car in the left lanes to get on the correct route, see situation (B) in Figure 2.
+Figure 2: The identified need for local guidance. The left illustrates graphics seen in Volkswagens UI, right illustrates an example of alternative graphics to communicate a lane change.
+Test driving the ID3 also raised questions about whether cyan is the best color to use in ARHUDs. The question is whether cyan is the most easily perceived and understood color to use in AR-HUDs. The cyan graphics were hard to perceive when displayed as being further away when driving the ID3, and the graphics were tiny. It took a while to see if the chevrons indicated to the left or right because the graphics were small at a distance, and the cyan color was hard to distinguish from the environment background.
+8
+
+3 THEORETICAL FRAMEWORK
+This section of the project presents the theoretical framework of the field of industrial design engineering, user experience design, human visual senses, and visual perception. This section aims to give insight and knowledge of challenges and possibilities for an AR-HUD and underlying factors that affect interaction with the technology.
+3.1 INDUSTRIAL DESIGN ENGINEERING
+This master’s thesis project is within the field of industrial design engineering and this section presents a description of industrial design engineering.
+Product development is an interdisciplinary process having contributors from different disciplines and knowledge (Kim & Lee, 2010). Product development has needed design engineers to create functional solutions for the product, while industrial designers were responsible for the outside appearance (Kim & Lee, 2010). When product development started focusing more on human and market needs, the user experience became a critical factor in product development (Persson & Warell, 2003). Industrial design engineers have interdisciplinary knowledge in both design engineering and industrial design, being familiar with a complete product development process (De Vere, Melles, & Kapoor, 2010). They know engineering science, technology, and mechanics combined with psychology, arts, and craft (Schaefer, Eckert, & Coates, 2019). Design is described as making sense of things (Krippendorff, 1989), and balancing theory and practice (Buchanan, 2001). Buchanan (2001) describe design as:
+“Design is the human power of conceiving, planning, and making products that serve human beings in the accomplishment of their individual and collective purposes.” (p.9)
+Design, when described as making sense (of things), create a paradox between creating the product and making sense of it to be understandable and recognizable (Krippendorff, 1989). A circular cognitive process aiming to make sense of things includes shifting from an incomprehensible perception of information into trying to understand a hypothetical context until it converges into a reasonable understanding of the information perceived (Krippendorff, 1989).
+3.2 USER EXPERIENCE DESIGN
+This section describes the field of User Experience (UX) design as this project has a UX design approach, involving users to get feedback on the interaction with the product. UX design has become a fundamental approach in the product development of interactive products over the last decade (Hassenzahl & Tractinsky, 2006).
+According to Norman (2013), one of the most remembered aspects of using products are the interactions, making it essential when designing for human use. He proceeds that interaction errors should never be blamed on the user but instead on designers not considering human physical-, psychological-, and emotional needs in product development. Hassenzahl & Tractinsky (2006) imply that today interactive products have matured from useful and usable into fashionable and desired by users. They mean that UX has had the purpose of preventing usability problems but is shifting towards bringing quality to life and has, therefore, shifted beyond interaction with products. They define modern UX design from the three perspectives in Figure 3.
+9
+
+Figure 3: Modern UX-design perspectives. Inspired by Hassenzahl & Tractinsky (2006) pp.95. Illustrated by Johan Hansols.
+The first perspective is designing beyond the instrumental, which suggests looking beyond usability testing and measuring the task-based performance of products (Hassenzahl & Tractinsky, 2006). This perspective considers aesthetics and hedonic (pleasurable) aspects an important part of the user experience. It fulfills underlying human needs of stimulation, personal growth, and perfection of skills and knowledge to gain non-instrumental aspects that create more holistic design experiences (Hassenzahl & Tractinsky, 2006).
+Emotional and affectional aspects of products are the second aspect Hassenzahl & Tractinsky (2006) say is influential on today's UX design. Some product interactions come automatically for one user while bringing positive emotions to others. Hassezahl & Tractinsky (2006) bring up the example of a key bowl inside the entrance door of a home. The father might put the keys in without much thought, while the children might get positive emotions of being home when seeing their father put them there. This example displays the effects of products linked to emotional and affectional rituals. They mean that by including human affection and emotions as a consequence and mediator of interaction with a product, designers can create interactive products by giving great experiences. Designing for positive emotions and affection might be hard to control, but considering user emotions and affection can set the context for positive emotion and affect (Hassenzahl & Tractinsky, 2006).
+The third aspect of UX design is experiential. It is a temporary and situated experience based on the product and users' internal states, e.g., the users' expectations, mood, and goal (Hassenzahl & Tractinsky, 2006). Combinations of these elements modify each other and create a process with a start and end, creating the experience. This means that products influence users differently depending on situation, e.g., looking at their nice car in the garage versus what they feel driving the car on a beautiful road in beautiful weather. The experiential aspect thus implies the situated and temporary effect of users’ experiences. Considering this in product development, rather than viewing interactive products as transparent, blending in and hardly recognized can elevate user interactions. Judgment of experiences and the actual experiences are seen as related but not the same (Hassenzahl & Tractinsky, 2006).
+10
+
+3.3 HUMAN-MACHINE INTERFACES
+Theory of Human-machine interface (HMI) design and interactions with HMI´s are highly relevant for this project since the interaction between driver and the car (AR-HUD) is what this thesis aims to explore.
+People and machines are very different, where people are creative, versatile, and flexible (Norman, 2013). On the other hand, machines are precise, inflexible, and static in operations, which creates a mismatch that can be beneficial if implemented correctly (Norman, 2013). Good HMI´s are when humans and machines work as a collaborative system in symbiosis with each other (Osvalder & Ulfvengren, 2015; Norman, 2013). HMI systems can be built up as a cycle, where humans and machines interact to solve tasks in different contexts, see Figure 4 (Osvalder & Ulfvengren, 2015).
+Figure 4: Cycle of an HMI process. Illustrating interaction and bridges between human and machine. Inspired by Osvalder & Ulfvengren (2015) pp.401. Illustrated by Johan Hansols.
+Norman (2013) means there are voids that system design must create bridges between humans and machines in this cycle. He calls these the gulf of execution and the gulf of evaluation that connects humans and machines in the cycle. For HMI´s to create purpose for users, the system must have good usability, meaning it has relevant and working functions and is easy and safe to operate and understand for users (Osvalder & Ulfvengren, 2015). Creating the bridge of execution, the user interface design must inform the user of the actions available in an understanding way (Norman, 2013). The bridge of evaluation needs to display feedback on the results of the actions, giving users easily perceivable and accurate representations of the system's status. The user can then act according to their goals (Norman, 2013). Problems occurring at the gulf of execution, Osvalder & Ulfvengren (2015) say, are when the operators' mental goals do not translate into action and when the operators' goals are clear. However, they do not understand how to execute them. When these problems happen, the operator must think of what he or she can do and what it leads to, what possible actions there are, and if the action gets them closer to their goal. At the gulf of evaluation, Osvalder & Ulfvengren (2015) say that problems are difficult to evaluate if the machine's information output corresponds to a mental goal and the operator sees the information but does not know what it is. For these issues, they mean it is the designers' responsibility to question whether the information is understandable, if it gives a good representation of the machine's status, and if the information aligns with reality.
+11
+
+3.4 HUMAN INFORMATION PROCESSING
+Standard theories about information processing suggest it is a one-directional process, whereas the modern model suggests that components constantly interact with each other (Ashcraft & Radvansky, 2009). This section presents a general model of modern information processing and its components, see Figure 5. The components covered are the perceptual encoding and central processing. These components include theory about how visual information is acquired, the process of encoding the information, human attentional resources, and how the information is stored in memory stores.
+Figure 5: A model for human information processing. Inspired by Wickens et al., (2013) pp.102. Illustrated by Johan Hansols.
+3.4.1 ACQUIRING VISUAL INFORMATION Human vision is the most dominating sense for perceived input from our surroundings (Wade & Swanston, 2013). Human information processing starts with the eyes processing enormous amount of visual information and compressing bits of information from 120 million to about 1 million before reaching the cognitive system (Ashcraft & Radvansky, 2009). The eye receives light waves focused and inverted by the lens and then projected onto the Retina, see Figure 6. Most accurate and precise vision is achieved on the Fovea, and light hitting the Retina twenty degrees from the Fovea results in the peripheral vision. From the Retina, signals are transported toward further cognitive processing via optical (Ashcraft & Radvansky, 2009).
+Figure 6: Anatomy of the eye. Inspired by Ashcraft & Radvansky (2009) pp.67. Illustrated by Johan Hansols.
+12
+
+3.4.2 DECODING INFORMATION After the amount of information has been processed through the eyes, the cognitive systems start encoding input into a usable mental form. The human mental processes have parallel processing of different stimuli simultaneously called parallel processing (Ashcraft & Radvansky, 2009). This is a rapid process where features, orientations, colors, textures, and movement patterns are extracted in a bottom-up data-driven fashion from the environment (Ware, 2019).
+Following this rapid first stage of encoding visual information is the pattern processing, where a slower process of dividing the information based on simple patterns, similar colored regions, continuous contours, or similar textured regions. Creating small groups of similar entities of information then either goes on to parts of the action system or the object recognition. The last stage is visual cognition, where construction of the information and patterns perceived is formed from visual queries to be answered from memory stores (Ware, 2019).
+3.4.3 MEMORY In human information processing, two memory stores are involved: Short-term memory (STM) and Long-term memory (LTM) (Ashcraft & Radvansky, 2009). STM is a temporary and limited memory store only holding information active in the cognitive process for short periods (Wickens, Lee, Liu, & Gordon-Becker, 2013). It is the memory containing either perceived information or retrieved information from LTM, waiting to be further mentally processed. The time that information remains in STM decay over time but can be reactivated when rehearsed. An optimistic definition made by researchers is that capacity in STM is no more than 7 ±2 chunks of information at once. Chunks are created when associating different information with each other, and these associations can be based on familiarity and past knowledge. Chunks help the capacity of STM to increase and make the information more likely to be transferred to the LTM. In LTM, information is no longer active where it can be stored for a longer time and retrieved later (Wickens et al., 2013). LTM stores inactive information learned from experiences and stores it in categories (Osvalder & Ulfvengren, 2015). Information in LTM is essential in perceiving information because of abilities to reference perceived stimuli to stored information in LTM. It helps when decoding perceived information and is particularly important when inadequate stimuli are perceived (Osvalder & Ulfvengren, 2015).
+3.4.4 ATTENTION In traffic environments, some events cause minimal distraction to the driver’s attention, while others distract attention making their ability to drive the car suffer (Ojsteršek & Topolšek, 2019). Driver’s attention is influenced by mind wandering, daydreaming, decision making, and usage of vehicle systems, e.g., radio or navigation, all connected to human cognitive processes. These influences can reduce driver performance and is one cause of accidents in traffic (Ojsteršek & Topolšek, 2019).
+The human resources for attention are limited, and the more scattered the attention is, the quality of how the surrounding is understood gets worse (Osvalder & Ulfvengren, 2015). Depending on the stimuli and the driver’s interests, motives, and experience, the driver can direct attention toward what is important. Two essential types of attention are, selectiveand shared attention.
+13
+
+Osvalder & Ulfvengren (2015) mean that Selective attention is the ability to distribute the cognitive capacity by focusing on particular information for brief moments. Further suggesting that there are four factors to what information is attended to:
+- How prominent and clear is the information: Flashing information, and sudden appearances can be hard to overlook. - What the individual expects to appear: expectations originate from past experiences, and individuals search for information where it is expected to be found. - The information’s value to the individual: the information needs to be relevant, useful, and important for the individual. - Effort needed to gather the information: if the information is demanding to gather, the individual might overlook it. It is dependent on the size of the selection when selecting one out of three is done effortlessly, while one out fifty is far more demanding.
+Shared attention Osvalder & Ulfvengren (2015) suggests is the human ability to attend to several sources of information simultaneously without loss of information. They say that the ability to attend to a more significant number of information sources is easier with more experience when, e.g., driving a car. An experienced driver can perform secondary tasks, even if driving in poor weather and rush hour traffic. In contrast, a novice driver solely needs to focus on the surroundings and drive safely. Osvalder & Ulfvengren (2015) signifies three factors for shared attention:
+- How much effort does the primary task, e.g., driving a vehicle, demand from the induvial. Driving a vehicle demand less attention from experienced drivers. - Similarities of attention needed. If information demands activation of the same senses in response to stimuli, e.g., two stimuli needing visual attention are difficult to attend to at the same time. - How much switching between information sources is needed.
+These types of attention summarize human attention as selective attention that help individual attend to certain stimuli and shared attention that attends to the number of stimuli that can be processed (Osvalder & Ulfvengren, 2015).
+3.5 SITUATION AWARENESS
+Situation awareness (SA) is vital for drivers to perceive the environment around them and understand the situation, both in the moment and in the near future, to make appropriate actions leading to their goal (Endsley, Bolté, & Jones, 2003). Automotive information system design should support SA in communicating environmental information to drivers in an easily perceivable way. Traffic environments carry complex and dynamic situations making decisions in traffic dependent on drivers' awareness of what the situation around them looks like. In these situations, SA is a driver for decision making and performance. Endsley et al. (2003) say that SA is a constantly changing image of the environmental state. If systems are designed with a high level of SA, the users can more easily achieve their objectives with the system. They say that SA is a goal-oriented process meaning that objects in the environment are based on the goal or job set out to achieve. Therefore, designing systems with high SA must have a goal-directed methodology to know what data users must be aware of. SA directly supports the cognitive process of the users with it being a key aspect of decision making, and often interaction errors occur because users misunderstand the situation of use (Endsley et
+14
+
+al., 2003). In the cognitive process, distributed cognition is a microanalysis of situations when performing tasks (Preece, et al., 1994). In this process of microanalysis, SA is of importance when human senses pick up glances and audible cues from the states of the situation.
+Endsley et al. (2003) mean that fundamental for designing systems with high SA is keeping users in control. Users having control over the system and simultaneously at high levels of SA will result in usable and user-centered designs.
+3.6 VISUAL PERCEPTION
+The visual system can perceive objects in bright light and the darkest of night and rapidly moving or disappearing objects. There are different theories of how humans perceive things, including constructive- and ecological perception. The two theories disagree on the process of perceiving things (Preece, et al., 1994).
+3.6.1 CONSTRUCTIVE PERCEPTION THEORY In constructive perception theory, Gregory (2015) says that information is influenced by representations and memories constructing mental models of perceived information from retinal images. This conception implies that humans create hypotheses based on memories and representation when perceiving visual information (Gregory, 2015). The constructive approach suggests that when perceiving a text, humans can perceive the text “THE CAT” differently, see Figure 7. Even though the middle letter in the two words is the same, it is perceived as an H and A because of the context it is perceived in (Preece, et al., 1994).
+Figure 7: Illustration of how the same letter H is perceived as an H in "THE" and an A in "CAT" because of the context we perceive and read it in. Inspired by Preece et al. (1994) pp. 78. Illustrated by Johan Hansols.
+3.6.2 ECOLOGICAL PERCEPTION THEORY The ecological theory for visual perception is the idea of perception being a straightforward process rather than being a mental process in the brain (Gibson, 1979). The theory suggests that humans actively explore environments and understand how to interact with them from objects, events, or systems (Gibson, 1979). Knowing if objects of the environment are possible to interact with, easily perceived affordance becomes a link between perception and action, while poor affordance leads to failed interactions (Gaver, 1991). Therefore, affordance is central in the ecological approach to visual perception because it suggests that when perceiving the world, humans are actively looking for ways to interact with objects (Gaver, 1991). An everyday example of the ecological approach and perceived affordance is door handles. How people perceive them and whether to push or pull, see Figure 8. The vertical handle affords pulling, while the horizontal affords pushing (Gaver, 1991; Norman, 2013).
+15
+
+Figure 8: Affordance of different door handles suggesting different actions. Inspired by Gaver (1991) pp. 80. Illustrated by Johan Hansols.
+3.6.3 GESTALT GROUPING PRINCIPLES Utilizing gestalt grouping principles when designing visual information for HMI´s can be a good way of designing comprehensible interfaces.
+The most basic principle is the figure-ground principle. It implies that when perceiving an image, part of the image is considered in the foreground (the object) and segregated from parts which the object is set upon (the background) (Ashcraft & Radvansky, 2009). Gestalt psychologists researched gestalt laws of the perceptual organization during the middle of the 20th century (Preece, et al., 1994). The psychologist of the time believed that the interpretation of objects and scenes could be understood from pattern- and organizational laws during perception. These laws were a consequence of the constructive theory of perception. The perceiver can interpret information based on prior knowledge from specific patterns or organizations of shapes from visual stimuli. These principles were defined as proximity, similarity, closure, good continuation, and symmetry, see Figure 9. The laws suggests that symmetry group elements close together, and similarity group similar elements (Lidwell, Holden, & Butler, 2010). Closure is perceived as elements in a set are together in the context. Good continuity are elements placed in formation of a curve and are perceived as grouped. Symmetrical elements are perceived as a unity when mirrored (Lidwell, Holden, & Butler, 2010).
+Implementing the principles, patterns and organizations can be perceived as a whole and give meaning and understanding (Preece, et al., 1994). Another principle is Common fate which means that elements that move in the same direction is perceptually grouped (Lidwell, Holden, & Butler, 2010; Ashcraft & Radvansky, 2009). For example, if objects are move in an environment with other static objects, it is easier to perceive as a grouped object than if it remains motionless (Ashcraft & Radvansky, 2009). Common fate can be applied for grouping moving- and flickering objects if the elements' velocity and frequency are consistent (Lidwell, Holden, & Butler, 2010).
+Figure 9: Visualization of gestalt laws for an organization. Inspired by Preece et.al. (1994). Illustrated by Johan Hansols.
+16
+
+Easterby (1970) suggests that pattern graphics are perceived differently if composed of outlines or solid colors when creating guiding graphics. He means that by creating “figural goodness” when designing graphics, they are easier to perceive. When having solid graphics they are perceived as contrasting to the background resulting in an easy perceivable element compared to outlines. Easterby (1970) also say that solid elements are perceived in the foreground of less important outlined graphics when designing functional graphics.
+17
+
+4 METHOD AND IMPLEMENTATION
+In this section, an explanation of the development process and the methodology used is presented. The section presents the methods used, and how they were implemented in this project.
+4.1 PROCESS
+The process of this project follows a slightly modified version of the iterative cycle of humancentered design. Typically having stages of observation, ideation, prototyping, and testing that conclude one iteration cycle. These stages are then repeated until the results are satisfactory (Norman, 2013). There are no templates for specific problems to solve, and all design strategies need to consider the nature of the problem (Wikberg Nilsson, Ericson, & Törlind, 2015). For this project, the stages were modified into ideate, implement, test, and analyze because of the unfamiliar technology making user observation difficult, see Figure 10. The process included users during evaluations to get feedback of the concepts created before going into next iteration. The iterative process was chosen because the right solutions are often not found directly (Preece, Rogers, & Sharp, 2015). The first iteration of the project focused on understanding the context of the technology, ideating, and evaluating different designs of navigation information graphics. Following the first iteration, the focus was directed to refinement of graphics and evaluating perceptual, safety, and attentional aspects with users. During these two iteration cycles, testing concepts with users focused on evaluating different aspects of the interaction with the system. The first iteration evaluated the designs of different graphics regarding the interpretation of actions to make, visibility toward the environment, and what graphics are desirable in the AR-HUD. This evaluation aimed to give insights of how to design visual information before moving on to the next iteration that focused on evaluating the user experience when using the system in a realistic environment.
+Figure 10: Iterative cycle of human-centered design (modified). Inspired by Norman (2013) pp. 222. Illustrated by Johan Hansols.
+18
+
+4.2 PROJECT PLANNING
+At the start of the project, a meeting with the supervisor at the Lulea University of Technology was set. The extent of the thesis project and what could be expected were discussed. The same week, another joint meeting was held with supervisors from the university and Volvo Cars, and people from RISE involved in the SCREENS research project. Getting their view of the extent and expectation provided valuable information for the planning. With experience from a previous project with AR-HUD, a similar approach with the iterative process was decided. The extent of the project was defined as exploring navigation use cases for AR-HUD. When the scope and extent of the project were roughly set, an estimated plan of the time available was created, setting a rough idea of the time needed for each iteration and stages in the iterative cycle. The first iterations were planned to explore the design of navigation information graphics in AR-HUD. The subsequent iterations were planned to focus on refinement of graphics design and implementing them in a realistic driving situation to evaluate with users. The initial plan was performing three iterations, and a rough time plan was set accordingly. This time plan was changed during the project due to stages taking more time than expected resulting in the time plan in Figure 11.
+Figure 11: Project timeframe.
+4.3 CONTEXT IMMERSION
+To explore and describe the context and starting point of this project, and the context section of this thesis presents the research and information necessary to give the reader sufficient knowledge leading up to this project. Methods presented in this section were implemented in chapter 2.
+4.3.1 COMPETITOR ANALYSIS Competitor analyses during design projects gain valuable insights when researching design development projects. Competitive design solutions show features, functions, and flows that design solutions in development must compete with (DaSilva, 2020). It is essential to consider how competitors create their solutions and could evolve solutions in the future to distinguish the projects solutions to theirs (Wikberg Nilsson, Ericson, & Törlind, 2015).
+19
+
+4.3.2 TRY IT YOURSELF The technique Try it yourself let designers and researchers pose as the user and explore firsthand what needs there might be for the product area (Think Design, n.d.). Researchers can put themselves in users’ shoes and explore the context and experience the same actions or things as users do, gaining empathy for users, defining problem areas, and understanding user behavior and needs without having to make assumptions (Think Design, n.d.).
+4.4 LITERATURE REVIEW
+Milton & Rodgers (2013) say that writing comprehensive literature reviews can be summarized into five important steps. Beginning a review, the first step is defining questions or problem areas to research. Second step is data collection which begins when the problem statement and field of research is defined. Where to collect data from and how to collect it is critical to cover as much of the topic as possible. The third step is evaluating the data and sources, gaining an understanding of the data, and defining the sources credibility and authenticity. After collecting and evaluating data, the fourth step is analyzing and interpreting the data to understand the most important information about the source’s topics. Lastly, a literature review needs a structured presentation of the data gathered. It gives a rich overview of the subject and displays structure when presenting the issues, objectives, and different opinions on the researched subject (Milton & Rodgers, 2013).
+Performing the literature review in this project, research was done thoroughly within several different subject fields. Research fields and search words were industrial design engineering, user experience design, human-machine interfaces, head-up displays, augmented reality, augmented reality head-up display, human-computer interface, visual perception, and situation awareness. Sources to collect data for reviewing the topics were scientific articles, journals, books, and conference proceedings collected from the university database, Google scholar, and theoretical literature. The evaluation of sources was done through looking at the number of citations the sources had and evaluating where the publication was made. Sources relating to the automotive industry were collected to the best extent. Other industries were also relevant to research to get different perspectives on the same topic.
+4.5 FIRST ITERATION - IDEATE
+This iteration emphasizes exploring ideas on how visual information could be designed and evaluated with users. The project's first iteration aims to explore different graphics designs to guide drivers on their route to their destination.
+4.5.1 SKETCHING While exploring the context and working on this project, pen and paper have always been beside the keyboard for the opportunity to sketch ideas that pop up quickly. It enabled remembering ideas for later.
+Some say a “conversation” between mind and sketch is created from knowledge and interpreted from the resulting representation, creating new knowledge (Buxton, 2010). Others argue it is a way of self-reporting thoughts or restructuring ideas (Verstijnen, van Leeuwen, Goldsmith, Hamel, & Hennessey, 1998). Pen and pencil sketches are intuitive, rapid, and often vague and unspecified, with the possibility of creatively reconstructing new representations of perceived sketches (Verstijnen et al., 1998).
+20
+
+Sketching was used as a self-reporting and visualization tool to quickly get thoughts and ideas down and documented. When exploring the context of the project, many ideas of came to mind when exploring different topics. Later, it was easy to look at those ideas, re-iterate, or digitalize them by quickly sketching them on paper.
+4.5.2 IDEA GENERATING WORKSHOPS Ideation workshops with people from different backgrounds were held during the ideation process, which is a great way to generate ideas and further explore the problem area.
+The primary purpose of having a workshop is to invite people outside the design team to explore a specific problem area or subject and get an outside view of the problem (Wikberg Nilsson, Ericson, & Törlind, 2015). Planning should start by setting the agenda, rules to follow, roles, and an expected time needed (Methodkit, n.d.). What problem settings, conditions that apply, and possible outcomes should be considered to understand resources needed, people to invite, and how to design the contents (Wikberg Nilsson et al., 2015). An ice breaker exercise is an excellent start to the workshop to achieve a creative mindset and comfortable setting. Then exploring the present gives an understanding of the problem area. When starting to ideate possible solutions, a “how might we...?” and “what if…” mindset helps with creativity. Before ending the workshop, a summary of what has been achieved should be presented (Wikberg Nilsson, et al., 2015).
+The exercise Flip book aims to acquaint everyone with each other and warm up before creative sessions (Lindqvist, 2020). The exercise aims to produce an introductory flipbook introducing everyone to each other using post-its. Nine questions are to be answered either by a sketch or text. Questions easy to sketch are described with text and vice versa. Thirty seconds per question make participants think and act quickly. Either let everyone present their flip book or let someone else do it (Lindqvist, 2020).
+Creating ideas was the main objective of the workshop sessions, and two variations of brainstorming were done to achieve it. Brainstorming means using the brain to storm creativity to solve a problem, and it is one of the most well-known and used methods for creating ideas (Wilson, 2013; Osborn, 1953). It was invented by Osborn back in the 1940´s and 1950`s, but the main principles of the method are still used today (Wilson, 2013). Judgment is ruled out during the session, wild ideas are encouraged, quantity of ideas is wanted, and combinations or improvements of ideas is sought (Osborn, 1953; Wikberg Nilsson, et al., 2015). The facilitator should start by defining the theme, stating the rules, and explaining what is being ideated (Wikberg Nilsson, et al., 2015). Ideas are sketched or written on post-its or paper, and sessions are better kept short because when ideas run dry, the session ends or transitions to the next step.
+The workshop was held on three separate days in this project, with four people the first day and two people on the last two occasions. Participants had hardware, software, and design backgrounds. The purpose was to explore graphics design ideas beyond the traditional arrows often used in navigation. Starting by introducing the focus area of local guidance, guiding drivers to position their car correctly, but trying not to influence participants with too much information about existing solutions. Before starting the workshop, the agenda was introduced, see Appendix A.
+21
+
+Nine questions were planned for a fun and creative introductory exercise when starting with the Flipbook ice breaker. Following the questions, each participant presented the flip book of the person to the left to end the warm-up exercise. The ideation was divided into parts of reversed brainstorming and traditional brainstorming. The reversed brainstorm aimed to think outside the box, and ideas of how not to design guiding graphics were sketched and presented, opening for discussion. Attempting to solve the problem was initially sketching and writing ideas on post-its. Templates of a driver's view of the road were created to ease the sketching of ideas after the first session, see Figure 12. Scenarios of turning, changing lanes, holding the lane, and going into a roundabout served as the base for generating ideas. Results were presented and discussed before ending the workshop.
+Figure 12: A4 template for sketching ideas during the workshop, illustrating a drivers' view of a three-lane road.
+4.7 FIRST ITERATION - IMPLEMENT
+Implementation of graphics in this iteration used a trial-and-error approach. Sketched ideas were digitalized and tried both in a simulation website and in the concept car. This way, the graphics could be viewed in the real environment of the implementation. 4.7.1 DIGITALIZING GRAPHICS Digitalizing the three concept ideas from ideation were done with Adobe Illustrator and Photoshop. Illustrator can enhance drawings with 3D effects (Adobe, 2022). Since AR graphics are supposed to enhance a 3D environment, it was a great tool. Creating animated graphics, frames were created with Illustrator and exported to Photoshop as an image sequence, compiled and exported in a .gif-format. Making animated graphics this way enabled adjustments in animation speed and duration.
+22
+
+4.7.2 IMPLEMENTING IN THE CONCEPT CAR The implementation in this iteration was made possible by an administrative software built by one of the engineers at Volvo Cars. This enabled the HUD unit to be used as a projector and controlled manually. Before testing graphics in the car, they were tested on a webpage using the code language React. React is a programming framework used to create user interfaces (UIs). It is component-based, and the basis of the framework is JavaScript (React, 2022). The code was built by one of the software engineers at Volvo Cars. Testing the graphics in both simulations and the car enabled minor design, size, and color adjustments before performing user evaluations.
+4.8 FIRST ITERATION - EVALUATE
+In the first iteration, the evaluation of graphics design aimed to see how drivers understood the visual information presented to them when operating the car. Nine people who works at Volvo Cars participated in the evaluation. The goal was to understand how users perceive different design concepts and ultimately indicate what design is most easily understandable, desirable, and visible. The test was held operating the concept car, and the users were presented with the three concepts, different colors, and animated graphics. Before the evaluation, the users got to answer formal questions about their driving experience, navigation experience, and if they have used HUD before.
+4.8.1 COGNITIVE TASK ANALYSIS Cognitive task analysis (CTA) was performed to understand how users cognitively understand the design concepts. Think-aloud was used to let users verbally express their thoughts during the CTA.
+In real-life environments, human processing is a continuous process of understanding and finding the best solutions to perform specific tasks (Rosli, Alias, & Rahman, 2016). Perceiving clear information and feedback from a User Interface (UI) helps users make ideal decisions. CTA is an exceptional method to use when aiming to analyze and understand participants' cognitive processes while performing tasks with a system (Rosli, et al., 2016). Gordon & Gill (1997) say no single definition of what could be evaluated with the CTA method, but it generally involves novices or experts performing tasks. One way to use CTA is to let participants verbalize their thoughts while performing tasks in a realistic-, task-realistic, or context-realistic environment (Gordon & Gill, 1997).
+The think-aloud method is performed with participants talking aloud when performing tasks, and the method originates from research on cognitive processes (Jaspers, Steen, Van Den Bos, & Geenen, 2004). Jaspers et al. (2004) suggests that the method is practical because it is easier for people to verbally report their thoughts when performing the task than describe a thought process separately. They mean it is a direct method of gaining insight into the human problem-solving process. To generalize participants, subjects to think-aloud should be within an unspecific area of expertise (Van Someren, Bernard, & Sandberg, 1994).
+In this evaluation, CTA was performed using think-aloud as the reporting method for verbally expressing the understood actions. The test track did not enable drivers to make the actions, although putting them in a realistic environment maneuvering the car. All concepts had four different actions displayed to the driver: turn left, take the third exit in the roundabout, change lane to the right, and hold the lane placed to the right. While driving
+23
+
+around the test track, these variations were shown: one concept and four actions per lap. When graphics appeared, users were instructed to say aloud what action the graphics were telling them to do. If correct action was expressed, that graphic got one point in the evaluation form, see Appendix B. If the user misunderstood the action, that task got zero points. The learnability of the order of graphics presented was a known risk. To eliminate this, the concept order presented was counterbalanced. Concept one was shown first in the first test and then last in the second test, in the middle in the third. This way, three variations of the order were used.
+4.8.2 LIKERT SCALES Likert scales were used to collect data of the participants' opinions on different aspects of the design concepts.
+Likert scales are often used in research when the desired data is people’s beliefs, opinions, or affection (Chimi & Russel, 2009). The evaluation method consists of a question about a feeling, belief, opinion, or effect, followed by a scale of responses. These responses commonly range between strongly disagreeing with the statement and strongly agreeing. In between the extreme opposites, the test subject often gets a gradient of options with less extreme responses and a neutral selection. Having a neutral choice can become the default response when participants do not understand the question or feel rushed into choosing to proceed with the next statement (Chimi & Russel, 2009). Whether Likert scales should have a neutral choice or not have opposite opinions among researchers, but research testing these opinions has shown both positive and negative results from the two alternatives (Garland, 1991). Likert scales with stand-alone and unique questions are called Likert-type questions, and when questions are formulated as one main question with a statement for the questions, it is called a Likert scale question (Boone & Boone, 2012).
+For this evaluation, six-step Likert-type scales were used. Two questions were regarding how understandable and desirable the graphics in the different concepts were. The third question was regarding the visibility towards the outside environment. The scales ranged from zero to five, with zero being a very negative response and five being a very positive response. The six-step scales did not allow a neutral choice intended to get responses either leaning toward the negative or positive side of the scale, see the design of scales in Appendix B.
+4.9 FIRST ITERATION – ANALYZE
+Different methods were used when analyzing evaluation results. Since the evaluation collected mainly qualitative and some quantitative data, it was not statistically heavy.
+4.9.1 ANALYZING CTA Analyzing the CTA, the overall score was summarized for each concept comparing the three concepts for each of the four actions displayed. Since a correctly expressed action got one point and an incorrect action got zero, the overall score for each action and concept indicated whether users had an easier or harder time understanding what action the graphics communicated. The counterbalancing of concept order could result in different CTA scores depending on the order concepts were shown.
+24
+
+4.9.2 ANALYZING LIKERT-TYPE DATA In most statistics, mean values and the standard deviation are used for analyzing data sets, but these values can have unclear meaning when analyzing Likert-type data (Sullivan & Artino, 2013). It is because when analyzing data and getting a mean value between “well” and “very well” it is difficult to find the meaning of a mean value of “well and a half”. Another aspect of not using averages for Likert-type data is extreme values. If one user group's responses were “not at all good”, while the other found it “very good”, responses are extreme opposites, but the average will still show a value in the middle, which is not fairly categorizing the data (Sullivan & Artino, 2013). Analyzing Likert-type should instead have the central tendency as the median and/or modal value (Boone & Boone, 2012). The median value shows the response in the middle of a set, and the modal shows the most popular response. Frequency is the value to analyze for variability for different sets. It gives meaning to the analyzed data and is related to the initial responses (Boone & Boone, 2012).
+The results for each concept were compared with median values in this analysis. Analysis of the response frequencies was compared to get other associative differences and see indications of which concept had more positive responses and, were therefore thought better of by the users.
+4.10 SECOND ITERATION – RE-DESIGN
+The second iteration became shorter due to uncertainties about the concept car´s functionality. Therefore, this phase of the project had to be done on a shorter timeframe and more intense workload.
+The iteration started with the re-design/refinements of the graphics based on results from the first iteration. This work was done digitally in Adobe Illustrator, where minor adjustments were made to the graphics. Depending on what situations the graphics were aimed for, combinations of concepts were considered. Animated graphics were re-worked based on the feedback from the evaluation regarding animation speed and duration.
+4.11 SECOND ITERATION – IMPLEMENT
+Implementing the re-designed graphics, the code used was built by a software engineer at Volvo Cars. The code had the same base code as the simulations in section 4.7.2. The code had to be modified to enable switching between projecting graphics in the traditional HUD field and the AR-HUD field, see Figure 13.
+Figure 13: The two projection fields in the AR-HUD system used in concept car.
+25
+
+When implementing the graphics and testing in the car, the system was tested on the internal test track, making minor adjustments in the code. Coordinates from the GPS-signals in the concept car were used to trigger graphics in the script. The test route was then defined using these coordinates of a geographical positions, defining where and when to project information graphics. This implementation were two lists that the computer went through while driving. One list for the AR-field and one for traditional navigation in the lower field, see Figure 14.
+Figure 14: Explanation of how the test route was set up in the car.
+Using coordinates to implement the test route meant that the routes were predefined and not dynamic, meaning that ending up off the routes resulted in the guidance stops. In the AR field, graphics developed during this project guided drivers toward their destination. The lower field projected turn-by-turn (TBT) graphics from an open-source provider displaying classic arrows found in existing navigation systems (Mapbox, 2022). The graphics displayed in the AR-field projected graphics at a perceived image depth of 8 to 10 meters. The TBT graphics were projected at the perceived image depth of 2 to 3 meters (Envisics, 2022). Limit value was created by defining an entry- and exit distance to the target, see Figure 14. It enabled customizing the duration the graphics should be shown for, and what distance before a turn or roundabout the graphics should appear. These modifications demanded extensive trials driving the test routes to ensure that the information was presented in time to make the correct actions to the destination.
+26
+
+4.12 SECOND ITERATION – EVALUATE
+The second evaluation aimed to understand driver behavior and the effects of using navigation in AR-HUD while driving in live traffic on the roads of Gothenburg. The evaluation aimed to investigate if differences could be observed comparing driving behavior from gaining navigation information in the two projection fields in the HUD. The evaluation also collected quantitative and qualitative data of the users’ experience interacting with the system. This data was collected with a questionnaire given to users after the test, see Appendix C. The questionnaire was structured similarly to the first evaluation utilizing Likert scale questions.
+4.12.1 OBSERVATION Observations gain an understanding of how interaction cues are perceived by users interacting with the product (the perception) and how they understand the interaction (the cognition) (van Boeijen, Daalhuizen, Zijlstra, & van der Schoor, 2017). These aspects result in understanding how perception and cognition of the interaction help users achieve their goals, both intended and unintended interaction. A simple qualitative evaluation needs at least four to ten participants, and documentation of the evaluation should be made with video, audio, or photos for post analysis (van Boeijen et al., 2017).
+The plan was to observe users during and after the drive, analyzing video recordings of the users driving the cars. The recordings captured audio and video of the user's driving, enabling analysis of their behavior and see where their attention was focused. The audio recorded could capture thoughts expressed about the interaction during the drive. Appropriate safety checks/actions and general behavior were analyzed from the video of users operating the car.
+To compare when information was given in the two projection fields and what effect it had on user attention, the number of glances down in either the near field or driver information module (DIM) was observed. The number of times users directed their attention from the road could then indicate whether information gained in AR-HUD contributes to safer driving.
+4.13 SECOND ITERATION – ANALYZE
+In this phase, the questionnaire results and videos were analyzed. The scale- and qualitative data were analyzed the same was as in the first iteration by comparing mean values and frequencies of response to the qualitative data gathered.
+The videos were visually analyzed where general driving behavior was observed and compared between the two test routes. It showed potential differences when operating the car and if differences in attention can be observed. These observations included whether drivers checked their surroundings before acting to ensure they performed actions safely and did not blindly trust the system.
+Visual analysis comparing glances down in the near-field HUD or DIM and focusing on ARfield or the road was performed. The differences are small, but when focusing on the AR field or the road, participant’s eyes focus like in the left picture in Figure 15. When looking for information in the near-field or DIM, the drivers' eyes are focused further down, see the right picture in Figure 15.
+27
+
+Figure 15: The small difference in eyes focusing on road and near-field.
+Visually analyzing the two routes and counting the number of glances, user attention using different projection fields could be compared. Both routes had the speed displayed in the near-field and DIM, which made gathering information about current speed the same for the two routes. The aim was observing differences of the time focusing on the road when guidance was given in AR-field compared to near-field.
+4.14 METHOD DISCUSSION
+Reflecting on the beginning of the project, the context immersion could have benefited from interactions and interviews with users. The competitor analysis and try it yourself provided a sufficient understanding of possible user needs. Not including other people when defining user needs was a choice influenced by previous experience from researching AR-HUD that showed it was hard to interview users and get relatable data due to unfamiliarity with the technology. At Volvo Cars, there are certainly users familiar with AR-HUD technology which could have been possible subjects for interviews. However, the risk would be that these people would give biased answers since the project collaborates with Volvo Cars. Results from interviews would have been interesting to see whether the interview subject's needs would agree with the needs found during this project.
+The workshop held during ideation should have been more carefully planned because the time given during Brainstorming was too short for some participants. According to Wikberg Nilsson et al. (2015), Brainstorming should be kept short enough for creativity not to go dry. The time given throughout the Brainstorming session was making the participants pressured to come up with ideas, preventing ideas from flowing. The time given did not affect all participants but rather the ones unfamiliar with attending creative workshops. Wikberg Nilsson et al. (2015) mean that reflecting on what people to invite is essential for a successful workshop. The sessions might have been more successful if the workshop was not planned to satisfy the invited people’s schedules.
+Finding people to join the different phases of the project was a reoccurring struggle during the project. During evaluations, the people available to participate were Volvo employees, which did not diversify the areas of expertise among participants. When think-aloud is used as a reporting method, Van Someren et al. (1994) express the importance of having unspecified areas of expertise among participants. Having only Volvo employees meant that
+28
+
+all participants had some knowledge of the automotive industry, creating a specific area of expertise. Evaluating user expereinces was a challenging task during the project since the expereince of an interaction with a product is specific to each individual. The CTA method utilizing Think-aloud as the reporting method was therefore a great method to use. As Rosli et al. (2016) mean that CTA is a exeptional method for understanding the users cognitive process while interacting with a system the method provided great results of the users experiences which could be analysed based on consistent criterias.
+29
+
+5 RESULTS
+This chapter presents and explains the results throughout the project. The sections are divided into two iterations containing results from each phase within the iterative process.
+5.1 FIRST ITERATION
+The first iteration presents and explains the result from designing visual information graphics for the navigation use case in AR-HUD. Also implementing it into the car, evaluating the concept with users, and analyzing results from user evaluations. 5.1.1 IDEATE As explained in the method and implementation chapter, in the ideate phase sketching and the ideating workshop was done to develop ideas of how to design visual information for the AR-HUD. Sketching was an ongoing process during the first weeks of the project and resulted in sketches focusing on design aspects, scenarios, and timing. In Figure 16, sketched scenarios and timing are illustrated to document ideas of the implementation and use of graphics.
+Figure 16: Sketches of scenarios and timing of graphics. (a) visualizing how a prior lane change can eliminate upcoming actions. (b) & (c) illustrating the timing of when graphics should appear in different scenarios.
+Sketching ideas focusing on the design resulted in sketches illustrating ideas to be used both statically and animated. Some ideas were inspired by competitor graphics analyzed in section 2.7, and other ideas came up during context and theory immersion, see Figure 17.
+30
+
+Figure 17: Simple sketches of ideas.
+The ideation workshop resulted in ideas sketched both on post-its and the templates made after the first session. The reversed brainstorming resulted in ideas of how not to design graphics for navigation in AR-HUD. These were crazy ideas to spark creativity and ranged from hands pointing in the direction of travel to objects moving across the road, see Appendix D. Brainstorming generated good ideas for graphics in AR-HUD, resulting in post-it notes and templates with sketches. Some ideas were very similar to traditional arrows used in existing navigation, but some creative ideas were generated. The quantity of the sketches was not high because the session was short, see Figure 18. Turning, changing lanes, roundabouts, and positioning in the current lane were four scenarios generated ideas for. The ideas were arrows, lines, and graphics illustrating lanes and representations of the car. Some ideas had a text for clarification, and some only had graphical elements.
+31
+
+Figure 18: Example of scanned post-it sketches from the first ideation session.
+After the first session, post-it sketches were changed into sketching on printed templates illustrating a driver's view of the road. It resulted in an easier time visualizing the perspective of the road in front of the car, and participants could easier sketch their ideas. A result of using templates was that color could be used more, and a total of twenty templates were filled with ideas during the last two workshop sessions, see Figure 19. This resulted in many ideas, both possible to implement and not concerning technical limitations of the AR-HUD system. Although the ideas might not be possible to implement, the wide range of ideas created during the workshop was a good base for continued work ideating graphics design.
+Figure 19: Scanned example of how color was used to visualize graphics ideas during the workshop.
+32
+
+5.1.3 IMPLEMENTATION Starting the implementation meant starting by digitalizing ideas from the ideation. With Adobe Illustrator, three concepts were created. Each of the three concepts illustrated visual information to perform the four different actions ideated during the workshop. Concept A resulted in graphics inspired by traditional navigation having arrows communicating information of actions to make, see Figure 20. The graphics were designed in perspective to be perceived as positioned on the road. The white part of the change lane graphic is the road continuing, and in the placement graphic, the white indicates the lane.
+Figure 20: Concept A graphics inspired by traditional navigation arrows.
+After testing the graphics in the simulation software, the graphics could be projected in the concept car. Figure 21 show photographs of the result of implementing concept one into the concept car.
+Figure 21: Photographs of the result after implementing concept A into the concept car.
+33
+
+Concept B resulted in graphics with horizontal lines in formations to communicate visual information for the actions, see Figure 22. Gestalt grouping principles Similarity and Common fate were utilized to grouping the lines into one element and the idea of creating more see-through graphics not taking too much attention. Graphics were designed with the same perspective as concept A using different line spacing and thickness. In the same way, as in concept A, the white parts of the graphics represent the road continuing and the lanes.
+Figure 22: Concept B visualizing navigation information with horizontal lines.
+Photographs in Figure 23 show the results of implementing concept B into the concept car when projecting the graphics on the windshield. As seen in the photos, the results had some transparency between the horizontal lines.
+Figure 23: Photographs of concept B graphics projected in the concept car.
+34
+
+Concept C was designed with graphics having a rectangle representing the position of the car, see Figure 24. The rectangle was designed in perspective, being narrower toward the top. The white elements of concept C had the same meaning as the other two concepts. The change lane graphics got an arrow to clarify that a lateral move was needed.
+Figure 24: Concept C with a rectangle in perspective representing the position of the car.
+In Figure 25, the resulting implementation of concept C is shown from the driver’s seat, showing how these graphics looks when projected on the windshield.
+Figure 25: Photographs showing concept C when being projected on the windshield.
+Figures 21, 23, and 25 are cropped and zoomed-in photographs of the result of implementing the graphics in the concept car. The result of how the graphics look from behind the steering wheel can be seen in Figure 26.
+35
+
+Figure 26: Photograph from the perspective of sitting in behind the wheel of the car. Showing the size of implemented graphics. Left turn graphic projected in the concept car.
+The animated graphics created were the left turn in concept A, and the lane change in concept B. The resulting animations were created to evaluate whether differences in perceiving graphics could be observed between static and animated graphics. Colors implemented in AR-HUD can be seen in Figure 27, where the left turn graphic from concept A and the placement in lane graphic in concept B was illustrated in the colors blue (cyan), green, white, yellow, and red. These colors were chosen to evaluate how they are perceived toward the outside environment and if they imply any perceived meanings.
+36
+
+Figure 27: Different colored graphics to evaluate.
+5.1.2 EVALUATION AND ANALYSIS User evaluation resulted in nine participants, three female and six males of ages varying between 24 and 56 years old. The formal questions prior to the evaluation resulted in an average driving experience of 14,4 years and a median of 8,5 years, see Figure 28. Indicating that more users had less than ten years of license. Participants responded that they drive 5,4 hours per week on average, and the median was half at 2,5 hours per week. All users regularly use navigation when driving. Six out of nine used it for general wayfinding, five for city guidance, and three for traffic information. Eight out of nine users used google maps, and one used built-in systems for navigation. Five out of nine users had previous experience driving a car equipped with a HUD but none of them with an AR-HUD.
+Figure 28: Results of the formal questions prior to evaluation.
+37
+
+The results from the think-aloud task performance indicate that for three actions, the results are very similar between the concepts, with differences in one participant, see Figure 29. For the roundabout, concept A had the highest score by two points. Actions of turn-by-turn navigation resulted in concept A being the best or equally as good as the others. Actions communicating sideways movement (changing lane/placement in lane) had similar results between the three concepts. The qualitative results and observations indicated that the arrows in concept A was better understood for turning left and going in a roundabout. Qualitative results also indicated that some participants understood sideways movements easier with concept C.
+Figure 29: Results from CTA. Showing how well each concept performed for the actions.
+The result from the Likert-type scales compared median values between the concepts. The result showed that concepts A and C have the same result for all three evaluated aspects, see Figure 30. The median for these two concepts is just above the positive side of the scale. Both understandability and desirability for concept B got a median value of 2, which is on the negative side of the scale. This indicates that concept A and C was perceived better than concept B.
+Figure 30: Median value for understandability, desirability, and visibility for the three concepts.
+38
+
+The results from analyzing the frequency of answers for each aspect showed that for understandability, concept A had the highest frequency of answers toward the positive selections among the participants, see Figure 31. Both concept A and C had a median- and mode value of three. Three users for concept A and five for concept C. The distinction was that concept A had two fives resulting in distribution more toward the positive side. These results agree with the qualitative- and observation results where participants expressed that they were more favorable toward concept A than concept C.
+Figure 31: Frequency of answers for understandability for the three concepts.
+The response frequency for desirability resulted in a similar distribution of frequency as understandability. Concepts A and C had similar distributions, and concept B had a more negative distribution, see Figure 32. Median- and mode values were the same for concepts A and C. Concept B had a median value of 2, resulting in it being the least desirable concept. Qualitative- and observation results also indicated higher desirability for concept A than C.
+Figure 32: Frequency of answers for desirability for the three concepts.
+39
+
+Visibility resulted in the same median value for all three concepts. The distribution of answers resulted in similar results for all concepts, see Figure 33. Concept A had a more negative response frequency. This result agreed with qualitative- and observation results collected, where participants expressed that concept A was taking too much space in the field of vision with a negative perceptual effect. The participants also expressed that it was hard to see the arrows because the perspective was too flat.
+Figure 33: Frequency of answers for visibility toward outside environment for the three concepts.
+The qualitative results for color use showed that cyan was appreciated and perceived as the best color during the evaluation. Responses of cyan having a neutral meaning, good visibility, it being easy to see, and it indicating to actions distinguished it from the other colors, see Figure 34.
+Figure 34: The different colors evaluated and some comments from users.
+40
+
+Although, cyan was the most appreciated color, comments about it still being too bright were expressed. The meanings of colors were expressed to be important when choosing colors to implement in AR-HUDs. Figure 35 shows photographs of the different colors when implemented in the car the car.
+Figure 35: Photograph of the different colors in concept car.
+Animated graphics resulted in users expressing that concept one was more understandable by having static graphics. The other two concepts were more understandable when animated when indicating a lateral movement. The median values from the scale evaluation of animated graphics are seen in Figure 36. These results are higher than the static graphics, but the qualitative results indicated that animations take more attention than static and are too brief, causing stress. The qualitative results showed that participants believed that animation could be good for graphics communicating to change lanes. However, static graphics were expressed to be sufficient for turn-by-turn graphics.
+Figure 36: Median values for animated graphics regarding understandability, desirability, and visibility.
+41
+
+5.2 SECOND ITERATION
+In this section, results from the second iteration are presented. It contains results from redesign, implementation into the concept car, user evaluation, and analysis of results. 5.2.1 RE-DESIGN The results from the first user evaluation were the basis for the re-designed graphics. Concept A was re-iterated from the first iteration for all static graphics for visualizing turn-by-turn graphics. The turn-by-turn actions were turning, going straight, and different exits in roundabouts, see Figure 37. The results from the evaluation resulted in designing arrows with a more upright perspective to make them clear and more understandable as arrows. In addition to the turn-by-turn actions, a graphic indicating to go straight had an arrow with text saying 2 km, indicating to keep going straight for 2 kilometers to communicate that no actions were needed for a specified distance. The result of lane change graphics was a combination of the lane change and placement in lane graphics in concept C. The new lane change graphics resulted in animation including the lane traveled in and a representation of the car animating right/left over the lane calling for a lane change, see Figure 37. According to feedback from the evaluation, the animations were made slower with a stop at the start and end. The color choice resulted in using a less saturated cyan based on feedback from first evaluation. The new color had RGB values of 0,200,200, resulting in a less bright blue and more transparent graphics.
+Figure 37: Result of re-design/refinement of graphic based on results from first evaluation.
+42
+
+5.2.2 IMPLEMENT The implementation of graphics resulted in iterative work driving a predefined route. Coordinates for the route were retrieved from Google Maps. Looking at the digital maps and driving the routes, coordinates were defined together with setting entry/exit distance and what graphics to show, see Figure 38. One table like this was created for each route. The coordinates could then be transferred to the computer in the car, and distances to the target coordinates could be refined when driving the routes, resulting in small changes in projection duration until a satisfactory result was achieved.
+Figure 38: Screenshot of the table where coordinates, distances, and graphics were defined.
+5.2.3 EVALUATE The two routes were from Volvo cars, Torslanda to Torslanda city and back. In the first part of the route from Volvo cars to Torslanda city, users were guided by AR graphics, see Figure 39. This route included highway driving as well as small city/community driving. This resulted in the driving routes including driving on the highway with multiple lanes of traffic and driving on smaller roads with pedestrians present in the traffic environment.
+Figure 39: First route of evaluation with guidance from AR-graphics. Map source (Google, 2022). Illustrated by Johan Hansols.
+43
+
+On the second evaluation route, back from Torslanda city to Volvo Cars, users were guided by traditional turn-by-turn navigation in the traditional HUD projection field, see Figure 40. This second route included a similar amount of driving on highways and smaller roads. Each of the two routes took approximately 10 minutes, resulting in 20 minutes for the driving evaluation.
+Figure 40: Second route of evaluation with guidance from traditional navigation graphics. Map source (Google, 2022). Illustrated by Johan Hansols.
+5.2.4 ANALYZE The qualitative and scale data indicated differences between AR-field and near-field guidance and the users’ experiences driving with AR guidance. The test consisted of 15 participants, 4 female and 11 males, ranging from 24 to 56 years old. The average age was 39, and the median age was 40 years old, see Figure 41. Four participants had been a part of this project before, either in a development- or evaluation stage. All participants regularly used navigation, and the majority used or preferred using built-in systems. Most participants had used HUDs before, and four had used AR-HUD. All of them had tried the Volkswagen ID3/4.
+Figure 41: Results from formal questions before driving evaluation.
+44
+
+The results from scale responses post evaluation are displayed in Figure 42, showing the distribution of responses. It indicated that most participants experienced that their ability to operate the car safely was good. The median- and mode value was 4, and the majority of the participants expressed that it was not much different from driving with no HUD regarding keeping eyes on the road. They also expressed that the graphics were easily understood and helpful in finding their way.
+Figure 42: Distribution of scale answers for the frequency of responses regarding the user's experience of safely operating the vehicle.
+Results of how useful the information given in AR-field were got an equally positive response frequency, see Figure 43. The median value was 4, while the mode value had the same number of answers for 4 and 5. The qualitative responses indicated that the information presented was useful and easily understood. Some participants expressed a need for additional information about distance to the actions. Information complementing the lane change graphics about the current lane and more precise information about the lane were desired. Some wanted indications that the AR-HUD still was active since the graphics only showed when an action was needed. The “keep straight for 2 kilometers” graphics were appreciated because it made them comfortable knowing no actions were needed for that distance and they could focus on driving.
+Figure 43: Distribution of scale answers for the distribution of responses regarding the user's experience of the usefulness of the information.
+45
+
+Evaluating the timing of graphics was the primary feedback received after the test. The scale responses indicated that participants experienced insufficient timing, see Figure 44. The median value was 3, and the mode value had the same number of answers for grades 3 and 4. These results were not on the negative side of the scale but still an indication that there was room for improvements regarding timing. Most of the qualitative feedback after the test was regarding the timing of the graphics, with participants stating the graphics appeared too late, and the information should be visible for longer durations of time. They expressed that they expected information to be given earlier to plan their driving. The situations that got the most feedback about the timing were changing lanes before intersections and information before roundabouts. They wanted an earlier “heads-up” driving towards intersections.
+Figure 44: Distribution of scale answers showing the frequency of responses regarding the user's experience of the timing of graphics.
+The qualitative question about the user experiences compared AR-field with near-field. Most participants expressed that AR-field was better, more enjoyable, and easier to use because of the bigger graphics. Participants also expressed that it was good not having to take their eyes off the road to look for guidance. It was easier to miss instruction in near-field because the graphics were smaller, and they felt a need to focus more on the near-field. Visually analyzing eye movement during the driving test showed interesting indications of where the users focused their eyes while driving. Table 2 shows the number of glances observed during the test. The table results indicated that users kept their eyes on the road more when following AR guidance.
+Table 2: Number of glances observed when analyzing video recordings. The * indicate system failures during the test.
+The test routes took between 8,5 to 11,5 minutes each, and the results in Table 2 consequently indicate a biased comparison, not considering the duration of the test routes. Seven test routes (*) were cut short due to system failure. In Table 3, the duration of each route is presented, making it possible to calculate the number of glances per second of driving.
+46
+
+Table 3: The duration of each test route in seconds. The * indicate system failures during the test.
+Calculations of glances per second of driving resulted in a fairer comparison of how many times participants took their eyes off the road without regard to the different test durations, see Table 4. The results in Table 4 are two decimal values indicating that, e.g., test ID 1 glanced down once every 20th second.
+Table 4: Calculated values of glances per second of driving during the evaluation.
+These results indicated that AR navigation aid users in keeping their eyes on the road more when driving, see Figure 45.
+Figure 45: Number of glances in near-field or DIM per second of driving. Observed from video recordings.
+Observing the driving behavior indicated that all participants could operate the vehicle calmly and safely. Indications of participants not scanning the surroundings as frequently were observed when driving with near-field navigation, including checking their mirrors regularly and scanning the road ahead. When graphics appeared, observations indicated that participants needed to take several glances in the near-field before understanding and to perform the action. Their eye could also be observed focusing and re-focusing when transferring between the projection fields. These
+47
+
+aspects could not be observed when navigation was given in the AR-field because no eye movements could be observed from the recordings.
+The evaluation did not consider reporting whether the users reached their destination without being corrected. During two tests, there was one specific position on the AR-field route where the participant did not understand the action needed to proceed on the set route. This position was after a roundabout when information to take a turning lane was given immediately when exiting. The test leader corrected the test to proceed. These corrections were few compared to the near-field route, where correction was made more times due to participants not seeing or understanding the graphics projected in the near-field.
+5.3 SUMMARY OF RESULTS
+This section of the report gives a summary of the results to present an overview before proceeding with the discussion chapter.
+- Concept A, designed with arrows providing visual information of actions to make in traffic, was the most understandable and desirable design to implement regarding static turn-by-turn graphics.
+- When designing navigation graphics, what color to use resulted in cyan being the most appreciated color for having a neutral meaning, good visibility, not being too bright, and inviting to actions.
+- Graphics communicating lane changes resulted in concept C being a well-understood representation of the action needed. The graphics were animated slower and with stops at the beginning and end, making it easier to understand. The lane elements from the “holding lane graphics” were used for the re-design lane change graphic.
+- Implementation into a realistic driving environment resulted in a predefined route using the vehicle’s GPS coordinates to trigger graphics. Adjustments for the duration of graphics showing resulted in a good implementation for users to reach their destinations.
+- Seven test routes resulted in shorter tests due to system failures which were adjusted for by calculating the number of glances per second of driving, resulting in fair comparisons between driving routes.
+- Likert scale data from the driving evaluation resulted in a positive response distribution for the user’s experiences of operating the vehicle safely and how useful the information was. Response distribution for the timing of graphics resulted in more negative response frequencies indicating that timing is a critical factor when implementing the graphics. Results from qualitative feedback also characterized timing as a critical factor.
+- Observations of video recordings indicated that drivers are more aware of the situation outside the vehicle when presented with information in the AR-field. Observation also indicated that AR navigation aided participants in keeping their eyes on the road more frequently rather than searching for information in near-field or DIM.
+48
+
+6 DISCUSSION
+This section discusses the project results and their relevance to the theory presented in the theoretical framework. Reflections about the results and the process are presented together with conclusions where the objectives and aims of the project are discussed, research questions answered, and recommendations for future work are given.
+6.1 POSITIONING THE RESULT
+At the beginning of this project, the goal was to explore perceptual effects using AR-HUD. This included researching the perceptual aspects of the interactions and evaluating whether safe driving could be performed using AR-HUD. As Persson & Warell (2003) suggests that product development needs to consider human needs and user experiences, and De Vere et al. (2010) imply that Industrial design engineers should be able to perform a complete product development process. The project shifted toward exploring graphics design in the first iteration and perceptual aspects in AR-HUD navigation in the second.
+Exploring different designs of navigation graphics was no easy task to create ideas different from arrows generally used in cars. With navigation being a standard driver's aid, the people involved in ideation were bound to the idea of arrows displaying wayfinding information. ARHUD is also a new and somewhat unexplored technology, meaning there were no set guidelines for designing graphics for navigation features. As Krippendorff (1989) says that design is making sense of things, the graphics explored in the project evaluated if wayfinding information could be understood and perceived with design principles based on cognitive psychology. Norman (2013) stresses the importance of HMI design in creating a system with humans and machines in symbiosis with clear communication between each other. Even though results from evaluating graphics design showed arrows being perceived best and preferred by users, it was necessary to explore alternative ways of designing navigation graphics.
+The need for local guidance indicating the vehicle's position, and at the same time having turn-by-turn (TBT) information, showed to be a reasonable amount of information to implement. The two types of information were aimed for different situations in traffic: positioning to give information going toward intersection and TBT when at the intersections. Hassenzahl & Tractinsky (2006) proposes that the shift in user experience design has made users' expectations an essential to consider. Having AR-HUD navigation display positioning of the vehicle before intersections created the possibility for the users' expectations to be processed before the TBT graphics. This could have the effect of users already knowing what actions are possible in the near future, making information easier to perceive and understand.
+The project's typical user was challenging to define working with a commonly used system as navigation. Therefore, the project began exploring general ideas of creating an AR-HUD navigation interface. Since the users were mainly involved in the evaluations and because the time frame only allowed two iterations, further work is still needed to define the user needs most important to consider. As Norman (2013) suggest that iterative design is repeated until results are satisfactory, this project would have needed a few more iterations regarding the design of information and better defining user needs for what information to include.
+49
+
+6.2 RELEVANCE
+In today’s automotive industry, AR-HUDs still has development left to reach the potential benefits it could bring to the people in traffic environments. Traditional HUDs are implemented by many automotive manufacturers and do a sufficient job of providing drivers with navigation information close to where they are focusing on the road. This project's results indicated clear differences in where the driver’s attention was focused, comparing AR-HUD and traditional HUD. As Ojsteršek & Topolšek (2019) say, distractions of the driver’s attention make driving performance suffer and could ultimately cause accidents. Since cars today have multiple sources of information, an AR-HUD is an excellent system for displaying the most relevant navigation information about the traffic environment at the correct time. Endlsey et al. (2003) say that being aware of the situation is vital when making correct decisions in traffic. Therefore, if developed with user needs and cognitive aspects considered, both Norman (2013) and Endsley et al. (2003) say that errors are not the user's fault, but rather the user not understanding the information. AR-HUD could make the interaction with navigation guidance more effortless and less stressful for the cognitive process of visual information processing. If driving can be done more effortlessly and correctly, safety in driving environments benefits drivers, pedestrians, and Volvo Cars.
+Volvo Cars are known for producing safe cars and work toward zero people being killed or seriously injured operating their vehicles (Volvo Cars, n.d.). These facts and the automotive industries evolving toward autonomous driving make effortless information exchanges between machines and users essential. When using navigation, the interaction with the car is operating the vehicle towards a set destination. A well-designed and implemented ARHUD navigation could benefit Volvo Cars by creating safer driving in their vehicles and more enjoyable interactions, since Hassenzahl & Tractinsky (2006) proposes that the user experience has shifted beyond the interaction and today also includes emotional, experiential, and affectional aspects. Volvo’s vehicle development could therefore benefit from this project's results, indicating that drivers had their eyes and attention more towards the road when using AR-HUD navigation compared to traditional HUD navigation. Results also indicated that users had a more enjoyable experience when using AR-HUD, making Volvo’s cars perceived as both safe and enjoyable to drive.
+6.3 REFLECTION
+The chosen process and plan for this have been helpful during the development. The process gave clear direction of the stages and what each stage should result in. Uncertainties occurred throughout the whole process, and the initial plan and process gave good guidance on how to proceed. The plan for the project was initially a bit optimistic, having three iterations, but by trusting the process of iterations and making reasonable adjustments, the project results were satisfactory.
+Reflecting on the project process, parts of it had unnecessary time spent on work not contributing as much as the time spent on it. At the beginning of the project, much time was spent thinking about the process and how to include users during the context immersion. Since the UX design processes typically emphasize user interviews to define needs, it was challenging to figure out how to define user needs for AR-HUD. The previous project working with AR-HUD influenced a lot because that project proved it difficult not to formulate too leading interview questions. Answers were not often relatable to AR-HUD when making open questions about AR-HUD. This was why initial interviews were thought of but later removed,
+50
+
+taking unnecessary time. Time was also spent learning the coding language and understanding the implementation in the concept vehicle. Some of the time and effort were necessary and made the results what they are, but time spent thinking that understanding the code could be managed without consulting a software engineer could have been spent on other parts of the process.
+Events surrounding the project that could not be controlled happened, resulting in process adjustments. One event was when the concept car stopped working, creating uncertainties for the whole second iteration. With just a couple of weeks left of the thesis, the software engineers at Volvo Cars got the car to work again, resulting in quick adjustments to the second iteration. When the car did not work, time was spent thinking of how the evaluation of driving behavior could be done without the concept car. A quickly created test plan had to be designed when it started working again resulting in a sufficient plan, but with more time it could have been more thought through and detailed.
+6.4 CONCLUSIONS
+When beginning this thesis project, the objective and aims were established. Three research questions were also formulated to be answered during the project.
+6.4.1 PROJECT OBJECTIVE AND AIMS The objective for this project was:
+“To research, ideate, implement and evaluate a user interface design for a navigation feature in an AR-HUD. Existing technological limitations, human perception, and cognitive psychology are considered throughout the development process to develop a feasible concept to implement and evaluate.”
+The aim of the project was:
+“To design and evaluate the user interaction in an AR-HUD to achieve good user experiences and evaluate whether AR-HUD contributes to safer driving. The aim could be divided into two parts: part one aim to evaluate visual information designs. The second part evaluates user experience with drivers operating an AR-HUD car regarding perception, attention, and safety. The project results aim to contribute with valuable insights for future research within the subject of AR-HUDs from an industrial design engineering perspective.”
+6.4.2 RESEARCH QUESTIONS At the beginning of the project, three research questions were defined to be answered based on the results.
+“How can information be designed and implemented to be perceived correctly and safely in an AR-HUD?”
+The most critical aspect for information to be perceived correctly and safely was the timing of when graphics appear when driving. As Gibson (1979) explains in his theory about ecological perception, humans actively explore their environment, searching to understand how to interact with it. The theory suggests that humans explore objects and events in the
+51
+
+environments, and indications regarding the timing of graphics could relate to this theory. The results indicated that drivers had their attention on the road most of the time, perceiving the road ahead. Knowing they should follow a set route with guidance from the car, when information did not appear when they expected it, they started actively searching for information to base their next decision on. Endsley et al. (2003) say that it is crucial to keep the user in control over the system simultaneously as having high levels of situation awareness. Results indicated that when information was absent or came too late, the users displayed behavior of not being in control and knowing where to go. When uncertainties occurred, they could either trust that the system would provide necessary information or search the road ahead and base their actions on driving experience. Providing users with information at the correct time can ease cognitive load while driving and eliminate uncertainties of what actions to take.
+Exploring how to design graphics was an essential part of this project, resulting in the arrows being easily understood for turn-by-turn information. This result could indicate that knowledge from arrows being commonly used in navigation systems made them correctly understood. This indication could relate to the constructive perception theory (Gregory, 2015), implying that humans perceive information based on previous knowledge and constructing mental models of what the information means. It would mean that based on them knowing that arrows are used for indicating directions, they understood the graphics easier and more correctly than the horizontal lines or the rectangles. Users also found the arrows more desirable. This could relate to the possibility of encoding information from features (Ware, 2019) and relating the information to memories in long-term memory (Wickens et al., 2013). This process could have made arrows more easily understood and desirable because they could relate to the arrows easily and intuitively understand what they meant. When designing the horizontal line and the rectangle concept, the ideas were related to gestalt grouping principles. Both concepts were designed with similarity and common fate (Lidwell et al., 2010) to be perceived as grouped elements moving in the same direction. When perceiving these concepts compared to the arrows, understanding the information might be more demanding when they could not be related to past knowledge.
+Lateral movement was better understood with animated graphics resulting in the rectangle concept with the rectangle animating either left or right. Common fate implies that moving elements toward static elements are perceived easier (Lidwell et al., 2010), which could have made understanding the lateral action easier. The graphic also had lane indications clarifying that a lane change was called for. The animated lane change graphics was understood easily, but the animation could also attract too much attention. According to Osvalder & Ulfvengren (2015), the information attended to is the most prominent and clear information most easily gathered, and animated graphics should therefore be used with care when projected in the driver's field of view.
+Exploring colors used in AR-HUD, a blue cyan nuance was best perceived by users. This color can be the best color to use due to users having no perceived meaning for blue compared to green, yellow, and red which are colors already used a lot in vehicles and traffic, e.g., warning signals and traffic signals. White was perceived as almost as good as cyan, but white can blend with road lines since the graphics are projected toward the road. A blue nuance could also blend in with the sky or water, but the cyan nuance distinguishes it from a clear blue. The colors were not evaluated with users having color deficiencies during the evaluation because of difficulties gathering participants with deficiencies to get an appropriate result.
+52
+
+These project results cannot tell if cyan is a suitable color for users with color deficiencies, but the colors were evaluated with one participant with deficiencies. The participants results were excluded due to their involvement in the SCREENS project, but the results indicated that cyan was the most easily perceived color which aligns with the other results.
+“What information is suitable for drivers regarding a navigation feature in an AR-HUD?”
+The implemented information was suitable to guide the participants to their destination during the evaluations. Additional information was suggested after the end of the test, e.g., distances to turns. Osvalder & Ulfvengren (2015) say that the amount of information is critical for what information is attended to and how much effort is needed to process the information. This made the amount of information an essential aspect considered and why the concept had information appear and disappear with appropriate timing, rather than always being visible. The main idea of AR-HUD was to make virtual information co-exist with the real environment and therefore the information was almost solely represented by graphical elements with the least amount of text possible. The desire to have the distance to turn information indicated that it in some way should be considered to clarify the distances. The implementation in this project limited the graphics from augmenting in size, which could make the position of the actions clearer. The graphics implementation needs further development to accommodate different driving situations when proofing this concept. Turnby-turn information should be customizable to specific situations, e.g., angles of turns and layout of roundabouts.
+The most prominent indication of suitable information to include in AR-HUD is the vehicle's positioning. The implementation was animated graphics that users positively received. Easily perceived information of where the vehicle should be positioned on the road at the present time, was indicated to be appropriate information in AR-HUD. It relates to Endsley et al. (2003) saying that situation awareness of the surrounding in the present and near future is an essential aspect of decision-making. This information was easily understandable and could help users make safe and correct decisions in traffic, increasing their performance and assurance of being on the correct route towards their destination. This information could also ease driving with multiple lanes exist and the cognitive load is high to understand where to position the car. It would apply to situations like highways where traffic is hectic, and a lot of stimuli must be attended to. This information could be particularly helpful for novice drivers when navigating their way in chaotic traffic environments.
+“How does AR-HUD affect driver attention and distraction?”
+The main purpose of using AR-HUD is to enable drivers to keep their eyes on the road and at the same time, gain important information from what comes ahead. Observing users operating the car and seeing the effects AR-HUD navigation and traditional HUD navigation had on attention and distraction, the results were clear that AR graphics distracted the user less than a traditional HUD. Observations indicated that users scanned their surroundings more frequently when using AR graphics, promoting safer driving because of higher levels of situation awareness. Although this project's evaluation resulted in indications favoring AR navigation, there could also be risks with projecting graphics in the driver’s field of view. If graphics are designed to
+53
+
+attract too much attention and are too prominent toward the environment, it could distract the driver creating dangerous situations. Therefore, the technological limitation of the system used in the concept car could be beneficial because of the limited area of the windshield possible to project on.
+The observation technique was affected by the human factor that could have made the analyses inconsistent throughout the analyses, therefore the results are referred to as indications in this project.
+6.5 RECOMMENDATIONS
+The concept created was a predefined implementation of a set route with a small sample of participants. The future work would firstly be recommended to evaluate the concept with a more larger sample size, including a more even distribution of male and female participants. Furthermore, the evaluation would also benefit from having users outside of Volvo Cars evaluate the concept to avoid biased results. Statistical significance of the results could then be seen, verifying the benefits of using AR-HUD. Also, if an eye-tracking device would be used, the eye movements analyzed by observing video recordings in this project could possibly be proven scientifically.
+The information given in this concept was limited to specific actions, and for future development work, creating a dynamic system would include creating a more extensive library of graphics. A dynamic system could also consider other safety features creating a redundant system with several driving aid functions working together, resulting in safer driving. This way, meaningful information about the surroundings could be presented in the field of view, creating a high level of situation awareness and less cognitive load when making decisions.
+Graphic designs evaluated in this project could be further perfected because of the importance of clear information presented in the correct situation. The best graphics to use in AR-HUD are graphics that are easily perceived and understood, not drawing too much attention, and possible graphic designs need to be further evaluated. Future development should also consider color deficiencies to create a system that can be used by as many people as possible.
+This project followed a human-centered approach which is highly recommended for future development work. Indications from the evaluations with users showed a clear result of all users having different experiences from driving the car equipped with AR-HUD. Therefore, the user experience and the interaction between the user and system is recommended as the most critical aspect. This project also showed that the qualitative data from evaluation is as vital as measurable data. Having a good balance of the types of data collected is therefore important for a complete overview of the users’ experience interacting with the system.
+54
+
+7 REFERENCES
+
+Acea. (2021). Passenger cars: what they are and why they are so important. Retrieved February 27, 2022, from https://www.acea.auto/fact/passenger-cars-what-they-areand-why-they-are-so-important/
+Acea. (2021, February 1). Size and distribution of the EU vehicle fleet. Retrieved January 27, 2022, from https://www.acea.auto/figure/size-distribution-of-the-eu-vehicle-fleet/
+Adobe. (2022). Illustrator. Retrieved April 11, 2022, from Adobe: https://www.adobe.com/products/illustrator.html
+Ashcraft, M. H., & Radvansky, G. A. (2009). Cognition: International edition (5th ed.). New
+
+Jersey: Pearson. Azuma, R. T. (1997). A survey of augmented reality. Presence: teleoperators & virtual
+environments, 355-385. Boboc, R. G., Gîrbacia, F., & Butilă, E. V. (2020). The application of augmented reality in the
+automotive industry: A systematic literature review. Applied Sciences, 10(12), 4259. Boone, H. N., & Boone, D. (2012). Analyzing Likert data. Journal of extension, 50(2), 1-5. Buchanan, R. (2001). Design Research and the New Learning. Design issues, 17(4), 3-23. Buxton, B. (2010). Sketching user experiences: getting the design right and the right design.
+San Francisco: Morgan Kaufmann. Casper, R., & Sundin, E. (2021). Electrification in the automotive industry: effects in
+
+remanufacturing. Journal of Remanufacturing, 11(2), 121-136. Chimi, C. J., & Russel, D. L. (2009). The Likert scale: A proposal for improvement using
+quasi-continuous variables. Information Systems Education Conference (pp. 1-10). Washington DC: Academia. DaSilva, J. (2020). A Guide to Competitive Analysis for UX Design. Retrieved March 01, 2022,
+
+from
+
+Adobe:
+
+https://xd.adobe.com/ideas/process/user-research/guide-to-
+
+competitive-analysis-ux-design/
+
+De Vere, I., Melles, G., & Kapoor, A. (2010). Product design engineering–a global education
+
+trend in multidisciplinary training for creative product design. European journal of
+
+engineering education, 35(1), 33-43.
+
+Deng, N., Ye, J., Chen, N., & Yang, X. (2021). Towards Stereoscopic On-vehicle AR-HUD. The Visual Computer, 37(9), 2527-2538.
+Easterby, R. S. (1970). The Perception of Symbols for Machine Displays. 13(1), 149-158. Endsley, M. R., Bolté, B., & Jones, D. G. (2003). Designing for situation awareness: An
+approach to user-centered design (2nd ed.). Boca Raton, Florida: CRC Press.
+
+Envisics. (2022). Our products. Retrieved May 03, 2022, from https://envisics.com/ourproducts/
+Envisics. (2022). Our technology. Retrieved February 18, 2022, from https://envisics.com/our-technology/
+François, M., Osiurak, F., Fort, A., Crave, P., & Navarro, J. (2016). Automotive HMI design
+
+and participatory user involvement: review and. Ergonomics, 60(4), 541-552. doi:10.1080/00140139.2016.1188218 Gabbard, J. L., Fitch, G. M., & Kim, H. (2014). Behind the glass: Driver challenges and opportunities for AR automotive applications. Proceedings iof the IEEE, 102(2), 124136.
+
+Garland, R. (1991). The mid-point on a rating scale: Is it desirable. Marketing bulletin, 2(1), 66-70.
+Gaver, W. W. (1991). Technology affordances. Proceedings of the SIGCHI conference on Human factors in computing systems, (pp. 79-84).
+
+55
+
+Gibson, J. J. (1979). The ecological approach to visual perception. Boston: Houghton Mifflin. Google. (2022). Google maps. Retrieved May 18, 2022, from
+https://www.google.com/maps/dir/57.7086416,11.7737136/57.7092835,11.7693 47/57.713207,11.7899256/57.7156514,11.8473209/57.7274197,11.8611374/@5 7.7269376,11.8585156,2991m/data=!3m1!1e3!4m2!4m1!3e0 Google. (2022). Google Maps. Retrieved May 18, 2022, from https://www.google.com/maps/dir/57.7272212,11.8587209/57.7106442,11.7825 415/57.7103716,11.7775592/57.7088221,11.7742972/@57.7091754,11.7756932 ,445m/data=!3m1!1e3!4m2!4m1!3e0 Gordon, S. E., & Gill, R. T. (1997). Cognitive task analysis. In C. E. Zsambok, & G. Klein, Naturalistic decision making (pp. 131-140). Oxfordshire: Psychology press. Gregory, R. L. (2015). Eye and Brain: The psychology of seeing (5th ed.). New Jersey: Princeton university press. Hassenzahl, M., & Tractinsky, N. (2006). User experience: a reseach agenda. Behaviour & Information Technology, 25(2), 91-97. Hermann, D., & Singh, S. (2020). User Experience and HMI Technologies for the Future. 2020 27th International Workshop on Active-Matrix Flatpanel Displays and Devices (AM-FPD) (pp. 39-44). Kyoto, Japan: IEEE. Himperich, F. (2007). Applications in Augmented Reality in the Automotive Industry. Fachgebiet Augmented Reality, Department of informatics, 1-21. Hofmann-Wellenhof, B., Lichtenegger, H., & Collins, J. (2012). Global positioning system: theory and practice. Wien: Springer Science & Business Media. Jaspers, M. W., Steen, T., Van Den Bos, C., & Geenen, M. (2004). The think aloud method: a guide to user interface design. International journal of medical informatics, 73(1112), 781-795. Kim, K. M., & Lee, K. P. (2010). Two types of design approaches regarding industrial design and engineering design in product design. DS 60: Proceedings of DESIGN 2010, the 11th International Design Conference, 1795-1805. Krippendorff, K. (1989). On the essential contexts of artifacts or on the proposition that" design is making sense (of things)". Design issues, 5(2), 9-39. Lavie, T., Oron-Gilad, T., & Meyer, J. (2011). Aesthetics and usability of in-vehicle navigation displays. International Journal of Human-Computer Studies, 69(1-2), 80-99. Lee, J., Koo, J., Park, J., & Lee, M.-C. (2021). Vehicle Augmented Reality Head-up Display information visualization enhancement algorithm and system. 2021 International Conference on Information and Communication Technology Convergence (ICTC) (pp. 701-706). Jeju Island, Korea: IEEE. Lee, J.-h., Yanusik, I., Choi, Y., Kang, B., Hwang, C., Park, J., . . . Hong, S. (2020). Automotive augmented reality 3D head-up display based on light-field rendering with eyetracking. Optics Express, 28(20), 29788-29804. Lidwell, W., Holden, K., & Butler, J. (2010). Universal principles of design. Boston: Rockport publishers inc. Lindqvist, J. (2020). Flipbook. Creative method cards, M7016T, Creative concept development, 10-11. Luleå university of technology. Retrieved from https://ltu.instructure.com/courses/8611/files/folder/Resources/Example%20of% 20Creative%20Cards?preview=1510468 Mapbox. (2022). Directions. Retrieved May 03, 2022, from Mapbox: docs: https://docs.mapbox.com/api/navigation/directions/?q=icons&size=n_10_n Meranda, C., Smith, M., Gabbard, J., Burnett, G., & Large, D. (2016). Effects of real-world backgrounds on user interface color naming and matching in automotive AR HUDs.
+56
+
+2016 IEEE VR 2016 Workshop on Perceptual and Cognitive Issues in AR (PERCAR),
+
+1-6.
+
+Mercedes Benz. (n.d.). MBUX Augmented Reality Head-up Display. Retrieved March 23,
+
+2022,
+
+from
+
+Mercedes
+
+Benz:
+
+https://www.mercedes-
+
+benz.ie/passengercars/mercedes-benz-cars/models/eqs/saloon-
+
+v297/equipment.pi.html/mercedes-benz-cars/models/eqs/saloon-
+
+v297/equipment/individualization/mbux-ar-hud
+
+Methodkit. (n.d.). Designing workshops. Retrieved March 16, 2022, from
+
+https://methodkit.com/designing-workshops/
+
+Milton, A., & Rodgers, P. (2013). Research Methods for Product Design. London: Lawrence
+
+King Publishing.
+
+NE. (n.d.). Augment. Retrieved February 08, 2022, from Dictionary: https://www-ne-
+
+se.proxy.lib.ltu.se/ordb%C3%B6cker/search?s=augment
+
+Norman, D. (2013). The design of everyday things. New York: Basic books.
+
+Ojsteršek, T. C., & Topolšek, D. (2019). Influence of drivers’ visual and cognitive attention
+
+on their perception of changes in the traffic environment. European transport research
+
+review, 11(1), 1-9.
+
+Osborn, A. F. (1953). Applied imagination: principles and procedures of creative thinking. New
+
+York: Charles Scribner´s sons.
+
+Osvalder, A.-L., & Ulfvengren, P. (2015). Människa-tekniksystem. In M. Bohgard, S.
+
+Karlsson, E. Lovén, L.-Å. Mikaelsson, L. Mårtensson, A.-L. Osvalder, . . . P. Ulfvengren,
+
+Arbete och teknik på människans villkor (pp. 353-438). Stockholm: Prevent.
+
+Paas, F., Renkl, A., & Sweller, J. (2003). Cognitive load theory and instructional design:
+
+Recent developments. Educational psychologist, 38(1), 1-4.
+
+Pauzie, A. (2015). Head up display in automotive: a new reality for the driver. International
+
+Conference of Design, User Experience, and Usability, 505-516.
+
+Persson, S., & Warell, A. (2003). Relational modes between industrial design and
+
+engineering design a conceptual model for interdisciplinary design work. Proceedings
+
+of the 6th Asian Design International Conference.
+
+Preece, J., Roger, Y., Sharp, H., Benyon, D., Holland, S., & Carey, T. (1994). Human-computer
+
+interaction: concepts and design. Great Britain: Addison-Wesley publishing company.
+
+Preece, J., Rogers, Y., & Sharp, H. (2015). Interaction Design: Beyond Human-Computer
+
+Interaction. New York: John Wiley & Sons LTD.
+
+React. (2022). The Javascript library for building user interfaces. Retrieved April 20, 2022,
+
+from Reacgjs: https://reactjs.org/
+
+Rebbani, Z., Azougagh, D., Bahatti, L., & Bouattane, O. (2021). Definitions and applications
+
+of augmented/virtual reality: A survey. International Journal, 9(3), 279-285.
+
+Rizov, t., Kjosevski, M., & Tashevski, R. (2017). Driver Assistance Systems in Vehicles Using
+
+Augmented Reality–Benefits and Challenges. Trans Motauto World, 2(5), 201-206.
+
+Rosli, D., Alias, R., & Rahman, A. (2016). User interface prototype through participatory
+
+cognitive task analysis. 2016 4th International Conference on User Science and
+
+Engineering (i-USEr) (pp. 105-110). IEEE. doi:10.1109/IUSER.2016.7857943
+
+Schaefer, D., Eckert, C., & Coates, G. (Eds.). (2019). Design education today: technical
+
+contexts, programs and best practices. Cham, Switzerland: Springer.
+
+Schaub, F., Hipp, M., Kargl, F., & Weber, M. (2013). On credibility improvements for
+
+automotive navigation systems. Personal and ubiquitous computing, 17(5), 803-813.
+
+Stevens, A., Quimby, A., Board, A., Kersloot, T., & Burns, P. (2002). Design guidelines for
+
+safety of in-vehicle information systems. Crowthorne: TRL Limited.
+
+57
+
+Sullivan, G. M., & Artino, A. R. (2013). Analyzing and interpreting data from Likert-type scales. Journal of graduate medical education, 5(4), 541-542.
+Think Design. (n.d.). Try it Yourself. Retrieved March 03, 2022, from https://think.design/user-design-research/try-it-yourself/
+van Boeijen, A., Daalhuizen, J., Zijlstra, J., & van der Schoor, R. (Eds.). (2017). Delft Design Guide. Amsterdam: BIS Publishers.
+Van Someren, M., Bernard, Y. F., & Sandberg, J. A. (1994). The think aloud method: a practical guide to modelling cognitive processes. London: Academic press.
+Verstijnen, I. M., van Leeuwen, C., Goldsmith, G., Hamel, R., & Hennessey, J. M. (1998). Sketching and creative discovery. Design studies, 19(4), 519-546.
+Volkswagen. (2021). Våra elbilar: ID3. Retrieved March 23, 2022, from https://www.volkswagen.se/sv/elbilar/vara-elbilar/id3.html#fordelar
+Volvo Cars. (2020). Head up display. Retrieved March 07, 2022, from Manuals: https://www.volvocars.com/en-th/support/manuals/xc90/2019w17/displays-andvoice-control/head-up-display/head-up-display
+Volvo Cars. (n.d.). Aiming for zero. Retrieved January 27, 2022, from https://group.volvocars.com/company/safety-vision.
+Wade, N., & Swanston, M. (2013). Visual perception: An introduction. London: Psychology Press.
+Wagner, D., & Muth, K. (2021). Introduction of the Double Image Contrast Ratio (DICR) for P-Polarized Head-up Displays. 2021 IEEE Intelligent Vehicles Symposium (4), 716723.
+Ware, C. (2019). Information visualization: perception of design. San Francisco: Morgan Kaufmann publishers.
+Wickens, C., Lee, J., Liu, Y., & Gordon-Becker, S. (2013). Introduction to Human Factors Engineering: Pearson New International Edition PDF EBook. Harlow: Pearson Education, Limited.
+Wikberg Nilsson, Å., Ericson, Å., & Törlind, P. (2015). Design: process och metod. Lund: Studentlitteratur AB.
+Wilson, C. (2013). Brainstorming and beyond: a user-centered design method. Oxford: Newnes.
+Zhou, X., & Yin, G. (2021). Research on Symbol Color of Automotive. Journal of Physics: Conference Series, 1875(1), 012013.
+58
+
+APPENDICES
+
+APPENDIX A – Ideation workshop Plan 1/1
+
+The plans for the ideation workshop. Defining exercises and time plan for the execution.
+
+Ideation session/workshop
+1. Start by giving a short introduction of the projects and workshops context.
+2. Warm-up exercise: Flip Book (Johan Lindqvist method card) Introduction and creativity. Max 10 min. Explaining exercise. 30 sec for each page. Some time to present yourself. Questions: 1. Sketching, describe your hometown. 2. Sketching, describe your first job. 3. Describe your favorite travel destination in 5 words. (Without naming country) 4. In text, describe your favorite color. (Without naming it) 5. Describe what superpower you would like to have with a sketch. 6. Sketching, describe the title of your favorite song. 7. Sketch the weirdest/most unusual food you have eaten. 8. Name as many things you can do with a paperclip. 9. Sketch a description of your best personal characteristic.
+Presentation of flip book.
+3. Reversed brainstorming: ideas for graphics that would be bad to implement. How might we not design graphics that guide drivers in an AR-HUD? 3 min ideas, 5 min discussion/presentation.
+4. Brainstorming: Ideas that solve the problem. How might we design guiding graphics in an AR-HUD? 3min x 5 Scenarios: turn, change Lane, keep/hold lane, and going into roundabout. Presentation and discussion when all scenarios are gone thru.
+
+APPENDIX B –Evaluation form: Design 1/4
+Evaluation form with formal questions, Likert-type scale questions and qualitative questions about the design of concepts in first user evaluation.
+
+APPENDIX B –Evaluation form: Design 2/4
+
+APPENDIX B –Evaluation form: Design 3/4
+
+APPENDIX B –Evaluation form: Design 4/4
+
+APPENDIX C –Evaluation form: Driving 1/3
+Evaluation form used during the driving evaluation. Formal questions about the users and instructions of the test procedure. Questionnaire with Likert scale questions and qualitative questions to collect data about the users’ experience.
+
+APPENDIX C –Evaluation form: Driving 2/3
+
+APPENDIX C –Evaluation form: Driving 3/3
+
+APPENDIX D –Reversed Brainstorming 1/1
+Some of the results from reversed brainstorming used as a creativity exercise during ideation workshop. Scanned post-it notes used for sketching.
+

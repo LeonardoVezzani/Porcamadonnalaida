@@ -1,0 +1,551 @@
+Incorporating Explanations into Human-Machine Interfaces for Trust and Situation Awareness in Autonomous Vehicles
+Shahin Atakishiyev1, Mohammad Salameh2, Randy Goebel1
+
+arXiv:2404.07383v1 [cs.RO] 10 Apr 2024
+
+Abstract— Autonomous vehicles often make complex decisions via machine learning-based predictive models applied to collected sensor data. While this combination of methods provides a foundation for real-time actions, self-driving behavior primarily remains opaque to end users. In this sense, explainability of real-time decisions is a crucial and natural requirement for building trust in autonomous vehicles. Moreover, as autonomous vehicles still cause serious traffic accidents for various reasons, timely conveyance of upcoming hazards to road users can help improve scene understanding and prevent potential risks. Hence, there is also a need to supply autonomous vehicles with user-friendly interfaces for effective human-machine teaming. Motivated by this problem, we study the role of explainable AI and human-machine interface jointly in building trust in vehicle autonomy. We first present a broad context of the explanatory human-machine systems with the “3W1H” (what, whom, when, how) approach. Based on these findings, we present a situation awareness framework for calibrating users’ trust in self-driving behavior. Finally, we perform an experiment on our framework, conduct a user study on it, and validate the empirical findings with hypothesis testing.
+I. INTRODUCTION
+The emergence of at least partially autonomous driving has shaped a new era in intelligent transportation systems with a promise of safer and eco-friendly roadways. In particular, the DARPA Grand Challenge in 2005 [1] and further advances in deep neural networks and computer vision algorithms have led to significant breakthroughs in the perception and motion planning ability of autonomous vehicles (AVs) over the last twenty years. While two decades of progress help motivate humans to adopt self-driving cars, traffic accidents and a lack of understanding of the automated decision-making process hinder the widespread acceptance of this technology [2]. In this sense, explainable AI (XAI) has emerged as a crucial component in the design and development of AVs so that a vehicle’s decisions are understandable for end users. Another crucial factor is the effective delivery of these explanations so that explanatory descriptions inform safety, transparency, and regulatory compliance perspectives. Hence, this factor also necessitates the integration of human-machine interfaces (HMIs) into highly autonomous driving systems. While XAI is a compendium of approaches to interpreting
+This work was supported by the Alberta Machine Intelligence Institute (Amii), Computing Science Department of the University of Alberta, and the Natural Sciences and Engineering Research Council of Canada (NSERC).
+Shahin Atakishiyev and Randy Goebel are with the Department of Computing Science, University of Alberta, Edmonton, Alberta, Canada.
+Mohammad Salameh is with Huawei Technologies Canada Co., Ltd., Edmonton, Alberta, Canada.
+Correspondence: shahin.atakishiyev@ualberta.ca
+
+front view
+
+Yielding
+
+signal communicated to the pedestrians crossing
+
+back view
+
+Pedestrian crossing
+
+signal communicated to the human drivers behind
+Fig. 1. An example of explanation communication to the pedestrians (top) and a human driver at the rear (down) by Waymo’s self-driving car via its external HMI. The green bounding boxes have been manually added to indicate these signals. The figure drawn based on the content in [3] and [4].
+
+the action decisions of an autonomous vehicle, HMI is the communication interface that can convey these explanations to road users (human drivers, passengers, pedestrians, bikers, etc.) during a trip. We provide an example of such interaction in Figure 1: Waymo’s self-driving vehicle provides explanatory information to the pedestrians in front and the human drivers behind via a simple interface supplied on top of the vehicle. While the pedestrians can interpret this information as “Waymo is yielding to us and is not going to drive while we cross,” the human drivers at the rear may perceive the intent signal in the back view as “Waymo is stopping because it is yielding to the pedestrians crossing the road.” Such a simple explanation provision method shows that HMI is an effective way to describe traffic scenes to road users and help them be aware of the self-driving car’s behavioral intention. Considering the immense need for AI transparency and the role of human-machine interaction for possible control and self-driving monitoring, our study contributes a structure to the combined role of XAI and HMI for trustworthy autonomous driving. By definition, as XAI aims to provide interpretable models while maintaining good model performance and enabling users to comprehend, trust, and manage the intelligent system, we investigate all these aspects in our study. We specifically analyze the problem setting with a “3W1H” approach: what information to deliver, when to deliver, whom to deliver, and how to deliver explanations using a supplied user interface. In this sense, we systematically
+
+
+
+
+
+ 
+
+
+TABLE I THE ”3W1H” APPROACH IN EXPLANATION CONVEYANCE TO AUTONOMOUS DRIVING USERS BASED ON THE FINDINGS OF PRIOR STUDIES
+
+Dimension of explanation What? Whom?
+When? How?
+
+Description Decisions of an autonomous vehicle, traffic scenes, and events Passengers, human drivers, people with cognitive and physical impairments, remote operators, bystanders, cyclists, traffic enforcement officials, emergency responders Critical and emergent situations, takeover scenarios, the time before an action is performed Audio, visual, vibrotactile, text, heads-up display, passenger intervening interface, haptic feedback, braille interface
+
+review prior investigations, reveal the suggestions, and the practical recommendations derived from that literature. As a result, we incorporate insights from these studies into a framework to improve situation awareness and trust in AVs. Overall, the contributions of our paper are threefold:
+• We investigate prior studies that explore XAI and HMI for autonomous driving and identify the best practices within the ”3W1H” approach;
+• We present an HMI and XAI-guided situation awareness framework for autonomous driving and perform an experiment on it;
+• We conduct a user study and validate the experimental findings with human judgment.
+II. RELATED WORK
+The design and use of human interfaces have been of interest to the automotive community since the development of autonomous driving. Human-centric interactive system design does not solely provide driving-related information to users but also can help with meeting their individual needs during a trip with a self-driving vehicle [5], [6]. In this regard, there are several challenges in the communication of explanations about driving decisions to end users. First, explanations should be relevant to a user’s mental model: as user satisfaction is the target focus in the development of autonomous driving systems, the content of explanations should meet their needs [7]. Furthermore, which users (drivers, passengers, external observers) could benefit from these explanations is another aspect of targeting explanations. In addition, the timing mechanism of explanations is also an essential property of the user interface to ensure that the self-driving vehicle’s actions or driving scenes are described within appropriate time frames [7]. Finally, how explanations are delivered is also a crucial factor in meeting users’ expectations. Considering these four-dimensional properties of explanations in conjunction with HMI, we explore this topic systematically and present the ”3W1H” approach.
+A. What?
+What types of explanatory information are needed for road users? Explanations can describe the stationary and dynamic objects in the scene and inform users of how an autonomous vehicle perceives these objects during a journey [8]. An interactive interface inside a self-driving vehicle can provide updates on traffic situations, weather conditions, and offer
+
+customizable preferences (i.e., the temperature inside the vehicle and individual options depending on the users’ needs). Moreover, the autonomous car can share information outside to bystanders and other vehicles as a part of the vehicle-tovehicle (V2V) or vehicle-to-user (V2U) communications. In addition, and as an ongoing research direction, practical XAI methods have recently been explored to describe the rationale behind the decision-making process of AVs in a human-interpretable format [2]. The critical aspect of explanation techniques is how satisfactory these approaches are from the users’ perspective. In this context, users’ mental models must be considered: users may favor specific types of explanations depending on the driving scenario. In general, it has been shown that explanations are more related to trafficrelated event cognition and describing driving behavior of AVs as an answer to the “What” question in this context [6].
+B. When?
+While a history of continuous action- and sceneexplanation pairs can be recorded for possible post-trip driving analysis and forensic investigations, it is noteworthy to mention that users, particularly passengers and human drivers do not always need explanations. According to Koo et al.’s study [9], seamlessly delivered explanations can result in mental overload for human drivers in semi-autonomous driving and distract them from meeting their primary obligations. Instead, they can be alerted when an autonomous mode decision is initiated, when driving conditions change substantially, when takeover requests are made, and when sensor failure occurs. In another user study, Haspiel et al. [10] have focused on the significance of timing for explanations, and their exploration concludes that human drivers favor explanations just before action is decided rather than receiving explanations after the action is performed. Avoiding a potentially overwhelming information flow also applies to explanation provision for passengers. Kim et al.s’ [8] recent user study on a real road with a wizard experimenter reveals that users favor explanations in critical and risky traffic circumstances rather than having continuously presented behavioral information. Similarly, Shen et al. [11] have also qualitatively validated the premise that people favor explanations in near-crash and emergent situations.
+C. Whom?
+User categories encompass individuals who directly interact with a self-driving vehicle (i.e., passengers and backup
+
+drivers) or are affected by its presence and operation on roads [2]. Explanatory behavior can be conveyed to road users outside the vehicle (i.e., bystanders, pedestrians, and cyclists) using language or intent signals as well as shown in Figure 1 to ensure that individuals nearby remain aware of the behavior of the autonomous vehicle while it operates. Moreover, people outside and adjacent to an autonomous vehicle, such as bystanders, pedestrians at crosswalks, drivers operating non-autonomous cars, and cyclists, may also expect behavioral information from an autonomous car. Additionally, understanding the decisions of a self-driving vehicle may be a necessity for traffic enforcement officials [12] and emergency responders [13]. To ensure operational safety, traffic enforcement personnel may carry out a compliance check on the self-driving vehicle at some time and the vehicle may be requested to provide some form of explanation on its motion. Furthermore, behavioral information may be helpful for emergency responders for effective response to the accident and emergency conditions caused by/with the presence of an autonomous vehicle. Overall, explanations should be conveyed to relevant interaction partners while an autonomous car operates on roads.
+D. How?
+Various studies have shown that users might have different preferences for receiving explanations depending on their identity and traffic situation. For example, Faltaous et al.s’ [14] user study in a simulation environment shows that providing multimodal explanations with auditory, visual, and vibrotactile feedback is effective for potential takeover requests in highly-urgent driving conditions. Furthermore, Schneider et al. [15] have tested five various feedback techniques light, audio, object visualization, textual information, and vibration - in a virtual driving scene, and evaluate user satisfaction with these explanation modalities. Their findings show that light or object visualization is preferred more for proactive situations, while sound and light are more favored for reactive scenarios. Interestingly, the users are not satisfied with textual descriptions or sound-based feedback and even find the latter disturbing in the long term. Detjen et al. [16] show that a planar heads-up display (pHUD) and contact analog heads-up display (cHUD), as an augmented reality presenter, have been liked by testers as an effective display technique in both low and highly automated driving settings. In contrast, Dandekar et al. [17] have investigated an effective way of conveying driving information to passengers while not distracting them from their in-vehicle activities. The users’ feedback indicates that a colored light bar display and windshield display are satisfactory interfaces and do not disturb them while being immersed in non-driving related infotainment. Kim et al. [8] also conclude that the semantic segmentation map of objects displayed via windshield display instills trust in human participants in the behavior of an autonomous vehicle. It is also noteworthy to state that automotive HMI design should consider humans’ varying physical and cognitive capabilities and be inclusive of everyone. Particularly, peo-
+
+ple with some form of physical and cognitive impairment may need customized user interfaces. In recent research, Arfini et al. [18] have presented theoretical and pragmatic challenges in the effective interface design for people with some functional limitations. Autonomous vehicle users may have visual, hearing, mobility, and speech impairments, and customized user interfaces may help them get explanatory information on the vehicle’s actions and traffic situations. For instance, a braille interface can help people with visual difficulties to acquire driving-related information from the vehicle. Or a gesture recognition system may be implemented to track the user’s hand movements and enable them to interact with the vehicular interface. Hence, in general, we can summarize that no single type of HMI can meet the needs of all autonomous car users due to their diverse cognitive and physical abilities and personal preferences. While the ”3W1H” approach reveals a broad spectrum of explanation conveyance to end users (see Table I), the goal remains the same: bringing situation awareness to people inside and outside of an autonomous car. In the next subsection, we present a unified approach to a general situation awareness framework via XAI and HMI and describe the implications of such a framework for people in the loop.
+III. A UNIFIED APPROACH TO SITUATION AWARENESS VIA XAI AND HMI
+The goal of an XAI system is to provide explanatory information on the system’s particular decisions or behavior. According to the definition of the term, situation awareness by Endsley [19], users in the loop must be aware of what particular decision the AI system made, why it made that specific decision, and what decisions it will make in the next similar state at a later time. The three concepts have been referred to as perception, comprehension, and projection, and are viewed as indicators of situation awareness in human-inthe-loop AI systems. Sanneman and Shah [20] have further expanded that framework from an informativeness perspective. They correspond the aforementioned concepts into three levels of explanations - Level 1, Level 2, and Level 3 - for human-centered XAI systems, respectively. Here we adapt Sanneman and Shah’s [20] framework to autonomous driving scenarios and describe the implications of such a framework for self-driving vehicle users. Given a traffic scenario s ∈ S, we denote a set of possible actions (i.e., go straight, turn left, etc.) that may be taken by an autonomous car as
+A = {a1, a2, ..., an}.
+At each time step of motion of the car, an explanation interface may describe what action the car is performing and why it is doing so. We can describe this particular action as a ∈ A and the causal factor (i.e., traffic light, pedestrians crossing, etc.) that made the car behave in that particular way as f ∈ F . The explanatory information Ie for situation awareness can then be described via a combination of four elements: the traffic scenario, chosen action, causal factor
+
+A = {a1, a2, . . . an}
+
+Ie = (s, a, f, t) Description: Reaction:
+
+Internal HMIs External HMIs touch screen voice interface display monitor intent signal
+
+Inquiry:
+
+Action
+
+Explanation with implication People inside People outside
+
+Fig. 2. The proposed situation awareness framework for inside and outside users of an autonomous vehicle with XAI and representative HMIs
+
+inducing that action, and explanation delivery time:
+
+in an actual right turn scenario under a green light, a
+
+Ie = (s, a, f, t)
+
+passenger asks the conversational user interface, ”Why is the (1) car turning to the left?” as an adversarial question. In this
+
+This explanation is communicated to autonomous vehicle users using various built-in internal and external HMIs as needed. Depending on the interplay between the user and the explanation, the information conveyed can be classified as interactive or non-interactive, which can be stated as follows:
+
+case, the user interface should provide an action-reflecting response like “No, the car is turning to the right as the traffic light allows a right turn,” explaining what the autonomous car is doing and why it is doing so. These questions may be asked deliberately or unintentionally (e.g., people with visual impairments may have difficulty perceiving the scene
+
+interactive,
+
+if reactive or inquisitive
+
+Ie = non-interactive, if descriptive
+
+correctly) to test the trustworthiness of the vehicle, its actions, and its awareness of the surroundings. As a consequence, a human-machine interface should not only provide
+
+conventional explanations but also defend against potential
+
+Now, let us define what we mean by descriptive, reactive, adversarial queries to ensure that explanations are scene and
+
+and inquisitive explanations in this context:
+
+action-reflecting. This feature is an essential property of
+
+1. Descriptive explanations: A user interface provides gen- automotive HMI. The ability to provide correct explanations
+
+eral information about the action of the self-driving car and can instill trust in users and encourage them to continue
+
+
+
+
+the scene it is moving through. The people inside or outside to use AVs. The graphical description of this framework
+
+become aware of the driving environment and behavior of is shown in Figure 2. With this approach, the proposed
+
+the self-driving vehicle without further interference.
+
+situation awareness framework may achieve Level 1 (chosen
+
+2. Reactive explanations: The user interface invites the action) and Level 2 explanations (explanation for the chosen
+
+passenger or human driver to react to an emerging situation. action), i.e., perception and comprehension, as described
+
+For passengers, this could be an emergency override scenario by Sanneman and Shah [20]. These authors describe Level
+
+where vehicular automation by design allows them to take 3 explanations as “XAI for projection” and relate it to
+
+control of vehicles in case other outreach actors can not counterfactual analysis, such as what an autonomous car will
+
+control the vehicle. For human drivers, these are typically do if the driving scene changes in a certain way. Perhaps
+
+takeover requests, where the explanation interface commu- in the context of autonomous driving, Level 1 and Level
+
+nicates upcoming emergent states, and the driver must take 2 explanations are more essential for the users as they
+
+control of the vehicle from the automated mode and manage are more concerned about the actual scene the vehicle is
+
+the situation safely.
+
+getting through. With that said, curiosity to assess automation
+
+3. Inquisitive explanations: While descriptive and reactive ability and the reaction of the vehicle to further emergent
+
+explanations are already well-known to the automotive com- driving conditions may necessitate Level 3 explanations for
+
+munity, to the best of our knowledge, inquisitive explanations foreseeable situation awareness as well.
+
+have not been investigated well in the current literature.
+
+Inquisitive explanations refer to the explanations that users, such as passengers, can ask the system to follow up on the previous response or to test the robustness of the interactive
+
+IV. CASE STUDY: INTERACTIVE DIALOGUES BETWEEN A USER AND AN AUTONOMOUS VEHICLE
+
+user interface. These questions can be anything related to the To validate our proposed framework, we perform an initial
+
+autonomous vehicle’s decisions or traffic scene in general, and simple empirical study and use human judgment to eval-
+
+but can also be “tricky” or adversarial questions aiming to uate the effectiveness of the framework on the chosen traffic
+
+stress test the explanation interface. For instance, assume scenarios. As HMI can be both interactive and descriptive
+
+Action label: go straight
+
+Action label: go straight
+
+Action label: turn left
+
+Action label: turn right
+
+Action label: turn right
+
+Q: Briefly explain why the car is going straight in the scene.
+
+Q: Briefly explain why the car is going straight in the scene.
+
+Q: Briefly explain why the car is making a left turn in the scene.
+
+A: The car is going straight because A: The car is going straight because A: The car is making a left turn at a
+
+it is following the traffic light signals, it is in the middle lane of a highway green arrow traffic light, following
+
+which are green for the car at the
+
+with no other vehicles in the same traffic rules and ensuring safe and
+
+moment.
+
+lane, allowing it to maintain a straight efficient movement through the
+
+trajectory and follow traffic rules. intersection.
+
+Q: Briefly explain why the car is making a right turn in the scene.
+
+Q: Briefly explain why the car is making a right turn in the scene.
+
+A: The car is making a right turn at A: The car is making a right turn at
+
+the intersection to follow traffic rules the intersection because the traffic
+
+and avoid potential collisions with light is signaling it to do so, ensuring
+
+other vehicles or pedestrians.
+
+a smooth flow of traffic and avoiding
+
+potential accidents.
+
+Q: Briefly explain why the car is turning right in the scene.
+
+Q: Briefly explain why the car is making a U-turn in the scene.
+
+Q: Briefly explain why the car is making a right turn in the scene.
+
+Q: Briefly explain why the car is making a left turn in the scene.
+
+Q: Briefly explain why the car is making a left turn in the scene.
+
+A: The car is turning right in the scene because it is following the traffic light signals, which are green for the car at the moment.
+
+A: The car is making a U-turn because it is in the middle lane of a highway, and there is no other vehicle in the same lane, allowing it to change direction safely and efficiently.
+
+A: The car is making a right turn at a green arrow traffic light, following traffic rules and ensuring safe and efficient movement through the intersection.
+
+A: The car is making a left turn at the intersection to follow traffic rules and ensure safe navigation through the busy urban environment.
+
+A: The car is making a left turn at the intersection because the traffic light is signaling it to do so, ensuring a smooth flow of traffic and avoiding potential accidents.
+
+Fig. 3. Our experiment on the five chosen traffic scenes from the BDD-A dataset with the LLaVA multimodal transformer. While LLaVA seems to yield correct explanations on conventional questions (top) with actual actions (blue-colored text) + causal factors (green-colored text), it fails to generate factual explanations on the adversarial questions (bottom). The bounding boxes have manually been added to indicate causal factors inducing the chosen actions.
+
+from an explanation communication perspective, we choose We sample driving scenes from the real driving videos of
+
+to design interactive explanations so that a user can prompt the Berkeley DeepDrive Attention (BDD-A) dataset [25],
+
+their question and expect context-aware information from an and select five different scenarios shown in Figure 3. We
+
+explanation interface. We formalize this setting as a visual then consider two types - conventional and adversarial
+
+question answering (VQA) problem. VQA is a learning task - questions for the actions performed in these scenes.
+
+at the intersection of computer vision and natural language While the former is context-aware and action-reflecting, the
+
+processing that inputs an image i, a textual question q adversarial question refers to asking an incorrect questions
+
+associated with the content of the image, and predicts an about actions, deliberately or unintentionally, to stress test
+
+answer a for the asked question. The problem can be more the robustness of the explanation provision model. The key
+
+precisely represented as a tuple of the specified parameters: idea with this test is that HMI must always communicate
+
+x = (i, q, a)
+
+correct explanations and defend against human adversarial questions by providing context-aware information.
+
+Most of the state-of-the-art VQA models input an image and We present the explanations (i.e., responses) generated by
+
+question parameters, then output a combined representation LLaVA on the action-reflecting and adversarial questions
+
+of vision and language r ∈ Rdr via a multimodal learning in Figure 3. As seen, the model generates reasonable
+
+
+
+
+network f :
+
+
+
+
+and human-interpretable explanations for conventional 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+questions and justifies its responses. However, a tricky
+
+r = f (i, q)
+
+question easily confuses the model and makes it generate an incorrect answer to the asked question. For instance, in the
+
+Asking a question about the behavior of a vehicle is driven, at least partly, by human intuition. Becoming aware of traffic events and a human driver’s decisions in the car helps passengers on board understand ongoing situations and have a comfortable trip. This intuition also can be related to asking meaningful questions to the conversational HMI of an autonomous vehicle about the driving scenes. We have recently performed a preliminary experimental study on this concept and showed its applicability to explainable autonomous driving [21]. A crucial aspect of such interaction is the delivery of context-aware and action-reflecting explanations in a timely manner. In this sense, we design our experiment as follows: We use Large Language and Vision Assistant, LLaVA [22], as a multimodal learning framework that inputs vision and textual query for describing driving scenes. LLaVA is a multimodal transformer architecture built on top of the Vicuna LLM [23] and the pre-trained CLIP visual encoder ViT-L/14 [24].
+
+leftmost scene in Figure 3, the car moves straight because of the green light (i.e., inside the left bounding box). Furthermore, there is a sign (i.e., inside the right bounding box) that prohibits the car from making a right turn at that intersection. Ideally, when we ask that adversarial question about the right turn, we might be satisfied with an explanation like “No, the car is going straight and no right turn is allowed in the scene as the traffic signal prohibits it.” However, we observe that the model was flawed with such a deliberate question and failed to present an adequate answer. The higher influence of a textual question on a VQA model’s prediction is generally known as the language prior problem. Therefore, the possibility of adversarial questions must be considered in the construction mechanism of automotive VQA models, and relevant HMIs must provide corrective and context-aware information against such questions. We need to consider that an autonomous vehicle is equipped
+
+Phase 1:
+Presenting driving scenes and QA pairs to the participants
+
+Questions 1-10:
+Users are presented five driving scenes and are asked to judge the correctness of a response/explanation generated for a question in each scene
+
+Question: Do you consider the response generated for the action in the following scene to be correct?
+Provided: the action label and Q/A pair User answer choices: Yes/No/Not Sure
+
+Users’ judgement of correctness of responses for each of the presented driving scenario
+
+Phase 2:
+Asking the participants to answer the generic questions following Phase 1
+Question 11: Would incorrect responses affect your perceived feeling of safety of autonomous driving negatively?
+Answer choices: Yes/No/Not Sure
+Question 12: As a passenger, would you prefer to get an explanation before or after an autonomous car makes a particular maneuver?
+Answer choices: Before/After
+Question 13: If you regularly get wrong responses to your asked questions, will it affect your feeling of comfort in autonomous driving and may result in not using an autonomous car at later times?
+Answer choices: Will feel comfortable and will continue to use it. / Will not feel comfortable but will still continue to use it./ Will not feel comfortable and may stop using it.
+Understanding users’ mental model with explanations
+
+Phase 3:
+Analyzing results of the study
+Statistical significance test and validating the hypothesis of whether the incorrectness of the explanations affects the users’ perception of safety and feeling of comfort in self-driving.
+Drawing a conclusion with the case study
+
+Fig. 4. Design of the case study based on the experiment in Figure 3. The participants judge the correctness of explanations for each of the five scenes presented. After getting experience with explanations, they are asked two more questions on their perceived safety and mental comfort with the role of explanations while using an autonomous vehicle. Users’ responses are validated with a statistical significance test to draw a conclusion with the case study.
+
+with an interactive HMI so that people inside the vehicle can ask such questions at some point in the trip with the vehicle. To understand the impact of the generated responses on the users’ feeling of comfort and safety perception in autonomous driving, we conduct a human study with the above experimental framework, considering them as passengers of an autonomous vehicle.
+A. Design of the user study We have performed a user study1 (see Figure 4) with
+20 participants (10 males, 10 females) with an age range from 20 to 47 (average=28.65, standard deviation=6.03). The participants are university students and employees in an industrial sector with diverse technical backgrounds who drive or use public transportation regularly in everyday life. We provide participants with an online questionnaire on the QA pairs described in five scenes in Figure 3 in the first step. Once the participants finish the assessment of the generated responses for the questions on the autonomous car’s actions, they are further asked three generic questions: their perceived safety, feeling of comfort with incorrect explanations, and timing preference. Overall, each respondent answers thirteen questions in their 20- to 25-minute study engagement.
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+B. Analysis of the results
+Phase 1: While analyzing the respondents’ judgment of the explanation correctness, we see that most of them find explanations generated for conventional questions satisfactory (see Table II). While Scenario 1 and Scenario 3 explanations are assessed as correct explanations by 100% and 95% of the
+1The user study was conducted under the Research Ethics principles of the University of Alberta, and all the participants were paid at an equal rate.
+
+users, they are skeptical about some explanations in Scenario 2, 4, and 5, leading to 75%, 60%, and 60%, respectively. On the other hand, the participants are more confident in judging the responses for the adversarial questions, and 100% of them spot flawed explanations for that type of question in Scenarios 1, 2, and 5. Just one and two of them are unsure about the incorrectness of the responses to the adversarial questions in Scenario 3 and 4, respectively. It turns out that detecting an incorrect answer to a question is easier for humans, likely as a consequence of reasoning; While getting irrational responses to a query, even at the beginning of a response, easily triggers a response of “No.” Note that the users are usually firmer in judging every detail of a rationale to say “Yes,” and autonomous driving explanations by such a judgment criterion are not an exception. Phase 2: After the participants complete Phase 1 and understand the role of explanations in autonomous driving, we evaluate 1) their preference for time to deliver an explanation and 2) how the faithfulness of explanations affects their mental model in terms of their perceived feeling of safety and comfort in autonomous driving. 100% of the participants have preferred to get an explanation before an autonomous vehicle makes a particular maneuver rather than having it after. Such a preference is reasonable as prior explanations elucidate what an autonomous car is going to do next and help
+ user
+ s
+ become aware 
+ 
+ 
+ 
+ 
+ 
+ 
+ of the situation and monitor the safety of the subsequent action. To evaluate the impact of incorrect explanations on the users’ feeling of comfort and perceived safety in autonomous driving, we perform simple hypothesis testing. As the minimum percentage of “majority voting” in the users’ judgment of explanation correctness is 60% (see Table II), we use this number in the validation of the users’ safety perception and feeling of comfort in our hypotheses. More specifically, we define the following null and alternative hypotheses:
+
+(a) The participants’ responses to Question 11
+
+(b) The participants’ responses to Question 13
+
+Fig. 5. The participants’ responses to Question 11 and Question 13 in Fig 4 on their perceived feeling of safety and comfort with incorrect explanations
+
+Null hypothesis on implication in perceived safety: Incorrectness of explanations will affect 60% of the respondents negatively on their safety perception in autonomous driving. Alternative hypothesis (right-tailed): Incorrectness of explanations will affect more than 60% of the respondents negatively on their safety perception in autonomous driving. We use the one-proportion Z-test method to validate our hypotheses. The one-proportion Z-test is defined as follows:
+
+Z = pˆ − p0
+
+(2)
+
+p0 (1−p0 )
+
+n
+
+where pˆ is the sample proportion, p0 is hypothesized pop-
+
+ulation
+
+size,
+
+and
+
+n
+
+is
+
+the
+
+sample
+
+size.
+
+Given
+
+pˆ=
+
+17 20
+
+=0.85,
+
+p0=0.6, and n=20, putting these numbers into the formula
+
+gives Z≈2.28. We consider a significance level of α=0.05.
+
+For the right-tailed hypothesis, the critical Z-value is 1.645
+
+[26], and our Z-value of ≈2.28 is greater than the critical
+
+Z-score. So, we reject the null hypothesis and conclude that
+
+incorrectness of explanations affects more than 60% of the
+
+participants negatively on their perceived feeling of safety.
+
+Similarly, we define the following null and alternative hy-
+
+potheses for implications of incorrect explanations on the
+
+participants’ feeling of comfort with an autonomous vehicle:
+
+Null hypothesis on implication in the feeling of comfort:
+
+Incorrectness of explanations will affect 60% of the respon-
+
+dents negatively on their feeling of comfort.
+
+Alternative hypothesis (right-tailed): Incorrectness of ex-
+
+planations will affect more than 60% of the respondents
+
+negatively on their feeling of comfort.
+
+Referring
+
+to
+
+Figure
+
+5(b),
+
+pˆ=
+
+14 20
+
+=0.7,
+
+p0=0.6,
+
+n=20,
+
+and
+
+a
+
+significance level of α=0.05, we get a Z-score of ≈0.91,
+
+which is less than the critical Z-value, 1.645. Hence, we fail
+
+to reject the null hypothesis as there is not enough evidence
+
+to suggest that the proportion of the participants who think
+
+incorrect explanations affect their feeling of comfort in an
+
+autonomous vehicle negatively is greater than 60%.
+
+TABLE II THE PARTICIPANTS’ JUDGMENT OF THE CORRECTNESS OF
+EXPLANATIONS ON THE CONVENTIONAL AND ADVERSARIAL QUESTION
+PAIRS FOR EACH SCENARIO DESCRIBED IN FIGURE 3.
+
+Driving scenario (left to
+right)
+#1 #2 #3 #4 #5
+
+Distribution of the participants’ answers
+to the conventional questions (Yes/No/Not
+sure) 20/0/0 15/3/2 19/0/1 12/2/6 12/4/4
+
+Distribution of the participants’ answers
+to the adversarial questions (Yes/No/Not
+sure) 0/20/0 0/20/0 0/19/1 0/18/2 0/20/0
+
+C. Limitations
+Our study is relatively small and has several limitations. First, we conduct the user study via an online questionnaire, and we do not know how the participants’ answers may change in case these questions are presented in simulated augmented reality or real AVs. In addition, while we underscore the essence of considering people’s various cognitive and functional abilities for acquiring relevant messages from HMIs, we have not addressed this nuance in our experiment and user study. Moreover, there is a well-known Autonomous Vehicle Acceptance Model (AVAM) proposed by Hewitt et al. [27] that assesses user acceptance of AVs with nine essential factors. However, interestingly, that model does not consider explainability as one of those key factors. So, we argue that the AVAM model enhanced with the explainability criterion would be a stronger acceptance model for AVs. Finally, a larger-scale user study with different groups and more diverse scenarios can help us draw stronger conclusions with this work in the next phase of our research.
+D. Summary of the findings
+The main outcomes of our study are summarized as follows:
+
+(1) Timing matters: Time to deliver an explanation is an essential feature for autonomous driving users. Particularly, delivering prior and time-sensitive explanations helps them understand the driving behavior of an autonomous vehicle and be aware of the vehicle’s subsequent intention. (2) Robustness matters: Our experiment shows that even advanced explanation models may fail to provide adequate responses to human adversarial questions. Flawed explanations may have a negative impact on the users’ feeling of safety and trust in the automation ability of a self-driving car. Consequently, explanation interfaces must always understand users’ conventional and deliberate questions, defend against adversarial queries, and provide faithful explanations for effective and reliable human-machine interaction. (3) Inclusivity matters: Automotive HMIs should not only take people’s technical backgrounds into account but also consider their various functional and cognitive capabilities for communicating explanations to them. Hence, need-based and customized HMIs must be a key aspect in fostering everyone-inclusive autonomous driving and meeting general society’s expectations of this technology.
+V. CONCLUSION
+We have presented a situation awareness framework for autonomous driving backed by HMI and explanations. Our experiment and humans’ judgment of experimental findings shows that faithfulness in explanations is of paramount importance for users to understand driving situations, trust action decisions, and the safety of self-driving vehicles. We believe that our work can help enhance the transparency and safety of this technology, inform effective automotive HMI design, and promote everyone-inclusive autonomous driving.
+REFERENCES
+[1] S. Thrun, M. Montemerlo, H. Dahlkamp, D. Stavens, A. Aron, J. Diebel, P. Fong, J. Gale, M. Halpenny, G. Hoffmann, et al., “Stanley: The robot that won the DARPA Grand Challenge,” Journal of Field Robotics, vol. 23, no. 9, pp. 661–692, 2006.
+[2] S. Atakishiyev, M. Salameh, H. Yao, and R. Goebel, “Explainable Artificial Intelligence for Autonomous Driving: A Comprehensive Overview and Field Guide for Future Research Directions,” arXiv preprint arXiv:2112.11561, 2021.
+[3] Andrew J. Hawkins, “How will driverless cars ‘talk’ to pedestrians? Waymo has a few ideas,” The Verge, 2023.
+[4] Waymo Team, “Self-Driving Car Technology for a Reliable Ride,” 2023.
+[5] A. Schieben, M. Wilbrink, C. Kettwich, R. Madigan, T. Louw, and N. Merat, “Designing the interaction of automated vehicles with other traffic participants: design considerations based on human needs and expectations,” Cognition, Technology & Work, vol. 21, pp. 69–85, 2019.
+[6] T. Schneider, J. Hois, A. Rosenstein, S. Metzl, A. R. Gerlicher, S. Ghellal, and S. Love, “Don’t fail me! The Level 5 Autonomous Driving Information Dilemma regarding Transparency and User Experience,” in Proceedings of the 28th International Conference on Intelligent User Interfaces, 2023, pp. 540–552.
+[7] G. Wiegand, M. Eiband, M. Haubelt, and H. Hussmann, ““I’d like an Explanation for That!” Exploring Reactions to Unexpected Autonomous Driving,” in 22nd International Conference on HumanComputer Interaction with Mobile Devices and Services, 2020, pp. 1–11.
+[8] G. Kim, D. Yeo, T. Jo, D. Rus, and S. Kim, “What and When to Explain? On-road Evaluation of Explanations in Highly Automated Vehicles,” Proceedings of the ACM on Interactive, Mobile, Wearable and Ubiquitous Technologies, vol. 7, no. 3, pp. 1–26, 2023.
+
+[9] J. Koo, J. Kwac, W. Ju, M. Steinert, L. Leifer, and C. Nass, “Why did my car just do that? Explaining semi-autonomous driving actions to improve driver understanding, trust, and performance,” International Journal on Interactive Design and Manufacturing (IJIDeM), vol. 9, pp. 269–275, 2015.
+[10] J. Haspiel, N. Du, J. Meyerson, L. P. Robert Jr, D. Tilbury, X. J. Yang, and A. K. Pradhan, “Explanations and expectations: Trust building in automated vehicles,” in Companion of the 2018 ACM/IEEE International Conference on Human-Robot Interaction, 2018, pp. 119– 120.
+[11] Y. Shen, S. Jiang, Y. Chen, and K. R. Driggs-Campbell, “To Explain or Not to Explain: A Study on the Necessity of Explanations for Autonomous Vehicles,” in NeurIPS Workshop on Progress and Challenges in Building Trustworthy Embodied AI, 2022.
+[12] S. O. Hansson, M.-A˚ . Belin, and B. Lundgren, “Self-Driving Vehicles—an Ethical Overview,” Philosophy & Technology, vol. 34, no. 4, pp. 1383–1408, 2021.
+[13] J. Liu, N. Xu, Y. Shi, M. M. Rahman, T. Barnett, and S. Jones, “Do first responders trust connected and automated vehicles (CAVs)? A national survey,” Transport Policy, vol. 140, pp. 85–99, 2023.
+[14] S. Faltaous, M. Baumann, S. Schneegass, and L. L. Chuang, “Design guidelines for reliability communication in autonomous vehicles,” in Proceedings of the 10th International Conference on Automotive User Interfaces and Interactive Vehicular Applications, 2018, pp. 258–267.
+[15] T. Schneider, S. Ghellal, S. Love, and A. R. Gerlicher, “Increasing the User Experience in Autonomous Driving through different Feedback Modalities,” in 26th International Conference on Intelligent User Interfaces, 2021, pp. 7–10.
+[16] H. Detjen, M. Salini, J. Kronenberger, S. Geisler, and S. Schneegass, “Towards Transparent Behavior of Automated Vehicles Design and Evaluation of HUD Concepts to Support System Predictability Through Motion Intent Communication,” in Proceedings of the 23rd International Conference on Mobile Human-Computer Interaction, 2021, pp. 1–12.
+[17] A. Dandekar, L.-A. Mathis, M. Berger, and B. Pfleging, “How to display vehicle information to users of automated vehicles when conducting non-driving-related activities,” Proceedings of the ACM on Human-Computer Interaction, vol. 6, no. MHCI, pp. 1–22, 2022.
+[18] S. Arfini, P. Bellani, A. Picardi, M. Yan, F. Fossa, and G. Caruso, “Design for Inclusivity in Driving Automation: Theoretical and Practical Challenges to Human-Machine Interactions and Interface Design,” in Connected and Automated Vehicles: Integrating Engineering and Ethics. Springer, 2023, pp. 63–85.
+[19] M. R. Endsley, “Measurement of Situation Awareness in DynamicSystems,” Human Factors, vol. 37, no. 1, pp. 65–84, 1995.
+[20] L. Sanneman and J. A. Shah, “The Situation Awareness Framework for Explainable AI (SAFE-AI) and Human Factors Considerations for XAI Systems,” International Journal of Human-Computer Interaction, vol. 38, no. 18-20, pp. 1772–1788, 2022.
+[21] S. Atakishiyev, M. Salameh, H. Babiker, and R. Goebel, “Explaining Autonomous Driving Actions with Visual Question Answering,” in 2023 IEEE 26th International Conference on Intelligent Transportation Systems (ITSC), 2023, pp. 1207–1214.
+[22] H. Liu, C. Li, Q. Wu, and Y. J. Lee, “Visual Instruction Tuning,” Advances in Neural Information Processing Systems, vol. 36, 2024.
+[23] W.-L. Chiang, Z. Li, Z. Lin, Y. Sheng, Z. Wu, H. Zhang, L. Zheng, S. Zhuang, Y. Zhuang, J. E. Gonzalez, I. Stoica, and E. P. Xing, “Vicuna: An Open-Source Chatbot Impressing GPT-4 with 90%* ChatGPT Quality,” March 2023. [Online]. Available: https://lmsys.org/blog/2023-03-30-vicuna/
+[24] A. Radford, J. W. Kim, C. Hallacy, A. Ramesh, G. Goh, S. Agarwal, G. Sastry, A. Askell, P. Mishkin, J. Clark, et al., “Learning Transferable Visual Models From Natural Language Supervision,” in International Conference on Machine Learning, 2021, pp. 8748–8763.
+[25] Y. Xia, D. Zhang, J. Kim, K. Nakayama, K. Zipser, and D. Whitney, “Predicting Driver Attention in Critical Situations,” in Computer Vision–ACCV 2018: 14th Asian Conference on Computer Vision, Perth, Australia, December 2–6, 2018, Revised Selected Papers, Part V 14. Springer, 2019, pp. 658–674.
+[26] Mathematics Tutoring at Crafton Hills College, “Standard Normal Distribution Probabilities Table.”
+[27] C. Hewitt, I. Politis, T. Amanatidis, and A. Sarkar, “Assessing Public Perception of Self-Driving Cars: the Autonomous Vehicle Acceptance Model,” in Proceedings of the 24th International Conference on Intelligent User Interfaces, 2019, pp. 518–527.
+

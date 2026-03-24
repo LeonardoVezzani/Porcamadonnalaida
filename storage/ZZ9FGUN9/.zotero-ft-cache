@@ -1,0 +1,2156 @@
+Conference Paper PDF Available
+InCarAR: A Design Space Towards 3D Augmented Reality Applications in Vehicles
+
+    September 2019
+
+DOI: 10.1145/3342197.3344539
+
+    Conference: the 11th International Conference
+
+Authors:
+Gesa Wiegand at fortiss
+Gesa Wiegand
+
+    fortiss 
+
+Christian Mai at Ludwig-Maximilians-University of Munich
+Christian Mai
+
+    Ludwig-Maximilians-University of Munich 
+
+Kai Holländer at Ludwig-Maximilians-University of Munich
+Kai Holländer
+
+    Ludwig-Maximilians-University of Munich 
+
+Heinrich Hussmann at Ludwig-Maximilians-University of Munich
+Heinrich Hussmann
+
+    Ludwig-Maximilians-University of Munich 
+
+Download full-text PDF Read full-text
+Download citation
+Copy link Link copied
+Citations (31)
+References (73)
+Figures (2)
+Abstract and Figures
+Advances in vehicle automation and the resulting change of the interior of cars lead to new challenges for user interface concepts. Augmented reality (AR) is a promising solution for the emerging design needs due to its diverse opportunities for user interaction and presenting information. This paper supports the development of novel AR applications. We describe a corresponding use case set consisting of 98 examples from a literature review and two focus groups. Based on these samples we present a design space for in-car AR applications. To demonstrate the benefit thereof, we show a fictional design process including our proposed design space to derive a custom AR system. This work supports designers and engineers by providing a systematic approach for integrating 3D AR interfaces in a vehicle, excluding windshields and windows.
+The use case set for in-car AR applications. Use-cases are sorted in categories (colors). Each category features entries accompanied by a short title, description and examples from either related work or focus groups. The results from the focus group are labeled with the primary user group (D = Driver, P = Passenger, C = Co-Driver).
+The use case set for in-car AR applications. Use-cases are sorted in categories (colors). Each category features entries accompanied by a short title, description and examples from either related work or focus groups. The results from the focus group are labeled with the primary user group (D = Driver, P = Passenger, C = Co-Driver).
+… 
+The lines visualize the possibility to sort in and compare exemplary use cases from the use case set (Figure 1). Lines crossing a field vertically indicate that it belongs to the use case. In yellow, underlaid with a shadow, the line for the implication example (Section 'Example Scenario') is shown.
+The lines visualize the possibility to sort in and compare exemplary use cases from the use case set (Figure 1). Lines crossing a field vertically indicate that it belongs to the use case. In yellow, underlaid with a shadow, the line for the implication example (Section 'Example Scenario') is shown.
+… 
+Figures - uploaded by Christian Mai
+Author content
+Content may be subject to copyright.
+ResearchGate Logo
+
+Discover the world's research
+
+    20+ million members
+    135+ million publications
+    700k+ research projects
+
+Join for free
+Public Full-text 1
+Content uploaded by Christian Mai
+Author content
+All content in this area was uploaded by Christian Mai on Jan 30, 2020
+Content may be subject to copyright.
+InCar AR: A Design Space T owards 3D A ugmented
+Reality Applications in V ehicles
+Gesa Wiegand
+fortiss
+Munich, Germany
+wiegand@fortiss.org
+Christian Mai
+LMU Munich
+Munich, Germany
+christian.mai@i.lmu.org
+Kai Holländer
+LMU Munich
+Munich, Germany
+kai.hollaender@i.lmu.org
+Heinrich Hussmann
+LMU Munich
+Munich, Germany
+heinrich.hussmann@i.lmu.org
+ABSTRACT
+Advances in vehicle automation and the resulting change of
+the interior of cars lead to new challenges for user interface
+concepts. Augmented reality (AR) is a promising solution
+for the emerging design needs due to its diverse opportu-
+nities for user interaction and presenting information. This
+paper supports the development of novel AR applications.
+W e describe a corresponding use case set consisting of 98 ex-
+amples from a literature review and two focus groups. Based
+on these samples we present a design space for in-car AR
+applications. To demonstrate the benet thereof, we show a
+ctional design process including our proposed design space
+to derive a custom AR system. This work supports designers
+and engineers by providing a systematic approach for inte-
+grating 3D AR interfaces in a vehicle, excluding windshields
+and windows.
+CCS CONCEPTS
+• Human-centered computing → Interaction design
+theory, concepts and paradigms .
+KEYWORDS
+augmented reality, automotive , design space, 3D AR
+ACM Reference Format:
+Gesa Wiegand, Christian Mai, Kai Holländer, and Heinrich Huss-
+mann. 2019. InCarAR: A Design Space T owards 3D Augmented
+Permission to make digital or hard copies of all or part of this work for
+personal or classroom use is granted without fee provided that copies are not
+made or distributed for prot or commercial advantage and that copies bear
+this notice and the full citation on the rst page. Copyrights for components
+of this work owned by others than ACM must be honored. Abstracting with
+credit is permitted. To copy otherwise, or republish, to post on servers or to
+redistribute to lists, requires prior specic permission and/or a fee. Request
+permissions from permissions@acm.org.
+AutomotiveUI ’19, September 21–25, 2019, Utrecht, Netherlands
+© 2019 Association for Computing Machinery.
+ACM ISBN 978-1-4503-6884-1/19/09. . . $15.00
+https://doi.org/10.1145/3342197.3344539
+Reality Applications in Vehicles. In 11th International Confer ence
+on Automotive User Interfaces and Interactive V ehicular Applica-
+tions (AutomotiveUI ’19), September 21–25, 2019, Utrecht, Nether-
+lands. ACM, New Y ork, NY, USA, 13 pages. https://doi.org/10.1145/
+3342197.3344539
+1 INTRODUCTION
+Today’s cars show a trend to wards increasing automation. In
+the near future, drivers are able to turn away from the steer-
+ing wheel and focus on non-driving related activities [
+41
+,
+51
+].
+V ehicle design goes beyond safety and navigation to include
+entertainment and interaction functions [
+35
+,
+52
+]. Improved
+connection quality (e.g., through 5G [
+5
+]) creates a possi-
+bility to connect multiple vehicles or further entities and
+thus open up interaction possibilities with remote entities
+e.g., passengers from other cars. Current advances in 3D-
+display technology and augmented reality (AR) combined
+with groundbreaking changes in vehicle automation open
+unexplored opportunities for cars’ interiors. Related work
+looked into the usage of AR technology to support drivers
+and augment the outside world with information, e.g., by
+using a head-up or windshield display. In contrast, in this
+work we focus on the use of AR in the vehicles interior .
+A change in public mobility towards car sharing is likely [
+41
+]
+therefore drivers might need to adapt to new interfaces and
+dierent car functions. For example, the time we commute is
+steadily increasing [
+27
+]. It is therefore challenging to provide
+an intuitive user interface that quickly provides all neces-
+sary functions a commuter for example needs. The use of
+AR technology is promising to support all these needs. Car
+manufacturers [
+16
+,
+70
+] and researchers [
+10
+,
+12
+] present con-
+cepts to use AR for the design of novel in-car interfaces, e.g.,
+augmented buttons oating in the air. 3D AR applications fa-
+cilitate transferable personalized and context-situated infor-
+mation interfaces inside of vehicles. Floating 3D objects can
+be manipulated from dierent perspectives. Head-mounted
+displays (HMDs) that display AR objects and support user
+input, are very likely to shrink in their form factor and might
+AutomotiveUI ’19, September 21–25, 2019, Utrecht, Netherlands Wiegand et al.
+become as small as contact lenses [
+59
+]. Due to the high trans-
+portability of compact HMDs the need for a xed physical in-
+terface structure might become obsolete. There is no security
+risk of wearing HMDs inside a vehicle in case of autonomous
+driving as the driver does not need to pay attention anymore.
+The development of in-car AR is an emerging eld of
+research that is gaining increasing attention. Previous work
+showed that it is benecial for practitioners and researchers
+to have a design space at hand to built upon [
+13
+,
+21
+,
+48
+].
+In contrast to related work presenting design spaces based
+on years of work on the subject and hundreds of practical
+examples, we present a design space to a recently emerging
+eld of research. It is important to provide designers and
+researchers a design space in this early stage of development
+to give guidelines and support the research and development.
+Due to the early phase of the development of AR systems in
+cars, there is a lack of examples for in-car AR systems and
+experience in designing them. Lacking tools and experience
+in designing new systems is time consuming, has the risk
+of not using design dimensions to their full extend and thus
+missing out on important aspects. Therefore, we propose a
+design space for 3D AR applications in vehicles.
+Our design space supports the concept development of
+in-car AR systems, serves as a communication tool, enables
+objective comparison of systems and can be used to for-
+mulate standardized requirements descriptions for building
+prototypes. The scope of this work is mainly focused on
+SAE level 4 [
+28
+]. To derive this design space w e conducted
+a literature review of papers, patents and commercial prod-
+ucts. Two focus groups (
+N =
+3 ;
+N =
+5 ) with experts from
+the AR and automotive domain provide 84 additional novel
+use cases. Combined with the literature review , 98 matching
+examples for in-car AR are identied and clustered (Figure 1).
+By analyzing the use cases for their design dimensions and
+combining those with existing design spaces and taxonomies,
+we derive a design space for in-car AR applications. Hence,
+we contribute to the emerging eld of in-car AR by trans-
+ferring previous insights into a new context and drawing
+attention to possible dierences. To motivate the feasibility
+we explore the design space by sorting in existing concepts
+and present a ctional usage scenario.
+2 BACKGROUND AND RELA TED WORK
+The following summarizes work from the eld of AR and
+design spaces in the wider automotive context.
+Augmented Reality . Azuma denes AR as any system that
+combines real and virtual content, is interactive in real time
+and registered in three dimensions [
+2
+]. Visual, audio and
+tactile feedback is therefore an AR output modality. Devices
+that create mid-air 3D AR objects include Head-Mounted
+Displays (HMDs), 3D Tabletops and Holographic projectors.
+A particular advantage is the high mobility of modern AR
+HMDs, with integrated natural input possibilities such as
+speech or gesture (e.g., Hololens
+1
+). Previous work on oat-
+ing 3D objects inside cars focuses on communication [
+36
+],
+new input possibilities [57] or dashboard visualization [10].
+Practitioners such as car manufacturers presented concepts
+of mid-air buttons in the car (BMW 2017, [
+16
+]). An AR sound
+curtain is additionally considered in this concept vehicle.
+Design Spaces. Previous work provides dierent forms of
+design spaces to support the design process. Kern et al. set
+up a design space for the automotive context [
+32
+]. The de-
+sign space they present is focused on manual driving and
+the classical dashboard input and output modalities. Cur-
+rent research explores the possibilities of integrating mobile
+devices in the vehicle [
+17
+]. Endsley et al. introduce design
+heuristics regarding human factors, ergonomics and user
+experience of AR devices [
+19
+]. They establish eight design
+heuristics, among others "Adaptation to user position and
+motion" or "Fit with user environment and task". Especially
+the increased dynamic positioning and attention direction
+is explored. Müller et al. investigate the required design el-
+ements for public displays by exploring the mental models
+of the user and interaction modalities [
+48
+]. Current research
+and resulting design spaces focus on the challenges emerging
+from autonomous driving and possibilities of AR technol-
+ogy [
+21
+,
+51
+]. The work by Tönnis [
+63
+] and Häuslschmid
+et al. [
+21
+] investigate head-up and windshield displays and
+their design dimensions. W e applied a similar approach to
+our work with a focus on mid-air 3D AR applications inside
+the car. In contrast to Häuslschmid et al., we aim at a design
+space for a eld that is just emerging, with a limited num-
+ber of existing concepts, prototypes and consumer products.
+From the related work we derive the questions about what
+are the future use cases of in-car AR, how they can be inte-
+grated in the car and what are categories that dene a design
+space of in-car AR applications.
+3 METHODOLOGY
+To dene the categories describing the design space for in-car
+AR we followed four steps:
+1 Literature Review – Related W ork
+W e reviewed related work on related design spaces and
+design categories for the development of user interfaces,
+namely public displays [
+48
+], head-up displays [
+21
+,
+32
+] and
+windshield displays [21].
+1 https://en.wikipedia.org/wiki/Microsoft_HoloLens, last access: June 2019
+A Design Space for in-car AR AutomotiveUI ’19, September 21–25, 2019, Utrecht, Netherlands
+2 Literature Review – In-car AR use cases
+To verify existing, r emove unnecessary and add important
+categories found in step 1, the literature review focused on
+existing in-car AR applications (Section Literature Review ).
+3 Focus Groups – In-car AR use cases
+W e identied examples for in-car AR usage by conducting fo-
+cus groups with experts from the eld of AR and autonomous
+driving (Section Focus Groups ). This way, we avoid missing
+application cases that are not yet published or developed, e.g.,
+due to technical limitations. In the focus groups the novel
+use cases were sorted into the use case set of step 2 while
+critically reecting upon them (Section Resulting Use Case
+Set ).
+4 Building the design space
+Based on the resulting use case set (Figure 1) the authors
+started to go through the dimensions of related design spaces
+collected in step 1. When going through these dimensions
+and discussing the applications, missing dimensions or un-
+suitable categories and characteristics became obvious. Some
+design categories were removed, enhanced, split or extended.
+To get a better impression of this process, we sho w in Figure
+3 use cases, which are exemplarily tted into the nal design
+space (Figure 2).
+4 CREATION OF THE DESIGN SP ACE
+This section describes the systematic procedure for develop-
+ing the design space. W e describe the individual work steps
+of the methodology in detail.
+Literature Review
+W e conducted a literature review using the following search
+terms: hologram , holographic display , 3D representation and
+S3D and combined them with the terms: augmented reality ,
+AR and automotive . W e specically investigated literature
+regarding in-car usage hence, applications within the car . To
+that end, we searched on the following platforms: Google
+Scholar
+2
+, Springer Link
+3
+, ACM DL
+4
+and IEEE Xplore DL
+5
+.
+Focus Groups
+W e organized a rst (
+N =
+3 ) and second (
+N =
+5 ) focus group
+to nd possible new categories for the use case set that re-
+sulted from the literature review . In our focus groups, we
+had one female and seven male participants between the
+ages 25-35. Four were AR experts, two autonomous driving
+experts and two professionals working in both domains. In
+2 https://scholar.google.com/, last access: September 2018
+3 https://link.springer.com/, last access: September 2018
+4 https://dl.acm.org/, last access: September 2018
+5 https://ieeexplore.ieee.org/Xplore/home.jsp, last access: September 2018
+the rst focus group, use cases were generated by a Brain-
+writing session [
+66
+]. To prepar e for the writing, participants
+were introduced to the topic and several examples from re-
+lated work were presented and discussed. They were told
+to focus on highly automated vehicles from Level 3 to Level
+5. Additionally, w e specically told them to just think of
+use cases that do not need windows or dashboards. After
+nishing the writing, resulting ideas were sorted by the par-
+ticipants into the existing subcategories – e.g., Subcategory
+View Point in category Safety (see Figure 1) – of the use
+case set of Haeuslschmid et al. [
+21
+]. The rst focus group
+came up mainly with ideas in the category Entertainment
+and Communication . To create a richer set of possible use
+cases, the initial question in the second focus group was:
+“What is important for you during a journey in the car during
+the start (navigation), the driving on the highway/city (safety
+and entertainment) until the end (looking for a parking lot)?” .
+Additionally the following scenario was outlined: “Imagine
+you live in the year 2040. Y ou are a designer for car interiors.
+Your ne w task is to design the next car’s interior with focus
+on oating 3D AR interfaces. You hav e the following infor-
+mation: vehicle status, car2car information, information of
+the surroundings, infrastructure information and passenger
+information. ” W e then asked the participants to brain-write
+ideas for AR systems that address a particular user group
+in the vehicle. They should imagine a “driver” that is con-
+ducting a take over request. Then to think of the “attentive
+co-pilot” that also pays attention to the road and helps the
+driver. Finally they wr ote concepts for a “passive passenger”
+in the vehicle. The other categories were not explained to not
+bias the participants towards the existing use case set. The
+examples from the brain-writing were discussed and similar
+ideas were put in relation to each other by the group. After
+the focus group two of the authors compared the created
+clusters with the existing use case set. Further the authors
+sorted the resulting ideas in the subcategories of the use
+case set independently, again to nd possible gaps. The focus
+groups lasted about 120 minutes each.
+Building the design space
+W e identied 14 use cases for our problem space through
+the literature review . The focus groups resulted in 84 novel
+use cases for oating 3D in-car AR applications and can
+be identied in Figure 1 as they do not have a reference
+to literature. AR applications are dominantly imaginable in
+the category Entertainment and Communication with 43 ex-
+amples. The use cases were clustered into ve categories.
+The use cases identied by the literature review were in the
+category safety (e.g. an AR warning [
+40
+], a 3D AR avatar
+[
+23
+] or a 3D representation of the highway to prepare a
+take-over request [
+68
+]), vehicle monitoring [
+40
+,
+54
+], enter-
+tainment and communication such as a 3D AR video calling
+AutomotiveUI ’19, September 21–25, 2019, Utrecht, Netherlands Wiegand et al.
+Safety
+Vision Extension
+Extension of the driver’s view
+by displaying occluded objects
+Using
+3D AR to visualize occluded objects on the road (D,C
+)
+Visualizati on of approxi mate traffic situation (
+D,C)
+Visualizati on of Countdown un til dangerous situation (D)
+Vision
+Enhancement
+Enhancement of the driver’ s
+vision in bad viewin g or
+lighting conditions
+Visualizati on of surroundi ng to aid with decision making in
+uncertain situations (
+D,C)
+View Point
+Display of the views of virtual
+or real cameras; often
+replacing mirrors
+Camera image of accompany ing drone in vehicle (D, C)
+Spatial
+Awareness
+Improvement of the driver’s
+understanding of the space
+around the car
+Enlarge vehicl e interior with virtual objects to see dangers
+further on (D)
+Comparison between vehicl es 3D sensor model and reality by
+overlayin g camera pictures to enhance situation awareness
+and give recommendation for action (D)
+3D AR avatar that reacts on the envi ronment [
+23]
+3D representation of the highway t o prepare take
+-
+over request
+[68]
+Monitoring
+Surroundings Safety-
+relevant information
+about the environm ent
+Birds
+-eye view of possible dangerous situation to inform
+about dangers and limi tations and give information about
+route and alternatives (D)
+Adaptive virtual map with dyn amic objects of surroundings
+and informati on about other drivers on the road (risk and
+aggressiveness) (D)
+Driver
+Monitoring Driver performanc e and
+physical state observation
+Inform passenger about status(attentiveness, tiredness ,
+aggressiveness) of driver with a 3D overlay over the driv er
+(C
+)
+Breakdown They help the driver in
+breakdown situations
+Help of virtual assistant of breakdown servic e (D,C,P)
+Block doors with virtual signs to prevent passengers from
+leaving through wrong door (D,C,P)
+3D tutorial what to do (D,C,P)
+Specific Support
+Systems
+Systems directed at a specif ic
+party, support several tasks or
+provide various informati on
+3D Highlight to focus gaze of driver on situation that requi res
+his/her attention (D)
+Giving action recommendati ons (D)
+Show how where hands and feet should be to steer vehi cle
+(D)
+Visualizati on of traj ectory planning and showing alternative
+routes in possible situation (D)
+Guiding of drivers attention on
+highly priorized external
+factors (D)
+Co
+-driver guides attention of the driv er on specific situation
+by manipula ting virtual arrow ( C)
+Visualizati on of i ntention of other drivers when they are
+crossing my way (D)
+Using an avatar of other drivers to commun icate with them
+(D, C)
+AR Warning
+[40]
+Entertainment & Communication
+Commercials
+Commercials f or products or
+services, e.g. restaurants or
+promotions of stores
+Display products to support buying decision and to draw
+attention to offers of products (P)
+Economy &
+Costs
+Economical drivi ng and cost s
+display
+Show optimal trajectory in 3D world (D)
+Work & Tasks Information about general
+tasks, activities or (office)
+work tasks
+Display route/map to visual ize to pography (P)
+Calendar with interactiv e elements (P)
+Visualize weather li ke clouds/ current weather in vehicl e (P)
+Virtual keyboard (P)
+Driver Mood &
+Status
+Observation of the driver’s
+status to promote a specifi c
+mood or physical state
+Display basic requirements of singl e perso ns as a bubble over
+head (stress, fatigue, …) (P)
+Education
+The driver can gain knowledge
+or learn a specifi c behavior
+After Take over: Show Status of traffic situation/vehi cle
+before take over (D,C)
+Highlights within car of interaction elem ents that are needed
+(D, C, P)
+360
+° view of the last 30 seconds to recapitulate past traff ic
+situation (D, C, P)
+Sightseeing objects and in formation about them are display ed
+that one is drivi ng past (D, C, P)
+Certain movements of the body are augmen ted to train the
+body (C, P)
+Gaming
+Game play alone or together
+with others
+Board games in AR (P)
+Cooperative AR games with other passengers (P)
+Extended world, the horizon of the v isualization extends over
+the boundaries of the car (P)
+Virtual play partner for kids (P)
+Multimedi a &
+Web
+General informati on; music or
+video player; access to the
+Internet or news; specifi c for
+passenger entertainment and
+waiting times
+Entertainment interface (D, C, P)
+Locked interface wherever he is turned to
+to manipul ate
+entertainment dependi ng on the view direction (P)
+3D world to look at (P)
+Extended interface cooperating wi th laptop, so that contents
+can be dragged and dropped. (P)
+3D movie (P)
+Floating text (P)
+3D AR Video Calling [
+36]
+Arts &
+Photography
+Picture or arts presentation,
+applications that enabl e
+drawing and taking photos
+In Air Drawing (P)
+Taking Pictures of situations outside and shari ng them with
+others in the car (P)
+Taking picture of environm ent as 3D picture (P)
+Atmosphere
+Creation of a dif ferent
+atmosphere in the car by
+displaying differen t
+surroundings or ambient lights
+Blend out dangers outside (P)
+Relaxation/reduction of inf ormation like counting sheep (P)
+Personal spaces during ride shari ng (P)
+3D curtain to block out distraction from other passenge rs
+(D;C)
+Visual Overlay of other vehicl e passengers (P )
+Relaxing abstract forms that adapt to the car m ovement (P)
+AR sound curtain
+[16]
+Observation Observati on of a person,
+normally relatives, or an object
+and its state
+virtual huts/routes in the mountain (P)
+other chosen vehicle s rel ative to destination (D, C)
+Prediction and visuali zation of vehicle trajectory (D,C)
+Social Interaction
+Social interaction with other
+parties than drivers
+Teleport friends in vehi cle (P)
+Easier conversation with back seat, li ke showing kids virtually
+where snacks are; (P)
+Virtual personal assis tant (P)
+Telephone partner in AR (P)
+Driver 2 Driver
+Communicati on
+Communicati on with ot her
+drivers
+3D avatars (car, person) to communic ate with ot her
+vehicles /people o n the road (P)
+Shared interface during convoy drivi ng to plan trip/ choose
+music (P)
+Internet of Things
+Access to or control of things
+Smart Home: model of house and easy interaction, see status
+of connected devices/house (P)
+Health
+Encourage and support healthy
+behavior in the car
+AR trainer shows movements to follow (P)
+Virtual Sport: Sailin g or Golf that adapt the movement of the
+car for interaction.(P)
+Convenience
+Wellbein g Ai d Aids to prevent motion
+sickness
+Abstract 3D Forms and pictures to visual ize vehicle
+kinematics (P)
+Inform passenger visually about routes ahead to prepare
+him/her for the next section of the ride (P)
+Load
+Everything that is related to
+loading the car.
+Luggage Tetris to
+visuali ze best packing strategy (P)
+Interface
+Enhancement A lternative interfaces
+Interface elemen ts in 3D (
+D,C,P)
+3D highlight of indivi dual interface elements and own touch
+zones (
+D,C,P)
+3D AR Dashboard
+[8][9][10][16][57][70]
+Multimodal Feedback with AR
+[57]
+Navigation
+Path Finding
+Support in finding the way to
+the target
+Digital representation ("digi tal twin") of highway to visualize
+real
+-time route inform ation (D,C)
+Car-Following
+Support when following a car
+Compass that points towards car to foll ow (
+D,P)
+Visualizati on of di stance and status of other vehicle (D)
+Traffic & Street
+Signs
+Display of traffic signs
+currently applyi ng; street signs
+and names
+Representation of current speed li mit sign (D)
+Points of Interest
+Additional on-route
+information to fin d peo pl e,
+shops or services
+Visualizing map with parking spaces (
+D,C)
+Visualizati on of POI al ong the road in map (D,C,P)
+Preview of route highli ghts in AR (D,C,P)
+Public Transport
+Support for commuters who
+switch to public transportation
+3D Model of car park/train station with vi sualization of
+walking routes (
+D,C,P)
+Visualizati on of ti me of arrival of train by displayin g train
+model in diff erent locations depending on time of arrival (D,
+C,P
+)
+Path Planning
+Support in planning the route
+and adjusting the route whil e
+driving when external
+influences force a route change
+Activity plannin g o n i nteractive map that notify all passengers
+of their tasks (C
+, P)
+Support to plan route when several passengers need to pick up
+by using avatars in interactive m ap that can be dragged &
+dropped (C
+, P)
+Vehicle Monitoring
+Vehicle Status
+Information about vehicl e parts
+and the momentary status of
+the engine
+3D Model of vehicle with
+status informati on and ev entually
+statistics of vehicl e functions (D,C, P)
+Miniature 3D Model of vehicl e with
+luminated defective
+parts
+(D,C,P)
+AR owner manual
+[54]
+AR vehicle status
+[40]
+Supervision
+Support in supervising the
+vision of the vehicl e’s sensors;
+most of them aim to inc rease
+trust
+Visualize breakdown of sensors in virtual digital twin of
+vehicle sensors (D,C,P
+)
+Fuel & Battery
+Information about the current
+fuel or battery status
+Status information
+of fuel/battery in sight (D,C,P)
+Maintenance Information of the overall
+status of the vehicl e
+3D
+Avatar of vehicl e with a character that indicates that
+everything is ok (D,C,P)
+Figure 1: The use case set for in-car AR applications. Use-cases are sorted in categories (colors). Each category features entries
+accompanied by a short title, description and examples from either related work or focus groups. The results from the focus
+group are labeled with the primary user group (D = Driver, P = Passenger , C = Co-Driver).
+A Design Space for in-car AR AutomotiveUI ’19, September 21–25, 2019, Utrecht, Netherlands
+interface [
+36
+] or a sound curtain [
+16
+] and in convenience,
+as alternative interfaces to the dashboard [
+8
+–
+10
+,
+16
+,
+57
+,
+70
+].
+The category Navigation , includes path nding, planning
+and public transport. We identied the need for a category
+regarding Convenience . A similar category is also described
+in the work of Brandt [
+7
+] in which it is linked to the cate-
+gory Entertainment and Communication. The focus of the
+category “Convenience” in Brandt’s paper is on telecommu-
+nication and radio. For a clearer separation of the use cases,
+we decided to separate the categories into Convenience and
+Entertainment and Communication . The new subcategories
+in the category Convenience are: W ell-being Aid, Load and
+Interface Enhancement. It also describes alternative inter-
+faces to the dashboard [
+8
+–
+10
+,
+16
+,
+57
+,
+70
+]. Exemplary use cases
+are related to level out bodily eects of the ride, storage of
+objects in the car or providing alternative interfaces on sur-
+faces. Entertainment and Communication relates to leisure
+activities in the car. V ehicle Monitoring combines the vehi-
+cle’s status, its supervision, maintenance and fuel or battery
+status [
+40
+,
+54
+]. The methodological approach of sorting the
+use cases in the design space is claried in Figure 3. The
+colored lines indicate the design categories that are used or
+should be considered in designing the example application.
+The visualization can be used to not forget about certain
+design alternatives during the creative process.
+Defining The Targeted User Groups. The user group benet-
+ing most of this design space are drivers of SAE Level 4 [
+28
+]
+vehicles or higher, attentive co-drivers and passive passen-
+gers. Drivers of SAE Level 0-3 vehicles need to observe the
+road and should not be distracted by oating 3D in-car AR
+applications [
+22
+,
+25
+]. Drivers of SAE Level 4 vehicles may ben-
+et from in-car AR before the situation of a take over request
+occurs and while driving manually. Attentive Co-drivers sup-
+port the driver in navigational, safety and dashboard control
+tasks within their range of control. Passive Passengers is the
+umbrella term for the driver who is driving autonomously,
+the co-driver who does not pay attention to the road and
+other passengers.
+5 DESIGN SPA CE
+This section presents the outcome of our methodological
+approach described in the previous section (Figure 2). In the
+following, we describe the dimensions (e.g., User ), categories
+(e.g., User Mode ) and their characteristics (e.g., Single User ).
+User
+W e identied three user groups which are dened in the
+section above ( Dening The Targeted User Groups ).
+User Mode. The user mo de contains Single User and Multi
+User as the systems can either be used alone or in cooperation
+with others.
+Observer. Users observing the system are part of our identi-
+ed user groups: the Driver , Attentive Co-driver and Passive
+Passenger of a vehicle. Additionally , observers are only in
+this role if they are focused (either with their gaze or mind)
+on the application.
+Actor. An actor is dened as a user manipulating the in-
+terface [
+21
+]. All observers might be actors. Additionally, a
+remote actor can interact with the interface. For example,
+a service transmitting information to maintain the car or
+a non-present colleague cooperating via a shared interface
+with actors inside the vehicle.
+Context
+The context of use is dened as the nature of the users, tasks
+and equipment. Furthermore, it includes the physical, social
+and cultural environment in which a product is used [
+20
+,
+60
+].
+Application Purpose. The Application Purpose contains the
+characteristics Safety , Navigation , Vehicle Monitoring , Enter-
+tainment, Communication and Work and Convenience . These
+characteristics are dened by Brandt et al. [
+7
+]. Work was
+added to the category Entertainment and Communication
+because of the possible importance of this category in au-
+tonomous driving. W e added one category since we believe
+productive (oce) work will become a relevant aspect of
+highly automated driving [
+14
+,
+39
+,
+55
+,
+58
+]. Navigation includes
+information about the trip or path and in contrast to previous
+denitions, we include route planning as well.
+Information Context. This dimension describ es factors inu-
+encing the situation in the car. Environment includes e .g., the
+size of the available space inside a vehicle, the amount of
+seats and their orientation or people who are present. Vehicle
+considers the vehicle and its purpose, e.g., information about
+the engine or the car type. Personal includes all information
+about a person, such as position, age or physiological data.
+Time describes the time of the day, date and season.
+Driving Mode. The driving modes are based on Häuslschmid
+et al. [21] and include Driving , Waiting and Parking .
+Level of Automation. W e focus on SAE Level 4 [
+28
+] of au-
+tomation. Hence the level of automation can be Manual ,
+Semi-automated and Autonomous .
+Privacy. The privacy settings of an application can be Public
+(e.g., sports results), Personal (available for family or business
+insiders) and Private (only accessible for a single person) as
+proposed by Häuslschmid et al. [21].
+Travel Time. We added this category to distinguish between
+short , medium or long duration of a drive. Depending on the
+travel time dierent side eects might occur. Especially long
+AutomotiveUI ’19, September 21–25, 2019, Utrecht, Netherlands Wiegand et al.
+User
+User Mode
+Single User
+Multi User
+Observer
+Driver (SAE Level 4)
+Attentive Co-Driver
+Passive Passenger
+Actor
+Driver (SAE Level 4)
+Attentive Co-Driver
+Passenger
+Remote Actor
+Context
+Application Purpose
+Safety
+Navigation
+Vehicle Monitoring
+Entertainment, Communication
+and Work
+Convenience
+Information Context
+Environment
+Vehicle
+Personal
+Time
+Driving Mode
+Driving
+Waiting
+Parking
+Level of Automation
+Manual
+Semi-automated
+Autonomous
+Privacy
+Public
+Personal
+Private
+Travel Time
+Short duration
+Medium duration
+Long duration
+Visualiza-
+tion
+Level of Augmentation
+Reality
+Augmented Reality
+Virtual Reality
+Registration
+Unregistered
+2D registered
+3D registered
+Placement Strategy
+None
+Binary
+Linear
+Exponential/Higher Order
+Field of View Position
+Foveal
+Central
+Peripheral/Ambient
+Presentation
+Symbolic
+Naturalistic
+Graphic Design
+Factors
+Color
+Transparency
+Size
+Motion
+Depth
+Interaction
+Input Modality
+Touch & Control
+Gestures
+Gaze
+Speech
+Behavior
+Physiological
+Multimodal Feedback
+Haptic/Tactile
+Auditory
+Olfactory
+Sense of Balance
+Temperature
+Technolo-
+gy
+Image Generation
+Glasses-Based
+Displays
+Head-Worn Displays
+Autostereoscopic
+3D Displays
+Hand-Held Displays
+Size
+Full Space
+Full Dimension
+Static Area
+Situated
+Dynamic
+Depth
+2D
+Pseudo-3D
+3D
+Display Factors
+Color Depth
+Resolution
+Contrast
+Brightness
+Transparency
+Figure 2: Design Space for in-car AR.
+rides require planning breaks or considering energy loading
+stations.
+Visualization
+In this dimension we describe relevant categories related to
+the visual presentation and perception of in-car AR.
+Level of Augmentation. In contrast to previous design spaces
+we do not include discrete categories such as AR and vir-
+tual reality (VR). W e base the denition of the Level of Aug-
+mentation on Milgram’s Mixed-Reality Continuum [
+46
+]. The
+Mixed-Reality Continuum is an axis with real world content
+on the one end and exclusively virtual content on the other
+end. The idea of the continuum is that an AR system can be
+anywhere along the axis. A designer can use this continuum
+to decide for the degree of virtual content presented to the
+user. Furthermore , Mann’s Mediated Reality continuum [
+44
+]
+adds the idea of ltering to Milgrams concept [
+46
+]. Examples
+for ltering are visually slowing down time [42].
+Registration. Unregistered visuals are placed unrelated to an
+physical object within the car. 2D registration is dened as
+being registered to an object, but not meeting its depth. 3D
+registration means a positioning of elements with regards to
+a physical objects position and its depth. Dierent to previ-
+ous denition [
+21
+], we do not include gaze-dependency in
+this category. W e argue that the denition of AR registration
+describes a positioning of virtual objects relative to the phys-
+ical world. In case of a visualization that follows the gaze,
+the 2D or 3D registration changes based on the focus of the
+gaze. Therefore the gaze-dependency is a result of a change
+in the 3D registration based on the users input via gaze .
+Placement Strategy. Previous work lacks in a description of
+the change between two points of registration, therefore we
+add the new category Placement Strategy . The placement
+strategy describes animations, needed to change positions
+of an AR object or the registration state, e.g. from 2D to
+3D registration. W e came up with categories based on work
+by Lauber et al. [
+38
+]: None (the former visualization stays
+untouched, a new one appears), Binary (e.g. disappearing on
+one spot and emerging at a new one), Linear (e.g. following
+the head movement) and Exponential/ Higher Order (e.g.,
+inertia on an element when turning the head, it follows
+slowly, then catches up).
+Field of View Position. Häuslschmid et al. [
+21
+] propose the
+characteristics Foveal , Central and Peripheral/Ambient which
+we are using.
+Presentation. The Presentation of augmented reality objects
+can be symbolic (abstract) or have a naturalistic (real-world)
+A Design Space for in-car AR AutomotiveUI ’19, September 21–25, 2019, Utrecht, Netherlands
+appearance. There are no discrete distinctions between the
+characteristics but a smooth transition with innite states in
+between.
+Graphic Design Factors. In addition to the denition of
+Häuslschmid et al. [
+21
+], we add depth as characteristic to
+the category Graphic Design Factors . Many of the examples
+found in the focus groups rely on having objects in dierent
+depths available. Zooming, panning, moving and interacting
+with objects benet from providing a depth dimension.
+Interaction
+Interaction with 3D AR applications can be designed by
+altering the following categories.
+Input Modality. Inputs can be triggered in an implicit or
+explicit manner. Implicit actions describe a reaction of the
+system without a conscious decision of the user, whereas ex-
+plicit inputs include only informed actions of the user. T ouch
+& Control , Gestures and Speech are normally used for explicit
+input. Gaze can be used for explicit input but might also be
+executed without any intentions. Behavior and Physiological
+are mostly used to dene implicit input. Behavior describes
+facial expressions, eye movements, body position and pos-
+ture of the driver [
+48
+]. To avoid implicit Gestur es , they should
+dier from natural movements and thus be learned. However ,
+gestures can reect movements used in natural interactions,
+such as unscrewing a bottle by turning the hand [53].
+Multimodal Feedback. In this categor y we include Haptic /
+Tactile , A uditory , Olfactory , Sense of Balance and Temperature .
+The use of tactile feedback is well established in the domain
+of smartphones and could be transferred to in-car AR ob-
+jects. The sense of balance can be activated via movements
+of the car chassis. For example, to support virtual sports
+experiences such as sailing (use-case ”sailing” in Figure 1).
+Temperature has been used as a feedback modality [
+69
+]. It
+could indicate points of interests on a map (e.g., feeling warm
+spots indicating restaurants on a map).
+Technology
+The technology used to create 3D images in a car is based on
+an eect achieved by showing two slightly dierent images
+for each eye [
+43
+]. W e refer to Billinghurst et al. [
+4
+] for more
+detailed information of AR technology.
+Image Generation. Based on previous work [
+8
+,
+64
+,
+65
+], we
+identied four suitable classication categories for in-car AR
+display technologies: Glasses-Based , Head-W orn , Autostereo-
+scopic 3D and Hand-Held Displays .
+Current glasses-based commercial products e.g., the "3D Vi-
+sion 2 Wireless Glasses" by NVIDIA
+6
+, combine a display with
+glasses worn by the user. The glasses separate the tw o stereo-
+scopic pictures for the left and right eye respectively and
+often implement active shutter systems [
+6
+,
+43
+]. Other glasses
+use interference lters [
+31
+,
+43
+] or polarization [
+43
+], to pro-
+duce the 3D eect. Current technology, such as the Microsoft
+HoloLens
+7
+or Vuzix Blade
+8
+enable a eld of view of about
+30
+°×
+17.5
+°
+(HoloLens). Designers need to understand if their
+chosen technology is able to comply with their eld of view
+requirements. Head-worn Displays include two optical micro
+displays to produce a 3D experience [
+24
+,
+50
+,
+56
+]. Benets
+are independency of the user’s position and head-tracking
+possibilities. They can support the full spectrum of the level
+of augmentation [
+29
+,
+61
+,
+62
+]. Autostereoscopic 3D Displays
+show 3D images without additional devices [
+18
+,
+24
+,
+43
+,
+64
+].
+W ell-perceivable 3D-visual eects created by such systems
+are restricted to a specic point of view. Additionally , they
+can suer from distortion, lead to fatigue or display ipping
+images [
+1
+,
+30
+,
+37
+,
+45
+]. Broy et al. [
+11
+] implemented a stereo-
+scopic 3D interface in the dashboard of a car and showed that
+it enhances the presentation of spatial information (e.g., navi-
+gational cues) compared to 2D presentations. Hand-Held Dis-
+plays are a useful tool for implementing optical see-through
+applications to augment reality [47, 67].
+Size. The AR content can make use of the Full Space of the
+vehicle interior. Alternatively , it could cover a Full Dimen-
+sion in one of the three spatial axes limited by the vehicles
+interior dimensions. AR objects could also ll any geometric
+Static Area , e.g., oating cir cularly inside the interior. Ad-
+ditional AR features could be placed contextually Situated .
+Hence, information regarding the status of the car could
+overlay parts of a physical instrument cluster . Furthermore,
+the image size could actively adapt to the displayed content
+by using a Dynamic range.
+Depth. Images for in-car AR features could render 2D views
+e.g., for a digital speedometer, a web browser oating inside
+the vehicle or the top-view of a map. Pseudo-3D imitates
+depth with perspective 2D images in a way that objects do not
+appear at but rather cubical (e.g.,[
+33
+]). Real 3D images show
+a spatial illustration which has visual information in three
+dimensions analog to real world objects [
+3
+,
+15
+,
+26
+,
+49
+]. Thus,
+these representations contain an explicit value for depth
+perception. Kulshreshth et al. present active 3D stereoscopic
+rendering techniques adapting to the displayed content [
+34
+].
+6
+https://www.nvidia.com/object/product-geforce- 3d-vision2- wireless-glasses- us.
+html, last access: July 2019
+7 https://www.microsoft.com/en-us/hololens, last access: July 2019
+8
+https://www.vuzix.com/products/blade-smart-glasses, last access: July
+2019
+AutomotiveUI ’19, September 21–25, 2019, Utrecht, Netherlands Wiegand et al.
+User
+User Mode Single User Multi User
+Observer Driver (SAE Level 4) Attentive Co-Driver Passive Passenger
+Actor Driver (SAE Level 4) Attentive Co-Driver Passenger Remote Actor
+Context
+Application Purpose Safety Navigation Vehicle Monitoring Entertainment, Communication
+and Work Convenience
+Information Context Environment Vehicle Personal Time
+Driving Mode Driving Waiting Parking
+Level of Automation Manual Semi-automated Autonomous
+Privacy Public Personal Private
+Travel Time Short duration Medium duration Long duration
+Visualiza-
+tion
+Level of Augmentation Reality Augmented Reality Virtual Reality
+Registration Unregistered 2D registered 3D registered
+Placement Strategy None Binary Linear Exponential/Higher Order
+Field of View Position Foveal Central Peripheral/Ambient
+Presentation Symbolic Naturalistic
+Graphic Design
+Factors Color Transparency Size Motion Depth
+Interaction Input Modality Touch & Control Gestures Gaze Speech Behavior Physiological
+Multimodal Feedback Haptic/Tactile Auditory Olfactory Sense of Balance Temperature
+Technolo-
+gy
+Image Generation Glasses-Based
+Displays Head-Worn Displays Autostereoscopic
+3D Displays Hand-Held Displays
+Size Full Space Full Dimension Static Area Situated Dynamic
+Depth 2D Pseudo-3D 3D
+Display Factors Color Depth Resolution Contrast Brightness Transparency
+Luggage Tetris to visualize
+best packing strategy
+Using 3D AR to visualize
+occluded objects on the road
+Visualizing map with
+parking spaces
+Example Scenario
+communicate
+vehicle state
+Figure 3: The lines visualize the possibility to sort in and compare exemplary use cases from the use case set (Figure 1). Lines
+crossing a eld vertically indicate that it belongs to the use case. In yellow , underlaid with a shadow, the line for the implication
+example (Section ’Example Scenario’) is shown.
+Display Factors. The attributes Color depth , Resolution , Con-
+trast , Brightness and Transparency are crucial attributes for
+a well perceivable illustration. The source of the image has
+to meet specic requirements to present a satisfying in-car
+user experience. Changing light conditions (day / night) and
+rapidly passing-by shadows are potential aspects of everyday
+drives and need to be considered in the design process.
+Dierentiation from other design spaces
+W e refer to our suggested classication system as design
+space, although we introduce more than two dimensions and
+no x- or y-axis to locate content. We consider our w ork as a
+tool to enhance future developments of in-car AR, therefore
+it is more than a taxonomy. Also , it is not hierarchic struc-
+tured. Hence, our work extends the usual appearance of a
+design space and could be perceived as a meta-design space
+with inuences of common taxonomies. Our proposed design
+space builds upon previous work from the automotive do-
+main and therefore has some overlapping factors [
+21
+,
+32
+,
+48
+].
+However , we did not nd similar work focusing on in-car
+AR. In contrast to the previous work there are manifold ad-
+ditional opportunities for positioning, interaction, use cases
+and users. With our design space we add the novel categories
+travel time and placement strategy . We have also signicantly
+redened the categories level of augmentation , registration ,
+graphic design factors , multimodal feedback , observer , actor
+and image generation to meet the needs of in-car AR. To
+distinguish our design space further from others, we discuss
+the particular dierences below:
+Positioning. The position of the interaction element plays a
+signicant role for its use case. Augmented objects on the
+windshield force the user to actively turn towards a window .
+3D AR objects can be boundlessly adapted to the user’s eld
+of view and orientation in three spatial dimensions. There-
+fore, our suggested design space expands beyond multiple
+positioning options and includes placement strategies.
+Interaction. Floating 3D objects are manipulated with dier-
+ent gestures than 2D interfaces [
+53
+]. Direct touch interac-
+tion is not recommendable for windshields applications as
+it would obstruct with the vision[
+21
+]. Public displays need
+to count on attracting the passers-by attention and need a
+dierent interaction design [
+48
+]. In-car AR demands a con-
+sideration of interaction strategies, which is reected in this
+design space.
+Use Cases and Users. The use case set of 3D in-car AR and
+windshield displays both include a majority of entertain-
+ment and communication applications. However , use cases
+for 3D in-car AR applications are not limited to a position
+(e.g., windshield) and can address all passengers of a vehicle
+without occlusion. Especially, if the vehicle design changes
+A Design Space for in-car AR AutomotiveUI ’19, September 21–25, 2019, Utrecht, Netherlands
+in the future, the windshield might not be a point of interest
+anymore. For example, all seats could face each other . Use
+cases for in-car AR include every possible user inside of a
+vehicle and furthermore, could be used to digitally augment
+passengers or even replace empty space with people who
+are not present.
+6 USAGE OF THE DESIGN SP ACE
+In the following section we suggest a way how to use the
+Design Space and motivate its validity. W e intend the design
+space to be a tool during the creative design process that
+(1) helps to keep all dimensions in mind, (2) provokes an
+objective and thorough discussion of each design category,
+(3) supports identication of critical design categories. In the
+following example we will refer to these numbers, wherever
+the story addresses one of the prerequisites. W e present a c-
+tional scenario that showcases the ability of the design space
+to achieve these goals. As input we introduce personas and
+a user story. The aim of the ctional example is to develop a
+new concept for a system that enables joint planning of the
+drop-o point at the destination.
+Personas and Use Case
+W e introduce two personas that are dierent in their back-
+ground and abilities, still they are very likely to work to-
+gether in a UX design process.
+Laura is a 29-year-old UX designer that just graduated
+from university. She has some background in the automo-
+tive domain from lectures at university and is a specialist
+in the application of UX methods and user-centered design.
+However , she does not yet have a proper overview on tech-
+nological trends and user needs when designing in-vehicle
+applications.
+Peter is a 45-year-old computer scientist with 15 years
+of experience in developing for the automotive domain. He
+is responsible for the implementation of technology for the
+human machine interface in the car. Throughout his working
+experience he gained some knowledge about UX design,
+however his main interest is in making things work. Use Case
+Due to the current success of AR technology and the ongoing
+progress in the development of automated vehicles Laura and
+Peter are asked to think about how these two domains can
+complement each other. On a higher management level it was
+decided to work on concepts that explore collaborative route
+planning. When several persons drive together in a vehicle,
+the route is dened early on. If spontaneous alterations in the
+route occur due to the needs of the passengers, for example
+due to a sudden changed meeting point, the drop o location
+changes as well.
+Example Scenario
+Peter feels overwhelmed by the problem. Although, he knows
+a lot about the traditional driver centered interface design,
+he does not know yet how to approach in-car AR solutions.
+Laura got to know the design space for in-car AR (Figure 2)
+in her studies and introduces it to Peter. Peter has a look at it
+and nds a number of familiar words and categories drawing
+his interest. They agree to focus on the multi user aspe ct of
+the problem due to the prerequisites of their management.
+The request is to built something for a passive passenger as
+an observer and actor . To stay aware of the characteristics,
+they mark it in the printed out design space, which makes it
+visible to everybody (nal result: Figure 3, yellow). Next they
+discuss the application purpose to be partly navigation and
+communication between the collaborators. Peter knows that
+navigational tasks can benet from switching view points,
+e.g., from a birds view to a perspective view , as not every-
+body is able to read a 2D map. Peter then starts with a lecture
+about interaction design for a 2D map. Laura, agreeing with
+the idea of changing the viewpoint, interrupts Peter. She
+reminds him to stick to the higher level of the previously de-
+cided multi user aspects (1). They decide that the tool is used
+while driving in the autonomous car. They make a note on the
+side of the design space to keep in mind the communication
+of the vehicle state to passengers, as there is no driver per-
+forming this action. In the category privacy , they get stuck in
+their discussion. Peter argues that privacy is never an issue
+as people in the car know each other and are willing to share
+information. Laura highlights that they do not really know
+yet about the usage of the car. What if the users are sitting in
+an autonomous taxi that they share with strangers, a public
+context. Peter and Laura agree that this is a critical, not yet
+decided design factor and needs clarication (3). As they are
+short on time, they decide to design for a group of friends
+going to a festival willing to share personal data. Two friends
+want to go to the tent area rst while the other two want to
+go directly to the concert. To take full advantage of 3D AR,
+Laura suggests that festival organizers could already provide
+a 3D map of the campsite. By exploring the amenities and
+the distance to the concerts, discussion between the friends
+can be improved. The travel time will be short , requiring a
+quick and easy system setup and strong decision support.
+To make it fast and easy to use, it should be part of the cars
+infrastructure to prevent connectivity problems and a setup
+of external devices. T o speed up the decision making process,
+Peter is thinking about an application that has the personal
+preferences of the single user. The system also knows the
+time to arrive at the destination and the input of one user
+that requests a change towards a specic drop o location.
+Based on this information the system will provide three al-
+ternatives for planning the route and parking, which reduces
+AutomotiveUI ’19, September 21–25, 2019, Utrecht, Netherlands Wiegand et al.
+the negotiation time. After having decided the structural
+boundaries for the system, they proceed with designing the
+implementation by starting with decisions on the visualiza-
+tion . Augmented reality would be ideal, as the passengers can
+still see each other and discuss on a common map. Virtual
+reality , Peter explains, could provide advanced spatial knowl-
+edge about the destination, but would hinder interaction as
+it covers the wearer’s face (2). A 2D registration is ideal to
+position a map centrally . A shared display inuences interior
+design decisions because it requires users to be able to rotate
+towards each other. T o ensure that everybody is able to see
+the display the system might need information about the
+environment and add a tick to information context (1).
+A placement strategy might be used to blend b etween the
+2D representation of a map and a 3D point of view image to
+support spatial knowledge for the desired destination. The
+presentation style should have two levels as it is common
+from other navigational tools. To make a clear distinction
+they plan to change from a symbolic visualization to more a
+naturalistic one in a binary way. All graphic design factors
+should be optimized for best viewing conditions in the di-
+verse automotive everyday context. In particular , motion and
+color could be used to support the group awareness about
+who requested a change and the three alternative destina-
+tions the system suggests.
+They decide for touch and gestures as input modality and
+use well known interaction metaphors. Laura had sorted in
+other concepts for in-car AR experiences beforehand (Figure
+3). Hence she suggests to distinguish the input modality from
+competitors, by adding behavioral input (2). For example, as
+the time frame for the decision is short, the system could
+detect the single users attention by tracking gaze or head
+orientation. Peter doubts the practical usefulness of this input
+modality and suggests to collect more information on this
+design category. They speculate that haptic feedback will
+be used to support single users interaction with the display.
+In contrast, auditory sound can be used to communicate
+system states through space that are important to everyone.
+However , they postpone the detailed work on the interaction
+and underline it red in the design space (Figure 3) (3).
+To support spatial awareness at the destination, they want
+to have the possibility to present 3D images. Peter says that
+autostereoscopic 3D displays are feasible however, the y are
+limited in the number of possible users (2). Therefore they
+should focus on the integration of head-worn displays within
+a static area of the car. The display factors , he says are not of
+major importance for a possible prototype.
+Laura is happy with their progress, as it provides a focused
+description of the system specications. In a further step
+she will process the results and create some storyboards
+showcasing possible design solutions, within the decided
+characteristics of the system (Figure 3, yellow).
+7 DISCUSSION AND LIMITA TIONS
+Although research on in-car AR is very limited, previous
+work on automotive interface design gives us a strong foun-
+dation to base our work on. Thereby, w e were enabled to
+transfer and expand insights from other design spaces into an
+AR-centered design space. W e took great care in creating a
+use case set covering a large eld of applications. T o this end,
+we conducted our focus groups with experts from the eld.
+Our design space can be used as a source of inspiration and to
+discover gaps of ideas in the current development. Although
+some use cases can be implemented on other devices, we
+want to encourage new interactions with new technologies.
+However , some design dimensions might not be complete
+yet. In the course of time, new ideas develop during the prac-
+tical use of these systems, which lead to applications that
+may not yet be known to us. For example, bodily eects
+such as motion sickness in context of AR are still under re-
+search. W e do not restrain the creation of ideas by reporting
+current technological limitations, but foster the curiosity to
+search for the latest trends. Our design space is an initial
+step towards supporting the ideation for novel prototypes.
+However , we are aware that it might need to be expanded
+in the future. Therefore, we invite researchers to e xtend our
+proposed design space. Due to the limited related work, our
+design space is mainly based on examples derived from fo-
+cus groups. As this is exceptional to set up a design space
+our methodology extends the concept of a design space. W e
+encourage researchers to come up with similar examples
+to create a clear discrimination between our design space
+based on non-existing examples and design spaces based on
+literature. This will lead to an improved understanding of
+the problem space and sharpen the design space denition.
+8 CONCLUSION
+In this paper we provide a design space that helps people
+from all professional backgrounds to develop, analyze and
+report in-car AR applications. W e derive the design space
+from a comprehensive literature review and 84 novel AR
+application cases from focus groups. Our results are based
+on previous knowledge reported in taxonomies and design
+spaces from the design of car interiors and AR systems. W e
+discuss similarities and dierences between our use-case
+set and previous work on user interfaces, HUDs and wind-
+shield displays and we identify the design parameters that
+we expect to be of primary importance for in-car AR appli-
+cations. Using a ctional application example, we show the
+advantages of our design space when used in a real world de-
+sign process. Ultimately, we want to support the discussion
+and research about future system design for mobile work,
+entertainment, social interaction or education for in-car AR.
+A Design Space for in-car AR AutomotiveUI ’19, September 21–25, 2019, Utrecht, Netherlands
+REFERENCES
+[1]
+Rolf Koch Andrew J. W oods, Tom Docherty. 1993. Image distortions
+in stereoscopic video systems. In Stereoscopic displays and applications
+IV , Vol. 1915. 36–49. https://doi.org/10.1117/12.157041
+[2]
+Ronald T. Azuma. 1997. A Survey of Augmented Reality. Presence:
+Teleoper . Virtual Environ. 6, 4 (Aug. 1997), 355–385. https://doi.org/10.
+1162/pres.1997.6.4.355
+[3]
+Patrick Bader, V alentin Schwind, Niels Henze, Stefan Schneegass, Nora
+Broy, and Albrecht Schmidt. 2014. Design and Evaluation of a Layered
+Handheld 3D Display with Touch-sensitive Front and Back. In Proceed-
+ings of the 8th Nordic Conference on Human-Computer Interaction: Fun,
+Fast, Foundational (NordiCHI ’14) . ACM, New York, NY , USA, 315–318.
+https://doi.org/10.1145/2639189.2639257
+[4]
+Mark Billinghurst, Adrian Clark, and Gun Lee. 2015. A Survey of
+Augmented Reality. Found. Trends Hum.-Comput. Interact. 8, 2-3 (March
+2015), 73–272. https://doi.org/10.1561/1100000049
+[5]
+F. Boccardi, R. W . Heath, A. Lozano, T. L. Marzetta, and P. Popovski.
+2014. Five disruptive technology directions for 5G. IEEE Communica-
+tions Magazine 52, 2 (February 2014), 74–80. https://doi.org/10.1109/
+MCOM.2014.6736746
+[6]
+Doug Bowman, Ernst Kruij, Joseph J LaViola Jr, and Ivan P Poupyrev .
+2004. 3D User interfaces: theory and practice, CourseSmart eT extbook .
+[7]
+Tobias Brandt. 2013. Information Systems in A utomobiles – Past,
+Present, and Future Uses. (08 2013). https://doi.org/10.13140/RG.2.1.
+3337.9688
+[8]
+Nora Broy. 2016. Stereoscopic 3D user interfaces: exploring the poten-
+tials and risks of 3D displays in cars. (2016). https://doi.org/10.18419/
+opus-8851
+[9]
+Nora Broy, Florian Alt, Stefan Schneegass, and Bastian Peging. 2014.
+3D Displays in Cars: Exploring the User Performance for a Stereoscopic
+Instrument Cluster. ACM Press, 1–9. https://doi.org/10.1145/2667317.
+2667319
+[10]
+Nora Broy, Mengbing Guo, Stefan Schneegass, Bastian Peging, and
+Florian Alt. 2015. Introducing Novel Technologies in the Car - Con-
+ducting a Real-W orld Study to Test 3D Dashboards. In 7th International
+Conference on Automotive User Interfaces and Interactive V ehicular Ap-
+plications (AutomotiveUI ’15) . ACM, New Y ork, NY, USA, 179–186.
+https://doi.org/10.1145/2799250.2799280
+[11]
+Nora Broy, Mengbing Guo, Stefan Schneegass, Bastian Peging, and
+Florian Alt. 2015. Introducing Novel T echnologies in the Car: Conduct-
+ing a Real-world Study to Test 3D Dashboards. In Proceedings of the 7th
+International Conference on Automotive User Interfaces and Interactive
+Vehicular A pplications (AutomotiveUI ’15) . ACM, New Y ork, NY, USA,
+179–186. https://doi.org/10.1145/2799250.2799280
+[12]
+Nora Broy, V erena Lindner , and Florian Alt. 2016. The S3D-UI Designer:
+Creating User Interface Prototypes for 3D Displays. In Proceedings of
+the 15th International Conference on Mobile and Ubiquitous Multimedia
+(MUM ’16) . ACM, New Y ork, NY, USA, 49–55. https://doi.org/10.1145/
+3012709.3012727
+[13]
+Ed Chi. 2000. A Taxonomy of Visualization Techniques Using the
+Data State Reference Model. In Proceedings of the IEEE Symposium on
+Information Vizualization 2000 (INFOVIS ’00) . IEEE Computer Society,
+Washington, DC, USA, 69–. http://dl.acm.org/citation.cfm?id=857190.
+857691
+[14]
+Lewis L. Chuang, Stella F. Donker, Andr ew L. Kun, and Christian P.
+Janssen. 2018. Workshop on The Mobile Oce. In Adjunct Pr oceedings
+of the 10th International Conference on Automotive User Interfaces and
+Interactive Vehicular A pplications (AutomotiveUI ’18) . ACM, New Y ork,
+NY, USA, 10–16. https://doi.org/10.1145/3239092.3239094
+[15]
+C. Conti, J. Lino, P. Nunes, and L. D. Soares. 2012. Spatial and temporal
+prediction scheme for 3D holoscopic video coding based on H.264/A VC.
+In 2012 19th International Packet Video Workshop (PV) . 143–148. https:
+//doi.org/10.1109/PV.2012.6229727
+[16]
+Inc DesignworksUSA. 2006. BMW Holographic Interface. http://w ww.
+bmwgroupdesignworks.com/work/bmw-i- inside-future/. Accessed:
+2018-06.
+[17]
+Stefan Diewald, Andreas Möller, Luis Roalter , Matthias Kranz, et al
+.
+2011. Mobile device integration and interaction in the automotive
+domain. In AutoNUI: Automotive Natural User Interfaces W orkshop
+at the 3rd International Conference on Automotive User Interfaces and
+Interactive Vehicular A pplications (AutomotiveUI 2011) .
+[18]
+N. A. Dodgson. 2005. Autostereoscopic 3D displays. Computer 38, 8
+(Aug 2005), 31–36. https://doi.org/10.1109/MC.2005.252
+[19]
+Tristan C. Endsley, K elly A. Sprehn, Ryan M. Brill, Kimberly J. Ryan,
+Emily C. Vincent, and James M. Martin. 2017. Augmented Reality
+Design Heuristics: Designing for Dynamic Interactions. Proceedings
+of the Human Factors and Ergonomics Society Annual Meeting 61, 1,
+2100–2104. https://doi.org/10.1177/1541931213602007
+[20]
+Jens Grubert, Tobias Langlotz, Stefanie Zollmann, and Holger Re-
+genbrecht. 2017. T owards Pervasive Augmented Reality: Context-
+Awareness in A ugmented Reality. IEEE Transactions on Visualiza-
+tion and Computer Graphics 23, 6 (June 2017), 1706–1724. https:
+//doi.org/10.1109/TVCG.2016.2543720
+[21]
+Renate Haeuslschmid, Bastian Peging, and Florian Alt. 2016. A Design
+Space to Support the Development of Windshield Applications for the
+Car. In Proceedings of the 2016 CHI Conference on Human Factors in
+Computing Systems (CHI ’16) . ACM, New York, NY , USA, 5076–5091.
+https://doi.org/10.1145/2858036.2858336
+[22]
+Joanne L Harbluk, Y Ian Noy, and Moshe Eizenman. 2002. The impact
+of cognitive distraction on driver visual behaviour and vehicle control .
+Technical Report.
+[23]
+Renate Häuslschmid, Max von Bülow, Bastian Peging, and Andreas
+Butz. 2017. Supporting Trust in Autonomous Driving. In Proceedings of
+the 22Nd International Conference on Intelligent User Interfaces (IUI ’17) .
+ACM, New Y ork, NY, USA, 319–329. https://doi.org/10.1145/3025171.
+3025198
+[24]
+N. S. Holliman, N. A. Dodgson, G. E. Favalora, and L. Pockett. 2011.
+Three-Dimensional Displays: A Review and Applications Analysis.
+IEEE Transactions on Broadcasting 57, 2 (June 2011), 362–371. https:
+//doi.org/10.1109/TBC.2011.2130930
+[25]
+Tim Horberry, Janet Anderson, Michael A. Regan, Thomas J. Triggs,
+and John Brown. 2006. Driver distraction: The eects of concurrent
+in-vehicle tasks, road environment complexity and age on driving
+performance. Accident Analysis Prevention 38, 1 (2006), 185 – 191.
+https://doi.org/10.1016/j.aap.2005.09.007
+[26]
+Russell Hudyma, Michael Thomas, Paul Rose, and Rick Dorval. 2007.
+Volumetric Three-Dimensional Display System.
+[27]
+Christopher Ingraham. 2016. The astonishing hu-
+man potential wasted on commutes. https://
+www.washingtonpost.com/news/wonk/wp/2016/02/25/
+how-much- of-your- life- youre-wasting- on-your- commute/
+?noredirect=on&utm_term=.2c635b369897. Accessed: 2018-09.
+[28]
+SAE International. 2016. Taxonomy and denitions for terms related
+to driving automation systems for on-road motor vehicles.
+[29]
+Sankar Jayaram, Judy Vance, Rajit Gadh, Uma Jayaram, and Hari Srini-
+vasan. 2001. Assessment of VR technology and its applications to
+engineering problems. Journal of Computing and Information Science
+in Engineering 1, 1 (2001), 72–83. https://doi.org/10.1115/1.1353846
+[30]
+Graham R. Jones, Delman Lee, Nicolas S. Holliman, and David Ezra.
+2001. Controlling perceived depth in stereoscopic images. In Stereo-
+scopic Displays and Virtual Reality Systems VIII , Vol. 4297. International
+Society for Optics and Photonics, 42–54.
+AutomotiveUI ’19, September 21–25, 2019, Utrecht, Netherlands Wiegand et al.
+[31]
+Helmut Jorke, Arnold Simon, and Markus Fritz. [n. d.]. Advanced stereo
+projection using interference lters. Journal of the Society for Informa-
+tion Display 17, 5 ([n. d.]), 407–410. https://doi.org/10.1889/JSID17.5.
+407 arXiv:https://onlinelibrary.wiley .com/doi/pdf/10.1889/JSID17.5.407
+[32]
+Dagmar Kern and Albrecht Schmidt. 2009. Design Space for Driver-
+based Automotive User Interfaces. In Proceedings of the 1st International
+Conference on Automotive User Interfaces and Interactive V ehicular
+Applications (AutomotiveUI ’09) . A CM, New York, NY, USA, 3–10. https:
+//doi.org/10.1145/1620509.1620511
+[33]
+Hyun Goo R. Kim, Dora E. Angelaki, and Gregory C. DeAngelis. 2016.
+The neural basis of depth perception from motion parallax. Philosoph-
+ical Transactions of the Royal Society B: Biological Sciences 371, 1697
+(2016). https://doi.org/10.1098/rstb.2015.0256
+[34]
+Arun Kulshreshth and Joseph J. LaViola, Jr. 2016. Dynamic Stereoscopic
+3D Parameter Adjustment for Enhanced Depth Discrimination. In
+Proceedings of the 2016 CHI Conference on Human Factors in Computing
+Systems (CHI ’16) . ACM, New York, NY , USA, 177–187. https://doi.
+org/10.1145/2858036.2858078
+[35]
+A. L. Kun, S. Boll, and A. Schmidt. 2016. Shifting Gears: User Interfaces
+in the Age of Autonomous Driving. IEEE Pervasive Computing 15, 1
+(Jan 2016), 32–38. https://doi.org/10.1109/MPRV.2016.14
+[36]
+Andrew L Kun, Hidde van der Meulen, and Christian P Janssen. 2017.
+Calling while driving: An initial experiment with HoloLens. (2017).
+[37]
+Marc Lambooij, Marten Fortuin, Ingrid Heynderickx, and Wijnand
+IJsselsteijn. 2009. Visual discomfort and visual fatigue of stereoscopic
+displays: A review. Journal of Imaging Science and Technology 53, 3
+(2009), 30201–1. https://doi.org/10.2352/J.ImagingSci.Technol.2009.53.
+3.030201
+[38]
+Felix Lauber, Sophia Cook, and Andreas Butz. 2015. Content Destabi-
+lization for Head-Mounted Displays. In Proceedings of the 33rd Annual
+ACM Conference on Human Factors in Computing Systems (CHI ’15) .
+ACM, New Y ork, NY, USA, 2139–2142. https://doi.org/10.1145/2702123.
+2702161
+[39]
+Eric Laurier. 2004. Doing Oce Work on the Motorway. Theory ,
+Culture & Society 21, 4-5 (2004), 261–277. https://doi.org/10.1177/
+0263276404046070 arXiv:https://doi.org/10.1177/0263276404046070
+[40]
+Patrick Lindemann and Gerhard Rigoll. 2016. Exploring Floating
+Stereoscopic Driver-car Interfaces with Wide Field-of-view in a Mixed
+Reality Simulation. In Proceedings of the 22Nd ACM Conference on
+Virtual Reality Software and Technology (VRST ’16) . ACM, New Y ork,
+NY, USA, 331–332. https://doi.org/10.1145/2993369.2996299
+[41]
+Todd Litman. 2017. Autonomous vehicle implementation predictions .
+Victoria Transport Policy Institute Victoria, Canada.
+[42]
+Raymond Chun Hing Lo, Steve Mann, Jason Huang, Valmiki Ram-
+persad, and Tao Ai. 2012. High Dynamic Range (HDR) Video Image
+Processing for Digital Glass. In Proceedings of the 20th ACM Interna-
+tional Conference on Multimedia (MM ’12) . ACM, New Y ork, NY, USA,
+1477–1480. https://doi.org/10.1145/2393347.2396525
+[43] Ernst Lueder. 2012. 3D Displays . Vol. 34.
+[44]
+Steve Mann, Tom Furness, Y u Yuan, Jay Iorio, and Zixin W ang. 2018.
+All Reality: Virtual, Augmented, Mixed (X), Mediated (X, Y), and Mul-
+timediated Reality. CoRR abs/1804.08386 (2018). arXiv:1804.08386
+http://arxiv.org/abs/1804.08386
+[45]
+L. M. J. Meesters, W. A. IJsselsteijn, and P . J. H. Seuntiens. 2004. A sur-
+vey of perceptual evaluations and requirements of three-dimensional
+TV. IEEE Transactions on Circuits and Systems for Video T echnology 14,
+3 (March 2004), 381–391. https://doi.org/10.1109/TCSVT.2004.823398
+[46]
+Paul Milgram and Fumio Kishino. 1994. A Taxonomy of Mixed Reality
+Visual Displays. vol. E77-D, no. 12 (12 1994), 1321–1329.
+[47]
+M. Mohring, C. Lessig, and O. Bimber. 2004. Video se e-through AR on
+consumer cell-phones. In Third IEEE and ACM International Symposium
+on Mixed and Augmented Reality . 252–253. https://doi.org/10.1109/
+ISMAR.2004.63
+[48]
+Jörg Müller, Florian Alt, Daniel Michelis, and Albrecht Schmidt. 2010.
+Requirements and Design Space for Interactive Public Displays. In
+Proceedings of the 18th ACM International Conference on Multimedia
+(MM ’10) . ACM, New Y ork, NY, USA, 1285–1294. https://doi.org/10.
+1145/1873951.1874203
+[49]
+Shojiro Nagata. 1991. Pictorial Communication in Virtual and Real
+Environments. (1991), 527–545. http://dl.acm.org/citation.cfm?id=
+109350.109413
+[50]
+Siegmund Pastoor and Matthias Wöpking. 1997. 3-D displays: A review
+of current technologies. Displays 17, 2 (1997), 100–110. https://doi.
+org/10.1016/S0141-9382(96)01040- 2
+[51]
+Bastian Peging, Maurice Rang, and Nora Broy. 2016. Investigating
+User Needs for Non-driving-related Activities During Automated Driv-
+ing. In Proceedings of the 15th International Conference on Mobile and
+Ubiquitous Multimedia (MUM ’16) . ACM, New Y ork, NY, USA, 91–99.
+https://doi.org/10.1145/3012709.3012735
+[52]
+Bastian Peging, Maurice Rang, and Nora Broy. 2016. Investigating
+User Needs for Non-Driving-Related Activities During Automated
+Driving. In Proceedings of the 15th International Conference on Mobile
+and Ubiquitous Multimedia (MUM ’16) . ACM, New York, NY , USA.
+https://doi.org/10.1145/3012709.3012735
+[53]
+Tran Pham, Jo Vermeulen, Anthony T ang, and Lindsay MacDonald V er-
+meulen. 2018. Scale Impacts Elicited Gestures for Manipulating Holo-
+grams: Implications for AR Gesture Design. In Proceedings of the 2018
+Designing Interactive Systems Conference (DIS ’18) . ACM, New Y ork,
+NY, USA, 227–240. https://doi.org/10.1145/3196709.3196719
+[54]
+Kelly Pleskot. 2018. Genivi AR Manual. https://w ww.motortrend.com/
+news/genesis-oers- augmented-reality- owners- manual/. Accessed:
+2018-09.
+[55]
+Kathrin Pollmann, Oilver Stefani, Amelie Bengsch, Matthias Peissner,
+and Mathias Vukelić. 2019. How to Work in the Car of the Future?: A
+Neuroergonomical Study Assessing Concentration, Performance and
+Workload Based on Subjective, Behavioral and Neurophysiological
+Insights. In Proceedings of the 2019 CHI Conference on Human Factors
+in Computing Systems (CHI ’19) . ACM, New York, NY , USA, Article 54,
+14 pages. https://doi.org/10.1145/3290605.3300284
+[56]
+Clarence E. Rash, Michael B. Russo, Tomasz R. Letowski, and Elmar T .
+Schmeisser. 2009. Helmet-mounted displays: Sensation, perception and
+cognition issues . Technical Report. ARMY AEROMEDICAL RESEARCH
+LAB FORT RUCKER AL.
+[57]
+Sonja Rümelin, Thomas Gabler, and Jesper Bellenbaum. 2017. Clicks
+Are in the Air: How to Support the Interaction with Floating Objects
+Through Ultrasonic Feedback. In Proceedings of the 9th International
+Conference on Automotive User Interfaces and Interactive V ehicular
+Applications (AutomotiveUI ’17) . A CM, New York, NY, USA, 103–108.
+https://doi.org/10.1145/3122986.3123010
+[58]
+Clemens Schartmüller, Andreas Riener , Philipp Wintersberger, and
+Anna-Katharina Frison. 2018. Workaholistic: On Balancing Typing-
+and Handover-performance in Automated Driving. In Proceedings of
+the 20th International Conference on Human-Computer Interaction with
+Mobile Devices and Services (MobileHCI ’18) . ACM, New York, NY , USA,
+Article 16, 12 pages. https://doi.org/10.1145/3229434.3229459
+[59]
+Jelle Smet, Aykut A vci, Pankaj Joshi, Dieter Cuypers, and Her-
+bert Smet. [n. d.]. P-159L: Late-News Poster: A Liquid Crys-
+tal Based Contact Lens Display Using PEDOT: PSS and Obliquely
+Evaporated SiO2. SID Symposium Digest of Technical Papers 43,
+1 ([n. d.]), 1375–1378. https://doi.org/10.1002/j.2168-0159.2012.
+tb06061.x arXiv:https://onlinelibrary.wiley .com/doi/pdf/10.1002/j.2168-
+0159.2012.tb06061.x
+[60]
+I Standard. 1998. Ergonomic requirements for oce work with visual
+display terminals (vdts)–part 11: Guidance on usability. ISO Standard
+A Design Space for in-car AR AutomotiveUI ’19, September 21–25, 2019, Utrecht, Netherlands
+9241-11: 1998. International Organization for Standardization (1998).
+[61]
+J. E. Swan, A. Jones, E. Kolstad, M. A. Livingston, and H. S. Smallman.
+2007. Egocentric depth judgments in optical, see-through augmented
+reality. IEEE Transactions on Visualization and Computer Graphics 13,
+3 (May 2007), 429–442. https://doi.org/10.1109/TVCG.2007.1035
+[62]
+J. E. Swan, M. A. Livingston, H. S. Smallman, D. Brown, Y. Baillot,
+J. L. Gabbard, and D. Hix. 2006. A Perceptual Matching Technique for
+Depth Judgments in Optical, See-Through Augmented Reality . In IEEE
+Virtual Reality Conference (VR 2006) . 19–26. https://doi.org/10.1109/
+VR.2006.13
+[63]
+Marcus Tönnis, Marina Plavšić, and Gudrun Klinker. 2009. Survey
+and Classication of Head-Up Display Presentation Principles. In Pro-
+ceedings of the International Ergonomics Association (IEA) . CD-ROM
+Proceedings.
+[64]
+H. Urey, K. V . Chellappan, E. Erden, and P. Surman. 2011. State of the
+Art in Stereoscopic and Autostereoscopic Displays. Proc. IEEE 99, 4
+(April 2011), 540–555. https://doi.org/10.1109/JPROC.2010.2098351
+[65]
+D. W.F van Krevelen and R Poelman. 2010. A Survey of Augmented
+Reality Technologies, Applications and Limitations. The International
+Journal of Virtual Reality 9, 2 (2010), 1–20.
+[66]
+Arthur B VanGundy . 1984. Brain writing for new product ideas: an
+alternative to brainstorming. Journal of Consumer Marketing 1, 2
+(1984), 67–74.
+[67]
+D. Wagner and D . Schmalstieg. 2003. First steps towards handheld
+augmented reality . 127–135 pages. https://doi.org/10.1109/ISWC.2003.
+1241402
+[68]
+Gesa Wiegand, Christian Mai, Yuanting Liu, and Heinrich Hussmann.
+2018. Early Take-Over Preparation in Stereoscopic 3D. In Adjunct
+Proceedings of the 10th International Conference on Automotive User
+Interfaces and Interactive Vehicular A pplications (AutomotiveUI ’18) .
+ACM, New Y ork, NY, USA, 142–146. https://doi.org/10.1145/3239092.
+3265957
+[69]
+Graham Wilson, Stephen Brewster, Martin Halvey , and Stephen
+Hughes. 2012. Thermal Icons: Evaluating Structured Thermal Feed-
+back for Mobile Interaction. In Proceedings of the 14th International
+Conference on Human-computer Interaction with Mobile Devices and
+Services (MobileHCI ’12) . ACM, New York, NY, USA, 309–312. https:
+//doi.org/10.1145/2371574.2371621
+[70]
+WMOTORS. 2018. Lykan Hypersport. http://www.wmotors.ae/
+the-lykan- hypersport. Accessed: 2018-06.
+Citations (31)
+References (73)
+... The field of inclusive mobility research in HCI is just emerging and spans a broad range of users, services, and settings. A structured design framework for the inclusive design of future mobility services is still missing, yet such frameworks (often referred to as design spaces) are a valuable tool in other contexts like mobile computing [2,51], AR-googles [26], external HMIs [15], and automotive AR-displays [23, 59] . One typically builds design spaces in HCI around a large set of existing artifacts and possible use cases. ...
+... In HCI, researches use DSA for a variety of technologies, applications, and interaction, e.g., computer input devices [12], interactive public displays [40], gaze-interaction in head-mounted displays [26], or 3D-printing [2]. Similar, in the automotive context, there are design spaces for driver HMIs concerning the external communication with other road users [14,15], the internal HMI [31], and more specific taxonomies, e.g., for AR and virtual windshields [23, 59] or infotainment [6]. Finally, in the domain of digital data analysis, Kim et al. [32] present a design space for the creation of accessible visualizations. ...
+... We started with a literature review of related design spaces ( = 6, cf. Section 2.3) to identify useful taxonomy dimensions, focusing on those related to HCI in automotive [6,15,23,31, 59] and accessibility [32] domains. Further, we looked into taxonomies ( = 2, cf. ...
+An Emergent Design Framework for Accessible and Inclusive Future Mobility
+Conference Paper
+Full-text available
+
+    Sep 2022 
+
+    Henrik Detjen Henrik Detjen
+    Stefan Schneegaß Stefan Schneegaß
+    Stefan Geisler Stefan Geisler
+    Vidya Sundar Vidya Sundar 
+
+Future mobility will be highly automated, multimodal, and ubiquitous and thus have the potential to address a broader range of users. Yet non-average users with special needs are often underrep-resented or simply not thought of in design processes of vehicles and mobility services, leading to exclusion from standard transportation. In consequence, it is crucial for designers of such vehicles and services to consider the needs of non-average users from the begin on. In this paper, we present a design framework that helps designers taking the perspective and thinking of the needs of non-average users. We present a set of exemplary applications from the literature and interviews and show how they fit into the framework, indicating room for further developments. We further demonstrate how the framework supports in designing a mobility service in a fictional design process. Overall, our work contributes to universal design of future mobility.
+View
+Show abstract
+... This design space was extended by Wiegand et al. [80] . They presented a design space on 3D AR applications within the vehicle with the same categories but more dimensions and/or more options per dimension. ...
+... InCarAR by Wiegand et al. [80] is in the nature of the work by Häuslschmid et al. [30]. Therefore, we only focus on the relevant additional dimensions. ...
+... While the necessity of visualizations to improve trust might decrease over time when the trust was sufficiently built, this is out of the scope of this taxonomy. The Visualization aspect Placement Strategy describes changes in the registration type or the position of visualizations [80] . While interesting, there is no apparent relevance to trust; hence, we omitted this dimension. ...
+AR4CAD: Creation and Exploration of a Taxonomy of Augmented Reality Visualization for Connected Automated Driving
+Conference Paper
+Full-text available
+
+    Sep 2022 
+
+    Tobias Müller
+    Mark Colley Mark Colley
+    Gülsemin Dogru
+    Enrico Rukzio Enrico Rukzio 
+
+Infrastructure-mounted sensors that monitor roads can provide essential information for manual drivers and automated vehicles, e.g., positions of other vehicles occluded by buildings. However, human drivers and passengers have to trust and accept their use. This raises the question of how trust can be increased in such a scenario. One important factor for this is understanding the available information, including its quality and, for passengers of automated vehicles, the actions planned based on it. For this, augmented reality is a promising visualization technology because it can present the relevant information integrated into the physical world. Thus, this work develops a taxonomy of augmented reality visualizations for connected automated and manual driving. It is intended to classify and compare existing visualizations, identify novel visualizations, and provide a common language for discussions. The use case infrastructure-supported automated driving is explored by suggesting augmented reality visualizations to inform passengers of automated vehicles and are intended to increase trust. They present information available from infrastructure and onboard sensors as well as the driving decisions based on it. Finally, we evaluated the visualizations' influence on trust in an automated vehicle by conducting a driving simulator study (N=18). Results indicate a high dependency of trust on presenting driving decisions and information on road users but less on location-specific information.
+View
+Show abstract
+... They define the role of future vehicle interior space as safe, comfortable, caring, social, free, relaxed, new-era, novel, and efficient. To predict the purpose of using AR devices inside future vehicles, Weigand et al. classified them as safe, navigating, convenient, entertaining, and monitoring by conducting a focus group interview and literature research [41] . Cha et al. recruited various vehicle users to conduct stakeholder interviews to understand their deep demands when providing a more unified user experience of both the vehicle interior and mobile devices within the vehicle. ...
+Affective Role of the Future Autonomous Vehicle Interior
+Preprint
+
+    Sep 2022 
+
+    Taesu Kim Taesu Kim
+    Gyunpyo Lee Gyunpyo Lee
+    Jiwoo Hong Jiwoo Hong
+    Hyeon-Jeong Suk Hyeon-Jeong Suk 
+
+Recent advancements in autonomous technology allow for new opportunities in vehicle interior design. Such a shift in in-vehicle activity suggests vehicle interior spaces should provide an adequate manner by considering users' affective desires. Therefore, this study aims to investigate the affective role of future vehicle interiors. Thirty one participants in ten focus groups were interviewed about challenges they face regarding their current vehicle interior and expectations they have for future vehicles. Results from content analyses revealed the affective role of future vehicle interiors. Advanced exclusiveness and advanced convenience were two primary aspects identified. The identified affective roles of each aspect are a total of eight visceral levels, four visceral levels each, including focused, stimulating, amused, pleasant, safe, comfortable, accommodated, and organized. We expect the results from this study to lead to the development of affective vehicle interiors by providing the fundamental knowledge for developing conceptual direction and evaluating its impact on user experiences.
+View
+Show abstract
+... This could come in the form of warnings that show up on the windshield, when a driver is getting too close to an obstacle. Care must be taken in the design of these "in-car" AR applications to not further distract a driver, and many are actively researching this topic [15][16] [17] . One example of an "out-of-car" application matches whether an automobile part correctly matches with the intended construction design of that part, to help guarantee correspondence [18]. ...
+Opportunities for utilizing consumer grade 3D capture tools for insurance documentation
+Article
+Full-text available
+
+    Jul 2022 
+
+    Kevin Ponto Kevin Ponto
+    Ross Tredinnick Ross Tredinnick 
+
+Recent advances in consumer technology have enabled a new means for 3D capture of real world environments and objects through the adoption of depth sensors within tablets and mobile phones. While traditional methods to capture 3D objects are often cost-prohibitive, the ability to have commodity grade scanning technologies readily available creates new opportunities for 3D documentation. This paper showcases the opportunities for the utilization of 3D capture and AR technologies for insurance documentation. The benefits and challenges of using 3D capture given these emerging technologies are discussed. Finally, the paper introduces prototype applications for the full 3D modeling of a vehicle, detection of vehicle damage both from vehicular collisions and from hail.
+View
+Show abstract
+... This technology has been explored in the automobile industry to improve driving safety and comfort (Riegler et al., 2021). In-car AR, such as heads-up and windshield displays, offer diverse opportunities to aid navigation, highlight potential hazards, and allow for a shared perception between a driver and an automated driving system (Wiegand et al., 2019) . The application of AR outside of vehicles to assist AV-pedestrian interaction is also of increasing interest in academia (Tabone et al., 2021a). ...
+Designing Wearable Augmented Reality Concepts to Support Scalability in Autonomous Vehicle-Pedestrian Interaction
+Article
+Full-text available
+
+    Mar 2022 
+
+    Tram Thi Minh Tran Tram Thi Minh Tran
+    Callum Parker Callum Parker
+    Yiyuan Wang Yiyuan Wang
+    Martin Tomitsch Martin Tomitsch 
+
+Wearable augmented reality (AR) offers new ways for supporting the interaction between autonomous vehicles (AVs) and pedestrians due to its ability to integrate timely and contextually relevant data into the user's field of view. This article presents novel wearable AR concepts that assist crossing pedestrians in multi-vehicle scenarios where several AVs frequent the road from both directions. Three concepts with different communication approaches for signaling responses from multiple AVs to a crossing request, as well as a conventional pedestrian push button, were simulated and tested within a virtual reality environment. The results showed that wearable AR is a promising way to reduce crossing pedestrians' cognitive load when the design offers both individual AV responses and a clear signal to cross. The willingness of pedestrians to adopt a wearable AR solution, however, is subject to different factors, including costs, data privacy, technical defects, liability risks, maintenance duties, and form factors. We further found that all participants favored sending a crossing request to AVs rather than waiting for the vehicles to detect their intentions-pointing to an important gap and opportunity in the current AV-pedestrian interaction literature.
+View
+Show abstract
+A Design Space for Human Sensor and Actuator Focused In-Vehicle Interaction Based on a Systematic Literature Review
+Preprint
+Full-text available
+
+    Oct 2022 
+
+    Pascal Jansen Pascal Jansen
+    Mark Colley Mark Colley
+    Enrico Rukzio Enrico Rukzio 
+
+Automotive user interfaces constantly change due to increasing automation, novel features, additional applications, and user demands. While in-vehicle interaction can utilize numerous promising modalities, no existing overview includes an extensive set of human sensors and actuators and interaction locations throughout the vehicle interior. We conducted a systematic literature review of 327 publications leading to a design space for in-vehicle interaction that outlines existing and lack of work regarding input and output modalities, locations, and multimodal interaction. To investigate user acceptance of possible modalities and locations inferred from existing work and gaps unveiled in our design space, we conducted an online study (N=48). The study revealed users' general acceptance of novel modalities (e.g., brain or thermal activity) and interaction with locations other than the front (e.g., seat or table). Our work helps practitioners evaluate key design decisions, exploit trends, and explore new areas in the domain of in-vehicle interaction.
+View
+Show abstract
+In-Vehicle Transitional Interfaces Experience the Complete User Journey in Virtual Reality
+Poster
+Full-text available
+
+    Sep 2022 
+
+    Andreas Riegler Andreas Riegler
+    Ye Eun Song Ye Eun Song
+    Andreas Riener Andreas Riener 
+
+In this poster, we investigate novel user-centered methods and techniques for cross-virtuality user journeys for designing in-vehicle experiences. We argue that rapid prototyping of automotive human-machine interfaces (HMIs) can be achieved with mixed reality technology along the reality-virtuality (RV) continuum. For example, standalone virtual reality (VR) head-mounted displays (HMDs) coupled with hand-worn controllers can be utilized to prototype AR interfaces such as windshield displays (WSDs) in order to facilitate an increased level of visual and spatial perception. Subsequently, the prototyped design in VR could be transferred to an AR interface (e.g., using an AR HMD) for further refinements in real-world settings. We believe that transitional interfaces in the automotive domain have the potential to fundamentally improve the design and development of novel in-vehicle visualization and interaction modalities, as well as to enhance user-centered and non-driving related collaborative activities for automated vehicles.
+View
+Show abstract
+A Design Space for Human Sensor and Actuator Focused In-Vehicle Interaction Based on a Systematic Literature Review
+Article
+Full-text available
+
+    Jul 2022 
+
+    Pascal Jansen Pascal Jansen
+    Mark Colley Mark Colley
+    Enrico Rukzio Enrico Rukzio 
+
+Automotive user interfaces constantly change due to increasing automation, novel features, additional applications, and user demands. While in-vehicle interaction can utilize numerous promising modalities, no existing overview includes an extensive set of human sensors and actuators and interaction locations throughout the vehicle interior. We conducted a systematic literature review of 327 publications leading to a design space for in-vehicle interaction that outlines existing and lack of work regarding input and output modalities, locations, and multimodal interaction. To investigate user acceptance of possible modalities and locations inferred from existing work and gaps unveiled in our design space, we conducted an online study (N=48). The study revealed users' general acceptance of novel modalities (e.g., brain or thermal activity) and interaction with locations other than the front (e.g., seat or table). Our work helps practitioners evaluate key design decisions, exploit trends, and explore new areas in the domain of in-vehicle interaction.
+View
+Show abstract
+Exploring New Depths: How Could Passengers Interact with Future In-Car Holographic 3D Displays?
+Chapter
+
+    Jun 2022 
+
+    Maryia Kazhura 
+
+Holographic 3D (H3D) displays have the potential to enhance future car interiors and provide users with a new dimension of visual and interactive experience, offering a larger depth range than other state of the art 3D display technologies. In this work, a user-elicited gesture set for 3D interaction with non-driving related tasks was built and evaluated. As the H3D technology itself is still in development, mixed reality headsets (Hololens 1 and 2) were used to emulate a virtual H3D display. In a gesture-elicitation study, N = 20 participants proposed mid-air gestures for a set of 33 tasks (referents) displayed either within or outside of participants’ reach. The resulting set of most mentioned proposals was refined with a reverse-matching task, in which N = 21 participants matched referents to videos of elicited gestures. In a third evaluation step, usability and memorability characteristics of the user-elicited gesture set were compared to those of an expert-elicited alternative using a between-subjects design with N = 16 participants in each group. Results showed that while both sets can be learned and recalled comparably well, the user-elicited gesture set was associated with a higher gesture suitability and ease, a higher perceived intuitiveness and a lower perceived mental effort. Implications for future H3D in-car interfaces are discussed.
+View
+Show abstract
+In-cAR Gaming: Exploring the use of AR headsets to Leverage Passenger Travel Environments for Mixed Reality Gameplay
+Conference Paper
+
+    Apr 2022 
+
+    Henry Togwell
+    Mark Mcgill Mark Mcgill
+    Graham Wilson Graham Wilson
+    Stephen Anthony Brewster Stephen Anthony Brewster 
+
+View
+Show more
+Recommendations
+Discover more
+Project
+Monitoring VR Users
+
+    Christian Mai Christian Mai 
+
+View project
+Project
+Exploring the Callenges of Everyday VR
+
+    Christian Mai Christian Mai 
+
+View project
+Project
+In AVs We Trust - Conceptions to Overcome Trust Issues in Automated Vehicles
+
+    Kai Holländer Kai Holländer 
+
+This project shows three critical research opportunities which are supposed to merit further discussion on their eligibility and meaning.The two pages workshop proposal aims to sprak a discussion around trust calibration stategies for automated vehicles but should not be seen as a standalone scientific work. More information on the workshop can be found here: https://sites.google.com/view/human-av-trust-calibration/call-for-papers ... [more]
+View project
+Project
+Less is More: Climate Change and Automated Vehicles in Urban Areas
+
+    Kai Holländer Kai Holländer 
+
+We present our vision on how to mitigate anthropogenic climate change in the context of (automated) vehicles. We therefore analyze current challenges of privately owned cars and suggest a novel way to assess vehicle sustainability. ... [more]
+View project
+Conference Paper
+Full-text available
+Back of the Steering Wheel Interaction: The Car Braille Keyer
+November 2012
+
+    Sebastian Osswald Sebastian Osswald
+    Alexander Meschtscherjakov Alexander Meschtscherjakov
+    Karl Armin Kraessig
+    [...]
+    Manfred Tscheligi Manfred Tscheligi 
+
+In this paper, we present a novel text input approach for car drivers: The Car Braille Keyer combines a keyer concept (defined as keyboard without an actual board) and the braille code (i.e. blind writing method) at the back of the steering wheel. This concept allows eyeless text input while driving and simultaneously leaving the hands on the steering wheel. We present a prototype of the Car ... [Show full abstract] Braille Keyer along with an expert evaluation and a user study. The prototype consists of two sets of three buttons each, both of which are fixed on the back side of the steering wheel (one on the left, the other on the right side). The six buttons are designed to match a braille character like they can be found in the braille language. This approach allows for entering a character or command with only a single input combination without the need to look at the keys. In our prototype we added visual output in the head up display (HUD) as well as auditive feedback to enhance the interaction. To evaluate the system, we performed a heuristic evaluation with five HCI experts. Based on their feedback, we iterated the design of the prototype and added a learning tool for interaction using the Car Braille Keyer. An initial user study with the iterated prototype and twelve participants showed a good overall usability (SUS score=73.75) as well as a good acceptance rate based on the Technology Acceptance Model (TAM).
+View full-text
+Article
+Full-text available
+Visualizing natural language interaction for conversational in-vehicle information systems to minimi...
+March 2019 · Journal on Multimodal User Interfaces
+
+    Bastian Pfleging Bastian Pfleging
+    Michael Braun Michael Braun
+    Nora Broy Nora Broy
+    Florian Alt Florian Alt 
+
+In this paper we investigate how natural language interfaces can be integrated with cars in a way such that their influence on driving performance is being minimized. In particular, we focus on how speech-based interaction can be supported through a visualization of the conversation. Our work is motivated by the fact that speech interfaces (like Alexa, Siri, Cortana, etc.) are increasingly ... [Show full abstract] finding their way into our everyday life. We expect such interfaces to become commonplace in vehicles in the future. Cars are a challenging environment, since speech interaction here is a secondary task that should not negatively affect the primary task, that is driving. At the outset of our work, we identify the design space for such interfaces. We then compare different visualization concepts in a driving simulator study with 64 participants. Our results yield that (1) text summaries support drivers in recalling information and enhances user experience but can also increase distraction, (2) the use of keywords minimizes cognitive load and influence on driving performance, and (3) the use of icons increases the attractiveness of the interface.
+View full-text
+Conference Paper
+Full-text available
+Graphical Tangible User Interface for a AR Authoring Tool in Product Design Environment.
+January 2007
+
+    Taejin Ha Taejin Ha
+    Woontack Woo Woontack Woo 
+
+We are suggesting a graphical tangible user interface for augmented reality (AR) authoring tool in product design Environment. This user interface can be used for more efficient and intuitive manipulation of a 3D virtual model in initial prototyping. A game-phone of portable electronic products is selected for our target authoring product. The suggested authoring methods exploit the advantages of ... [Show full abstract] both graphical user interface (GUI) and tangible user interface (TUI). Authors can intuitively make adjustments for many parameters using the TUI, and then they can do the same thing more precisely using the GUI. Through many tries and experiments, the suggested combined GUI and TUI authoring method was easier to make a prototype, also it contained fewer errors and took a shorter time to manipulate.
+View full-text
+Conference Paper
+Towards a frustration-aware assistant for increased in-vehicle UX: F-RELACS
+September 2019
+
+    Michael Oehl Michael Oehl
+    Klas Ihme
+    Uwe Drewitz Uwe Drewitz
+    [...]
+    Martin Schramm 
+
+Frustration has negative effects on user experience (UX) both in manual and automated driving. Therefore, it negatively influences driving performance and system acceptance. To address this, the project F-RELACS (Frustration Real-Time Recognition for an Adaptive In-Car System) aims to demonstrate a frustration-aware assistant called MUsE (My User Experience Improvement System) that is capable of ... [Show full abstract] estimating the user's momentary level of frustration and offering tailored support to improve UX. However, up to now little is known about interaction strategies for automotive user interfaces that successfully reduce the user's frustration and improve UX in frustrating driving situations. Here we report the initial results from user focus groups (current status: 2 groups with in total 11 participants) that are conducted to identify suitable interaction strategies to develop a frustration-aware assistant for enhanced in-vehicle UX in a user-centered design process.
+Read more
+Last Updated: 05 Jul 2022
+ResearchGate Logo
+or
+Discover by subject area
+
+    Recruit researchers
+    Join for free
+    Login
+
+App Store
+Get it on Google Play
+Company
+About us
+News
+Careers
+Support
+Help Center
+Business solutions
+Advertising
+Recruiting
+© 2008-2022 ResearchGate GmbH. All rights reserved.
+
+    Terms
+    Privacy
+    Copyright
+    Imprint 
+

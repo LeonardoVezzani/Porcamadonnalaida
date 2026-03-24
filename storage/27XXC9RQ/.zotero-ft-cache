@@ -1,0 +1,121 @@
+Experimental Evaluation of an Augmented Reality Visualization for Directing a Car Driver’s Attention
+
+Marcus To¨nnis, Christian Sandor, Gudrun Klinker
+TU Mu¨nchen, Institut fu¨r Informatik Boltzmannstrasse 3, D-85748 Garching b. M.
+(toennis, sandor, klinker)@in.tum.de
+
+Christian Lange, Heiner Bubb TU Mu¨nchen, Institut fu¨r Maschinenwesen Boltzmannstrasse 15, D-85748 Garching b. M.
+(lange, bubb)@lfe.mw.tum.de
+
+Abstract
+With recent advances of Head-up Display technology in cars, Augmented Reality becomes interesting in supporting the driving task to guide a driver’s attention. We have set up an experiment to compare two different approaches to inform the driver about dangerous situations around the car. One approach used AR to visualize the source of danger in the driver’s frame of reference while the other one presented information in an exocentric frame of reference. Both approaches were evaluated in user tests.
+1 Introduction
+An increasing number of cars are equipped with Head-up display (HUD) technology. HUDs take icons and texts that are usually found on the dashboard of a car and display them in the windshield, helping drivers to keep their eyes on the road. Combined with the sophisticated sensing technology of modern cars, HUDs enable Augmented Reality (AR) visualizations for the driver. For example, three-dimensional visualizations can be generated in the HUD to alert drivers and to guide their attention to dangerous situations.
+A driver’s task can be split into a navigation task requiring global awareness and a driving task using local guidance [1]. Global awareness is the knowledge about the route to the destination. Local guidance includes tasks that involve controlling the vehicle and knowlegde about the environmental situation. Local guidance focusses on understanding the spatial relationship between a controlled object and its immediate surroundings.
+Milgram and Kishino [7] give a taxonomy of mixed reality presentation schemes ranging from egocentric to exocentric, suggesting the use of egocentric visualizations for local guidance. Experimental results of Barﬁeld [1] have also consistently shown that local guidance is supported
+
+best by egocentric visual information. Wang [8] has compared egocentric and exocentric navigation assistance as a function of viewpoint tethering. He states that global awareness of the environment improves with the length of the tether whereas local guidance performance deteriorates. Green [6] has evaluated various warning icons to indicate upcoming obstacles. He concludes that pure text and orientational 2D arrows give best results for road warning systems.
+Information visualization in AR systems has since its inception dealt with the problem of directing a user’s attention to a point of interest, e.g. by using a compass metaphor when the user is looking in the wrong direction [5]. Chittaro and Burigat [4] have compared a 3D location pointer as a navigational aid with various 2D visualizations. The use of the 3D arrow inside the HUD was best for surface navigation and outperformed 2D schemes in ﬂying scenarios.
+As part of an ongoing research project towards creating and evaluating novel visualization and interaction schemes for car drivers, we have generated two different visualizations for HUDs to guide the driver’s attention to an imminent danger in the environment. One of these visualization schemes describes a 2D presentation from an exocentric bird’s eye perspective. The other scheme is a 3D arrow ﬂoating in the driver’s ﬁeld of view. It is mounted at a ﬁxed length tether in the egocentric frame of reference of the driver. We have compared both schemes in a user study conducted in a driving simulator with a large projection area in front of a stationary car. This paper reports on ﬁrst results.
+2 Experiment
+We have set up a test environment to propose and test visualization schemes that alert car drivers to external dangers (e.g. a potential collision with a car coming from behind). Such alerts often refer to a position which is currently out
+
+of sight for the car driver. Thus, augmentations cannot be placed at their true physical position. They rather have to be positioned within the driver’s current ﬁeld of view (i.e., in the windshield), telling him how to move his head to see the dangerous situation. We have generated and evaluated two visualization schemes.
+2.1 Visualization Schemes
+The ﬁrst scheme presents a two-dimensional bird’s eye exocentric view of the car at a ﬁxed position in front of the windshield (ﬁgure 1). The point of danger is indicated by an octagon. Several symbols were preevaluated. An octagon provides the best perception.
+
+during the simulation. Simulated trafﬁc scenes are shown on a planar screen at a focal distance of 3 meters in front of the car driver. The HUD-based visualizations are shown by a second appropriately calibrated projector on the same screen 1. The simulation covers a 50-degree visual ﬁeld of view.
+
+Figure 1. Bird’s eye view showing the position of imminent danger relative to the car
+The second visualization scheme presents a 3D arrow (ﬁgure 2). Its back end is placed about 3 meters in front of the driver in height of a typical driver’s head. The front end points in the direction of the imminent danger.
+Figure 2. 3D arrow in front of the car pointing towards the position of imminent danger
+2.2 Physical Setup Both visualization schemes were tested in a stationary
+driving simulator (ﬁgure 3). The simulator consists of a BMW E30 cabrio, equipped with a steering wheel, a gas and a breaking pedal to control the motion path of the car
+
+Figure 3. Driving simulator, surrounded by numbered sheets at eye level
+The car is surrounded by 16 evenly spaced, letter-sized sheets of paper. The sheets are labeled with numbers between 1 and 20. They are arranged in random order around the car in height of the driver’s head. Four more labels are displayed at the projection screen in front of the car.
+2.3 Test Procedure
+We used a within-subject design [3] to test the two visualization schemes. Before the experiment the participants had to ﬁll out a demographic questionnaire and were instructed about how to operate the simulator.
+The experiment itself consisted of two phases. In the ﬁrst phase, participants could familiarize themselves with the overall setup of the driving simulator. They were asked to drive down a rural road at usual speed following trafﬁc rules and staying in the lane.
+In the second phase, the simulator was augmented with visualizations of imminent danger. The participants were expected to look as quickly as possible in the indicated direction and read out aloud the number of the paper sheet that they saw. This procedure was performed twenty times for each of the two visualization schemes.
+After the experiment participants had to ﬁll out a questionnaire reporting on their experiences with both visualization schemes. In total, participation in the experiment took
+1A real HUD is under construction.
+
+about an hour.
+2.4 Participants
+Twelve individuals, 10 males and 2 females between the ages of 22 and 49 (mean 27.8, standard deviation 13.9), participated in the experiment. All drivers were licensed and had normal or corrected normal vision. Drivers were aware of the nature of the research prior to their participation.
+2.5 Independent Variables
+The independent variable of the within-subject experiment is the selected visualization scheme. All participants were exposed to both visualization schemes. Six of them started with the 3D arrow, the other six with the bird’s eye view. In each case, 20 alert situations were generated for each scheme. The sequence of alert positions was permuted in each session.
+2.6 Dependent Variables
+Some dependent variables were used to quantify the quality of the visual schemes.
+The response time T is the time it took a driver to react to a visualized alert. The response time helps determine the intuitiveness and the cognitive load required by each of the presentations schemes.
+The error quotient E is the percentage of wrong answers. The error quotient helps measure which of the two presentation schemes enables the participants to determine the place of danger more reliably.
+The average mistake describes how many sheet positions participants were off when they announced sheet labels that did not correspond to the true position of the imminent danger. Because different positions of the sheets along the side of the car result in small angular differences for the 3D arrow in front of the car, the average mistake is weighted by the angular differences. This gives the weighted average mistake M. This variable is an indication of accuracy.
+The average lane deviation A measures how well drivers were able to stay on the road while having to determine the direction of imminent danger. It is characterized by the average distance of the car from the center of the lane it is occupying in the simulation, and is an indicator of the amount of distraction imposed on the driver.
+After the experiment the drivers were asked to ﬁll out a questionnaire to describe their subjective judgement on the two visualization schemes. They were asked by which of the two visualization schemes they could determine the paper sheet faster and more precisely. Furthermore, they were asked which kind of presentation they liked more and which one was easier to use.
+
+3 Implementation
+
+The dominant component of the system is the driving simulator - previously a stand-alone program running on an SGI Onyx Inﬁnite Reality II. It receives continuous input from the real car, simulates the driving dynamics and displays appropriate trafﬁc simulations on a large projection screen at 70 Hz with 1280 x 1024 pixels resolution and updates at a frequency of 30 Hz. In order to include new user interaction components more easily, we have extended the system into a multi-component architecture based on the DWARF framework[2].
+Visualizations for the HUD are generated by a second, independent rendering component. A protocol component receives messages from the driving simulator and an external control unit pertaining to the start and end events, as well as to the state of the driving simulator during the experiment.
+
+4 Results and Discussion
+
+Data was gathered from 12 subjects for 20 dangerous situations in 480 records, 240 for each visualization scheme. A T-Test for paired samples was used to analyze the data.
+4.1 Objective Measurements
+
+Table 4.1 presents the measurement results for the dependent variables with respect to both visualization schemes.
+
+Measured variable
+T [s] E M A [m]
+
+Mean Bird Arrow
+3.74 4.82 0.32 0.59 0.33 0.88 2.06 1.80
+
+Std deviation Bird Arrow
+1.53 2.17 0.19 0.18 0.21 0.63 0.33 0.35
+
+Signiﬁcance
+0.02 0 0.006 0.016
+
+The participants’ reaction time T was faster for the bird’s eye presentation. The participants could directly get a feeling for the orientation of the alert by looking at the bird’s eye view. So they could quickly name the corresponding number. We believe that the monoscopic 2D projection of the 3D arrow is the reason for this result. It is currently rendered on the projection plane in front of the car rather than in a stereoscopic display.
+The error quotient E and the average mistake M indicate a current superiority of the bird’s eye view. We assume that this ﬁnding is due to the fact that the arrow’s direction is not as precisely presented on the HUD as the octagon in the bird’s eye view. Furthermore, there are indications that drivers mentally translated the arrow from the position in front of the car to their own eye position inside the car
+
+thereby looking too far backwards. Figure 4 illustrates this aspect.
+
+Figure 4. Sketch for the cognitive transformation of the pointing device. Arrow 1 shows the real position and arrow 2 the transformed one
+
+The average lane aberration A indicates the average distance to the center of the lane the car was occupying. It showed worse results for the bird’s eye view than for the 3D arrow. This may be due to the larger mental effort required of the drivers in the bird’s eye presentation in order transform from their own viewing frame into the bird’s frame and then back to the car’s frame to ﬁnd the correct sheet.
+
+4.2 Subjective Answers
+
+The questions in the questionnaire allowed personal estimations between 1 (best) and 6 (worst). The results of the subjective answers are shown in table 4.2.
+
+Measured variable
+Preference Ease of use Speed Precision
+
+Mean Bird Arrow
+24 1.75 3.83 24 1.83 4
+
+Std deviation Bird Arrow
+0.45 1.10 0.45 1.11 0.85 1.54 0.72 1.28
+
+Signiﬁcance
+0 0 0.04 0
+
+The table indicates that for all measured variables, participants currently fare better with the bird’s eye view than with the AR-based 3D arrow. We suppose that the 3D arrow gave a negative impression due to its current ﬂat presentation on a projection screen, as discussed above. Thus, we assume that the current results are probably still inﬂuenced by inadequate display technology and not an inherent function of the visualization scheme.
+
+5 Conclusion and Future Work
+In this paper, we have presented a ﬁrst approach for using AR in cars to assist the driver in the driving task. This effort embarques in an important new line of research, analyzing the use of AR-based presentation metaphors in situations where users have to divide their attention between several spatially-based tasks in cars.
+Although egocentric visualization aides have proven superior to exocentric schemes for local guidance tasks in other scenarios, we could not uphold this ﬁnding in our current user study. Yet, it would be premature to draw conclusions from these ﬁndings since the driving simulator may not have been presenting all relevant aspects realistically enough.
+We are working towards improving the simulator and will thus be able to determine what impact is generated by the inclusion of more realistic presentation technology. To this end, we are working towards including a steroscopic HUD. Furthermore, we will explore different appearance patterns of the arrow to help drivers determine the correct orientation more easily. Finally we will clearify the ambiguity stemming from the cognitive transformation that was noticed by some participants.
+References
+[1] W. Barﬁeld, C. Rosenberg, and T. A. Furness. Situation awareness as a function of frame of reference, computergraphics eyepoint elevation, and geometric ﬁeld of view. In The International Journal of Aviation Psychology 5(3), 1995.
+[2] M. Bauer, B. Bru¨gge, G. Klinker, A. MacWilliams, T. Reicher, S. Riss, C. Sandor, and M. Wagner. Design of a component-based augmented reality framework. In Proceedings ISAR, Oct. 2001.
+[3] J. Bortz. Statistik fu¨r Human- und Sozialwissenschaftler. Springer Verlag, 2004.
+[4] L. Chittaro and S. Burigat. 3d location-pointing as a navigation aid in virtual environments. In AVI ’04: Proceedings of the working conference on Advanced Visual Interfaces, pages 267–274, New York, NY, USA, 2004. ACM Press.
+[5] D. Curtis, D. Mizell, P. Gruenbaum, and A. Janin. Several devils in the details: Making an ar app work in the airplane factory. In Proc. IEEE and ACM IWAR’98, pages 47–60, San Francisco, November 1998. AK Peters.
+[6] P. Green. A driver interface for a road hazard warning system: Development and preliminary evaluation. In Proceedings of the Second World Congress on Intelligent Transportation Systems, 1995.
+[7] P. Milgram and F. Kishino. A taxonomy of mixed reality visual displays. IEICE Transactions on Information Systems, E77-D(12), December 1994.
+[8] W. Wang. Human Navigation Performance Using 6 Degree of Freedom Dynamic Viewpoint Tethering in Virtual Environments. PhD thesis, University of Toronto, Mechanical and Industrial Engineering, 2004.
+

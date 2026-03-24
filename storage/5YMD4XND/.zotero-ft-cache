@@ -1,0 +1,231 @@
+See discussions, stats, and author profiles for this publication at: https://www.researchgate.net/publication/317174615
+Simulation Sickness Related to Virtual Reality Driving Simulation
+Conference Paper in Lecture Notes in Computer Science · May 2017
+DOI: 10.1007/978-3-319-57987-0_42
+
+CITATIONS
+30
+6 authors, including: Quinate Chioma Ihemedu-Steinke Bosch 7 PUBLICATIONS 133 CITATIONS
+SEE PROFILE
+Rainer Erbach Bosch 19 PUBLICATIONS 243 CITATIONS
+SEE PROFILE
+
+READS
+2,777
+Stanislava Thull Sky Deutschland GmbH 12 PUBLICATIONS 141 CITATIONS
+SEE PROFILE
+
+All content following this page was uploaded by Nicola Marsden on 18 October 2017.
+The user has requested enhancement of the downloaded file.
+
+Simulation Sickness Related To Virtual Reality Driving Simulation
+Quinate Chioma Ihemedu-Steinke1,2,3, Stanislava Rangelova 1,4 Michael Weber2, Rainer Erbach1 , Gerrit Meixner3, Nicola Marsden4
+1Center of Competence – HMI, Robert Bosch GmbH, Leonberg Germany quinatechioma.ihemedu-steinke@de.bosch.com rainer.erbach@de.bosch.com srangelova87@gmail.com 2University of Ulm, Germany quinate.ihemedu-steinke@uni-ulm.de michael.weber@uni-ulm.de 3UniTyLab, Heilbronn University, Heilbronn, Germany gerrit.meixner@hs-heilbronn.de 4Heilbronn University, Heilbronn, Germany nicola.marsden@hs-heilbronn.de
+adfa, p. 1, 2011. © Springer-Verlag Berlin Heidelberg 2011
+
+Abstract. This paper reports on a study regarding the conditions that reduce simulation sickness in virtual reality driving simulation. Simulation sickness in virtual reality applications is frequent and thus poses a major obstacle in obtaining data from participants involved in these simulations. Many solutions have been presented by various sources on how to reduce the occurrence of simulation sickness symptoms. Nevertheless, there is not enough evidence to back up an appropriate solution that works for the majority of simulated environments and individuals. Therefore, this work was meant to find appropriate solutions of simulation sickness related to virtual reality driving simulators with a focus on the effect of adding visual assets in the simulated environment. Initially, an online survey was performed with 31 participants in order to gather unbiased users’ experiences with driving simulation and virtual reality with regards to simulation sickness. Based on the information gathered from related works and suggestions of the online survey participants, the addition of motion cues and visual assets were identified as very essential when dealing with simulation sickness related to driving simulation. Therefore, new visual assets were added to enhance an already implemented simulator software in order to replicate a realistic traffic environment. An experiment with 72 participants was used to test eight hypotheses related to virtual reality driving simulation and simulations sickness. The results indicate that the addition of visual assets to the virtual reality driving simulator reduced the onset of simulation sickness and improved the driving session’s duration.
+Keywords: Simulation sickness, Virtual reality, Driving simulation, Visual assets, Simulated environment.
+
+1 Introduction
+Automotive manufacturers and suppliers are constantly looking for ways to integrate new technologies in vehicles to make them more comfortable and safer for the consumers. For this reason, driving simulation (DS) is indispensable, and widely used to simulate real life driving scenarios for research, training and evaluation of new car technologies in a completely controlled and safe environment without risking any lives (Russell et al., 2014; Slob 2008). This makes it possible to observe and evaluate the vehicle-driver-system interaction as well as the vehicle-to-vehicle interaction concepts. Production costs could be reduced because most errors and their possible solutions are discovered at the early stage of the development process (De Winter, 2012).
+In order to create a realistic driving environment and reliable results, virtual reality (VR) head-mounted displays (HMD) have been integrated in DS. To enhance the immersion of drivers into the simulated environment (SE), they offer a stereoscopic 3D environment with a wide field of view and low-latency, fast-tracking system for a better interaction in the SE (Davis et al., 2015; Russell et al., 2014).
+Simulation sickness (SSN) is a discomfort experienced by users exposed to SEs such as DS and VR (Kolasinski, 1995). SSN is a major setback to the application of DS because it could influence
+
+the behavior of drivers and make them avoid maneuvers that are likely to cause SSN, thus generating biased data (Helland et. al., 2016). Many studies have developed techniques to help humans adapt to SSN with repeated exposure in SEs (Kohler, 1968; Domeyer et al., 2013; Galvez-Garcia et al., 2015). However, because of the negative impact, affected subjects might not be willing to continue or experience another exposure. User evaluations show that 84 % of the users suffered from severe eye strain due to strapping HMDs over the eyes and other discomforts. For some users this discomfort makes it impossible to continue with the session (Ihemedu-Steinke et. al., 2015). Hence insights into ways to reduce SSN related to VRDS would be helpful in optimizing the design process through creating a more authentic representation of the SE to improve user acceptance (Kennedy et. al; 1989). It is difficult to obtain solutions that work for every system and all individuals – adding visual assets (VAs) e.g. pedestrians and cars in the SE to create a simplified and familiar visual scene has been one suggestion to reduce SSN (Kingdon et. al., 2001). Our goal is to investigate whether this change in VAs impacts SSN.
+
+Fig. 1. SE with traffic lights, cars and pedestrians developed in Unreal Engine 4.
+2 Simulation Sickness
+2.1 Simulation Sickness Overview
+SSN is a kind of motion sickness (MS) experienced in (SE) e.g. US navy pilots suffered severe discomforts during preliminary simulator sessions during the development of the first static helicopter simulator in the 1950’s. The lack of motion cues was assumed to have caused the discomforts (Johnson, 2005). SSN can be visually-induced without actual motion and may occur at any time during exposure with a long lasting effect, which could be dangerous especially when driving a car (Kennedy et. al., 2010).
+SSN has the same symptoms like MS but with few peculiarities to it e.g. eye strain. The symptoms are separated into three major groups – nausea with symptoms such as stomach awareness, nausea, vomiting, burping, and increased salivation, oculomotor symptoms like eye strain, headache, difficulty focusing, and
+
+blurred vision, and disorientation with general discomfort, vertigo, and dizziness (Kennedy and Fowlkes, 1992).
+Kolasinski described 42 factors related to SSN in SEs that are grouped into three categories – individual, system, and task related (Kolasinski, 1995; Johnson, 2005). While some studies argue that women are more prone to SSN than men (Davis et al., 2014), others suggest that gender does not play a role (Graeber and Stanney, 2002). System calibration could either induce SSN symptoms, e.g. headache and blurred vision, or reduce SSN based on how well it is done (Rebenitsch and Owen, 2014). MS history or long simulation sessions are used to predict SSN (Braithwaite et.al., 1990,Wright, 1995., Kennedy et. al., 2000., Matas et al., 2015). Older participants are more prone to SSN than younger participants (Brook et al., 2010).
+2.2 Simulation Sickess Theories
+Regarding the origins of SSN, there are three major approaches that assumptions and research is based on: sensory conflict theory, neural mismatch model, and postural instability theory.
+Sensory Conflict Theory. This theory states that when motion seen is not felt or vice versa, the brain receives conflicting motion signals from the visual and vestibular system (Reason and Brand, 1975). This conflict deceives the brain to deduce that the person is hallucinating due to
+
+toxin ingestion. The body tries to expel the toxin through vomiting. An example is a fixed-based DS where motion is visually perceived but not felt because the body stays in a still position.
+Neural Mismatch Model . There have been suggestions for the sensory conflict theory to be renamed as neural mismatch theory, which states that MS or SSN occurrence is based on the fact that patterns from a previous experience are compared to patterns from the ongoing experience. If they do not match, the body reacts like it has been intoxicated (Reason and Brand, 1975). For example, the exposure of subjects to a badly represented traffic situation that conflicts with the subject’s expectations based on previous driving experience could lead to unusual maneuvers and anxiety which could induce SSN.
+Postural Instability. Developed by Stoffregen and Roccio who disputed the sensory conflict theory and argued that one of the main goals of humans is to maintain stability, and when this balance is lost, the person feels sick (Riccio and Stoffregen, 1991). For example, a test driver on a DS may attempt to resist the tilt on a curvy road visually perceived. This attempt might disrupt the user’s stable position, thus causing postural instability since there was no physical tilt experienced (J.J., 2000).
+
+3 Study
+The study conducted used an experimental setup to examine the effect of visual assets in VRDS on SSN. This section presents the methods and procedure of the study.
+
+3.1 Methods and procedure
+An experimental post-test only design was used to test eight hypotheses related to VRDS and SSN. Independent variables were limited VAs (LVA) vs. full VAs (FVA), MS history, driving frequency, and gender. Dependent variables were SSN, VR experience, enjoyment of driving experience, and duration of driving. Eight hypotheses related to VRDS and SSN were used to compare SSN questionnaire (SSQ) scores of the users (Table 1).
+
+N
+
+Hypotheses
+
+1 User has a lower SSQ total score with addition of full VA than with limited VA
+
+2 User with MS history has a higher SSQ total score than a user without MS-H
+
+3 Frequent driver has a higher SSQ total score than a non- frequent driver
+
+4 Video gamers have less SSQ total score than non- video gamers
+
+5 User has a better virtual reality experience with full VA than with limited VA
+
+6 User enjoys the driving experience with full VA more than with limited VA
+
+7 Female users have higher SSQ total score than male users
+
+8 User drives longer with full VA than user with limited VA
+
+Table 1. Hypotheses.
+
+Participants were students and members of staff at a University of Applied Sciences in southern Germany (N=72), 54 males (Mage = 24.91, SDage = 4.27) and 18 female (Mage = 26.39, SDage = 7.26). They were randomly assigned to either the treatment (n=36: FVA) or the control group (n=36: LVA). The SE of the control group included basic visual elements such as buildings, traffic signs, and traffic lights. The treatment group's SE additionally included walking pedestrians and many randomly driving cars. Figure 2 shows gender distribution of the participants.
+Gender
+
+Female 25%
+
+Male 75%
+
+Male Female
+Fig. 2. Graphical representation of the users separated by gender.
+Many artificial intelligent cars driving randomly and animated pedestrians are activated for the FVA and deactivated for the LVA. Figure 3 shows the SE with full and LVA.
+
+Fig. 3. A caption of limited VA (left), and full VA, (right) with a car.
+The instruments used were the SSQ by Kennedy et al. (1993) and a questionnaire to measure the participants' virtual experience and enjoyment based on instruments by Witmer and Singer (1998) and Lin et al. (2002). Before the experiment, socio-demographic information, motion sickness history previous, driving, and experience with driving simulation, gaming, and VR were elicited. Two-tailed independent-samples t-tests were performed to test the hypotheses. The statistical software package SPSS was used to analyze the data.
+Each participant was allocated 30 minutes for the entire session. Depending on the test group, cars and pedestrians were activated or deactivated. The sessions were filmed in order to get direct verbal feedback during the VE experience. Figures 4 and 5 show the test set up and the participants during the test respectively.
+
+Fig. 4. The VRDS set up during the experiment.
+Fig. 5. Participants using the VRDS during the test.
+4 Result This section presents the results of the conducted VRDS user evaluation. The higher the total SSQ score, the more severe the
+
+symptoms and the more troublesome the SE. SSQ score was calculated based on SSQ scoring weight system developed by Kennedy and colleagues (Kennedy et al., 1993).
+4.1 SSQ Results
+Of the eight hypotheses tested, two yielded significant results: The first hypothesis which assumed that the experimental would have less SSN than the control group showed a significant difference in the scores for FVA (M = 52.67, SD = 36.62) and LVA (M = 72.10, SD = 40.97); conditions (t (70) = -2.12, p < .05). Figure 6 demonstrates SSQ scores for both groups and shows that users from the treatment group with FVA had lower SSQ score in all three SSQ clusters (Nausea, Oculomotor and Disorientation) than users from the control group.
+
+Fig. 6. SSQ scores for the treatment and the control groups for all clusters.
+The eighth hypothesis assumed that the experimental group with FVA would drive longer than the control group with LVA. This also showed a significant difference regarding the minutes driven with FVA (M = 9.03, SD = 2.01) and LVA (M = 7.67, SD = 2.61); conditions (t (70) = 2.48, p < .05). Figure 7 shows that the FVA group with extra cars and pedestrians drove longer than the LVA group.
+
+Fig. 7. Total driving time for full VA and limited VA groups.
+Table 2 shows that the control group was more affected with symptoms of increased salivation, sweating, and stomach awareness of the Nausea cluster than the treatment group.
+
+Nausea – Cluster
+
+Experimental Group
+
+Increased
+
+Sweating Stomach awareness
+
+(N=72)
+
+Salivation
+
+Treatment group – Full 7%
+
+45%
+
+29%
+
+VAs (N=36)
+
+Control group – Limited 9%
+
+51%
+
+39%
+
+VAs (N=36)
+
+Table 2: Comparison of the severity for Nausea symptoms experienced by both groups.
+
+Table 3 shows the score distribution of the symptoms fatigue, headache and eye strain from the cluster Oculomotor for both groups. The result clearly states that participants of the control group with deactivated randomly-driving vehicles and walking pedestrians experienced more fatigue, headache and eyestrain than the treatment group.
+
+Oculomotor – Cluster
+
+Experimental Group (N=72)
+
+Fatigue Headache Eye strain
+
+Treatment group – Full 13 % VAs (N=36)
+
+11%
+
+14 %
+
+Control group – Limited 20 % VAs (N=36)
+
+17 %
+
+25 %
+
+Table 3: Comparison of the severity for Oculomotor symptoms suffered by both groups.
+
+Table 4 shows the score distribution of the symptoms blurred vision, dizziness with opened eyes and vertigo from the cluster Disorientation. Here the treatment group was more affected with blurred vision and was almost as dizzy as the control group.
+
+Disorientation – Cluster
+
+Experimental Group Blurred Dizziness with eyes open
+
+(N=72)
+
+vision
+
+Treatment group – 31 % 24 %
+
+Full VAs (N=36)
+
+Vertigo 6 %
+
+Control group – Lim- 25 % 28 %
+
+16 %
+
+ited VAs (N=36)
+
+Table 4. Shows the comparison of the disorientation symptoms for full and limited VAs.
+
+Finally, the relation between previous MS history, driving experience, gender, good gaming and VR experience with SSN was observed. The initial assumption that users with MS history will have a higher SSQ total score than users without MS history was not proven. The third hypothesis claimed that a user who is a frequent driver has a higher SSQ TS. The scores for frequent drivers (M = 52.20, SD = 31.47) did not show any significant difference to that of non-frequent drivers (M = 67.48, SD = 42.76); conditions t (70) = -1.55, p = 0.126. The seventh hypothesis claimed that female users have higher SSQ TS. Gender was one of the factors associated with SSN described in various studies which suggested that women are more susceptible to SSN than men. There was no significant difference in the scores for female (M = 67.53, SD = 41.67) and male (M = 60.67, SD = 39.40); condition t (70) = -0.63, p = 0.531. Likewise, scores for users who were non-frequent video gamers (M = 66.23, SD = 40.33) showed no significant difference
+
+compared to frequent video gamers (M = 59.48, SD = 39.64); conditions t (70) = -0.71, p = 0.479 showed no significant difference.
+Another hypothesis that is not related to SSN – “The sixth hypothesis assumed that a user from the FVA group enjoys the driving experience more”. Though the FVA group enjoyed more, the difference in the scores for FVA (M = 12.94, SD = 3.32) compared to LVA (M = 12.17, SD = 3.44) conditions; t (70) = 0.98, p = 0.333 was not enough to consider this claim.
+5 Discussion and Outlook
+5.1 Discussion In a VRDS prototype meant for the automotive industry, VAs were added to the VE and the effects on SSN was tested. The results indicate that additional VAs can play a role in reducing SSN in VRDS and enable participants to stay in the VE for a longer time. In an experimental design, we showed significant differences regarding the SSN that participants experienced and the duration of the participation in a VE. It is already confirmed that SSN increases with longer exposure in the VE, and it gets better with frequent exposure (Kennedy et. al., 2000). Therefore, if the FVA group could drive longer and yet get less sick in a single exposure, this could mean that the VAs really did help to suppress SSN occurrence. The Neural mismatch theory (Reason and Brand, 1975) can be used to interpret these results: When the DS is similar to past traffic experiences in real life the sensory conflict is minimal.
+
+This leads to less SSN symptoms and this in turn allows the participants to continue the simulated driving for a longer time.
+This study also showed that participants with previous history of MS are not necessarily more prone to SSN than those who never suffered from MS prior to the experiment. Though, the population of participants who were motion sick prior to this experiment was negligible compared to those who had no MS history. Likewise, unlike previous studies where female participants were presumed to be more susceptible to SSN, this study did not arrive to any such conclusion. Again, the 25% female participants compared to the 75% male participant could be the reason for this result. Therefore, additional studies are necessary to examine these hypotheses.
+Though the FVA group had a richer VE meant for more interaction with many cars and pedestrians moving randomly. This however did not make any great difference in the level of enjoyment experienced by both groups. This could be because the artificial intelligent cars and pedestrians were hanging most of the time, and were more distracting than enhancing. Nevertheless, this research did not consider the quality of the assets added into the VE. Though recent research on SSN and VR indicated that users may still enjoy the experience in the VE regardless of SSN (Von Mammen, 2016). This indicates, that though the control group was
+
+more affected with SSN, it could still enjoy the virtual driving experience as much as the other group.
+Nevertheless, the treatment group suffered more blurred vision. This could be HMD-related because some users complained of fogginess of the lenses that could have caused the blurred effect. The FVA group drove longer and thus was more prone to the blurred effect than the control group.
+The findings from the experiment illustrate that an addition of a few visual traffic elements could make a difference for the user and help in resolving SSN, which is a major problem in working with SEs (Ihemedu-Steinke et al., 2015). A VRDS with minimal induced SSN symptoms could be a powerful user evaluation instrument in the automotive industry.
+Future studies should further look into the conditions that reduce SSN – options would be the integration of a motion platform into the VRDS to yield a higher matching of motion cues to real life driving experiences. Further experimental investigation is needed to estimate the influence of motion cues to SSN outbreak in VRDS.
+Acknowledgments. The authors would like to thank the Center of Competence-HMI department of Car Multimedia business unit of Robert Bosch
+
+GmbH for funding this project, and most especially Mr. Prashandt Halady who initiated and made it possible.
+We would also like to thank all the students and staffs of the University of Heilbronn who took part in the user evaluation tests, provided the necessary facilities that made this experiment possible.
+Finally, we thank all the employees of the Center of Competence-HMI department for their support, and most especially, Sebastian Kupka for his help during the user tests.
+References
+1. Braithwaite, M. G., Braithwaite, B. D. (1990) Simulator Sickness in an Army Simulator. Occupational Medicine, 40, pp. 105-110.
+2. Brook, J.O., Goodenough, R.R., Crisler, M.C., Klein, N.D., Alley, R.L., Koon, B.L., et al. (2010) Simulator sickness during driving simulation studies. Accident Analysis and Prevention, 42, pp. 788–796
+3. Davis, S., Nesbitt, K., Nalivaiko, E. (2015) Comparing the onset of cybersickness using the Oculus Rift and two virtual roller coasters. In: PISAN, Y. N. K. & BLACKMORE, K., eds. 11th Australasian Conference on Interactive Entertainment, 2015 Sydney, Australia. ACS, pp. 3-14.
+4. De Winter, J., Van Leuween, P., Happee, P. (2012) Advantages and disadvantages of driving simulators: A discussion. In: 8th International Conference on Methods and Techniques in Behavioral Research, Utrecht, Netherlands, A.J. Spink, F. Grieco, O.E. Krips, L.W.S. Loijens, L.P.J.J. Noldus, and P.H. Zimmerman, Eds., pp. 47-50.
+5. Domeyer, J.E., Cassavaugh, N.D., Backs, R.W. (2013) The use of adaptation to reduce simulator sickness in driving assessment and research. Accid. Anal. Prev., 53, pp. 127–132.
+6. Galvez-Garcia, G., Hay, M., Gabaude, C. (2015) Alleviating simulator sickness with galvanic cutaneous stimulation. Hum. Factors, 57 (4), pp. 649–657.
+7. Graeber, D. A., Stanney, K. M. (2002) Gender Differences in Visually Induced Motion Sickness. Proceedings of the Human Factors and Ergonomics Society Annual Meeting, 46, pp. 2109-2113.
+8. Helland, A., Lydersen, S., Lervåg L., Jenssen, G.D., Mørland J., Slørdal, L. (2016) Driving simulator sickness: Impact on driving performance, influence of blood alcohol concentration, and effect of repeated simulator exposures. Elsevier – ScienceDirect: Accident Analysis & Prevention, 94, pp. 180–187.
+9. Ihemedu-Steinke, Q. C., Sirim, D., Erbach, R., Halady, P. Meixner, G. (2015) Development and evaluation of a virtual reality driving simulator. In: Mensch & Computer Workshop-band, A. Weisbecker, M. Burmester, and A. Schmidt, Eds., De Gruyter Oldenbourg, pp. 491-500.
+10. J.J. La Viola Jr. (2000) A Discussion of Cypersickness in Virtual Environment. SIGCHI Bull, 32 (1), pp. 47–56.
+
+11. Johnson, D. M. (2005) Introduction to and review of simulator sickness research. Report 1832. Army Research Institute for the Behavioral and Social Sciences, Arlington, VA: US.
+12. Kennedy, R. S., Drexler, J., Kennedy, R. C. (2010) Research in visually induced motion sickness. Applied Ergonomics, 41, 494-503.
+13. Kennedy, R. S., Fowlkes, J. E. (1992) Simulator Sickness Is Polygenic and polysymptomatic: Implications for Research. The International Journal of Aviation Psychology, 2, pp. 23-38.
+14. Kennedy, R. S., Lane, N. E., Berbaum, K. S., Lilienthal, M. G. (1993) Simulator Sickness Questionnaire: An Enhanced Method for Quantifying Simulator Sickness. The International Journal of Aviation Psychology, 3, pp. 203-220.
+15. Kennedy, R. S., Lilienthal, M.G., Berbaum, K.S., Baltzley, D.R., McCauley, M.E. (1989) Simulator sickness in U.S. Navy flight simulators. Aviat Space Environ Med; 60 (5):473.
+16. Kennedy, R.S., Stanney, K.M., Dunlap, W.P. (2000) Duration and exposure to virtual environments: sickness curves during and across sessions, Presence, 9 (5), pp. 463–472.
+17. Kingdon, K. S., Stanney, K. M., & Kennedy, R. S. (2001). Extreme responses to virtual environment exposure. Proceedings of the Human Factors and Ergonomics Society 45th Annual Meeting Santa Monica, CA: Human Factors and Ergonomics Society, pp. 1906-1911.
+18. Kohler, I. (1968) The formation and transformation of the perceptual world. In: R. N. Haber (Ed.), Contemporary theory and research in visual perception (pp. 474-497). New York: Holt, Rinehart, & Winston, Inc.
+19. Kolasinski, E. M. (1995) Simulator Sickness in Virtual Environments. Army Research Institute for the Behavioral and Social Sciences, Alexandria, VA, 68.
+20. Lin, J. J. W., Duh, H. B. L., Parker, D. E., Abi-Rached, H. Furness, T. A. (2002) Effects of field of view on presence, enjoyment, memory, and simulator sickness in a virtual environment. Virtual Reality. Proceedings. IEEE 2002. pp. 164-171.
+21. Matas, N. A., Nettelbeck, T., Burns, N. R. (2015) Dropout during a driving simulator study: A survival analysis. Journal of Safety Research, 55, pp.159-169.
+22. Reason & Brand, J. J. (1975). Motion sickness, Academic Press Inc. 23. Rebenitsch, L., Owen, C. (2014) Individual variation in susceptibility to cybersick-
+ness. Proceedings of the 27th annual ACM symposium on User interface software and technology. Honolulu, Hawaii, USA: ACM. 24. Riccio, G. E., Stoffregen, T. A. (1991) An ecological Theory of Motion Sickness and Postural Instability. Ecological Psychology, 3, pp. 195-240. 25. Russell, M.E.B., Hoffman, B., Stromberg, S. et al. (2014) Use of controlled diaphragmatic breathing for the management of motion sickness in a virtual reality environment. Appl Psychophysiol Biofeedback 39: 269. doi:10.1007/s10484-014-9265-6. 26. Slob J. J. (2008). State-of-the-Art Driving Simulators, a Literature Survey. Eindhoven University of Technology. In: DCT report. 27. Von Mammen, S. (2016) Cyber sick but still having fun. In: VRST '16 Proceedings of the 22nd ACM Conference on VR Software and Technology, pp. 325-326. 28. Witmer, B. G. & Singer, M. J. (1998) Measuring Presence in Virtual Environments: A Presence Questionnaire. Presence: Teleoper. Virtual Environ., 7, pp. 225-240. 29. Wright, R. H. (1995) Helicopter Simulator Sickness: A state-of-the-art review of its Incidence, causes, and treatment (ARI Rep. 1680). Alexandria, VA: U.S Army
+View publication stats
+

@@ -1,0 +1,351 @@
+Proceedings of the 7th International Conference on Inventive Computation Technologies (ICICT 2024) Xplore Part Number : CFP24F70-ART ; ISBN : 979-8-3503-5929-9
+
+2024 International Conference on Inventive Computation Technologies (ICICT) | 979-8-3503-5929-9/24/$31.00 ©2024 IEEE | DOI: 10.1109/ICICT60155.2024.10545015
+
+Indoor Navigation System using Augmented Reality
+
+Devang Kishor Parab Department of Computer Science and
+Engineering Xavier Institute of Engineering
+Mumbai, India devangparab2002@gmail.com
+Vedant Atul Warke Department of Computer Science and
+Engineering Xavier Institute of Engineering
+Mumbai, India vedantwarke2809@gmail.com
+
+Pranav Prasanna Deshpande Department of Computer Science and
+Engineering Xavier Institute of Engineering
+Mumbai, India pranavpras16@gmail.com
+Dr. Shushma Khanvilkar Department of Computer Science and
+Engineering Xavier Institute of Engineering
+Mumbai, India sushama.k@xavier.ac.in
+
+Raj Manoj Thakur Department of Computer Science and
+Engineering Xavier Institute of Engineering
+Mumbai, India therajthakur1@gmail.com
+
+Abstract—This research work presents the design and
+implementation of an advanced indoor navigation system tailored for college campus (Xavier Institute of Engineering), leveraging LiDAR sensors and QR code technology for accurate location mapping. The system integrates LiDAR sensors to create high-resolution 3D maps of indoor environments, providing detailed spatial information. QR codes are strategically placed throughout the campus, acting as reference points for precise localization. Users' smartphones scan these QR codes and collect real-time LiDAR data, allowing the system to properly pinpoint their location. The proposed indoor navigation application offers students, faculty, and visitors an intuitive and efficient way to navigate complex college buildings. The LiDAR-based mapping ensures precise indoor positioning, while QR codes serve as reliable landmarks for seamless orientation. The system's user- friendly interface provides stepby-step directions, optimizing routes based on real-time data, and enhancing the overall user experience. The integration of LiDAR technology and QR codes addresses the limitations of conventional indoor navigation systems, offering a scalable and adaptable solution for educational institutions. The implementation demonstrates the potential of this hybrid approach in transforming indoor navigation experiences, making it an invaluable tool for enhancing campus accessibility, improving way finding efficiency, and ensuring a positive user experience.
+Keywords—Indoor Navigation system, AR (Augmented Reality), Light Detection and Ranging (LiDAR)Sensor, Quick Response (QR) Code, Navigation Mesh (Navmesh), A* Algorithm, User Experience (UX), Real-Time Data Processing, 3D Mapping, XIE (Xavier Institute of Engineering).
+I. INTRODUCTION
+In a fast-paced, interconnected world, navigating through indoor spaces navigating intricate indoor spaces, such as shopping malls, airports, and large office complexes, can often be a perplexing and time-consuming challenge. Traditional navigation tools have their limitations in these environments, necessitating innovative solutions. This report introduces the project 'Indoor Navigation using Augmented Reality (AR),' which leverages cutting-edge AR technology to redefine indoor navigation, offering users a dynamic, realtime, and user-friendly approach to navigating complex
+
+interiors.
+Indoor navigation augmented reality (AR) projects are revolutionizing the way individuals navigate complex indoor spaces. By seamlessly blending digital information with the physical environment, these projects provide users with real-time guidance and contextual information within buildings, such as shopping malls, airports, and museums. Through the power of AR technology, users can effortlessly find their way, discover points of interest, and access relevant data, enhancing their overall indoor experience. This innovative approach not only improves convenience and efficiency but also opens up exciting possibilities for interactive, immersive, and informative interactions within indoor settings, making indoor navigation AR projects a promising frontier in modern technology and design.
+Augmented Reality (AR) significantly enhances the capabilities of indoor navigation systems by performing key functions that contribute to a seamless user experience. One fundamental role is real-time position tracking, where AR utilizes the device's camera and sensors to continuously track and update the user's location within the indoor environment. AR also aids in spatial mapping by analyzing the surroundings, identifying features, and contributing to the creation of an accurate navigation mesh. The integration of AR with user interfaces allows for an immersive interaction, presenting users with visual cues such as waypoints and arrows directly on their device screens. Wayfinding is further improved as AR overlays virtual paths onto the realworld view, making navigation more intuitive. Marker-based tracking is commonly employed by AR to initialize the user's position accurately, leveraging predefined markers or visual patterns in the environment. AR's dynamic capabilities enable real-time adjustments to the navigation path, ensuring adaptability as users move through the space and encounter obstacles. Additionally, AR enriches the user experience by visualizing points of interest and providing contextual information. By integrating sensor data, AR enhances the accuracy of position tracking, contributing to the stability and reliability of the indoor navigation system. Overall, AR plays a multifaceted role, offering real-time tracking, spatial understanding, dynamic path adjustments, and an engaging interface to create efficient and user-centric indoor
+
+979-8-3503-5929-9/24/$31.00 ©2024 IEEE
+
+720
+
+Authorized licensed use limited to: Politecnico di Torino. Downloaded on July 09,2024 at 14:31:46 UTC from IEEE Xplore. Restrictions apply.
+
+Proceedings of the 7th International Conference on Inventive Computation Technologies (ICICT 2024) Xplore Part Number : CFP24F70-ART ; ISBN : 979-8-3503-5929-9
+
+navigation experiences.
+The potential of augmented reality to superimpose digital data on the real environment is enormous for indoor navigation. This endeavor explores the creation of an augmented reality (AR) interior navigation system that immerses users in their environment and offers context-aware information and real-time advice. By harnessing AR's potential, this project envisions a future where navigating intricate indoor spaces becomes not only efficient but also engaging, promising to enhance the overall experience for users in various indoor settings. This report explores the technological intricacies, design considerations, and user experience aspects essential for the successful implementation of Indoor Navigation using AR.
+II. PROBLEM DEFINITION
+The problem addressed in this indoor navigation augmented reality (AR) project is the challenge of efficiently and accurately guiding individuals within complex and often unfamiliar indoor environments. Current navigation systems primarily rely on GPS, which is ineffective indoors, leading to disorientation and inefficiency for users. The project seeks to develop a solution that leverages AR technology to provide real-time, context-aware guidance and location-based information to users, ensuring seamless indoor navigation. By doing so, the goal is to enhance user experiences, increase productivity, and improve accessibility in settings such as shopping malls, airports, hospitals, and large office complexes, ultimately revolutionizing how people navigate and interact with indoor spaces.
+III. REVIEW OF LITERATURE
+Research explores indoor navigation technologies using augmented reality, focusing on its ability to assess a person's position and provide appropriate guidance [1]. The paper describes a simple and cost-effective indoor navigation system using GPS-based technology. It integrates with AR technology, using built-in sensors in mobile devices. The application uses IndoorAtlas for indoor positioning and ARCore for AR guidance. Surveys assess efficiency and user feedback [2].
+Vuforia and Unity are used in a Unity development environment to create augmented reality applications. The test scenarios include a simple game and a collaborative robot simulation. Implementation challenges include detecting physical world objects and superimposing virtual elements [11]. Vuforia, an augmented reality tool, has demonstrated impressive performance in 3D object detection, with a success rate of 87.5% in various scenarios, highlighting the importance of enhancing the learning media's ability to detect objects, especially in the context of education and engineering skills gaps [12]. Vuforia, an augmented reality tool, is being integrated into Unity for creating immersive applications, demonstrating impressive performance in 3D object detection [11][12].
+The project aims to explore feasible technology for indoor navigation using Augmented Reality, specifically Unity, ARCore, and Navmesh. It will provide usability and location-finding features for students and guests in a large campus [3].
+
+Augmented Reality can enhance maritime navigation, making it more accessible and safer for less experienced navigators, thereby transforming the concept of Easy Sailing [4]. The paper introduces a global indoor navigation system, INCREDISCOPE, based on e-paper displays technology. It presents three applications for system administrators, e-paper displays, and mobile applications, with Bluetooth user recognition. The system has two versions for different operation logic [5]. This paper presents a costeffective, 3D smartphone solution for indoor navigation using QR codes. The system uses optical location information to provide accurate indoor navigation, overcoming overcoming issues with Bluetooth, Wi-Fi, and AGPS [6].
+Indoor mobile laser scanning (MLS) systems, which use simultaneous localization and mapping (SLAM), are increasingly used for obtaining indoor environment data. This paper describes a semi-automatic drafting method for building plans that extracts 2D planar and geometric information from 3D point clouds [8]. The project explores Augmented Reality technology for indoor navigation, using Unity, ARCore, and Navmesh. It introduces a global indoor navigation system, INCREDISCOPE, built on e-paper displays technology. The system offers usability and location-finding features for students and guests, making maritime navigation more accessible and safer for less experienced navigators. It has two versions for different operation logic [2][3][5].
+A cost-effective design for a wheeled mobile robot, focusing on localization and navigation using a QR code, Dijkstra's algorithm [7]. An indoor navigation system based on LIDAR is used to solve the problem of indoor structures blocking satellite signals. In this paper, LIDAR is used as a sensor to sense the environment. Synchronous positioning and mapping algorithms are used to provide effective real-time positioning information [10]. Proposes a new teleoperation system for a mobile robot using Augmented Reality based on 3D LiDAR information. The system allows remote control, eliminates blind spots, and improves operator performance by superimposing 3D LiDAR objects [9].
+Dijkstra's is a greedy algorithm that optimizes the shortest path search, resulting in longer search times. In contrast, A-Star and best-first search algorithm, can handle the shortest path search faster but not always optimally. AStar is faster and follows the A-Star principle, resulting in a more efficient search [13]. The A-star algorithm, a popular method in navigation, has been improved to find a shorter path, addressing issues related to the shortest path [14]. Astar algorithm, a best-first search, handles shortest path faster, following A-Star principle, resulting in more efficient search [13][14]. The A* algorithm and "Navmesh Grid" path- finding in Unity 3D, focusing on improving and applying it in special game scenes, addressing the crucial problem of finding the road in game production [15].
+
+979-8-3503-5929-9/24/$31.00 ©2024 IEEE
+
+721
+
+Authorized licensed use limited to: Politecnico di Torino. Downloaded on July 09,2024 at 14:31:46 UTC from IEEE Xplore. Restrictions apply.
+
+Proceedings of the 7th International Conference on Inventive Computation Technologies (ICICT 2024) Xplore Part Number : CFP24F70-ART ; ISBN : 979-8-3503-5929-9
+
+IV. PROPOSED METHODOLOGY A. Analysis & Design
+
+to initialize their position in the map. 4. The user selects a destination on the map, and the app
+uses the NavMesh to calculate the shortest route. 5. The app uses AR to overlay directions onto the user's
+camera view. 6. The app employes SLAM to track the user's location
+in real-time. 7. The app uses AR to place virtual objects in the
+environment, such as arrows and labels. Overall, the app uses AR to provide users with accurate and easy-to-follow directions for indoor navigation.
+
+B. Implementation Methodology
+
+LiDAR Data Acquisition:
+
+LiDAR Data Acquisition is used to capture precise 3D spatial information essential for creating detailed and accurate maps or models of physical environments. LiDAR (Light Detection and Ranging) is a technique that employs laser pulses to measure distance and generate comprehensive 3D maps. In indoor navigation, LiDAR enables precise mapping of indoor spaces, real-time object detection, accurate localization, integration with augmented reality, and accessibility solutions for enhanced user experience, safety, and guidance. The project makes use of LiDAR sensors to capture the college premises and convert it into a 3D model.
+
+Point Cloud Processing:
+
+Fig. 1 Use Case Diagram
+The above use case diagram for an indoor navigation system of a college shows how the system can be used by students, faculty, and staff to navigate the college campus. The system provides users with a map of the campus and turn-by-turn directions to their destination (Fig 1).
+
+Point Cloud Processing serves as a critical stage in refining and optimizing the data obtained from LiDAR technology. By identifying and extracting crucial features, such as walls, doors, and obstacles, the AR-based navigation system is equipped to generate optimized routes, providing efficient and accurate guidance to users. Point clouds generated by LiDAR sensors provide a dense set of 3D coordinates representing the surfaces and objects in an indoor environment. By processing these point clouds, indoor maps can be created with high accuracy. Furthermore, these maps can be used for localization purposes. By comparing real-time LiDAR data with the pre-existing point cloud map, indoor navigation systems can accurately determine a user's location within a building. This precise localization is essential for guiding users along the correct paths. The project utilizes Point Cloud Processing technique to navigate the user from a source site to a destination location using the AR technology and 3D maps generated by LiDAR sensor.
+
+Navmesh Generation:
+
+Fig. 2 Block Diagram of Proposed System
+The Block diagram of the proposed system (Fig 2) is described below:
+
+Navmesh Generation involves analyzing walkable areas, creating optimized navigation paths and ensuring smoother movement for users. This process is used to enhance the system's ability to plan and render obstacle-free routes, resulting in a more effective and user-friendly AR-based navigation experience within complex indoor spaces. The project utilizes NavMesh to find the paths that the user can walk on and the shortest efficient paths between two points, that is the source location and destination location.
+Path Creation:
+
+Achieving path creation in an indoor navigation system involves
+
+1. Create a map of the indoor environment and a systematic approach. Initially, a detailed navigation mesh
+
+generate a NavMesh.
+
+(navmesh) must be generated, accurately representing walkable
+
+2. Place QR markers throughout the environment.
+
+surfaces and obstacles within the indoor environment. Following
+
+3. The user scans a QR code with their mobile device this, the integration of Augmented Reality (AR) tracking becomes
+
+979-8-3503-5929-9/24/$31.00 ©2024 IEEE
+
+722
+
+Authorized licensed use limited to: Politecnico di Torino. Downloaded on July 09,2024 at 14:31:46 UTC from IEEE Xplore. Restrictions apply.
+
+Proceedings of the 7th International Conference on Inventive Computation Technologies (ICICT 2024) Xplore Part Number : CFP24F70-ART ; ISBN : 979-8-3503-5929-9
+
+essential, providing real-time information on the user's position and enabling the AR interface to render context-specific information
+
+orientation. Users interact with the system by inputting their and provide customized navigation guidance within the
+
+destination through a user interface within the AR application. designated areas, ensuring an enhanced and tailored AR-based
+
+Employing a pathfinding algorithm, such as A* (A-star), navigation experience.
+
+facilitates the calculation of an optimal path from the user's current position on the navmesh to the selected destination. AR
+
+Initializing the position in map:
+
+visual cues, like waypoints or arrows, are overlaid onto the user's
+
+Initializing the position on the map in an indoor
+
+view to provide real-time guidance along the calculated path. navigation system, particularly when leveraging QR code
+
+Continuous updates to the user's position are ensured through AR technology, involves a multi-step process. First, QR codes
+
+tracking, allowing dynamic adjustments to the displayed path are strategically placed throughout the indoor environment,
+
+based on user movement and environmental changes. Collision serving as reference points for precise localization. Each QR
+
+avoidance mechanisms are implemented to dynamically steer code is associated with a specific location on the map,
+
+users around obstacles, with the navmesh being updated in real- creating a link between physical spaces and the digital
+
+time. A user-friendly interface allows for interactions like representation. Upon launching the navigation application on
+
+pausing, canceling, or rerouting navigation, complemented by the user's smartphone, the device's camera is used to scan
+
+visual and audio feedback. Rigorous testing and optimization nearby QR codes. This scanning process helps the system
+
+ensure the system's performance, responsiveness, accuracy, and identify the user's initial position by recognizing the unique
+
+overall efficiency, resulting in a robust indoor navigation solution information encoded in each QR code. Once the QR code is
+
+seamlessly blending AR and navmesh technology for an scanned successfully, the system correlates it with the pre-
+
+enhanced user experience.
+
+existing map data, initializing the user's position accordingly.
+
+User Interface (UI) Design:
+
+This method ensures accurate and quick initialization, as the QR codes act as reliable markers for the system to establish
+
+UI Design is used to create intuitive and user-friendly interfaces for applications or systems. It focuses on enhancing
+
+an initial point on the digital map, facilitating seamless and precise indoor navigation.
+
+user interaction, making functionalities accessible and easy to use. UI design aims to improve user experience by
+
+User Testing and Feedback:
+
+incorporating visually appealing and functional elements,
+
+User Testing and Feedback includes observing how users
+
+ensuring a seamless and intuitive interaction between users and interact with the system, gathering feedback, and identifying
+
+the technology or application.
+
+areas for improvement. It also ensures the system meets user
+
+Achieving Reliability:
+
+expectations and provides a seamless and effective navigation experience. Identify a diverse group of participants
+
+Achieving reliability in an indoor navigation system representing the system's target users, including students,
+
+involves a comprehensive approach addressing various aspects of the system's functionality. Firstly, robust data collection and
+
+faculty, staff, and visitors. Develop specific scenarios that mimic real-life use cases within the indoor environment. For
+
+sensor integration are crucial, ensuring that the system accurately captures and updates the user's position in real-time. Utilizing redundant sensor systems and employing error-
+
+instance, navigating from the main entrance to a specific classroom or locating facilities like restrooms and cafeterias. Implement a feedback feature within the AR navigation
+
+correction mechanisms can enhance data accuracy and reliability. Additionally, the integration of advanced algorithms, such as the A* pathfinding algorithm, contributes to
+
+application. Allow users to submit comments and suggestions directly through the app, ensuring a continuous feedback loop even after formal testing sessions.
+
+generating optimal and dependable navigation routes. Regular
+
+updates and maintenance to the system are essential to address any potential issues, adapting to changes in the indoor
+
+V. ALGORITHM
+
+environment and ensuring ongoing reliability. Implementing
+
+failover mechanisms and redundancy in the system's
+
+In an indoor navigation system, the A* algorithm is
+
+architecture can provide backup solutions in case of sensor employed to find the shortest way between the current
+
+failures or data inconsistencies. User feedback and testing in location and the destination within an environment.
+
+diverse scenarios contribute to identifying and resolving potential reliability issues, enhancing the system's overall robustness. Moreover, continuous advancements in technology, including improvements in sensor accuracy and algorithmic efficiency, play a role in further enhancing the reliability of indoor navigation systems over time. By prioritizing data accuracy, algorithmic efficiency, regular maintenance, and user testing, an indoor navigation system can achieve the reliability necessary for providing users with a consistent and dependable navigation experience in complex indoor environments.
+
+The indoor space is represented as a graph or grid, with nodes corresponding to specific locations and edges representing accessible paths. A heuristic function assesses the cost of getting from one node to another, taking into account factors such as distance and obstructions. The algorithm iteratively explores nodes, updating costs and parent pointers until the destination is reached. Integration with sensor data enhances position accuracy, and real-time updates handle dynamic environments. The navigation system, complete with a user interface and testing procedures, ensures accurate and efficient
+
+Positioning and Localization System:
+
+pathfinding in indoor spaces, with ongoing optimization based
+
+Indoor positioning and localization systems are crucial
+
+on user feedback and environmental changes.
+
+components of indoor navigation solutions, especially in
+
+NavMesh, short for Navigation Mesh, is indeed a widely
+
+environments where GPS signals are unavailable or unreliable. used algorithm in the context of indoor navigation. The
+
+These systems utilize various technologies to determine a user's NavMesh algorithm is particularly effective in representing
+
+precise location within a building or indoor space. In the project complex indoor environments by dividing them into walkable
+
+the Positioning and Localization System combines QR code areas of polygons. In the context of indoor navigation systems,
+
+scanning with AR technology to pinpoint users' locations. By NavMesh simplifies pathfinding for characters or users by
+
+leveraging QR codes placed strategically throughout the indoor providing a precomputed map of navigable regions. This
+
+environment, the system accurately identifies users' positions, allows for efficient and realistic movement within indoor
+
+979-8-3503-5929-9/24/$31.00 ©2024 IEEE
+
+723
+
+Authorized licensed use limited to: Politecnico di Torino. Downloaded on July 09,2024 at 14:31:46 UTC from IEEE Xplore. Restrictions apply.
+
+Proceedings of the 7th International Conference on Inventive Computation Technologies (ICICT 2024) Xplore Part Number : CFP24F70-ART ; ISBN : 979-8-3503-5929-9
+
+spaces, considering obstacles and dynamic elements. Developers can integrate NavMesh with techniques like the A* algorithm to find optimal paths through the precomputed mesh, creating a robust solution for indoor navigation in applications such as video games, robotics, and virtual simulations. The NavMesh algorithm contributes to enhanced user experience by facilitating smooth and obstacle-aware navigation in intricate indoor settings.
+The selection of the A* algorithm for indoor navigation systems is driven by its efficiency in finding the optimal path from a starting point to a destination on a navigation mesh or map. A* combines the advantages of both Dijkstra's algorithm and greedy best-first search, utilizing a heuristic to prioritize the exploration of paths likely to lead to the goal. In the context of indoor navigation, where users need precise and optimal routes through complex environments, A* excels in providing accurate paths while efficiently navigating the intricacies of indoor spaces. The heuristic function estimates the cost from the current node to the goal, allowing the algorithm to prioritize paths that appear more promising. This not only contributes to faster computation times but also ensures that the generated paths are well-suited for real-time navigation. In an indoor navigation system employing A*, the algorithm is integrated into the software to calculate and dynamically adjust paths based on the user's location and destination. By leveraging A*, indoor navigation systems optimize route planning, contributing to a more seamless and responsive user experience, especially in intricate environments like college campuses or large buildings.
+VI. RESULTS AND DISCUSSION
+The goal of this research work is to create an Indoor Navigation system for Xavier Institute of Engineering using Augmented Reality (AR) technologies, primarily focusing on Vuforia Area Target. The system is designed to provide accurate and intuitive navigation guidance within the institute premises, enhancing the overall user experience. This study has utilized Vuforia Area Target to generate 3D models and maps for integration into the navigation system. This study has successfully implemented the process of joining the scanned area targets within the Unity environment. This critical step ensures the seamless integration of mapped areas, creating a unified navigation experience.
+Problem Faced
+While significant progress has been made, several challenges were encountered during the development process:
+Scanning Accuracy: Achieving precise scanning results in complex indoor environments proved to be more timeconsuming than initially anticipated.
+Dynamic Object Handling: Addressing the presence of dynamic objects (e.g., people, movable furniture) within scanned areas for real-time navigation.
+
+Fig 3 Model of Water filling station 2nd floor Fig 4 Department Labs
+Fig 5 NavMesh Generation Fig 6 NavMesh Mapping
+
+Fig 7 Full College Model
+
+979-8-3503-5929-9/24/$31.00 ©2024 IEEE
+
+724
+
+Authorized licensed use limited to: Politecnico di Torino. Downloaded on July 09,2024 at 14:31:46 UTC from IEEE Xplore. Restrictions apply.
+
+Proceedings of the 7th International Conference on Inventive Computation Technologies (ICICT 2024) Xplore Part Number : CFP24F70-ART ; ISBN : 979-8-3503-5929-9
+
+2018.165519.
+
+VII. CONCLUSION & FUTURE SCOPE
+In conclusion, the development of the college's indoor navigation system, built using Unity, QR code pathfinding, Vuforia augmented reality, and LiDAR sensor technologies, represents a game-changing answer to campus navigation difficulties. This project has significantly enhanced the user experience by seamlessly integrating real-time location tracking and interactive augmented reality guidance. The implementation of QR code pathfinding algorithms ensures optimal route planning, taking into account essential factors like distance, accessibility, and real-time obstacles. With its user-friendly interface, precise navigation capabilities, and attention to accessibility, this indoor navigation system not only simplifies the complexities of navigating the college environment but also sets a standard for innovative and inclusive technological solutions in educational institutions.
+
+[8] Zeybek, Mustafa. ‘Indoor Mapping and Positioning Applications
+
+of Hand-Held LiDAR Simultaneous Localization and Mapping
+
+(SLAM) Systems’. Turkey Lidar Journal, Turkiye lidar dergisi
+
+(Mersin
+
+University),
+
+May
+
+2021,
+
+https://doi.org10.51946/melid.927004.
+
+[9] K. Doki, K. Suzuki, A. Torii, S. Mototani, Y. Funabora and S. Doki, "AR video presentation using 3D LiDAR information for operator support in mobile robot teleoperation," 2021 IEEE 19th World Symposium on Applied Machine Intelligence and Informatics (SAMI), Herl'any, Slovakia, 2021, pp. 000059000064, doi: 10.1109/SAMI50585.2021.9378687.
+
+[10] Xin, G. Wu, C. Zhang, K. Chen, J. Wang and X. Wang, "Research on Indoor Navigation System of UAV Based on LIDAR," 2020 12th International Conference on Measuring Technology and Mechatronics Automation (ICMTMA), Phuket, Thailand, 2020, pp. 763-766, doi: 10.1109/ICMTMA50254.2020.00166.
+
+[11] J. Simon, “Augmented Reality Application Development using Unity and Vuforia,” Interdisciplinary Description of Complex Systems, vol. 21, no. 1, pp. 69–77, 2023, doi: 10.7906/indecs.21.1.6.
+
+The future scope for indoor navigation systems within college campuses holds significant potential for revolutionizing the student and faculty experience. As technology continues to advance, integration with emerging innovations such as the Internet of Things (IoT), augmented reality (AR), and machine learning could provide dynamic, personalized navigation solutions. These systems could adapt to individual preferences, optimize routes based on real-time data, and seamlessly integrate with campus services. The use of smart infrastructure, including connected buildings and classrooms, could enhance resource management, energy efficiency, and overall operational effectiveness. Wearable technology, such as smartwatches or augmented reality glasses, may become integral tools for students and staff, offering hands-free navigation and access to campus information.
+REFERENCES
+
+[12] M. S. Ramesh, J. Naveena Ramesh Vardhini, S. Murugan and J.
+
+Albert Mayan, "Indoor Navigation using Augmented Reality for
+
+Mobile Application," 2023 7th International Conference on
+
+Intelligent Computing and Control Systems (ICICCS), Madurai,
+
+India,
+
+2023,
+
+pp.
+
+1049-1052,
+
+doi:
+
+10.1109/ICICCS56967.2023.10142362.
+
+[13] Candra, M. A. Budiman and K. Hartanto, "Dijkstra's and A-Star in Finding the Shortest Path: a Tutorial," 2020 International Conference on Data Science, Artificial Intelligence, and Business Analytics (DATABIA), Medan, Indonesia, 2020, pp. 28-32, doi: 10.1109/DATABIA50434.2020.9190342.
+
+[14] Ju, Q. Luo and X. Yan, "Path Planning Using an Improved A-star Algorithm," 2020 11th International Conference on Prognostics and System Health Management (PHM-2020 Jinan), Jinan, China, 2020, pp. 23-26, doi: 10.1109/PHMJinan48558.2020.00012.
+
+[15] Z. He, M. Shi and C. Li, "Research and application of path-finding algorithm based on unity 3D," 2016 IEEE/ACIS 15th International Conference on Computer and Information Science (ICIS), Okayama, Japan, 2016, pp. 1-4, doi: 10.1109/ICIS.2016.7550934.
+
+[1] R. Jess, S. Manoj, S. A. J, and Prof. S. K. K, “AR Indoor Navigation System,” International Journal for Research in Applied Science and Engineering Technology, vol. 11, no. 5, pp. 6752–6757, May 2023, doi: 10.22214/ijraset.2023.53254.
+
+[2] X. H. Ng and W. N. Lim, "Design of a Mobile Augmented Reality- based Indoor Navigation System," 2020 4th International Symposium on Multidisciplinary Studies and Innovative Technologies (ISMSIT), Istanbul,Turkey, 2020, pp.1-6, doi: 10.1109/ISMSIT50672.2020.9255121.
+
+[3] T. Sayapogu, K. Dsa and P. Kaul, "AR Smart Navigation System," 2021 2nd International Conference for Emerging Technology (INCET), Belagavi, India, 2021, pp. 1-4, doi: 10.1109/INCET51464.2021.9456238.
+
+[4] F. Laera, "Augmented Reality for Easy Sailing," 2020 IEEE International Symposium on Mixed and Augmented Reality Adjunct (ISMAR-Adjunct), Recife, Brazil, 2020, pp. 312-313, doi: 10.1109/ISMAR-Adjunct51615.2020.00088.
+
+[5] P. Dominik and J. Marcinkowski, “Smart Indoor Navigation System: INCREDISCOPE,” Pomiary Automatyka Robotyka, vol. 25, no. 1, pp. 61–66, Mar. 2021, doi: 10.14313/par_239/61.
+
+[6] P. R. Raj, S. Tolety and C. Immaculate, "QR code based navigation system for closed building using smart phones," 2013 International Mutli-Conference on Automation, Computing, Communication, Control and Compressed Sensing (iMac4s), Kottayam, India, 2013, pp. 641-644, doi: 10.1109/iMac4s.2013.6526488.
+
+[7] Sneha, A., et al. ‘QR Code Based Indoor Navigation System for Attender Robot’. EAI Endorsed Transactions on Internet of Things, vol. 6, no. 21, European Alliance for Innovation n.o., Aug. 2020, p. 165519, https://doi.org10.4108/eai.13-7-
+
+979-8-3503-5929-9/24/$31.00 ©2024 IEEE
+
+725
+
+Authorized licensed use limited to: Politecnico di Torino. Downloaded on July 09,2024 at 14:31:46 UTC from IEEE Xplore. Restrictions apply.
+

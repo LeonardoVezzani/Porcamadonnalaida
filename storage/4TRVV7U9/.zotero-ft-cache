@@ -1,0 +1,1054 @@
+Article
+Design and Evaluation of Ecological Interface of Driving Warning System Based on AR-HUD
+Jun Ma 1,2, Yuhui Li 1 and Yuanyang Zuo 1,*
+1 College of Design and Innovation, Tongji University, Shanghai 200092, China; majun.tongji@foxmail.com (J.M.); yottoli@foxmail.com (Y.L.)
+2 School of Automotive Studies, Tongji University, Shanghai 200092, China * Correspondence: zuoyy@tongji.edu.cn
+Abstract: As the global traffic environment becomes increasingly complex, driving safety issues have become more prominent, making manual-response driving warning systems (DWSs) essential. Augmented reality head-up display (AR-HUD) technology can project information directly, enhancing driver attention; however, improper design may increase cognitive load and affect safety. Thus, the design of AR-HUD driving warning interfaces must focus on improving attention and reducing cognitive load. Currently, systematic research on AR-HUD DWS interfaces is relatively scarce. This paper proposes an ecological interface cognitive balance design strategy for AR-HUD DWS based on cognitive load theory and environmental interface design theory. The research includes developing design models, an integrative framework, and experimental validation suitable for warning scenarios. Research results indicate that the proposed design effectively reduces cognitive load and significantly decreases driver response and comprehension times, outperforming existing interfaces. This design strategy and framework possess promotional value, providing theoretical references and methodological guidance for AR-HUD warning interface research.
+Keywords: AR-HUD; driving warning system; cognitive load; ecological interface design; autonomous driving
+
+Citation: Ma, J.; Li, Y.; Zuo, Y. Design and Evaluation of Ecological Interface of Driving Warning System Based on AR-HUD. Sensors 2024, 24, 8010. https://doi.org/10.3390/s24248010
+Received: 15 October 2024 Revised: 12 December 2024 Accepted: 13 December 2024 Published: 15 December 2024
+Copyright: © 2024 by the authors. Licensee MDPI, Basel, Switzerland. This article is an open access article distributed under the terms and conditions of the Creative Commons Attribution (CC BY) license (https:// creativecommons.org/licenses/by/ 4.0/).
+
+1. Introduction
+With the increasing number of cars in the world and the increasingly complex traffic environment, driving safety has become an urgent issue. Because the current autonomous driving technology is still not very mature, nor has it obtained drivers’ full trust, the traffic warning system that senses and transmits environmental information through the car sensor combined with the driver’s response operation will become a long-term mainstream intelligent assisted driving scenario. When the driver receives information, the driving workload will be generated, including visual, auditory, mental, and cognitive aspects. It has been shown that drivers can obtain 80% of information through vision when looking at the road [1]. Therefore, providing enhanced driving safety information that matches the actual environment when the driver is looking ahead will help the driver identify the information more naturally and focus on safe driving. Head-up displays (HUDs) are currently widely used in cars. They can significantly improve the driver’s reaction time to dangerous situations in low visibility [2], which is conducive to focusing the driver’s cognitive resources on important information and reducing redundant behaviors such as lowering the head, with short information acquisition time [3,4]. On this basis, the combination of HUDs and augmented reality technology, namely AR-HUDs [5], can place visual information and prompts directly in the driver’s line of sight [6], speed up the visual processing of instant information [7], and thus reduce the potential risk caused by distraction [8]. In addition, the combination of the AR-HUD system and traffic warning can improve the efficiency and reaction speed of drivers in obtaining warning information [9] to avoid traffic accidents caused by insufficient response.
+
+Sensors 2024, 24, 8010. https://doi.org/10.3390/s24248010
+
+https://www.mdpi.com/journal/sensors
+
+Sensors 2024, 24, 8010
+
+2 of 31
+However, improper interface design of AR-HUDs can also have negative effects on cognitive resources. With the improvement of on-board computing power and network technology, the types of information displayed on an AR-HUD are increasing and becoming richer. It not only provides necessary driving information but also vehicle navigation, communication information, and multi-media content [10]. Since the display area of the AR-HUD overlaps significantly with the driver’s road field of vision, if the virtual image information projected in the driver’s field of vision is chaotic and the projected area is large, it may interfere with the driver’s perception of the real driving environment, resulting in more serious cognitive load and distraction [11]. However, an overly simple interface will also lead to unclear information transmission, and the driver will think that the AR-HUD is not helpful [12]. Therefore, it is necessary to effectively filter the information identified by the system, balance the cognitive load of the AR-HUD interface, and improve the speed and accuracy of information acquisition by users.
+1.1. Related Research 1.1.1. AR-HUD Information Interface Design
+An AR-HUD combines virtual reality with the actual scenario to provide near-field and far-field warning information, vehicle information, surrounding object information, pedestrian information, navigation information, and automatic driving information to provide drivers with an immersive and intelligent driving experience. The interface of the AR-HUD is usually designed according to the principles of human–computer interaction in the car. In studies on the correlation between information presentation on AR-HUDs and cognitive load, Hooey [13] and Liu et al. [7] proved that HUDs had no obvious advantage in displaying navigation information, and HUDs can significantly accelerate the driver’s reaction time, which was more effective than a dashboard display. Okabayashi et al. [14] and Wickens et al. [15] proposed that HUDs had more obvious advantages in displaying information that required rapid response, while for information that was not urgent, the use of HUDs may more easily distract the driver’s attention. In terms of the specific form of ARHUDs, Kim et al. [16] proved through experiments that the spatial information provided by conformal graphics on AR-HUDs can not only lead to better driving performance but also make braking behavior more stable. In another study by Kim and Gabbard [17], the AR-HUD interface could enhance the driver’s situational awareness, but it may also distract the driver’s attention. In the study of the design space of AR-HUDs, Tonnis et al. [18] defined six categories of AR information presentation principles. Kunze et al. [19] used AR to display the uncertainty of the driver assistance system, comparing 11 visual variables and finding that tone was particularly well suited to communicating emergency commands. Hauslschmidd et al. [20] defined a design space for AR applications on windshields and proposed a comprehensive and general description of the possibilities available when designing user interfaces. Wiegand et al. [21] extended this design space by showing more dimensions of the in-car AR application design space, with more options for each dimension. These approaches focus more on the behavior and relationship to the physical world but are still missing a description of the function and intent of the element. Müller et al. [22] proposed a visual classification of AR information elements covering automatic driving and manual driving and classified AR elements from four dimensions: information type, function type, content reference type, and registration type. According to the above studies, AR-HUD technology can help reduce cognitive load by providing only necessary information to drivers, so that they can focus on the main task of driving. Therefore, displaying warning information related to driving safety on HUDs is an optimal choice [23]. Although the specific warning display form on AR-HUDs has been preliminarily explored, no systematic design system and scheme have been proposed in theory and practice. In the aspect of AR-HUD design space, some systematic discussions have been put forward, but there is a lack of specific research on the design strategy of the warning system. At present, most research on automotive design is based on traditional human–machine interaction principles, and the application of other design theories in AR-HUD design, such
+
+Sensors 2024, 24, 8010
+
+3 of 31
+as cognitive load theory [24] and ecological interface design theory [25], is rarely discussed. Although cognitive load is often used as an experimental assessment method (such as the NASA-TLX scale [26]), its application to automotive interfaces, especially AR-HUD interfaces, is still in its infancy and has great research potential. In addition, Kim et al. [27] applied ecological interface design to an AR-HUD for the first time, demonstrating its potential in reducing driver cognitive load and reducing distraction.
+1.1.2. Driving Warning System
+In the research on the interface of traffic warning information related to AR-HUDs, the presentation scheme and design principle of information are explored from different views. Yang [28] analyzed and summarized the cognitive characteristics of the AR-HUD interface, analyzed the existing information importance, color formality, interface element quantity, and other issues of AR-HUDs from the perspective of road safety prompt information presentation, and put forward the principles of interface design of AR-HUD road safety prompt information. Kim et al. [5] proposed an AR-HUD interface for a collision warning system and verified that, compared with traditional DVIs, the HUD interface can make drivers realize the danger faster and significantly shorten the reaction time to the danger ahead. Based on AR-HUDs, Tran et al. [29] designed a left-turn auxiliary decision system at an intersection that displayed the predicted trajectory of the oncoming vehicle within the driver’s field of vision and helped the driver make left-turn decisions. Through experiments, they found that the use of projected trajectory AR-HUDs can enhance driver perception and reduce visual distraction. Tonnis et al. [30] studied different braking trajectory display schemes of AR-HUDs and found that the visual assistance system with a horizontal bar superimposed on the braking endpoint of the road surface to indicate the braking distance performed better overall and reduced the cognitive burden of users. He et al. [31] suggested that providing surrounding traffic information to drivers of autonomous vehicles, in addition to TOR and automation capability information, could help drivers anticipate potential traffic conflicts (early warnings), although not in vehicles with AR-HUDs. At present, in the field of the combination of driving warning systems and AR-HUDs, most of them are visual designs for single-warning information, and the presentation of multiwarning information in complex scenarios is not proposed.
+1.1.3. Ecological Interface Design
+The ecological interface design (EID) proposed by Rasmussen and Vicente [25] is based on abstract hierarchical analysis (AH) and skill, rule, knowledge (SRK) classification. Through AH, it is possible to determine which kinds of information should appear on the ecological interface of the system [25]. Combining SRK classification to analyze the level and structure of the driver’s task, it can determine how the information should be presented [32]. Lee et al. [33] proved through experiments that, compared with the traditional interface, the driver assistance system with ecological interface design can improve the driver’s judgment accuracy and confidence, and when the participant can only view the situation in a short time, the ecological interface can make the driver understand more quickly than the traditional interface. Kim et al. [27] applied ecological interface design to ARHUDs for the first time to design the interface of a pedestrian collision alarm system and proved through rapid prototyping that the warning display mode of projecting virtual shadow based on ecological interface design was better than the traditional boundary box marking of pedestrian warning in terms of visibility, attention, situational awareness, and so on. Schewe et al. [34] designed an ecological interface for speed control using the ecological interface design method and proved through experiments that, compared with traditional speedometers, eco-interface-designed speedometers can reduce cognitive load and help drivers better control speed and maintain lane. Schewe et al. [35] compared 2D and 3D visual effects speedometers based on HUDs and applied ecological interface design. Through experimental evaluation, they found that a 2D ecological interface speedometer could help users control speed more accurately, while a 3D ecological interface speedometer
+
+Sensors 2024, 24, 8010
+
+4 of 31
+could help users keep lanes more accurately. Cao and Zhang [36] used the SRK classification method to analyze the task hierarchy and structure of urban rail drivers and further introduced the display information content and structure of an urban rail AR-HUD based on it. In general, the current relevant studies have proved that the application of EID in the AR-HUD interface has great research prospects and potential to help drivers reduce cognitive load and reduce attention distraction. However, at present, the number of studies on the ecological interface design of AR-HUDs is still limited, and most of them only start from a single scenario to verify the effectiveness of a certain ecological interface design scheme and have not yet proposed a systematic ecological interface design strategy for the current normal and complex traffic scenarios.
+1.1.4. Measurement and Evaluation Methods of Driving Cognitive Load
+Driving cognitive load measurement methods include subjective methods and objective methods (i.e., physiological measurement methods), and driving performance can be used as a method to assess the impact of cognitive load [37]. Physiological indicators can also be used as monitoring indicators of driving cognitive load because these indicators can be collected in real time during the completion of driving tasks. The subjective workload scales commonly used to measure driver workload (DWL) include the NASA Task Load Index (NASA-TLX) scale, the Driving Activity Load Index (DALI) scale, the Subjective Workload Assessment Technique (SWAT) scale, and the Mental Labor Rating Scale (RSME). DALI is a workload indicator proposed by Pauzie [38] based on driving characteristics and further developed on the basis of NASA-TLX, including five dimensions of attention: visual demand, auditory demand, time demand, interference, and situational pressure. Objective measurement methods usually refer to physiological measurement methods. The indicators used in physiological measurements are mainly divided into three categories: cardiac activity indicators [39,40], eye-tracking analysis indicators [41,42], and brain imaging analysis indicators [43,44]. The eye-tracking analysis index has advantages in simulated driving experiments and is widely used in the research field of autonomous driving and driving analysis [45,46]. Lu and Sarter [47] suggested that eye tracking is an effective technique for inferring changes in operator trust levels in real time. Compared to other physiological measures, eye tracking has the benefits of easier implementation, less intrusion, and a more fine-grained analysis of monitoring behavior. Drivers’ excessive trust in the driving automation system will lead to less attention on the road [48–50].
+1.2. Research Questions and Article Structure
+Based on the cognitive load theory, this study summarized the cognitive process and characteristics of driving warning systems (DWSs), combined with the ecological interface design method, and proposed a systematic design strategy to optimize the interface presentation mode of the AR-HUD DWS to balance the interface cognitive load, improve the information receiving efficiency, and improve driving safety. To achieve our research objectives, we need to answer the following research questions:
+RQ: How to combine the ecological interface design method to build the interface design strategy of an AR-HUD DWS to balance the interface cognitive load and improve driving safety? SQ 1: How to balance the cognitive load of an AR-HUD DWS? SQ 2: How to build a cognitively balanced AR-HUD DWS ecological interface design interface? SQ 3: Can the constructed AR-HUD DWS interface cope with complex-warning scenarios to improve driving safety?
+Based on the above issues, the work in this article proceeds on the following levels: To address SQ 1, we applied the AH and SRK classification in the ecological interface design theory to the analysis of the AR-HUD DWS and proposed a cognitive adjustment method of the warning interface based on the cognitive load theory. Combined with the characteristics of the AR-HUD warning interface, the design dimension was analyzed.
+
+Sensors 2024, 24, 8010
+
+5 of 31
+
+Finally, the strategy and model of the EID of the AR-HUD driving warning system were constructed from the system layer, strategy layer, and vision layer.
+To address SQ 2, an integrated AR-HUD interface design framework was designed based on the EID strategy of the AR-HUD DWS. This framework was suitable for different warning scenarios, including horizontal and vertical control, with or without obstacles, single-warning scenarios and complex-warning scenarios. The AR-HUD warning interface prototype was designed for five different warning scenarios.
+To address SQ 3, based on the experimental design of five different warning scenarios, combined with subjective and objective measurement methods of cognitive load and risk reaction time, we evaluated the cognitive workload and warning reaction time of drivers in single-warning and complex-warning scenarios. Finally, the validity of the AR-HUD interface design strategy and framework was analyzed and verified by measuring data, and the key application advantages and design strategy methods were summarized.
+The structure of this paper is as follows: in Section 2, the cognitive balance design strategy and model of the ecological interface of the AR-HUD DWS is constructed, and, further, the ecological interface design framework of the AR-HUD DWS is built. In Section 3, a static driving simulation platform is built, and the AR-HUD interface design strategy and the effectiveness of the framework are tested through different warning scenario experiments. In Section 4, we discuss the experimental results and discuss the limitations of this study. Finally, the research work of this paper is summarized.
+2. Theoretical Framework
+Based on the above problems, this paper analyzes and summarizes the relevant theoretical basis from four aspects, as shown in Table 1. The theoretical analysis consists of four main parts: (A) principle and constitution of DWS, (B) features of AR-HUD-based driving warning system, (C) cognitive load theory (CLT), and (D) ecological interface design (EID).
+
+Table 1. Basis of theoretical analysis.
+
+Number Name
+Content
+
+A
+Principle and constitution of DWS
+(1) Principle (human–machine interface layer;
+decision-making layer; sensing layer)
+(2) System structure and classification
+
+B Features of AR-HUD-based driving warning system
+(1) Revelation principle
+(2) Interface case studies (5 mainstream and 2 manufacturers)
+
+(3) Hierarchical warning mechanism
+
+(3) Warning interface design features
+
+C Cognitive load theory (CLT)
+(1) Theoretical basis
+(2) Type and balance principle
+(3) Driving cognitive load (DCL)
+
+D Ecological interface
+design (EID)
+(1) Theoretical basis
+(2) Abstract hierarchy analysis (3) SRK classification
+framework and semantic mapping
+
+The details are explained as follows: first, we analyzed the principle and constitution of DWS, including its basic working principle (A-1), constituent components (A-2), and graded warning mechanisms (A-3), which clarified the structure of the warning system. Next, we conducted an in-depth analysis of the AR-HUD principle (B-1), examined different warning interface cases (B-2), and summarized the characteristics of AR-HUD warning interface design (B-3). Then, we analyzed cognitive load theory, covering its basic concepts (C-1), the different types of cognitive load (C-2), and the application of cognitive load in the driving domain (C-3). Finally, we explored the theory and methods of ecological interface design (D-1), including abstract level analysis (D-2) and the SRK classification framework
+
+Sensors 2024, 24, 8010
+
+6 of 31
+(D-3), as well as how to effectively transform interface design elements through ecological interface semantic mapping. These theories provide crucial design guidance for creating an intuitive and efficient AR-HUD driving warning interface. The theoretical analysis provides a solid theoretical foundation for the interface design and establishes evaluation standards for the construction of a cognitively balanced AR-HUD driving warning system.
+2.1. Ecological Interface Cognitive Balanced Design Strategy
+According to the research of DWS, AR-HUD interface design, CLT, and EID method, three layers of a balanced cognitive load AR-HUD warning interface can be constructed, as shown in Figure 1. Firstly, at the system layer, the external environment and the architecture of the warning system are analyzed through ecological interface design. Secondly, at the strategy layer, the interface design strategy is adjusted by the causal dimension of cognitive load. Finally, at the visual layer, the design process is considered from the visual design dimension of the AR-HUD. This comprehensive dynamic analysis ensures that the warning interface meets system architecture, driver cognitive, and AR-HUD characteristic needs. The three layers are organically combined. For example, the physical form layer at the abstract level intuitively presents the function through the AR-HUD design dimension, and the SRK classification also uses the classification of these dimensions to classify the types of warning information. In addition, in terms of semantic mapping, the visual design is optimized by combining the visual thesaurus and AR-HUD warning interface. The application of these three hierarchical methods helps to balance the cognitive load, match the driver’s internal cognition with the external environment, promote the realization of skill-based behavior, make the driver react quickly in dangerous scenarios, and improve the acquisition ability of the driving schema.
+System layer: analysis of environment and system by ecological interface design. In the cognitive load balance design of the AR-HUD warning system, it is important to analyze and construct the relationship between the external environment and the warning system by adopting the principle of ecological interface design (EID). The goal of EID is to create an intuitive representation that makes system status and operation clear and understandable to the driver, enabling efficient decision making. First of all, through the abstract hierarchy analysis of EID, the overall framework of the AR-HUD system can be deeply understood, and the interaction and dependence of various layers in the purpose– means structure can be revealed. Secondly, the whole–part structure helps to identify the constraints on variables at each layer and explore their interactions. These variables can be mapped to the SRK classification to identify the cognitive needs of different driving tasks. Finally, semantic mapping translates these constraints and information requirements into specific interface elements to ensure that information presentation matches driver cognitive patterns. Through this series of analyses, the AR-HUD warning system interface is carefully constructed to support fast, intuitive cognitive processing to help drivers maintain cognitive load balance and optimize the overall driving experience. Strategy layer: interface elements of cognitive load regulation. In the strategy layer of the AR-HUD warning system, the goal of cognitive load regulation is to effectively transmit warning information without exceeding the processing ability of the driver. This requires careful design of interface elements to enable rapid absorption and understanding of information while reducing unnecessary cognitive load. It is necessary to comprehensively consider the nature of the task, the driver’s ability, and their interaction to reduce the internal and external cognitive load and improve the related cognitive load. To this end, a modular holistic task strategy is adopted to present information in stages to help drivers understand and process the warning information. At the same time, it is necessary to avoid unnecessary comparisons between goals and problem states, reduce information redundancy, and integrate information sources in emergencies to prevent distraction. The interface design should also be adjusted according to the professional knowledge level of the driver to provide appropriate information and support. To improve the related cognitive load, task variation design and embedded stent
+
+Sensors 2024, 24, 8010
+
+7 of 31
+
+design can be adopted. Task variation design helps drivers identify key features and promotes schema transfer. Implicit and explicit supports, such as cues and feedback, help drivers effectively identify and respond to potential hazards. These design strategies aim to improve the driver’s cognitive processing efficiency and reduce the safety risks caused by improper information processing. In summary, the balance needs to be found between interface elements, information presentation, and user interaction, ensuring that every design decision is aimed at improving task efficiency and safety while reducing cognitive Sensors 2024, 24, x FOR PEER REVIEWstress so that the AR-HUD warning interface is aligned with the driver’s cognitive pa7ttoefrn3s1 and needs.
+
+FFiigguurree 11.. TThhee ddeessiiggnn ssttrraatteeggyy ooff eeccoollooggiiccaall iinntteerrffaaccee ccooggnniittiivvee bbaallaannccee ooff AARR--HHUUDD DDWWSS..
+vmuilseauntiatoIVSIelnnndtiprsttauierhhsteareeeacltgoellsvyiapttiyerylstaaeﬀiuryotteea:eenccrlgvth:ayihisinvninuleeodatarlelylyaorceifrgonatrcyrgcthoaeentyrnfoeifstaltdeihemcvmeefefesiepetAinpcrgwettRrnissova-eoHocnrefenfltUycesiAodnsDpg.RgfnrrI-weotiiHtsnmiaiesvfUrnoetnnhtrDloimeovn,taAigatsdohtRunsireoay-elHylngswtuiUnnewalmeafDroitcnti,rehoidmtnsneohsgs.uaeaigttrsignyyoeonsxdtatocielamemnfoeoedfdncscisumhnoisoogganount.tcnlihhdtietvthuhpeeterilaloodicczarceediusvasrreiuearngtg’ges-tarbainlistmy oisfstihone dorfiivnefro.rTmhaistiroenqbuuirteaslcsaorteofuclodnessidigenr othfeinimterpfaaccteoeflevmiseunatlsptroeseennatbalteiornapoind tahbedsorrivpetiro’sn uannddeurnstdaenrdstianngdainngdorfeiancftoiormn.atTiohne wdehsiilgenreddiumcienngsiuonnnoefcetshsearAyRc-oHgnUiDtivienltoearfda.cIet is necessary to comprehensively consider the nature of the task, the driver’s ability, and their interaction to reduce the internal and external cognitive load and improve the related cognitive load. To this end, a modular holistic task strategy is adopted to present information in stages to help drivers understand and process the warning information. At the same time, it is necessary to avoid unnecessary comparisons between goals and problem
+
+Sensors 2024, 24, 8010
+
+8 of 31
+should be combined with the characteristics of warning information and the display characteristics of AR technology to distinguish the attention-grabbing elements and information content elements. The visual design task is to ensure that the warning elements attract the driver’s attention while keeping the message clear and easy to read. Attention-grabbing elements include registration type, visual field position, and visual design factors. The registration types include 3D registration, 2D registration, angle simulation, and unregistered forms, which have different limitations in visual space and depth. The space and depth perception advantages of the AR-HUD should be utilized in the design to integrate warning information into the driver’s field of view to create an intuitive information layer. Visual field position determines where information is presented, while visual design factors focus on color, transparency, dynamic frequency, and saturation. Information content elements are divided into location-specific elements, dynamic environment elements, and action suggestions, corresponding to KBB, RBB, and SBB in SRK classification, respectively. Combined with the visual thesaurus of ecological interface design, we can develop visual languages that conform to cognitive habits and improve information acceptance and warning effects. In short, the interface design of the AR-HUD warning system needs to comprehensively consider the synergy of visual elements to maximize the effect of information transmission and ensure its practicality and effectiveness in warning scenarios.
+2.2. Ecological Interface Design of AR-HUD Warning System
+Based on the proposed design strategy, the information analysis, design, and construction of the AR-HUD interface of the warning system are carried out from the system layer, strategy layer, and vision layer. At the system layer, the interface information architecture is obtained from the means–purpose structure of the abstract-level analysis of the AR-HUD warning system. Combined with the whole–part structure, the key variables corresponding to the information can be associated, the SRK classification of this information can be conducted, and the types of corresponding information elements can be judged. At the strategy level, the internal cognitive load of warning information is reduced by using the modular overall task strategy. By considering different cognitive load effects and professional knowledge reversal, the external load of interface design is reduced. By changing the structure of the task itself and embedding cognitive stents to improve the related cognitive load, cognitive load regulation analysis, interface information architecture, and presentation strategy are carried out. Finally, through the integration of semantic mapping of the visual layer and AR-HUD interface design dimension analysis, the AR-HUD warning interface design framework is constructed.
+According to the previous analysis of interface design dimensions, warning visual design elements are constructed from two categories: attention-attracting elements and information content elements:
+1. Attention-grabbing elements.
+(1) Registration type: Three-dimensional registration is adopted to present the AR interface. Considering that the design is best presented as a whole and reflects changes in related variables, a 3D registration form that presents (x, y, z) three-dimensional coordinates in space can more intuitively show spatial variables and facilitate the integration of elements in different dimensions of space. In addition, due to the need to directly reflect the impact of driver operations on variables, the method of 3D registration is also more consistent with the driver’s cognition of changes in the real world.
+(2) Visual field position: The driver’s visual field is fixed in the foveal visual area (2◦ away from the normal line of sight) to present the warning interface. Since the warning scenario requires the driver’s fastest visual search speed to prevent the occurrence of dangerous accidents, fixing the warning interface in the foveal visual area can improve the driver’s attention and perception, without searching for warning tips in the field of vision.
+
+Sensors 2024, 24, 8010
+
+9 of 31
+
+(3) Visual design factors: (a) Color: For the warning color, the danger-level color that is widely recognized by the public is adopted, such as orange or yellow, which represents the lesser danger degree, while red represents the most urgent danger degree, and green represents safety. At the same time, the three colors of red, yellow, and green are also consistent with the color of the traffic light, reflecting the semantic information of stop (danger), wait (attention), and pass (safety). (b) Transparency: The contrast presentation of transparency, that is, the gradient state, can map predictive information such as orientation or path. (c) Dynamic frequency: The dynamic frequency changes in real time with the change in dynamic environment monitoring to ensure that the driver’s operation can obtain immediate feedback on the interface. (d) Saturation: The higher the saturation, the darker the color, and the more critical the situation.
+2. Information content element.
+At present, most AR-HUD interfaces only use one type to provide warning information, which easily leads to the imbalance of cognitive load in the warning interface. Therefore, this study not only considers the integration of the three information elements into the overall structure but also considers the presentation of different information elements to drivers with different cognitive levels, that is, the independence of the three elements. After comprehensively considering the information design architecture and principles of the above system layer, strategy layer, and vision layer, the overall AR-HUD warning interface design framework is analyzed and constructed, as shown in Figure 2 (see Supplementary Note S1 for details).
+From the overall visual point of view, the AR-HUD warning interface is displayed in the shape of a “carpet”, a visual combination of multiple warning information components. The warning color of the overall classification of the interface adopts the three colors of red, yellow, and green, which are widely recognized by the public and represent the warning signals and are also three colors in the traffic lights, referring to different warning levels: green is safe, yellow is the early warning (notice) of phase one, and red is the critical warning of phase two. The interface elements are presented in combination with univariate mapping, multi-variable mapping, and structure display, which are mainly divided into three subcomponents (a–c) and two combined components (d, e). In different warning subsystems, each component represents different meanings of warning.
+Figure 2a shows the safe driving area in the current traffic environment, and its width is equal to the width of the vehicle body. In different warning scenarios, the meaning of this component refers to different safety variables, and the SRK and information types are also different. For example, in collision warning, its vertical boundary value refers to Ssa f e(t), the safety distance that changes over time, which is related to the difference in speed between the vehicle and obstacles, and the headway threshold HW∗. Therefore, it belongs to the RBB information type in a dynamic environment. In lane departure warning, the lateral boundary value represents the maximum allowable lateral departure L(t)max, which can be directly presented on the coordinates of the driver’s perspective in combination with the 3D registration display mode of the AR-HUD and can inform the driver of the location information of the specific safety area, so it belongs to the KBB classification type.
+Figure 2b indicates the range beyond the safe value under the current driving operation. The larger the transverse and longitudinal area, the more the current driving behavior (transverse and longitudinal acceleration) exceeds the safe value. The area will change in real time with the driver’s operation change and provide the change mapping of the current driving key value. For example, in the longitudinal direction, when the speed of the car is faster, the longitudinal area is larger. In the AR-HUD interface, the current displacement of the Y-axis can be estimated:
+
+→
+
+→
+
+t→
+
+v (t) = v0 + a (τ)dτ,
+
+(1)
+
+0
+
+Sensors 2024, 24, 8010
+
+10 of 31
+
+→
+s (t)
+
+=
+
+→
+s0
+
++
+
+t→
+v (τ)dτ,
+
+(2)
+
+0
+
+→
+
+→
+
+→
+
+Here, v (t) is the velocity vector at time t, v0 is the initial velocity vector, and a (τ) is
+
+the
+
+acceleration
+
+vector
+
+at
+
+time
+
+τ;
+
+→
+s (t)
+
+is
+
+the
+
+displacement
+
+vector
+
+at
+
+time
+
+t,
+
+→
+s0
+
+is
+
+the
+
+initial
+
+→
+
+displacement vector, and v (τ) is the velocity vector at time τ. Therefore, the driver can
+
+perceive the change in speed according to the change of displacement, and can perceive the
+
+Sensors 2024, 24, x FOR PEER REVIErWange of change, to properly accelerate and decelerate. It is also conducive to the dri1v0eorfto31
+
+build a schema of real-time changes in risk factors with driving operations.
+
+FFigiguurere22. .AARR-H-HUUDDininteterrfafacceeddeessigignnfrfraammeewwoorkrkooffththeewwaarrnnininggssyysstetemm. .GGrreeeennrereppreresseenntstssasafefetytyand readndrerperdesreenptrsesdeanntgsedra. nger.
+FFigiguurree22ca sshhoowwss tahegsraafdeudarlivcionlgorarbelaocinkthwehcousreresnattutrraaﬃtiocnenivnicrroenamseesnat,satnhde ictsuwrriedntth wisarenqiunagl rtioskthvealwuieditnhcroefatshees,vinehdiicclaetibnogdtyh.eInurdgieﬀnecryenoft twhaercnuinrrgensct esnitauraiotiso,nt.hIenmpheaanseinognoef otfhtihsecowmarpnoinegn, tarleigfehrts-ytoeldloiﬀwegrernadt iseanfettaypvpaerairasb,laens,daansdtthheerSisRkKleavnedl cinofnotrinmuaetsiotno itnycpreesaasere, itaglsroadduiﬀalelyrebnetc. oFmoersedxaarmkpyleel,loiwn. cIof ltlhiseiorinskwinacrrneiansge,sittos pvhearstiecatwl oboouf nthdeawryarvnailnuge, trheefedrasrtko y𝑆ellow𝑡g,rathdeiesnatfcehtyandgiestsatnocleigthtatrecdh,aanngdesthoevnercotnimtine,uweshtiochdeiseprelnateoddtaorkthredd,iiﬀnedriecnactiengin thspaet ethdebwetawrneeinngthleevveel hcoicnletinaunedsotbositnaccrleas,sea.nd the headway threshold 𝐻𝑊 ∗. Therefore, it belongs to the RBB information type in a dynamic environment. In lane departure warning, the lateral boundary value represents the maximum allowable lateral departure
+𝐿 𝑡 , which can be directly presented on the coordinates of the driver’s perspective in combination with the 3D registration display mode of the AR-HUD and can inform the driver of the location information of the speciﬁc safety area, so it belongs to the KBB classiﬁcation type.
+
+Sensors 2024, 24, 8010
+
+driver to build a schema of real-time changes in risk factors with driving operations. Figure 2c shows a gradual color block whose saturation increases as the current
+warning risk value increases, indicating the urgency of the current situation. In phase one of the warning, a light-yellow gradient appears, and as the risk level continues to increase, it gradually becomes dark yellow. If the risk increases to phase two of the warn11inogf 3, 1the dark yellow gradient changes to light red, and then continues to deepen to dark red, indicating that the warning level continues to increase.
+CCoommbbinineeddwwiitthhFFiiggure 2b,cc,, tthheeiinntteerrffaacceeooffddyynnamamicichcahnagnegoefowf waranringinrgisrkisisksihs oswhonwn ininFFigiguurree33.. WWhen tthheewwaarnrnininggrisrkiskis ihsighhigerh, ethr,etahreaairneaFiignurFeig2ubries l2abrgiesrl(atrhgaet ris(,tthhaetairse,athe arienaFiinguFriegu2er)e, a2ne)d, athnedstahtuersaatitounraitnioFnigiunreFi2gcuirseh2igchiesrh. igher.
+
+FiFgiugruere3.3D. Dyynnaammiciccchhaannggeeooff wwarning rriisskk.. GGrreeeennrreeppreresesnentstssasfaefteytyanadndredrerdeprerepsreenstesndtsandgaenr.ger.
+
+BBeceacauuseseththeeddrriivveerr’’ss hhoorriizzoonnttaall aanndd vveerrttiiccaallooppeeraratitoionnsscacnanchcahnagnegtehtehceucrruernrtenritskrisk stsattaeteininrreeaall ttiimmee,,tthheecrcirtiitciaclarlisrkismk amyaaylsoalrseoverretvteortthteoetahrelyeraisrkly, arnisdkt,haenadretahwe iallrdeaecwreialsledecraenadsethaensdattuhreastiaotnurwaitlilodnewcreilalsdeeucnretialsiet gurnatdiul aitllgyrdadisuapalplyeadrsi,sashpopweainrsg, ashdoywnainmgicacdhyanngaemic c2hbpaha,lercsnolopacgelpetsshropsoe.rmpdoArrcotoietvmteshestroe.hAttseoeatdmctthohreineevstedsitmarrrumitevoc,eteutrtthhnitemedovreeueir,slsnteuthdvaaenael nrdvcsthittscaahuonneaggdlcnehcitsthhaiivanennegcagelhroeeiaasnandirganoinesafkdridneucaaonnrliadgosneekrrdrsoudacuntyosudnlsroeacarrmetsindoaiacnytrunoiiornpaasme.Ftriiaiogctnuiooripnne e2aFrbniag,dtcuiorne and heFlipguthree2ddriivsearctoomcpoonssittreuccotmthpeorneelnetvoafnFt icgougrnei2tiav,be, laonaddtohferdeaanrgeetrhoruees mscaeinnairnifoosr.ma-
+tionFeigleumreen2tds tihsaat ccoanmbpeorseitfeleccotemd:ptohneecnotmopf aFriigsuonreb2eatw,be, eanndthtehreirsek aarreeathanredetmheasinafeintyformaarteiaonunedleemr tehnetscuthrraetnctadnrbiveinregﬂsetacttee;dt:htehedicfofemrepnacreisboentwbeeetnwteheenctuhrerernistkdarriveianagncdonthdeitsioanfety araenadutnhde esraftehveacluurer;ernectodmrimvienngdsetdatsec;otpheeodfioﬀpeerreantcioenb. eItnwtheeencuthrreencut rdrreinvitndgrsivtainteg, tchoenrdisitkion anadretahaensdaftehevasalufeet;yreacreoamsmhoewndneidn sFcigoupreeo2fdoapreertahtieocno.mInbtinhedcucorrmenptondernivtsinogf s(ata)taen, dth(eb)r,isk araenadatnhde ctohme psaafreistoynabreatwseheonwthneintwFoigcuanrere2fdlecatrethtehgeacpobmebyionneddthcoemsapfeotnyernatnsgoefu(nad) earntdhe(b),
+ancudrrthenetcdormivpinagriosponerabteiotwn.eSeinnctehe(bt)wwoilcl acnharnegﬂeeicnt rtehael gtiampebweiythonthdetdhreivsearf’estyoprearnagtieonu,nifder th(eb)ccuornrteintuedsritvoisnhgrionpkeirnatthioend. iSreinctcieon(bo)f w(ai)llanchdatnhgeearienarceoanlttinimueeswtoitdhetchreeadseri(vaesrs’hsoowpneratioinn,Fiifg(ubr)ec3o)n, tiitnmueesantos sthharitntkheinchthaengdeiriencttihoen coufr(rae)natnddritvhiengarbeeahcaovniotirnrueedsutcoesdethcreeraissek;(as shoothwenrwiniseF,igitumreea3n),sitthmatetahnesrtihskatcothnetinchuaens gtoe iinncrtheaesceu. Irnretnhtedinrifvoirnmgabtieohnaevlieomr ernedt oufctehsethe ridskif;feortehnecrewbiseetw, ietemnetahnesctuhraret ntht edrriivskincgosnttaitneuaensdtothinecsraefaestye.vIanluthee, ains f(odr)misatthioenreealel-mtimenet of tfbhee(fbaeebehnede)dahddbivainbaﬀivinacoteihkcforrok,erear,inadnmtintcidcredcateaihbncninnetetibttuboudweeinirtuteiiuoivvevssfeeneee(rddmatmho)aaaafecssppotcttphpnuhheiiterennrradggttecyyinotorppietffoeecdttnthohori,eofiefavnadnadicincdoitfﬀtifgfoietoehrnssrneeateansflnsuetcouecegnoegagbgpgnebeietesdteurtwstaidttwotehiiioneenoenneanisnnl,taifhn(foatYeefhsro-tmesayrsaxmshafviaeotsaaift)woyletucintnovoyentan,iovlnatutarssoaeltFu(cisiadmtegtni)iouuamdinrnlsaetudrththele2eatpe,httdrhetreerheetsidaavheStrlineB-niivttBsgSisim,BnBge anddecienlfeorarmtiotnh.eLdartievrearl (oXf-tahxeisd) icroencttiroanctioofnsarefeproepseenratstioanr,eatusrsnhtoowpnosinitiFviegustreeer2i,ntgh.aTt hisi,s(b) invtihsueadl isrcehcetimona aolflo(aw)scothnetrdarcitvioern,toanpdertcheeivleonthgeitausdsioncaial t(iYo-naxbiest)wceoenntrtahceticounrrreenptrdesreivnitnsgdeceolperearatitoionn. Laantderthale(cXh-aanxgise)icnotnhterahcatzioanrdrelepvreelstehnrtosuaghreatuprpnrotporpiaotseitoipveersatteioenrinangd. Trhedisuvciessual scthheemrisakaollfoawnsacthciedednrtivbeyrctoontpreorllcienigvethtehaereaassoopceiraattiioonn boef ttwheeevnaluthee(bc)u. rIrnetnhtedmriavticnhginogpoefratiothne asnudggtehsetecdhoapnegreatiinonthraenhgaezianrfdorlmevaetilotnheroleumgehntasp, pthreopvrisiautael eofpfeecrtactiaonnaalsnodinrfeodrumcethsethe ridskrivoefraonf athcceirdeeanstonbaybcleonotpreorlalitniogntrhaenagree, aasospheorwatnioinn oFfigtuhreev2a,ltuheat(bis),. (Ibn) stherinmkasticnhitnhge of
+direction of (a) until the area is 0 and disappears, the warning is lifted, and the effect shown
+in (a) is achieved (all-green trapezoid). Figure 2e is a composite component of Figure 2b,c).
+The orientation and transparency changes in the visual element in Figure 2c represent the
+direction of the obstacle. The derivation process is as follows:
+The direction vector of the obstacle is the vector from the observation point P1(x1, y1, z1) to the obstacle P2(x2, y2, z2), which can be represented by P2 − P1, as follows:
+
+→
+
+d = (x2 − x1, y2 − y1, z2 − z1).
+
+(3)
+
+Here, we take the unit vector to represent the direction of the obstacle:
+
+→
+u
+
+=
+
+(x2 − x1, y2 − y1, z2 − z1)
+
+.
+
+(4)
+
+(x2 − x1)2 + (y2 − y1)2 + (z2 − z1)2
+
+The display area in Figure 2c does not exceed the area in Figure 2e, which represents the relationship between the collision risk of the obstacle and the current speed. When
+
+Sensors 2024, 24, 8010
+
+12 of 31
+
+the distance of the obstacle is closer, the area in Figure 2c occupies a larger proportion in Figure 2b. If the speed changes to a safe speed, that is, Figure 2b gradually shrinks in the direction of Figure 2a until it disappears, then Figure 2e, representing the direction, will also disappear simultaneously, which is conducive to constructing a relationship schema between obstacle distance and driving operation for the driver.
+3. Methods 3.1. Hypotheses
+The research objective of this paper is to propose an AR-HUD warning interface design strategy and framework that can balance cognitive load based on the ecological interface design method, and based on this, produce an AR-HUD warning ecological interface that can effectively reduce the driver’s cognitive load and reaction time, which is suitable for different single-warning scenarios and complex-warning scenarios. The following hypotheses are proposed:
+
+H1: The AR-HUD warning ecological interface can reduce the driver’s cognitive workload in different single-warning scenarios.
+
+H2: The AR-HUD warning ecological interface can also reduce the driver’s cognitive workload in complex multi-warning scenarios.
+
+H3: Whether in single-warning or multi-warning scenarios, the AR-HUD warning ecological interface can reduce the driver’s risk perception and decision time.
+3.2. Participants
+According to the reports [51,52], automobile consumer groups showed a younger trend, and consumers under the age of 35 accounted for more than 40%; the post-1995 generation was the main consumer of intelligent connected vehicles and autonomous vehicles. Therefore, 25 young participants aged 22 to 27 were recruited through social media promotion. They were required to hold driving licenses to ensure that they had an in-depth understanding of China’s road traffic laws and regulations. All participants had at least one year of driving experience and drove an average of more than 100 km per week. The participants were required to have driving experience in autonomous vehicles (L1–L3) and own or permanently drive an autonomous vehicle equipped with a HUD display. They worked in a wide range of industries, including engineering, economics, and the humanities, excluding those in the automotive and design industries. Table 2 shows the basic information of participants. They were in good physical condition with normal or corrected vision. Each participant signed an informed consent form before participating in the experiment; the average duration of participation was approximately 30 min, and participants were paid after participation. This study was conducted following the Declaration of Helsinki and approved for human research by the Science and Technology Ethics Committee of Tongji University (No: tjdxsr053).
+
+Table 2. Basic information of participants.
+
+Information Gender Age Driving experience
+Average kilometers per week
+
+Participants Data 12 (male), 13 (female) 22–27 (mean = 25.36, SD = 1.82) 5 (1–2 years), 3 (2–3 years), 5 (4–5 years), 12 (5+ years) 13 (100–200 km), 6 (200–300 km), 3 (300–400 km), 3 (500+ km)
+
+Sensors 2024, 24, 8010
+
+13 of 31
+3.3. Experimental Design Based on the overall AR-HUD warning interface design framework, specific variables
+and prototypes in the warning subsystem can be deduced. We have designed the warning interface prototype for four single-warning scenarios (forward collision warning, speed limit warning, lateral collision warning, lane departure warning), and one complex scenario: lane departure warning and lateral collision warning occurring simultaneously (see Supplementary Note S2 for details). These scenarios can cover the driver’s horizontal and vertical warning, dynamic and static obstacle warning, and traffic control warning scenarios.
+3.3.1. Warning Scenario Five warning scenarios were designed, and two different AR-HUD warning interfaces
+were presented in the warning scenarios. These five scenarios contained different warning information and control situations in driving, including horizontal and vertical observation or operation, with or without obstacles, and single-warning or complex-warning scenarios. The experiments on these five warning scenarios can involve most situations in road warning with experimental representation and credibility.
+As shown in Figure 4, five events occurred randomly during driving to reduce driver learning effects. Each scenario took about 2 min, and the entire scenario took about 10 min. The experimental process was controlled by setting up different dangerous situations in each scenario: (1) S1: Forward collision scenario.
+The driver was instructed to drive at the specified speed of 50 km/h. If the front car decelerated on the road, there was a risk of collision between the two cars, and the driver needed to manually operate to avoid collision through warning prompts.
+(2) S2: Speed limit scenario.
+The driver was instructed to drive at a speed of 60 km/h and gradually approached the section of road with a driving speed limit of 50 km/h. Drivers needed to follow speed limit cues to avoid speeding.
+(3) S3: Lateral collision scenario.
+The driver was instructed to drive in a straight line on the road at a speed of 40–50 km/h. When entering the intersection, other vehicles were entering at the right intersection at the same time, and there was a risk of collision between the two vehicles. The driver should manually operate to avoid collision through warning prompts.
+(4) S4: Lane departure scenario.
+The driver was instructed to drive in the left lane at a speed of 30 km/h while maintaining a slight left-turn angle. The vehicle faced the risk of lane departure, and the driver needed to turn back in the positive direction according to the lane departure prompts.
+(5) S5: Complex scenario: lane departure scenario and lateral collision scenario.
+The driver was instructed to drive in the left lane at a speed of 30 km/h while keeping a slight left-turn angle, and the vehicle may face the risk of lane deviation. At the same time, when the other vehicle approached from the opposite adjacent lane, there was the risk of collision between the two vehicles. The driver should avoid lane deviation and lateral collision risk through transverse and longitudinal operation according to the warning tips.
+3.3.2. AR-HUD Warning Interface For different warning scenarios, we selected the mainstream AR-HUD warning inter-
+face (AR-HUD warning common interface) on the market as the control group. Figure 5 shows the interface and information SRK classification of the experimental group (HMI1) and the control group (HMI2) in different scenarios.
+
+Sensors 2024, 24, 8010
+
+The driver was instructed to drive in the left lane at a speed of 30 km/h while keeping a slight left-turn angle, and the vehicle may face the risk of lane deviation. At the same time, when the other vehicle approached from the opposite adjacent lane, there was the risk of collision between the two vehicles. The driver should avoid lane deviation and lateral collision risk through transverse and longitudinal operation according to the1w4 oafr3n1ing tips.
+
+FFiigguurree44..SScceennaarriiooddeessiiggnnoofffﬁivveewwaarrnniinnggeexxppeerriimmeennttss..
+3.3.2T. AheRA-HRU-HDUWDarwnainrnginIngteinrftaecrefaces of HMI1 contain three types of SRK classification, specifFicorlodciaﬀtieorne,ndt ywnaarmniincgensvceirnoanrmiose,nwt, eansdeleacctteiodntshuegmgeasitniostnrse.aTmhAeyRa-HreUinDtewgraartneidnginitnoatnerifnatceeg(rAatRed-HuUnDivewrsaarlnwinagrncoinmgminotnerifnatceer,fmacaei)notaninthinegmaaurkneiftoarsmthdeesciognntrfoorl mgroinudpi.fFfeigreunrte s5cesnhaoriwoss. AthcecoirndteinrfgatcoethaendcurinrefnortmmaatiinosntreSaRmKAcRla-HssUiﬁDcaitniotenrfaocfe,ththee ewxaprenriinmgeinnttaelrfagcreouopf H(HMMI2I1o)nalyndcotnhteaicnosnotnroelogrrtowuopt(yHpMesIo2f) SinRKdiiﬀneforernmtastcioenn,amriooss.t of which is KBB information. In other words, only a specific position is displayed, which theoretically requires more cognitive control and lacks the type of action advice information that can stimulate SBB behavior. To avoid grading warnings becoming an experimental variable, both HMI interfaces combine the mechanism of grading warnings, providing warning information of different danger levels, which are presented in color changes (yellow and red). Each scenario contains phase one (early) and phase two (critical) of hierarchical warning.
+3.4. Experimental Equipment
+The experiment was conducted in the virtual driving simulation environment of the Automotive Human Factors Laboratory of Tongji University. The experimental environment consists of a fixed-base driving simulator, a main driving system, and an experimental monitoring system. The fixed-base driving simulator and the main driving system are located in the center of the experimental area, and the experimental monitoring system is located on the left side of the driving simulator, parallel to the front of the simulator, as shown in Figure 6. The experiments were performed using Unity 2023 software to create virtual driving scenarios and presented on three 55-inch monitors with a resolution of 3840 × 2160.
+
+Sensors 2024, 24, 8010
+
+15 of 31
+
+Sensors 2024, 24, x FOR PEER REVIEWThe driver’s eye-tracking data were recorded using the Tobii Glasses 2 Head Unit, and15thoef 31 eye-tracking data were analyzed using the associated Tobii Pro Lab 1.194 software.
+
+Sensors 2024, 24, x FOR PEER REVIEFWFigiguurere55. .TTwwoottyyppeessooff wwaarrnniinngg iinntteerrffaacceess aannddininffoorrmmaatitoionnSSRRKKclcalsassisfiicﬁactaiotinonininthethfeivﬁevwe1a6wrnoafirnn3g1ing scsecnenaariroioss. .
+
+The AR-HUD warning interfaces of HMI1 contain three types of SRK classiﬁcation, speciﬁc location, dynamic environment, and action suggestions. They are integrated into an integrated universal warning interface, maintaining a uniform design form in diﬀerent scenarios. According to the current mainstream AR-HUD interface, the warning interface of HMI2 only contains one or two types of SRK information, most of which is KBB information. In other words, only a speciﬁc position is displayed, which theoretically requires more cognitive control and lacks the type of action advice information that can stimulate SBB behavior. To avoid grading warnings becoming an experimental variable, both HMI interfaces combine the mechanism of grading warnings, providing warning information of diﬀerent danger levels, which are presented in color changes (yellow and red). Each scenario contains phase one (early) and phase two (critical) of hierarchical warning.
+
+3(F.Fs4ciii)m.ggsEuuuimrxrleeapute66elra..ditEmeeExdxxeppnpeeexterrapriimlimemEreeienmqnnutteataianlplltemsaqeclqeeusnnuicpateipmrnimaoernebiontytabonyavdneodrvmleamaryltiaaentyregiiarnAilgasR:lAs(:vaRi)(savdu)irasidluvirzaiinalvitgziinoasgntiimossneiumtlsuaeupttolu.arpt,o.(rb, )(bU)nUityn3itDy3pDropgrroagmr,am(c),
+
+The experiment was conducted in the virtual driving simulation environment of the A33u..55to.. mDDeeoppteeinvnddeeeHnnttuVVmaarraiiaanbbllFeeaMMcteeottrrrsiiccLaboratory of Tongji University. The experimental environ-
+
+m11e..nt SScouunbbjsjeeicscttisivveoefCCaooggﬁnnxiiettiidvv-eebWWasooerrkdkllrooiavadidn::gDDrsriiivmviinnugglaAAtoccrtti,ivvaiittymy LLaoionaadddIIrnnivddieenxxg((DDsyAAsLtLeIIm)) SS,ccaalnleed.. an experi-
+
+mentaTlhmeoDDnrirtiiovvrininggAsyctsitveimty. TLhoaedﬁxInedde-bxa((sDeAdLriIv)inisgaasidmdrriuivvliainntgog-r-ssappneedccifﬁtihcemmmooadiinfﬁidcartiivoinngosfyttshhteeem aNreAloScAa-tTedLXin. Bthaesecdenotnerthoef sthame eexppreirnicmipelnestaalsaNreAa,SaAn-dTLthXe, eDxApLerIiamsseenstsaelsmfﬁiovneidtoimrinengssioynstse:m
+
+isaalttotteecnnatttiieoodnnoddneemmthaaenndlde,,fvtvissiuisduaeal ldodefmethmaenaddn,drii,nvitinentrgefersfriemrnecunelcaleetvolerv,l,eptlia,mrtaiemlldeeelmdtoeamnthdae,nafdnr,odannstidtoufsaitthiuoeantsaiiolmnpaurellsapstruoerrse,-.as
+
+shTsuohwreern.aTtihinnegFriasgctuianlregers6ac.naTgleherseafneroxgmpese1rfrimtoome1n01t,staonw1de0r,theaenpdfeinrthfaoelrsﬁmcnoeardlesiucsosciranelgcisuUclaantliectduylua2st0ei2nd3gusasoiwfntgweiagahwretetidoghscutremedate
+
+voisruftmtuhaeol fdivtrheievdiﬁnimvgeesndcsieminoenanrsi.soiosnasn. d presented on three 55-inch monitors with a resolution of
+
+3824. 0 ×O2b1j6e0c.tiTvheeCdorginvietirv’seeWyeo-rtkralocakdin: Egydea-TtarawckeirnegreDcaotrad. ed using the Tobii Glasses 2 Head
+
+Usodnfatiwtta, aaEornybedet.a-titrnhaeecdkeiaynrege-taqrnauacalknyitsniitgsatidisvauetslayedwanteoarleiynazvenedast.liySgzianetcdeeputahsrietnipcgioptsahinteitosan’scsaoongcdniaiattpeivdpeeTpaorraobnciiecesPstreiosm,Laeanobdf
+
+1th.1e94 the
+
+AR-HUD in each scenario vary, the areas of interest (AOIs) are dynamically deﬁned based
+
+on the human–machine interface (HMI) for each scenario. AOI1 is deﬁned for the appear-
+
+Sensors 2024, 24, 8010
+
+16 of 31
+
+2. Objective Cognitive Workload: Eye-Tracking Data.
+Eye-tracking analysis is used to investigate participants’ cognitive processes, and the data obtained are quantitatively analyzed. Since the position and appearance time of the AR-HUD in each scenario vary, the areas of interest (AOIs) are dynamically defined based on the human–machine interface (HMI) for each scenario. AOI1 is defined for the appearance time and position of HMI1, while AOI2 is defined for the appearance time and position of HMI2 in each scene. The cognitive workload is measured using two indicators: average fixation duration (AFD) and average pupil diameter (APD).
+Average fixation duration (AFD): The average length of time spent fixating on a point. Longer fixation times may indicate higher cognitive processing demand. In contrast, shorter fixation times, while still allowing for effective avoidance of most accidents, suggest that the interface design does not overly distract the driver and helps in detecting potential hazards.
+Average pupil diameter (APD): Larger pupil dilation typically indicates higher cognitive load, requiring the driver to allocate more attention or cognitive processing to the current information.
+3. Risk Response Time
+Risk response time is divided into two components: risk perception time and risk decision time [53]. Risk perception time refers to the time difference between the appearance of the risk and the participant’s awareness of it. Risk decision time is the time taken by the participant to provide feedback after perceiving the risk.
+The detailed data extraction periods for these three indicators are shown in Table 3 and Figure 7.
+
+Table 3. Dependent variable quantitative data extraction periods.
+
+Sensors 2024, 24, x FOR PEER REVIEWMetric Driving Activity Load Index
+Eye-Tracking Data
+Risk Response Time (tRhieskaRreeaspwonitshe yTeimlloew d(othtse ianreFaiwguitrhey7e)llow dots in Figure 7)
+
+Data Extraction Periods
+
+17 of 31
+
+DALI scale
+
+After each scenario experiment (the location of red dots in Figure 7)
+
+AtADADevrvviuaeeer(mrrAaraaateiPgggoteeeDenrPF)P((iuAAxupaFPpitDlDiiol))nDiame-EbFeiaEgFTggciiuahhingncreuseshs–ct–r7ieeseem)ncnn7eadde)rnssidao((iraafeirfoxreeepareaesexsrnwpiwmceietreihtibnhmpteutpoewrfnufpiterclpeeoianlfdelfloitycdhtisoeaitlonslycicnbuer--
+
+Risk Perception Time Threnticmeeodf iaffreirsekncaenbdettwheepnatrhteicoipccaunrtr’esnpcer-
+
+Risk Perception Time Risk Decision Time Risk Decision Time
+
+ofcaepritsikonanodf tthheepraisrkticiinpaenatc’shpsecrecneaprtiioon of thIenriesakcihnsecaecnhasrcieon,apraiorticipants provided Infeeeacdhbsacceknaarfitoe,rpidaretnictiipfaynintsgparorvisidked feedback after identifying a risk
+
+Figure 7. Diagram of dependent variable data extraction periods. Figure 7. Diagram of dependent variable data extraction periods.
+3.6. Procedure The experimental procedure is shown in Figure 8. Firstly, the purpose, steps, and
+precautions of the experiment were introduced to the participants, and the design concept,
+
+Sensors 2024, 24, 8010
+
+17 of 31
+
+3.6. Procedure
+The experimental procedure is shown in Figure 8. Firstly, the purpose, steps, and precautions of the experiment were introduced to the participants, and the design concept, main contents, and the meaning of each visual symbol of the AR-HUD warning ecological interface were introduced. Also, the principle of the AR-HUD warning common interface was introduced to ensure that the participants had a basic familiarity with the two ARSensors 2024, 24, x FOR PEER REVIEHWUD interfaces. Participants were then invited to sit in the driving simulator and wear1t8hoef 31 eye-tracking device to complete the calibration.
+
+FFiigguurree88. .EExxppeerirmimenentatlapl prorcoecdeudruer.e.
+3.7. EToxpfearmimileianrtiazleDthateamPsreolvceesssiwngith the experimental environment, participants performed a 5-mTinhifsresetupdryacctoiclelescetesdsioanll,sduubrjiencgtivwehainchd tohbejyechtiavde tdoatmaafnroumalltyhedrpiavretiacnipdafnatms tioliaarnizaelyze tthheempseerlfvoersmwainthcethoefirthseurtrwoounHdMinIgss.chTehme eros.aFdirssettluyp, tihnethsuisbsjteacgtievwe eavsathlueastaiomneoafstihnetDheALI fsoaddHounfirrcadMﬀimhvsepIiacarnreslesegcnenashaxtslerfposoitmoceahrer.dweeinTmsbaashirucrenedaintostldctoeusoib,nbﬀliaulnjeoeintscrcndilwetousntdnihdwtt,iheeﬀswedocsereuatereansetrenanepararqtnirilnueosyysgcissreeaiewwnvsldeteheeontdrdeofetiesmdwtla.heaneIhetnsnaeeslcsnstyctihoozpotoehneranfeedsrot.a.diroScsFmafeiinppnctagoawoalensnleorsltdxysitbplhH,dylaererM,onro,tiuhamvaIgneenshedacienntlhytthyt,heeoesam-eitwtsnrsheaewaestctrharknireonsiiisnnappkdaggaelsrirlsdnctfeiaseotgccetnrimaerpmafnoaareeaincnfodrettt,iwoosno, ntheeedreisdktroescponotnrsoel ttihmeevoefhitcwleoiHn MthIeshchoreimzoenstianl daniﬀderveenrtticsacel ndairreiocsti.oInnst.hTehaenathlyrseies,tiwmeeapppoliinedts tohfethpearraismkertersipcotensstemtimetheo(rdis(kt-steitsuta) ttioontheemdeartgaecnocne,forirsmk ipnegrcteopatinonordmeatelcdtiiostnr,ibaundtion. bFuotrtotnhperdesast)awtehraetaduitdomnaotticcaollnyfroercmordtoedthbye tnhoersmysatlemdi.sStriinbcuetpioanrt,ictihpeanntos na-rpeareraqmuieretrdictotest cmometphloedte(1W0itlacoskxson(5ssicgenneadr-iroasnikn t2escto)nwdaitsioandso),pttoedm, iwnihmicizhewthaes iamnpeaﬀcetcotifvperaacntdiceroebffuescttsoolnuttihoenewxpheernimtheentdaaltraesduildtsn, owtecuosnefdoramLtaotinthseqpuaarraemdeestirgicntteostcoaussnutemrbpatiloanncseatnhde tohredesramofple tshiezescwenasarrieolsa.tiTvheely5ssmceanlla.rios appeared in different orders across participants, and each scenario was tested within the schemes of HMI1 and HMI2 alternately. After each experi4m. eRnets, uplatrsticipants were asked to fill out the DALI Scale for Driver Cognitive Workload (see ASpinpceendthixe Are)c,oagnnditaioftnerracotemopfltehteinegyaelml eoxvpeemrimenetndtsa,taseomf it-wstorupcatrutriecdipiannttesrvwieaws lse(sssetehan A8p5%pe,nadnidx Bth)ewqeureesctoionndnuactiered dwaittah opfaortniceippaanrttsictiopafinntdwoaust ihnocwortrheecyt,fwelet aebliomuitntahteedinttehrefaincecorarnedctwdhayta. and only retained the valid data of 22 participants for analysis.
+4.1. Subjective Cognitive Workload
+The DALI scale is used to assess the subjective workload of the user, and a lower DALI score indicates a lighter cognitive workload of the participant and a superior interface solution. The comparison of DALI total scores of two diﬀerent HMI warning schemes in all scenarios shows that the two HMI schemes have signiﬁcantly diﬀerent overall scores, as shown in Figure 9. The Shapiro–Wilk test was used a as normality test, and the
+
+Sensors 2024, 24, 8010
+
+18 of 31
+
+3.7. Experimental Data Processing
+This study collected all subjective and objective data from the participants to analyze the performance of the two HMI schemes. Firstly, the subjective evaluation of the DALI driving load scale included analysis of the score of two HMI schemes in all scenarios, different scenarios, and different scale dimensions. Secondly, the eye-tracking data of two HMI schemes in different scenarios were analyzed. Finally, an analysis was performed on the risk response time of two HMI schemes in different scenarios. In the analysis, we applied the parametric test method (t-test) to the data conforming to a normal distribution. For the data that did not conform to the normal distribution, the non-parametric test method (Wilcoxon signed-rank test) was adopted, which was an effective and robust solution when the data did not conform to the parametric test assumptions and the sample size was relatively small.
+4. Results
+Since the recognition rate of the eye movement data of two participants was less than 85%, and the questionnaire data of one participant was incorrect, we eliminated the incorrect data and only retained the valid data of 22 participants for analysis.
+4.1. Subjective Cognitive Workload
+The DALI scale is used to assess the subjective workload of the user, and a lower DALI score indicates a lighter cognitive workload of the participant and a superior interface solution. The comparison of DALI total scores of two different HMI warning schemes in all scenarios shows that the two HMI schemes have significantly different overall scores, as shown in Figure 9. The Shapiro–Wilk test was used a as normality test, and the results showed that the scores of the HMI2 protocol were not normally distributed. Therefore, the non-parametric Wilcoxon signed-rank test was used as an alternative method, and the Sensors 2024, 24, x FOR PEER REVIEWdifference was significant (p < 0.001). It can be concluded that the subjective cogni1t9ivoef 31 workload of the AR-HUD warning ecological interface is significantly lower than that of the AR-HUD warning common interface.
+
+FiFgiugurere9.9.CCoommppaarrisisoonnooffDDAALLII ttoottaall ssccoorreessoofftwtwooHHMMI Iscshcehmemeseisninallasllcesnceanriaorsio(*s**(*i*s*pis<p0<.0001.0)0. 1).
+twHscoMenHTIaThMsrchieohIesnesnmcpooharermesmssmieaandleliifstttiyyhvineetteeﬁdnssiotvtfrafeaemndrndeaidnﬀlpittepaysriacretieeenrdnsettadt,sr-caittoeen-ssntdt,eaawstrhstieeoswrhsede,oiparfwfeesernsrpfehoiennrormcfwFeoiegnrbdmueiortnewendF1eti0hegoneaunnstrhctdehoe1Terse0acsbdaoclinroefefdr4see.rToeTdafnhibtcﬀheleeeessrc4toeow.fnrTotechhseHeesinMtsowcafIolosltrhees ininaltlhsecSe1naanridosS4psacsesneadritohsewnaosrmnoatlsittyattisetsitc,aallnydsitghneifdiciaﬀnetr(eSn1c,epb=e0tw.32e4e;nSt4h, ep s=c0o.r3e9s1)o.fItnhtehetwo HSM2 sIsceinnatrhioe,SH1ManI1d(SM4 =sc1e8n.9a1r,ioSsDw=a3s.9n4o)tasntdatHisMticIa2l(lMy s=ig3n4i.ﬁ18c,aSnDt (=S19,.1p8=) w0.e3r2e4s;iSg4n,ifpic=an0.t3ly91). InditfhfeereSn2t s(pce<n0a.r0i0o1,)H. IMn tIh1e(SM3 s=ce1n8a.9ri1o,, SHDM=I13(.M94=) a2n2.d73H, SMDI=2 4(M.13)=a3n4d.1H8,MSID2 (=M9=.1382).1w8,ere siSgDniﬁ=c5a.n5t5l)ywdeiﬀreerseignnt i(fpic<an0.t0ly01d)i.fIfnertehnet S(p3 s<ce0n.0a1r)i.o,InHtMheI1S(5Msc=e2n2a.r7i3o, SHDM=I14.1(M3) a=n2d1H.27M, I2 (MSD==323.1882,) SaDnd=H5.M55I)2w(Mere= s4i3g.n09iﬁ, cSaDnt=ly8d.3i6ﬀ)ewreenret (spig<n0if.i0c1a)n.tIlny tdhieffeSr5enscte(npa<ri0o.,0H01M). IT1h(eM = 21a.n2a7l,ySsiDs s=h3o.w82s)thaantdthHeMsuIb2je(cMtiv=e4c3o.g0n9i,tSivDe w= o8r.3k6lo)awdeorfethsiegAniRﬁ-cHaUntDlywdaiﬀrneirnegnetc(oplo<g0ic.0a0l 1). The analysis shows that the subjective cognitive workload of the AR-HUD warning ecological interface is signiﬁcantly lower than that of the AR-HUD warning common interface in the S2 speed limit warning scenario, S3 lateral collision scenario, and S5 complex scenario.
+
+Sensors 2024, 24, 8010
+
+HMIs in the S1 and S4 scenarios was not statistically signiﬁcant (S1, p = 0.324; S4, p = 0.391). In the S2 scenario, HMI1 (M = 18.91, SD = 3.94) and HMI2 (M = 34.18, SD = 9.18) were signiﬁcantly diﬀerent (p < 0.001). In the S3 scenario, HMI1 (M = 22.73, SD = 4.13) and HMI2 (M = 32.18, SD = 5.55) were signiﬁcantly diﬀerent (p < 0.01). In the S5 scenario, HMI1 (M = 21.27, SD = 3.82) and HMI2 (M = 43.09, SD = 8.36) were signiﬁcantly diﬀerent (p < 109.0of0311). The analysis shows that the subjective cognitive workload of the AR-HUD warning ecological interface is signiﬁcantly lower than that of the AR-HUD warning common interface in tihneteSr2fascepeisedsiglinmifiictawntalrynlionwgesrctehnaanritoh,atS3oflathteerAalRc-HolUlisDiownasrcneinnagrcioom, amndonSi5ntceormfacpeleinx tshceenarSio2.speed limit warning scenario, S3 lateral collision scenario, and S5 complex scenario.
+
+FiguFrigeu1r0e.1C0o. mCopmarpiasroinsoonfoDf DAALLI Itototatallssccoorrees of ttwwooHHMMI Iscshcehmemeseisnidnifdfeiﬀreenrtesnctenscaernioasr(i*o*s* (is**p* <is0p.0<01; 0.00*1*;i*s*pis<p0.<010)..01).
+
+TabTleab4l.eS4ta. tSitsattiicsstiocfs aovf earvaegraegDeADLAILtIottoatlaslcsocroereofoftwtwooHHMMIIsscchheemmeess iinn ddiifﬀfeerreennttsscceennaarrioioss. .
+
+HMHI1MI1 HMHI2MI2
+
+S1 S1 23.2634.64 25.2059.09
+
+S2S2 18.1981.91 34.3148.18
+
+S3S3 222.27.373 323.21.818
+
+SS4 4 2020.7.733 1919.6.644
+
+SS55 2211..0000 4411..5500
+
+MMeeaann 2211..4455 3300..8844
+
+SSDD 11.8.844 88.4.433
+
+Sensors 2024, 24, x FOR PEER REVIEW
+
+20 of 31
+
+DatDaaatnaaalnyasliysswisaws apseprfeorrfomrmededononthtehescsocroersesooffddiﬀiffeerreennttDDAALLII ddiimmeennssiioonnssttooeexxaammininee
+
+the tshoeusrocuersceosf ocfocgongintiivtieveloloaaddiinn ddiiﬀffeerreennttHHMMI Iinintetrefrafcaecsetsotvoevriefyritfhyetshterasttergayt’esgeyff’escetiﬀveecnteivsse,-
+
+nesasn, adntdhethoeveorvaellradlilmdeinmseionnsisocnorsecsoarreessahroewshnoinwFniginurFeig11uraend11Taanblde T5a. ble 5.
+
+Figure 11. Comparison of DALI score of two HMI schemes in five dimensions (*** is p < 0.001;
+F*i*giusrpe<110..0C1)o.mparison of DALI score of two HMI schemes in ﬁve dimensions (*** is p < 0.001; ** is p < 0.01).
+
+Table 5. Statistics of average DALI score of two HMI schemes in different dimensions.
+
+Table 5. Statistics of average DALI score of two HMI schemes in diﬀerent dimensions.
+
+HMI1
+
+Attention
+Attention
+1.44
+
+Visual
+SeVnisseual 2S.1e5nse
+
+IntIenrfteerrefnecre2e.2n0ce
+
+Time
+Time
+2.18
+
+Situation Mean
+
+Situation Mean
+
+2.76
+
+2.15
+
+SD
+SD
+0.47
+
+HHMMII21
+
+3.18.244
+
+2.829.15
+
+22.5.520
+
+32..1168
+
+32.0.076
+
+3.20.815 0.407.47
+
+HMI2
+
+3.82
+
+2.89
+
+2.55
+
+3.16
+
+3.00
+
+3.08
+
+0.47
+
+Since most of the dimension data did not conform to a normal distribution for the
+
+two Sscinhceemmeso(spt<o0f .t0h5e), dthime neonns-iopnaradmateatrdicidpanioretdcdonifffoerremncteoteastnmoremthaolddoisfttrhibeuWtiiolcnoxfoorn the twsigonsecdh-eramnekst(epst<w0a.0s5u),stehde, annodn-tphearreamweatsrnicopsaigirneidficdainﬀtedriefnfecreentecsetbmetewtheoedn tohfethtwe oWHilMcoIxon ssigchneemd-ersainnkthteesitnwtearfseuresnecde, dainmdetnhseiorne wanads snitouasitgionniﬁdciamnetndsiioﬀner(epn>ce0.b05e)t.wHeoewn ethveer,twthoerHe MI
+
+schemes in the interference dimension and situation dimension (p > 0.05). However, there
+
+were signiﬁcant diﬀerences in attention dimension, visual dimension, and time dimen-
+
+sion. In the attention dimension, HMI1 (M = 1.39, SD = 0.40) and HMI2 (M = 3.82, SD =
+
+2.97) were signiﬁcantly diﬀerent (p < 0.001). In the visual dimension, there was a signiﬁ-
+
+Sensors 2024, 24, 8010
+
+20 of 31
+
+were significant differences in attention dimension, visual dimension, and time dimension. In the attention dimension, HMI1 (M = 1.39, SD = 0.40) and HMI2 (M = 3.82, SD = 2.97) were significantly different (p < 0.001). In the visual dimension, there was a significant difference (p < 0.01) between HMI1 (M = 2.44, SD = 0.40) and HMI2 (M = 3.82, SD = 2.97). In the time dimension, there was a significant difference (p < 0.001) between HMI1 (M = 2.18, SD = 0.89) and HMI2 (M = 3.16, SD = 1.69).
+4.2. Objective Cognitive Workload
+The objective cognitive workload was evaluated by the average fixation duration and the average pupil diameter in the eye-tracking data.
+4.2.1. Average Fixation Duration (AFD)
+The comparison of the average fixation duration of the two HMI schemes in different scenarios is shown in Figure 12 and Table 6. The data in scenarios S1, S2, and S4 conformed to a normal distribution, and the paired t-test was used to conclude that there was no significant difference between the two HMI schemes in scenarios S1 and S4 (p > 0.05). In the S2 scenario, there was a significant difference (p < 0.05) between HMI1 (M = 0.55, SD = 0.30) and HMI2 (M = 0.77, SD = 0.33). Since the data in scenarios S3 and S5 did not conform to the normal distribution, a non-parametric paired difference test was performed using the Wilcoxon signed-rank test, which concluded that there was no significant difference Sensors 2024, 24, x FOR PEER REVIEW between the two HMI schemes in the S3 scenario (p > 0.05). In the S5 scenario, there w21asofa31 significant difference (p < 0.001) between HMI1 (M = 0.59, SD = 0.37) and HMI2 (M = 0.92, SD = 0.44).
+
+FigFuigreur1e2.1C2.omCopmarpisaornisoonf aovfearvaegreaﬁgexafitxioantiodnurdautiroantioonf towf otwHoMHIMscIhsecmheems iens diniﬀdeirfefenrtesnctesncaerniaorsio(*s** is p(*<**0i.s00p1<; *0.i0s0p1;<* 0is.0p5)<. 0.05).
+
+Table 6. Statistics of average fixation duration (unit: seconds) of two HMI schemes in different Tabscleen6a.rSiotsa.tistics of average ﬁxation duration (unit: seconds) of two HMI schemes in diﬀerent scenarios.
+
+S1S1
+
+SS2 2
+
+SS33
+
+HMHHIMM1 II12
+
+0.6003..6730
+
+0.005..57557
+
+000...444333
+
+HMI2
+
+0.70
+
+0.77
+
+0.43
+
+SS44
+
+SS55
+
+MMeaenan
+
+SDSD
+
+000...565434
+
+000..59.9259
+
+00..056.5955
+
+00..00178.07
+
+0.63
+
+0.92
+
+0.69
+
+0.18
+
+4.2.2. Average Pupil Diameter (APD) 4.2.2. ATvhereacgoemPpuapriisl oDniaomf tehteerav(AerPaDge) pupil diameter of the two HMI schemes in different
+sceTnhaeriocosmispsahroiswonnionfFtihgeuareve1r3aagnedpTuapbilled7i.amTheetedraotfa tihneSt1waondHSM4Ifascilheedmthees ninordmiﬀaelirteynt scetnesatri(ops<is0.s0h5o),wson tihneFWigiulcroex1o3nasnidgnTeadb-lrean7.kTthesetdwaatas iunseSd1 afonrdthSe4 nfaoinle-dpatrhaemneotrmic aplaitiyretdest
+(p d<i0ff.0er5e)n, scoe tehset,Wanildcoitxwonassicgonnecdlu-draendkthteastttwhearseuwsaesdnforsitghneifnicoann-tpdarifafmerentrciec bpeatiwreedenditﬀherenHceMteIsst,chaenmd eits wofatshceotnwclousdceednathriaots.thTehre wdaatsanino sSi2g,nSi3ﬁ,candt dSi5ﬀsecrenacreiobsethwadeean nthoermHaMl I schdeismtreisbuotfiothne. Utwsiongscaepnaairrieods.tT-theset,dtahteaainnaSly2s,iSs3s,haonwdedS5thsactenthaerrieoswhaasdaasingonrifmicaanl tddisitfrfeibr-utioenn.cUesbientgwaeepnaHireMdI1t-(tMest=, t4h.5e0a,nSaDly=si0s.5s5h)oawneddHtMhaIt2t(hMer=e 5w.1a1s, aSDsig=n0i.ﬁ5c8a)nint dS2iﬀ(epr<en0c.0e1b);e-
+tween HMI1 (M = 4.50, SD = 0.55) and HMI2 (M = 5.11, SD = 0.58) in S2 (p < 0.01); HMI1
+(M = 4.80, SD = 0.53) was signiﬁcantly diﬀerent (p < 0.05) from HMI2 (M = 5.26, SD = 0.61)
+in S3; HMI1 (M = 4.96, SD = 0.37) was signiﬁcantly diﬀerent (p < 0.001) from HMI2 (M =
+5.44, SD = 0.39) in S5.
+
+Sensors 2024, 24, 8010
+
+(p < 0.05), so the Wilcoxon signed-rank test was used for the non-parametric paired diﬀerence test, and it was concluded that there was no signiﬁcant diﬀerence between the HMI schemes of the two scenarios. The data in S2, S3, and S5 scenarios had a normal distribution. Using a paired t-test, the analysis showed that there was a signiﬁcant diﬀerence between HMI1 (M = 4.50, SD = 0.55) and HMI2 (M = 5.11, SD = 0.58) in S2 (p < 0.0211);ofH31MI1 (M = 4.80, SD = 0.53) was signiﬁcantly diﬀerent (p < 0.05) from HMI2 (M = 5.26, SD = 0.61) i5nHS.4DMS43,=I;S10HD.(6MM1=)I0=i1.n34(9.SM8)30i;,n=HSS4DM5.9.=I61,0(S.M5D3)==w40.a.93s67,s)iSgwDnai=sfics0ai.g3nn7tl)iyﬁwcdaaisnfftselirygennditifﬀi(cpearn<etnl0yt.0(d5pi)f<ffer0ore.m0n0tH1()pMf<rIo20m.(0M0H1=)Mf5rIo.22m6(M, = HMI2 (M = 5.44, SD = 0.39) in S5.
+
+FFiigguurree1133..CoCmompapraisriosnonofoafvaevreargaegpe uppuipl idliadmiaemteerteorfotwf towHo MHIMscIhsecmheems eins diniﬀdeirfefenrtesnctesncaernioarsio(*s** is p(*<**0i.0s0p1<; *0*.0is01p; <**0.i0s1p; <*0is.0p1;<* 0is.0p5<). 0.05).
+Table 7. Statistics of average pupil diameter (unit: millimeters) of two HMI schemes in different scenarios.
+
+S1
+
+S2
+
+S3
+
+S4
+
+S5
+
+Mean
+
+SD
+
+HMI1
+
+4.86
+
+4.50
+
+4.81
+
+4.61
+
+4.95
+
+4.75
+
+0.19
+
+HMI2
+
+4.92
+
+5.11
+
+5.26
+
+4.75
+
+5.44
+
+5.10
+
+0.27
+
+4.3. Risk Response Time 4.3.1. Risk Perception Time
+In the Tobii Pro Lab system, the dynamic AOI is drawn according to the appearance time and location of the warning HMI. The moment when the AOI is drawn is defined as the appearance of the warning HMI, and the moment when the participant first enters the AOI recorded by the Tobii Pro Lab system is defined as the moment when the participant detects the warning HMI. Then, the perception time is the moment when participants detect HMI minus the moment when HMI appears. The specific data of the risk perception time of two HMI schemes are shown in Tables 8 and 9.
+
+Table 8. Average risk perception time (unit: seconds) of two HMI schemes in different scenarios.
+
+Time of Risk Occurrence Risk Time is Detected
+
+Perception Time
+
+HMI1
+
+HMI2
+
+HMI1
+
+HMI2
+
+HMI1
+
+HMI2
+
+S1
+
+10.58
+
+11.23
+
+10.85
+
+11.47
+
+0.27
+
+0.28
+
+S2
+
+13.75
+
+13.89
+
+14.07
+
+15.02
+
+0.32
+
+1.13
+
+S3
+
+11.45
+
+12.78
+
+11.70
+
+13.75
+
+0.25
+
+0.97
+
+S4
+
+14.52
+
+13.78
+
+14.86
+
+14.45
+
+0.34
+
+0.78
+
+S5
+
+11.34
+
+15.49
+
+11.66
+
+16.38
+
+0.32
+
+0.89
+
+Table 9. Statistics of average risk perception time (unit: seconds) of two HMI schemes in all scenarios.
+
+HMI1 HMI2
+
+Mean
+0.30 0.81
+
+SD
+
+Minimum
+
+Maximum
+
+Median
+
+0.04
+
+0.25
+
+0.34
+
+0.32
+
+0.32
+
+0.28
+
+1.13
+
+0.89
+
+Sensors 2024, 24, 8010
+
+22 of 31
+
+As shown in Figures 14 and 15, the average risk perception time of two HMI schemes was in line with normal distribution, and the paired t-test results showed a significant difference in the average risk perception time of two HMI schemes (p = 0.022 < 0.05). The analysis of the data results showed that the average perception time of the AR-HUD warning ecological interface in the full warning scenario was significantly shorter than that Sensors 2024, 24, x FOR PEER REVIEoWf the AR-HUD warning common interface by 62.96%, and the standard deviation w2a3s of 31 Sensors 2024, 24, x FOR PEER REVIEW reduced by 87.5%. For the average risk perception time data of different scenarios of H23MoIf, 31 the normal test and paired t-test showed that there was no significant difference in the S1 scenario, and there were significant differences in S2, S3, S4, and S5 scenarios (p < 0.001).
+
+Figure 14. Comparison of the average risk perception time of two HMI schemes in all scenarios (* FiFgiiusgrpuer<e1041..40C.5C)o.momppaarirsisoonnoofftthhee aavveerraaggee rriisskkppeerrcceepptitoionntitmimeeofotfwtwo oHHMMI sIchscehmeems eins ainll aslclesncaernioasri(o*sis(* ispp<< 00..0055))..
+
+FFigiguurere115.5.CCoommpparairsiosnonofoafvaevreargaegreisrkispkeprceerpcetipotniotnimtiemoef towf otwHoMHIMscIhsecmheesminesdiinffedrieffnetrsecnetnsacreionsarios Fi(g*(u****r*iesis1p5p<. <C0.0o0.m0010p)1.a)r. ison of average risk perception time of two HMI schemes in diﬀerent scenarios (*** is p < 0.001).
+44.3.3.2.2. .RRisikskDDeceicsisoinonTiTmime e
+4.3.2. RTiThshekerDirseiksckdisedicoeinsciioTsniiomtnimeteiminetihnistehxispeerximpeernimt isendet fiisneddefaisntehdeatismtehefrotimmwe fhreonma pwahrteincipaapnatrticidpeateTncthtdseetrhtiesecktwsdatehrcneisiwnioganrintifimnorgemiinnafttoiohrnims taeotxiwpoenhretiomn wethnheteyinsrtedhaeecﬁyt.nreAedamcatos.nAtghmethotienmmge,thftrheomemt,itmwhehetwinmhaeenpwathrteincit-he
+pappnaatrtrditceiictpiepacnatsnt ttphrpeerswesseassrentshitnehgbeuibntutfootntrominsaditsieodfinnefteiodnweadshtaehnsettphhaeeryptiarceripatiacctni.ptA’asnmrte’oasncrtgeioatnhctemimoon,mtmheenomtt,imaennedtw, iathnwednaistthwe as paeerxtxpipclailpainianenedtdptortoetshtseheeps atphrateirctbiipcuiatptnoatnntthisathtdaiettﬁsihnt oesduhloadusbltdehepberpeapsrsrteeidcssiapefadtneart’fustenrrdeauecrntsditoaennrsdmtianongmdwiennhgta,twadnhrdaivtiitdnwgrivasing ecoxcsnpcscocohtlnarhnetoiermtnlormeobledselbeshbeatheraoaeahvrtvesaihohivsoerohirowiposirsawnnirnsneitenineceideiTndpeeaeTaddbdanle..ebtdTTsl.theh1hTsee0ah1sstaep0pnieestdapccsnii1ehfﬁd1icocc.i1ufddi1lcaa.dtdtaabaoetofafptothrhfeeetsahsaveevedaerarvaagefgerteaerrgirseiuksrnkdidsedkeceridcssiiteosacinnoisdntiioimtnniemgtoiewmf ohtewfaottowfdHtowrMiHvoIiMnHgIMI schemes are shown in Tables 10 and 11.
+Table 10. Average risk decision time of two HMI schemes in different scenarios (unit: seconds).
+
+Table 10. AveTraigmeeriRskisdkecIissiDonettiemcteeodf two HMMoImscehnetmoefsRineadciﬀtieornent scenarioRs (euancitti:osnecTonimdse).
+
+TimHe MRiIs1k Is DetHecMteId2 MoHmMenI1t of ReacHtiMonI2
+
+RHeMacIt1ion TimeHMI2
+
+S1 HM10I1.85
+
+S2
+
+14.07
+
+HM11I2.47 15.02
+
+HM11I1.39 14.54
+
+HM12I2.23 15.91
+
+HM0I.154 0.47
+
+HM0I.276 0.89
+
+Sensors 2024, 24, 8010
+
+23 of 31
+
+Table 10. Average risk decision time of two HMI schemes in different scenarios (unit: seconds).
+
+S1
+
+S2
+
+Sensors 2024, 24, x FOR PEER REVIEW
+
+S3
+
+S4
+
+S5
+
+Time Risk Is Detected
+
+HMI1
+
+HMI2
+
+10.85 14.07 11.70 14.86 11.66
+
+11.47 15.02 13.75 14.45 16.38
+
+Moment of Reaction
+
+HMI1
+
+HMI2
+
+11.39 14.54 12.22 15.34 12.28
+
+12.23 15.91 14.42 15.24 17.30
+
+Reaction Time
+
+HMI1
+
+HMI2
+
+0.54
+
+0.76
+
+0.47
+
+0.89
+
+0.52
+
+0.67 24 of 31
+
+0.48
+
+0.79
+
+0.62
+
+0.92
+
+Table 11. seTcaobnleds1)1. .
+
+SSttaattiissttiiccss
+
+ooff
+
+aavveerraaggee
+
+rriisskk
+
+ddeecciissiioonntitmimeeoof ftwtwooHHMMI sIcshcehmemeseisn
+
+idnifdfeiﬀreenrtensctesncaernioasri(ousn(iut:nit:
+
+seconds).
+
+HMI1 HHHMMMIII212
+
+Mean
+Mean
+0.53 000...588311
+
+SD
+SD
+0.06 000..01.1600
+
+Minimum
+Minimum
+0.47 00..046.7767
+
+Maximum
+Maximum
+0.62 00..69022.92
+
+Median
+Median
+0.52 00..57290.79
+
+As shown in Figure 16, the average risk decision time data of two HMI schemes pdspidhaigﬀaaisnfsssefsieeraﬁerdeAdcesnasnitctghnchesneetheliinyfonininwocoltaorhrtnnmhmweteilaaeanyllarviivlFtteaoyyeirvwgartteuaegeergsrseratete,ga,da1vedaen6neecr,drcidiassittsihkgthoiheeoendenrapetipvsicatmkaieiimsrriiederaoeedgeondceotfi-tftsttri-iweimttosswenkotesorttHdaeirHmsneeMucdsMeiluIstaasIilsotncssssndhhcisghoethanimwemosmiﬁewiegedescensad(tdinphfa(iptattc=lhatay=0atnoh.htt00felit.0ygrh0t3ewh0eh3w<reoiegr0<aHhwb.s0e0iMaa1rn.0s)sbI.1hiaigH)sne.cnsiMhihgiHgfeehinIcmiMt1gaiﬁihenhIn1scttataesnra-t qiunaterrtiqluearratnilgeerathnagne tHhaMnIH2.MThI2e. aTnhaelyansiaslyosfisthoef dthaetadraetasureltssuslthsoswhoedwethdatthtahtethaevearvaegraegdeecisidoencistiiomnetiomf ethoef tAheRA-HRU-HDUDwawrnarinnigngeceocloolgogiciacal liinntteerrffaaccee iinn tthheefufulllsl csecneanraioriwo aws a3s4.5374%.57% shshoorrteterrtthhaanntthhaatt ooff tthhee AARR--HHUUDDwwaarrnnininggcocommmmononinitnetrefarfcaec, ea,nadntdhethsetasntdanarddadrdevdiaetviioantion wwaassrreedduucceedd bbyy 4400%%..
+
+FFigiguurere1166. .CComompparairsiosonnoof favaevreargageerirsikskddeceicsiisoionntitmimeeoof ftwtwooHHMMI Iscshcheemmeessininaallllscsecennaariroioss(*(***isisp <p0.<010)..01).
+44.4.4. .PPoosstt--EExxppeerriimmeennttaall IInntteerrvviieeww In the semi-structured interview after the experiment, most participants said that the
+AR-HInUtDhewsaermniin-sgtreuccotluogreicdalininteterrvfiaecwe caafnteqrutihcekleyxaptetrraimct ethneti,rmatotsetnptiaorntiwcihpeanntthsesawidartnhinagt the AsRitu-HatUioDn owccaurnrsi,ntgheeccoolloorgicchaalnigneteinrfathcee gcraandeqduiwckalryniantgtrcaacnt tinhfeoirrmatatebnotuiot nthewdhaenngtehr,eawndarninthgescitounattriaosnt obcectwurese,nthtehecodlaonrgcehraanngde isnaftehtey gzroandeeadllwowarsntihnegmcatno iunnfodremrstaabnodutthtehespdeaendger, arnadngtheethcaotnitsransetebdetdw. eCeonmthpaerdedanwgietrhaHnMd sI2a,fesutychzocnleeaar lrluolwesspthroevmidteotuhnemdewrsittahnadgtrheeastepreed rasenngseetohfastaifsetnyeiendderdi.vCinogm, apsawreedll wasitchonHtrMolIo2v, esrudchancglearorursutlerasfpficroinvcidideetnhtsemanwd sitmhoaogthrerater seonpseeraotfiosna.feHtyoiwnedvreirv,iangs,maaslwl neullmasbecronotfrpoal rotviceirpdanatnsgreerpoourstetdratﬃhactinwchidenentthseadnidffesmrenocoether obpeetrwaetieonnc. uHrroewntesvpeere, da asnmdatlhl ensuamfebtyeraonfgpe aisrtsimcipalal,nittsmreapyosrotmedettimhaetswbehdeniffitchueltdtioﬀpeareynce baetttweneteinoncutorrwenartnsipnegesdbaenyodntdhethseafpeatrytiraalnwgaerinsinsmg.aSlol,mitempaayrtiscoipmaenttismwesithbemdoirﬃe cdurlivt itnogpay attention to warnings beyond the partial warning. Some participants with more driving experience raised doubts about the interference of the interface because they prefer to judge the deceleration or turning time according to their own experience during the driving process, and the large warning visual area occupies attention resources to a certain extent. In addition, some participants mentioned that when they are not familiar with the
+
+Sensors 2024, 24, 8010
+
+24 of 31
+experience raised doubts about the interference of the interface because they prefer to judge the deceleration or turning time according to their own experience during the driving process, and the large warning visual area occupies attention resources to a certain extent. In addition, some participants mentioned that when they are not familiar with the AR-HUD warning ecological interface presentation rules, and it may also cause a large cognitive burden on driving at the beginning, but after they become familiar with the interface rules, the adaptability will quickly improve and produce a certain dependence.
+4.5. Summary of Ecological Interface Cognitive Balanced Design Strategy
+Through a comparative experiment, the results show that the design of the ecological interface for the AR-HUD-based driving warning system outperforms the mainstream AR-HUD warning interface in terms of subjective cognitive workload, objective cognitive workload, risk response time, and post-experimental interview. Based on the four comprehensive results, the feasibility of the ecological interface cognitive balance design strategies and models of the AR-HUD-based driving warning system can be verified.
+5. Discussion 5.1. Discussion of Experimental Results
+The experimental results support the hypotheses. Hypothesis 1: The AR-HUD warning ecological interface can reduce the driver’s cognitive workload in different singlewarning scenarios; Hypothesis 2: In complex multi-warning scenarios, the AR-HUD warning ecological interface can also reduce the driver’s cognitive workload; Hypothesis 3: In both single-warning and multi-warning scenarios, the AR-HUD warning ecological interface can reduce the driver’s risk perception and decision time.
+5.1.1. Subjective Evaluation of Cognitive Workload
+In the overall evaluation of the DALI subjective scale, the overall cognitive workload of the AR-HUD warning ecological interface is significantly reduced, and the cognitive workload is significantly reduced in speed limit warning, lateral collision warning, and complex multi-warning scenarios. By combining HMI type and scenario cognitive load measurement analysis, in the S2 speed limit warning, S3 lateral collision scenario, and S5 complex multi-warning scenario, the cognitive workload of the AR-HUD warning ecological interface is significantly different from that of mainstream the AR-HUD warning interface, which is also verified by the average pupil diameter results of objective data. In the S2 speed limit warning, S3 lateral collision scenario, and S5 complex multi-warning scenario, the average pupil diameter of the AR-HUD warning ecological interface is significantly lower than that of the mainstream AR-HUD warning interface. Especially in complex multi-warning scenarios, the significant difference of both subjective and objective cognitive load data is *** p < 0.001, indicating that this warning interface has a particularly significant effect on reducing cognitive load in complex-warning scenarios. This shows the effectiveness of the cognitive load adjustment method based on the distraction effect. Integrating it into one body and presenting different warning interfaces reduces the situation of distraction compared to presenting multiple warning information in complex scenarios so that drivers can quickly understand the current scenario information and make responses. In addition, in the collision warning scenario, the cognitive load score of the AR-HUD warning ecological interface in the S3 horizontal collision scenario is better, and in the complex-warning scenario, combined with the horizontal collision scenario, it also shows a better cognitive load score, which can confirm the effectiveness of the AR-HUD warning ecological interface in displaying side obstacles. The obstacle direction guide of the side obstacle and the suggested speed control display can better guide the driver to pay attention to the obstacle in time and quickly understand the operation suggestion for avoiding the obstacle.
+DALI scale dimension evaluation data show that in the three dimensions of attention demand, visual demand, and time demand, the AR-HUD warning ecological interface has
+
+Sensors 2024, 24, 8010
+
+25 of 31
+significantly better scores than HMI2. Attention demand indicates the effort to find the warning information in the visual field. The score with low effort indicates the effectiveness of the strategy of presenting the AR-HUD warning ecological interface in the visual fovea of the AR-HUD. Moreover, HMI2 does not significantly increase compared with the average fixation duration in the eye-tracking data. This indicates that the warning interface will not occupy the driver’s attention resources too much and may guide the driver to look in the direction of obstacles. In terms of visual demand, the AR-HUD warning ecological interface has significantly lower visual requirements than that of HMI2. In other words, more visual processing is not required when processing the warning interface provided by the ARHUD, indicating the effectiveness of the fusion strategy of SBB, RBB, and KBB. Compared with the warning interface that only provides one SRK classification, the existence of multiple levels of information in the AR-HUD warning ecological interface enables the driver to better understand the environmental information. A better time demand score indicates that it takes less time for the driver to understand the information in the warning interface to perform the driving operation. This indicates the effectiveness of SBB-based information, which enables the perception and action to be coupled and allows skill-based responses to the current situation without much cognitive control. Moreover, because the information of RBB and KBB is integrated into the interface, while the operation is being carried out, the driver is also able to understand the source and context of the danger. In other dimensions, the interference dimension and situational pressure dimension are not significantly different from the AR-HUD warning common interface, indicating that the AR-HUD warning ecological interface does not cause excessive interference and pressure for the driver while attracting the driver’s attention and improving the driver’s speed of understanding information. In addition, it also shows that the visual fovea area is suitable for the presentation of the warning interface, because when a danger occurs, the importance of solving the danger rises to the top of the importance level of the current driving task, and warning information and corresponding action suggestions are the most urgent information for the driver, so it will not bring too much interference and situational pressure to the driver.
+5.1.2. Cognitive Load Eye-Tracking Data
+In the data results of average fixation duration, the average fixation duration of the AR-HUD ecological interface in the S2 speed limit warning scenario and the S5 complexwarning scenario is significantly shorter than that of the AR-HUD warning common interface, indicating that, in these two warning scenarios, the AR-HUD warning ecological interface keeps the driver’s attention more in the scenario and the control of dangerous situations and reduces the cognitive load on understanding. In the speed limit warning scenario without dangerous sources, the average fixation duration of the AR-HUD warning ecological interface is shorter, which may be because the warning ecological interface is presented in the driver’s visual fovea by the way of 3D registration, compared with the AR-HUD warning common interface which is presented in the focal length field at the lower part of the visual center by the way of registration. The driver can avoid the switch of visual focal length so that the overspeed warning information can be received more intuitively and safely. This may be because the warning ecological interface allows the driver to realize speed control only by using the peripheral part of the non-visual focus when speeding, without paying attention to changes in the specific speed value, which can reduce the cognitive load of the driver for the warning information and allow them to pay more attention to the road and the main driving task.
+In the data results of average pupil diameter, in the S2 speed limit warning, S3 lateral collision scenario, and S5 complex multi-warning scenario, the average pupil diameter of the AR-HUD warning ecological interface is significantly smaller than that of the mainstream AR-HUD warning common interface. Especially in complex multi-warning scenarios, the significant difference between subjective and objective cognitive load data is p < 0.001, indicating that this warning interface has a particularly significant effect on
+
+Sensors 2024, 24, 8010
+
+26 of 31
+reducing cognitive load in complex-warning scenarios. Combined with subjective and objective cognitive load measurement data, the research results show that, compared with the mainstream AR-HUD, the AR-HUD warning ecological interface design can effectively reduce cognitive workload and has significant interface advantages in the S2 speed limit warning, S3 lateral collision scenario, and S5 complex multi-warning scenario. The results show that the AR-HUD warning ecological interface design has the potential to reduce drivers’ cognitive load in traffic control scenarios, obstacle collision scenarios, and warning scenarios involving drivers’ horizontal and vertical control. The versatility of the warning interface has also been well verified in complex scenarios, indicating its applicability in a realistic complex traffic safety environment, and complex scenarios involve complex operations that require drivers to decelerate and turn back vertically and horizontally at the same time. The cognitive load data show that the ecological interface has the potential to reduce the cognitive load of drivers to a large extent in complex traffic environments. Based on providing sufficient information for the driver, the driver can quickly understand and make appropriate and reasonable responses to improve safety.
+5.1.3. Risk Response Time
+According to the analysis of risk perception time data, the average perception time of the AR-HUD warning ecological interface in a full warning scenario is significantly shortened by 62.96% compared with that of the AR-HUD warning common interface, and the standard deviation is reduced by 87.5%. This significant difference also shows that the presentation of warning information in the visual fovea can improve the perception speed. Compared with the AR-HUD warning common interface, the driver does not need to search for warning information in the world coordinates but can quickly find the position in the center of the field of vision. In the forward collision warning scenario of S1, there is no significant difference in the danger perception time between the ecological interface and the common interface of AR-HUD warning, which also confirms this view from the side, because, in S1, both interfaces are presented in the position of the visual fovea. In addition, the large standard deviation difference also indicates that the AR-HUD warning ecological interface can make the driver maintain a faster perception time in different warning scenarios, and the effect of reducing the risk perception time is stable.
+The analysis of risk decision time data shows that the average decision time of the AR-HUD warning ecological interface in the whole scenario is shortened by 34.57%, and the standard deviation is reduced by 40% compared with the AR-HUD warning common interface. There is also a significant difference in the risk decision time, indicating the effectiveness of the ecological interface design strategy. Combining the information of the three classification methods of SRK, the driver can stimulate skill-based behavior, respond quickly, and understand the current situation through RBB and KBB at a more abstract level to make deterministic decision operations.
+5.2. Limitations and Future Work
+Although this study has made some achievements regarding the topic of focus, there are still some theoretical hypotheses that have not been empirically tested. In particular, as mentioned in the design framework, personalized adjustment and display of information can be carried out according to SBB, RBB, and KBB for drivers with different driving experience levels. The potential utility of this personalized information display based on the reversal effect of expertise in improving drivers’ cognitive fitness deserves further exploration.
+In addition, the participants recruited in this study were young and lacked a broad age range. In future work, we will focus on other age groups such as the elderly to improve the wider applicability and validation of this study.
+Additionally, this study presents five scenarios, and the impact of different scenarios on the dependent variables is also a topic worth exploring. However, since this study focuses on verifying the feasibility of the cognitive balance ecological interface design
+
+Sensors 2024, 24, 8010
+
+27 of 31
+framework for the AR-HUD driving warning system, using a comparative experiment between two schemes of HMIs, it does not focus on the influence of different scenarios. In future research, the sample size can be increased, and more targeted experiments can be redesigned to explore this issue in more detail.
+Finally, the role of the warning interface of threshold visualization in ecological interface design in improving driving performance, including whether it can promote more accurate steering and more stable speed control of drivers, is also worth further research. These research topics not only have theoretical value but also have important significance in practical application.
+6. Conclusions In conclusion, this study analyzes the impact of the AR-HUD driving warning system
+interface on drivers’ cognitive load and aims to build a cognitively balanced AR-HUD driving warning interface based on ecological interface design theory. By reducing the interface cognitive load and improving the driver’s operational understanding and response efficiency, it is committed to reducing the traffic accident rate and enhancing driving safety. Through literature review and case analysis, we discuss the sources of cognitive load of the mainstream AR-HUD interface in different warning situations. By combining cognitive load regulation methods with the dimensions of AR-HUD interface design, and adopting the principle of ecological interface design, the design strategy and framework of cognitive balanced ecological interface for the AR-HUD driving warning system are proposed. Through experimental verification, it is proved that these strategies can effectively reduce cognitive load in single- and complex-warning scenarios, which is better than the existing mainstream AR-HUD warning interface design. Therefore, the results of this study provide theoretical and practical support for improving the practicability and efficiency of the AR-HUD driving warning system. The design strategy and framework of the cognitive balanced ecological interface we proposed have reference value for research in the same field and help to promote a wider range of application scenarios.
+Supplementary Materials: The following supporting information can be downloaded at: https:// www.mdpi.com/article/10.3390/s24248010/s1, Note S1: Description of variable names in the design framework; Note S2: Prototype design. References [32,54] are cited in the supplementary materials.
+Author Contributions: Conceptualization, J.M. and Y.L.; Methodology, J.M. and Y.L.; Software, Y.L.; Validation, Y.L., Y.Z. and J.M.; Formal Analysis, Y.L.; Investigation, Y.Z. and Y.L.; Resources, J.M.; Data Curation, Y.L.; Writing—Original Draft Preparation, Y.L.; Writing—Review and Editing, Y.Z. and Y.L.; Visualization, Y.L.; Supervision, J.M.; Project Administration, Y.L.; Funding Acquisition, J.M. All authors have read and agreed to the published version of the manuscript.
+Funding: This work was supported by Tongji University CDHK SAIC Volkswagen HMI Professorship (42401650051322020).
+Institutional Review Board Statement: The study was conducted following the Declaration of Helsinki and approved for human research by the Science and Technology Ethics Committee of Tongji University (No: tjdxsr053).
+Informed Consent Statement: Informed consent was obtained from all subjects involved in the study.
+Data Availability Statement: The raw data supporting the conclusions of this article will be made available by the authors on request.
+Conflicts of Interest: The authors declare no conflicts of interest.
+
+Sensors 2024, 24, 8010
+
+28 of 31
+
+Appendix A
+
+Table A1. Driving Cognitive Workload DALI Scale.
+
+Number
+1
+2
+3 4 5 6 7 8
+
+Content
+Subject number (this question is filled in by the experimenter)
+Experiment scenario (this question is filled in by the experimenter)
+Experiment interface (this question is filled in by the experimenter)
+Attention need Visual need Disturb Time need
+Situational pressure
+
+Question Types
+
+Scale
+
+Fill in the blanks
+
+-
+
+1–5 (scenario)
+
+Single-choice question
+
+1–2 (HMI)
+
+1–10 (score)
+
+Appendix B
+Semi-structured interview outline. Opening of the interview:
+(1) State the purpose and expected time of the interview. (2) Emphasize privacy protection and ensure that respondents can freely express their
+views.
+Text of the interview:
+1. User experience of AR-HUD warning ecological interface.
+(1) Describe how you feel when using the AR-HUD warning ecosystem interface. (2) During use, do you think the information displayed on the interface is clear
+and easy to understand? (3) Have you encountered any difficulties in using the AR-HUD warning ecosys-
+tem interface?
+2. Cognitive load assessment.
+(1) Do you feel an increased cognitive burden when using the AR-HUD warning ecological interface while driving?
+(2) How do you think the AR-HUD warning ecosystem interface affects your attention allocation?
+(3) When using the interface, do you need to spend extra effort to understand the warning information?
+3. Safety and trust.
+(1) Does the use of an AR-HUD warning ecological interface enhance your driving security?
+(2) What is your assessment of the accuracy and reliability of the AR-HUD warning ecosystem?
+(3) Under what circumstances do you particularly trust or doubt the alerts of the warning system?
+4. Personalize your needs and suggestions.
+(1) In what ways do you think the AR-HUD warning ecological interface can be further improved?
+(2) Do you have any personalized needs or preferences for the display of warning information?
+(3) What new features or information would you like to add in a future release?
+End of interview:
+(1) Summarize the main points of the interview and ask the interviewees if there is anything else they would like to add.
+
+Sensors 2024, 24, 8010
+
+29 of 31
+
+(2) Express gratitude for the interviewee’s time and contribution. (3) Explain the subsequent research progress and how to obtain the research results.
+References
+1. Cohen, A.S.; Hirsig, R. Feed Forward Programming of Car Drivers’ Eye Movement Behavior: A System Theoretical Approach; Swiss Federal Institute of Technology, Department of Behavioral Science: Zurich, Switzerland, 1980.
+2. Li, Z.; Ma, Y. Response and evaluation of vehicle AR-HUD assistant system to risk cognition. In Proceedings of the 2021 16th International Conference on Computer Science & Education (ICCSE), Lancaster, UK, 17–21 August 2021; pp. 153–157.
+3. Kiefer, R.J. Effect of a head-up versus head-down digital speedometer on visual sampling behavior and speed control performance during daytime automobile driving. SAE Trans. 1991, 100, 82–93.
+4. Hibberd, D.L.; Jamson, S.L.; Carsten, O.M. Managing in-vehicle distractions: Evidence from the psychological refractory period paradigm. In Proceedings of the 2nd International Conference on Automotive User Interfaces and Interactive Vehicular Applications, Pittsburgh, PA, USA, 11–12 November 2010; pp. 4–11.
+5. Park, H.S.; Kim, K.H. AR-based vehicular safety information system for forward collision warning. In Virtual, Augmented and Mixed Reality. Applications of Virtual and Augmented Reality, Proceedings of the 6th International Conference, VAMR 2014, Held as Part of HCI International 2014, Heraklion, Crete, Greece, 22–27 June 2014; Springer International Publishing: Cham, Switzerland, 2014; pp. 435–442.
+6. Azuma, R.T. A Survey of Augmented Reality. In Presence: Teleoperators and Virtual Environments; MIT Press: Cambridge, MA, USA, 1997.
+7. Liu, Y.C.; Wen, M.H. Comparison of head-up display (HUD) vs. head-down display (HDD): Driving performance of commercial vehicle operators in Taiwan. Int. J. Hum.-Comput. Stud. 2004, 61, 679–697. [CrossRef]
+8. Narzt, W.; Pomberger, G.; Ferscha, A.; Kolb, D.; Müller, R.; Wieghardt, J.; Hörtner, H.; Lindinger, C. Augmented reality navigation systems. Univ. Access Inf. Soc. 2006, 4, 177–187. [CrossRef]
+9. Kim, H.; Wu, X.; Gabbard, J.L.; Polys, N.F. Exploring head-up augmented reality interfaces for crash warning systems. In Proceedings of the 5th International Conference on Automotive User Interfaces and Interactive Vehicular Applications, Eindhoven, The Netherlands, 28–30 October 2013; pp. 224–227.
+10. Zhan, J. Information architecture and visual design of vehicle HUD interface. Art Des. J. Shandong Acad. Arts Crafts 2014, 2, 41–46. 11. Smith, M.; Streeter, J.; Burnett, G.; Gabbard, J.L. Visual search tasks: The effects of head-up displays on driving and task
+performance. In Proceedings of the 7th International Conference on Automotive User Interfaces and Interactive Vehicular Applications, Nottingham, UK, 1–3 September 2015; pp. 80–87. 12. Currano, R.; Park, S.Y.; Moore, D.J.; Lyons, K.; Sirkin, D. Little road driving hud: Heads-up display complexity influences drivers’ perceptions of automated vehicles. In Proceedings of the 2021 CHI Conference on Human Factors in Computing Systems, Yokohama, Japan, 8–13 May 2021; pp. 1–15. 13. Hooey, B.L.; Gore, B.F. Advanced Traveler Information Systems and Commercial Vehicle Operations Components of the Intelligent Transportation Systems: Head-Up Displays and Driver Attention for Navigation Information (No. FHWA-RD-96-153); United States Federal Highway Administration: Washington, DC, USA, 1998. 14. Okabayashi, S.; Sakata, M.; Fukano, J.I.; Daidoji, S.; Hashimoto, C.; Ishikawa, T. Development of practical heads-up display for production vehicle application. SAE Trans. 1989, 98, 638–647. 15. Wickens, C.D.; Martin-Emerson, R.; Larish, I. Attentional Tunneling and the Head-Up Display; Ohio State University: Columbus, OH, USA, 1993. 16. Kim, H.; Miranda Anon, A.; Misu, T.; Li, N.; Tawari, A.; Fujimura, K. Look at me: Augmented reality pedestrian warning system using an in-vehicle volumetric head up display. In Proceedings of the 21st International Conference on Intelligent User Interfaces, Sonoma, CA, USA, 7–10 March 2016; pp. 294–298. 17. Kim, H.; Gabbard, J.L. Assessing distraction potential of augmented reality head-up displays for vehicle drivers. Hum. Factors 2022, 64, 852–865. [CrossRef] [PubMed] 18. Tönnis, M.; Klinker, G.; Plavšic, M. Survey and classification of head-up display presentation principles. In Proceedings of the International Ergonomics Association (IEA), Beijing, China, 9–14 August 2009. 19. Kunze, A.; Summerskill, S.J.; Marshall, R.; Filtness, A.J. Augmented reality displays for communicating uncertainty information in automated driving. In Proceedings of the 10th International Conference on Automotive User Interfaces and Interactive Vehicular Applications, Toronto, ON, Canada, 23–25 September 2018; pp. 164–175. 20. Haeuslschmid, R.; Pfleging, B.; Alt, F. A design space to support the development of windshield applications for the car. In Proceedings of the 2016 CHI Conference on Human Factors in Computing Systems, San Jose, CA, USA, 7–12 May 2016; pp. 5076–5091. 21. Wiegand, G.; Mai, C.; Holländer, K.; Hussmann, H. Incarar: A design space towards 3d augmented reality applications in vehicles. In Proceedings of the 11th International Conference on Automotive User Interfaces and Interactive Vehicular Applications, Utrecht, The Netherlands, 21–25 September 2019; pp. 1–13. 22. Müller, T.; Colley, M.; Dogru, G.; Rukzio, E. AR4CAD: Creation and Exploration of a Taxonomy of Augmented Reality Visualization for Connected Automated Driving. Proc. ACM Hum.-Comput. Interact. 2022, 6, 1–27. [CrossRef] 23. Chen, F.; Li, M.; Lu, Y. Study on Human Factors and Interactive Design for Vehicle-on-Board HUD. Automot. Dig. 2022, 5, 16–27.
+
+Sensors 2024, 24, 8010
+
+30 of 31
+
+24. Sweller, J. Cognitive load during problem solving: Effects on learning. Cogn. Sci. 1988, 12, 257–285. [CrossRef] 25. Vicente, K.J.; Rasmussen, J. Ecological interface design: Theoretical foundations. IEEE Trans. Syst. Man Cybern. 1992, 22, 589–606.
+[CrossRef] 26. Prabhakar, G.; Ramakrishnan, A.; Madan, M.; Murthy LR, D.; Sharma, V.K.; Deshmukh, S.; Biswas, P. Interactive gaze and finger
+controlled HUD for cars. J. Multimodal User Interfaces 2020, 14, 101–121. [CrossRef] 27. Kim, H.; Isleib, J.D.; Gabbard, J.L. Casting shadows: Ecological interface design for augmented reality pedestrian collision
+warning. In Proceedings of the 2016 IEEE Virtual Reality (VR), Greenville, SC, USA, 19–23 March 2016; pp. 205–206. 28. Yang, X. Research of Driving Environment Safety Information Interface Design Principles for In-Vehicle AR-HUD. Master’s
+Thesis, South China University of Technology, Guangzhou, China, 2017. 29. Tran, C.; Bark, K.; Ng-Thow-Hing, V. A left-turn driving aid using projected oncoming vehicle paths with augmented reality. In
+Proceedings of the 5th International Conference on Automotive User Interfaces and Interactive Vehicular Applications, Eindhoven, The Netherlands, 28–30 October 2013; pp. 300–307. 30. Tonnis, M.; Lange, C.; Klinker, G. Visual longitudinal and lateral driving assistance in the head-up display of cars. In Proceedings of the 2007 6th IEEE and ACM International Symposium on Mixed and Augmented Reality, Nara, Japan, 13–16 November 2007; pp. 91–94. 31. He, D.; Kanaan, D.; Donmez, B. In-vehicle displays to support driver anticipation of traffic conflicts in automated vehicles. Accid. Anal. Prev. 2021, 149, 105842. [CrossRef] [PubMed] 32. Rasmussen, J. Skills, rules, and knowledge; signals, signs, and symbols, and other distinctions in human performance models. IEEE Trans. Syst. Man Cybern. 1983, SMC-13, 257–266. [CrossRef] 33. Lee, J.D.; Hoffman, J.D.; Stoner, H.A.; Seppelt, B.D.; Brown, M.D. Application of ecological interface design to driver support systems. In Proceedings of the IEA, Maastricht, The Netherlands, 10–15 July 2006. 34. Schewe, F.; Vollrath, M. Ecological interface design effectively reduces cognitive workload–The example of HMIs for speed control. Transp. Res. Part F Traffic Psychol. Behav. 2020, 72, 155–170. [CrossRef] 35. Schewe, F.; Vollrath, M. Ecological interface design and head-up displays: The contact-analog visualization tradeoff. Hum. Factors 2023, 65, 37–49. [CrossRef] 36. Cao, Y.; Zhang, J. Research on Information Architecture and Design Strategy of AR-HUD in Urban Rail Information Displayed System. In Advances in Ergonomics in Design, Proceedings of the AHFE 2020 Virtual Conference on Ergonomics in Design, USA, 16–20 July 2020; Springer International Publishing: Cham, Switzerland, 2020; pp. 386–393. 37. Ma, J.; Wu, Y.; Rong, J.; Zhao, X. A systematic review on the influence factors, measurement, and effect of driver workload. Accid. Anal. Prev. 2023, 192, 107289. [CrossRef] 38. Pauzié, A. A method to assess the driver mental workload: The driving activity load index (DALI). IET Intell. Transp. Syst. 2008, 2, 315–322. [CrossRef] 39. Meshkati, N. Heart rate variability and mental workload assessment. Adv. Psychol. 1988, 52, 101–115. 40. Shakouri, M.; Ikuma, L.H.; Aghazadeh, F.; Nahmens, I. Analysis of the sensitivity of heart rate variability and subjective workload measures in a driving simulator: The case of highway work zones. Int. J. Ind. Ergon. 2018, 66, 136–145. [CrossRef] 41. Chihara, T.; Sakamoto, J. Effect of Time Length of Eye Movement Data Analysis on the Accuracy of Mental Workload Estimation During Automobile Driving. In Congress of the International Ergonomics Association; Springer International Publishing: Cham, Switzerland, 2021; pp. 593–599. 42. Foy, H.J.; Chapman, P. Mental workload is reflected in driver behaviour, physiology, eye movements and prefrontal cortex activation. Appl. Ergon. 2018, 73, 90–99. [CrossRef] [PubMed] 43. Brown, T.; Johnson, R.; Milavetz, G. Identifying periods of drowsy driving using EEG. Ann. Adv. Automot. Med. 2013, 57, 99–108. 44. Cardone, D.; Perpetuini, D.; Filippini, C.; Spadolini, E.; Mancini, L.; Chiarelli, A.M.; Merla, A. Driver stress state evaluation by means of thermal imaging: A supervised machine learning approach based on ECG signal. Appl. Sci. 2020, 10, 5673. [CrossRef] 45. Ma, J.; Li, J.; Huang, H. Evaluation of Multimodal and Multi-Staged Alerting Strategies for Forward Collision Warning Systems. Sensors 2022, 22, 1189. [CrossRef] [PubMed] 46. Ma, J.; Zuo, Y.; Du, H.; Wang, Y.; Tan, M.; Li, J. Interactive Output Modalities Design for Enhancement of User Trust Experience in Highly Autonomous Driving. Int. J. Hum.-Comput. Interact. 2024, 1–19. [CrossRef] 47. Lu, Y.; Sarter, N. Eye tracking: A process-oriented method for inferring trust in automation as a function of priming and system reliability. IEEE Trans. Hum.-Mach. Syst. 2019, 49, 560–568. [CrossRef] 48. Manchon, J.B.; Beaufort, R.; Bueno, M.; Navarro, J. Why Does the Automation Say One Thing but Does Something Else? Effect of the Feedback Consistency and the Timing of Error on Trust in Automated Driving. Information 2022, 13, 480. [CrossRef] 49. de Winter, J.C.F.; Happee, R.; Martens, M.H.; Stanton, N.A. Effects of adaptive cruise control and highly automated driving on workload and situation awareness: A review of the empirical evidence. Transp. Res. F Traffic Psychol. Behav. 2014, 27, 196–217. [CrossRef] 50. Barnard, Y.; Lai, F. Spotting sheep in Yorkshire: Using eye-tracking for studying situation awareness in a driving simulator. In Human Factors: A System View of Human, Technology and Organisation, Proceedings of the Annual Conference of the Europe Chapter of the Human Factors and Ergonomics Society 2009, Melbourne, Australia, 22–25 November 2009; Human Factors and Ergonomics Society of Australia (HFESA): Sydney, Australia, 2009.
+
+Sensors 2024, 24, 8010
+
+31 of 31
+
+51. Autohome Research Institute. Hard-Hitting Report “Insights into Automobile Consumption in China in 2023”. Autohome.com. 2023. Available online: https://www.autohome.com.cn/news/202312/1291757.html (accessed on 25 December 2023.).
+52. Development Research Center of the State Council; China Society of Automotive Engineers; Volkswagen Group (China). Annual Report on Automotive Industry in Chine (2022); China Development Press: Beijing, China, 2023.
+53. Wetton, M.A.; Hill, A.; Horswill, M.S. The development and validation of a hazard perception test for use in driver licensing. Accid. Anal. Prev. 2011, 43, 1759–1770. [CrossRef]
+54. Gibson, J.J.; Crooks, L.E. A theoretical field-analysis of automobile-driving. Am. J. Psychol. 1938, 51, 453–471. [CrossRef]
+Disclaimer/Publisher’s Note: The statements, opinions and data contained in all publications are solely those of the individual author(s) and contributor(s) and not of MDPI and/or the editor(s). MDPI and/or the editor(s) disclaim responsibility for any injury to people or property resulting from any ideas, methods, instructions or products referred to in the content.
+

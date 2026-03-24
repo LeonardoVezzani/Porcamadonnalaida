@@ -1,0 +1,293 @@
+
+JavaScript is disabled on your browser. Please enable JavaScript to use all the features on this page. Skip to main content Skip to article
+Elsevier logo ScienceDirect
+
+    Journals & Books 
+
+    Search 
+
+Register Sign in
+
+    View  PDF 
+
+Outline
+
+    Keywords
+    1. Introduction
+    2. System overview
+    3. Experimental results
+    4. Conclusion and outlook
+    Declaration of Competing Interest
+    Acknowledgments
+    References 
+
+Show full outline
+Figures (12)
+
+    Fig. 1. Our approach in the context of mixed and mediated reality
+    Fig. 2. Demonstration of the difference visualization levels of AR and DR
+    Fig. 3. System overview: view enhancement system
+    Fig. 4. Field of views: camera (red) and operator (blue)
+    Fig. 5. Origins (left) and transformations (right)
+    Fig. 6. Setup for the investigation of the registration error
+
+Show 6 more figures
+Elsevier
+CIRP Annals
+Available online 21 April 2023
+In Press, Corrected Proof What’s this?
+CIRP Annals
+A real-time augmented reality system to see through forklift components
+Author links open overlay panel Ludger Overmeyer (2) a b , Lukas Jütte a , Alexander Poschke b
+Show more
+Add to Mendeley
+Share
+Cite
+https://doi.org/10.1016/j.cirp.2023.03.010 Get rights and content
+
+Limited visibility during the operation of forklifts is one of the most significant sources of danger in in-plant material handling. Existing systems record concealed areas via cameras and display them directly on monitors in the operator's cab. The operator has to temporarily turn his attention to a screen and is unable to perceive the real information necessary for the driving task. We developed the first augmented reality based driver assistance system for safety improvement in intralogistics. The results show the capability to eliminate view restrictions directly in the operator's field of view and create the illusion of transparent vehicle components.
+Keywords
+Augmented reality
+Logistics
+Diminished reality
+1. Introduction
+
+Due to the enormous growth of e-commerce and increasing economic activity, the demand for in-house logistics has grown as well. Researchers are working on efficient intralogistics solutions that operate autonomously or automatically [1] . The development of modern human–machine interfaces (HMI) is also gaining significant interest in enabling more natural control of transport systems [2] . Nevertheless, manual forklifts are an important part of the intralogistics chain today and will remain crucial in the future. Humans are able to quickly address problems, bridge the gap between complex processes, and solve new transportation challenges at a low cost through their cognitive abilities. Companies utilize forklifts with assistance systems, such as fork cameras and displays, for safe handling and to provide operators with additional information. This information could be context-sensitive assistance or the visualization of hidden areas of the scene. Using these systems increases the cognitive workload, especially for visualization devices like tablets or head-mounted displays (HMD) [3] . Accident statistics demonstrate the need for additional safety measures in intralogistics. 13,689 accidents involving forklifts occurred in Germany in 2020 [4] .
+
+The operator has to turn his attention to a screen temporarily and is unable to perceive the real information necessary for the driving task when using conventional assistance systems. Augmented reality (AR) offers the possibility to visualize information spatially and temporally correct in the user's field of view [5] . In general, AR extends real scenes with virtual elements and is characterized by realism, registration between real and virtual elements and their interaction [6] . Even simple applications offer the potential to provide helpful information using AR to assist in the operation of heavy machines [7] . In the context of manufacturing the information is usually production- or process-related [8] .
+
+In mediated reality [9] , removing objects from the user's field of view is well-known as diminished reality (DR). There are serval DR techniques as visually concealing, eliminating, or seeing through real word objects [10] . Referring to the visibility problem and the emerging mixed and mediated reality technology, this paper presents the first augmented reality view enhancement system for forklifts using DR. We employ an HMD and a RGB-D camera setup to remove view restrictions in an assistance system. Unlike traditional systems, we render multiple merged RGB-D streams in real-time congruent with view restrictions and directly in the operator's field of view.
+
+Our system design is generally transferable to other vehicles, such as construction machinery. Due to the many parts moving in relation to each other, they often have a similar complexity and poor visibility for the driver. For vehicles with less complexity, simpler setups could be considered.
+
+An overview of our system is given in Section 2 . We present the results of our test application in Section 3 and end this paper with a conclusion and outlook in Section 4 .
+2. System overview
+
+AR applications typically consist of the steps shown in the left part of Fig. 1 . Tracking uses the recorded scene to calculate the pose of the user in the environment. Registration anchors the virtual elements in the environment. Finally, the frame is rendered and visualized on an output device. In addition, a DR application requires knowledge about the view restrictions and the concealed areas. We therefore record the concealed area with cameras and track the forklift.
+Fig 1
+
+    Download : Download high-res image (103KB)
+    Download : Download full-size image 
+
+Fig. 1 . Our approach in the context of mixed and mediated reality.
+
+Fig. 2 demonstrates the relationship of AR and DR in our system. The display of a digital twin of the forklift on the left side presents a typical AR application. When the rendering of an occluded scene starts, the AR application turns into a DR application.
+Fig 2
+
+    Download : Download high-res image (153KB)
+    Download : Download full-size image 
+
+Fig. 2 . Demonstration of the difference visualization levels of AR and DR.
+
+Fig. 3 shows our proposed system. The view enhancement system consists of seven submodules.
+Fig 3
+
+    Download : Download high-res image (268KB)
+    Download : Download full-size image 
+
+Fig. 3 . System overview: view enhancement system.
+
+The safety-critical application of an operator assistance system requires comprehensive scene reconstruction. The complexity of the forklift geometry and the mode of operation require cameras in the fork tips and on the mast to see behind the load and the vehicle components. Fig. 4 shows the field of view of the operator (blue) and the multi-camera setup (red). For the initial pose estimation of our multi camera system, we use a checkerboard-based calibration method [11] .
+Fig 4
+
+    Download : Download high-res image (208KB)
+    Download : Download full-size image 
+
+Fig. 4 . Field of views: camera (red) and operator (blue).
+
+The tracking of the forklift consists of an outer and inner tracking module. The inner tracking module estimates the position and orientation (pose) of the mast using two sensors, a tilt sensor and a string potentiometer. The outer tracking module determines the pose of the forklift relative to the world origin by using two rotary encoders.
+
+We implement the algorithms on a desktop computer located on the forklift using the game engine Unity. The real-time communication with the HMD (Microsoft HoloLens 2) operates via the holographic remoting player. The HMD displays the rendered frame and sends the head pose data to the registration module. All of the tracking data is utilized to render a scene captured by the five RGB-D cameras. Fig. 5 shows the different transformations in our system. For the accurate visualization, we transfer all coordinate systems into one common origin. Here, some transformations are dynamic, i.e. they change at runtime of the program, such as the transformation FL T AR between the HMD and the forklift. Other transformations, such as the relationship between the lift mast cameras MC T ML and MC T MR are determined initially and are static with respect to each other.
+Fig 5
+
+    Download : Download high-res image (227KB)
+    Download : Download full-size image 
+
+Fig. 5 . Origins (left) and transformations (right).
+3. Experimental results
+
+An important feature of safety-critical assistance systems is the spatial and temporal accurate registration of the displayed information. A deviation in these parameters reduces the immersion. This reduces the acceptance of the system and poses an accident risk. A deviation in the spatial registration leads to a registration error [12] . A temporal deviation results in a measurable latency. In the following subsections, the accuracy and latency of the entire DR chain will be considered. In dynamic systems, the spatial deviation is highly dependent on the latency prevailing in the system. For this reason, this work distinguishes between time-independent registration errors and system latencies.
+3.1. Registration error
+
+Typically, the registration error is described by comparing the expected and observed points in a scene. The ISO 9283 standard allows a statistical analysis of the registration error of an industrial robot AR application when evaluating marker-based tracking systems [12] . To investigate the overlay accuracy, we use a large-scale ChAruCo pattern placed in the scene in front of the vehicle, as shown in Fig. 6 .
+Fig 6
+
+    Download : Download high-res image (289KB)
+    Download : Download full-size image 
+
+Fig. 6 . Setup for the investigation of the registration error.
+
+Fig. 7 shows the augmentation of the reconstructed scene (green) on the view restrictions on the left and the extrapolated marker corners on the right.
+Fig 7
+
+    Download : Download high-res image (199KB)
+    Download : Download full-size image 
+
+Fig. 7 . Augmentation (green), view restriction (red), detected markers (left) and linear extrapolated upper left marker corner for frame i (right).
+
+There are two advantages of using a known pattern. Firstly, we can reproducibly investigate specific areas of the fade-in since the markers are uniquely identifiable. Furthermore, we can interpolate hidden markers that are not visible from the driver's perspective due to view restrictions [13] . Fig. 8 shows the temporal variation of the normalized marker position for a marker detected in the augmentation. We normalize all measured values to the maximum measured value in each coordinate. 300 frames were examined.
+Fig 8
+
+    Download : Download high-res image (248KB)
+    Download : Download full-size image 
+
+Fig. 8 . Temporal variation of the normalized marker position.
+
+The results show an oscillation around a mean value. The oscillations around the mean value are significantly larger for the y-position. The y-position also shows some outliers. In general, there is no drift of the measured values in the investigated time period. To investigate the accuracy and precision, we investigate several scene distances between the Hololens and the forklift. Furthermore, we investigate the impact of the frame rate and resolution for the scene reconstruction. For the validation, we apply ISO 9283 [14] . The standard distinguishes between accuracy and a repeatability (precision). Unlike in ISO 9283, we do not perform spatial measurements in this study, as we determine the measurement error in 2D augmentation ( Fig. 7 ). The two dimensional accuracy A x y with the mean values x ¯ and y ¯ of the detected upper left marker corner points x i , y i in frame i is defined as: (1) A x y = ( x ¯ − x E P ) 2 + ( y ¯ − y E P ) 2 (2) x ¯ = 1 n ∑ i = 1 n x i ; = 1 n ∑ i = 1 n y i
+
+The accuracy describes the distance between the set point we calculate by the linear extrapolation ( x E P , y E P ) and the center of gravity of the measured values. A normal distribution is assumed. The 3 σ -precision P x y describes the environment around the expected value, where we find 99.73% of all measured values and is defined as: (3) P x y = l ¯ + 3 σ (4) l ¯ = 1 n ∑ i = 1 n l i (5) l i = ( x i − x ¯ ) 2 + ( y i − y ¯ ) 2 (6) σ = ∑ i = 1 n ( l i − l ¯ ) n − 1 with the distance of each detected marker l i to the mean value x ¯ in frame i , the mean value of the deviations l ¯ and the standard deviation σ . Fig. 9 shows the results for accuracy and precision for different distances between fork tip and pattern.
+Fig 9
+
+    Download : Download high-res image (175KB)
+    Download : Download full-size image 
+
+Fig. 9 . Accuracy and precision for several scene distances, frame rates and resolutions.
+
+From Fig. 9 it is obvious that the accuracy increases with increasing working distance. As a result, the deviation between reality and virtuality increases. At a distance of 2 m, the smallest measured deviation is 43.5 px, at 3 m 74.9 px and at 4 m 95.6 px. In general, there is no significant difference between the camera parameters considered in the near and far range. The jitter of the measured values (precision) decreases with increasing distance. At a distance of 2 m, the precision is 5.3 px, at 3 m 3.8 px and at 4 m 2.8 px. When using forklifts in indoor locations at maximum speed of v max  = 20 km/h, a maximum deviation of 300 mm in a distance of 10 m should be achieved. The experimental results show that we even have a deviation of 98 px at a distance of 4 m in front of the forklift, which corresponds to a deviation of 297 mm in the real world.
+3.2. Temporal error
+
+Latencies in DR systems lead to different error patterns. Fig. 10 shows a simplified representation of latencies in our system. The sensors used for tracking and scene recording are not synchronized. Accordingly, relative latencies between the incoming data streams D i (e.g. camera streams, head tracking data) occur during the data acquisition [15] . This leads to different end-to-end latencies for each sensor.
+Fig 10
+
+    Download : Download high-res image (79KB)
+    Download : Download full-size image 
+
+Fig. 10 . Latencies in the DR system.
+
+Frame production covers all activities of the Unity application, from reading the sensor data to providing the finished frame for the HMD. The application sends the rendered frame to the HMD. The HMD renders and displays the frame. Frame counting [16] can be used to determine the end-to-end latency of the scene recording. We use the RGB camera of the HMD for this purpose. The measurement frequency of 30 fps is relatively low. Therefore, the overlays are better readable than filmed through the glasses with an external camera. The HMD shows the average and maximum latency for displaying the frame within the last second, the end-to-end latency of the head tracking and the latency for frame production in the overlay. Fig. 11 shows the results for the end-to-end latency. Here, we distinguish between the actual scene recording and the head tracking for up to four RGB-D cameras. We used 180 measurement points for head tracking and 375 for scene recording. The number of active RGB-D cameras shows no significant influence on the measured latencies of the scene recording in the system, with mean values between 134.13 ms for two active cameras and 155.82 ms for one active camera. The sampling rate must be increased significantly for a detailed analysis of this end-to-end latency. For head tracking, there is a slight upward trend, with mean values between 114.13 ms for one active camera and 123.62 ms for four cameras.
+Fig 11
+
+    Download : Download high-res image (146KB)
+    Download : Download full-size image 
+
+Fig. 11 . End-to-end latencies of scene recording and head tracking.
+
+Fig. 12 shows the measured latencies for frame production and display. We evaluated 180 frames for each measurement. Unity requires an average of 16.66 ms for frame production for up to three active cameras. The computer is unable to render at 60 fps when four cameras are used, so that the end-to-end latencies of the head tracking also increase. The HMD requires an average of 33.3 ms to display the frames, regardless of the number of active cameras. However, the mean value of the maximum latencies for displaying a frame increases from 36.08 ms to 37.03 ms and its variance from 0.74 ms to 3.75 ms for one to four cameras. The HMD needs twice as much time to display the frame as the computer needs to produce it. Therefore, the HMD does not use half of the produced frames.
+Fig 12
+
+    Download : Download high-res image (131KB)
+    Download : Download full-size image 
+
+Fig. 12 . Latency due to frame production and frame display.
+
+With our maximum measured end-to-end latency of 233.33 ms, we already exceed common standards such as ISO 16,505 for automotive rear view cameras of 200 ms [17] .
+4. Conclusion and outlook
+
+In this work we presented the first real-time AR system to optimize the view of a forklift operator. The system minimizes view restrictions in the driver's field of view. Vehicle components are superimposed with visual information of the concealed areas.
+
+We demonstrated the basic suitability of the method for vision enhancement by DR in a controlled environment. The experimental results show that the deviation between reality and virtuality increases with distance. The main reason for this could be a rotational error in the system. To improve the accuracy we should implement optimized algorithms for scene reconstruction, tracking and registration. The use of an AR HMD results in higher requirements for the quality of the representation instead of permanently installed displays. The spatial and temporal errors reduce the immersion, reducing the system acceptance, even if safety requirements are met. The end-to-end latency of the head tracking is on average significantly lower than that of the scene recording. This observation is independent of the number of active cameras. Further research will focus on investigating the influence of different error sources. The latency measurement results suggest that the scene recording has a greater impact than the rendering. Considered individually, the measured maximum values are already at the permissible upper limit or exceed it. This means that the safety target cannot be achieved in a scenario where the forklift moves, since the errors add up. We will conduct a user study to evaluate the acceptance of the system and its impact on the operator's material handling performance.
+Declaration of Competing Interest
+
+The authors declare that they have no known competing financial interests or personal relationships that could have appeared to influence the work reported in this paper.
+Acknowledgments
+
+This work is part of the research project 20158N of the Research Foundation Intralogistics/Material Handling and Logistics (IFL) and has been funded by the AiF within the program for sponsorship by Industrial Joint Research (IGF) of the German Federal Ministry of Economic Affairs and Climate Action based on an enactment of the German Parliament.
+References
+
+    [1]
+    J. Franke, F. Lütteke
+    Versatile Autonomous Transportation Vehicle for Highly Flexible Use in Industrial Applications
+    CIRP Annals, 61 (1) (2012), pp. 407-410, 10.1016/j.cirp.2012.03.048
+    View PDF View article View in Scopus Google Scholar
+    [2]
+    L. Overmeyer, F. Podszus, L. Dohrmann
+    Multimodal Speech and Gesture Control of AGVs, Including EEG-Based Measurements of Cognitive Workload
+    CIRP Annals, 65 (1) (2016), pp. 425-428, 10.1016/j.cirp.2016.04.030
+    View PDF View article View in Scopus Google Scholar
+    [3]
+    B. Gross, M. Bretschneider-Hagemes, A. Stefan, J. Rissler
+    Monitors vs. Smart Glasses: A Study on Cognitive Workload of Digital Information Systems on Forklift Trucks, Digital Human Modeling. Applications in Health, Safety
+    Ergonomics, and Risk Management (2018), 10.1007/978-3-319-91397-1_46
+    Google Scholar
+    [4]
+    DGUV e.V. Arbeitsunfallgeschehen 2020. Available from: https://publikationen.dguv.de/widgets/pdf/download/article/4271 [March 29, 2022].
+    Google Scholar
+    [5]
+    P. Milgram, F. Kishino
+    A Taxonomy of Mixed Reality Visual Displays
+    IEICE Transactions on Information Systems, E77-D (12) (1994), pp. 1321-1329
+    Google Scholar
+    [6]
+    R.T. Azuma
+    A Survey of Augmented Reality
+    Teleoperators & Virtual Environments, 6 (4) (1997), pp. 355-385, 10.1162/pres.1997.6.4.355
+    Google Scholar
+    [7]
+    Sitompul TA, Wallmyr M. (2019) Using Augmented Reality to Improve Productivity and Safety for Heavy Machinery Operators: State of the Art, In: International Conference on Virtual-Reality Continuum and its Applications in Industry . http://doi.org/10.1145/3359997.3365689.
+    Google Scholar
+    [8]
+    S. Makris, P. Karagiannis, S. Koukas, A.-.S. Matthaiakis
+    Augmented Reality System for Operator Support in Human–Robot Collaborative Assembly
+    CIRP Annals, 65 (1) (2016), pp. 61-64, 10.1016/j.cirp.2016.04.038
+    View PDF View article View in Scopus Google Scholar
+    [9]
+    Mann S. Mediated Reality. Technical Report MITML Percom TR-260 , 1994, University of Toronto.
+    Google Scholar
+    [10]
+    S. Mori, S. Ikeda, H. Saito
+    A Survey of Diminished Reality: Techniques for Visually Concealing, Eliminating, and Seeing Through Real Objects
+    IPSJ Transactions on Computer Vision and Applications, 9 (1) (2017), 10.1186/s41074-017-0028-1
+    Google Scholar
+    [11]
+    Bouguet J.-.Y. Camera Calibration Toolbox for Matlab. Available from: http://robots.stanford.edu/cs223b04/JeanYvesCalib/ [May 25, 2022].
+    Google Scholar
+    [12]
+    S. Blankemeyer, R. Wiemann, L. Posniak, C. Pregizer, A. Raatz
+    Intuitive Robot Programming Using Augmented Reality
+    Procedia CIRP, 76 (2018), pp. 155-160, doi: 10.1016/j.procir.2018.02.028
+    View in Scopus Google Scholar
+    [13]
+    L. Jütte, A. Poschke, B. Küster, L. Overmeyer
+    Quantitative Performance Evaluation in an Augmented Reality View Enhancement Driver Assistant System
+    AG Tescher, T Ebrahimi (Eds.), Applications of Digital Image Processing XLV, doi: 10.1117/12.2633264 (2022)
+    Google Scholar
+    [14]
+    ISO 9283: Manipulating Industrial Robots- Performance Criteria and Related Test Methods. 1998.
+    Google Scholar
+    [15]
+    M.C. Jacobs, M.A. Livingston, A. State, Managing Latency in Complex Augmented Reality Systems, Proceedings of the 1997 symposium on Interactive 3D graphics , 1997 doi: 10.1145/253284.253306.
+    Google Scholar
+    [16]
+    D. He, F. Liu, D. Pape, G. Dawe, D. Sandin
+    Video-Based Measurement of System Latency
+    Proceedings of the Fourth International Immersive Projection Technology Workshop (2000)
+    Google Scholar
+    [17]
+    ISO 16505: Road vehicles – Ergonomic and Performance Aspects of Camera Monitor Systems – Requirements and Test Procedures. 2019.
+    Google Scholar
+
+Cited by (0)
+View Abstract
+© 2023 CIRP. Published by Elsevier Ltd. All rights reserved.
+Recommended articles
+
+    Marjolin’s ulcer due to congenital myelomeningocele
+    Cirugía Española (English Edition), Volume 101, Issue 4, 2023, p. 288
+    Ester Alonso Batanero , …, Consuelo Rocío Menéndez Dizy
+    View PDF
+    Surgical intervention of anterior transsphincteric fistula using lift technique
+    Cirugía Española (English Edition), 2023
+    Ester Ferrer-Inaebnit , …, Xavier González Argenté
+    View PDF
+
+Article Metrics
+No metrics available.
+plumX logo
+View details
+Elsevier logo with wordmark
+
+    About ScienceDirect
+    Remote access
+    Shopping cart
+    Advertise
+    Contact and support
+    Terms and conditions
+    Privacy policy 
+
+We use cookies to help provide and enhance our service and tailor content and ads. By continuing you agree to the use of cookies .
+
+Copyright © 2023 Elsevier B.V. or its licensors or contributors. ScienceDirect® is a registered trademark of Elsevier B.V.
+
+ScienceDirect® is a registered trademark of Elsevier B.V.
+RELX group home page
+Feedback 

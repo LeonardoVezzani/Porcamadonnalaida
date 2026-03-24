@@ -1,0 +1,509 @@
+IEEE TRANSACTIONS ON INTELLIGENT TRANSPORTATION SYSTEMS, VOL. 24, NO. 9, SEPTEMBER 2023
+
+9401
+
+Sensing Accident-Prone Features in Urban Scenes for Proactive Driving and Accident Prevention
+Sumit Mishra , Praveen Kumar Rajendran, Luiz Felipe Vecchietti, and Dongsoo Har , Senior Member, IEEE
+
+Abstract— In urban cities, visual information on and along roadways is likely to distract drivers and lead to missing traffic signs and other accident-prone (AP) features. To avoid accidents due to missing these visual cues, this paper proposes a visual notification of AP-features to drivers based on real-time images obtained via dashcam. For this purpose, Google Street View images around accident hotspots (areas of dense accident occurrence) identified by a real-accident dataset are used to train a novel attention module to classify a given urban scene into an accident hotspot or a non-hotspot (area of sparse accident occurrence). The proposed module leverages channel, point, and spatial-wise attention learning on top of different CNN backbones. This leads to better classification results and more certain AP-features with better contextual knowledge when compared with CNN backbones alone. Our proposed module achieves up to 92% classification accuracy. The capability of detecting AP-features by the proposed model were analyzed by a comparative study of three different class activation map (CAM) methods, which are used to inspect specific AP-features causing the classification decision. The outputs of the CAM methods were processed by an image processing pipeline to extract only the AP-features that are explainable to drivers and notified using a visual notification system. Range of experiments was performed to prove the efficacy and AP-features of the system. Ablation of the AP-features taking 9.61%, on average, of the total area in each image sample increased the chance of a given area to be classified as a non-hotspot by up to 21.8%.
+Index Terms— Accident prevention, head-up display, attentive driving system, accident prone feature, accident hotspot, street view images.
+Manuscript received 25 February 2022; revised 17 November 2022 and 15 February 2023; accepted 24 April 2023. Date of publication 5 May 2023; date of current version 30 August 2023. This work was supported in part by the Institute of Information and Communications Technology Planning and Evaluation (IITP) funded by Korean Government (MSIT) through the Development of Artificial Intelligence Technology that Continuously Improves Itself as the Situation Changes in the Real World under Grant 2020-000440. The Associate Editor for this article was H. Huang. (Corresponding author: Sumit Mishra.)
+Sumit Mishra is with the Robotics Program, Korea Advanced Institute of Science and Technology, Daejeon 34141, South Korea (e-mail: sumitmishra209@gmail.com).
+Praveen Kumar Rajendran is with the Division of Future Vehicle, Korea Advanced Institute of Science and Technology, Daejeon 34141, South Korea (e-mail: praveenkumar@kaist.ac.kr).
+Luiz Felipe Vecchietti is with the Data Science Group, Institute for Basic Science, Daejeon 34126, South Korea (e-mail: lfelipesv@ibs.re.kr).
+Dongsoo Har is with the CCS Graduate School of Green Transportation, Korea Advanced Institute of Science and Technology, Daejeon 34141, South Korea (e-mail: dshar@kaist.ac.kr).
+This article has supplementary downloadable material available at https://doi.org/10.1109/TITS.2023.3271395, provided by the authors.
+Digital Object Identifier 10.1109/TITS.2023.3271395
+
+I. INTRODUCTION
+ROAD accidents are the prominent cause of deaths and injuries in urban cities. In 2018, the annual projection of deaths worldwide reached 1.35 million [1]. Among the causes of road accidents, road-built conditions as well as high vehicle density are the most prevalent. Traffic congestion makes road traffic chaotic and increases the level of driver stress [2]. Internal and external views of a vehicle perceived by the driver can be cognitively challenging. According to the findings in [2], approximately 14% of driving events occurred where drivers tend to miss critical traffic signs and crucial points of interest (POI) in the road view. With structural complexity of urban cities associated with road structure and the presence of traffic lights, traffic signs, billboards, etc., the volume of visual information is overwhelming [3]. Advisory systems using different modalities of acoustic, visual, and haptic forms have lately been deployed to assuage this problem [4], [5]. Along with smart signaling [10], and safe routing [25], these decision support systems have proven to be effective in improving driver behavior and preventing accidents [2].
+Many vehicles utilize multiple functions interfaced via a touchscreen on a visual display for assisting drivers. However, the small size of the visual display included in vehicles not only requires a long gaze but also affects driver concentration due to its position with respect to the driver [3]. Depending on location, displays can be categorized into head-down displays (HDDs) and head-up displays (HUDs). Individual effects of HDD and HUD on risky driving and driver concentration have been investigated in previous studies [6]. Despite the popularity of HDDs, they force drivers to take their eyes off the road, hence provoking accident-prone behavior [7], [8]. Conversely, HUDs are harder to implement but more effective, owing to short glance behavior [6], and lead to improved reaction time of drivers. In this work, it is discussed that notifications displayed in a HUD can draw the driver’s attention and decrease the time needed to identify road accident-prone (AP) features. When information presentation is done compactly on the HUD, these displays offer context in the field of view observed while driving. Recently, HUDs have been deployed as smart sun visors [9]. The HUD is typically studied for warning drivers with an apt notification symbol to prevent collision with an anomalous vehicle or pedestrian [3]. The demand for notification of traffic signs and AP features in the driver’s direct line of sight has been studied in [68]. To improve road safety, visual notification systems that
+
+1558-0016 © 2023 IEEE. Personal use is permitted, but republication/redistribution requires IEEE permission. See https://www.ieee.org/publications/rights/index.html for more information.
+
+Authorized licensed use limited to: Politecnico di Torino. Downloaded on May 09,2025 at 07:38:49 UTC from IEEE Xplore. Restrictions apply.
+
+9402
+
+IEEE TRANSACTIONS ON INTELLIGENT TRANSPORTATION SYSTEMS, VOL. 24, NO. 9, SEPTEMBER 2023
+
+improve attention in the driver’s line of sight, e.g., using an HUD located in the windscreen, are needed.
+Lately, detection of traffic signs with high accuracy by using cameras has been realized with the help of AI techniques. However, detection of AP features, e.g., specific parts of the road scene that might cause an accident, are still a challenging problem. AP features should be detected and actively notified especially near accident hotspots, which are defined as areas with a higher probability of accident occurrence based on historical accident data analysis [11]. In previous studies, accident prediction in an area has been performed considering areal urban element information, weather, areal event information, etc. [12]. The results from these studies can be used by authorities for taking actions to proactively prevent accidents. However, a proactive approach that can warn the driver of AP road features in real-time is still missing. The implementation of a multi-modal system for detecting AP features in moving vehicles is challenging since the data must be collected in real-time. Proactive approaches for accident prevention have been studied to predict accident occurrence while driving by predicting nearby anomalous vehicle trajectories using dashcam videos [13]. Anomalous trajectory is predicted in [13] by curtailing static features to avoid complexity and interference with dynamic features; hence, structural AP features in the road-scene are not taken into consideration in such proactive systems. In [14], satellite and airborne remote sensing images are used to analyze road safety. However, the satellite images must be downloaded by the vehicle from the data server, which is constrained by real-time availability and internet dependency. Moreover, if road-built AP features are identified in the overhead/top view of the urban physical environment, the driver might find it difficult to identify the same features in planar view observed while driving. Therefore, in addition to accident prediction, it is important to identify and highlight features that can cause accidents in the driver’s view.
+With the advent of web map services, street-level imagery tools of urban physical environments are readily accessible. These street images contain the fine gradient urban details captured from the earth’s surface perspective similar to the viewpoint of drivers. These details include views of neighboring facilities and amenities, house facades, signs, and roads. Street view images also capture the road layout of the streetscape [15]. Therefore, this modality is effective to understand human dynamics in socioeconomic environments and to extract AP features that can be informative to drivers. Leveraging the advantages of street view imagery, studies have been conducted to classify urban elements [16]. Features of urban structure are learned by convolutional neural networks (CNNs) for classification of street-level images [17], streetlevel mobility prediction [15], street level accessibility [18], building classification [19], road-scene vehicle detection [46], and investigating land-use [20]. For architecture modification to beautify urban spaces, generative adversarial networks are used with street view imagery [21].
+Low level features in street view images associated with a higher probability of accident occurrence can be of different size, position, and texture, with no distinct boundaries. These
+
+features emerge from textures, colors, and gradients in images and can be a part of AP features. AP features are rather intuitive than discreet for human understanding e.g., the road space where the field of view is occluded by big vehicles. Also, complex parts of an image consisting of main road areas along with adjoining streets near a park or road areas prone to jaywalking from where pedestrians or vehicles may merge to the main road can be AP features. In [22], an unsupervised learning technique is used, using satellite images to extract design features at intersections and which are then classified to find specific design features of an accident-safe road. The complexity of linking these low-level features, within a given image, to accident proneness is rather intuitive. Therefore, to develop a robust AP feature detection system, AP features must be learned from actual hotspots in an automatize fashion for the city of interest.
+To achieve this, we propose a model that is trained to classify a given urban scene into an accident hotspot or a non-hotspot (area of sparse accident occurrence). We then identify the features (portions of images) using class activation maps (CAMs) that lead to a scene-view to be classified as an accident hotspot. Those portions can be taken as AP features. The proposed novel attention mechanism that makes the attention maps and attention vectors in the training process weigh the spatial, channel and point features. This attention-based activation can characterize the target area more appropriately. Traditional CNN are first used to extract low-level features. Different attention maps based on these features are then used to activate only important features. This attention-based selection of features reinforces traditional CNN features to improve distinguishing high-level contextual features as accident-prone for an accident hotspot class of scene-view images.
+Overall, in this paper, an attentive driving scheme that identifies AP features in urban scenes is proposed. Our attentive driving scheme makes use of CAMs for the feature extraction in conjunction with the CNN based attention model. Our model is trained with a dataset of street view images created from data provided by web map services and can be used in real-time for classifying street view images obtained from a dashcam. CAM is used to understand the classification result by highlighting the relevant portion of an image. A visual notification layout is presented for notifying the detected AP features to the driver using an HUD.
+The main contributions of this work are as follows.
+• This work firstly introduces the use of ground level AP features extracted from street view images for proactive prevention of driving accidents by visual notification in an HUD. To identify AP features, a methodology that combines a large database of real-accident records and street view images is established.
+• Explicit and accountable accident-prone regions of given street view images are obtained by CAM methods using features detected by a novel attention module that is a part of the classifier trained to detect accident hotspots. Point, channel, and spatial attention maps are generated to activate the relevant low-level features for improved high-level features.
+
+Authorized licensed use limited to: Politecnico di Torino. Downloaded on May 09,2025 at 07:38:49 UTC from IEEE Xplore. Restrictions apply.
+
+MISHRA et al.: SENSING AP FEATURES IN URBAN SCENES FOR PROACTIVE DRIVING AND ACCIDENT PREVENTION
+
+9403
+
+• A detailed analysis shows that the proposed method can classify a given area into an accident hotspot with an accuracy up to 92%, as compared to 78% obtained using satellite images only [14]. An ablation study to evaluate the relevance of detected AP features was also conducted. The ablation of AP features shows that removing only 9.6%, on average, of the total area in an image containing AP features increases the chance of a given area to be classified as a non-hotspot by up to 21.8%. Therefore, AP features detected by the proposed scheme can be considered as important clues to avoid accidents.
+• A novel visual layout design methodology for an attentive driving scheme based on visual notification in an HUD is presented through simulations. To show the viability of the proposed notification system, saliency maps of visual-gaze attention are drawn using [39]. A comparative analysis of the ratio for intersection of saliency map shows that the AP features selected by the proposed model are the ones with the least visual-gaze attention by the driver.
+Remainder of this paper is as follows. Section II reports relevant literature. Section III outlines the methodology for data collection and training CNN models to identify AP features. In Section III, a methodology for the visual attentive driving is presented. Section IV presents effectiveness of different CNN classifiers and utilization of CAMs combined with the image processing pipeline along with a MATLAB simulation of visual notification. Section V discusses the limitations of data collection and the lack of analytic metrics of post-hoc method that don’t requires changes in original image data distribution. Finally, section VI concludes this work.
+II. LITERATURE REVIEW The occurrence of accidents is influenced by several factors such as driver’s behavior, missing traffic signs, vehicle type, speed, traffic conditions, weather conditions, and road-built structures [12]. Road-scene views and road-built structures are prominent factors of accidents that can be captured when analyzing street view images [11], [23], [24]. Given historic accident data collected and maintained by different city council agencies, it is possible to determine accident hotspots in cities, i.e. locations with dense occurrence of accidents. In previous literature, various clustering algorithms have been proposed and deployed to identify hotspots, including the K-Means algorithm [69], Poisson-Tweedie algorithm [26], Bayesian algorithm, Firefly clustering algorithm [27], Kernel Density Estimator, and DBSCAN algorithm [28]. In this paper, because of its effectiveness proven in similar applications [29], the DBSCAN algorithm is chosen for identifying accident hotspots [2], [28], [30]. Accidents that are members of a cluster are classified as events that occur in a hotspot and the events which do not belong to any cluster are marked as events in a non-hotspot. Based on the location of hotspots and non-hotspots, street view images are gathered and an attention-based module is combined with a CNN backbone for training a hotspot/ non-hotspot binary classifier. Various CNN architectures have
+
+been proposed in the literature. In [31] an image classifier, a very deep convolutional network architecture, VGG16 of the visual geometry group is proposed to extract features at low spatial resolution. Squeezenet, a resource-efficient deep neural network with fewer parameters, thus fitting into less memory without sacrificing accuracy, is proposed in [32]. DenseNet proposes a feed-forward connection of each layer such that feature maps of all previous layers are used as inputs of the next layer [33]. Resnet-18 is proposed to skip connections to eschew vanishing gradients and accuracy saturation in deeper architectures [34]. These established CNN architectures have proven performance in various image processing challenges.
+To identify which features, detected from CNN backbones, should be given more importance for a given image, attention mechanisms [65] might be crucial. Attention applied on point, spatial, and channel levels stimulate the detection of important low-level and high-level features. To leverage the use of attention mechanisms to generate more contextual features, we propose a module with channel-wise, spatial-wise [66], and point-wise attention [67]. The proposed model is added to a pre-trained CNN backbone to create the architecture for the classification task considered in this paper. Refining pre-trained models has been leveraged in previous research to train CNNs using street view image datasets [15], [19], [20]. Similarly, in this paper, due to the limited size of our dataset, we use a pre-trained CNN backbone to train our binary classifier.
+Recently, various post-hoc explainable methods have been proposed (CAMs [37], IG [62], LIME [63], SHAP [64]). In our work, we chose to investigate CAMs as they are prevalent in previous studies when combined with CNN architectures. CAMs highlight regions in images that contain features affecting the decision taken by the classifier [37]. Different CAM methods lead to different regions being highlighted as important features for the decision. Gradient-weighted CAM GradCAM++ leverages gradient information of the specific target class to compute the target class weights of each feature map in the last convolution layer of the CNN architecture [36], [37]. Analysis of AP features is performed using three types of previously well-established CAMs: GradCAM [36], GradCAM++ [37], and ScoreCAM [38].
+III. METHODOLOGY Figure 1 shows the entire visual notification system including CNN, CAM, the image processing pipeline for feature selections, and visual notification for an HUD on the windshield panel of a vehicle. This section explains the details of the visual notification system. Here, we first describe the methodology to identify AP features. Hotspots are identified based on historical real accident data, as street view images are collected for hotspots, and additional images are collected for non-hotspots to obtain a balanced dataset. Next, we present how the CNN backbone is combined with an attention module to create the proposed architecture and CAM methods for detecting AP features. This section presents the methodology and layout for the visual notification.
+
+Authorized licensed use limited to: Politecnico di Torino. Downloaded on May 09,2025 at 07:38:49 UTC from IEEE Xplore. Restrictions apply.
+
+9404
+
+IEEE TRANSACTIONS ON INTELLIGENT TRANSPORTATION SYSTEMS, VOL. 24, NO. 9, SEPTEMBER 2023
+
+Fig. 1. Visual notification for attentive driving.
+
+Fig. 2. Location of accident hotspots and non-hotspots obtained by using the New York city dataset. Areas without accidents can also be classified as non-hotspots.
+
+A. Detection of AP Features by Deep Learning Models
+1) Accident Hotspot Identification Using Real Accident Data of New York City: Accident data from 2017 to 2021 provided by the department of transportation (DOT) of New York city is used for analysis of motor vehicle collisions, as in [60]. All the accident cases are considered in the analysis. The severity of accidents is not considered, so all the metadata is dropped except for the location information (latitude, longitude) of the accident event. The total number of accident entries in the dataset are 775,443 and cover a vast area with diverse urban structures and views.
+The DBSCAN algorithm is used for clustering accident data according to location and requires two hyperparameters: epsilon and minPoints. Clusters are represented as hotspots. The epsilon represents the radius of the circle considered around each data point to check if the density inside the circle and minPoints represents the minimum number of data points required inside that circular region to be identified as a cluster. For finding the optimal epsilon value of the DBSCAN algorithm, the K-Distance graph is used. The optimum epsilon value is the maximum curvature in the K-Distance graph and taken to be 0.0003. The approximate metric equivalent for 0.0001 latitude degree is 11.1 meters, so for 0.0003, the center of the cluster is anywhere within about 60 meters. For minPoints, an empirical value of 50 is taken, meaning that at least 50 accidents should happen for a location to be considered a hotspot. In the New York city data, using these values for the hyperparameters, 2549 clusters (hotspots) are obtained. For accident event entries that are not a part of a cluster, the DBSCAN algorithm marks them as noise using the label ‘-1’ and are considered non-hotspots which accounts for 527,074 accident events.
+2) Collecting Street View Image Data for Training Classifiers and Identifying AP Features: To identify AP features, street view images of hotspots and non-hotspots are necessary. Images of non-hotspots are required as samples of a negative
+
+class to balance the dataset used for training. To capture street images, the Google Street View API [61] is used. The Google Street View API provides street view imagery as a service with a free quota for the use of API. The images returned from the Google street view API are panoramas with unique IDs. Images can be retrieved by the location coordinate or by the corresponding panorama ID and an angle of view. For an image of a location, the street view image covers an angle of view of approximately 120 degrees. As per availability, the same panorama is returned by the API if two locations are close. The location of the center of a hotspot is defined here as the average location of the event entries in a cluster. The spread of accident events around the center of a hotspot is limited approximately within the circle of a 60 meter radius. The center location is used for the collection of street view images of the corresponding hotspot. The images are captured in a way to cover roadsides as well as the roadway; therefore, two images are collected for a given location to build the training data: one for +60 degrees and another for -60 degrees set as the angle of view. The size of street images retrieved from the API is 640 × 640 pixels. A total number of 5,088 images belonging to hotspots are collected. For non-hotspot images, the location of accident events occurred outside any cluster, and thus labeled as noise by the DBSCAN algorithm. A total number of 4,908 image samples corresponding to non-hotspots are used to make a balanced image dataset. The considered hotspots and non-hotspots are presented in Fig. 2.
+3) Image Classification Using a CNN Backbone Combined With an Attention Based Module: Deep learning models, such as CNNs, have achieved breakthrough results while eliminating the need to manually design important features for different tasks such as communication channel access [35], [44], power grid operation [40], robotic control [41], and operation of sensor network [72]. CNN models learn visual features that are used to understand an image by utilizing stacked layers of convolution operators and pooling layers to get semantic
+
+Authorized licensed use limited to: Politecnico di Torino. Downloaded on May 09,2025 at 07:38:49 UTC from IEEE Xplore. Restrictions apply.
+
+MISHRA et al.: SENSING AP FEATURES IN URBAN SCENES FOR PROACTIVE DRIVING AND ACCIDENT PREVENTION
+
+9405
+
+TABLE I
+ABLATION STUDY FOR ABM ARCHITECTURE WITH DIFFERENT CNN BACKBONES. DIFFERENT ARCHITECTURES OF ABM ARE PROPOSED FOR STUDY-(a) WITHOUT ABM (ONLY CNN BACKBONE) (b) ABM HAVING ONLY (SA, PA) COMPONENTS AT THE FINAL OUTPUT (c) ABM HAVING (SA, PA, SKIP-CONNECTION) COMPONENTS AT THE FINAL OUTPUT (d) ABM HAVING ALL (SA, PA, CA, SKIP-CONNECTION) COMPONENTS AT THE FINAL OUTPUT
+
+Fig. 3. Attention-based module (ABM).
+interpretation. The complexity and interpretation of automatically extracted features evolve layer by layer. The initial layers in a CNN architecture learn low-level features while the final layers in deep CNN architectures learn high-level features for classification [42]. Here, to further characterize these learned features we combine a CNN backbone with an attention-based module (ABM).
+The ABM selects regions of the feature vector with the goal of extracting the most significant features while suppressing the insignificant ones. Inspired by [65], [66], and [67] the ABM (Fig. 3) includes a spatial-wise, channel-wise, or pixel (or point)-wise attention block, which extract relevant contextual information from different levels of abstraction. Channelwise attention (CA) computes the attention map by exploring the inter-channel relationship among the input features to highlight distinguishable information in different channels. The spatial-wise attention (SA) map is generated by exploring the inter-spatial relation among features. Relevant and similar features across the channel will be highlighted regardless of a long-range spatial gap. Pixel-wise attention (PA) explores each pixel based on its local information. Each module concentrates on identifying relevant features for the task at different levels of abstraction. As shown in Fig. 3, PA is directly given at the
+
+output; however, CA features are used to generate SA features. A skip connection from the output of the CNN backbone to the output is also included to preserve low-level features. A detailed study (TABLE I) on the proposed architecture is performed for the binary classification tasks of recognizing hotspots. The best architecture (case (c) in TABLE I) is selected, as presented in Fig. 3.
+For improved intuition on the ABM architecture, let us assume an input feature map Fin∈RH×W×C generated from the backbone CNN where H, W, and C represent the height, width, and channels, respectively. For channel attention, spatial information is aggregated by performing global average and
+global max pooling on the height and width axes to generate
+Facvg ∈ R1×1×C and Fmc ax ∈ R1×1×C, respectively. Both Facvg and Fmc ax are element-wise added and then passed to a shared network comprised of a multi-layer perceptron (MLP) with one hidden layer of dimension R1×1×C/n and ReLu activation function, where n is the compression ratio. Finally, the output of the MLP is passed through a sigmoid activation function σ (.) to generate the channel-wise attention map Ca ∈ R1×1×C , as shown in (1). The (CA) is then calculated using point wise multiplication of Ca with Fin, as in (2).
+
+Ca (Fin ) = σ MLP Fmc ax + Facvg
+
+(1)
+
+C A = Ca (Fin ) ⊗ Fin
+
+(2)
+
+F′ = B N (Conv1∗1 (C A))
+
++ B N (Conv3∗3(C A)) + B N (Conv5∗5 (C A)) (3)
+
+V = σ Conv7∗7 ReLu Conv3∗3 F′
+
+(4)
+
+Next, using CA for spatial attention two parallel varied
+receptive field (V-RecField) features of a block are concatenated to give RH×W×C/2. Two parallel blocks help learning
+
+Authorized licensed use limited to: Politecnico di Torino. Downloaded on May 09,2025 at 07:38:49 UTC from IEEE Xplore. Restrictions apply.
+
+9406
+
+IEEE TRANSACTIONS ON INTELLIGENT TRANSPORTATION SYSTEMS, VOL. 24, NO. 9, SEPTEMBER 2023
+
+Fig. 4. Generic layer-wise architecture of the deep-learning model for classification of hotspot and non-hotspot images.
+
+variations of the same features. In the V-RecField block for varying receptive field, three different kernel sizes of convolution are used along with a batch-normalization layer, as shown in (3). Furthermore, the feature F′ of the V Rec-
+Field block is convolved twice by using a ReLu activation in between. Finally, the V-RecField block outputs V after passing through sigmoid activation, as in (4). The concatenated feature vector (V1; V2) is convolved again and passed through sigmoid activation to obtain a spatial attention map Sa ∈ RH×W×1 , as in (5). Spatial attention (SA) is then calculated using point wise multiplication of S2 with Fin , on each channel C, as in (6).
+
+Sa(CA) = σ (Conv3∗3 (V1; V2))
+
+(5)
+
+S A = Sa(CA)⊗Fin
+
+(6)
+
+For point attention features, the input Fin is convoluted twice Conv11×1 and Conv21×1) with an ReLu activation in between. The output of Conv12×1 is passed through a sigmoid activation to generate the pixel-wise attention map Pa ∈ R H×W ×C , as in (7). Pa is then element-wise multiplied with Fin across the spatial and channel axes to generate point attention across the spatial and channel axes to generate the
+point attention feature (PA), as in (8). The final output of the
+ABM block is Fout , as in (9).
+
+Pa = σ Conv12×1
+
+(7)
+
+P A = Pa (Fin ) ⊗ Fin
+
+(8)
+
+Fout = Fin + P A + C A + S A
+
+(9)
+
+ABM combined with a CNN backbone is used for classification using the collected image dataset. After obtaining the output from ABM, a fully connected multi-layer perceptron with two outputs is set as the final layer to give a normalized probability score of the two possible classes, hotspot and non-hotspot, using a Softmax layer, as shown in Fig. 4. To identify the input image class, the output of the Softmax layer taking maximum probability is taken as the output class, i.e., maximum probability corresponds to a hotspot or non-hotspot. The CNN backbone is pre-trained for the 1,000-class Imagenet dataset [58] image classification task. These pre-trained models can extract important features for tasks of object identification in images and require less training time with better generalization and a smaller chance of overfitting problems when compared to training the entire network from scratch.
+4) CAMs for Sensing Visual AP Features: Visual features associated with an accident are complex and subtle enough to differentiate manually. Identifying static and dynamic features of urban cities and connecting them to an accident have been proven difficult. For example, as a dynamic feature, the road
+
+area just behind large vehicles like buses or trucks can act as an accident feature, because the driver’s field of view gets occluded. As another example, a wide curve that allows dangerous high-speed driving behavior or a steep curve that is obstructing road view can be static AP features. If these features are identified in real-time by a sensing system and notified to the drivers as hotspots, accidents can be prevented.
+Although these features are difficult for humans to identify, deep-learning models are able to identify complex associations of low-level and high-level features [42]. Therefore, if the decision on classification by the CNN is known, the features that led to that decision can be analyzed. To analyze the features associated with the CNN classification, CAMs can be used. CAMs are particularly useful to understand the black-box nature of the prediction made by a deep learning model. The CAM represents the weighted sum of high-level features used to identify regions of an image that are being used to identify a given class. Usually, the high-level features considered in the CAMs are those corresponding to the weights of the last convolution layer of the CNN architecture, e.g., the layer before the fully connected layer used for classification. For different CAMs, the weights are considered differently for different features. The CAM-based methods have proven to be viable for understanding and interpreting the model classification in several tasks [45]. In this paper, different CAMs are studied to identify visual AP features that led to the classification of an image as an accident hotspot. These features are processed and displayed in an HUD located in the windshield panel for the driver using the visual notification system.
+5) CAM and Related Image Processing: For accident prevention, notification of every feature highlighted by the CAM methods to the driver is not relevant. For example, in Fig. 5(a) the building is highlighted as one of the features responsible for the image to be classified as a hotspot. In a way, it might be logical as multi-story buildings attract vehicles and pedestrians, leading to an accident. However, this building is not as useful as roads and roadsides to drivers for attentive driving. Therefore, to crop these features, we applied traditional image processing as graphically described in Fig. 5 along with the description of each sub-figure. Using traditional image processing techniques available in the OpenCV library, a pipeline to remove features selected by the CAM method in the upper part (300∗640 size) of each original image (640∗640 size) is made, because that part of the image hardly consists of roads and their related features. In the lower 280∗640 part of each image, the features selected by the CAM method are surely related to the road and adjacencies and therefore should be selected by the system. Features contained in the region between the upper part (300∗640) and lower part (280∗640) of the image, i.e., 60∗640 size, are selected, only if some part of the features also lie in the lower part. Therefore, in the image processing pipeline after thresholding the CAM map distance transform for generating a distance map in relevance to the object in question [47], and the watershed algorithm for segmentation purposes [48] are applied for feature selection. Finally, the contours are drawn according to the selected features on the original image. The contours
+
+Authorized licensed use limited to: Politecnico di Torino. Downloaded on May 09,2025 at 07:38:49 UTC from IEEE Xplore. Restrictions apply.
+
+MISHRA et al.: SENSING AP FEATURES IN URBAN SCENES FOR PROACTIVE DRIVING AND ACCIDENT PREVENTION
+
+9407
+
+Fig. 6. (a) Projector/laser positioned for projecting on the windshield panel, and (b) usage of a homography matrix (H) for calculation of projection points due to center misalignment of the projector.
+
+Fig. 5. (a-i) Image processing pipeline for selective choice of CAM highlighted features, and (j) Block diagram of image processing pipeline, pointing each step as shown in (a-i).
+are to be displayed in the HUD as a part of the visual notification.
+B. Attentive Driving Scheme Based on Visual Notification 1) Layout of Visual Information: For visual notification,
+various types of HUDs have been deployed commercially. These systems span from augmented reality wearables to head-mounted displays and from full-fledged windshield HUD to a dashboard display [3], [4]. Wearable and head-mounted displays put excess pressure on the psychology of drivers as long-route drivers are not acclimated to it. On the other hand, the HDD forces drivers to remove their gaze from the road for looking at the small dashboard screen [3]. An HUD seems to be a viable solution for layout of visual notification information. However, adding a full windshield panel HUD can significantly raise a vehicle’s price. Also, modification of a windshield HUD is a convoluted process for vehicles already in use.
+
+For approved mass adaptation, a simple low-cost real-time solution borrowing the design method from established projection systems like an electricity light machine organization (ELMO) projector is needed [49]. The ELMO projector uses the occlusion of light rays with translucent screens to fuse virtual and physical world images. Similar to the ELMO projector, a zoomable HUD with an integration of holographic and geometrical imaging has been proposed [50]. Based on the same methodology, the projector can be placed at one side of the front dashboard inside the vehicle, as shown in Fig. 6(a). Light from the projector gets occluded by a translucent windshield and the windshield acts as a projection screen. However, the intensity of projecting light must be tuned such that the outside view is still clear to the driver. As the projector is not aligned to the center of the projecting screen, a homography matrix (see (H) in Fig. 6(b)) is calculated and used to find the correct projection area [51] according to the setup of different vehicle models.
+2) Visual Notification System: Presentation of visual notifications based on screen placement has a vital impact on the driver’s psyche and, thus, on the system’s usability. In this paper, a projection-based visual notification system is designed using the vehicle’s windshield panel as a screen. The windshield glass obstructs the projected light and behaves as the notification screen. While driving, the driver’s gaze can be dynamic with focus adjustment to see different entities. Also, the driver has a degree of movement in the driving seat that allows for head movements. To analyze a complex road scene that is more susceptible to accidents, the driver’s gaze changes rapidly while the head is comparatively stable; therefore, it is viable to only consider the driver’s head movements and let the driver have the freedom to choose their gaze while checking for visual information on the projection screen. A windshield patch for POI is used as the notification pattern, e.g., creating patches over AP features in hotspots. The windshield patch is defined as the contour drawn on the windshield panel at the point of intersection of the line joining the driver’s forehead coordinate in the direction of the POI region. Given the geometry of the windshield, bearing angle of the POI, and forehead coordinate of the driver, as shown in Fig. 6 (a), the windshield patch intersection coordinate (Xi , Yi , Zi ) can be calculated with respect to reference coordinate (Xr , Yr , Zr ) and origin (Or ), as presented in [4].
+To find the patch on the windshield, the coordinates of the driver’s forehead and bearing angles of the POI must be detected. To this end, a camera capable of depth-sensing, Kinect v2, is used. Kinect v2 is commercially available
+
+Authorized licensed use limited to: Politecnico di Torino. Downloaded on May 09,2025 at 07:38:49 UTC from IEEE Xplore. Restrictions apply.
+
+9408
+
+IEEE TRANSACTIONS ON INTELLIGENT TRANSPORTATION SYSTEMS, VOL. 24, NO. 9, SEPTEMBER 2023
+TABLE II EVALUATION METRICS FOR DIFFERENT CNN BACKBONE
+MODELS (FC = FULLY CONNECTED)
+
+that of the New York city. This is verified in previous literature for different applications using street view images [15], [19].
+
+Fig. 7. (a) Coordinate geometry system presentation for POI (region containing AP features) and driver’s forehead. (b) Hardware setup for the camera (bearing sensor), Kinect v2 (driver head coordinate sensing) and laser projection for the windshield as a notification screen.
+hardware that uses RGB cameras along with infrared projectors and detectors to measure depth by time of flight sensing technology for measuring back and forth time of receiving emitted IR light when scattered from an object. An implementation of an algorithm for forehead coordinate tracking is available at [52]. The bearing angle of the centroid of the areas with an AP feature must be calculated. For that, a camera capturing the road view is used as a bearing sensor with known camera parameters such as perspective angle and resolution at the plane coordinated by x and y. Angles formed by the centroid of POI (POI in Fig. 7(a)) with respect to the camera, i.e., αx and αy in Fig. 7(a), are calculated as in [53] and [54]. The hardware setup along with coordinate geometry is presented in Fig. 7. The camera and the Kinect v2 are assumed to be in the same position (see, Fig. 7(b)).
+3) System Design: In real-time, the system must access the vehicle GPS, the image from the camera, and the Kinect v2, while also having the accident hotspot database in the system’s computer. The system checks the GPS data of the vehicle iteratively to identify the current location. The system checks if the vehicle is near a hotspot by comparing the distance between the current vehicle position and the location of hotspots stored in the database. If there is any hotspot within 200 meters of the vehicle’s current location, the system will switch to the mode for AP features detection. Accordingly, the windshield patch for notification is calculated based on the centroid of the enclosed accident-feature as POI areas. Also, as training data captured the high variability of an urban view, classification of accident hotspots and non-hotspots for structurally similar urban cities will have similar efficacy as
+
+IV. SYSTEM EVALUATION AND ANALYSIS
+A. CNN Classifier
+1) Environment Setup: To train the classifier, the entire dataset is randomly partitioned into training (70%), testing (20%), and validation (10%) subsets. Google street view images are resized to 224 × 224 pixels to match the input size of the pre-trained models used in the transfer learning process. In addition, normalization of the images is performed as per the requirements of pre-trained models. Each model is trained for 500 epochs with a batch size set to 8 in two possible training configurations for the analysis presented in TABLE I. In one configuration, the entire model is trained to re-calibrate the initial weights of the backbone CNN, while, for another, the backbone weights are fixed and only the weights of the last fully connected layer are trained. Binary cross-entropy is used as the loss function for training. The optimizer in the training process is the stochastic gradient descent (SGD) with momentum, using hyperparameters set as 0.001 for learning rate and 0.9 for momentum. The training was performed on a Windows machine configured with a GeForce RTX 1080 GPU and 32 GB RAM. The average training time for the models was around 4 hours.
+2) Training and Model Evaluation: Four CNN models were used for the experiments: SqueezeNet, VGG16, ResNet-18, and DenseNet. In TABLE II, the accuracy, precision, recall, and F1 score are enlisted for two instances of training for each architecture. When all the weights of the CNN models are trained, specific AP features can be learned by the convolution layers. However, using only the last layer, which is the fully connected layer, the features used are similar to the ones learned for the Imagenet object classification dataset. Also, this accuracy difference in both training methods highlights the fact that AP features may not only be related to simple object classes but also the subtle complex linking of low-level features that occurs due to the interaction of different object classes in an image. Among all the CNN backbone models, the DenseNet (with all trainable weights) gives the best result. The models, VGG16 ResNet-18, DenseNet, and SqueezeNet, have a model size of 512 MB, 43MB, 27MB, and 2.82 MB, respectively. For vehicles with constrained memory capacity, SqueezeNet seems the most suitable, following
+
+Authorized licensed use limited to: Politecnico di Torino. Downloaded on May 09,2025 at 07:38:49 UTC from IEEE Xplore. Restrictions apply.
+
+MISHRA et al.: SENSING AP FEATURES IN URBAN SCENES FOR PROACTIVE DRIVING AND ACCIDENT PREVENTION
+
+9409
+
+Densenet. Also, the attention-based module with the CNN backbone, when trained with different configurations as listed in TABLE I, Densenet-ABM shows the highest accuracy. For identifying AP features using CAM methods, the trained CNN models in this section are utilized. The trained models can also be used for city-wide inspection to find accident-prone intersections and take proactive design measures accordingly [55].
+Further analysis was performed by applying the trained model for a different urban city. Accident data collected for Austin Texas, US, from 2017 was used with 250,778 accident events. Clustering for finding hotspots and non-hotspots was performed similarly as for the New York City dataset. For the clusters obtained, 1470 images of hotspots and 1424 images of non-hotspots were collected using the Google Street View API. The results for the collected images were inferred using the CNN backbone classifier trained with New York City images. The highest accuracy obtained for the images of Austin is 0.758, as compared to 0.905 with the images of New York City, as shown in TABLE II. This difference in accuracy can be explained mainly by the variation in the cityscape of the cities of Austin and New York. The cityscape of Austin is mainly composed of open fields and green space, while the cityscape in New York is mainly composed of buildings and urban structures. Therefore, before applying a trained model for a target city, pre-analysis is required to verify that the training data is similar to the target cityscape. Nonetheless, the CNN backbone-based models trained with the New York city dataset demonstrated usefulness even with a city of a somewhat different cityscape.
+
+B. Accident-Prone Features Visual Sample Analysis
+
+A good explanation map of CAM for a given class should highlight the regions that are most relevant for the prediction of that class. For quantitative evaluation of the detected AP features, we studied the change in confidence between the setting when the full images are provided as input and when only images from which the explainable parts identified by CAM are cropped. It is expected that removing the explainable parts identified by CAM from the image will reduce the confidence of the model in its decision for that class when compared to its confidence when the full image is provided as input. The output of the Softmax layer in the model responsible for classifying a given class is used as the confidence metric. The reduction in confidence is expected because of both removing parts of the image (reducing the context) and removing explainable parts of an image for a given class. Therefore, the more the confidence “Change”, the better. The confidence change metric is given as (10),
+
+Conf. Change Percent =
+
+N Yia − Oia
+
+i =1
+
+Yia
+
+∗ 100 (10)
+
+where Yia is the ‘model’s output score (confidence) for class ‘a’ on the ith image and Oia is the same model’s confidence in class ‘a’ giving an image as input from which the explainable
+parts are cropped. The image illustrations for different metrics
+are shown for a given sample in the supplementary material.
+
+TABLE III AVERAGE VALUE OF CONFIDENCE FOR DIFFERENT MODELS IN COMBINATION WITH DIFFERENT CAM METHODS AFTER APPLYING THE IMAGE PROCESSING PIPELINE (ROW-WISE LOWEST VALUES
+ARE HIGHLIGHTED IN BOLD FOR COLUMN 3,4, AND 5)
+This value is computed per image and averaged over the entire dataset. Therefore, for analysis, among the images of areas which are classified by the ABM models as the “hotspot” class, 70 images are randomly selected for further analysis. Details regarding the selected images are visualized in the supplementary material. For analysis, the accident-prone features identified by CAM methods as well as the image processing pipeline are cropped from the original images and the “Conf. Change percent” is obtained; therefore, the effect of accident-prone features on the result of classification can be evaluated. In the next stage of the analysis, the type of objects corresponding to AP features is obtained. From the result, the main type of objects acting as AP features are identified and analyzed.
+The confidence Yia (in percent) is calculated and its average value is tabulated in the first column of TABLE III with the label “original”. A similar metric as the one used in this work is also adopted in [56] for risk factors of injury severity of a driver. For understanding the relevance of the AP features selected by different CAM methods, Oia (in percent) is calculated for images from which the selected highlighted parts of the CAM, after image processing, are cropped. The explainable parts are replaced by black color patches of the same shape. As expected, the value of Oia is noted to be smaller than the value of Yia. The results obtained with different combinations of three different CAM methods and models as CNN or ABM with different CNN backbones are tabulated in TABLE III.
+For the area selected by the CAM method, desired metrics include a high confidence score and a smaller highlighted area. The smaller highlighted area is desired as it attracts the driver’s concentration on a specific area more than a wide area in the driver’s field of view. The average fraction of the area covered by selected features of different combinations of CNN model and CAM method, after image processing, is presented in TABLE IV. The highest confidence (probability) change (23.58%) is for Squeezenet with GradCAM++ selecting 8.34% of the area to be cropped, on average (Italic in TABLE III and IV). However, if the confidence score is analyzed, it is seen that Squeezenet-ABM obtains 98.14% when compared to Squeezenet (93.1%). This shows that Squeeze-ABM produces more certain AP features. Also, Squeezenet-ABM along with
+
+Authorized licensed use limited to: Politecnico di Torino. Downloaded on May 09,2025 at 07:38:49 UTC from IEEE Xplore. Restrictions apply.
+
+9410
+
+IEEE TRANSACTIONS ON INTELLIGENT TRANSPORTATION SYSTEMS, VOL. 24, NO. 9, SEPTEMBER 2023
+
+TABLE IV
+AVERAGE VALUE OF CROPPED IMAGE PORTION WITH RESPECT TO ORIGINAL IMAGE AFTER APPLYING THE IMAGE PROCESSING PIPELINE
+(ROW-WISE LOWEST VALUES ARE HIGHLIGHTED IN BOLD FOR DIFFERENT CNN ARCHITECTURES)
+
+to deal with contextual features, other metrics, as reported in
+
+Column 3 [43], 4 [59], and 5 [59] of TABLE V, have been used
+
+in previous studies. These metrics use different variations of
+
+images from which explainable parts are cropped. The cropped
+
+parts are replaced by different values rather than a black patch
+
+of the same shape. The details for the various changes for
+
+a given sample, as used in different metrics, can be seen in
+
+the supplementary material. Therefore, the confidence of these
+
+images with explainable parts cropped and filled with varied
+
+values,
+
+as
+
+per
+
+the
+
+details
+
+for
+
+these
+
+metrics,
+
+can
+
+be
+
+taken
+
+as
+
+O
+
+′a i
+
+from the same model for class ‘a’. After analyzing the values
+
+of different metrics in Columns 3, 4, and 5 of TABLE V, it can
+
+be seen that Squeezenet-ABM with GradCAM provides better
+
+values for the desired confidence change.
+
+TABLE V
+DIFFERENT METRIC FOR CAM MAP OF THE TWO BEST CONFIGURATIONS: (1) SQUEEZENET WITH GRADCAM++ (2) SQUEEZENET-ABM WITH GRADCAM. FOR THE METRIC IN THE SECOND COLUMN, LARGE VALUES ARE BETTER, AND FOR OTHER COLUMNS, A SMALLER VALUE IS BETTER. THE BEST VALUES ARE HIGHLIGHTED IN BOLD ACCORDINGLY
+
+CAM Confidence Change =
+
+N i =1
+
+Eic − Yic
+
+100
+
+(11)
+
+Increase in Conf. = 1 if 0 < (Eic − Yic),
+
+else 0
+
+(12)
+
+Conf. Change =
+
+N i =1
+
+Oi′c − Yic
+
+(13)
+
+GradCAM has a 9.61% cropped area on average with 1.8% confidence change (Italic in TABLE III and IV). Although for Squeezenet-ABM with GradCAM, when compared to Squeezenet with GradCAM++, the cropped area is greater with lesser confidence change, but a better confidence score leads to a more certain choice for AP feature selection. Based on this analysis, we suggest that the best combination of the model and CAM method is the Squeezenet-ABM with GradCAM.
+Apart from the aforementioned metrics there are additional metrics prevalent in the literature when evaluating the output given by CAM [43]. To further evaluate the features detected by CAM, additional experiments were performed for the two best models (SqueezeNet with GradCAM++ and SqueezeNet-ABM with GradCAM). Results are shown in TABLE V. For Column 2 [37] in TABLE V, the metric is defined using the image with only explainable parts, as highlighted by CAM maps. If Eia is the model’s output score (confidence) for class ‘a’ on the ith image with the explainable part only, then the CAM confidence change (in percent) is given by (11). However, this metric is not highly relevant for AP feature evaluation, as these features are highly contextual (related to the full image) and cropping out the explainable part of the image with about 7-10% of the original image area will discard that contextual information. Therefore,
+
+Further scene analysis for identifying different object types is done at the pixel level in the area highlighted by the CAM method. To detect the objects in the highlighted area, after cropping the area using an image processing pipeline, a DeepLabV3 model [57] pre-trained with the Cityscape dataset is used. There is a total of 19 possible object types for which pixel-wise labeling is performed. Considering portions of individual object types in the entire area of full images, the average percentage of the cropped area taken by roads, cars, sidewalks, buildings, sky, and vegetation are 38.1, 3.5, 2.0, 22.1, 24.2, and 5.3, respectively, and all other types contribute less than 1% each. In most cases, most of the pixels (regions) highlighted by the CAM methods are classified as roads, cars, and sidewalks. Since most traffic lights and the sky portion are located in the upper half of images, they are cropped by the image processing pipeline, thus leading to abrupt reduction of these objects.
+After a manual inspection of the highlighted parts of images and the corresponding pixel-wise class (object) labeling in the original image, it is observed that road pixels are usually detected near crosswalks, near buildings, and in road areas prone to jaywalking, such as steep ‘T’ shaped intersections with a low field of view. Dynamic objects such as cars, buses, and trucks are observed especially in situations in which they occlude the critical field of view of the driver. From this context, a pedestrian or a bicycle appearing suddenly in front of the driver and dynamic objects in these intersections are usually AP features. Samples of the AP features identified with green contours by using Squeezenet-ABM with GradCAM are presented in Fig. 8. Also, all 70 images along with the contour and AP feature are visualized in the supplementary material for configuration (1) Squeezenet-ABM and GradCAM, and (2) Squeezenet and GradCAM++.
+Next, to validate the proposed visual notification system, an analysis using saliency maps of each of the 70 images was
+
+Authorized licensed use limited to: Politecnico di Torino. Downloaded on May 09,2025 at 07:38:49 UTC from IEEE Xplore. Restrictions apply.
+
+MISHRA et al.: SENSING AP FEATURES IN URBAN SCENES FOR PROACTIVE DRIVING AND ACCIDENT PREVENTION
+
+9411
+
+Fig. 8. Samples of the highlighted area using Squeezenet-ABM and GradCAM.
+TABLE VI VISUAL SALIENCY FOR DIFFERENT MODELS AND CAMS. THE LOWEST
+VALUE IS HIGHLIGHTED IN BOLD
+
+Fig. 9. (a) Layout of visual information. (b) MATLAB simulation for POI and driver forehead.
+
+made following the methodology presented in [39]. A saliency map shows where a person’s gaze is mostly concentrated while looking the image of a road-view scene. The saliency mask is made by thresholding the saliency map at 100, in which the saliency map values vary from 0 – 255. A high value means more saliency for that pixel. For CAM, an AP feature mask for the output after image processing pipeline is used. The visual saliency is calculated as the percent ratio of the common area of the saliency mask and the AP feature mask to area of saliency mask, as shown in (14)
+
+Visual Saliency (VS) =
+
+N Sia ∩Cia
+
+i =1
+
+Sia
+
+∗ 100
+
+(14)
+
+where Sia and Cia are the saliency mask area and the CAM AP feature mask for the ith image, respectively. The less
+
+visual saliency indicates that the AP features by the CAM
+
+have less saliency. In TABLE VI, visual saliency (VS) for
+
+different models and CAMs are presented. The least VS is for
+
+Squeezenet-ABM and GradCAM; therefore, this configuration
+
+is best for visual notification by highlighting the image areas
+
+which are accident-prone, but usually not focused on by human
+
+drivers.
+
+C. Simulation for Analysis of Layout for Visual Information
+Given the driver forehead coordinates and the projection angle of the centroid of a POI (for a POI shown in Fig. 9(a, b)), windshield patch or point of intersection at windshield are studied using simulation by MATLAB. The POI, which corresponds to the forehead pose direction confined within the boundary of the windshield, is considered while the gaze of the driver outside the windshield is not. The setting
+
+in a real-world scenario is presented in Fig. 9(a) where the forehead pose direction (solid black line) is used to create green contours on the windshield with a green (+) sign as the intersection point of the line, between the forehead of the driver and the centroid of the POI, with the windshield. The forehead pose direction is calculated by using the line between the driver’s forehead coordinates and the POI. Three scripts were made: first for cases when the driver’s forehead position is fixed and the centroid of the POI position is mobile, second for the opposite of the first case, and third for when both are assumed to move. All variables are configurable in an input script, where the user can control the aspects of the simulation: the size of the windshield (L = width and h = height), the angle between the reference plan and the windshield plan (ϕ), the coordinates of the driver’s forehead (D), and the centroid of the POI position (αx and αy). In the simulation, the coordinates of the centroid of the POI are assumed, as shown in Fig. 9(b) by a red circle. For calculating the intersection point at the windshield panel, only projection angles (αx, αy) of the centroid of POI and the driver’s forehead coordinates are used. For notifications using the projector, a homography matrix [51] is used to find the intersection point of the windshield with respect to the projector position.
+V. LIMITATIONS
+In this section, limitations of the proposed methodology regarding the characteristics of google street images and the robustness of current post-hoc explainable methods are discussed. Concerning the generalizability of data collected from google street maps, the main limitations are two-fold. Firstly, the data collected is an image taken at a timestep that
+
+Authorized licensed use limited to: Politecnico di Torino. Downloaded on May 09,2025 at 07:38:49 UTC from IEEE Xplore. Restrictions apply.
+
+9412
+
+IEEE TRANSACTIONS ON INTELLIGENT TRANSPORTATION SYSTEMS, VOL. 24, NO. 9, SEPTEMBER 2023
+
+is not related to the moment of accidents. Therefore, the actors and the dynamics are not present in the image at the location of an accident. The recognition of accident-prone features in the proposed method is performed based on the road characteristics given in the image. However, this limitation will not have much impact on the AP features of dangerous road structure design as it is mainly objected for finding static rather dynamic features. Secondly, the images are usually taken at a specific time of the day, so that, the proposed system depends on an expansion of this dataset to handle different weather conditions and different times of the day. As another limitation, the metric for analyzing AP features (or post-hoc methods) needs the tested image to be modified and hence changing original data distribution. Given recent metrics, as analyzed in present work, still in [70], it is argued that, for specific datasets, there is a high risk that the explanation provided is the results of artifacts learned by the model. In [71], they investigate the robustness and reliability of post-hoc methods and find that post-hoc methods can be vulnerable to adversarial attacks. In this work, we performed a qualitative analysis to ensure the quality of the accident-prone features. The analysis has shown that the model identifies features that agreed with human explanations. However, developing inherently explainable classifier models that can even classify part of the image would be a key component to improve reliability and inherently generate explanations suitable for notifications displayed on HUD.
+VI. DISCUSSION AND CONCLUSION
+This paper proposes an attentive driving system based on visual notification of accident-prone features. To identify accident-prone features, open data and driver-accessible dashcam video are used for real-time inference of a CNN model. CNN models combined with CAM methods are used to select accident-prone features in an image corresponding to an accident hotspot. Using a dataset created with Google street view images, CNN models can learn complex AP features for identifying an image as an accident hotspot with an accuracy up to 92%. These AP features, when identified by using CAM methods, give interpretability of decisions taken by the CNN model with a street view image representing the driver viewpoint. For improving AP features, an attentionbased module is proposed that can provide better contextual features along with CNN. A sample analysis shows that removing 9.6%, on average, of the original image, which represents AP features obtained by Squeezenet-ABM (CNN model) with GradCAM (CAM method), causes up to 21.8% more probability of given area to be classified as a nonhotspot. For the visual information layout system, a concept that consists of an HUD located in the windshield panel of a vehicle is suggested.
+As shown with the dataset of Austin Texas, USA, the CNN model trained with the dataset of the New York City can be applied to other urban cities with variability of classification performance allowed. Even in this case, given the variability of features in different cities, as future work it would be beneficial to have a global dataset that is used to train a generalized classifier that can be used effectively for different
+
+cities. Additionally, for notification, AP features by the best configuration of Squeezenet-ABM and GradCAM have the least visual-saliency (VS), thus serving the purpose of visual notification the most, as it highlights usually not focused on by human drivers in road-view. Our framework relies on the AP features extracted from CAM methods. Given the recent methods proposed for post-hoc explainability it would be noteworthy to expand the analysis performed in this paper to include other explainable methods. Finally, the proposed framework relies on street view images collected under specific conditions. To improve generalization, the availability of data encompassing different conditions, such as weather and time of the day, would further improve the generalization of the proposed framework.
+REFERENCES
+[1] Global Status Report on Road Safety 2018: Summary, World Health Organization, Geneva, Switzerland, 2018.
+[2] B. Ryder, B. Gahr, P. Egolf, A. Dahlinger, and F. Wortmann, “Preventing traffic accidents with in-vehicle decision support systems—The impact of accident hotspot warnings on driver behaviour,” Decis. Support Syst., vol. 99, pp. 64–74, Jul. 2017.
+[3] R. Lagoo, V. Charissis, and D. K. Harrison, “Mitigating driver’s distraction: Automotive head-up display and gesture recognition system,” IEEE Consum. Electron. Mag., vol. 8, no. 5, pp. 79–85, Sep. 2019.
+[4] K. Chu, R. Brewer, and S. Joseph, “Traffic and navigation support through an automobile heads up display (A-HUD),” May 2008. [Online]. Available: https://scholarspace.manoa.hawaii.edu/items/3b2fce27-051b477c-b93d-4ec73fca1c6d
+[5] L. Morra, F. Lamberti, F. G. Prattico, S. L. Rosa, and P. Montuschi, “Building trust in autonomous vehicles: Role of virtual reality driving simulators in HMI design,” IEEE Trans. Veh. Technol., vol. 68, no. 10, pp. 9438–9450, Oct. 2019.
+[6] B. Hannah Topliss, C. Harvey, and G. Burnett, “How long can a driver look? Exploring time thresholds to evaluate head-up display imagery,” in Proc. 12th Int. Conf. Automot. User Interfaces Interact. Veh. Appl., Sep. 2020, pp. 9–18.
+[7] H.-P. Krüger, M. Grein, A. Kaussner, and C. Mark, “SILAB—A taskoriented driving simulation,” in Proc. Driving Simul. Conf., 2005, pp. 1–9.
+[8] T. Horberry, J. Anderson, M. A. Regan, T. J. Triggs, and J. Brown, “Driver distraction: The effects of concurrent in-vehicle tasks, road environment complexity and age on driving performance,” Accident Anal. Prevention, vol. 38, no. 1, pp. 185–191, Jan. 2006.
+[9] V.-I. Ungureanu, R.-C. Miclea, A. Korodi, and I. Silea, “A novel approach against sun glare to enhance driver safety,” Appl. Sci., vol. 10, no. 9, p. 3032, Apr. 2020.
+[10] S. Mishra, V. Singh, A. Gupta, D. Bhattacharya, and A. Mudgal, “Adaptive traffic signal control for developing countries using fused parameters derived from crowd-source data,” Transp. Lett., vol. 15, no. 4, pp. 1–12, 2022.
+[11] S. A. R. Shah and N. Ahmad, “Road infrastructure analysis with reference to traffic stream characteristics and accidents: An application of benchmarking based safety analysis and sustainable decision-making,” Appl. Sci., vol. 9, no. 11, p. 2320, Jun. 2019.
+[12] S. Moosavi, M. H. Samavatian, S. Parthasarathy, R. Teodorescu, and R. Ramnath, “Accident risk prediction based on heterogeneous sparse data: New dataset and insights,” in Proc. 27th ACM SIGSPATIAL Int. Conf. Adv. Geographic Inf. Syst., Nov. 2019, pp. 33–42.
+[13] W. Bao, Q. Yu, and Y. Kong, “Uncertainty-based traffic accident anticipation with spatio-temporal relational learning,” in Proc. 28th ACM Int. Conf. Multimedia, Oct. 2020, pp. 2682–2690.
+[14] A. Najjar, S. I. Kaneko, and Y. Miyanaga, “Combining satellite imagery and open data to map road safety,” in Proc. 31st AAAI Conf. Artif. Intell., 2017, pp. 1–7.
+[15] F. Zhang, L. Wu, D. Zhu, and Y. Liu, “Social sensing from streetlevel imagery: A case study in learning spatio-temporal urban mobility patterns,” ISPRS J. Photogramm. Remote Sens., vol. 153, pp. 48–58, Jul. 2019.
+
+Authorized licensed use limited to: Politecnico di Torino. Downloaded on May 09,2025 at 07:38:49 UTC from IEEE Xplore. Restrictions apply.
+
+MISHRA et al.: SENSING AP FEATURES IN URBAN SCENES FOR PROACTIVE DRIVING AND ACCIDENT PREVENTION
+
+9413
+
+[16] F. Alhasoun and M. Gonzalez, “Streetify: Using street view imagery and deep learning for urban streets development,” in Proc. IEEE Int. Conf. Big Data (Big Data), Dec. 2019, pp. 2001–2006.
+[17] D. Santani, S. Ruiz-Correa, and D. Gatica-Perez, “Looking south: Learning urban perception in developing cities,” ACM Trans. Social Comput., vol. 1, no. 3, pp. 1–23, Sep. 2018.
+[18] L. Najafizadeh and J. E. Froehlich, “A feasibility study of using Google street view and computer vision to track the evolution of urban accessibility,” in Proc. 20th Int. ACM SIGACCESS Conf. Comput. Accessibility, Oct. 2018, pp. 340–342.
+[19] J. Kang, M. Körner, Y. Wang, H. Taubenböck, and X. X. Zhu, “Building instance classification using street view images,” ISPRS J. Photogram. Remote Sens., vol. 145, pp. 44–59, Nov. 2018.
+[20] S. Srivastava, J. E. Vargas-Muñoz, and D. Tuia, “Understanding urban landuse from the above and ground perspectives: A deep learning, multimodal solution,” Remote Sens. Environ., vol. 228, pp. 129–143, Jul. 2019.
+[21] T. Kauer, S. Joglekar, M. Redi, L. M. Aiello, and D. Quercia, “Mapping and visualizing deep-learning urban beautification,” IEEE Comput. Graph. Appl., vol. 38, no. 5, pp. 70–83, Sep. 2018.
+[22] J. S. Wijnands et al., “Identifying safe intersection design through unsupervised feature extraction from satellite imagery,” Comput.-Aided Civil Infrastruct. Eng., vol. 36, no. 3, pp. 346–361, Mar. 2021.
+[23] K. González-Gómez and M. Castro, “Evaluating Pedestrians’ safety on urban intersections: A visibility analysis,” Sustainability, vol. 11, no. 23, p. 6630, Nov. 2019.
+[24] C. Machado, M. Giannotti, F. Neto, A. Tripodi, L. Persia, and J. Quintanilha, “Characterization of black spot zones for vulnerable road users in São Paulo (Brazil) and Rome (Italy),” ISPRS Int. J. Geo-Inf., vol. 4, no. 2, pp. 858–882, May 2015.
+[25] S. Mishra, N. Singh, and D. Bhattacharya, “Application-based COVID-19 micro-mobility solution for safe and smart navigation in pandemics,” ISPRS Int. J. Geo-Inf., vol. 10, no. 8, p. 571, Aug. 2021.
+[26] B. Debrabant, U. Halekoh, W. H. Bonat, D. L. Hansen, J. Hjelmborg, and J. Lauritsen, “Identifying traffic accident black spots with Poisson– Tweedie models,” Accident Anal. Prevention, vol. 111, pp. 147–154, Feb. 2018.
+[27] T. Yuan, X. Zeng, and T. Shi, “Identifying urban road black spots with a novel method based on the firefly clustering algorithm and a geographic information system,” Sustainability, vol. 12, no. 5, p. 2091, Mar. 2020.
+[28] P. Chantamit-O-Pas, W. Pongpum, and K. Kongsaksri, “Road traffic injury prevention using DBSCAN algorithm,” in Proc. Int. Conf. Neural Inf. Process. Cham, Switzerland: Springer, 2020, pp. 180–187.
+[29] Z. Huang, S. Gao, C. Cai, H. Zheng, Z. Pan, and W. Li, “A rapid density method for taxi passengers hot spot recognition and visualization based on DBSCAN+,” Sci. Rep., vol. 11, no. 1, pp. 1–13, May 2021.
+[30] M. Ghadi and Á. Török, “A comparative analysis of black spot identification methods and road accident segmentation methods,” Accident Anal. Prevention, vol. 128, pp. 1–7, Jul. 2019.
+[31] K. Simonyan and A. Zisserman, “Very deep convolutional networks for large-scale image recognition,” 2014, arXiv:1409.1556.
+[32] F. N. Iandola, S. Han, M. W. Moskewicz, K. Ashraf, W. J. Dally, and K. Keutzer, “SqueezeNet: AlexNet-level accuracy with 50x fewer parameters and < 0.5 MB model size,” 2016, arXiv:1602.07360.
+[33] G. Huang, Z. Liu, L. Van Der Maaten, and K. Q. Weinberger, “Densely connected convolutional networks,” in Proc. IEEE CVPR, Mar. 2017, pp. 4700–4708.
+[34] K. He, X. Zhang, S. Ren, and J. Sun, “Deep residual learning for image recognition,” in Proc. IEEE Conf. Comput. Vis. Pattern Recognit. (CVPR), Jun. 2016, pp. 770–778.
+[35] I. Park, D. Kim, and D. Har, “MAC achieving low latency and energy efficiency in hierarchical m2M networks with clustered nodes,” IEEE Sensors J., vol. 15, no. 3, pp. 1657–1661, Mar. 2015.
+[36] R. R. Selvaraju, M. Cogswell, A. Das, R. Vedantam, D. Parikh, and D. Batra, “Grad-CAM: Visual explanations from deep networks via gradient-based localization,” in Proc. IEEE Int. Conf. Comput. Vis. (ICCV), Oct. 2017, pp. 618–626.
+[37] A. Chattopadhay, A. Sarkar, P. Howlader, and V. N. Balasubramanian, “Grad-CAM++: Generalized gradient-based visual explanations for deep convolutional networks,” in Proc. IEEE Winter Conf. Appl. Comput. Vis. (WACV), Mar. 2018, pp. 839–847.
+[38] H. Wang et al., “Score-CAM: Score-weighted visual explanations for convolutional neural networks,” in Proc. IEEE/CVF Conf. Comput. Vis. Pattern Recognit. Workshops (CVPRW), Jun. 2020, pp. 24–25.
+
+[39] M. Jiang, S. Huang, J. Duan, and Q. Zhao, “SALICON: Saliency in context,” in Proc. IEEE Conf. Comput. Vis. Pattern Recognit. (CVPR), Jun. 2015, pp. 1072–1080.
+
+[40] S. Lee, H. Jin, L. F. Vecchietti, J. Hong, and D. Har, “Short-term predictive power management of PV-powered nanogrids,” IEEE Access, vol. 8, pp. 147839–147857, 2020.
+
+[41] M. Seo, L. F. Vecchietti, S. Lee, and D. Har, “Rewards predictionbased credit assignment for reinforcement learning with sparse binary rewards,” IEEE Access, vol. 7, pp. 118776–118791, 2019.
+
+[42] Y. LeCun, Y. Bengio, and G. Hinton, “Deep learning,” Nature, vol. 521, no. 7553, pp. 436–444, Sep. 2015.
+
+[43] R. Tomsett, D. Harborne, S. Chakraborty, P. Gurram, and A. Preece, “Sanity checks for saliency metrics,” in Proc. AAAI Conf. Artif. Intell., vol. 34, no. 4, 2020, pp. 6021–6029.
+
+[44] J. Park, E. Hong, and D. Har, “Low complexity data decoding for SLM-based OFDM systems without side information,” IEEE Commun. Lett., vol. 15, no. 6, pp. 611–613, Jun. 2011.
+
+[45] B. Zhou, A. Khosla, A. Lapedriza, A. Oliva, and A. Torralba, “Learning deep features for discriminative localization,” in Proc. IEEE Conf. Comput. Vis. Pattern Recognit. (CVPR), Jun. 2016, pp. 2921–2929.
+
+[46] P. Shyam, S. Mishra, K. J. Yoon, and K. S. Kim, “Infra Sim-to-Real: An efficient baseline and dataset for infrastructure based online object detection and tracking using domain adaptation,” in Proc. IEEE Intell. Vehicles Symp. (IV), Jun. 2022, pp. 1393–1399.
+
+[47] H. Samet, “Distance transform for images represented by quadtrees,” IEEE Trans. Pattern Anal. Mach. Intell., vol. PAMI-4, no. 3, pp. 298–303, May 1982.
+
+[48] A. Bieniek and A. Moga, “An efficient watershed algorithm based on connected components,” Pattern Recognit., vol. 33, no. 6, pp. 907–916, Jun. 2000.
+
+[49] K. Kiyokawa, Y. Kurata, and H. Ohno, “An optical see-through display for mutual occlusion with a real-time stereovision system,” Comput. Graph., vol. 25, no. 5, pp. 765–779, Oct. 2001.
+
+[50] C.-T. Mu, W.-T. Lin, and C.-H. Chen, “Zoomable head-up display with the integration of holographic and geometrical imaging,” Opt. Exp., vol. 28, no. 24, pp. 35716–35723, 2020.
+
+[51] Y. Zhao, X. Wang, and X. Yu, “Homography estimation based on common self-polar triangles of sphere images,” J. Modern Opt., vol. 67, no. 21, pp. 1601–1609, Dec. 2020.
+
+[52] Head Tracking With Kinect V2. Accessed: Aug. 16, 2021. [Online].
+
+Available:
+
+http://www.bryancook.net/2014/03/head-tracking-with-
+
+Kinect-v2.html
+
+[53] P. Sauras-Perez and P. Pisu, “Pointing gesture based point of interest identification in vehicle surroundings,” SAE Tech. Paper 2018-01-1094, 2018, doi: 10.4271/2018-01-1094.
+
+[54] L. Mejias Alvarez, J. Ford, and J. Lai, “Towards the implementation of vision-based UAS sense-and-avoidance system,” in Proc. 27th Congr. Int. Council Aeronaut. Sci., 2010, pp. 1–10.
+
+[55] C. Bustos et al., “Explainable, automated urban interventions to improve pedestrian and vehicle safety,” Transp. Res. C, Emerg. Technol., vol. 125, Apr. 2021, Art. no. 103018.
+
+[56] Z. Li, Q. Wu, Y. Ci, C. Chen, X. Chen, and G. Zhang, “Using latent class analysis and mixed logit model to explore risk factors on driver injury severity in single-vehicle crashes,” Accident Anal. Prevention, vol. 129, pp. 230–240, Aug. 2019.
+
+[57] L.-C. Chen, G. Papandreou, F. Schroff, and H. Adam, “Rethinking atrous convolution for semantic image segmentation,” 2017, arXiv:1706.05587.
+
+[58] A. Krizhevsky, I. Sutskever, and G. E. Hinton, “ImageNet classification with deep convolutional neural networks,” in Proc. Adv. Neural Inf. Process. Syst. (NIPS), vol. 25, Dec. 2012, pp. 1097–1105.
+
+[59] Y. Rong, T. Leemann, V. Borisov, G. Kasneci, and E. Kasneci, “A consistent and efficient evaluation strategy for attribution methods,” in Proc. Int. Conf. Mach. Learn. Jun. 2022, pp. 18770–18795.
+
+[60] New York Police Department. Motor Vehicle Collisions—Crashes. NYC Open Data. Accessed: Aug. 16, 2021. [Online]. Available: https://data.cityofnewyork.us/Public-Safety/Motor-Vehicle-CollisionsCrashes/h9gi-nx95
+
+[61] Street View Static API Overview. Google. Accessed: Aug. 16, 2021. [Online]. Available: https://developers.google.com/maps/documentation/ streetview/overview
+
+[62] D. Janzing, L. Minorics, and P. Blöbaum, “Feature relevance quantification in explainable AI: A causal problem,” in Proc. Int. Conf. Artif. Intell. Statist., 2020, pp. 2907–2916.
+
+Authorized licensed use limited to: Politecnico di Torino. Downloaded on May 09,2025 at 07:38:49 UTC from IEEE Xplore. Restrictions apply.
+
+9414
+
+IEEE TRANSACTIONS ON INTELLIGENT TRANSPORTATION SYSTEMS, VOL. 24, NO. 9, SEPTEMBER 2023
+
+[63] G. Visani, E. Bagli, F. Chesani, A. Poluzzi, and D. Capuzzo, “Statistical stability indices for LIME: Obtaining reliable explanations for machine learning models,” J. Oper. Res. Soc., vol. 73, no. 1, pp. 91–101, 2022.
+[64] M. Wang, K. Zheng, Y. Yang, and X. Wang, “An explainable machine learning framework for intrusion detection systems,” IEEE Access, vol. 8, pp. 73127–73141, 2020.
+[65] L. Chen et al., “SCA-CNN: Spatial and channel-wise attention in convolutional networks for image captioning,” in Proc. IEEE Conf. Comput. Vis. Pattern Recognit. (CVPR), Jul. 2017, pp. 5659–5667.
+[66] S. Woo, J. Park, J. Y. Lee, and I. S. Kweon, “CBAM: Convolutional block attention module,” in Proc. Eur. Conf. Comput. Vis. (ECCV), 2018, pp. 3–19.
+[67] H. Zhao et al., “PSANet: Point-wise spatial attention network for scene parsing,” in Proc. Eur. Conf. Comput. Vis. (ECCV), 2018, pp. 267–283.
+[68] L. Sandberg and K. Sennvall, “Visual information in the driver’s line of sight: An evaluation of advanced driver display and head-up display,” Ph.D. dissertation, 2005. [Online]. Available: http://urn.kb.se/resolve?urn=urn:nbn:se:ltu:diva-50353
+[69] C. Zhang, Y. Shu, and L. Yan, “A novel identification model for road traffic accident black spots: A case study in Ningbo, China,” IEEE Access, vol. 7, pp. 140197–140205, 2019.
+[70] T. Laugel, M.-J. Lesot, C. Marsala, X. Renard, and M. Detyniecki, “The dangers of post-hoc interpretability: Unjustified counterfactual explanations,” 2019, arXiv:1907.09294.
+[71] D. Slack, S. Hilgard, E. Jia, S. Singh, and H. Lakkaraju, “Fooling LIME and SHAP: Adversarial attacks on post hoc explanation methods,” in Proc. AAAI/ACM Conf. AI, Ethics, Soc., Feb. 2020.
+[72] T. Kim, L. F. Vecchietti, K. Choi, S. Lee, and D. Har, “Machine learning for advanced wireless sensor networks: A review,” IEEE Sensors J., vol. 21, no. 11, pp. 12379–12397, Jun. 2021.
+
+Praveen Kumar Rajendran received the B.E. degree in electrical and electronics engineering from Anna University, India, and the M.S. degree from the Future Vehicle Program, Korea Advanced Institute of Science and Technology, South Korea. Before pursuing the M.S. degree, he worked as a Software Engineer with SL Corporation. He is currently a Computer Vision/AI Research Engineer with Neubility, focusing on improving robot perception. His research interests include deep learning, 3D computer vision, and autonomous driving.
+Luiz Felipe Vecchietti received the B.Sc. degree in electronics and computer engineering and the M.Sc. degree from the Federal University of Rio de Janeiro in 2015 and 2017, respectively, and the Ph.D. degree in green transportation from KAIST in 2021. He is currently a Senior Researcher with the Data Science Group, Institute for Basic Science (IBS), South Korea. His research interests include deep reinforcement learning, graph neural networks, computational biology, applied deep learning, improving exploration and credit assignment in single-agent, and multi-agent reinforcement learning. He has previous research experience in natural language processing, speech synthesis, and robotic applications using continuous control.
+
+Sumit Mishra received the B.Tech. degree in electronics and communication engineering from Dr. A. P. J. Abdul Kalam Technical University, India, in 2016, and the M.S. degree from the Robotics Department, Korea Advanced Institute of Science and Technology, South Korea, in 2023, where he is currently pursuing the Ph.D. degree. Earlier, he worked with Learnogether Technologies Pvt. Ltd., as a Research Consultant. His research interests include deep learning, computer vision, and robotics perception using multi-modal data.
+
+Dongsoo Har (Senior Member, IEEE) received the B.Sc. and M.Sc. degrees in electronics engineering from Seoul National University and the Ph.D. degree in electrical engineering from Polytechnic University, Brooklyn, NY, USA. He is currently a Faculty Member of KAIST. He has authored and published more than 100 articles in international journals and conferences. He has also presented invited talks and keynote in international conferences. His main research interests include optimization of communication system operation and transportation system development with embedded artificial intelligence. He was a member of the advisory board, the program chair, the vice chair, and the general chair of international conferences. He was a recipient of the Best Paper Award (Jack Neubauer Award) from the IEEE TRANSACTIONS ON VEHICULAR TECHNOLOGY in 2000. He is an Associate Editor of the IEEE SENSORS JOURNAL.
+
+Authorized licensed use limited to: Politecnico di Torino. Downloaded on May 09,2025 at 07:38:49 UTC from IEEE Xplore. Restrictions apply.
+

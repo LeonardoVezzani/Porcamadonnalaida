@@ -1,0 +1,981 @@
+AR4CAD: Creation and Exploration of a Taxonomy of Augmented Reality Visualization for Connected Automated Driving
+
+TOBIAS MÜLLER∗, Robert Bosch GmbH, Germany MARK COLLEY∗, Institute of Media Informatics, Ulm University, Germany GÜLSEMIN DOGRU, Institute of Media Informatics, Ulm University, Germany ENRICO RUKZIO, Institute of Media Informatics, Ulm University, Germany
+Infrastructure-mounted sensors that monitor roads can provide essential information for manual drivers and automated vehicles, e.g., positions of other vehicles occluded by buildings. However, human drivers and passengers have to trust and accept their use. This raises the question of how trust can be increased in such a scenario. One important factor for this is understanding the available information, including its quality and, for passengers of automated vehicles, the actions planned based on it. For this, augmented reality is a promising visualization technology because it can present the relevant information integrated into the physical world. Thus, this work develops a taxonomy of augmented reality visualizations for connected automated and manual driving. It is intended to classify and compare existing visualizations, identify novel visualizations, and provide a common language for discussions. The use case infrastructure-supported automated driving is explored by suggesting augmented reality visualizations to inform passengers of automated vehicles and are intended to increase trust. They present information available from infrastructure and onboard sensors as well as the driving decisions based on it. Finally, we evaluated the visualizations’ influence on trust in an automated vehicle by conducting a driving simulator study (N=18). Results indicate a high dependency of trust on presenting driving decisions and information on road users but less on location-specific information.
+CCS Concepts: • Human-centered computing → HCI theory, concepts and models; Empirical studies in HCI.
+Additional Key Words and Phrases: Connected Driving; Automated vehicles; Augmented Reality; interface design.
+ACM Reference Format: Tobias Müller, Mark Colley, Gülsemin Dogru, and Enrico Rukzio. 2022. AR4CAD: Creation and Exploration of a Taxonomy of Augmented Reality Visualization for Connected Automated Driving. Proc. ACM Hum.-Comput. Interact. 6, MHCI, Article 177 (September 2022), 27 pages. https://doi.org/10.1145/3546712
+
+177
+
+1 INTRODUCTION
+Connected Automated Driving (CAD), i.e., supporting an automated vehicle (AV) with information received from external sources such as infrastructure mounted cameras, road side units or close by vehicles, allows for automated maneuvers not possible before, like merging into a street without deceleration or platooning with reduced distance to preceding vehicles [79]. However, as the AV
+∗Both authors contributed equally to this research.
+Authors’ addresses: Tobias Müller, tobias.mueller8@de.bosch.com, Robert Bosch GmbH, Stuttgart, Germany; Mark Colley, mark.colley@uni-ulm.de, Institute of Media Informatics, Ulm University, Ulm, Germany; Gülsemin Dogru, gÃĳlsemin. dogru@uni-ulm.de, Institute of Media Informatics, Ulm University, Ulm, Germany; Enrico Rukzio, enrico.rukzio@uni-ulm.de, Institute of Media Informatics, Ulm University, Ulm, Germany.
+
+This work is licensed under a Creative Commons Attribution International 4.0 License.
+© 2022 Copyright held by the owner/author(s). 2573-0142/2022/9-ART177 https://doi.org/10.1145/3546712
+
+Proc. ACM Hum.-Comput. Interact., Vol. 6, No. MHCI, Article 177. Publication date: September 2022.
+
+177:2
+
+Tobias Müller et al.
+
+relies on data the human passenger is unaware of, the passenger can not understand the AV’s movements (e.g., not slowing down despite blocked sight). This could lead to undertrust and, therefore, scarce usage of this potent technology. Prior work evaluated highlighting other vehicles under bad weather conditions [83] or pedestrian intention [11] to address such concerns. Additionally, in manual driving, a human driver of such a technologically enhanced vehicle could also include this information in their decision process, for example, to estimate whether it is safe to merge in a gap between vehicles or to turn at a complex intersection.
+However, the specific human factors related challenges and opportunities with integrating (unperceivable by the AV’s sensors and the passenger) information about the scenery received by external sensors are unexplored. Additionally, the information which infrastructure support is available constitutes a completely novel information type not present in self-relying AVs. In the MEC-View project [23], for example, an AV is supported via sensors installed in the infrastructure, allowing it to merge into gaps at an intersection that are occluded for the AV’s sensors. Thus, it is necessary to present easily understandable information about the vehicle’s augmented perception and maneuver planning. Augmented Reality (AR), either via Head-Mounted Displays (HMDs) or via integrated AR windshields, seems like a suitable technology to visualize this information in a way that supports humans in understanding the decision process better and, therefore, increase trust. In particular, its ability to integrate virtual information into the physical environment is relevant in this context (see also [11, 12, 15, 83]).
+To design and evaluate such visualizations, we first defined a taxonomy that supports the classification and comparison of existing visualizations. It aids in identifying previously not considered display variants and refines the vocabulary used to discuss such systems. Afterwards, we applied the taxonomy in a literature review. For our dimension Information Type, we found that Action elements, showing what the AV does or plans to do, and Dynamic Environment elements, showing which dynamic actors the AV perceives, were mostly used in related work. Location-Specific elements, showing which parts of the static environment are known to the AV including where infrastructure support via external sensors is available, were rarely used.
+Subsequently, we employed the results and the taxonomy to design exemplary visualizations for different elements that present information to a passenger in an AV, like, e.g., a trajectory or a detected vehicle. Where possible, we based our designs on existing research to achieve adequate presentations, especially considering the right categorisation in each class.
+Following this, we conducted a fixed-base simulator study (N=18) with two videos of test drives taken in the real world, with the augmented information overlaid on top via a HoloLens 1. Our focus was on the dimension Information Type to study its relevance for trust. We presented participants either with elements from all classes in this dimension, i.e., Action, Dynamic Environment, or Location-Specific elements, or omitted one by not visualizing its elements. For measuring, we used the three subfactors Reliability, Trust in Automation, and Understanding from the trust questionnaire by Körber [42].
+Showing elements from all classes consistently led to the highest trust. Additionally, we found that omitting elements from the Action or the Dynamic Environment class led to significant reduction. Omitting Location-Specific elements, however, showed no significant differences in trust for any of the subfactors compared with visualizing all three classes.
+Contribution Statement: This work provides a novel taxonomy regarding the AR visualization of information in the context of CAD. Additionally, it categorizes prior work based on a literature review. Furthermore, it defines possible visualization elements for each of the proposed information types. It presents the results of a fixed-base simulator study (N=18) in which the visualizations were shown in AR using a HoloLens 1. Our work helps to safely introduce CAD and calibrate trust
+
+Proc. ACM Hum.-Comput. Interact., Vol. 6, No. MHCI, Article 177. Publication date: September 2022.
+
+AR4CAD: Trust in Connected Automated Driving
+
+177:3
+
+in the vehicles equipped with this technology and provide a taxonomy to facilitate discussion and classification of such works.
+2 APPROACH
+As the first step, we defined a taxonomy for the analysis, classification, and comparison of existing visualizations, identification of relevant novel variants, and to provide a common language for further discussions. Subject of the taxonomy are visual elements, which each are visualizations of a specific information which shall be presented. As will be shown in the course of this work, previous approaches prove to be unsuitable for the CAD use case. The reason for this is that these do not account for the use and type of information, for example, whether a visualization is for informative purposes or if an action is expected.
+In the following step, we collected and classified previously published work on AR visualizations to test our taxonomy and gain knowledge about previous work. Afterwards, novel visual elements relevant for CAD were conceptualized. These are based on identified necessary information, previous work, or when no appropriate element existed, were created. We then integrated these elements into a combined information display for CAD, realized in a fixed-base simulator using a HoloLens 1.
+To verify that our approach of visualizing the additional information is use- and helpful, we then conducted a user study (N=18). Here, we aimed to show the relevance/validity of the created elements by showing that removing elements decreases trust.
+3 RELATED WORK
+This work builds upon three main (research) areas in autonomous or automated driving: Trust in automated driving (AD), increasing or calibrating trust in AD, for example, via AR displays, and previous design spaces and classification of AR design elements.
+3.1 Trust in Automated Driving
+In general, trust in AD is a subset of the work on trust in automation. Trust or distrust directly influences passenger’s attitudes towards and usage of automation [54] and is an influential factor concerning the acceptance of automation by humans. Therefore, it is directly relevant for CAD [28, 58, 66, 81].
+The definition of trust varies between proposed models. Lee and See define trust “as the attitude that an agent will help achieve an individual’s goals in a situation characterized by uncertainty and vulnerability” [45, p. 51]. They model trust as a feedback loop with various steps between automation and a user, which is, in our case, the passenger. In their model, automation has a display that makes it perceptible for a user. The level of detail about the automation may vary. The trustor, i.e., the passenger, then assimilates the information, and a formation of belief occurs. A trust evolution follows this. If sufficient trust is achieved, the intention to rely on the trustee is formed and then executed. Otherwise, the model proposes to loop back in the Information assimilation and Belief formation phase. A trustee has, as adapted from Lee and Moray [44], three bases: (1) Performance, which corresponds to how well the automated system performs as a trustee, (2) process refers to how the automated system executes a task and how convenient the approaches it takes is, and (3) purpose corresponds to whether the automated system is used according to its respective design purpose. In the context of CAD, the most relevant recommendations of Lee and See [45] are, therefore, to “show the process and algorithms of the automation by revealing intermediate results” [45, p. 74], making the automation understandable, and present the classification of situations relative to the automation’s capabilities.
+
+Proc. ACM Hum.-Comput. Interact., Vol. 6, No. MHCI, Article 177. Publication date: September 2022.
+
+177:4
+
+Tobias Müller et al.
+
+Hoff and Bashier define trust as “a variable that often determines the willingness of human operators to rely on automation” [25, p. 407]. They developed a three-layered trust model (dispositional trust, situational trust, and learned trust), based on Marsh and Dibben [51]. Dispositional trust refers to the personal background described by the culture, age, gender, and personality traits of the trustor. Situational trust is described with internal and external variability. External variability refers to the increase or decrease in trust which changes according to the complexity of the automation. In contrast, internal variability corresponds to the person’s mental capacity and psychological state in a certain situation. Learned trust is appraised in two layers: initially learned trust, which refers to the pre-existing knowledge of the person about the automation, and dynamically learned trust, which is influenced during the interaction with the automated system. Trust in a situation is modeled as a loop with three elements. The Dynamic Learned Trust influences relying on the system, which influences the perception of system performance, which influences the Dynamic Learned Trust. The system’s design features also influence the perception of system performance. Furthermore, a human starts with an initial reliance strategy in a situation.
+Körber [42] bases his definition of trust on the postulated dimensions by Mayer et al. [52] and Lee and See [45]. According to Körber, trust is influenced by Competence / Reliability (see Ability [52] or Performance [45]), Understandability / Predictability (see Integrity [52] or Process [45]), and Intention of Developers (see Benevolence [52] or Purpose [45]). The other included factors are Familiarity (with similar systems) and Propensity to Trust (i.e., how a trustor trusts automation in general).
+Ekman et al. [18] used Lee and See’s [45] model as a basis to create a framework specifically intended for creating human-machine interactions (HMIs) that create trust in AD. This framework contains events during mixed manual/automated driving. For this work, the event Automated Mode is especially relevant. They give specific hints on what an HMI should fulfill: Present continuous information about upcoming events and how common goals are met to allow the passenger insight into the system process. Additionally, Ekman et al. [18] state that only the reason should be presented to reduce mental workload. However, the passenger has freed cognitive resources in an automated mode as no intervention or control over the vehicle is necessary.
+Regarding trust measurement, there are several proposed questionnaires. Jian et al. [33] showed that trust and distrust complement each other and can be measured with a common scale. They empirically identified 12 items correlated to trust/distrust concerning trust in machines and on which they based their 12 questions with seven-point Likert scales.
+Körber [42] measure each category with two or more questions with a five-point Likert scale. As Körber firmly grounds these questions in the models of Lee and See [45] and Mayer et al. [52], we chose to use this questionnaire for our evaluation.
+3.2 Augmented Reality to Support Trust in Automated Driving
+AR was used in a few studies either in Virtual Reality (VR) or in overlaid videos intended to increase/calibrate trust in AD. Kunze et al. [43] used AR to show the uncertainty of an AV. They compared 11 variables (position, size, shape, value, orientation, hue, grain, arrangement, saturation, crispness, transparency, and resolution) that can show uncertainty (equals urgency) for AD when the need for takeovers occurs. They found that especially hue was suitable to convey an order of urgency.
+Colley et al. [12] used AR to present the result of a semantic segmentation task, which enables AV to detect relevant objects. This information directly includes the uncertainty information about the detection of relevant objects. They found neither a positive nor a negative effect on trust.
+Von Sawitzky et al. [78] suggested five user interface concepts for windshield- or head-mounted displays with and without AR to support displaying information on driving decisions with a special
+
+Proc. ACM Hum.-Comput. Interact., Vol. 6, No. MHCI, Article 177. Publication date: September 2022.
+
+AR4CAD: Trust in Connected Automated Driving
+
+177:5
+
+focus on route indication. They tested these with different driving scenarios in a driving simulator based on a VR headset. Overall, they found that showing future maneuvers (ego-vehicle and other road passengers) helps to support trust in AVs. Our work builds upon and extends these findings as there was no structured examination of design parameters. We include additional information (e.g., infrastructure support) and propose a different methodology by investigating which information decreases trust.
+Wintersberger et al. [83] conducted two studies in a simulator with a moving platform that both showed that AR visualization of detected objects helps to increase trust in AVs. In their work, parts of the environment were invisible (e.g., because of fog).
+Colley et al. [11] evaluated different methods of visualizing pedestrian intent as an important factor in trajectory planning. They found that AR was clearly preferred over no and visualization on a tablet positioned at the center. Also, participants preferred higher granularity of information (i.e., more predicted states).
+
+3.3 Design Spaces and Classification of Augmented Reality Elements
+Häuslschmid et al. [30] defined a design space for AR applications on windshields with five categories, each containing one or more dimensions: User, Context, Visualization, Interaction, Technology. Their goal was to find a comprehensive and generic description of the possibilities one has when designing such user interfaces. For CAD, this design space, however, is too broad and strongly oriented towards design and other related properties.
+This design space was extended by Wiegand et al. [80]. They presented a design space on 3D AR applications within the vehicle with the same categories but more dimensions and/or more options per dimension. Therefore, the same limitations as mentioned above apply to the CAD use case.
+Tönnis et al. [75] defined six classes of principles for information presentation with AR: Continuity (Continuous vs. Discrete), Information Presentation Representation (2D Symbolic vs. 3D Information Presentation), Registration in Space (Contact-analog vs. Unregistered Presentation), Frame of Reference (Presentation in Different Frames of Reference), Type of Referencing (Direct vs. Indirect Referencing of Objects or Situations), and Location of Presentation in Relation to Glance Direction. While these capture important aspects to be included in our taxonomy, they miss the element function and intention and focus more on behavior and relation to the physical world.
+
+4 A TAXONOMY FOR AUGMENTED REALITY VISUALIZATION
+We propose a taxonomy for AR visualizations for the collection, classification, and comparison of existing AR visualizations for (C)AD with a special focus on trust support. This taxonomy is further intended to help identify previously not considered variants and provide a common language for discussion in the context of (C)AD. Especially relevant in this context are the type of information visualized and the function of this information. In the further course of the work, we applied this taxonomy for designing new visual elements and for investigating them in terms of supporting trust in connected automated driving.
+The taxonomy is used to classify single visual elements of which an application might have arbitrarily many. Even though we are especially considering AR to increase trust in connected automated driving, we do not limit our taxonomy to AR elements specifically created for this. Instead, we include AR visualizations that inform drivers or passengers about the current driving context. While designing the taxonomy, we have integrated the trust aspects at relevant points. This is explained in more detail for the individual dimensions.
+Proc. ACM Hum.-Comput. Interact., Vol. 6, No. MHCI, Article 177. Publication date: September 2022.
+
+177:6
+
+Tobias Müller et al.
+
+4.1 Method
+We developed the included dimensions in two steps. Based on the presented design spaces and classifications, we first identified common dimensions. These were assessed based on their generalizability for the use case of CAD and incorporated with adaptations where appropriate. Dimensions that focus on other use cases (or use cases in general) and dimensions that focus on technologies (e.g., combiner technology) or visualizations (e.g., size or color) were discarded due to their limited relevance to the use case of connected automated driving. Secondly, we analyzed existing systems for relevant differences in the presentation of information that were not purely graphical in nature. Special focus was given to the CAD use case and AR as a visualization paradigm. Consequently, the dimensions from the first step were expanded, which resulted in the taxonomy presented here.
+4.2 Dimensions
+
+Information Type
+Action Elements Location-Speci c Elements Dynamic Environment Elements
+
+Functionality Type
+Declarative Elements Instructive Elements
+
+Content Reference Type
+Highlight Elements Depicting Elements Combined
+
+Registration Type
+Unregistered Angle Analog Registered in 2D Contact Analog
+
+Fig. 1. Proposed taxonomy with the four dimensions and classes.
+
+In the following, we report the derived dimensions for our taxonomy (see Figure 1).
+4.2.1 Information Type. This type classifies the conveyed information. It is especially related to trust as it represents the AV’s perception, intended maneuvers (see “how” and “why” information [41]), and the relevant context. The classes are:
+• Dynamic Environment elements: These show which dynamic objects the vehicle is aware of, e.g., other vehicles. For CAD, this may also include what is received from infrastructure sensors, other connected vehicles, etc. Examples are highlights for cars in foggy weather by Wintersberger et al. [83] or marked pedestrians by Narzt et al. [57].
+• Location-Specific elements: Location-Specific elements contain immovable information on a location such as properties of the road surface or traffic signs (e.g., Schall Jr et al. [70]).
+• Action elements: These elements visualize information on the AV’s (planned) actions or advice for a potential driver (depending on the dimension Functionality Type; see Section 4.2.2). Examples are navigation instructions (Narzt et al. [56]; Sato et al. [68]; Kim and Dey [39]) or indicators of the expected stopping distance (Tönnis et al. [77]).
+Each of the classes in this dimension can have subclasses. For example, trajectory or stop position are subclasses of Action while detected vehicles or pedestrians are subclasses of Dynamic Environment elements.
+4.2.2 Functionality Type. This type distinguishes whether an element is intended to potentially influence a driver’s actions or solely inform them about the AV’s knowledge or plans. With the increased automation of a vehicle, the elements should change from being instructive to being declarative as there is less information that is shown for a passenger/driver to react to. Functionality Type stands for the context in which information is displayed and can, for example, help to explain why a piece of information is displayed differently. The classes are:
+• Instructive Elements: These instruct drivers about relevant actions or information to be considered in their driving decisions. Examples range from detected vehicles [83] over emphasizing road signs [70] to proposed trajectories [56, 63, 64].
+
+Proc. ACM Hum.-Comput. Interact., Vol. 6, No. MHCI, Article 177. Publication date: September 2022.
+
+AR4CAD: Trust in Connected Automated Driving
+
+177:7
+
+• Declarative Elements: These display knowledge of the vehicle or imminent actions to a driver/passenger They are used by von Sawitzky et al. [78] (route indications) or Wintersberger et al. [83] (sensor data and route indications).
+4.2.3 Content Reference Type. This dimension differentiates whether an AR element shows actual (additional) information to a passenger or if it highlights something in the physical world. For example, combined with the Functionality Type class Declarative Element, the AV can highlight that it has perceived a visible for the passenger, object (as done by Colley et al. [12]). Also, elements referenced can be visible and inside the field of view (FoV), occluded and inside the FoV, or outside the FoV. The classes are:
+• Highlight Elements: These elements highlight existing information in the physical world and add none or only minor information to it. One information is always conveyed by it: the vehicle is aware of the marked object/area. Used visualization may be frames, pointers, etc. Example: highlights of traffic signs by Schall Jr et al. [70].
+• Depicting Elements: These Elements depict information that is not present in the physical world. This may be related to physical objects, e.g., by attaching further information to other vehicles, but also independent of objects, e.g., for a trajectory [63].
+• Combined: These elements highlight and depict information not present in the physical world.
+4.2.4 Registration Type. Registration type describes in which way the information is registered in the physical environment. It is included because, in AR, the relation of virtual information and the physical world is highly relevant and probably influences how the combination is seen, experienced, and understood [55]. The classes are:
+• Contact Analog: These elements are registered in the physical world both in orientation and position. For head-up displays, the phrase contact analog is used [65]). Häuslschmid et al. [30] use the term 3D registered.
+• Registered in 2D: These elements are placed close to the line of sight of the viewer to the related object/area/position but do not share the same depth or are integrated into the physical environment (see [30]).
+• Angle Analog: These elements point to objects in the car’s environment while they themselves are registered in the car’s reference system. The difference to registered in 2D is that these objects are not specifically placed close to the line of sight. (see [14])
+• Unregistered: These are elements without any spatial relation to the vehicle’s environment. This includes elements that are positioned inside the vehicle, i.e., are technically AR, but where the position does not have any specific meaning relevant to the driving situation. Further, elements that are not AR according to Azuma’s definition [5] and, e.g., positioned on the display plane are part of this class (see also [30, 75]).
+4.3 Comparison to Previous Design Spaces and Classifications
+In this section, we compare our proposed taxonomy with previously introduced design spaces and classification schemes.
+Compared to Häuslschmid et al. [30], our taxonomy is more condensed. As we focus on visualizing information, the User Mode (single or multi-user) is irrelevant. The observer we defined the taxonomy for is always the user of the AV, which can either be a supported driver or a passenger. The intended usage for either is defined via the dimension Functionality Type (Instructive for drivers, declarative for passengers). As the driver or passengers do not interact with the visualizations, the
+
+Proc. ACM Hum.-Comput. Interact., Vol. 6, No. MHCI, Article 177. Publication date: September 2022.
+
+177:8
+
+Tobias Müller et al.
+
+dimension Actor is unnecessary. As our taxonomy focuses on the element level (not complete applications), we omitted the Context category with the dimensions Application Purpose, Information Context, Driving Mode, Level of Automation, and Privacy. Regarding the category Visualization, the Level of Augmentation is irrelevant as we specifically focus on AR. Registration is included in our taxonomy. Gaze-dependent content would be categorized as Unregistered in our taxonomy, as it is not spatially registered. We also included Angle Analog to express pointing elements without direct spatial assignment. The Field of View Position is implicitly included as AR content is especially registered in the world. Therefore, elements will naturally shift between the three classes Foveal, Central, and Peripheral/Ambient. Nonetheless, Unregistered content has to keep the limitations of peripheral content in mind. The dimensions of Presentation and Graphic Design Factors are relevant; however, as we do not focus on graphical representation but function, we omitted these. The categories Interaction and Technology were omitted as we focus on information presentation and do not want to restrict this to a specific technology.
+InCarAR by Wiegand et al. [80] is in the nature of the work by Häuslschmid et al. [30]. Therefore, we only focus on the relevant additional dimensions. As we want to classify elements regarding trust, the Context aspect Travel Time (short, medium, long duration) is not applicable. While the necessity of visualizations to improve trust might decrease over time when the trust was sufficiently built, this is out of the scope of this taxonomy. The Visualization aspect Placement Strategy describes changes in the registration type or the position of visualizations [80]. While interesting, there is no apparent relevance to trust; hence, we omitted this dimension.
+Tönnis et al. [75] provide a taxonomy intended for windshield AR and HUDs. Their dimension of Continuity is divided into Continuous (permanent) and Discrete (depending on an event). This dimension is implicitly included in our dimension Information Type. As we omitted concrete Representation-related attributes, there is no comparable dimension in our taxonomy. The dimension Registration in Space was divided into Contact-Analog and Unregistered. We included these in our dimension Registration Type in higher granularity (i.e., added Angle Analog). The dimension Frame of Reference classifies information presentation on a continuum between egocentric and exocentric. As our goal is to present information specifically for the passenger of an AV with AR, our visualizations are always egocentric. The dimension Type of Referencing describes “if an object or a situation is directly visible, if it is occluded in the field of view or if it lies outside the driver’s field of view” [75, p. 4]. This aspect is included via the Content Reference Type and the Registration Type. The last dimension, Location of Presentation in Relation to Glance Direction, was omitted as Tönnis et al. especially envision this to matter for quick information uptake in dangerous situations, which is a special case for non-regular situations that is not considered here.
+4.4 Classification of Augmented Reality Applications in the Automated Driving Context
+We provide a classification of prior work to (1) test the applicability of the taxonomy, (2) determine frequently used classes of visualizations, and (3) to provide some examples for our taxonomy. We classified the work on AR visualization in the driving context (both manual and automated) as defined by Colley et al. [14]: Starting with known publications relevant to the topic (called “query articles” [32]). We analyzed backward and forward citations [27]. For relevant work, we repeated the process. In total, we repeated the process three times. Additionally, we only included work with a clear depiction and explanation of the AR visual elements (e.g., excluding work by Alves et al. [2]). If works describe multiple elements, these have been categorized in separate rows (e.g., [56]).
+
+Proc. ACM Hum.-Comput. Interact., Vol. 6, No. MHCI, Article 177. Publication date: September 2022.
+
+AR4CAD: Trust in Connected Automated Driving
+
+177:9
+
+Table 1. Classification of previous work according to our taxonomy. Dyn. Env. stands for Dynamic Environment.
+
+Paper
+
+Visualization
+
+Information
+
+Plavšic et al. [64] Plavšic et al. [64] Pfannmüller et al. [63] Jansen [31] Narzt et al. [56] Narzt et al. [56] Sato et al. [68]
+Assmann [3] Tönnis et al. [77] Tönnis et al. [77] Sauerbrey [69] Kojima et al. [40] Wintersberger et al. [83] Schall Jr et al. [70] Taya et al. [74]
+Tönnis and Klinker [76] Narzt et al. [57] Colley et al. [11] Colley et al. [12]
+Colley et al. [12] Poitschke et al. [65] Kim and Dey [39] Bergmeier and Lange [9] George et al. [22] Park et al. [61]
+Yoon et al. [84]
+Hosseini et al. [26] Yoon and Kim [85]
+Yoon and Kim [85]
+Gabbard et al. [21] Gabbard et al. [21] Bauerfeind et al. [8] Kunze et al. [43] Medenica et al. [53] Chu et al. [10]
+Ng-Thow-Hing et al. [59] Ng-Thow-Hing et al. [59] Ng-Thow-Hing et al. [59] Damböck et al. [16] Damböck et al. [16] Damböck et al. [16] Soro et al. [71] Kim et al. [38] Lorenz et al. [48]
+Hwang et al. [29] Abdi and Meddeb [1] Abdi and Meddeb [1] Abdi and Meddeb [1] Tangmanee and Teeravarunyou [73]
+
+Warnings Warnings Navigation - Chevrons or Arrows Navigation - Virtual Cable Navigation - Augmented Road Navigation - Car to follow Navigation - signs and driving directions projected onto the windshield Possible braking position driving corridor braking position Warning: Blind-spot assistance Virtual mirror for blind intersections detected vehicles and information on crossing possibility emphasizing warning signs Virtual mirror for blind intersections using slope 3D arrow
+Highlight other road users Visualizing pedestrian intention Visualize detected objects (humans and vehicles) Visualize detected objects (signposts) Navigation - Arrow Navigation - mapping aid Warnings - Night Vision Systems
+Obstacle detection assistance Visualize detected vehicles and pedestrians Visualize detected vehicles and pedestrians Warnings - Night Vision Systems Visualize detected pedestrians and vehicles Lane change guidance and lane departure warnings Conformal Navigation Arrow Screen-fixed Navigation Arrow Navigation Arrow Ego trajectory Navigation Line and Arrow Highlighting signpost and adding information (duration, accident) Street information
+Safety Grids
+Projected Paths
+Own trajectory Other vehicles Highlight signposts Badges on vehicles Takeover - show relevant vehicles Visualize safe and restricted driving corridor Highlight pedestrians and vehicles Visualization of pedestrians and vehicles Collision Warning Navigation Chevrons Navigation Arrows
+
+Dyn. Env. Dyn. Env. Action Action Action Action Action
+Action Action Action Dyn. Env. Dyn. Env. Dyn. Env.
+Location-specific Dyn. Env.
+Dyn. Env.
+Dyn. Env. Dyn. Env. Dyn. Env.
+Location-specific Action Action Dyn. Env.
+Dyn. Env. Dyn. Env.
+Dyn. Env.
+Dyn. Env. Dyn. Env.
+Action
+Action Action Action Action Action Location-specific
+Action
+Dyn. Env.
+Dyn. Env.
+Action Dyn. Env. Location-specific Dyn. Env. Dyn. Env. Location-specific
+Dyn. Env. Dyn. Env. Action Action Action
+
+Functionality
+Instructive Instructive Instructive Instructive Instructive Instructive Instructive
+
+Content Reference Highlight Highlight Depicting Depicting Depicting Depicting Depicting
+
+Declarative Instructive Instructive Instructive Instructive Declarative
+
+Depicting Depicting Depicting Depicting Highlight Highlight
+
+Instructive Instructive
+
+Highlight Highlight
+
+Instructive
+
+Highlight
+
+Instructive Instructive Instructive
+
+Highlight Combined Highlight
+
+Instructive Instructive Instructive Instructive
+
+Highlight Depicting Combined Highlight
+
+Instructive Instructive
+
+Highlight Highlight
+
+Instructive
+
+Highlight
+
+Instructive Instructive
+
+Highlight Highlight
+
+Instructive
+
+Depicting
+
+Instructive Instructive Instructive Declarative Instructive Instructive
+
+Depicting Depicting Depicting Depicting Depicting Combined
+
+Instructive
+
+Highlight
+
+Instructive
+
+Highlight
+
+Instructive
+
+Depicting
+
+Instructive Instructive Instructive Instructive Instructive Instructive
+
+Depicting Highlight Highlight Combined Highlight Depicting
+
+Instructive Instructive Instructive Instructive Instructive
+
+Highlight Highlight Depicting Depicting Depicting
+
+Registration
+Contact Analog Unregistered Contact Analog Contact Analog Contact Analog Contact Analog Registered in 2D
+Contact Analog Contact Analog Contact Analog Unregistered Contact Analog Contact Analog
+Contact Analog Contact Analog
+Angle Analog
+Contact Analog Contact Analog Contact Analog
+Contact Analog Contact Analog Contact Analog Contact Analog
+Angle Analog Contact Analog
+Contact Analog
+Contact Analog Contact Analog
+Contact Analog
+Contact Analog Unregistered Contact Analog Contact Analog Contact Analog Contact Analog
+Contact Analog
+Angle Analog
+Contact Analog
+Contact Analog Contact Analog Contact Analog Contact Analog Contact Analog Contact Analog
+Contact Analog Contact Analog Contact Analog Contact Analog Contact Analog
+
+Proc. ACM Hum.-Comput. Interact., Vol. 6, No. MHCI, Article 177. Publication date: September 2022.
+
+177:10
+
+Tobias Müller et al.
+
+Tangmanee and Teeravarunyou [73] Park et al. [60] Lindemann et al. [47] Lindemann et al. [46] Lindemann et al. [46] Lindemann et al. [46] Lindemann et al. [46] Lindemann et al. [46] Detjen et al. [17] Detjen et al. [17] Kawamata et al. [36] Bark et al. [7]
+Wiesner et al. [82] Jose et al. [35] Kazazi et al. [37]
+
+Navigation Arrows in HUD
+Detected pedestrians Navigation corridor Threat and Warning markers Oncoming traffic indicators Brake and stopping bar Moving object markers Road sign overlay Accident warning Accident warning Floating Road Map Navigation arrows and distance and maneuver Future road course Navigation Arrows Warning in HUD
+
+Action
+Dyn. Env. Action Dyn. Env. Dyn. Env. Action Dyn. Env. Location-specific Dyn. Env. Dyn. Env. Location-specific Action
+Action Action Dyn. Env.
+
+Instructive
+Instructive Instructive Instructive Instructive Declarative Instructive Instructive Declarative Declarative Instructive Instructive
+Instructive Instructive Instructive
+
+Depicting
+Highlight Depicting Highlight Highlight Depicting Highlight Highlight Highlight Highlight Highlight Combined
+Highlight Depicting Depicting
+
+Unregistered
+Contact Analog Contact Analog Contact Analog Angle Analog Contact Analog Contact Analog Contact Analog Contact Analog Unregistered Contact Analog Contact Analog
+Angle Analog Unregistered Unregistered
+
+In total, we classified 26 publications with 65 visualizations. Regarding the Information Type, Action (46.15%) and Dynamic Environment (44.62%) elements were mostly used. Only six visualizations (9.23%) provided Location-Specific information. The great majority (90.77%) of visualizations provided Instructive information. This was mostly registered Contact Analog (78.46%), followed by Unregistered (12.31%), Angle Analog (7.69%), and Registered in 2D (1.54%). Most visualizations Highlight information (50.77%). Nonetheless, 43.08% Depict additional and 6.15% combine both Content Reference Types. Location-specific visualizations were mostly highlighted signposts. This indicates that especially the use case of CAD is underrepresented in current research. For the Registration Type, Contact Analog and Unregistered combined represent more than 90% of the visualizations. This shows that most works either want to provide information continuously (using Unregistered) or spatially directly located at the relevant object. Using Registered in 2D or Angle Analog potentially is scarce due to the additional mapping necessary by a passenger to understand which object is relevant for the visualization. The high prevalence of Instructive information can probably be explained by the focus on manual driving. AutoUI, the International ACM Conference on Automotive User Interfaces and Interactive Vehicular Applications, for example, started addressing automated driving mostly from 2016 onward [4]. The Content Reference Type was almost on par. Most works focused on highlighting other road users or signposts. Depicting work mostly showed the trajectory or navigational aspects. This can also be explained by the focus on manual driving. Overall, this classification shows that numerous works explored AR in the context of driving, however, the specific aspects of CAD, such as presenting the passenger with declarative or location-specific information, is lacking.
+In general, we found that our taxonomy is capable of classifying all found prior work, indicating that no major classes were missed. In the next step, we aimed to determine the effects of visualizations especially relevant to the use case of CAD.
+5 AUGMENTED REALITY VISUALIZATIONS TO SUPPORT TRUST IN THE AUTOMATED DRIVING CONTEXT
+After defining and comparing our taxonomy to previous work, we suggest a set of visual AR elements to visualize CAD information. We started with the collected and classified visualizations, in particular, with the different types of information represented by them. This set of visualizations contributes to the development of user interfaces for the representation of AD functions. Each element visualizes specific information, such as the position of hidden vehicles reported via infrastructure-based sensors or the planned trajectory of the ego vehicle. Further, each element belongs to a specific class in the dimension Information Type, for example, the hidden vehicle
+Proc. ACM Hum.-Comput. Interact., Vol. 6, No. MHCI, Article 177. Publication date: September 2022.
+
+AR4CAD: Trust in Connected Automated Driving
+
+177:11
+
+is a Dynamic Environment element while the trajectory is an Action element. In the following, we describe the elements in terms of (1) information content, (2) rationale, (3) prior publications using such elements, (4) the concrete visualization, and (5) the classification of this element in our proposed taxonomy.
+The designs have been discussed with N=10 experts in AR visualizations for driver assistance systems and - where necessary - updated according to their remarks. We only report on the updated designs, but occasionally refer to the previous drafts to explain specific design decisions. We refrain from proposing elements based on the (estimated) intention of other road users as done by Colley et al. [11] as the uncertainty of its detection limits this for the purpose of increasing trust.
+5.1 Dynamic Environment Element: Vehicle Marker
+These markers indicate the position of all other vehicles known by the ego vehicle, either because of on-board or of infrastructure sensors. Vehicles have a major influence on the planning of the ego vehicle’s trajectory. Visualizing vehicles not visible to the passengers allows forming an understanding of the AV’s actions. Visualizing vehicles visible to the passengers allows them to match the displayed information with their own perception, quickly getting a sense of the possibilities of the AV (see [12]). Based on previous work [11, 12, 83], we assume such a visualization to increase trust. We propose a visualization dependent on the situation: If the vehicle/pedestrian is visible to the user, indicate the recognition with a cone above the vehicle/pedestrian (see Figure 4b) to not conceal the object. If the vehicle is inside the FoV but occluded, an icon is included below the cone that scales in size with the distance and via vanishing lines gives an impression of the direction (see Figure 4c). We argue that the other vehicle should be made visible to a passenger to provide information about its position and distance, but it should be sufficiently abstract to reflect the limited information. If the vehicle is outside the FoV, the cone is positioned at the side of the FoV and showing in the vehicle’s direction to make the passenger aware of the recognized vehicle without posing visual clutter (see Figure 2). A highly visible purple tone was chosen as it does not have a pre-assigned significance like yellow or red. The classification of this visualization can be seen in Table 2. The Content Reference Type for the cone is Highlight, for the icon, it is Depicting. If the cone only shows the direction towards a known vehicle (see Figure 2), its Registration Type is Angle Analog.
+
+Image
+
+Table 2. Classification of Vehicle Marker cone and icon.
+
+Information Type Action Location-Specific Dynamic Environment
+Action Location-Specific Dynamic Environment
+
+Functionality Type Declarative Instructive
+Declarative Instructive
+
+Content Reference Type Highlight Depicting Combined
+Highlight Depicting Combined
+
+Registration Type Unregistered Angle Analog Registered in 2D Contact Analog Unregistered Angle Analog Registered in 2D Contact Analog
+
+5.2 Location-Specific Elements Location-Specific elements can inform the passenger about available infrastructure support and the covered area. This helps the passenger in understanding where the ego-vehicle has information beyond that given by ego sensors. For example, this answers the question “if no traffic is shown on a crossroad, is there really no traffic, or is there just no infrastructure support?” We expect this to positively impact trust because it provides system transparency [45, 78].
+Proc. ACM Hum.-Comput. Interact., Vol. 6, No. MHCI, Article 177. Publication date: September 2022.
+
+177:12
+
+Tobias Müller et al.
+
+Fig. 2. Illustration of a superimposed video showing the Angle Analog Vehicle Marker (left), the trajectory (white chevrons), the Stop Indication with bar and pointer, and the speed indication and the dots representing location support. This scenario was not part of the study due to technical issues.
+We propose a visualization combined of two parts to show infrastructure support. First, a wellknown connection symbol (circular lines above a symbolized vehicle, see Figure 2) that is easily found above the glove compartment but does not obscure relevant parts of the scenery. Additionally, we propose to show which areas of one or more roads are covered by infrastructure support via dots (size ≈20 cm) floating high (≈4 m) above the respective parts (see Figure 2 and Figure 4). This allows the passenger to easily understand which roads are covered as dots reduce visual clutter compared to lines. The height was chosen to reduce the obscuring of relevant other information. A highly visible blue tone which does not have a pre-assigned significance like yellow or red was chosen.
+We further considered two elements that are not included here. One is a map of the surroundings, including aspects like the road, planned trajectory, and other vehicles. However, while such a map could be helpful, map design itself is a very complex topic [50] and only has a limited relation to the topic of AR for CAD. The other element is a roadblock, indicating a closed road, e.g., due to construction work. This element was left out after discussions with the mentioned experts as most of them identified it as unnecessary. The classification of this visualization can be seen in Table 3. The Registration Type for the connection symbol is Unregistered, for the dots, it is Contact Analog.
+Table 3. Classification of Location-Specific elements.
+
+Image
+
+Information Type Action Location-Specific Dynamic Environment
+Action Location-Specific Dynamic Environment
+
+Functionality Type Declarative Instructive
+Declarative Instructive
+
+Content Reference Type Highlight Depicting Combined
+Highlight Depicting Combined
+
+Registration Type Unregistered Angle Analog Registered in 2D Contact Analog Unregistered Angle Analog Registered in 2D Contact Analog
+
+Proc. ACM Hum.-Comput. Interact., Vol. 6, No. MHCI, Article 177. Publication date: September 2022.
+
+AR4CAD: Trust in Connected Automated Driving
+
+177:13
+
+5.3 Action Elements
+We propose four Action Elements: the (1) own trajectory, a (2) speed, and a (3) stop indication for the own AV, and the visualization of (4) detected gaps the AV can merge into. The own trajectory and speed indication should always be available, while the stop and gap indication is dependent on the available data and the traffic scenario.
+5.3.1 Trajectory. This visualization shows the planned near-future vehicle movements. Thus, it allows the passenger to prepare for driving maneuvers. It is expected that this increases trust based on von Sawitzky et al. [78] as it shows intermediate results [45] and informs about upcoming events [18].
+We propose to use chevrons based on the trajectory’s length, as previously proposed by Pfannmüller et al. [63]. These are projected onto the road. White was chosen to create sufficient contrast to the underlying road (see Figure 2). The inclusion of individual chevrons was chosen because they also provide directional information locally. Therefore, it is not necessary for an observer to see the entire shape, unlike this is the case for, e.g., a continuous tube [63]. While we first considered including additional information such as acceleration/deceleration, this was later disregarded to not overload the element and, thus, the passenger with information. The classification of this visualization can be seen in Table 4.
+Table 4. Classification of the Trajectory.
+
+Image
+
+Information Type Action Location-Specific Dynamic Environment
+
+Functionality Type Declarative Instructive
+
+Content Reference Type Highlight Depicting Combined
+
+Registration Type Unregistered Angle Analog Registered in 2D Contact Analog
+
+5.3.2 Speed Indication. This visualization shows the currently driven speed. As additional information, the maximum allowed speed is included. We expect that (at least) passengers new to AVs will regularly check the tachometer as this is currently necessary. Providing this information lets the passenger monitor system performance [18] and provides sufficient information to the passenger about the appropriateness of the current speed.
+The speed limit is visualized like a road sign for the speed limit to allow high recognizability based on previous knowledge. The currently driven speed is displayed as a number followed by km/h next to the speed limit as already used in digital cluster instruments (see Figure 2). The classification of this visualization can be seen in Table 5.
+Table 5. Classification of the Speed Indication.
+
+Image
+
+Information Type Action Location-Specific Dynamic Environment
+
+Functionality Type Declarative Instructive
+
+Content Reference Type Highlight Depicting Combined
+
+Registration Type Unregistered Angle Analog Registered in 2D Contact Analog
+
+5.3.3 Stop Indication. This visualization shows the planned stopping maneuvers with the corresponding position. This again shows intermediate results [45] and informs about upcoming events [18] and is, therefore, expected to increase trust.
+We propose to display a stop position bar and a stop position pointer. The yellow stop position bar is placed on the ground at the vehicle’s position is planning to stop. The bar shape was chosen
+Proc. ACM Hum.-Comput. Interact., Vol. 6, No. MHCI, Article 177. Publication date: September 2022.
+
+177:14
+
+Tobias Müller et al.
+
+to give it a solid impression without leading to too much occlusion. The color yellow was chosen to be salient for a passenger, but it still does not have the warning character of red. Nonetheless, a novel color was needed to improve delimitability to the other visualizations.
+The stop position pointer is a yellow arrow placed above the stop position bar pointing towards it. The shape arrow was chosen to highlight the stop position even from a further distance. The classification of this visualization can be seen in Table 6. The Content Reference Type for the stop position bar is Depicting, for the stop position pointer, it is Highlight.
+Table 6. Classification of the Stop Indication.
+
+Image
+
+Information Type Action Location-Specific Dynamic Environment
+Action Location-Specific Dynamic Environment
+
+Functionality Type Declarative Instructive
+Declarative Instructive
+
+Content Reference Type Highlight Depicting Combined
+Highlight Depicting Combined
+
+Registration Type Unregistered Angle Analog Registered in 2D Contact Analog Unregistered Angle Analog Registered in 2D Contact Analog
+
+5.3.4 Gap Indication. This visualization shows a (either hidden or visible) gap on the crossroad the AV plans to merge into when turning onto the road. In the considered use case of CAD, an AV may target driving into a gap when turning onto another road not visible to the passenger (e.g., through occlusion). By showing the gap, the passenger is informed about the AV’s plan, thus, reducing surprise at the intersection. While the individual vehicles would be known via the vehicle indicator, the passenger could be unsure whether the gap is sufficient. This again shows intermediate results [45] and informs about upcoming events [18] and is, therefore, expected to increase trust.
+The gap is shown as a green bar between the two vehicles in front or behind the gap (see Figure 2). The color green was chosen in the style of traffic lights to symbolize a free entrance. The width is about the width of one lane, and the shape follows the shape of the respective lane. It has a height of a few centimeters to give it a more massive impression as a flat lane would be difficult to perceive. If a gap is only limited by one vehicle (e.g., a leading vehicle but no second vehicle), it is shown with the approximately necessary merging size including safety margins. The classification of this visualization can be seen in Table 7.
+Table 7. Classification of the Gap Indication.
+
+Image
+
+Information Type Action Location-Specific Dynamic Environment
+
+Functionality Type Declarative Instructive
+
+Content Reference Type Highlight Depicting Combined
+
+Registration Type Unregistered Angle Analog Registered in 2D Contact Analog
+
+6 EMPIRICAL EVALUATION After the definition of the taxonomy and the proposal of AR visualizations to support trust in (C)AD, we designed and conducted a study on the effect of whether different types of information support building trust. At this point, we again built on the taxonomy by taking the dimension Information Type as the basis for the investigation.
+Before the experiment, we computed the required sample size via an a-priori power analysis using G*Power [19]. To achieve a power of .80, with an alpha level of .05, 17 participants should result in medium effect size (0.3 [20]) in a within-factors repeated measures ANOVA.
+Proc. ACM Hum.-Comput. Interact., Vol. 6, No. MHCI, Article 177. Publication date: September 2022.
+
+AR4CAD: Trust in Connected Automated Driving
+
+177:15
+
+We recruited N=18 participants (3 female, 15 male, 0 diverse). Participation was voluntary. On average, participants were M=27.72 (SD=10.11) years old. All participants were employees or interns at Robert Bosch GmbH and working in the Renningen site. Seven participants (38.8%) had experience with Head-Up Displays (HUDs) and automated driving systems. The results from one participant had to be removed due to problems with the understanding of the task.
+6.1 Apparatus
+The experiment was conducted in a fixed-base driving simulator to increase reproducibility compared to driving in real vehicles (see Figure 3). The simulator consists of a seven meters wide and three meters high screen where the driving situation is displayed as a video and a vehicle mockup to increase immersion.
+
+Fig. 3. The fixed-base simulator showing the screen with the video, and the vehicle mockup.
+The videos were taken with an Apple iPhone 11 in Ulm, Germany, which was positioned behind the windshield, approximately in the middle between the driver and passenger seat. We chose two scenarios. In the scenario Free Turn, the AV receives information that the street is free; therefore, it can turn right without stopping (see Figure 4d). In scenario Merge, the vehicle knows about the distance between two vehicles at the intersection, and it merges in the gap between these two vehicles (see Figure 4c and Figure 4d). A third scenario, where the vehicle has to stop, was considered but could not be included into the final study due to technical reasons (see Figure 2).
+An overview of the scenario with the approaching vehicle on the bottom is shown in Figure 4a. This intersection is, in reality, equipped with sensory to capture traffic in the MEC-View project [23].
+For the visualization of the AR content, a Microsoft HoloLens Version 1 was used. This enables passengers to experience AR content as envisioned. We opted for using the HoloLens compared to other possible presentation modes because of several reasons. In contrast to a video that includes
+Proc. ACM Hum.-Comput. Interact., Vol. 6, No. MHCI, Article 177. Publication date: September 2022.
+
+177:16
+
+Tobias Müller et al.
+
+(a) Overview of the merging scenario in Ulm, Germany.
+
+(b) Scenario Free Turn.
+
+(c) Scenario Merge showing invisible vehicles.
+
+(d) Scenario Merge showing the (post-processed) gap indicator. The gap is too small for a merging maneuver but is shown to visualize the nature of the element.
+
+Fig. 4. Scenario screenshots with superimposed AR visualizations. The screenshots were post-processed for better visibility, as neither photographs through the combiner glasses nor the screenshots from the built in HoloLens function came close to the actual impression.
+virtual overlays, the HoloLens provides binocular depth cues which more realistically represent what users in a real vehicle would perceive. Furthermore, we expect that increasing the FoV until it is as large as a human’s will remain a challenge for combiner hardware manufacturers in the near and medium future [86]. The resulting effect that only a fraction of the scene is augmented at any given time, but at the same time the user is in control of which one it is, is lost when overlaying the information in a video. Another alternative display mode, an AR head-up windshield display that could be used to display CAD-relevant visualizations, is very difficult to employ in such a study due to technical reasons. Additionally, they limit the orientation of the FoV in such a way that most parts of the environment cannot be overlaid with information. This could also lead to future manufacturers including external devices in their interaction concepts despite being moderately heavy on the head. The synchronization of the video with the content displayed on the HoloLens was achieved as follows. First, the video was recorded. Then the vehicle’s drive was mapped to a virtual map of the test area and the relevant virtual objects, including their movements, were added. For the trials, this virtual ride was then played back on the HoloLens as if it were connected to a real vehicle performing the driving in real time. To match, the video was played simultaneously, started by the same key press that also started the simulation. The software used in this experiment was developed for use in a
+
+Proc. ACM Hum.-Comput. Interact., Vol. 6, No. MHCI, Article 177. Publication date: September 2022.
+
+AR4CAD: Trust in Connected Automated Driving
+
+177:17
+
+vehicle and then adapted for the study. For the display the elements described in Section 5 were used.
+6.2 Study Design
+As previous work indicated that using AR supports trust in AD [11, 43, 78, 83], we were especially interested in the novel use case of CAD and the effect of Information Type. Therefore, we omitted a superficial baseline without any visualization. Instead, we chose to include all Information Types or omit one information class per condition. Therefore, the independent variable was the information types included and consisted of all classes, no Action, no Dynamic Environment, and no Location Specific as per our taxonomy. The conditions for each of the videos/situations are listed in Table 8.
+
+Table 8. List of visual elements displayed in each study condition per video. Sit. stands for situation.
+
+Condition 1: all three classes 2: no Action 3: no Dynamic Environment 4: no Location Specific
+
+Action Trajectory, Speed, Gap (only Sit. 2)
+X Trajectory, Speed, Gap (only Sit. 2) Trajectory, Speed, Gap (only Sit. 2)
+
+Dynamic Environment Vehicle Marker (visible & invisible) Vehicle Marker (visible & invisible)
+X Vehicle Marker (visible & invisible)
+
+Location-Specific Infrastructure support Infrastructure support Infrastructure support
+X
+
+Our hypotheses were: 𝐻1: Displaying elements from all three classes will result in higher trust than displaying elements only from Dynamic Environment class and Action (no Location-Specific) class for both scenes. 𝐻2: Displaying elements from all three classes will result in higher trust than displaying elements only from the Dynamic Environment class and Location-Specific (no Action) class in both scenes. 𝐻3: Displaying elements from all three classes will result in higher trust than displaying elements only from Action class and Location-Specific (no Dynamic Environment) class for both scenes.
+6.3 Procedure
+Participants were welcomed and asked to sign informed consent. Next, they were informed about the purpose of the study briefly. Afterward, they sat in the car mock-up in the passenger seat. The use case was explained to them before each scenario was shown, and they watched each scenario without the HoloLens first. They were then informed about the HoloLens 1, and they tried it on to get comfortable with it. They were able to adjust the seat and the HoloLens 1. Then they watched the four variations of each of the two scenarios with the HoloLens 1. Scenario Free Turn took 21s, scenario Merge 28s. Before each variation was shown, the FoV of the participants was calibrated to align with the video. Subsequently, the visual elements were explained, and it was ensured that they understand these. The participants first encountered scenario Free Turn in the counterbalanced four variations, then scenario Merge in the counterbalanced four variations. The duration of the user study was approximately 35min per participant.
+6.4 Measurements
+After each condition, participants filled out the Trust in Automation questionnaire [42]. For the trust measurement, we employed the dimensions Reliability/Competence, Understandability/Predictability, and Trust in Automation of the Trust in Automation questionnaire by Körber [42]. Finally, they answered a demographics questionnaire.
+Proc. ACM Hum.-Comput. Interact., Vol. 6, No. MHCI, Article 177. Publication date: September 2022.
+
+177:18
+
+Tobias Müller et al.
+
+7 RESULTS
+First, due to non-normally distributed data, we employed the factorial non-parametric analysis of variance (NPAV) provided by Lüpsen [49]. We included a random intercept for participants for each dependent variable because of the hierarchical data (measurements nested within participants). Effect sizes were calculated using Rosenthals’s formula [67]. Results for both videos/situations were evaluated separately as the NPAV found no significant main effects of scenario nor interaction effects with scenario. Depending on the data’s nature [72], we used Friedman’s ANOVAs tests (non-parametric) or a repeated measures ANOVA (parametric) to compare the four conditions per scenario. For post-hoc tests, Bonferroni correction was used.
+We used Version 4.1.3 of R and RStudio Version 2022.02.0 with all packages up-to-date as of April 2022. For the figures, we used ggstatsplot [62]. These include the mean or median (red dot), the density plots, the boxplots, and the data points. It also includes statistical details such as the used test and the effect size. Therefore, we refrain from rewriting these in text. Instead, we only report the significant differences relevant to our hypotheses.
+7.1 Factorial Analysis
+The NPAV found a significant effect of visualizations on reliability (𝐹 (3, 48) = 18.90, p<.001, r=0.67, Z=-5.53, see Figure 5a). Post-hoc tests using Dunn’s test revealed that All elements lead to higher reliability assessments compared to without Action and without Dynamic Environment. Also, without Dynamic Environment lead to significantly lower reliability assessment compared to without Location Specific. The NPAV also found a significant effect of visualizations on trust (𝐹 (3, 48) = 11.03, p<.001, r=-0.53, Z=-4.37, see Figure 5b). Dunn’s test revealed that All elements lead to higher trust compared to without Action and without Dynamic Environment. Additionally, without Dynamic Environment lead to significantly lower trust compared to without Location Specific. Finally, the NPAV found a significant effect of visualizations on understanding (𝐹 (3, 48) = 18.34, p<.001, r=-0.66, Z=-5.47, see Figure 5c). Dunn’s test showed that All elements lead to higher understanding compared to without Action and without Dynamic Environment. Also, without Action and without Dynamic Environment lead to significantly lower understanding scores compared to without Location Specific.
+
+Reliability Trust
+Understanding
+
+4
+
+3
+
+2
+
+1
+
+All elements
+
+without without without Action Dynamic Location
+Environment Specific
+Visualizations
+
+(a) Main effect on reliability.
+
+5
+
+4
+
+3
+
+2
+
+1
+
+All elements
+
+without without without Action Dynamic Location
+Environment Specific
+Visualizations
+
+(b) Main effect on trust.
+
+5
+
+4
+
+3
+
+2
+
+1
+
+All elements
+
+without without without Action Dynamic Location
+Environment Specific
+Visualizations
+
+(c) Main effect on understanding.
+
+Fig. 5. Main effects of visualizations. The blue dot represents the mean value.
+
+7.2 Scenario Free Turn A Friedman’s ANOVA with post-hoc tests showed a significant difference for Reliability (see Figure 6a), Trust (see Figure 6b), and Understanding (see Figure 6c). Perceived Reliability was rated significantly higher with all elements displayed than omitting Action or Dynamic Environment
+Proc. ACM Hum.-Comput. Interact., Vol. 6, No. MHCI, Article 177. Publication date: September 2022.
+
+AR4CAD: Trust in Connected Automated Driving
+
+177:19
+
+cF2riedman(3) = 19.17, p = 2.53e-04, W Kendall = 0.35, CI95% [0.21, 1.00], npairs = 17
+
+p Bonferroni-corrected = 0.00502
+
+pBonferroni-corrected = 0.0000472
+
+5
+
+p Bonferroni-corrected = 0.00832
+
+cF2riedman(3) = 10.47, p = 0.01, W Kendall = 0.16, CI95% [0.07, 1.00], npairs = 17 p Bonferroni-corrected = 0.02
+5
+
+Reliability/Competence scenario free turn Understanding/Predictability scenario free turn
+Trust in Automation scenario free turn
+
+4
+
+4
+
+mmean = 3.75
+
+mmean = 3.52
+
+mmean = 3.59
+
+mmean = 3.41
+
+mmean = 3.16
+3
+
+3
+
+mmean = 3.12
+
+mmean = 2.88
+
+mmean = 2.82
+
+2
+
+2
+
+1 All elements
+
+No Action
+
+No Dynamic Environment
+
+No LocationSpecific
+
+1 All elements
+
+No Action
+
+No Dynamic Environment
+
+No LocationSpecific
+
+Pairwise test: Durbin-Conover test, Comparisons shown: only significant
+(a) Reliability/Competence.
+
+Pairwise test: Durbin-Conover test, Comparisons shown: only significant
+(b) Trust.
+
+cF2riedman(3) = 16.73, p = 8.05e-04, W Kendall = 0.31, CI95% [0.20, 1.00], npairs = 17
+
+6
+
+p Bonferroni-corrected = 0.00812
+
+pBonferroni-corrected = 0.000229
+
+p Bonferroni-corrected = 0.05
+
+5
+
+4
+
+mmean = 4.16
+
+mmean = 3.87
+
+mmean = 3.21
+3
+mmean = 2.85
+
+2
+
+1 All elements
+
+No Action
+
+No Dynamic Environment
+
+No LocationSpecific
+
+Pairwise test: Durbin-Conover test, Comparisons shown: only significant
+(c) Understanding/Predictability.
+
+Fig. 6. Results for scenario Free Turn.
+elements (see Figure 6a). Trust was rated significantly higher with all elements displayed compared to omitting Dynamic Environment elements (see Figure 6b). Understanding was ratedrated significantly higher with all elements displayed than omitting Action or Dynamic Environment elements (see Figure 6c).
+
+7.3 Scenario Merge
+A Friedman’s ANOVA with post-hoc tests showed a significant difference for Reliability (see Figure 7a), Trust (see Figure 7b), and Understanding (see Figure 7c). Perceived Reliability was rated significantly higher with all elements displayed than omitting Action or Dynamic Environment elements (see Figure 7a). Trust was rated significantly higher with all elements displayed than omitting Action and Dynamic Environment elements (see Figure 7b). Understanding was rated significantly higher with all elements displayed than omitting Action or Dynamic Environment elements (see Figure 7c).
+
+7.4 Evaluation of Hypotheses
+To accept a hypothesis, we define that at least two of the three dependent trust factors (Reliability/Competence, Understandability/Predictability, and Trust in Automation) must be significantly higher in one condition compared to the relevant other condition in both situations and none must be significantly higher in the other condition. We argue that this is the minimum necessary to show that one condition is better unambiguously.
+
+Proc. ACM Hum.-Comput. Interact., Vol. 6, No. MHCI, Article 177. Publication date: September 2022.
+
+Reliability/Competence scenario merge Understanding/Predictability scenario merge
+Trust in Automation scenario merge
+
+177:20
+
+Tobias Müller et al.
+
+F Fisher(1.79, 28.65) = 11.72, p = 2.91e-04, wp2 = 0.20, CI95% [0.03, 1.00], npairs = 17
+
+5
+
+p Bonferroni-pcoBrroencfteerdro=ni-0c.o0rr2ected = 0.00112
+
+p Bonferroni-corrected = 0.02
+
+cF2riedman(3) = 21.18, p = 9.66e-05, W Kendall = 0.37, CI95% [0.19, 1.00], npairs = 16
+
+6
+
+pBonferroni-corrected = 0.0000922 p Bonferroni-corrected = 0.01
+
+pBonferroni-corrected = 0.0000922
+
+p Bonferroni-corrected = 0.01
+
+4
+mmean = 3.85
+
+mmean = 3.74
+
+4
+
+mmean = 3.23
+
+mmean = 3.84
+
+3
+
+mmean = 3.01
+
+mmean = 3.72
+
+mmean = 2.97
+
+2
+
+mmean = 2.66
+
+2
+
+1 All elements
+
+No Action
+
+No Dynamic Environment
+
+No LocationSpecific
+
+loge(BF01)
+
+=
+
+-8.16,
+
+R
+
+2
+
+posterior Bayesian
+
+=
+
+0.56,
+
+CI9H5D%I
+
+[0.41,
+
+0.68],
+
+r
+
+JZS Cauchy
+
+=
+
+0.71
+
+Pairwise test: Student's t-test, Comparisons shown: only significant
+
+(a) Reliability/Competence.
+
+All elements
+
+No Action
+
+No Dynamic Environment
+
+No LocationSpecific
+
+Pairwise test: Durbin-Conover test, Comparisons shown: only significant
+(b) Trust.
+
+F Fisher(2.07, 33.1) = 16.72, p = 7.95e-06, wp2 = 0.35, CI95% [0.16, 1.00], npairs = 17
+
+6
+
+p Bonferroni-pcoBrroencfteerdro=ni-0c.o0rr0ec5te5d = 0.00001p5B2onferroni-pcBorornefceterrdon=i-0co.r0re2cted = 0.000588
+
+mmean = 4.34
+4
+
+mmean = 4.10
+
+mmean = 2.94
+
+mmean = 2.72
+
+2
+
+All elements
+
+No Action
+
+No Dynamic Environment
+
+No LocationSpecific
+
+loge(BF01)
+
+=
+
+-13.14,
+
+R
+
+2
+
+posterior Bayesian
+
+=
+
+0.51,
+
+CI9H5D%I
+
+[0.36,
+
+0.63],
+
+r
+
+JZS Cauchy
+
+=
+
+0.71
+
+Pairwise test: Student's t-test, Comparisons shown: only significant
+
+(c) Understanding/Predictability.
+
+Fig. 7. Results for scenario Merge.
+With the presented results, we can accept and reject our hypotheses as follows: 𝐻1: For the comparison between conditions All Elements / No Location-Specific, there is no significant difference for any of the three dependent trust factors. Therefore, we reject this hypothesis. 𝐻2: For the comparison between conditions All Elements / No Action, only the difference in Trust in Automation in scenario Free Turn is not significant (but still lower). Therefore, we accept this hypothesis. 𝐻3: For the comparison between conditions All Elements / No Dynamic Environment, all three dependent trust factors are significantly higher in the All Elements condition in both videos. Therefore, we accept this hypothesis.
+
+8 DISCUSSION
+This work presented a novel, technology-independent taxonomy for AR visualizations that inform human drivers and passengers of AVs and support trust in CAD. Based on this taxonomy, we collected and categorized previous work. Furthermore, we defined relevant visualizations for the CAD use case, including representations for information regarding the dynamic environment, location-specific information, and the vehicle’s planned actions. In a user study (N=18) using a fixedbase driving simulator and a HoloLens 1, we showed that visualizing elements of all three classes increased trust significantly compared to removing Dynamic Environment and Action elements. However, we found no significant differences between visualizing all classes and removing LocationSpecific elements. In the following, we discuss the classification of prior work, the chosen study
+
+Proc. ACM Hum.-Comput. Interact., Vol. 6, No. MHCI, Article 177. Publication date: September 2022.
+
+AR4CAD: Trust in Connected Automated Driving
+
+177:21
+
+design, the necessity and appropriateness of the visualizations to increase trust in CAD, and practical implications.
+8.1 On the Study Design
+In this work, we chose to compare all three visualization classes with three conditions in which one of these (Action, Dynamic Environment, or Location-Specific) were omitted. Classical studies include a baseline without any visualization; however, recent work has shown that this could lead to numerous concepts, each significantly higher rated compared to the baseline, but with few differences among each other [14]. Additionally, prior work has already shown the positive impact of visualization on trust in AD [11, 12, 43, 78, 83]. It was also shown that the human passenger desires granular information, at least in the introductory phase [11]. Therefore, we assumed that visualizing more information will lead to the highest ratings in trust, which our experiment confirmed (see Figure 6 and Figure 7). With the chosen study design, we are, therefore, able to assess the impact our implementation of each class has on the perceived trust. Significant differences when leaving out a visualization are, thus, interpreted such that this visualization is an important aspect towards building trust in the system. Furthermore, we can assess combinations of the classes, which would be difficult in a classical design as this would result in a multitude of conditions (baseline, conditions per class (3), dual combinations (6), 1 combining all three classes equals 11 conditions).
+8.2 Necessity of Visualizations
+Our hypotheses 𝐻1, 𝐻2, and 𝐻3 stated that omitting one of the classes Action, Dynamic Environment, and Location-Specific would lead to significantly lower trust compared to the combination of all three. This was not the case for Location-Specific elements. Therefore, we argue that the Location-Specific elements contributed little to trust formation with the subfactors Reliability, Trust, and Understanding. This was the case in both scenarios. This could depend on several factors. First, participants were not required to drive themselves; therefore, the expectations towards the automated capabilities of the AV could already have been such that even without Location-Specific support, the AV should be capable of performing the driving task. Also, dynamic objects pose the highest risk in a driving scene [11], therefore, static support for a street could be viewed as less relevant. This focus on Dynamic Environment elements seems to be underpinned by the highest difference between visualizing all elements and omitting Dynamic Environment elements (e.g., see Figure 6b). The results seem to indicate that the most important visualizations show dynamic objects followed by the Action elements.
+8.3 Practical Implications
+This work is in line with previous work in showing the necessity to highlight dynamic objects [11, 12, 83]. Additionally, we showed that visualizing the trajectory of the AV is beneficial for increasing trust. These visualizations are only partially feasible today. First, the required sensor networks to detect and then convey the relevant information has to be installed. For this, especially occluded and dangerous intersections seem most relevant. Furthermore, the display technology has to be available. While current Head-Up Displays can display elements in 10m distance [34], showing content in continuous depth is not yet feasible. Nonetheless, Panasonic claims to be able to produce such windshield displays by 2024 [6]. Especially for (partial) manual driving, the effects and benefits of these visualizations including potential visual clutter have to be further evaluated. The reason for this is that a driver must not only understand what a vehicle perceives and plans, but also see all relevant parts of the environment and take decisions.
+
+Proc. ACM Hum.-Comput. Interact., Vol. 6, No. MHCI, Article 177. Publication date: September 2022.
+
+177:22
+
+Tobias Müller et al.
+
+8.4 Limitations
+A limited number of participants (N=18, one had to be removed from analysis) took part in the study. These were relatively young (M=27.72, SD=10.11) and employees of Robert Bosch GmbH, therefore, a high technological affinity could be assumed, and the results might not be generalizable. Furthermore, the generalizability is also affected by the usage of a fixed-base driving simulator. Still, a video taken at a real intersection with numerous sensors and a HoloLens 1 was used. Therefore, we argue that the study setup was more realistic than, for example, using a Virtual Reality simulator. Nonetheless, higher degrees of freedom could improve immersion and increase external validity (e.g., [13] or [24]). While we believe our designed visualizations are sound, there are numerous other visualization options to be investigated. The taxonomy focuses on four dimensions: Information, Functionality, Content Reference, and Registration Type. While many other dimensions seem possible and relevant, we focused on the, in our opinion, most important ones.
+9 CONCLUSION
+Overall, we present a novel taxonomy for AR visualizations to support trust in CAD. This taxonomy contains four dimensions: Information, Functionality, Content Reference, and Registration Type. We classified prior work in AR visualizations and named current trends. Furthermore, using the taxonomy, we defined exemplary visualizations to represent information supporting trust in CAD functions. In a subsequent study with N=18 participants, we found that visualizing elements from each of the three Information Type classes Action, Dynamic Environment, and Location-Specific lead to the highest trust. Omitting Action or Dynamic Environment elements lead to significantly lower trust. Our work is, to the best of our knowledge, among the first to specifically look at augmented reality to increase trust in CAD and further enhance the body of knowledge on factors for a successful introduction of AVs.
+On the basis of the results presented here, various topics for future research arise. Certainly, the set of presented visual elements is not complete and there are many more that can be included. Pedestrians or cyclists are obvious possibilities here. This also raises the question, at which points further elements only create visual clutter and may even decrease trust. In addition, the locationspecific elements were found to have no detectable effect on trust. This leads to the issue as to whether there really is no correlation or the presentation was chosen inappropriately. Further investigations are necessary here.
+ACKNOWLEDGMENTS
+The authors thank Marco Quander and the Human-Computer Interaction group at Bosch research for their support in conducting the simulator study. Furthermore, the authors thank all study participants.
+REFERENCES
+[1] Lotfi Abdi and Aref Meddeb. 2018. Driver information system: a combination of augmented reality, deep learning and vehicular Ad-hoc networks. Multimedia Tools and Applications 77, 12 (2018), 14673–14703.
+[2] Patrícia RJA Alves, Joel Gonçalves, Rosaldo JF Rossetti, Eugénio C Oliveira, and Cristina Olaverri-Monreal. 2013. Forward collision warning systems using heads-up displays: Testing usability of two new metaphors. In 2013 IEEE Intelligent Vehicles Symposium Workshops (IV Workshops). IEEE, IEEE, New York, NY, USA, 1–6.
+[3] Ernst Assmann. 1985. Untersuchung über den Einfluss einer Bremsweganzeige auf das Fahrverhalten. Ph. D. Dissertation. TU München. Unpublished doctoral dissertation, Technische Universität München.
+[4] Jackie Ayoub, Feng Zhou, Shan Bao, and X. Jessie Yang. 2019. From Manual Driving to Automated Driving: A Review of 10 Years of AutoUI. In Proceedings of the 11th International Conference on Automotive User Interfaces and Interactive Vehicular Applications (Utrecht, Netherlands) (AutomotiveUI ’19). Association for Computing Machinery, New York, NY, USA, 70–90. https://doi.org/10.1145/3342197.3344529
+
+Proc. ACM Hum.-Comput. Interact., Vol. 6, No. MHCI, Article 177. Publication date: September 2022.
+
+AR4CAD: Trust in Connected Automated Driving
+
+177:23
+
+[5] Ronald T Azuma. 1997. A survey of augmented reality. Presence: Teleoperators & Virtual Environments 6, 4 (1997), 355–385.
+[6] Roberto Baldwin. 2021. Panasonic’s Innovative Augmented-Reality HUD Could Be in Cars by 2024. https://www. caranddriver.com/news/a35195014/panasonic-augmented-reality-head-up-display-cars-2024/. [Online; accessed 06-MAY-2021].
+[7] Karlin Bark, Cuong Tran, Kikuo Fujimura, and Victor Ng-Thow-Hing. 2014. Personal Navi: Benefits of an Augmented Reality Navigational Aid Using a See-Thru 3D Volumetric HUD. In Proceedings of the 6th International Conference on Automotive User Interfaces and Interactive Vehicular Applications (Seattle, WA, USA) (AutomotiveUI ’14). Association for Computing Machinery, New York, NY, USA, 1–8. https://doi.org/10.1145/2667317.2667329
+[8] Kassandra Bauerfeind, Julia Drüke, Lennart Bendewald, and Martin Baumann. 2018. When does the driver benefit from AR-information in a navigation task compared to a Head-Up Display? Results of a driving simulator study.
+[9] Ulrich Bergmeier and Christian Lange. 2008. Acceptance of Augmented Reality for driver assistance information. [10] Kar-Hai Chu, Robert Brewer, and Sam Joseph. 2008. Traffic and navigation support through an automobile heads up
+display (a-HUD). [11] Mark Colley, Christian Bräuner, Mirjam Lanzer, Walch Marcel, Martin Baumann, and Enrico Rukzio. 2020. Effect of
+Visualization of Pedestrian Intention Recognition on Trust and Cognitive Load. In Proceedings of the 12th International Conference on Automotive User Interfaces and Interactive Vehicular Applications (AutomotiveUI ’20). ACM, Association for Computing Machinery, New York, NY, USA. https://doi.org/10.1145/3409120.3410648 [12] Mark Colley, Benjamin Eder, Jan Ole Rixen, and Enrico Rukzio. 2021. Effects of Semantic Segmentation Visualization on Trust, Situation Awareness, and Cognitive Load in Highly Automated Vehicles. In Proceedings of the 2021 CHI Conference on Human Factors in Computing Systems (CHI ’21). Association for Computing Machinery, New York, NY, USA. https://doi.org/10.1145/3411764.3445351 [13] Mark Colley, Pascal Jansen, Enrico Rukzio, and Jan Gugenheimer. 2022. SwiVR-Car-Seat: Exploring Vehicle Motion Effects on Interaction Quality in Virtual Reality Automated Driving Using a Motorized Swivel Seat. Proc. ACM Interact. Mob. Wearable Ubiquitous Technol. 5, 4, Article 150 (dec 2022), 26 pages. https://doi.org/10.1145/3494968 [14] Mark Colley, Svenja Krauss, Mirjam Lanzer, and Enrico Rukzio. 2021. How Should Automated Vehicles Communicate Critical Situations? A Comparative Analysis of Visualization Concepts. Proc. ACM Interact. Mob. Wearable Ubiquitous Technol. 5, 3, Article 94 (Sept. 2021), 23 pages. https://doi.org/10.1145/3478111 [15] Mark Colley, Max Rädler, Jonas Glimmann, and Enrico Rukzio. 2022. Effects of Scene Detection, Scene Prediction, and Maneuver Planning Visualizations on Trust, Situation Awareness, and Cognitive Load in Highly Automated Vehicles. Proc. ACM Interact. Mob. Wearable Ubiquitous Technol. 6, 2, Article 49 (jul 2022), 21 pages. https://doi.org/10.1145/3534609 [16] Daniel Damböck, Thomas Weißgerber, Martin Kienle, and Klaus Bengler. 2012. Evaluation of a contact analog head-up display for highly automated driving. In 4th International Conference on Applied Human Factors and Ergonomics. Citeseer, CRC Press, San Francisco CA, USA, 6011 – 6020. [17] Henrik Detjen, Stefan Geisler, and Stefan Schneegass. 2020. “Help, Accident Ahead!”: Using Mixed Reality Environments in Automated Vehicles to Support Occupants After Passive Accident Experiences. In 12th International Conference on Automotive User Interfaces and Interactive Vehicular Applications (Virtual Event, DC, USA) (AutomotiveUI ’20). Association for Computing Machinery, New York, NY, USA, 58–61. https://doi.org/10.1145/3409251.3411723 [18] Fredrick Ekman, Mikael Johansson, and Jana Sochor. 2017. Creating appropriate trust in automated vehicle systems: A framework for HMI design. IEEE Transactions on Human-Machine Systems 48, 1 (2017), 95–101. [19] Franz Faul, Edgar Erdfelder, Axel Buchner, and Albert-Georg Lang. 2009. Statistical power analyses using G* Power 3.1: Tests for correlation and regression analyses. Behavior research methods 41, 4 (2009), 1149–1160. [20] David C. Funder and Daniel J. Ozer. 2019. Evaluating Effect Size in Psychological Research: Sense and Nonsense. Advances in Methods and Practices in Psychological Science 2, 2 (2019), 156–168. https://doi.org/10.1177/2515245919847202 arXiv:https://doi.org/10.1177/2515245919847202 [21] Joseph L. Gabbard, Missie Smith, Kyle Tanous, Hyungil Kim, and Bryan Jonas. 2019. AR DriveSim: An Immersive Driving Simulator for Augmented Reality Head-Up Display Research. Frontiers in Robotics and AI 6 (2019), 98. https://doi.org/10.3389/frobt.2019.00098 [22] Paul George, Indira Thouvenin, Vincent Fremont, and Véronique Cherfaoui. 2012. DAARIA: Driver assistance by augmented reality for intelligent automobile. In 2012 IEEE Intelligent Vehicles Symposium. IEEE, IEEE, New York, NY, USA, 1043–1048. [23] Robert Bosch GmbH. 2016. Mobile Edge Computing basierte Objekterkennung für hoch- und vollautomatisiertes Fahren. http://www.mec-view.de/. [Online; accessed: 07-APRIL-2021]. [24] Philipp Hock, Mark Colley, Ali Askari, Tobias Wagner, Martin Baumann, and Enrico Rukzio. 2022. Introducing VAMPIRE - Using Kinaesthetic Feedback in Virtual Reality for Automated Driving Experiments. In 14th International Conference on Automotive User Interfaces and Interactive Vehicular Applications (AutomotiveUI ’22). Association for Computing Machinery, New York, NY, USA, 9 pages. https://doi.org/10.1145/3543174.3545252 Accepted.
+
+Proc. ACM Hum.-Comput. Interact., Vol. 6, No. MHCI, Article 177. Publication date: September 2022.
+
+177:24
+
+Tobias Müller et al.
+
+[25] Kevin Anthony Hoff and Masooda Bashir. 2015. Trust in automation: Integrating empirical evidence on factors that influence trust. Human factors 57, 3 (2015), 407–434.
+[26] Amin Hosseini, Daniel Bacara, and Markus Lienkamp. 2014. A system design for automotive augmented reality using stereo night vision. In 2014 IEEE Intelligent Vehicles Symposium Proceedings. IEEE, IEEE, New York, NY, USA, 127–133.
+[27] Xiaojun Hu, Ronald Rousseau, and Jin Chen. 2011. On the definition of forward and backward citation generations. Journal of Informetrics 5, 1 (2011), 27–36.
+[28] Nathan Hutchins and Loyd Hook. 2017. Technology acceptance model for safety critical autonomous transportation systems. In 2017 IEEE/AIAA 36th Digital Avionics Systems Conference (DASC). IEEE, New York, NY, USA, 1–5.
+[29] Yoonsook Hwang, Byoung-Jun Park, and Kyong-Ho Kim. 2016. Effects of Augmented-Reality Head-up Display System Use on Risk Perception and Psychological Changes of Drivers. ETRI Journal 38, 4 (2016), 757–766.
+[30] Renate Häuslschmid, Bastian Pfleging, and Florian Alt. 2016. A Design Space to Support the Development of Windshield Applications for the Car. In Proceedings of the 2016 CHI Conference on Human Factors in Computing Systems (San Jose, California, USA) (CHI ’16). Association for Computing Machinery, New York, NY, USA, 5076–5091. https: //doi.org/10.1145/2858036.2858336
+[31] Axel Jansen. 2018. Augmented Reality in der Fahrzeugnavigation. Ph. D. Dissertation. Technische Universität München. [32] A Cecile JW Janssens, Marta Gwinn, J Elaine Brockman, Kimberley Powell, and Michael Goodman. 2020. Novel
+citation-based search method for scientific literature: a validation study. BMC medical research methodology 20, 1 (2020), 25. [33] Jiun-Yin Jian, Ann M Bisantz, and Colin G Drury. 2000. Foundations for an empirically determined scale of trust in automated systems. International journal of cognitive ergonomics 4, 1 (2000), 53–71. [34] Markus Jordan. 2020. DAS MBUX AUGMENTED REALITY HEAD-UP DISPLAY DER S-KLASSE. https://blog.mercedesbenz-passion.com/2020/09/das-mbux-augmented-reality-head-up-display/. [Online; accessed 06-MAY-2021]. [35] Richie Jose, Gun A. Lee, and Mark Billinghurst. 2016. A Comparative Study of Simulated Augmented Reality Displays for Vehicle Navigation. In Proceedings of the 28th Australian Conference on Computer-Human Interaction (Launceston, Tasmania, Australia) (OzCHI ’16). Association for Computing Machinery, New York, NY, USA, 40–48. https://doi.org/ 10.1145/3010915.3010918 [36] Takaya Kawamata, Itaru Kitahara, Yoshinari Kameda, and Yuichi Ohta. 2013. Poster: Lifted road map view on windshield display. In 2013 IEEE Symposium on 3D User Interfaces (3DUI). IEEE, IEEE, New York, NY, USA, 139–140. [37] Juela Kazazi, Susann Winkler, and Mark Vollrath. 2015. Accident prevention through visual warnings: how to design warnings in head-up display for older and younger drivers. In 2015 IEEE 18th International Conference on Intelligent Transportation Systems. IEEE, IEEE, New York, NY, USA, 1028–1034. [38] Naeun Kim, Kwangmin Jeong, Minyoung Yang, Yejeon Oh, and Jinwoo Kim. 2017. "Are You Ready to Take-over?": An Exploratory Study on Visual Assistance to Enhance Driver Vigilance. In Proceedings of the 2017 CHI Conference Extended Abstracts on Human Factors in Computing Systems (Denver, Colorado, USA) (CHI EA ’17). Association for Computing Machinery, New York, NY, USA, 1771–1778. https://doi.org/10.1145/3027063.3053155 [39] SeungJun Kim and Anind K. Dey. 2009. Simulated Augmented Reality Windshield Display as a Cognitive Mapping Aid for Elder Driver Navigation. In Proceedings of the SIGCHI Conference on Human Factors in Computing Systems (Boston, MA, USA) (CHI ’09). Association for Computing Machinery, New York, NY, USA, 133–142. https://doi.org/10.1145/ 1518701.1518724 [40] Kazuhiro Kojima, Akihiko Sato, Fumihiro Taya, Yoshinari Kameda, and Yuichi Ohta. 2005. NaviView: visual assistance by virtual mirrors at blind intersection. In Proceedings. 2005 IEEE Intelligent Transportation Systems, 2005. IEEE, New York, NY, USA, 592–597. [41] Jeamin Koo, Jungsuk Kwac, Wendy Ju, Martin Steinert, Larry Leifer, and Clifford Nass. 2015. Why did my car just do that? Explaining semi-autonomous driving actions to improve driver understanding, trust, and performance. International Journal on Interactive Design and Manufacturing (IJIDeM) 9, 4 (2015), 269–275. [42] Moritz Körber. 2019. Theoretical Considerations and Development of a Questionnaire to Measure Trust in Automation. In Proceedings of the 20th Congress of the International Ergonomics Association (IEA 2018), Sebastiano Bagnara, Riccardo Tartaglia, Sara Albolino, Thomas Alexander, and Yushi Fujita (Eds.). Springer International Publishing, Cham, 13–30. [43] Alexander Kunze, Stephen J. Summerskill, Russell Marshall, and Ashleigh J. Filtness. 2018. Augmented Reality Displays for Communicating Uncertainty Information in Automated Driving. In Proceedings of the 10th International Conference on Automotive User Interfaces and Interactive Vehicular Applications (Toronto, ON, Canada) (AutomotiveUI ’18). Association for Computing Machinery, New York, NY, USA, 164–175. https://doi.org/10.1145/3239060.3239074 [44] John Lee and Neville Moray. 1992. Trust, control strategies and allocation of function in human-machine systems. Ergonomics 35, 10 (1992), 1243–1270. [45] John D Lee and Katrina A See. 2004. Trust in automation: Designing for appropriate reliance. Human factors 46, 1 (2004), 50–80.
+
+Proc. ACM Hum.-Comput. Interact., Vol. 6, No. MHCI, Article 177. Publication date: September 2022.
+
+AR4CAD: Trust in Connected Automated Driving
+
+177:25
+
+[46] Patrick Lindemann, Tae-Young Lee, and Gerhard Rigoll. 2018. Catch my drift: Elevating situation awareness for highly automated driving with an explanatory windshield display user interface. Multimodal Technologies and Interaction 2, 4 (2018), 71.
+[47] Patrick Lindemann, Niklas Müller, and Gerhard Rigolll. 2019. Exploring the Use of Augmented Reality Interfaces for Driver Assistance in Short-Notice Takeovers. In 2019 IEEE Intelligent Vehicles Symposium (IV). IEEE, IEEE, New York, NY, USA, 804–809.
+[48] Lutz Lorenz, Philipp Kerschbaum, and Josef Schumann. 2014. Designing take over scenarios for automated driving: How does augmented reality support the driver to get back into the loop?, In Proceedings of the Human Factors and Ergonomics Society Annual Meeting. Proceedings of the Human Factors and Ergonomics Society Annual Meeting 58, 1, 1681–1685. https://doi.org/10.1177/1541931214581351 arXiv:https://doi.org/10.1177/1541931214581351
+[49] Haiko Lüpsen. 2020. R-Funktionen zur Varianzanalyse. http://www.uni-koeln.de/~luepsen/R/. [Online; accessed 25-SEPTEMBER-2020].
+[50] Alan M MacEachren and DR Fraser Taylor. 2013. Visualization in modern cartography. Elsevier, Amsterdam, The Netherlands.
+[51] Stephen Marsh and Mark R Dibben. 2003. The role of trust in information science and technology. Annual Review of Information Science and Technology (ARIST) 37 (2003), 465–98.
+[52] Roger C Mayer, James H Davis, and F David Schoorman. 1995. An integrative model of organizational trust. Academy of management review 20, 3 (1995), 709–734.
+[53] Zeljko Medenica, Andrew L. Kun, Tim Paek, and Oskar Palinko. 2011. Augmented Reality vs. Street Views: A Driving Simulator Study Comparing Two Emerging Navigation Aids. In Proceedings of the 13th International Conference on Human Computer Interaction with Mobile Devices and Services (Stockholm, Sweden) (MobileHCI ’11). Association for Computing Machinery, New York, NY, USA, 265–274. https://doi.org/10.1145/2037373.2037414
+[54] Bonnie M Muir. 1994. Trust in automation: Part I. Theoretical issues in the study of trust and human intervention in automated systems. Ergonomics 37, 11 (1994), 1905–1922.
+[55] Tobias Müller and Ralf Dauenhauer. 2016. A Taxonomy for Information Linking in Augmented Reality. In Augmented Reality, Virtual Reality, and Computer Graphics, Lucio Tommaso De Paolis and Antonio Mongelli (Eds.). Springer International Publishing, Cham, 368–387.
+[56] Narzt, Pomberger, Ferscha, Kolb, Muller, Wieghardt, Hortner, and Lindinger. 2003. Pervasive information acquisition for mobile AR-navigation systems. In 2003 Proceedings Fifth IEEE Workshop on Mobile Computing Systems and Applications. IEEE, New York, NY, USA, 13–20. https://doi.org/10.1109/MCSA.2003.1240763
+[57] Wolfgang Narzt, Gustav Pomberger, Alois Ferscha, Dieter Kolb, Reiner Müller, Jan Wieghardt, Horst Hörtner, and Christopher Lindinger. 2004. A New Visualization Concept for Navigation Systems. In User-Centered Interaction Paradigms for Universal Access in the Information Society, Christian Stary and Constantine Stephanidis (Eds.). Springer Berlin Heidelberg, Berlin, Heidelberg, 440–451.
+[58] Michael A Nees. 2016. Acceptance of self-driving cars: An examination of idealized versus realistic portrayals with a self-driving car acceptance scale. In Proceedings of the Human Factors and Ergonomics Society Annual Meeting, Vol. 60. SAGE Publications Sage CA, Los Angeles, CA, USA, 1449–1453.
+[59] Victor Ng-Thow-Hing, Karlin Bark, Lee Beckwith, Cuong Tran, Rishabh Bhandari, and Srinath Sridhar. 2013. Usercentered perspectives for automotive augmented reality. In IEEE International Symposium on Mixed and Augmented Reality. IEEE, New York, NY, USA, 13–22.
+[60] Byoung-Jun Park, Jeong-Woo Lee, Changrak Yoon, and Kyong-Ho Kim. 2015. Augmented reality and representation in vehicle for safe driving at night. In 2015 International Conference on Information and Communication Technology Convergence (ICTC). IEEE, IEEE, New York, NY, USA, 1261–1263.
+[61] Hye Sun Park, Min Woo Park, Kwang Hee Won, Kyong-Ho Kim, and Soon Ki Jung. 2013. In-Vehicle AR-HUD System to Provide Driving-Safety Information. ETRI Journal 35, 6 (2013), 1038–1047. https://doi.org/10.4218/etrij.13.2013.0041 arXiv:https://onlinelibrary.wiley.com/doi/pdf/10.4218/etrij.13.2013.0041
+[62] Indrajeet Patil. 2021. Visualizations with statistical details: The ’ggstatsplot’ approach. Journal of Open Source Software 6, 61 (2021), 3167. https://doi.org/10.21105/joss.03167
+[63] Lisa Pfannmüller, Martina Kramer, Bernhard Senner, and Klaus Bengler. 2015. A comparison of display concepts for a navigation system in an automotive contact analog head-up display. Procedia Manufacturing 3 (2015), 2722–2729.
+[64] Marina Plavšic, Markus Duschl, Marcus Tönnis, Heiner Bubb, and Gudrun Klinker. 2009. Ergonomic design and evaluation of augmented reality based cautionary warnings for driving assistance in urban environments. , 10 pages.
+[65] Tony Poitschke, Markus Ablaßmeier, Gerhard Rigoll, Stanislavs Bardins, Stefan Kohlbecher, and Erich Schneider. 2008. Contact-Analog Information Representation in an Automotive Head-up Display. In Proceedings of the 2008 Symposium on Eye Tracking Research and Applications (Savannah, Georgia) (ETRA ’08). Association for Computing Machinery, New York, NY, USA, 119–122. https://doi.org/10.1145/1344471.1344502
+
+Proc. ACM Hum.-Comput. Interact., Vol. 6, No. MHCI, Article 177. Publication date: September 2022.
+
+177:26
+
+Tobias Müller et al.
+
+[66] Christina Rödel, Susanne Stadler, Alexander Meschtscherjakov, and Manfred Tscheligi. 2014. Towards Autonomous Cars: The Effect of Autonomy Levels on Acceptance and User Experience. In Proceedings of the 6th International Conference on Automotive User Interfaces and Interactive Vehicular Applications (Seattle, WA, USA) (AutomotiveUI ’14). Association for Computing Machinery, New York, NY, USA, 1–8. https://doi.org/10.1145/2667317.2667330
+[67] Robert Rosenthal, Harris Cooper, and L Hedges. 1994. Parametric measures of effect size. The handbook of research synthesis 621, 2 (1994), 231–244.
+[68] Akihiko Sato, Itaru Kitahara, Yoshinari Kameda, and Yuichi Ohta. 2006. Visual navigation system on windshield head-up display. In Proc. 13th World Congress on Intelligent Transport Systems, CD-ROM. London, Great Britain, 8 pages.
+[69] Jens Sauerbrey. 2004. MAN Abbiegeassistent: Ein System zur Unfallvermeidung beim Rechtsabbiegen von Lkw. In 1. Tagung Aktive Sicherheit durch Fahrerassistenzsysteme. Munich, Germany, 19 pages.
+[70] Mark C Schall Jr, Michelle L Rusch, John D Lee, Jeffrey D Dawson, Geb Thomas, Nazan Aksan, and Matthew Rizzo. 2013. Augmented reality cues and elderly driver hazard perception. Human factors 55, 3 (2013), 643–658.
+[71] Alessandro Soro, Andry Rakotonirainy, Ronald Schroeter, and Sabine Wollstädter. 2014. Using Augmented Video to Test In-Car User Experiences of Context Analog HUDs. In Adjunct Proceedings of the 6th International Conference on Automotive User Interfaces and Interactive Vehicular Applications (Seattle, WA, USA) (AutomotiveUI ’14). Association for Computing Machinery, New York, NY, USA, 1–6. https://doi.org/10.1145/2667239.2667302
+[72] Laerd statistics. 2016. Mixed ANOVA using SPSS Statistics. https://statistics.laerd.com/spss-tutorials/mixed-anovausing-spss-statistics.php. [Online; Accessed: 12-SEPTEMBER-2019].
+[73] Krittiya Tangmanee and Sakol Teeravarunyou. 2012. Effects of guided arrows on head-up display towards the vehicle windshield. In 2012 Southeast Asian Network of Ergonomics Societies Conference (SEANES). IEEE, IEEE, New York, NY, USA, 1–6.
+[74] Fumihiro Taya, Yoshinari Kameda, and Yuichi Ohta. 2005. Naviview: Virtual slope visualization of blind area at an intersection. In 12th World Congress on Intelligent Transport Systems, Vol. 8. San Francisco, CA, United States, 8 pages.
+[75] Marcus Tönnis, Gudrun Klinker, and Marina Plavšic. 2009. Survey and classification of head-up display presentation principles. Proceedings of the International Ergonomics Association (IEA) (2009), 10 pages.
+[76] Marcus Tönnis and Gudrun Klinker. 2006. Effective control of a car driver’s attention for visual and acoustic guidance towards the direction of imminent dangers. In 2006 IEEE/ACM International Symposium on Mixed and Augmented Reality. IEEE, New York, NY, USA, 13–22.
+[77] Marcus Tönnis, Christian Lange, and Gudrun Klinker. 2007. Visual longitudinal and lateral driving assistance in the head-up display of cars. In 2007 6th IEEE and ACM International Symposium on Mixed and Augmented Reality. IEEE, New York, NY, USA, 91–94.
+[78] Tamara von Sawitzky, Philipp Wintersberger, Andreas Riener, and Joseph L. Gabbard. 2019. Increasing Trust in Fully Automated Driving: Route Indication on an Augmented Reality Head-up Display. In Proceedings of the 8th ACM International Symposium on Pervasive Displays (Palermo, Italy) (PerDis ’19). Association for Computing Machinery, New York, NY, USA, Article 6, 7 pages. https://doi.org/10.1145/3321335.3324947
+[79] Qi Wang, Bin Li, Zhiheng Li, and Li Li. 2017. Effect of connected automated driving on traffic capacity. In 2017 Chinese Automation Congress (CAC). IEEE, IEEE, New York, NY, USA, 633–637.
+[80] Gesa Wiegand, Christian Mai, Kai Holländer, and Heinrich Hussmann. 2019. InCarAR: A Design Space Towards 3D Augmented Reality Applications in Vehicles. In Proceedings of the 11th International Conference on Automotive User Interfaces and Interactive Vehicular Applications (Utrecht, Netherlands) (AutomotiveUI ’19). Association for Computing Machinery, New York, NY, USA, 1–13. https://doi.org/10.1145/3342197.3344539
+[81] Gesa Wiegand, Matthias Schmidmaier, Thomas Weber, Yuanting Liu, and Heinrich Hussmann. 2019. I Drive - You Trust: Explaining Driving Behavior Of Autonomous Cars. In Extended Abstracts of the 2019 CHI Conference on Human Factors in Computing Systems (Glasgow, Scotland Uk) (CHI EA ’19). Association for Computing Machinery, New York, NY, USA, 1–6. https://doi.org/10.1145/3290607.3312817
+[82] Christian A Wiesner, Mike Ruf, Demet Sirim, and Gudrun Klinker. 2017. 3D-FRC: Depiction of the future road course in the Head-Up-Display. In 2017 IEEE International Symposium on Mixed and Augmented Reality (ISMAR). IEEE, IEEE, New York, NY, USA, 136–143.
+[83] Philipp Wintersberger, Anna-Katharina Frison, Andreas Riener, and Tamara von Sawitzky. 2019. Fostering user acceptance and trust in fully automated vehicles: Evaluating the potential of augmented reality. PRESENCE: Virtual and Augmented Reality 27, 1 (2019), 46–62.
+[84] Changrak Yoon, Kyongho Kim, Hye Sun Park, Min Woo Park, and Soon Ki Jung. 2014. Development of augmented forward collision warning system for Head-Up Display. In 17th International IEEE Conference on Intelligent Transportation Systems (ITSC). IEEE, IEEE, New York, NY, USA, 2277–2279.
+[85] Changrak Yoon and Kyong-Ho Kim. 2015. Augmented reality information registration for head-up display. In 2015 International Conference on Information and Communication Technology Convergence (ICTC). IEEE, IEEE, New York, NY, USA, 1135–1137.
+
+Proc. ACM Hum.-Comput. Interact., Vol. 6, No. MHCI, Article 177. Publication date: September 2022.
+
+AR4CAD: Trust in Connected Automated Driving
+
+177:27
+
+[86] Tao Zhan, Kun Yin, Jianghao Xiong, Ziqian He, and Shin-Tson Wu. 2020. Augmented Reality and Virtual Reality Displays: Perspectives and Challenges. iScience 23, 8 (2020), 101397. https://doi.org/10.1016/j.isci.2020.101397
+Received February 2022; revised May 2022; accepted June 2022
+
+Proc. ACM Hum.-Comput. Interact., Vol. 6, No. MHCI, Article 177. Publication date: September 2022.
+

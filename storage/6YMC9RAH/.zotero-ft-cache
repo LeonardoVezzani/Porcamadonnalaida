@@ -1,0 +1,607 @@
+The International Journal of Advanced Manufacturing Technology (2020) 109:2023–2037 https://doi.org/10.1007/s00170-020-05771-3
+ORIGINAL ARTICLE
+
+A scalable wearable AR system for manual order picking based on warehouse floor-related navigation
+Wei Fang1 & Zewu An2
+Received: 13 July 2019 / Accepted: 13 July 2020 / Published online: 24 July 2020 # Springer-Verlag London Ltd., part of Springer Nature 2020
+Abstract In manual order picking systems, a paper list specifying the name, location, and amount of each item is often given, and this would exert mental pressure on pickers while finding target shelf bins in high-density picking environments. Augmented reality (AR) can provide a friendly alternative to improve the manual order picking performance by conveying picking information into visual instruction. Nevertheless, there is still no systematic consensus to deploy the pick-by-AR associated with actual warehouse workplaces. To establish a spatial correspondence between the visual guidance with the actual workplace, the multi-markerbased global map about the warehouse floor is established in advance. Instead of traditional single marker-based pick-by-AR methods, the warehouse floor-related map can provide an accurate and continuous navigation performance for intuitive AR guidance, allowing the picker to move freely on the warehouse floor without limiting to some certain locations. Besides, a systematic pick-by-AR solution is available by integrating the proposed method to a lightweight wearable AR device, and this easy-to-deploy pick-by-AR solution can alleviate the worker’s mental effort while doing picking action. Finally, the pick-by-AR system described in the paper is deployed in the automobile assembly line, and experimental results illustrate that the proposed method can improve the picking efficiency while reducing the picking errors compared with the current paper-based order picking.
+Keywords Order picking . Augmented reality . Warehouse-related navigation . Pick-by-AR
+
+1 Introduction
+Order picking is a crucial warehousing process to ensure both low cost and high quality for current products. Even though some automated warehousing systems have been developed in recent years, lots of companies still rely on manual order picking processes by human labor [1]. Generally speaking, order picking described as seeking a particular item in storage according to a list, taking objects into the appropriate transport vehicle, and bringing the objects to the specified location for the following-up process. These picking operations occur in many manufacturing fields, and it is also a necessary part of just-in-time assembly line production [2].
+* Wei Fang fangwei@bupt.edu.cn
+1 School of Automation, Beijing University of Posts and Telecommunications, Beijing, China
+2 School of Mechanical Engineering and Automation, Beihang University, Beijing, China
+
+Conventionally, performing order picking with paper lists is intuitive for human beings but laborious to handle, and the physical fatigue of workers derived from repeated picking operations may result in deviations from predefined picking performance [3]. The manual order picking becomes under increasing consideration because it has been identified as the most labor-intensive activity for almost every warehouse [4, 5]. These work-related disorders caused by the repeated operations would lead to errors in reading from the paper lists and the labels of the items in storage. Besides, the time taken to travel between different storage locations and to and from the transport cart with the paper list attached is unpredictable. Therefore, there is a need to minimize the time of order fulfillment as well as maximize the productivity and efficiency of the manual picking process.
+In manual order picking operations, the picking information systems affect the picking time efficiency by governing how quickly an operator acquires picking information, performs target bin search, and confirms the picked items [6]. To increase picking efficiency and reduce the occurrence of picking errors, there are needs to search for an efficient and
+
+2024
+
+Int J Adv Manuf Technol (2020) 109:2023–2037
+
+intuitive way to present order picking information [7, 8]. In pick-by-light approaches, lamps are installed with each of the picking items on the shelves instead of pick-by-paper. When a new order is given, the lamp corresponding to the target item is turned on to illustrate the location to pick. Nevertheless, multiple workers’ picking performance on the same shelf is not supported at the same time by such a system. While in the pick-by-voice system, workers wear a headset and receive auditory instructions about the next item to be collected. During the manual order picking process, considerable mental efforts are required since pickers must remember what has been told, and they have to associate the auditory instruction with the geometrical layout of the warehouse shelf [9].
+Augmented reality (AR) is an innovative technology that supports the human visual sense, and the time for information guidance can be reduced drastically by data visualization in the user’s field of view [10, 11]. In warehouse manual order picking, AR can convey the logical picking information into visual guidelines, and it is identified that AR is competitive both in terms of time efficiency, and picking accuracy [12]. Nevertheless, to enable the AR application for manual order picking, robust tracking for the wearable AR system is essential in actual environments, especially in industrial workplaces. Schwerdtfeger et al. [9] proposed an outside-in tracking system with some spherical reflective markers fixed on the head-mounted display (HMD); given multi-infrared cameras arranged fixed within the workplace, robust navigation for the subsequent AR-assist order picking is achieved. Hanson et al. [13] performed the pick-by-AR application with Microsoft Hololens (www.microsoft.com), which equipped with a selfcontained tracking module to enable the AR performance for manual order picking instruction. Nevertheless, it is prone to tracking lost in the industrial scene with dynamic and featureless environments, and it is hard to relate the superimposed visual guidance to the physical warehouse floor. Instead of utilizing existed tracking modules for AR, Tumler et al. [14] related the compartment in the shelf with a specified fiducial marker, enabling AR-assisted order picking by identifying the corresponding marker. Nevertheless, due to the lack of global mapping information about fiducial markers within the warehouse floor, this individual marker-based pick-byAR method can only work when the target marker is within the field of view of the camera, limiting the picker to some certain localizations and orientations for AR instructions. In summary, the adaptability and stability of the current methods are difficult to come into use for a scalable and long-term pick-by-AR application, and a systematic pick-by-AR solution related to the real warehouse workplace is still unavailable and worthy of further study.
+Thus, different from the existing pick-by-AR methods, the purpose of the paper is to establish adaptability and scalable wearable AR assistance system for order picking related to the
+
+actual warehouse workplace. The contributions of this paper are the following:
+1. To enable a long-term AR-assisted manual order picking system, the easy-to-deploy marker-based global map related to the warehouse shelves is proposed and the physical layout of the related order picking items is determined automatically.
+2. Given the recovered spatial localization of multi-markers in the workplace, accurate and long-term navigation for pick-by-AR is available, allowing the operator to move freely and target-oriented by the AR assistance in the warehouse floor without limiting to some certain locations.
+3. By integrating the proposed method to a lightweight AR device, a systematic wearable AR solution for manual order picking is proposed and evaluated in the actual automobile assembly line.
+This paper is structured as follows: Section 2 reviews the related works. Section 3 describes the global map establishment with fiducial markers for the wearable AR picking system. In Section 4, the tracking performance evaluation of the proposed method and experiments about the pick-by-AR system are carried out in the automobile assembly line. In Section 5, results about the AR-assisted manual picking system are discussed. Finally, the conclusion and future work of the research are presented.
+2 Literature review
+2.1 Order picking
+In order picking tasks, lots of items from assortments are collected by workers, and then, they are delivered to the next station in a designed flow process [15]. Such a scenario occurs thousands of times in an assembly line. This means that the research of manual order picking is of significance to improve current productivity. Traditionally, order picking is accomplished by providing workers with a paper list, illustrating their positions in the warehouse shelf and the number of items to be carried. To increase picking efficiency and reduce picking errors, other methods are applied to perform order picking assistance, such as pick-by-light, pick-by-voice, and pick-byAR [16].
+Pick-by-paper has been applied for a long time in order picking, and it entailed a paper list on the clipboard mounted on a picking cart. Then, operators perform order picking operations according to a predefined procedure. The layout of the paper list is critical for order picking, including the sequential logic between different order lines and the spatial guidance associated with storage locations [17, 18], which can be
+
+Int J Adv Manuf Technol (2020) 109:2023–2037
+
+2025
+
+designed according to the industry standards studied [8]. A joint confirmation for the placement of components was performed by highlighting the order line with a pen tied to the clipboard when it had been accomplished. Columns indicated storage location, part description, and a checkbox to confirm the order line as completed. The pick-by-paper method has the benefit of being flexible and requiring small investment costs. Nevertheless, these list-based order picking processes force the picker to perform each step within two stages: read and interpret the list’s illustrations and then take a component from one area to another. The text-only lists are difficult to read and interpret when the product numbers are too long. Besides, workers have the paper list in one hand while reaching for the target part, limiting the number of parts they can process at the same time, and it is prone to a high error rate [19].
+Pick-by-light refers to an information system where a light indicates the location for the next picking activity [6] and it is often combined with a small display and push buttons. Multiple variants of pick confirmation exist for pick-by-light, of which the most common is to press the button to turn off the light. When pickers traverse aisles, the displays illustrated on the pick bins show the quantity to be picked. Usually, one light-up button positioned above each box with components in storage racks, illuminating the next picking location. The picked components were confirmed by triggering the lighted button. And the wireless light-up units with displays and confirmation buttons were located above the kits to inform the picker in which kits to place picked components and to confirm placement. However, in the pick-by-light process, pickers dislike the buttons on pick bins due to they do not always detect the reach correctly [16].
+Pick-by-voice applied voice communication to guide pickers on the warehouse floor. In previous studies, these methods can eliminate picking errors and achieve a greater picking quality [20]. A headset linked via Bluetooth to a base unit is carried in the picker’s pocket which can transmit picking information from a nearby host computer. Firstly, a designation indicating the storage location to pick from is received by the picker. Then, the location was confirmed by returning a location-specific code. This process was performed repeatedly until all components had been placed in target localizations. The voice picking system allows workers to concentrate on the picking target and have both hands free to execute order picking performance. However, noisy industrial environments limit the voice-directed order picking performance.
+Lastly, pick-by-AR is an innovative alternative for order picking, referring to a picking information system that uses HMD and visualizations to indicate picking operations [21]. Various pick-by-AR solutions have been studied in warehouse order picking [12, 13], and they presented several findings regarding what type of AR visualizations are suitable to guide a picker. To enable the pick-by-AR in the warehouse
+
+floor, accurate and robust tracking performance is essential. Thus, the storage location to pick was indicated as a highlight area on the shelf along with the quantity to be picked. When contrasted with other picking information systems, these pickby-AR studies have shown promising potential both in terms of quality and efficiency [21]. However, existed pick-by-AR researches most pay attention to the comparisons of different assisted AR tools on the shelf, such as the Google Glass and Microsoft Hololens, lacking systematic and scalable solutions to order picking applications in the actual workplace. In addition, the robust and global navigation for pick-by-AR in the warehouse floor is still unaddressed effectively, and which is also the purpose of the study in this paper.
+2.2 Navigation in pick-by-AR
+AR is an innovative human-computer interaction technology that superimposes the visual model in a context-sensitive way, and it is appropriate for a specific manual task relative to the user’s physical location [22]. The real use of AR in industrial contexts is still in infancy, such as in the fields of design, production, and serving [11, 23]. In order picking, the operator receives picking and placing information via the graphical interface, and it indicates that AR has the potential to improve the current order picking performance.
+The main task of AR in order picking is to navigate the worker intuitively on the warehouse floor while doing manual picking actions. To enable appropriate visual guidance for manual order picking related to the actual workplace, an accurate navigation capacity, determining the localization and orientation of the AR system relative to the warehouse shelf, is essential for wearable AR applications in manual order picking [24] and other industrial environments [25].
+Head-up displays like Google Glass were used to support manual order picking, and the visual guidance for picking action displayed on the screen can result in fewer picking errors [16, 21]. However, due to the lack of accurate navigation capacity of Google Glass on the warehouse floor, the localization and orientation of the AR device in the warehouse floor cannot be precepted. Thus, it is impossible to superimpose the visual picking instruction on the actual warehouse shelves reasonably. High-intensive mental efforts for pickers are still needed to decide where to relate the next picking action with the warehouse floor according to the visual instruction on head-up displays. Similarly, Hanson et al. [13] used Microsoft Hololens as a head-up display to convey picking information into visual guidance for manual order picking, and they also did not establish an accurate spatial correspondence between the visual guidance and the physical warehouse floor. Although Microsoft Hololens qualified a powerful self-contained tracking capacity in an unknown environment, it is prone to drift and tracking lost within the textureless industrial environment. Besides, the weight of Microsoft
+
+2026
+
+Int J Adv Manuf Technol (2020) 109:2023–2037
+
+Hololens is about 0.5 kg, imposing a challenge for a long-term order picking assistance. Given the diversity of device characteristics with smart glasses in industrial applications, a simulation-based approach was presented to ground designed decisions toward AR-based solutions in order picking [26]. Google Glass and Microsoft Hololens were chosen as the two AR devices in their research, and the results revealed that AR-assisted method can increase task performance while reducing task load in manual order picking. However, these “warehouse shelf-isolated” pick-by-AR methods also ignored the spatial correspondence between the augmented display in HMD with the actual warehouse shelf distribution, and the picker still needs to make considerable mental efforts to find the target component within the shelf according to the visual instruction. In addition, taken into consideration the limited field of view of current AR devices (such as Google Glass or Microsoft Hololens), the augmented instruction is only visible partially on the display. Usually, visual instruction is outside the field of view when workers are looking at the wrong direction, resulting in an unfriendly pick-by-AR experience.
+Different from the “warehouse shelf-isolated” pick-by-AR applications, the marker-based navigation system is still a frequently adopted solution in the manufacturing industry because of its easy-to-use and low-cost [11, 27]. In addition, given the pose estimation from the fiducial marker identification, the marker-based pick-by-AR can relate the visual instruction with the actual physical warehouse floor. The augmented reality instructions are superimposed exactly on the actual workplace intuitively, and the worker can be led by the AR system step by step [28], alleviating the mental efforts to find the exact localization of the target bins for the worker. Reif et al. [24] proposed an outside-in tracking system where some spherical reflective markers are mounted on the HMD, and the localization and orientation of the AR device can be perceived by arranging some infrared cameras within the warehouse floor. Thus, the superimposed display showed pickers the next stock location and the picking information. Nevertheless, this navigation method is not flexible to the warehouse layout change, and occlusions, resulting in the failure of AR instructions, are prone to occur when the picker performs order picking actions in actual workplaces.
+To improve the adaptability of the marker-based system, Tumler [14] placed the marker on shelf bin, and with the help of the individual fiducial marker for AR navigation, a systematic mental effort analysis with the usage of AR technology was performed. Fiducial marker-based tracking method for AR order picking is proposed by sticking markers on the warehouse shelf [29]. When performing the manual picking actions, the camera equipped in the AR system can capture the fiducial marker in the real scene. Based on the commercial Metaio for marker-based AR tracking, the localization and orientation of the wearable AR device are determined when the target marker is located within the field of view; thus, the
+
+visual instruction for order picking is available directly. Nevertheless, due to lack of the entire spatial map about all the markers in the warehouse floor, these marker-based navigation methods for pick-by-AR are based on the individual marker alone, which can only work only if the target marker can be seen and identified accurately, lacking the ability to make full use of other markers in the warehouse floor. In addition, before the pick-by-AR process with this markerbased navigation, the prior knowledge about the marker ID attached on the shelf should be given manually; it is also a time-consuming and error-prone task. If the fiducial marker on the shelf fell or became dirty during the order picking performance, this individual marker-based pick-by-AR system for visual guidance would fail to work. Inspired by these works, the purpose of this paper is to establish a “warehouse shelfrelated” and scalable pick-by-AR systematic solution to improve the order picking performance within the actual workplace.
+3 Methodology
+3.1 Problem description
+The physical setup of the order picking usually consists of storage racks, mobile carts, and components, which are designed together by logistics engineers. As shown in Fig. 1, it is a typical warehouse floor for our research within the automotive assembly line. The physical layout involved a picking aisle and storages on both sides, such as the fixed shelf and the mobile cart. While each fixed shelf contained 12 bins, the operator should pick a component from a fixed shelf which contains 12 storage bins labeled by Ai, Bi, ⋯, Li at the first section. And then, according to the predefined orders, the picked component should be placed to one of the 9 corresponding storage bins ai, bi, ⋯, ii in the mobile cart. After collecting enough components to the mobile cart, it would be translated to the next assembly step.
+According to the order picking problem described above, if the worker wants to draw a long-term and correct picking performance within this high-density picking environment, strong mental efforts are indispensable to ensure the correct picking correspondence in each picking cycle, let alone the heavy-duty and time-starved components to be picked are in the automobile assembly line. Therefore, a friendly and intelligent method is expected to enable the order picking assistance, guiding the picker which one of the boxes to pick from and to place intuitively.
+3.2 Warehouse-related navigation for pick-by-AR
+In order to achieve an efficient pick-by-AR in the warehouse floor, a systematic wearable AR system is proposed to provide
+
+Int J Adv Manuf Technol (2020) 109:2023–2037
+
+1# fixed shelf
+
+2# fixed shelf
+
+n# fixed shelf
+
+2027
+
+1# mobile cart
+
+Picker
+2# mobile cart
+
+(a) The snapshot of the warehouse floor Fig. 1 Descriptions of the order picking operations
+
+(b) The schematic of an order picking task
+
+visual instruction for the picking process in the paper. Given different fiducial markers stuck uniformly on the shelf associated with the storage bin, a global marker-based map about the warehouse floor is established automatically. Thus, the localization and orientations of all markers (shelf bins) within the actual workplace can be determined in a unified reference system. When the picker works within the warehouse floor, whose localization and orientation within the workplace can be derived from the existed global digitalization map, empowering a visual instruction to guide the operator’s gaze toward the shelf box intuitively. What is more, along with the designed picking orders, the explicit logical and spatial relationship between different storage bins within different shelves is obtained.
+Different from the individual marker alone pick-by-AR [14, 29], only the target marker within the field of view can provide visual guidance, lacking precise spatial relationships between different fiducial markers in the warehouse floor. In this paper, a global fiducial marker-based digitalization for warehouse shelves is carried out, resulting in a global map about the warehouse shelf bins for pick-by-AR. The detailed marker-based mapping process is depicted in Fig. 2, including marker extraction, marker matching, and marker reconstruction.
+
+To achieve long-term global navigation for the pick-byAR, the multi-marker-based mapping about the warehouse floor would be illustrated as follows:
+
+3.2.1 3D space transformations
+
+Let us consider a 3D point Pa = (x, y, z) in a coordinate system {a}. In order to illustrate such a point into another coordinate
+
+system {b}, a rotation and a translation are performed, which
+
+can be denoted by
+
+ζ ¼ ðr; tÞ  r; t∈ℝ3
+
+ð1Þ
+
+where the rotational and translational components are r and t, respectively. The rotation matrix R can be derived from the vector r by Rodrigues’s formula as:
+
+R ¼ I3Â3 þ rsinθ þ r2ð1−cosθÞ
+
+ð2Þ
+
+where I3 × 3 is the identity matrix, r indicates the antisymmetric matrix r ¼ ½ 0 −rx ry rz0−rx −ryrx0, and then in combination with t, a 4 × 4 transformation Tcan be deduced to illustrate the 3D point from the reference system {a} to the reference system {b}.
+
+Marker extraction
+Camera calibration
+Image undistortion and preprocessing
+Detect markers
+
+Marker matching
+Image pairs Matching
+Verification
+
+Fig. 2 The diagram of marker-based digitalization for warehouse shelf
+
+Global mapping
+Initialization
+
+Digitization for the warehouse
+
+Registered marker Outliers remove Triangulate marker Bundle adjustment
+
+Viewpoint 1 Viewpoint 2
+
+2028
+
+!
+
+!
+
+!!
+
+PbT
+
+¼T
+
+P
+
+T a
+
+¼
+
+R
+
+tT
+
+PaT
+
+ð3Þ
+
+1
+
+1
+
+01 1
+
+Given a 3D point P in a camera coordinate system, the projected point u ∈ ℝ2 in the camera plane is obtained. Assuming the camera parameters are calibrated in advance,
+then the projection process can be acquired:
+
+u ¼ πðKm; T; PÞ
+
+ð4Þ
+
+where Km = (fx, fy, cx, cy, k1, k2, p1, p2) refers to the camera intrinsic parameters, it is comprised of focal distances (fx, fy), principle point (cx, cy), and distortion parameters (k1, k2, p1, p2).
+
+3.2.2 Mapping for warehouse shelf
+Given the transformations between the 2D point in the image plane and the 3D point in the world coordinate system, as well as the same 3D point in different reference systems above, the fundamental framework for the subsequent global mapping for all markers is available. Among different fiducial markers, AprilTag [30], comprised of internal code and an external black border to identify each marker uniquely, can guarantee a minimum similar distance evaluation between different tags and enforce a minimum computation complexity to reduce false positive. Thus, AprilTag is applied in this paper to provide printed marker placed on the warehouse shelf, and the detection of fiducial markers is composed of two steps. The first step is to look for square borders by boundary segmentation, which would produce a set of quad candidates that are either background elements or markers. And then, each candidate is analyzed to decide whether it is the marker or the background. Thus, the tag is identified by the smallest similar distance from the detected one, and the corresponding coordinate system for each marker is established, as shown in Fig. 3.
+During the marker-based mapping for the warehouse floor, the side length of a squared planar marker is defined as 2s. Thus, four corners of the marker can be illustrated within the marker center reference system as:
+
+Int J Adv Manuf Technol (2020) 109:2023–2037
+
+8 ><
+
+c1 ¼ ðs=2; −s=2; 0Þ c2 ¼ ðs=2; s=2; 0Þ
+
+>: c3 ¼ ð−s=2; s=2; 0Þ
+
+ð5Þ
+
+c4 ¼ ð−s=2; −s=2; 0Þ
+
+Given lots of collected images about the marker-based
+
+warehouse floor, then the marker detection method is per-
+
+formed to each image, and the number of m markers placed
+
+in the warehouse floor is acquired. For the ith marker in the
+
+nth images, the corresponding corners are denoted by:
+
+ωni
+
+¼
+
+n uti;k
+
+  u∈ℝ2
+
+;
+
+k
+
+¼
+
+1;
+
+⋯;
+
+o 4
+
+ð6Þ
+
+the pixel locations for the four corners of the ith marker can be observed. To achieve an accurate warehouse digitalization, at least two common markers are observed within the collected warehouse floor images.
+In any case, the mapping for the warehouse floor is to minimize the reprojection error of the markers’ corners in all collected images. Therefore, the entire cost function can be deduced:
+
+min
+T
+
+¼
+
+M
+∑
+i¼1
+
+N
+∑
+j¼1
+
+eTi; jei; j
+
+¼
+
+M
+∑
+i¼1
+
+N
+∑
+
+  ÀπÀK m ;
+
+j¼1
+
+Ti;
+
+ci;
+
+Á j −ui;
+
+jÁ  2
+
+ð7Þ
+
+where π(·) is the projection matrix between the 3D point and the 2D point in the image plane defined in Eq. (4) and ci, j is the set of the jth 2D corner points in the ith image. M and N illustrate the number of the warehouse image and the corresponding number of markers extracted from the image, respectively.
+
+3.2.3 Navigation for pick-by-AR
+Before the performance of pick-by-AR, the global markerbased mapping for the warehouse floor in Section 3.2.2 is carried out, and the spatial distributions of fiducial markers are obtained in a common warehouse coordinate system. Then, when the operator performs pick-by-AR on the warehouse floor, the video camera equipped in the AR device can capture the warehouse image with markers. According to the
+
+Fig. 3 Coordinate system establishment of the fiducial marker
+
+Int J Adv Manuf Technol (2020) 109:2023–2037
+
+2029
+
+correspondences between established 3D marker-based map in advance and 2D corners in the current image, the camera localization and orientation are deduced to enable the navigation ability for the pick-by-AR on the warehouse floor.
+The schematic diagram of the navigation for mobile AR instruction is depicted in Fig. 4. Given the global mapping method proposed in Section 3.2.3, the marker-based 3D corner map related to the shelf bins is established in the world reference system, as the 3D marker corner shown from 1 to n in the warehouse shelf. When the worker performs order picking with the assistance of the wearable AR device, the video camera can capture the actual working environment around. Then, fiducial marker extraction from the sequential captured image is performed, and the 3D-2D correspondences about the marker corners can be established. This is a typical PnP (Perspective-n-Point) problem [31], anÀd the loÁcalization and orientation of the wearable AR device Rcw; tcw in the world reference system {w} can be deduced from the following cost function.
+
+min
+
+ðRcw
+
+;t
+
+c w
+
+Þ
+
+¼
+
+L
+∑
+i¼1
+
+  ui −K l ÀRcw Pi
+
+þ
+
+tiw
+
+Á  
+2
+
+ð8Þ
+
+where Kl is the intrinsic matrix of the video camera, (Pi, ui)is the 3D-2D correspondence pair of the marker-based corner points, and L is the total number of the 3D-2D corner pairs derived from the image obtained by the camera equipped within the wearable AR device. Given the camera’s intrinsic parameters and correspondences between 3D points and their 2D projections, the method [32] is applied to determine the localization and orientation of a camera in this paper, enabling robust and long-term navigation for the pick-by-AR in the warehouse floor.
+
+3.3 Wearable augmented reality assisted order picking
+
+The detailed process of the pick-by-AR in the study is shown in Fig. 5. Before performing the order picking with the help of wearable AR, the marker-based shelf map related to the
+Fig. 4 Warehouse navigation for pick-by-AR
+
+storage bins is built in advance offline, including the 3D corners of all the fiducial markers and their unique ID in the warehouse floor reference system, as well as the prior logic between different markers and storage bins provided by the designer. Then, when the operator wore the mobile AR device works in the actual picking environment, the prior markerbased shelf map and the predefined picking order are loaded to the wearable AR system. The tracking performance is available when any marker is visible in the field of view, and it can navigate the picker’s attention to the correct picking item with the visual guidance as well as how many components should be picked. At the same time, it is also necessary to provide the picker with information of which containers the components should be placed in, alleviating the mental effort of the operator during doing the order picking performance until the accomplishment of the order picking task.
+4 Case study
+4.1 Enabling wearable AR environment
+To enable credible navigation for pick-by-AR, the quantitative evaluations for the marker-based mapping and tracking performance are carried out in the section. We are interested in investigating several specific criteria. Firstly, the accuracy of the marker-based map derived from the warehouse workplace is analyzed, providing the basis for the subsequent tracking of wearable AR device. And then, the navigation accuracy related to a different number of markers is evaluated if a query image is coherent with the previous stage of the warehouse map.
+Before performing the pick-by-AR in this study, the marker-based map about the warehouse floor is built in advance. As shown in Fig. 6, lots of fiducial markers of size 3.6 cm × 3.6 cm are printed and stuck to the warehouse shelf, and the corresponding connection between different markers and cart bins is defined in the design stage. Then, some images
+Warehouse shelf
+
+Wearable AR device
+
+Image plane
+1 3
+
+1
+
+2
+
+Marker-based 3D map
+
+3
+
+2030
+Fig. 5 The flowchart of the pickby-AR in the paper
+
+Marker-based shelf map Loading global warehouse
+prior map
+Picking the next item
+
+Int J Adv Manuf Technol (2020) 109:2023–2037 Start
+
+Preparation of picking process: picking bins,
+wearable AR
+Loading of the scheduled picking order
+
+Time˖04/20/2019 10:00
+Name˖XXX ID: 0001
+
+Navigation to the picking item in fixed shelf
+
+Navigation to the placing item in mobile shelf
+
+Pick item and confirmation
+
+N
+
+Picking
+
+finished?
+
+Y
+
+Stop
+
+about the warehouse floor are collected by the video camera on the wearable AR device. Moreover, the localization and orientation of the initial marker are defined as the origin of the coordinate in the marker-based map, which is usually specified at a fixed location, such as the bottom of the storage shelf. Besides, in order to deduce a credible warehouse-related map, at least two common markers between different images should
+
+be guaranteed, as the cart images depicted in Fig. 6a. Thus, the marker-based map and its corresponding ID for the warehouse floor is obtained with the procedure illustrated in Section 3.2, as shown in Fig. 6b.
+Take into consideration that the marker-based shelf bins are distributed uniformly in the actual workplace (shown in Fig. 6 a), this is a typical application scenario in the actual
+
+Fig. 6 Marker-based map about mobile cart in the warehouse floor. a Snapshot of the cart floor image. b Marker-based map related to shelf
+
+(a) Snapshot of the cart floor image
+
+(b) Marker-based map related to shelf
+
+Int J Adv Manuf Technol (2020) 109:2023–2037
+
+2031
+
+workplace. Then, a detailed mapping (shown in Fig. 6b) accuracy evaluation is carried out by comparing the recovered distance of the markers from warehouse floor map with the real distance derived from the digital rule, the deviations of various distances can also indicate the proposed mapping accuracy for pick-by-AR.
+During the establishment of the marker-based map, the marker located at the left-bottom is labeled as the origin (0, 0, 0) of the warehouse floor reference system, and the X and Y axes are established from the origin point to the horizontal right and vertical upward, respectively. Thus, all the markers are associated with a given coordinate position {(m, n)|m ∈ (1, M), n ∈ (1, N)}. As shown in Fig. 6b, the value of M and Nis set as 4. Thus, the relative distance deviation between the adjacent two markers along with the coordinate axis direction can be acquired:
+
+δðiþ1; jÞ→ði; jÞ
+
+¼
+
+kpði
+
+þ
+
+1;
+
+jÞ−pði; jÞk−dðiþ1; jÞ→ði; jÞ dðiþ1; jÞ→ði; jÞ
+
+; i∈ð1; M −1Þ;
+
+j∈ð1; N Þ
+
+ð9Þ
+
+where ‖p(i + 1, j) − p(i, j)‖ is the Euclidean distance of the adjacent marker derived from the marker-based warehouse map and d(i + 1, j) → (i, j) is the real distance of the corresponding marker pair using a digital rule.
+Given the marker-based mapping for the warehouse floor, the distance deviation δ can be calculated between the adjacent marker pair. The accuracy analysis for the map about the two mobile carts and two selective fixed shelves is illustrated in Fig. 7; we can see that the maximum relative distance error of the warehouse map is about 3%, and the mean relative errors are − 0.9, 0.5, 1.1, and 0.2%, respectively. The results can illustrate that the proposed mapping method can establish a marker-based map with high accuracy for subsequent navigation performance in pick-by-AR.
+In order to register visual instructions with actual workplace by pick-by-AR, the navigation for wearable AR devices in the warehouse floor is based on the proposed marker-based map. Therefore, besides the mapping accuracy for the warehouse floor, the navigation performance is another essential component for reliable wearable AR instruction on the warehouse floor.
+To characterize the tracking performance based on the warehouse map, a single tag was placed in the scene while varying the distance. Given the marker size with 3.6 cm × 3.6 cm, sequential images (1280 × 720 pixels) are collected from the video camera to demonstrate the detection success rates of a fiducial tag at different distances (as shown in Fig. 8a). We can see that the fiducial marker can be recognized reliably when the measurement distance is below 200 cm. In addition, lots of real images are collected with a tag and two tags at an increasing distance. At each specific distance, the camera within the wearable AR device is aligned with the
+
+center of a tag or the center of two tags, and then moved away from the marker plane perpendicularly. The ground truth distance is acquired by a laser tape, where the estimated distance for the camera to the tag is depicted in Fig. 8a, the results show that the tracking accuracy is believable when one marker is visible within 200 cm, and two markers would increase the effective perceived distance to about 250 cm. The results illustrate that valid tracking distance for pick-by-AR is increased when more markers are visible by the wearable AR device. The reason is that the global marker-based warehouse map is established beforehand in this study, enabling a more flexible and robust tracking for AR-based order picking. The results demonstrate that the pick-by-AR operations have better to perform within 200 cm away from the marker stuck on the shelf. Fortunately, almost all the manual picking operations are performed below 100 cm (around the length of an arm) in front of the warehouse shelf. Given the marker distribution on the warehouse shelf and the field of view of the camera in the wearable AR device, more than one marker is visible when the picker performs the picking performance, which enables a more robust localization ability for the proposed pick-byAR. Besides, the findings derived from statistical analyses also provide evidence for the designer to improve a more human-centered layout of the warehouse floor.
+4.2 Improving order picking with wearable AR
+Experiments are designed and carried out on an automotive assembly line (Fig. 9a). The proposed pick-by-AR method in the study is based on the wearable Seengene XMAN Glass (www.seengene.com), which has a wider field of view than the classical Google Glass and can convey the picking information to visual instructions via the head-mounted display. It is lightweight (about 33 g) enough to the picker, and the video camera equipped within the wearable glass can capture the image of the warehouse floor. The scenario consists of 6 fixed shelves and 2 mobile carts, and each rack owns about 8–12 compartments to store parts. All compartments have a unique ID consisting of letters and numbers. Fiducial markers are placed around each compartment, and the logical connection between the existed compartments and the unique marker ID is established in advance by the logistics designer.
+Some images about the marker-based warehouse floor are captured by the camera in the smartphone (Fig. 9b). And then, with the proposed global mapping related to the fiducial markers in the warehouse floor, unique fiducial markers within the collected images can be extracted, matched, and reconstructed. The marker-based map about the fixed shelves and mobile carts with their compartments is established (Fig. 9c), providing robust global navigation for the subsequent pickby-AR application on the warehouse floor. Collected images with a higher resolution would result in a more accurate 3D marker-based map about the warehouse floor.
+
+2032
+
+Int J Adv Manuf Technol (2020) 109:2023–2037
+
+(a) Distance accuracy for 1# mobile cart map
+
+(b) Distance accuracy for 2# mobile cart map
+
+(c) Distance accuracy for 1# fixed shelf map
+
+(d) Distance accuracy for 2# fixed shelf map
+
+Fig. 7 Distance accuracy for the warehouse map in the workplace. a Distance accuracy for 1# mobile cart map. b Distance accuracy for 2# mobile cart map. c Distance accuracy for 1# fixed shelf map. d Distance accuracy for 2# fixed shelf map
+
+During the pick-by-AR, a superimposed visual instruction can navigate the picker to the specific rack bin if the target marker is the field of view of the video camera (as shown in Fig. 10a). Nevertheless, more often, the target marker is outside the field of view because of the unpredicted movements of workers during
+
+the order picking process, which would result in an invalid visual guidance experience due to the tracking lost. Fortunately, based on the global map for all the markers in the warehouse floor, the localization and orientation of the target component on the shelf can be guided all the time when any marker visible by the AR
+
+(a) Percentage of the marker detection
+
+(b) Localized distance recover to the tag
+
+Fig. 8 Navigation performance analysis with of the marker-based warehouse map. a Percentage of the marker detection. b Localized distance recover to the tag
+
+Int J Adv Manuf Technol (2020) 109:2023–2037
+Fig. 9 Warehouse floor map for pick-by-AR. a Actual warehouse floor of the proposed pick-by-AR. b Collected images. c The marker-based warehouse floor map
+
+2033
+
+Markers Fixed shelf
+
+Mobile cart
+
+AR glass Pick-by-AR
+
+(a) Actual warehouse floor of the proposed pick-by-AR
+
+Marker-based map
+
+(b) Collected images
+device. If the target bin is not visible, an arrow would be drawn in the screen in the HMD to point the direction of the target bin (as shown in Fig. 10b). In addition, the current rack number, sequential number, and the current status of the on-going order picking are also shown in front of the picker’s view.
+To demonstrate the performance evaluation of the proposed pick-by-AR method, three picking groups without
+Fig. 10 The proposed pick-byAR in an actual warehouse floor. a Highlighting the order picking. b Visual navigation to the target bin
+
+(c) The marker-based warehouse floor map
+experience are selected, and each group consists of two inexperienced workers to perform the order picking, avoiding biasing the comparison between the proposed pick-by-AR and existed paper list method. Since we attended every participant individually, the introduction about the picking task is introduced to make them familiar with both AR- and paper-based order picking. During the picking process, the operator needs
+
+(a) Highlighting the order picking
+
+(b) Visual navigation to the target bin
+
+2034
+
+Int J Adv Manuf Technol (2020) 109:2023–2037
+
+to pick components from the storage shelf and place them to the correspondence bins in the mobile cart. Each of the pickers performs the same task by filling the mobile cart with components that came from the fixed storage shelf. In each order picking experiment, 20 parts are picked from the fixed shelf and placed to the mobile shelf. During the comparison experiment, the time to perform each picking cycle and the picking errors are observed and recorded.
+After the collection of the statistical results, obvious differences are identified on the average picking time. As shown in Fig. 11a, while the proposed pick-by-AR method is proofed to be fast with an average about 10.33 min, and the traditional paper list-based picking approach with an average time of 16.51 min. Besides, the mean derivation to the average time has the same tendency as the completion time shown. The proposed method with a mean deviation of 0.53 min still shows an advantage over the pick-by-paper with a mean derivation of 1.42 min. The result illustrates that the described pick-by-AR method can increase picking efficiency by 50% compared with existed pick-by-paper. Besides, the picking errors are also given further analyses, which shows a consistent tendency to the time statistic, as depicted in Fig. 11b. The average picking error derived from the proposed pick-by-AR is about 0.7 times at each cycle with a derivation of 0.58, while the corresponding error occurrences are 2.0 times on average and 1.73 as the derivation.
+In addition, to demonstrate the performance of the proposed pick-by-AR furtherly, a new group with skilled workers has participated beside the former two groups (AR- and paperbased without experience), and each group consists of three workers. During the experiments, they perform five predefined picking tasks, and their picking performance is depicted in Table 1. The results also show that the picking efficiency can be improved with the AR-based guidance for the inexperienced workers, which is consistent with the previous experiments. It is also interesting to find that skilled workers with traditional paper-based have the highest picking efficiency in the picking situations. The reason may be that skilled workers have a good understanding of the picking task
+Fig. 11 Evaluation results of the proposed AR-assisted order picking without experience. a Time analysis of the picking experiment. b Error analysis of the picking experiment
+
+and environments. However, in terms of the picking accuracy, the wearable AR-based method described in the paper still has comparative advantages with visual guidance. The experimental results also show that the application performance of augmented reality in the actual picking field is related to the complexity and maturity of the task. For workers with insufficient experience, the improvement derived from enhanced visual guidance is more obvious.
+5 Discussion
+In this study, based on the global mapping of the markerbased warehouse floor, robust navigation related to the actual workplace for the wearable AR device is achieved, resulting in an efficient and error-avoid manual order picking performance. Fewer picking errors are made with pick-by-AR than with pick-by-paper, and several operators state that the picking information is easier to take in with the wearable AR device compared with the paper list. It also indicates that the proposed pick-by-AR system holds the potential for supporting a high-efficiency performance than pick-by-paper. The primary reason may be that the picking process and the picking target are displayed intuitively to the picker; thus, workers can perform the picking operation without doing mental efforts.
+In pick-by-AR operations, Google Glass is used to support order picking with visual guidance for picking action displayed on the screen [21]. However, due to the lack of accurate navigation capacity in the warehouse floor, it is difficult to superimpose virtual instructions on the actual warehouse floor, exerting mental effort for the picker to find the target shelf bin in the actual workplace. Therefore, besides the study in terms of time efficiency and picking accuracy, robust and long-term navigation for the pick-by-AR application in the warehouse floor is still a key bottleneck. It can also be stated that the navigation system is the most problematic component for a wearable AR application, especially in an industrial environment [24].
+
+(a) Time analysis of the picking experiment
+
+(b) Error analysis of the picking experiment
+
+Int J Adv Manuf Technol (2020) 109:2023–2037
+
+2035
+
+Table 1 Comparisons between different picking conditions
+
+Skilled/paper-based
+
+Inexperienced/AR-based
+
+Inexperienced/paper-based
+
+Picking time (min) Picking error (number) Picking time (min) Picking error (number) Picking time (min) Picking error (number)
+
+Task 1 5.5
+
+0
+
+Task 2 6.2
+
+1
+
+Task 3 4.6
+
+0
+
+Task 4 5.8
+
+1
+
+Task 5 7.3
+
+1
+
+6.3
+
+0
+
+7.0
+
+0
+
+5.3
+
+1
+
+6.2
+
+0
+
+8.1
+
+0
+
+9.2
+
+1
+
+11.2
+
+1
+
+9.4
+
+0
+
+8.8
+
+1
+
+12.5
+
+2
+
+Recently, some dedicated equipment empowers the tracking ability for pick-by-AR. In pick-by-vision [12], the ART Dtrack (www.ar-tracking.de) was used to deliver a continuous pose estimation for wearable AR, but the user usually encountered the limits of the tracking capacity or occlusion. Besides, this tracking system is difficult to perform an extensive deployment due to its high price and poor adaptability. Microsoft Hololens is another representative highly integrated wearable AR device, and it can provide self-contained tracking performance for pick-by-AR. Nevertheless, the reference coordinate system of its tracking performance is established randomly with different pickers, and the tracking drift would accumulate during the order picking process, resulting in an incorrect visual instruction related to the actual shelf bins. Also, the uncomfortable weight of Microsoft Hololens prevents a long-term pick-by-AR application for workers. Thus, a warehouse shelf-related navigation method for pick-by-AR in an industrial environment is expected, and the marker-based tracking for pick-by-AR has comparative advantages. It is a low-cost and convenient style to deploy enough markers for long-term AR tracking on the warehouse floor. Krajcovic et al. [29] applied the fiducial marker to enable the tracking ability for pick-by-AR, but the tracking performance is derived from the individual target marker alone in the warehouse shelf. Due to the lack of an overall map about all the markers distributed on the warehouse floor, this pick-by-AR application is only available with the target marker in the field of view.
+Therefore, a scalable wearable pick-by-AR system by empowering global navigation is carried out in this study. With lots of fiducial printed markers placed on the shelves, the overall marker-based map about the warehouse floor can be achieved. During the pick-by-AR on the warehouse floor, the global map empowers the navigation ability for the wearable AR device when one or more markers in the field of view. If the marker is associated with the in-progress component, the visual instruction is superimposed to an actual scene exactly to guide the order picking with the exact localization, quantity, and flow information. Even the marker in field of view is not the target one, visual guidance is also generated to assist the target shelf bins with the help of the global warehouse floor map. Also, more accurate navigation for pick-by-AR can be achieved when two or more markers visual in the field of view, and this warehouse shelfrelated tracking method for AR is immune to tracking drift.
+
+In industrial applications, the choice of system to convey picking information to a friendly one should be proceeded by comprehensive analyses. Aside from the pick-by-AR with the head-up display, some other common options which include pick-by-paper, pick-by-light, and pick-by-voice are usually applied [16]. Besides the terms of accuracy, efficiency, and flexibility of the potential supporting system, the investment cost and ease of maintenance need also need to be taken into consideration. Moreover, this study also shows that the actual application of augmented reality on the shop floor is related to the complexity of the task and the experience of the worker. The proposed scalable and long-term pick-by-AR method in the automobile assembly line has shown a relative comparative advantage to some extent in all these aspects.
+Besides, the systematic analyses about the picker performance in the pick-by-AR process are also of great significance, such as the research about potential ergonomics and human behavior for the operator during the picking performance [1], which are also our future work to improve the human-centered warehouse floor along with the pick-by-AR. Besides, although the proposed method can provide superimposed visual instructions on the actual scene for the worker, it is still hard to guarantee that all the picked components are the target ones as expected. Thus, based on the video camera in the AR glass applied in the paper, it is interesting to do further research about high-speed visual recognition for the component to confirm the pick operations. This recognition method has the potential to ensure the correctness of the picked component, reducing the incorrect picking errors furtherly. And we will try to do some researches about this and integrate it into the current head-mounted display, extending the current pick-by-AR applications.
+6 Conclusion
+The goal of this work is to develop a scalable and long-term wearable AR solution with reasonable investment costs, while supporting the order picking in a complex pick environment. Instead of the existed pick-by-AR applications, an easy-to-use global marker-based map about the warehouse floor is established, relating robust navigation in the warehouse floor for the pick-by-AR. It can establish a systematic spatial
+
+2036
+
+Int J Adv Manuf Technol (2020) 109:2023–2037
+
+distribution about the storage places of items, resulting in a global visual instruction on a head-mounted display. Then, the proposed pick-by-AR method is integrated into a lightweight wearable AR device and evaluated in the actual warehouse workplace. Compared with the paper-based pick list, experimental results indicate that order picking with the support of AR can shorten the time of finding and identification of items, reducing the mental burden of workers in the process of picking selection, and a superior picking performance concerning the accuracy, speed, and usability is approached. We affirmed that the graphical pick list works better than the textual representation, and the conclusion is verified by the experiments in the automobile assembly line. Nevertheless, the problems of the AR applications in the picking process require further research especially in terms of closer integration of global map and warehouse management system, increasing the processability of linking the order picking system with an automatic identification system.
+Acknowledgments Many thanks to Siyao Zheng and Zhen Liu for discussing the method, and providing the experimental conditions for this study.
+Funding information This work received financial supports from the Beijing Natural Science Foundation (3204050), the Open Project Program of State Key Laboratory of Virtual Reality Technology and Systems (VRLAB2020B05), and the Fundamental Research Funds for the Central Universities (2019RC26).
+References
+1. Grosse EH, Glock CH, Neumann WP (2017) Human factors in order picking: a content analysis of the literature. Int J Prod Res 55(5):1260–1276
+2. Fontana ME, Cavalcante CAV (2014) Use of promethee method to determine the best alternative for warehouse storage location assignment. Int J Adv Manuf Technol 70(9–12):1615–1624
+3. Elbert RM, Franzke T, Glock CH, Grosse EH (2017) The effects of human behavior on the efficiency of routing policies in order picking: the case of route deviations. Comput Ind Eng 111:537–551
+4. Koster DR, Le-Duc T, Roodbergen K (2007) Design and control of warehouse order picking: a literature review. Eur J Oper Res 182(2):481–501
+5. Isler CA, Righetto GM, Morabito R (2016) Optimizing the order picking of a scholar and office supplies warehouse. Int J Adv Manuf Technol 87(5–8):2327–2336
+6. Battini D, Calzavara M, Persona A, Sgarbossa F (2015) A comparative analysis of different paperless picking systems. Ind Manag Data Syst 115(3):483–503
+7. Lewczuk K (2015) The concept of genetic programming in organizing internal transport process. The Archives of Transports 34(2): 61–74
+8. Hanson R, Medbo L, Berlin C, Hansson J (2018) Manual picking from flat and tilted pallet containers. Int J Ind Ergon 64:199–212
+
+9. Schwerdtfeger B, Klinker G (2008) Supporting order picking with augmented reality. IEEE/ACM International Symposium on Mixed and Augmented Reality, pp. 91-94
+10. Simoes B, Amicis RD, Barandiaran I, Posada J (2019) Cross reality to enhance worker cognition in industrial assembly operations. Int J Adv Manuf Technol 2019(105):3965–3978
+11. Bottani E, Vignali G (2019) Augmented reality technology in the manufacturing industry: a review of the last decade. IISE Transactions 51(3):284–310
+12. Schwerdtfeger B, Reif R, Gunthner WA, Klinker G (2011) Pick-byvision: there is something to pick at the end of the augmented tunnel. Virtual Reality 15(2–3):213–223
+13. Hanson R, Falkenstrom W, Miettinen M (2017) Augmented reality as a means of conveying picking information in kit preparation for mixed-model assembly. Comput Ind Eng 113:570–575
+14. Tumler J, Mecke R, Schenk M, Huckauf A, Doil F, Paul G, Pfister EA, Bockelmann I (2018) Mobile augmented reality in industrial applications: approaches for solution of user-related issues. IEEE/ACM International Symposium on Mixed and Augmented Reality, pp. 87-90
+15. Andriansyah R, Koning WWH, Jordan RME, Etman LFP, Rooda JE (2011) A process algebra based simulation model of a miniloadworkstation order picking system. Comput Ind 62(3):292–300
+16. Fager P, Hanson R, Medbo L, Johansson M (2019) Kit preparation for mixed model assembly - efficiency impact of the picking information system. Comput Ind Eng 129:169–178
+17. Schmidt T, Hompel MT (2007) Warehouse management: automation and organisation of warehouse and order-picking systems. Springer, New York
+18. Grosse EH, Glock CH, Jaber MY, Neumann PW (2015) Incorporating human factors in order picking planning models: framework and research opportunities. Int J Prod Res 53(3):695– 717
+19. Baumann H (2013) Order picking supported by mobile computing. University of Bremen, Ph.D. dissertation
+20. Ludwig TD, Goomas DT (2007) Performance, accuracy, data delivery, and feedback methods in order selection: a comparison of voice, handheld, and paper technologies. J Organ Behav Manag 27(1):69–107
+21. Guo A, Wu X, Shen Z, Starner T (2015) Order picking with headup displays. Computer 48(6):16–24
+22. Re GM, Oliver J, Bordegoni M (2016) Impact of monitor-based augmented reality for on-site industrial manual operations. Cognition Technology and Work 18(2):379–392
+23. Regenbrecht H, Baratoff G, Wilke W (2005) Augmented reality projects in the automotive and aerospace industries. IEEE Computer Graphics Applications 25(6):48–56
+24. Reif R, Gunthner WA, Schwerdtfeger B, Klinker G (2010) Evaluation of an augmented reality supported picking system under practical conditions. Computer Graphics Forum 29(1):2–12
+25. Wang X, Ong SK, Nee AYC (2016) A comprehensive survey of augmented reality assembly research. Advances in Manufacturing 1:1–22
+26. Renner P, Pfeiffer T (2017) Augmented reality assistance in the central field-of-view outperforms peripheral displays for order picking: results from a virtual reality simulation study. IEEE International Symposium on Mixed and Augmented Reality, pp.176-181
+27. Baratoff G, Neubeck A, Regenbrecht H (2002) Interactive multimarker calibration for augmented reality applications. IEEE/ACM International Symposium on Mixed and Augmented Reality, pp. 107-116
+
+Int J Adv Manuf Technol (2020) 109:2023–2037
+
+2037
+
+28. Wang X, Ong SK, Nee AYC (2016) Multi-modal augmented-reality assembly guidance based on bare-hand interface. Adv Eng Inform 30:406–421
+29. Krajcovic M, Gabajova G, Micieta B (2014) Order picking using augmented reality. Komunikacie 16(3A):106–111
+30. Wang J, Olson E (2016) AprilTag 2: efficient and robust fiducial detection. IEEE/RSJ International Conference on Intelligent Robots and Systems pp. 4193-4198
+
+31. Quan L, Lan Z (1999) Linear N-point camera pose determination. IEEE Trans Pattern Anal Mach Intell 21(8):774–780
+32. Lepetit V, Moreno-Noguer F, Fua P (2009) EPnP: an accurate o(n) solution to the PnP problem. Int J Comput Vis 81(2):155–166
+Publisher’s note Springer Nature remains neutral with regard to jurisdictional claims in published maps and institutional affiliations.
+

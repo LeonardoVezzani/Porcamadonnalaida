@@ -1,0 +1,876 @@
+1
+Safety Implications of Explainable Artificial Intelligence in End-to-End Autonomous Driving
+Shahin Atakishiyev, Mohammad Salameh, Randy Goebel
+
+arXiv:2403.12176v4 [cs.RO] 20 Apr 2025
+
+Abstract—The end-to-end learning pipeline is gradually creating a paradigm shift in the ongoing development of highly autonomous vehicles (AVs), largely due to advances in deep learning, the availability of large-scale training datasets, and improvements in integrated sensor devices. However, a lack of explainability in real-time decisions with contemporary learning methods impedes user trust and attenuates the widespread deployment and commercialization of such vehicles. Moreover, the issue is exacerbated when these cars are involved in or cause traffic accidents. Consequently, explainability in end-toend autonomous driving is essential to build trust in vehicular automation. With that said, automotive researchers have not yet rigorously explored safety benefits and consequences of explanations in end-to-end autonomous driving. This paper aims to bridge the gaps between these topics and seeks to answer the following research question: What are safety implications of explanations in end-to-end autonomous driving? In this regard, we first revisit established safety and explainability concepts in end-to-end driving. Furthermore, we present critical case studies and show the pivotal role of explanations in enhancing driving safety. Finally, we describe insights from empirical studies and reveal potential value, limitations, and caveats of practical explainable AI methods with respect to their potential impacts on safety of end-to-end driving.
+Index Terms—End-to-end autonomous driving, explainable artificial intelligence, vehicular safety, regulatory compliance
+I. INTRODUCTION
+O VER the last two decades, interest in developing operationally safe and reliable AVs has gained significant momentum. With the promises of reducing traffic accidents, enhancing safety [1] and environmental sustainability [2], the field of autonomous driving has received considerable attention from both industry and academic institutions. The Society of Automotive Engineers (SAE) has defined a classification system to assess the level of autonomy in AVs [3]. According to this classification, the autonomous decision-making ability of these vehicles ranges from Level 0 (no driving automation) to Level 5 (no human intervention in any traffic situation). Starting from Level 3, most human-controlled functions of a vehicle are replaced with autonomous control methods, resulting in high automation.
+Shahin Atakishiyev is a Postdoctoral Fellow in the Department of Computing Science at the University of Alberta, Edmonton, AB, Canada. Email address: shahin.atakishiyev@ualberta.ca
+Mohammad Salameh is a Principal Researcher at Huawei Technologies Canada, Edmonton, AB, Canada. Email: mohammad.salameh@huawei.com
+Randy Goebel is a Fellow of the Alberta Machine Intelligence Institute, and Professor in the Department of Computing Science, University of Alberta, Edmonton, AB, Canada. Email: rgoebel@ualberta.ca
+Manuscript has been submitted to IEEE for possible publication.
+
+camera lidar radar
+
+Perception
+
+Localization
+
+Planning
+
+Control
+
+modular pipeline
+
+breaking accelerating steering
+
+camera lidar radar
+
+unified pipeline
+
+breaking accelerating steering
+
+end-to-end pipeline
+Fig. 1: The modular and end-to-end pipeline comparison in autonomous driving. The modular pipeline is more explainable by design as it contains several interlinked components, but an error in one module (e.g., misdetection in perception) cascades to the downstream module (planning/control). On the other hand, the end-to-end driving pipeline, while lacking explainability, directly maps sensor input to control commands, optimizing system performance. Continuous improvement through data-driven optimization makes endto-end learning more scalable. The source of the image of the vehicle: Waymo.
+
+There are two primary design architectures for autonomous driving systems: modular and end-to-end pipelines. The modular pipeline consists of interlinked components such as perception, localization, planning, and control and has been a conventional way of building autonomous driving systems [4], [5]. In the modular architecture, an AV uses a variety of sensor suites, such as camera, LIDAR, radar, etc., and perceives its environment (perception), locates itself on the road via GPS, Inertial Measurement Unit (IMU) data (localization), plans a safe path based on the perception and localization data (planning), and executes the planned trajectory by sending commands to the vehicle’s actuators, such as steering, throttle, and brakes (control). The advantage of such a design is that individual modules make the system more traceable and debuggable, and the origin of errors in the holistic system can be identified easily. On the other hand, such errors are propagated forward to the subsequent layers and become cumulative, affecting the safety and effectiveness of the modular system adversely [6], [7]. To address the aforementioned issue, the end-to-end learning approach has recently been proposed as a paradigm shift in the ongoing development of autonomous driving technology [7], [8], [9]. End-to-end learning directly inputs sensory information and maps it to control commands as a unique machine learning (ML) task [7], [10]. Relying on a unified model without explicit, individual components hinders the
+
+2
+
+explainability aspect of end-to-end learning as a downside. On the other hand, this learning paradigm has two primary
+
+Technical safety concept
+
+Traceability
+
+System and item integration and testing
+
+veri cUatniiton
+
+veUrinict ation Dvepeshriigansceation
+
+advantages - potential safety enhancement and computational efficiency benefits over its counterpart. End-to-end driving is not universally safer than the modular pipeline; however, the
+
+Software safety speci cation requirements
+
+Traceability
+
+Testing of embedded software
+
+veri cUatniiton
+
+veUrincitation
+
+Test phases
+
+Dvepeshriigansceation
+DvepeshrDiigansceeastioign n phases
+
+automotive industry argues that this pipeline could eventually become safer in the real world as it promises reduced error
+
+Architectural design of software
+
+Traceability
+
+Software veri cation and integration
+
+veri cUatniiton
+
+veUrinict ation
+
+propagation, better handling of uncertainty, and lower pro-
+
+cessing latency [7], [10]. Furthermore, the computational efficiency, in terms of elimination of intermediate representations,
+
+Software unit design and implementation
+
+Traceability
+
+Software unit veri cation
+
+parallelization (GPUs/TPUs for parallel tensor operations), and Fig. 2: V-model in ISO 26262. The figure drawn based on the content in [24].
+
+streamlined data processing are improved substantially due
+
+to shared backbones [7], [10]. Hence, the giant automotive
+
+companies have put tremendous efforts into leveraging the B. The Structure of the Paper
+
+end-to-end driving approach for their AVs, thanks to this pipeline’s enhanced safety and efficiency promises. Waymo’s Our paper is organized as follows. Following the introducEMMA [11], Wayve’s AI Driver [12], NIO’s Banyan [13], tion, a brief overview of established safety concepts, learning
+
+XPENG’s XPlanner [14], and Li Auto’s OneModel [15] are examples of recent industrial end-to-end autonomous driving models. Meanwhile, recent attempts to explain the behavior of deep neural networks [16] have been a motivation for
+
+paradigms, and XAI approaches in end-to-end driving are presented as background information in Sections II, III, and IV, respectively. Afterward, the main contributions of the paper are presented: Section V provides analytical studies where XAI
+
+automotive researchers to present intelligible information to approaches can bring an enhanced safety benefit to end-to-end
+
+target of the
+
+groups so black-box
+
+that relevant people understand system in end-to-end driving.
+
+the
+
+behavffiiiofri
+
+driving. Section VI presents insights from experimental studies fion the explfaiinability-informed safety assessment proposition.
+
+Explanations have recently been explored for various intelli- Future prospects on underexplored XAI concepts and their
+
+gent transportation systems and autonomous driving, primarily potential safety ramifications in end-to-end driving are covered
+
+with the goal of increasing public trust, system transparency, in Section VII. Finally, Section VIII concludes the paper with and improving situational awareness [17], [18], [19], [20], key findings and an overall summary.
+
+[21], [22]. However, we argue that the value of explanations goes beyond these measures, and explanations can also
+
+II. SAFETY OF AUTONOMOUS DRIVING
+
+contribute to the safety analysis of AVs. Remarkably, a re- The safety of the deployed software system in autonomous
+
+cent study has provided valuable insights into the role of driving is a crucial factor for building confidence in this
+
+explanations for safe and trustworthy AVs with a conceptual technology. As ML approaches play an indispensable role in
+
+framework for modular autonomous driving [23]. Meanwhile, enabling an AV to make intelligent decisions, these approaches
+
+to the best of our knowledge, automotive researchers have not need to be safety-compliant both theoretically and practically.
+
+thoroughly explored the safety benefits and consequences of ISO 21448, also known as the ”Safety of the Intended Func-
+
+explanations in end-to-end driving, and the literature remains tionality” (SOTIF), is an international standard that provides
+
+scarce with relevant studies. Consequently, to bridge the guidelines to ensure the safety of road vehicles, particularly
+
+gaps between these topics, this paper is explicitly centered those relying on complex sensors and algorithms [25]. It
+
+on understanding safety benefits and consequences of XAI complements ISO 26262 [26], which has been specifically
+
+approaches in end-to-end autonomous driving by answering tailored to ensure the safety of electrical and electronic systems
+
+the following research question: What are potential safety within passenger vehicles. However, explicit guidelines for
+
+implications (benefits and ramifications) of explanations in AI functionalities in such cars are missing. Consequently, as
+
+end-to-end autonomous driving?
+
+a further complement, ISO/PAS 8800 [27], a more recent
+
+standard, is under development for the safety of AI technology
+
+A. Main Contributions
+
+in AVs, explicitly focusing on the potential risks of unintended safety-related behaviors in vehicles due to model outputs,
+
+Focusing on answering the question outlined above, the key systematic faults and random hardware failures in the AI
+
+contributions of our paper are threefold:
+
+components within the car, thus urging hardware reliability.
+
+• We present case studies to demonstrate how explaining Furthermore, with increasing reliance on real-time perception
+
+temporal decisions, both in real-time and retrospectively, can data, AI, and vehicular communication technologies, today’s
+
+enhance safety of end-to-end driving;
+
+AVs are more prone to cyberattacks, necessitating compliance
+
+• We draw insights from empirical studies and describe op- with the principles of the ISO/SAE 21434 standard [28].
+
+portunities, challenges, and limitations of XAI approaches Moreover, AVs may require takeover by backup drivers due
+
+with respect to their impacts on safety of end-to-end driving; to potential unexpected scenarios such as adverse weather
+
+• We describe the unique benefits of explanations for end- conditions, approached construction zones, missed lane bound-
+
+to-end driving compared to modular driving by revealing aries [29], and related issues in terms of software, hardware
+
+insights from the conducted analytical and empirical studies. failures, and cybersecurity issues, covered above (see Figure
+
+3
+
+3), where this case is typically applicable to driving automation below Level 4 [3], [30]. The transition of control from a car’s intelligent driving system to the human operator happens in a short time interval and consists of two primary steps: 1) an AV makes a takeover request (TOR), and a human driver should receive this request immediately and take over the control of the steering wheel and pedals, and 2) the post-takeover step, where the driver takes over the control of the car and manually performs the decisive action safely as per the traffic scenario [31]. The time granularity of these steps may vary from situation to situation, but the overall length of takeover cases is usually a few seconds. Consequently, a human actor must dominate takeover situations in the allotted time interval; otherwise, collision or other serious consequences may become inevitable. Finally, while the transition to highly autonomous driving is a significant change in the intelligent capabilities of AVs, the immense need to operate safely in possible failure cases also escalates. Fail-safe mechanisms often include redundancy, where backup systems take over if the primary system fails. In the context of autonomous driving, a fail-safe is the ability of an AV to transition to a safe state, such as slowing down, pulling over, or stopping entirely in case of failure of the driving system due to various reasons at specific moments [32], [33]. Overall, the established definition of safe autonomous driving requires risk minimization and assurance in seven key tasks, namely, pedestrian detection, drowsy driver detection, vehicle detection, road detection, lane detection, traffic sign detection, and collision avoidance, as identified by [34], and end-to-end driving, in turn, must also pass these crucial safety checks.
+III. END-TO-END LEARNING PARADIGMS
+This section presents some fundamental approaches behind end-to-end autonomous driving. In this context, the following subsections describe a brief overview of three leading approaches: 1) reinforcement learning, 2) imitation learning, and 3) a recently emerging technique, differentiable learning, enabling end-to-end driving for AVs.
+A. Reinforcement Learning
+The operational environment of AVs is dynamic and includes consideration for a wide variety of traffic circumstances. In all such scenarios, it is indispensable that the intelligent driving system senses the scene accurately and maps the perceived information to appropriate actions. Reinforcement Learning (RL) is a computationally robust approach to solve such sequential decision-making problems and its theory is formalized as a Markov Decision Process (MDP) [35], comprising S: a set of a state space of an environment; A: set of actions the agent can select from; T : a transition probability T (st+1|st, at), denoting the probability that the environment will transition to state st+1 ∈ S if the agent takes action a ∈ A in state s ∈ S; R: a reward function where rt+1 = R(st, st+1) is a reward acquired for taking action at at state st and transitioning to the next state st+1; and γ: a discounting factor, defined as γ ∈ (0, 1]. An agent’s behavior in its environment
+
+(a) Blind corner ahead
+
+(b) Disappearing lane markings and exiting
+
+Fig. 3: Potential takeover situations: (a) The blind corner ahead reduces the AV’s perception ability and urges for a takeover of the human driver, and (b) Autopilot perceives edge-markings of an exit lane as the continuation of the present lane (upper left, while still on the main road), steers right and the car exits the road incorrectly (upper right, exit). Edge markings disappear when the autopilot takes a wrong exit. Images adapted from [36].
+
+is defined by a rule, called a policy π, which maps states to a probability distribution over the actions π : S → T (A). The process can be modeled as an MDP with a state space S, action space A, an initial state distribution p(s1), transition dynamics p(st+1|st, at), and reward function r(st, at). At any state, the sum of the discounted future reward constitutes the return for that state:
+
+T
+
+Rt = γ(i−t)r(si, ai)
+
+(1)
+
+i=t
+
+With this framework, the goal of an RL agent is to find an optimal policy that maximizes the return from the starting distribution:
+
+J
+
+=
+
+max
+π
+
+Eri
+
+,si
+
+∼E,ai
+
+∼π
+
+[R1]
+
+(2)
+
+Given the agent follows a policy π by taking an action at in state st, the action-value (also known as Q-value) function, describing its expected return is defined as follows:
+
+Qπ(st, at) = Eri≥t,si>t∼E,ai>t∼π [Rt|st, at]
+
+(3)
+
+Adapting RL to autonomous driving, an AV can be thought of as an agent, its immediate position as a state, the driving scenario as an environment, and depending on how correctly it chooses real-time action, the relevant metric as a scalar reward approximating correctness of decision-making.
+
+B. Imitation Learning
+Initiation learning (IL) attempts to mimic the behavior of a human expert [37], [38]. An IL agent imitates the behavior of an expert driver and learns from the driver’s actions via demonstrations. Within this setting, the goal of the IL agent is to match its learning policy to the one demonstrated by an expert. There are two well-known categories of IL:
+1) Behavior cloning (BC): In this category, given the dataset collected from an expert’s behavior, the agent aims to match the expert’s policy by minimizing the planning loss with respect to that dataset. Overall, BC is a simple and computationally efficient approach as it relies on huge amount of data provided by a human expert and works well for simple driving tasks [4], [39]. However, complex driving situations are challenging for BC [40].
+
+Fail-safe state Safe operational state
+
+Strong 
+ cybersecurity
+
+On-time
+ takeover
+
+4
+(a)
+
+ego car
+
+Safe learning
+ software
+
+Reliable 
+ hardware
+
+failing safely and coming to a standstill
+
+tt+2
+
+tt+1
+
+ego car
+
+Operational environment
+
+(b)
+
+tt
+
+t t+1
+
+tt
+
+Fig. 4: A diagram of safe autonomous driving. In (a), an AV (i.e., ego car) interacts with the dynamic and stationary objects in the environment (i.e., vehicles ahead, pedestrians, and cyclists at the roadside identified with green, blue, and red bounding boxes, respectively) safely and keeps a distance from them. In (b), the ego car faces the unexpected action of the other vehicle, understands its limited motion ability at that moment, and comes to a standstill as it can not drive safely at that time step.
+
+2) Inverse Reinforcement Learning (IRL): Also known as Inverse Optimal Control, IRL aims to learn the expert’s reward function. Once the reward function is inferred, that policy is further improved with RL. IRL is computationally more complex than BC; however, in terms of generalization in rare and unseen states, IRL has been effective across several selfdriving tasks [41], [42].
+C. End-to-End Differentiable Learning
+This concept is a new approach to end-to-end autonomous driving. Built with a focus on planning-oriented driving [6], [43], [44], [45], and also known as modular end-toend planning, this learning methodology optimizes several modules while planning is prioritized as a goal of the hybrid architecture. The architecture of differentiable learning allows gradients to propagate seamlessly through all components during training, enabling optimization via backpropagation [46]. Thus, the differentiable aspect ensures compatibility between learning-based modules and optimization processes, enabling seamless driving task alignment in a single, trainable model [46], [47]. In this way, prediction and control tasks are jointly optimized while the unified system maintains its endto-end trainability. Overall, the literature is not rich yet with such a learning pipeline as this trend is emergent, particularly with a keen interest in the automotive industry [7], given that both modular and end-to-end pipeline individually have their inherent benefits and their combinations can pave the way for the future of autonomous driving.
+IV. XAI IN END-TO-END AUTONOMOUS DRIVING
+Incorporating explainability techniques into end-to-end autonomous driving has recently received increasing attention from automotive researchers. Overall, these techniques involve insights from both algorithmic methods regarding content and form as well as from time granularity and faithfulness perspectives of explanations. In this sense, this section presents XAI approaches from an algorithmic point of view and discusses the timing mechanism and credibility of explanations for enhancing safety of end-to-end driving.
+
+A. Visual Explanations for End-to-End Autonomous Driving
+Visual explanations are usually post-hoc or intrinsic and classified as follows [48]:
+1) Post-hoc Explanations: Post-hoc explanations describe actions retrospectively based on visual data from the video camera and other sensors. These explanations can be local and global depending on their task coverage. Local explanatory techniques justify the output of a particular task in the predictive model. On the other hand, global explanations describe the decisions of the entire predictive model. We summarize these techniques separately, below.
+(1.1) Local Explanations: There are two types of visionbased local explanations: (a) saliency methods, which shows which components of an image have more influence on the predictive output, and (b) counterfactual explanations that intend to find a causal relationship in image components that influence the predictive model’s outcome.
+(1.1.1) Saliency methods: Bojarski et al. [8]’s study was a preliminary work that used a CNN method to map raw pixels to steering command and achieved impressive results, and subsequent work focused on the interpretability aspect of such end-to-end learning [49], [50]. Some other notable research has also leveraged post-hoc saliency methods; these works include a causal attention mechanism [51], [52], driving affordances [53], and driving behavior understanding [54].
+(1.1.2) Counterfactual Explanations: These explanations aim to identify causal relationships between different events by considering how the outcome of a model would have been different if the provided input had been modified in some way. In autonomous driving, the following can be a typical example of a counterfactual explanation: “Given the traffic scene, how can it be modified so that the car turns right instead of driving straight?” In this case, the decision made by the car becomes different from its actual prediction. We can also say that counterfactual explanations can be used to assess the potential consequences of different actions or decisions made by an AV. Examples of these explanation techniques are ChauffeurNet, [55], its augmented version by Li et al. [56](see Figure 5), STEEX [57], and OCTET [58]. Counterfactual explanations
+
+5
+
+TABLE I: Taxonomy of visual explanations for end-to-end autonomous driving. Classification is partially based on [48].
+
+Type of explanation
+
+Description of explanation
+
+Post-hoc explanations
+
+Saliency maps
+
+Indicate what part of an input image has more influence in the prediction of the model. This approach primarily includes back-propagation, local approximation, and perturbationbased methods.
+
+Counterfactual explanations Indicate explanatory information on changing input slightly and observing the causal effect of this modification on the prediction of the model.
+
+Model translations
+
+Transfer knowledge from a black-box neural network entirely to a more interpretable model.
+
+Representation explanations
+
+Explain intermediate representations, i.e., the internal structure of the model.
+Intrinsic explanations
+
+Built-in attention models Provide reasoning on the inner workings of the learning model via built-in attention maps.
+
+Semantic inputs
+
+Interpretable input spaces with dimensions individually interpretable and concrete meaning.
+
+Auxiliary information
+
+Additional information, different for driving model its, that provides human-interpretable information during the trip (e.g., a semantic map of road objects and users in a scene).
+
+Representation visualization Describes information contained inside the intermediate representation.
+
+Natural language explanations Human interpretable linguistic explanations on the predictions of the model.
+
+Relevant studies [8], [49], [50], [59], [51], [52], [53], [54]
+[55], [56], [57], [58] Not available [60]
+[51], [61], [62], [63], [64] [55], [65], [66] [67], [68], [69] [70], [71]
+[72], [73], [74], [75], [76]
+
+are in general well-aligned with causality and causal inference [77]. Another potential gain from a safety perspective of counterfactual explanations is that foreseeing potential outcomes of different choices provides a chance to learn from mistakes, avoid high-stakes decisions, and make better choices in other similar traffic circumstances. (1.2) Global Explanations: Global explanations refer to explanations that provide a summary of the decision-making process of an entire learning model [78]. In context of endto-driving, global explanations remain scarce. Tian et al.’s work [60], to the best of our knowledge, is the sole example provide an automated testing of end-to-end driving. They use the idea of neuron coverage to test deep neural networksbased autonomous driving models, named DeepTest as the neuron coverage concept is regarded as a logic quantification technique that is exploited by a set of testing inputs.
+2) Intrinsic Explanations: Finally, except for explaining the prediction of a model in a post-hoc manner, there are attempts to develop models that are interpretable by design. In the context of autonomous driving, these explanation-by-design systems include a variety of ideas, including inherent attention models, semantic inputs, auxiliary information, representation visualization, and live natural language explanations. Table I describes the relevant studies on post-hoc and intrinsic explanations for end-to-end driving.
+B. Reinforcement learning-based Explanations
+Explainable reinforcement learning (XRL) is a considerably new, emergent research area [79], [80] and has recently been applied to autonomous driving tasks. XRL approaches for
+
+Fig. 5: A causal effect of removing a pedestrian from a scene: The driving behavior changes from ”Stop” to ”Go” by showing that the eliminated object is a risk object for the ”Stop” command. Graphics credit: [56]
+end-to-end driving can be categorized via feature importance [81], [82], [83], [84], [85], policy-level explanations [86], [87], reward-decomposition [88], logic-based explanations [89], and saliency maps [90], [91], [92]. It is noteworthy to specify that RL-based explanations are primarily targeted at researchers and developers (rather than public users, such as passengers) for intrinsic model interpretability. Such explanations, as log data, can provide insights into why specific actions are taken, thus enabling pinpointing potential issues in the RL model and refining it for better performance. (see Table II). We present insights from an RL-based explainability perspective in Experiment 2, Section VI.B.
+
+6
+
+TABLE II: Taxonomy of explainable reinforcement learning approaches for end-to-end autonomous driving
+
+Type of explanation Feature importance
+Policy-level explanations Reward-grounded explanations
+Logic-based explanations
+Saliency maps
+
+Description of explanation
+Describes features/states enabling an RL agent to take a specific action.
+Policies that are interpretable by design.
+Provide reward-based insights on an RL agent’s actions.
+Neuro-symbolic and neural logic models to learn interpretable controllers.
+Visualization of an RL agent’s actions for behavior understanding.
+
+Relevant studies [81], [82], [83]
+[17], [93], [94], [87] [88] [89]
+[90], [91], [92]
+
+C. Imitation learning-based Explanations
+Similar to RL-based explanations, IL-based explanations also provide insights from an algorithmic perspective regarding how an IL agent makes decisions. Cultrera et al. ’s work [95] is one of the preliminary studies in this context. The study uses a conditional IL agent along with the attention model in the CARLA simulator [96] to produce an explanation describing the influence of distinctive parts of the driving images on the predictions of the model. Further works include NEAT [97], model-based IL (MILE) [98], Hierarchical Interpretable Imitation Learning (HIIL) [99], PlanT [100], and generative adversarial network (GAN)-based IL approach combined with signal temporal logic (STL) [101].
+
+via textual descriptions and responds to humans’ questions in the same manner. The concept of question-answering as a human-machine interaction has been explored in two further models LingoQA [113] and VLAAD [114]. Table III presents recent LLM and VLM-based explainability approaches for end-to-end driving. It is also noteworthy to underscore that the current well-known limitations of these large models (i.e., “hallucinations,” authoritative but incorrect explanations) can have dire consequences for understanding driving safety in real driving environments. Section VI sheds light on these caveats with empirical analyses and describes the implications of LLM- and VLM-generated explanations for safety of endto-end driving.
+
+D. Feature Importance-based Explanations
+Quantitative metrics provide a feature importance-based interpretability approach and have recently been explored in autonomous driving. These studies primarily use decision tree-based metrics and SHAP values [102] to quantify the contribution of each feature in predictions of a driving model, thus providing a holistic understanding of how inputs influence an AV’s real-time actions. Examples include vehicle positioning [103], [104], risk assessment [105], driver takeover time [106], anomaly detection [107], trust management [108] with SHAP, and intelligible explanation provision with tree-based representation [73].
+E. Pretrained Large Language Models and Vision-Language Models-based Explanations
+Pretrained large language models (LLMs) and vision-andlanguage models (VLMs) have recently revolutionized natural language processing (NLP), robotics, and computer vision across many tasks. Primarily based on BERT [109] and GPT [110] families, there has been a surge in building generalpurpose language models. These models are called Foundation Models where their internal weights are further adjusted (i.e., “fine-tuned”) with a domain-specific knowledge base for serving task-specific purposes. LLMs and VLMs in explainable autonomous driving have recently been investigated from several aspects. For example, the Talk2BEV [111] model has incorporated a VLM into bird’s-eye view maps, enabling spatial and visual analysis to predict unsafe traffic scenarios. In a similar work, DriveGPT4 [112] justifies AV decisions
+
+F. Time Granularity and Faithfulness of Explanations
+The time sensitivity of explanations is yet another essential factor from a safety perspective. Explanations, depending on the level and context they are delivered, can have different time granularity, ranging from milliseconds to seconds and sometimes to a longer interval. In general, the time granularity of explanations in AVs could be grouped as follows: Immediate feedback (in milliseconds): Some explanations may have higher time sensitivity and need to be delivered in the range of milliseconds. For instance, if an AV encounters a sudden obstacle or an unexpected object at a very near distance, it should provide immediate feedback to the human passengers or backup driver for a possible takeover or situation awareness. This feedback accompanied with a relevant explanation could describe why the vehicle made a specific maneuver or applied an emergency brake, for example. Perceptual explanation (in seconds): Explanations for an AV’s sensing of the operational environment may have a slightly longer time allowance, typically in the range of seconds. Examples may be the justifications for these vehicles’ detection of a pedestrian, a stop sign, or another vehicle in their vicinity. In addition, perceptual explanations within a range of seconds could be helpful for takeover requests such as the blind corner case described in Figure 3. In the experiments for a lead time between 4 seconds vs. 7 seconds, Huang and Pitts [115] have shown that a shorter lead time leads to faster reaction but the poor quality of takeover. On the other hand, people’s age could be another critical factor, and older people may need more reaction time in takeover situations [122]. However, when it comes to an AV, this time
+
+7
+
+TABLE III: Pretrained large language and vision models for explainable autonomous driving
+
+Pretrained language and vision model Talk2BEV [111] DriveGPT4 [112] LingoQA [113] Driving with LLMs [116] GPT-Driver [117] DILU [118] LanguageMPC [119] LINGO-1 [120] VLAAD [114] DriveLM [121]
+
+Description of the model Predicting behavior of traffic actors and events via visual cue and reasoning Providing textual explanations for AV actions and question-answering interface for humans Video Question Answering for traffic scene understanding Context understanding in traffic scenarios with vectorized numeric modalities Interpretable motion planning with a language model Commonsense knowledge-based decision-making via Reasoning and Reflection modules Chain-of-thought-based reasoning for decision-making and control Providing live textual explanations for AV actions Traffic scene understanding from a frontal view of an AV using video question answering Proxy task to mimic the human reasoning process and enabling interactivity with human users
+
+is roughly 100 milliseconds [123]. While the reaction time of 100 milliseconds for an AV may seem impressively fast, it can still be insufficient in complex driving situations due
+
+→
+
+immediate feedback
+
+perceptual explanation
+
+behavioral explanation
+
+post-trip explanation
+
+to possible communication latency and physical constraints of the vehicle. Hence, perceptual explanations with appropriate timing can bring awareness to the situation to people on board. Behavioral Explanation (seconds to minutes): These explanations may reflect the rationale behind route planning or a
+
+driving scenarios with explanations
+
+0 milliseconds 1s
+
+1min end of trip post-trip
+
+Fig. 6: The time length of communicating explanations for safe and on-time human, vehicle reactions and situation awareness in autonomous driving.
+
+longer-term decision-making process. Behavioral explanations
+
+may be provided in advance to inform passengers of upcoming perceived safety in an AV. It turns out that the “what” and
+
+changes in the journey and help them understand the vehicle’s “why” facets of explanations provide more value in critical
+
+decision-making intentions.
+
+scenarios for passengers as safety implications in a highly
+
+Post-trip explanations (minutes, days, weeks, years): Once autonomous driving environment.
+
+the AV completes its journey, the explanation system can
+
+provide a detailed post-trip analysis, explaining the decisionmaking processes from the initial point to the final destination,
+
+V. INSIGHTS FROM ANALYTICAL CASE STUDIES
+
+highlighting critical events along the trip, and offer insights Having covered safety principles and XAI approaches with
+
+into how the system performed and what can be improved. critical explanation aspects for end-to-end driving, we combine
+
+In general, the choice of time granularity for explanations 
+ these co
+ncepts for safety analysis hereafter, which is the main
+
+should take the urgency, relevance, and potential impact of the focus of our paper. In this sense, this section presents analytical
+
+information conveyed into account. Real-time safety-critical studies showing how XAI can improve the safety of end-to-
+
+information requires immediate explanations, while lower- end driving both in real-time and via a retrospective analysis.
+
+priority longer-term decisions and post-trip explanations can
+
+be communicated with a longer time horizon. Figure 6 shows
+
+the timing sensitivity of explanations in this regard.
+
+A. Real-time Explanations for Safety Monitoring
+
+Regardless of whether explanations are based on informational Explanations provision can be in real time or in a post-hoc
+
+content or timing perspective, faithfulness of explanations manner, depending on the task and application domain. In au-
+
+is of paramount importance. Consequently, explanations in tonomous driving, as decisions are temporal and safety-critical,
+
+autonomous driving should be evaluated carefully and such real-time explanations of the AV decisions can help the users
+
+evaluation should also present insights from their safety per- (i.e., backup drivers and passengers) monitor driving safety
+
+spective. In this sense, Kim et al. [18] have investigated the and possibly intervene in the situation in case the driving
+
+role of on-road explanations and evaluation approaches for system malfunctions. In this context, an AV must be equipped
+
+them from timing and delivery-type perspectives in highly with the relevant user interface or dashboard that conveys
+
+autonomous driving. They provide three types of explanations, scene-based information to in-vehicle users, and possibly an
+
+namely perception, attention, and perception+attention in a emergency control button, which passengers can use in case
+
+windshield display of a vehicle, and evaluate explanations of unsafe actions. Such a user interface has two main safety
+
+both in a laboratory setting and on actual roads. The empir- implications for end-users. First, information displayed in the
+
+ical findings of the study suggest risk-adaptive explanations user interface can communicate situation awareness and help
+
+were confirmed to be more effective when driving-related users trust the vehicle. Furthermore, explanations can also help
+
+information is overwhelming to passengers on board and understand the intentions of a vehicle in its decisions. An
+
+such explanations also enhance passengers’ overall trust and interesting study in this perspective has been carried out by
+
+Schneider et al. [124]. The authors use multimodal explanation
+
+8
+
+Fig. 7: Temporal evolution of three driving scenes and information conveyance to passengers using visual and textual explanations at these scenes, based on the AVs’ closeness to the other vehicles in oncoming traffic. Graphics credit: Schneider et al., [124]
+
+feedback using light, sound, visual, vibration, and text formats to observe whether such techniques make a positive user experience in their human study. They categorize the design of explanations with the help of autonomous driving domain experts and researchers. Based on this approach, it is concluded that driving scenario-based feedback can be four types depending on how critical, reactive, and/or proactive the scenario is, and three of them are illustrated in Figure 7: 1. Proactive non-critical scenarios: An AV does not perform a dangerous action and has enough time to react to a scene. The situations in the middle and rightmost segments of Figure 7 are representatives of proactive non-critical scenarios. 2. Proactive critical scenarios: This is when the situation is sufficiently hazardous and a vehicle is expected to act on time to avoid any potential danger or a mishap. 3. Reactive non-critical scenarios: The vehicle should act immediately to avoid a situation that does not imperil human lives. An example is the situation where an animal runs across the road from an invisible place in front of the vehicle. In this case, the vehicle must press the brake and prevent hitting. 4. Reactive critical scenarios: There is insufficient reaction time that has a high degree of risk or danger for human life. An example is a situation in which another car appears in oncoming traffic at a close distance. The vehicle should immediately brake to avoid a potential collision. The leftmost image segment in Figure 7 is a relevant example. These four categories of driving scenes show that real-time explanatory information on driving scenes has significant safety implications for autonomous driving. Explanations provide driving scenario-based information to the passengers and show how the vehicle behaves in such circumstances. Moreover, they can also communicate the vehicle’s existing limitations, issues, and enable debugging and enhancing the driving system.
+B. Failure Detection with Explanations
+An ability to explain incorrect actions or autonomous driving failures is another positive and significant aspect of
+
+vehicle autonomy. The reasons for failures could originate from individual or multiple sources, such as software bugs, sensor malfunctions, communication breakdown, poor roads, bad weather conditions, and adversarial machine learning attacks as specified in [125]. Foreseeing such potential safety threats is also crucial in the design, development, and continual debugging of self-driving systems. In particular, testing AVs in their prototype stage can provide ample opportunities to understand the functionalities and limitations of the driving system and certify compliance with the V-model of the ISO 26262 standard. In this context, McAfee researchers have conducted an experiment, termed model hacking, to test the vision system of Tesla Model vehicles against adversarial attacks [126]. They made some alterations to some traffic objects, such as the speed limit, to observe how the perception system of an AV understands the modified image and acts in the driving scene. For this purpose, the team deliberately modifies the speed limit as shown in Figure 8: They added a black sticker to the middle of 3 in the speed limit and tested Tesla Model S at a site to see how the heads-up display of the vehicle reads the altered speed limit. As shown, the vehicle reads the 35-mph sign as an 85-mph sign and accelerates once it approaches and passes the sign. Such misdetection, particularly given that the difference between the modified and original speed limits is substantially big, could have dire consequences in a real driving environment. With that said, even without a more careful look, an ordinary person may not understand why the car accelerated in this case, as the alteration in the speed limit is quite deliberate and not easily visible. In this case, a more appropriate approach to interpreting the vehicle’s decision is to acquire a causal explanation. In such scenarios, both the real-time and posthoc explanations can bring safety benefits as shown below: Real-time explanation: If the car provides a rationale for its decision on a dashboard or user interface (such as “The speed limit is 85 mph, accelerating”) in real-time while approaching the speed sign, a passenger on board or a backup driver may understand such a decision and possibly intervene in the
+
+9
+
+↦
+
+Original speed limit
+
+Modified speed limit
+
+Causal effect of the adversarial attack at a testing site
+
+Fig. 8: A deliberate hack causes the 35-mph sign limit to be incorrectly perceived as an 85-mph sign by Tesla’s ADAS at a testing site. The manually added red circles show the speed limit perceived by the heads-up display and modified speed sign. The figure has been drawn based on the content in [126].
+
+situation by pressing the emergency stop button and decreasing the speed. Timely communication of the malfunctions of the vehicle to the users may help avoid potential dangers ahead. Post-hoc explanation: In case the explanations are delivered in a post-hoc manner, a history of action-explanation pairs could help detect correct/incorrect actions through debugging.
+C. Solving the ”Molly Problem” with Explanations
+As AVs are becoming highly dependent on their automotive features, several safety challenges evolve with their black-box AI-based decisions. Road accidents with such vehicles can trigger a variety of regulatory inspections from safety, engineering, ethical, and liability perspectives. Notably, one of the most debatable issues within such a context is the proper investigation of AV-involved collisions and hitting cases where there are no eyewitnesses. In this sense, ADA Innovation Lab Limited and the Technical University of Munich researchers have formalized the “Molly problem” (i.e., Figure 10), which addresses the ethical challenges when an unoccupied AV hits a person with no witness in the scene [127]. The Molly problem describes a traffic scenario with an event of hitting a person and seeks an answer to the following question:
+A young girl called Molly is crossing the road alone and is hit by an unoccupied self-driving vehicle. There are no eye witnesses. What should happen next?
+Such a situation is considerably challenging, and the primary goal of the post-accident inspection is to identify which part made a mistake: Was that a faulty decision made by a selfdriving car, or did Molly unexpectedly enter the driving zone and cause the mishap? To cope with the issue, the research team has created a survey to get public views on this problem to identify the main culprit of the road accident. 296 respondents aged between 18 and 73 years old were asked questions about the driving software of the car and its impact on hitting [128]. 75% of these people reported that they favored traveling in AVs in general. According to the survey result, 97% expected that the AI software of the car should be
+
+aware of the hitting, and 94% of the respondents believed that the software should have stopped the car at the collision area. Moreover, 94% thought that the car should have indicated a hazard signal to bystanders on the scene. It turns out that a majority of societal views hold AVs more responsible for such accidents (Table IV). Such traffic accidents with implications from safety to liability necessitate the concept of explainability of the driving system to a substantial degree. Given that nobody witnessed the collision, it seems that only an accurately delivered history of action-explanation log data could be helpful for forensic analysis and understanding of the main cause of the mishap. Furthermore, as the collision process evolves over a short period of time, we propose that explainability of the driving system may be analyzed over three time phases with the following questions: Phase 1 - Before hitting: Did the AV follow the traffic rules (such as the speed limit) on that road segment and detect the pedestrian before the collision? If so, just before the collision, did the vehicle press the emergency brake even though the hitting eventually became inevitable? Phase 2 - At the hitting point: Once the accident occurred, did the vehicle “understand” that it hit a person and come to a full stop accordingly, as an expected course of action? Phase 3 - After hitting: If the vehicle became aware of hitting, did it activate emergency state functions such as reporting the accident to the regulatory bodies and emergency service immediately? Getting answers to these is vital for a proper post-accident inspection. For instance, referring to Phase 2, the case where the car stopped once the hitting happened would have had different legal implications than the not-stopping scenario, which can help deal with the arising ethical, responsibility, liability, and accountability issues accordingly.
+D. Spatiotemporal Object-Centric Accident Analysis with Explanations
+The Molly problem mentioned above is a typical scenario where the role of explanations becomes indispensable. The
+
+10
+t t t t ar: the time that the crashing object appears ai : the beginning time of the accident co : the beginning time of the collision ae: the ending time of the accident time
+
+#0050
+
+#0093
+tar
+
+(1) What objects are involved
+
+#00106
+tai
+(2) What kinds of accidents
+
+#0113
+tco
+(3) Where the accident occurs
+
+#0198
+tae
+(4) When the accident will occur
+
+Accident Catergory:
+ta: “The ego-car hits a pedestrian.”
+
+pixel-level localization
+
+(5) Why the accident occurs
+
+(6) What are the keys to reasons
+
+(7) how to prevent the accident
+
+Time-to-Accident (TTA)
+>0.5
+tai
+time
+frame-level localization or anticipation
+(8) accident video generation
+
+Reason:
+tr: “Ego-car does not notice the
+pedestrians when turning.”
+
+Key actions: “does not notice when turning.”
+
+Prevention Advice:
+tp: “The speed of ego-cars should
+not be too fast when turning, and should observe the crossing pedestrians.”
+
+text prompt: “The ego-car hits a cyclist.”
+
+Fig. 9: An example of object-centric accident video understanding from the Multi-Modal Accident Video Understanding (MM-AU) dataset of Fang et al. [129]. The graphics describe the temporal evolution, the root cause of the accident, and accident prevention advice in different time steps with textual explanations.
+
+TABLE IV: The Molly problem survey: Participants’ answers to the selected safety-related queries. The table reproduced based on [128].
+
+Fig. 10: The Molly problem: An AV hits a pedestrian and nobody witnesses. Explainability of the AV decisions can help understand why the car kept going and eventually hit the pedestrian at this scene.
+immense need for more fine-grained explanations becomes even more vital in more complex scenarios involving several dynamic and stationary objects [129], [130]. Thus, to prevent traffic accidents, relevant explanations should clearly describe what objects are involved, how the accident evolved over time, and how it can be prevented. In this sense, we refer to Fang et al.’s recent study [129] on spatiotemporal analysis of accidents involving several traffic actors. Figure 9 describes a traffic scene from their MM-AU dataset [129] by describing the objects involved, the type of accident, the place and timing of the accident, the key reason for the accident, and how to prevent such a mishap as a general object-centric accident analysis and prevention method. The example clearly outlines the temporal evolution of the accident with causal reasoning. The accident can be analyzed differently from the modular and end-to-end driving perspective. While the root cause of the accident can easily be linked to a specific module (e.g., ”The perception module failed to detect the pedestrian due to overexposure to the sunlight ahead”) for modular driving, in the end-to-end setting, explanations can reveal latent patterns
+
+Query AI software should be aware of the collision. AI software should stop the car at the collision area. AI software should indicate a hazard to road users.
+
+Expected 97% 94% 97%
+
+Unsure 2% 4% 2%
+
+Didn’t expect 1% 2% 1%
+
+in training data that led to failures (e.g., the model ignored pedestrians in certain lighting conditions), identify gaps in training datasets, and thus reveal data-driven insights about the accident.
+E. Overall Analysis of the Case Studies Above from the Driving Paradigm Perspective: End-to-end vs. Modular Pipeline
+The analysis performed in the above section also applies to the other three case studies and helps draw a unique conclusion to differentiate end-to-end driving from modular driving regarding safety impacts of the explanations: While explanations can reveal faulty behavior by attributing it to a specific module in modular driving with an easy way to diagnose failures (as each module has defined responsibilities), the main implication of explanation would be a data perspective for end-to-end driving: Targeted data augmentation could help refine the endto-end model’s behavior and improve safety performance of the driving system, given that end-to-end driving is more data-hungry, and supplying more relevant “less-seen” data for the revised model can help end-to-end driving be safer in interacting with dynamic environments within embodied AI.
+
+11
+
+VI. INSIGHTS FROM EXPERIMENTAL ANALYSES
+Having described analytical studies on the safety analysis of explanations in Section V, this section delineates insights from quantitative and qualitative empirical studies and shows implications of the faithfulness of explanations from a safety perspective practically as a follow-up. It presents insights from two experimental analyses - qualitatively and quantitatively and describes critical findings from these experiments.
+A. Experiment 1: Qualitative Analysis on Video Question Answering as Action Explainer
+This subsection describes our experiment with video question answering (VideoQA) applied to real-driving and simulation datasets, as an explanation provision method in endto-end driving. In this sense, we extend our recent work [75] on explaining autonomous driving actions via a visual question answering (VQA) mechanism. While our preliminary work focuses on providing textual explanations for a visual scene in a stationary environment with a single driving image, we expand the scope of that work, evaluate explanations in dynamic environments with video-based driving scenes, and describe implications of such explanations from a safety point of view. The key idea with the video question answering is that an explanation must capture the semantics of the temporal changes in visual driving scenes. We sample six driving scenes from recorded driving videos of the SHIFT, a simulation dataset [131], and Berkeley DeepDrive Attention (BDD-A), a real-world driving dataset [132]. The lengths of these scenarios vary from 4 seconds to 12 seconds. We use the Video-LLaVA [133] multimodal transformer as an explanation mechanism for our VideoQA task, which takes a driving video and a question about the context of this video as input and produces a response. While video-based multimodal LLM for explaining AV actions could simply be a plug-and-play or driving-dedicated model, in this experiment, we consider Video-LLaVA as a plug-and-play video-reasoning model (e.g., the AV might have a different mental model than the video reasoning model). So, our explicit focus with this experiment is directly on the implications of explanations generated by the video reasoner, regardless of whether such a reasoner has been pretrained on driving or general domain data. Such a task, in general, can be considered as an interactive dialogue between humans and a conversational user interface where people on board ask questions to the user interface to understand the AV’s actions and dynamic traffic scenes, particularly in critical situations. In our experiment, we have carefully selected scenarios and asked purposeful questions to see how an explanation model responds to our question. Overall, we can analyze safety implications of action-explanation pairs in four ways: 1. Correct action, correct explanation: This case is a desideratum as the ultimate goal of explainable autonomous driving is to choose and perform actions correctly and provide actionreflecting and context-aware explanations as required by the safety-regulatory compliance principles. Scenarios 1, 2, and 3 in Figure 11 may be deemed as examples of such a category. 2. Correct action, incorrect explanation: The question-answer
+
+pair in Scenario 5 falls into this category. When we ask an adversarial question as “Why is the car making a left turn?”, the model is flawed and generates a falsified response of “The car is making a left turn to avoid a collision with an oncoming traffic,” where the AV, in fact, performs a right turn. During the trip, users may ask incorrect questions either unintentionally (i.e., visually impaired passengers) or intentionally/deliberately (to test robustness of the explanation system). Accordingly, the explanation interface must detect such questions and respond correctly. Failing to provide adequate responses to adversarial questions may damage the users’ trust in the explanations and even action decisions of a self-driving vehicle. A rigorous VideoQA model must not only provide action/scene-related explanations but also defend against adversarial questions to ensure that the vehicular interface delivers an explanation of what it perceives in the scene. Moreover, robustness against human adversarial questions can contribute to the development of safety and security measures to detect and mitigate potential adversarial attacks on the perception system of an AV. Another potential limitation of an explanation model could be its reasoning beyond data. For instance, in Scenario 4 in Figure 12 there is no traffic light in the scene; however, the model is influenced by another deliberate question and predicts a red traffic light. Consequently, explanation systems, particularly large pre-trained models, must be constructed in a way that describes the visual scene as it is or just “fails” safely by not delivering an explanation, thereby avoiding the presentation of a potentially convincing but fictitious explanation. 3. Incorrect action, correct explanation: Explaining an incorrect action of an AV correctly can help detect errors with the existing driving system. We relate this category to the failsafe capability of autonomous cars: When the AV detects its loss of/limited automation ability, it can safely stop at the side of the road temporarily and prevent potential hazards ahead. Likewise, when an AV does not stop at a red traffic light, for the question “Why did the car continue to drive?” the explanation system can help with corrective answer describing “It seems the car made a mistake as it should have stopped as the red light was on.” This explanation can further help system engineers detect the issue/glitch with the perception system of the vehicle. 4. Incorrect action, incorrect explanation: Finally, in the fourth case, the unsafe behavior of an AV is accompanied by incorrect explanations. For instance, referring to Scenario 6 in Figure 12, the autonomous car keeps going under a red light, and when a question is asked about its behavior, the explanation model generates an incorrect response describing the light turning green (where it does not, actually). This is the most undesirable situation as the AV performs an unsafe action and the explanatory system cannot detect/describe it properly to carry out corrective measures. Failing to defend against such questions is a limitation of transformer-based VideoQA models and hinders the applicability of these models as a reliable automotive user interface.
+
+Scenario 1 (pedestrian crossing)
+
+12 4 seconds
+
+Q: What is the car doing once it approaches the pedestrian?
+
+A: The car stops and the pedestrian crosses the street.
+
+
+5 seconds
+
+Scenario 2 (bikers at crosswalk)
+
+Q: Why is the car stopping at the scene?
+
+A: The car is stopping because the bicyclists are crossing the street. 4 seconds
+
+Scenario 3 (lane change)
+
+Q: Why did the car change its lane to the right one at this scene?
+
+A: The car changed its lane to the right one because it was following the 
+ tra c rules and changing lanes to avoid any obstacles or to make a turn.
+
+Fig. 11: The results of our experiment on the chosen scenarios from the BDD-A dataset (recorded videos) with the Video-LLaVA multimodal transformer, as an explanation model. The model produces correct explanations for the conventional questions on the AV actions in the described scenes.
+
+Scenario 4 (go straight)
+
+ffi
+
+
+
+
+Q: What traffic light is observed?
+
+12 seconds
+A: The video shows a red traffic light on the street. 5 seconds
+
+Scenario 5 (turn right)
+
+Q: Why is the car making a left turn?
+
+A: The car is making a left turn to avoid a collision with an oncoming traffic. 7 seconds
+
+Scenario 6 (go straight)
+
+Q: Why did the car decide to move forward at the scene?
+
+A: The car decided to move forward because the traffic light turned green, indicating that it was safe to proceed.
+
+Fig. 12: The results of our experiment on the chosen scenarios from the SHIFT dataset (recorded videos) with the Video-LLaVA multimodal transformer, as an explanation model. Our deliberate questions confuse the model: In Scenarios 4 and 5, the model is influenced by tricky questions and generates incorrect responses. In Scenario 6, the explanation model fails to provide an adequate response on why the AV kept going straight under the red light.
+
+13
+
+Fig. 13: The results from Cui et al.’s [85] experiment on describing influential features on the action decisions of the AV via feature importance vs. average absolute Shapley value plots for actions “Slower”, “Idle,” and ‘Faster,’ respectively, in the vehicle-following task.
+
+B. Experiment 2: Quantitative Analysis on Feature Importance Scores for Understanding Influential Driving Features
+Here, we describe a quantitative experimental analysis of an XAI method for enhancing the safety of end-to-end driving. We refer to the experimental study of Cui et al. [85], in which the authors use the SHAP technique to interpret deep RL-based decisions of an AV in a vehicle-following task. In the experiment, the state space is represented by d denoting the relative distance between the AV and the proceeding car, egovx denotes the longitudinal velocity of the AV, egovy denotes the lateral velocity of the AV, f rontvx denotes the longitudinal velocity of the car in front, and f rontvy denotes the longitudinal velocity of the leading car:
+
+S = [d, egovx, egovy, f rontvx, f rontvy]
+
+(4)
+
+With this setup, the action space A consists of three discrete action labels; deceleration, keeping the current speed, and acceleration denoted with the following terms:
+
+A = [Slower, Idle, F aster]
+
+(5)
+
+Finally, three kinds of rewards are defined in terms of rdl driving as fast as possible, rv - keeping a safe distance from the proceeding car, and rc - avoiding collision with the proceeding car. The SHAP method is further employed to simplify the
+
+feature space and describe the dependency between features and the influence of each feature on an AV’s action decision. Figure 13 shows the results of this experiment.
+C. Discussion
+The analysis of the results of the presented experiments discloses several findings from the safety perspective. Given that stakeholders of autonomous driving have various backgrounds, safety implications of relevant explanations are also different. In Experiment 1, the explanations are targeted at people on board an AV. While the correctness of responses helps them trust the action decisions of the vehicle while it operates on a road, inaccurate responses can trigger an alert and show the malfunction of the action-explanation mapping. Such awareness could make them pause the trip and prevent potential foreseeable danger ahead for themselves and people outside, particularly those with visual and hearing impairments. In addition, temporally evolving action-explanation log data delivered via human-interpretable language could help auditors and accident inspectors to deal with accountability and culpability issues appropriately in case of road mishaps with the presence of these vehicles. On the contrary, quantitative analysis such as the one in Experiment 2 can help autonomous driving developers, such
+
+14
+
+as system engineers and AI scientists, improve safety and efficiency of driving in several ways. As illustrated in Figure 13, sub-figures (a), (c), and (e) show the importance of each feature with respect to mean absolute Shapley value plots for the three discrete actions - “Slower,” “Idle,” and “Faster.” For each of the action types, egovx, d, and f rontvx are most influential, while the remaining features do not have a substantial effect on the actions of an AV. Hence, the results suggest that egovy, and f rontvy can be removed from state representation. Such retrospective analysis could have several safety benefits for the driving system. First, feature importance scores can help adjust the reward function to shape the learning process of the RL model and prevent potential reward misdesign issues in autonomous driving [134]. Furthermore, the model complexity can also be reduced via such a quantitative post-hoc analysis. Eventually, properly defined feature space, state-space representation, and reward formulation can help cope with scalable evaluation [135], [136], uncertainty quantification [137], runtime monitoring [138] of end-to-end driving. Overall, based on the broad spectrum of analytical and empirical analyses throughout our study, we can measure the value of explanations from the safety perspective at least in five ways: Explain to control: Real-time or live explanations may enable human drivers/passengers on board to intervene and control critical scenarios that lead to effective human-machine teaming and a safer trip. Clear and concise explanations can reduce the cognitive load on back-up drivers and enable quicker responses during critical moments. Furthermore, a proper combination of visual, auditory, and haptic feedback could help back-up drivers receive and comprehend takeover requests promptly. Explain to enhance: Retrospective explanations may help detect system errors and sensor malfunctions, enabling the implementation of corrective measures that reduce the risk of further accidents caused by the faulty behavior of an AV. By analyzing explanations of past decisions as log data, system developers can identify errors or weak points in the system and improve the end-to-end pipeline. In addition, patterns observed via post-hoc explanations can guide software updates, ensuring continuous improvement of the driving system. Explain to defend: Explanations can assist in identifying vulnerabilities and security flaws and developing robust cybersecurity measures to prevent malicious attacks on the behavior of an AV, as described in Experiment 1. Such information can reveal patterns in how adversarial attacks exploit weaknesses in the driving system, helping developers address these vulnerabilities. Moreover, by analyzing those patterns, explanations can guide the creation of adversarial examples for training, improving the driving system’s ability to handle such inputs. Explain to adapt: Explanations can facilitate continuous improvement. By understanding how the deployed driving system responds to various (especially rare and unseen) situations, system developers and engineers can refine the system through adaptive learning and enhance safety features over time. Particularly, by explaining decisions in previously unseen driving scenarios, the system can adapt to new environments and incorporate these learnings into future actions and help with learning to handle such situations more effectively in the
+
+future. Explain to comply: AI transparency can ensure that a selfdriving system’s decisions align with established regulations, making it easier for authorities to assess the overall safety of end-to-end driving and approve at least semi-AVs for widespread use by society. The values explanations can create are demonstrating accountability, facilitating audits, supporting accident investigation, aligning with ethical standards, and aiding certification/licensing processes, which are crucial principles of automotive regulatory compliance. To summarize, safety implications of explanations for relevant interaction partners in end-to-end driving are described in Figure 14 with representative illustrations. While these safety benefits also apply to modular or any autonomous driving architectures, it is noteworthy to underscore that end-to-end driving is a monolithic system directly mapping sensor information to control commands via RL, IL, or differentiable learning. On the other hand, modular autonomous driving is a decomposed system consisting of several interconnected modules, where modular systems need explainability analysis both within individual modules (such as perception and planning modules) and across module interactions. A promising analysis of the safety implications of XAI in modular autonomous driving has been recently performed by the SafeX framework in [23], as previously noted, and we recommend readers refer to this framework for more insights.
+VII. LIMITATIONS AND FUTURE DIRECTIONS
+The sections above summarize the safety implications of XAI approaches in end-to-end driving analytically and empirically via scenario-based evaluations within a specific scope. However, explainability-informed safety assessment of end-toend autonomous driving goes beyond the scope of our study. For instance, detecting explanation anomalies, robustness and time constraints of explanations, and explanations in uncertainty with confidence-explanation correlation and uncertainty trigger rates, along with their safety guarantees, have not been studied in our paper. These nuances could be considered the limitations of our study. Meanwhile, we leave these limitations as a motivation for future explanation and shed light on the potential safety ramifications of these aspects briefly for endto-end driving.
+A. Building Robust Interactive Explanations
+Building robust interactive explanation models for AVs remains yet another challenging task. The experiment described in Section VI.A discloses that even advanced interactive explanation frameworks, particularly transformer-based QA models, are prone to present falsified responses to human adversarial questions. Meanwhile, various studies, such as [18], [139], reveal that incorrect explanations could have a negative impact on users’ perceived safety and mental model on an autonomous system. As transformed-based QA models are increasingly deployed on end-to-end AVs as a dialogue method [120], such issues may seriously damage users’ perceived safety of an AV and negatively affect regulatory approval of this technology. A potential solution could be incorporating human-adversarial
+
+15
+
+Group 1 passengers and backup drivers
+
+Group 2 auditors and accident inspectors
+
+Explain to control Group 1 and Group 3
+
+camera lidar radar
+
+Reinforcement learning Imitation learning End-to-end differentiable learning
+unified pipeline
+
+live explanations
+
+• textual explanations • visual descriptions • hazard signals • intent signals • voice interfaces
+
+post-hoc • explanation logs explanations • recorded driving data
+
+Explain to enhance Group 4
+Explain to defend Group 4
+Explain to adapt
+
+end-to-end autonomous driving
+
+road users outside (with impairments)
+Group 3
+
+system engineers and AI scientists
+Group 4
+
+explanation conveyance in real-time and retrospectively using various methods
+
+Group 4 Explain to comply
+Group 2 safety implications for the engaged people
+
+Fig. 14: A high-level, illustrative diagram of safety implications of explanations for the engaged people in end-to-end autonomous driving
+
+examples into the training process for driving specific QA models. For instance, when a passenger onboard asks the HMI, ”Why is the car turning to the left?” as an adversarial question in an actual right turn scenario under a green light, the HMI could present an action-reflecting response like “No, the car is turning to the right as the traffic light allows a right turn,” explaining AV action with causal attribution. Regardless of whether such questions are asked intentionally or unintentionally, the explanation models should understand the joint semantics of question and scene and present contextaware responses. Consequently, pre-trained models must be regulatable by construction [140], ensuring their inference process leverages human-defined concepts. In this regard, an intelligent driving system must be robust against any potential perturbations while conveying interactive explanations.
+B. Reaching a Consensus on Time Constraint of Explanation Conveyance
+The timing mechanism of explanations remains underexplored compared to the form and content of explanations. As autonomous driving decisions are time-critical from a safety perspective, it is of paramount importance to investigate the timing mechanism within two essential directions: 1) Lead time from automated to human-controlled mode, 2) Considering people with various functional and cognitive abilities need explanations so that these messages become helpful and not result in information overload for them. As end-to-end driving is considerably data-hungry and requires processing a huge amount of data in real time, the relevant HMIs must deliver explanations on time in an adequate format. This feature is vital for takeover cases and passengers’ real-time situation awareness and safety monitoring of self-driving decisions. Viable approaches to an effective timing mechanism could be a reached consensus between automotive manufacturers [141] and investigating people’s diversity, satisfaction with, and reaction to specific modes of explanation in real time [142]. For instance, extensive scenario-based evaluations with human actors in the loop can help understand the time needed for takeover situations. While the mentioned directions can
+
+help meet the users’ explanation demands effectively, they also have significant implications for real-time driving safety and legal culpability aspects in case of post-accident investigations.
+C. Safety Analysis with Explanations in Uncertainty
+Despite substantial advancements in providing a variety of explanations for autonomous driving decisions, conveying the level of confidence to relevant interaction partners in such explanations remains a significant challenge. This issue deepens in uncertainty in the driving environment, such as in adverse weather conditions and situations with reduced visibility (e.g., dense fog, nighttime driving). Without carefully measuring residual risks and environmental uncertainty, overconfident decisions may have dire consequences for an AV and human actors at that traffic scene. Consequently, uncertainty estimation is a vital problem in dealing with unforeseen events safely and having situation awareness with uncertain information [143], [144], [145]. While quantifying uncertainty has recently been investigated by autonomous driving researchers from several aspects, such as for statistical guarantees [137], and object detection [146], [147], providing relevant explanations with a certain level of confidence under uncertainty currently remains relatively unexplored in end-toend autonomous driving. To our knowledge, only a few studies have attempted to explore explainability within uncertainty, such as [148] and [149], and the literature remains scarce with relevant studies in general. Hence, as dynamic driving environments often involve considerable uncertainties, there is an imminent need to justify AV actions with an appropriate degree of confidence. Instead of solely presenting deterministic explanations to people, granular explanations can help understand residual risks in scenarios with various hazard levels.
+VIII. CONCLUSION
+In this paper, we have presented an investigation of safety implications of XAI approaches in end-to-end autonomous driving. Through critical case studies and empirical evidence, our paper reveals the value of explanations in enhancing endto-end driving safety and shows the potential advantages,
+
+16
+
+limitations, and challenges of explanations for achieving this goal. Our study considers informational content and form, the timing perspective of explanations, and their conveyance to targeted interaction partners for in-depth safety analysis. We can provide two main conclusions based on the spectrum of our study: 1) Explanations can help reveal latent patterns in training data of an end-to-end model that led to failures and traffic accidents as a data-driving insight, and 2) Such failure and more generally, situation awareness explanations, could guide relevant data augmentation techniques to enhance the end-to-end model’s behavior via iterative learning, ultimately enhancing driving safety in ways that the modular approach might miss. Thus, to our knowledge, this paper is the first to explore safety benefits and consequences of XAI techniques in endto-end driving from multidimensional aspects. We trust that the presented guidelines can help improve the safety of endto-end driving and build trustworthy, transparent, and publicly acceptable AVs in the new era of autonomous driving.
+ACKNOWLEDGMENT
+We acknowledge support from the Alberta Machine Intelligence Institute (Amii), from the Computing Science Department of the University of Alberta, and the Natural Sciences and Engineering Research Council of Canada (NSERC).
+REFERENCES
+[1] D. J. Hicks, “The Safety of Autonomous Vehicles: Lessons from Philosophy of Science,” IEEE Technology and Society Magazine, vol. 37, no. 1, pp. 62–69, 2018.
+[2] F. Liu, F. Zhao, Z. Liu, and H. Hao, “Can autonomous vehicle reduce greenhouse gas emissions? A country-level evaluation,” Energy Policy, vol. 132, pp. 462–473, 2019.
+[3] J. Shuttleworth, “SAE Standard News: J3016 Automateddriving graphic update,” https://www.sae.org/news/2019/01/ sae-updates-j3016-automated-driving-graphic, 2019.
+[4] A. Tampuu, T. Matiisen, M. Semikin, D. Fishman, and N. Muhammad, “A Survey of End-to-End Driving: Architectures and Training Methods,” IEEE Transactions on Neural Networks and Learning Systems, vol. 33, no. 4, pp. 1364–1384, 2020.
+[5] E. Yurtsever, J. Lambert, A. Carballo, and K. Takeda, “A Survey of Autonomous Driving: Common Practices and Emerging Technologies,” IEEE Access, vol. 8, pp. 58 443–58 469, 2020.
+[6] Y. Hu, J. Yang, L. Chen, K. Li, C. Sima, X. Zhu, S. Chai, S. Du, T. Lin, W. Wang et al., “Planning-Oriented Autonomous Driving,” in Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition, 2023, pp. 17 853–17 862.
+[7] L. Chen, P. Wu, K. Chitta, B. Jaeger, A. Geiger, and H. Li, “End-to-end Autonomous Driving: Challenges and Frontiers,” IEEE Transactions on Pattern Analysis and Machine Intelligence, pp. 1–20, 2024.
+[8] M. Bojarski, D. Del Testa, D. Dworakowski, B. Firner, B. Flepp, P. Goyal, L. D. Jackel, M. Monfort, U. Muller, J. Zhang et al., “End to End Learning for Self-Driving Cars ,” arXiv preprint arXiv:1604.07316, 2016.
+[9] D. Coelho and M. Oliveira, “A Review of End-to-End Autonomous Driving in Urban Environments,” IEEE Access, vol. 10, pp. 75 296– 75 311, 2022.
+[10] P. S. Chib and P. Singh, “Recent Advancements in End-to-End Autonomous Driving Using Deep Learning: A Survey,” IEEE Transactions on Intelligent Vehicles, 2023.
+[11] J.-J. Hwang, R. Xu, H. Lin, W.-C. Hung, J. Ji, K. Choi, D. Huang, T. He, P. Covington, B. Sapp et al., “EMMA: End-to-End Multimodal Model for Autonomous Driving,” arXiv preprint arXiv:2410.23262, 2024.
+[12] Wayve’s Blog, “Wayve AI Driver,” 2025, Accessed: 2025-03-16. [Online]. Available: https://wayve.ai/product/wayve-ai-driver/
+
+[13] P. Zhang, “Nio reportedly to roll out driver assist system based on end-to-end tech in Jan,” December 2024, accessed: 2025-03-16. [Online]. Available: https://cnevpost.com/2024/12/06/ nio-to-roll-out-driver-assist-system-e2e-tech-jan-report/
+[14] XPENG’s Blog, “XPENG launches industry’s first ai-powered in-car os, promoting AI-enabled smart driving experience,” May 2024, Accessed: 2025-03-16. [Online]. Available: https://www.xpeng.com/ news/018f968985698f616d3f2c9e8f720154
+[15] GlobalChinaEV, “Li Auto ”OneModel” Claims to Surpass Tesla FSD,” September 2024, Accessed: 2025-03-16. [Online]. Available: https: //globalchinaev.com/post/li-auto-onemodel-claims-to-surpass-tesla-fsd
+[16] W. Samek, G. Montavon, S. Lapuschkin, C. J. Anders, and K.-R. Mu¨ller, “Explaining Deep Neural Networks and Beyond: A Review of Methods and Applications,” Proceedings of the IEEE, vol. 109, no. 3, pp. 247–278, 2021.
+[17] L. M. Schmidt, G. Kontes, A. Plinge, and C. Mutschler, “Can you trust your autonomous car? interpretable and verifiably safe reinforcement learning,” in 2021 IEEE Intelligent Vehicles Symposium (IV). IEEE, 2021, pp. 171–178.
+[18] G. Kim, D. Yeo, T. Jo, D. Rus, and S. Kim, “What and When to Explain? On-road Evaluation of Explanations in Highly Automated Vehicles,” Proceedings of the ACM on Interactive, Mobile, Wearable and Ubiquitous Technologies, vol. 7, no. 3, pp. 1–26, 2023.
+[19] S. Atakishiyev, M. Salameh, H. Yao, and R. Goebel, “Explainable Artificial Intelligence for Autonomous Driving: A Comprehensive Overview and Field Guide for Future Research Directions,” IEEE Access, vol. 12, pp. 101 603–101 625, 2024.
+[20] B. Gyevnar, C. Wang, C. G. Lucas, S. B. Cohen, and S. V. Albrecht, “Causal Explanations for Sequential Decision-Making in Multi-Agent Systems,” in Proceedings of the 23rd International Conference on Autonomous Agents and Multiagent Systems, 2024, p. 771–779.
+[21] A. Adadi and A. Bouhoute, “Explainable Artificial Intelligence for Intelligent Transportation Systems: Are We There Yet?” Explainable Artificial Intelligence for Intelligent Transportation Systems, pp. 2–30, 2023.
+[22] X. Chen, J. Zheng, C. Li, B. Wu, H. Wu, and J. Montewka, “Maritime traffic situation awareness analysis via high-fidelity ship imaging trajectory,” Multimedia Tools and Applications, vol. 83, no. 16, pp. 48 907–48 923, 2024.
+[23] A. Kuznietsov, B. Gyevnar, C. Wang, S. Peters, and S. V. Albrecht, “Explainable AI for Safe and Trustworthy Autonomous Driving: A Systematic Review,” IEEE Transactions on Intelligent Transportation Systems, vol. 25, no. 12, pp. 19 342–19 364, 2024.
+[24] ISO 26262 Committee, “ ISO 26262-6:2018 Road vehicles — Functional safety — Part 6: Product development at the software level,” https://www.iso.org/standard/68388.html, 2018.
+[25] ISO21448, “ISO 21448:2022 - Road vehicles – Safety of the intended functionality,” Geneva, Switzerland, 2022. [Online]. Available: https://www.iso.org/standard/70939.html
+[26] ISO26262, “ISO26262: Road vehicles-Functional safety,” International Standard ISO/FDIS, vol. 26262, 2018.
+[27] ISO8800, “ISO/PAS 8800:2024 - Road vehicles — Safety and artificial intelligence ,” Geneva, Switzerland, 2023. [Online]. Available: https://www.iso.org/standard/83303.html
+[28] ISO Technical Commitee, “ISO/SAE 21434:2021 Road vehicles — Cybersecurity engineering,” 2021. [Online]. Available: https: //www.iso.org/standard/70918.html
+[29] A. D. McDonald, H. Alambeigi, J. Engstro¨m, G. Markkula, T. Vogelpohl, J. Dunne, and N. Yuma, “Toward computational simulations of behavior during automated driving takeovers: a review of the empirical and modeling literatures,” Human Factors, vol. 61, no. 4, pp. 642–688, 2019.
+[30] SAE International J3016, “Taxonomy and Definitions for Terms Related to Driving Automation Systems for On-Road Motor Vehicles,” April 2021. [Online]. Available: https://www.sae.org/standards/content/ j3016 202104/
+[31] G. Huang and B. J. Pitts, “The effects of age and physical exercise on multimodal signal responses: Implications for semi-autonomous vehicle takeover requests,” Applied Ergonomics, vol. 98, p. 103595, 2022.
+[32] C. Pek and M. Althoff, “Ensuring motion safety of autonomous vehicles through online fail-safe verification,” in Robotics: Science and Systems–Pioneers Workshop, 2019.
+[33] S. Vom Dorff, B. Bo¨ddeker, M. Kneissl, and M. Fra¨nzle, “A Fail-safe Architecture for Automated Driving,” in 2020 Design, Automation & Test in Europe Conference & Exhibition (DATE). IEEE, 2020, pp. 828–833.
+
+17
+
+[34] K. Muhammad, A. Ullah, J. Lloret, J. Del Ser, and V. H. C. de Albuquerque, “Deep Learning for Safe Autonomous Driving: Current Challenges and Future Directions,” IEEE Transactions on Intelligent Transportation Systems, vol. 22, no. 7, pp. 4316–4336, 2020.
+[35] R. S. Sutton and A. G. Barto, Reinforcement Learning: An Introduction, 2nd ed. MIT press, 2018.
+[36] B. Brown and E. Laurier, “The Trouble with Autopilots: Assisted and Autonomous Driving on the Social Road,” in Proceedings of the 2017 CHI Conference on Human Factors in Computing Systems, 2017, pp. 416–429.
+[37] A. Hussein, M. M. Gaber, E. Elyan, and C. Jayne, “Imitation learning: A survey of learning methods,” ACM Computing Surveys (CSUR), vol. 50, no. 2, pp. 1–35, 2017.
+[38] Y. Pan, C.-A. Cheng, K. Saigol, K. Lee, X. Yan, E. A. Theodorou, and B. Boots, “Imitation learning for agile autonomous driving,” The International Journal of Robotics Research, vol. 39, no. 2-3, pp. 286– 302, 2020.
+[39] D. A. Pomerleau, “ALVINN: An Autonomous Land Vehicle in a Neural Network ,” Advances in Neural Information Processing Systems, vol. 1, 1988.
+[40] F. Codevilla, E. Santana, A. M. Lo´pez, and A. Gaidon, “Exploring the Limitations of Behavior Cloning for Autonomous Driving,” in Proceedings of the IEEE/CVF International Conference on Computer Vision, 2019, pp. 9329–9338.
+[41] P. Abbeel and A. Y. Ng, “Apprenticeship Learning via Inverse Reinforcement Learning,” in Proceedings of the Twenty-first International Conference on Machine Learning, 2004, p. 1.
+[42] T. Phan-Minh, F. Howington, T.-S. Chu, M. S. Tomov, R. E. Beaudoin, S. U. Lee, N. Li, C. Dicle, S. Findler, F. Suarez-Ruiz et al., “DriveIRL: Drive in Real Life with Inverse Reinforcement Learning ,” in 2023 IEEE International Conference on Robotics and Automation (ICRA). IEEE, 2023, pp. 1544–1550.
+[43] S. Casas, A. Sadat, and R. Urtasun, “MP3: A Unified Model to Map, Perceive, Predict and Plan,” in Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition, 2021, pp. 14 403–14 412.
+[44] P. Karkus, B. Ivanovic, S. Mannor, and M. Pavone, “DiffStack: A Differentiable and Modular Control Stack for Autonomous Vehicles,” in Conference on Robot Learning. PMLR, 2023, pp. 2170–2180.
+[45] H. Lu, X. Jia, Y. Xie, W. Liao, X. Yang, and J. Yan, “ActiveAD: Planning-Oriented Active Learning for End-to-End Autonomous Driving,” arXiv preprint arXiv:2403.02877, 2024.
+[46] W. Liu, Y. Song, C. Meng, Z. Huang, H. Liu, C. Lv, and J. Ma, “Integrating Decision-Making Into Differentiable Optimization Guided Learning for End-to-End Planning of Autonomous Vehicles,” arXiv preprint arXiv:2412.01234, 2024.
+[47] B. Zhang, N. Song, X. Jin, and L. Zhang, “Bridging Past and Future: End-to-End Autonomous Driving with Historical Prediction and Planning,” IEEE/CVF Conference on Computer Vision and Pattern Recognition, 2025.
+[48] E´ . Zablocki, H. Ben-Younes, P. Pe´rez, and M. Cord, “Explainability of deep vision-based autonomous driving systems: Review and challenges,” International Journal of Computer Vision, pp. 1–28, 2022.
+[49] M. Bojarski, P. Yeres, A. Choromanska, K. Choromanski, B. Firner, L. Jackel, and U. Muller, “Explaining how a deep neural network trained with end-to-end learning steers a car,” arXiv preprint arXiv:1704.07911, 2017.
+[50] M. Bojarski, A. Choromanska, K. Choromanski, B. Firner, L. J. Ackel, U. Muller, P. Yeres, and K. Zieba, “VisualBackProp: Efficient Visualization of CNNs for Autonomous Driving ,” in 2018 IEEE International Conference on Robotics and Automation (ICRA). IEEE, 2018, pp. 4701–4708.
+[51] J. Kim and J. Canny, “Interpretable Learning for Self-Driving Cars by Visualizing Causal Attention,” in Proceedings of the IEEE International Conference on Computer Vision, 2017, pp. 2942–2950.
+[52] J. Kim, A. Rohrbach, Z. Akata, S. Moon, T. Misu, Y.-T. Chen, T. Darrell, and J. Canny, “Toward explainable and advisable model for self-driving cars,” Applied AI Letters, vol. 2, no. 4, p. e56, 2021.
+[53] A. Sauer, N. Savinov, and A. Geiger, “Conditional Affordance Learning for Driving in Urban Environments,” in Conference on Robot Learning. PMLR, 2018, pp. 237–252.
+[54] Y.-C. Liu, Y.-A. Hsieh, M.-H. Chen, C.-H. H. Yang, J. Tegner, and Y.C. J. Tsai, “Interpretable self-attention temporal reasoning for driving behavior understanding,” in ICASSP 2020-2020 IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP). IEEE, 2020, pp. 2338–2342.
+
+[55] M. Bansal, A. Krizhevsky, and A. Ogale, “ChauffeurNet: Learning to Drive by Imitating the Best and Synthesizing the Worst ,” Robotics: Science and Systems, 2019.
+[56] C. Li, S. H. Chan, and Y.-T. Chen, “Who Make Drivers Stop? Towards Driver-centric Risk Assessment: Risk Object Identification via Causal Inference,” in 2020 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS). IEEE, 2020, pp. 10 711–10 718.
+[57] P. Jacob, E´ . Zablocki, H. Ben-Younes, M. Chen, P. Pe´rez, and M. Cord, “STEEX: Steering Counterfactual Explanations with Semantics,” in European Conference on Computer Vision. Springer, 2022, pp. 387– 403.
+[58] M. Zemni, M. Chen, E´ . Zablocki, H. Ben-Younes, P. Pe´rez, and M. Cord, “OCTET: Object-aware Counterfactual Explanations,” in Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition, 2023, pp. 15 062–15 071.
+[59] S. Mohseni, A. Jagadeesh, and Z. Wang, “Predicting model failure using saliency maps in autonomous driving systems,” ICML 2019 Workshop on Uncertainty & Robustness in Deep Learning, 2019.
+[60] Y. Tian, K. Pei, S. Jana, and B. Ray, “DeepTest: Automated Testing of Deep-Neural-Network-Driven Autonomous Cars,” in Proceedings of the 40th International Conference on Software Engineering, 2018, pp. 303–314.
+[61] N. Lee, W. Choi, P. Vernaza, C. B. Choy, P. H. Torr, and M. Chandraker, “DESIRE: Distant Future Prediction in Dynamic Scenes with Interacting Agents,” in Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition, 2017, pp. 336–345.
+[62] D. Wang, C. Devin, Q.-Z. Cai, F. Yu, and T. Darrell, “Deep ObjectCentric Policies for Autonomous Driving,” in 2019 International Conference on Robotics and Automation (ICRA). IEEE, 2019, pp. 8853–8859.
+[63] J. Kim and M. Bansal, “Attentional Bottleneck: Towards an Interpretable Deep Driving Network,” in Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition Workshops, 2020, pp. 322–323.
+[64] J. Araluce, L. M. Bergasa, M. Ocan˜a, A´ . Llamazares, and E. Lo´pezGuille´n, “Leveraging Driver Attention for an End-to-End Explainable Decision-Making From Frontal Images,” IEEE Transactions on Intelligent Transportation Systems, 2024.
+[65] H. Cui, V. Radosavljevic, F.-C. Chou, T.-H. Lin, T. Nguyen, T.-K. Huang, J. Schneider, and N. Djuric, “Multimodal trajectory predictions for autonomous driving using deep convolutional networks,” in 2019 International Conference on Robotics and Automation (ICRA). IEEE, 2019, pp. 2090–2096.
+[66] N. Djuric, V. Radosavljevic, H. Cui, T. Nguyen, F.-C. Chou, T.-H. Lin, N. Singh, and J. Schneider, “Uncertainty-aware Short-term Motion Prediction of Traffic Actors for Autonomous Driving,” in Proceedings of the IEEE/CVF Winter Conference on Applications of Computer Vision, 2020, pp. 2095–2104.
+[67] A. Mehta, A. Subramanian, and A. Subramanian, “Learning Endto-end Autonomous Driving using Guided Auxiliary Supervision,” in Proceedings of the 11th Indian Conference on Computer Vision, Graphics and Image Processing, 2018, pp. 1–8.
+[68] W. Zeng, W. Luo, S. Suo, A. Sadat, B. Yang, S. Casas, and R. Urtasun, “End-to-end Interpretable Neural Motion Planner,” in Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition, 2019, pp. 8660–8669.
+[69] A. Sadat, S. Casas, M. Ren, X. Wu, P. Dhawan, and R. Urtasun, “Perceive, Predict, and Plan: Safe Motion Planning Through Interpretable Semantic Representations,” in Computer Vision–ECCV 2020: 16th European Conference, Glasgow, UK, August 23–28, 2020, Proceedings, Part XXIII 16. Springer, 2020, pp. 414–430.
+[70] J. Morton and M. J. Kochenderfer, “Simultaneous Policy Learning and Latent State Inference for Imitating Driver Behavior,” in 2017 IEEE 20th International Conference on Intelligent Transportation Systems (ITSC). IEEE, 2017, pp. 1–6.
+[71] S. Hu, L. Chen, P. Wu, H. Li, J. Yan, and D. Tao, “ST-P3: End-toEnd Vision-Based Autonomous Driving via Spatial-Temporal Feature Learning,” in European Conference on Computer Vision. Springer, 2022, pp. 533–549.
+[72] J. Kim, A. Rohrbach, T. Darrell, J. Canny, and Z. Akata, “Textual Explanations for Self-Driving Vehicles,” in Proceedings of the European Conference on Computer Vision (ECCV), 2018, pp. 563–578.
+[73] D. Omeiza, H. Web, M. Jirotka, and L. Kunze, “Towards Accountability: Providing Intelligible Explanations in Autonomous Driving,” in 2021 IEEE Intelligent Vehicles Symposium (IV). IEEE, 2021, pp. 231–237.
+
+18
+
+[74] H. Ben-Younes, E´ . Zablocki, P. Pe´rez, and M. Cord, “Driving behavior explanation with multi-level fusion,” Pattern Recognition, vol. 123, p. 108421, 2022.
+[75] S. Atakishiyev, M. Salameh, H. Babiker, and R. Goebel, “Explaining Autonomous Driving Actions with Visual Question Answering,” in 2023 IEEE 26th International Conference on Intelligent Transportation Systems (ITSC), 2023, pp. 1207–1214.
+[76] Y. Feng, W. Hua, and Y. Sun, “NLE-DM: Natural-Language Explanations for Decision Making of Autonomous Driving Based on Semantic Scene Understanding,” IEEE Transactions on Intelligent Transportation Systems, vol. 24, no. 9, pp. 9780–9791, 2023.
+[77] J. Pearl, Causality. Cambridge University Press, 2009. [78] L. Longo, R. Goebel, F. Lecue, P. Kieseberg, and A. Holzinger,
+“Explainable artificial intelligence: Concepts, applications, research challenges and visions,” in International Cross-Domain Conference for Machine Learning and Knowledge Extraction. Springer, 2020, pp. 1– 16. [79] A. Heuillet, F. Couthouis, and N. D´ıaz-Rodr´ıguez, “Explainability in deep reinforcement learning,” Knowledge-Based Systems, vol. 214, p. 106685, 2021. [80] G. A. Vouros, “Explainable Deep Reinforcement Learning: State of the Art and Challenges,” ACM Computing Surveys, vol. 55, no. 5, pp. 1–39, 2022. [81] H. Wang, H. Gao, S. Yuan, H. Zhao, K. Wang, X. Wang, K. Li, and D. Li, “Interpretable Decision-Making for Autonomous Vehicles at Highway On-Ramps With Latent Space Reinforcement Learning,” IEEE Transactions on Vehicular Technology, vol. 70, no. 9, pp. 8707– 8719, 2021. [82] B. Hejase, E. Yurtsever, T. Han, B. Singh, D. P. Filev, H. E. Tseng, and U. Ozguner, “Dynamic and interpretable state representation for deep reinforcement learning in automated driving,” IFAC-PapersOnLine, vol. 55, no. 24, pp. 129–134, 2022. [83] H. Shao, L. Wang, R. Chen, H. Li, and Y. Liu, “Safety-Enhanced Autonomous Driving Using Interpretable Sensor Fusion Transformer,” in Conference on Robot Learning. PMLR, 2023, pp. 726–737. [84] M. Li, Z. Cui, Y. Wang, Y. Huang, and H. Chen, “An Explainable QLearning Method for Longitudinal Control of Autonomous Vehicles,” IEEE Transactions on Intelligent Transportation Systems, 2025. [85] Z. Cui, M. Li, Y. Huang, Y. Wang, and H. Chen, “An interpretation framework for autonomous vehicles decision-making via SHAP and RF,” in 2022 6th CAA International Conference on Vehicular Control and Intelligence (CVCI). IEEE, 2022, pp. 1–7. [86] W. Guo, X. Wu, U. Khan, and X. Xing, “Edge: Explaining deep reinforcement learning policies,” Advances in Neural Information Processing Systems, vol. 34, pp. 12 222–12 236, 2021. [87] E. M. Kenny, M. Tucker, and J. Shah, “Towards Interpretable Deep Reinforcement Learning with Human-Friendly Prototypes,” in The Eleventh International Conference on Learning Representations, 2023. [88] Q. Yang, H. Wang, M. Tong, W. Shi, G. Huang, and S. Song, “Leveraging Reward Consistency for Interpretable Feature Discovery in Reinforcement Learning,” IEEE Transactions on Systems, Man, and Cybernetics: Systems, 2023. [89] Z. Song, Y. Jiang, J. Zhang, P. Weng, D. Li, W. Liu, and J. Hao, “An interpretable deep reinforcement learning approach to autonomous driving,” in IJCAI Workshop on Artificial Intelligence for Automous Driving, 2022. [90] W. Shi, G. Huang, S. Song, Z. Wang, T. Lin, and C. Wu, “SelfSupervised Discovering of Interpretable Features for Reinforcement Learning,” IEEE Transactions on Pattern Analysis and Machine Intelligence, vol. 44, no. 5, pp. 2712–2724, 2020. [91] J. Chen, S. E. Li, and M. Tomizuka, “Interpretable End-to-End Urban Autonomous Driving With Latent Deep Reinforcement Learning,” IEEE Transactions on Intelligent Transportation Systems, vol. 23, no. 6, pp. 5068–5078, 2021. [92] F. Bellotti, L. Lazzaroni, A. Capello, M. Cossu, A. De Gloria, and R. Berta, “Designing an interpretability analysis framework for deep reinforcement learning (DRL) agents in highway automated driving simulation,” in Annual Meeting of the Italian Electronics Society. Springer, 2022, pp. 239–244. [93] R. Paleja, Y. Niu, A. Silva, C. Ritchie, S. Choi, and M. Gombolay, “Learning interpretable, high-performing policies for autonomous driving,” Robotics Science and Systems, 2022. [94] P. Tambwekar, A. Silva, N. Gopalan, and M. Gombolay, “Natural Language Specification of Reinforcement Learning Policies Through Differentiable Decision Trees,” IEEE Robotics and Automation Letters, 2023.
+
+[95] L. Cultrera, L. Seidenari, F. Becattini, P. Pala, and A. Del Bimbo, “Explaining autonomous driving by learning end-to-end visual attention,” in Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition Workshops, 2020, pp. 340–341.
+[96] A. Dosovitskiy, G. Ros, F. Codevilla, A. Lopez, and V. Koltun, “CARLA: An Open Urban Driving Simulator,” in Conference on Robot Learning. PMLR, 2017, pp. 1–16.
+[97] K. Chitta, A. Prakash, and A. Geiger, “NEAT: Neural Attention Fields for End-to-End Autonomous Driving,” in Proceedings of the IEEE/CVF International Conference on Computer Vision, 2021, pp. 15 793–15 803.
+[98] A. Hu, G. Corrado, N. Griffiths, Z. Murez, C. Gurau, H. Yeo, A. Kendall, R. Cipolla, and J. Shotton, “Model-Based Imitation Learning for Urban Driving,” Advances in Neural Information Processing Systems, vol. 35, pp. 20 703–20 716, 2022.
+[99] S. Teng, L. Chen, Y. Ai, Y. Zhou, Z. Xuanyuan, and X. Hu, “Hierarchical Interpretable Imitation Learning for End-to-End Autonomous Driving,” IEEE Transactions on Intelligent Vehicles, vol. 8, no. 1, pp. 673–683, 2022.
+[100] K. Renz, K. Chitta, O.-B. Mercea, A. S. Koepke, Z. Akata, and A. Geiger, “PlanT: Explainable Planning Transformers via ObjectLevel Representations,” in Conference on Robot Learning. PMLR, 2023, pp. 459–470.
+[101] W. Liu, D. Li, E. Aasi, R. Tron, and C. Belta, “Interpretable Generative Adversarial Imitation Learning,” arXiv preprint arXiv:2402.10310, 2024.
+[102] S. M. Lundberg and S.-I. Lee, “A Unified Approach to Interpreting Model Predictions,” Advances in Neural Information Processing Systems, vol. 30, 2017.
+[103] U. Onyekpe, Y. Lu, E. Apostolopoulou, V. Palade, E. U. Eyo, and S. Kanarachos, “Explainable Machine Learning for Autonomous Vehicle Positioning Using SHAP,” in Explainable AI: Foundations, Methodologies and Applications. Springer, 2022, pp. 157–183.
+[104] Y. Almalioglu, M. Turan, N. Trigoni, and A. Markham, “Deep learningbased robust positioning for all-weather autonomous driving,” Nature Machine Intelligence, vol. 4, no. 9, pp. 749–760, 2022.
+[105] R. Nahata, D. Omeiza, R. Howard, and L. Kunze, “Assessing and Explaining Collision Risk in Dynamic Environments for Autonomous Driving Safety,” in 2021 IEEE International Intelligent Transportation Systems Conference (ITSC). IEEE, 2021, pp. 223–230.
+[106] J. Ayoub, N. Du, X. J. Yang, and F. Zhou, “Predicting Driver Takeover Time in Conditionally Automated Driving,” IEEE Transactions on Intelligent Transportation Systems, vol. 23, no. 7, pp. 9580–9589, 2022.
+[107] S. Nazat, L. Li, and M. Abdallah, “XAI-ADS: An Explainable Artificial Intelligence Framework for Enhancing Anomaly Detection in Autonomous Driving Systems,” IEEE Access, 2024.
+[108] G. Rjoub, J. Bentahar, and O. A. Wahab, “Explainable AI-based Federated Deep Reinforcement Learning for Trusted Autonomous Driving,” in 2022 International Wireless Communications and Mobile Computing (IWCMC). IEEE, 2022, pp. 318–323.
+[109] J. Devlin, M.-W. Chang, K. Lee, and K. Toutanova, “Bert: Pretraining of deep bidirectional transformers for language understanding,” Proceedings of the 2019 Conference of the North American Chapter of the Association for Computational Linguistics: Human Language Technologies, 2019.
+[110] A. Radford, K. Narasimhan, T. Salimans, and I. Sutskever, “Improving Language Understanding by Generative Pre-Training,” 2018.
+[111] T. Choudhary, V. Dewangan, S. Chandhok, S. Priyadarshan, A. Jain, A. K. Singh, S. Srivastava, K. M. Jatavallabhula, and K. M. Krishna, “Talk2BEV: Language-enhanced Bird’s-eye View Maps for Autonomous Driving,” 2024 IEEE International Conference on Robotics and Automation (ICRA), pp. 16 345–16 352, 2024.
+[112] Z. Xu, Y. Zhang, E. Xie, Z. Zhao, Y. Guo, K.-Y. K. Wong, Z. Li, and H. Zhao, “DriveGPT4: Interpretable End-to-End Autonomous Driving Via Large Language Model,” IEEE Robotics and Automation Letters, vol. 9, no. 10, pp. 8186–8193, 2024.
+[113] A.-M. Marcu, L. Chen, J. Hu¨nermann, A. Karnsund, B. Hanotte, P. Chidananda, S. Nair, V. Badrinarayanan, A. Kendall, J. Shotton et al., “LingoQA: Visual Question Answering for Autonomous Driving,” European Conference on Computer Vision, pp. 252–269, 2024.
+[114] S. Park, M. Lee, J. Kang, H. Choi, Y. Park, J. Cho, A. Lee, and D. Kim, “VLAAD: Vision and Language Assistant for Autonomous Driving,” in Proceedings of the IEEE/CVF Winter Conference on Applications of Computer Vision, 2024, pp. 980–987.
+[115] G. Huang and B. J. Pitts, “Takeover requests for automated driving: the effects of signal direction, lead time, and modality on takeover
+
+19
+
+performance,” Accident Analysis & Prevention, vol. 165, p. 106534, 2022. [116] L. Chen, O. Sinavski, J. Hu¨nermann, A. Karnsund, A. J. Willmott, D. Birch, D. Maund, and J. Shotton, “Driving with LLMs: Fusing Object-Level Vector Modality for Explainable Autonomous Driving,” 2024 IEEE International Conference on Robotics and Automation (ICRA), pp. 14 093–14 100, 2024. [117] J. Mao, Y. Qian, H. Zhao, and Y. Wang, “GPT-Driver: Learning to Drive with GPT ,” NeurIPS 2023 Foundation Models for Decision Making Workshop, 2023. [118] L. Wen, D. Fu, X. Li, X. Cai, T. Ma, P. Cai, M. Dou, B. Shi, L. He, and Y. Qiao, “DiLu: A Knowledge-Driven Approach to Autonomous Driving with Large Language Models,” International Conference on Learning Representations, 2024. [119] H. Sha, Y. Mu, Y. Jiang, L. Chen, C. Xu, P. Luo, S. E. Li, M. Tomizuka, W. Zhan, and M. Ding, “LanguageMPC: Large Language Models as Decision Makers for Autonomous Driving,” arXiv preprint arXiv:2310.03026, 2023. [120] Wayve Research, “LINGO-1: Exploring Natural Language for Autonomous Driving,” https://wayve.ai/thinking/lingo-natural-languageautonomous-driving/, 2023. [121] C. Sima, K. Renz, K. Chitta, L. Chen, H. Zhang, C. Xie, J. Beißwenger, P. Luo, A. Geiger, and H. Li, “DriveLM: Driving with Graph Visual Question Answering,” in European Conference on Computer Vision. Springer, 2025, pp. 256–274. [122] Y. Wiseman, “Autonomous vehicles will spur moving budget from railroads to roads,” International Journal of Intelligent Unmanned Systems, vol. 12, no. 1, pp. 19–31, 2024. [123] W. Xu, J. Wei, J. M. Dolan, H. Zhao, and H. Zha, “A Real-Time Motion Planner with Trajectory Optimization for Autonomous Vehicles,” in 2012 IEEE International Conference on Robotics and Automation. IEEE, 2012, pp. 2061–2067. [124] T. Schneider, S. Ghellal, S. Love, and A. R. Gerlicher, “Increasing the User Experience in Autonomous Driving through different Feedback Modalities,” in 26th International Conference on Intelligent User Interfaces, 2021, pp. 7–10. [125] J. Cui, L. S. Liew, G. Sabaliauskaite, and F. Zhou, “A review on safety failures, security attacks, and available countermeasures for autonomous vehicles,” Ad Hoc Networks, vol. 90, p. 101823, 2019. [126] S. Povolny and S. Trivedi, “Model Hacking ADAS to Pave Safer Roads for Autonomous Vehicles,” McAfee Advanced Threat Research, 2020. [127] ITU Team, “The Molly Problem,” AI for autonomous and assisted driving, (Accessed on October 20, 2023). [Online]. Available: https: //www.itu.int/en/ITU-T/focusgroups/ai4ad/Pages/MollyProblem.aspx [128] ITU Survey Team, “The Molly Problem Public Survey Results (preliminary),” https://www.itu.int/en/ITU-T/focusgroups/ai4ad/ Documents/Survey-Results.pdf?csf=1&e=wb7tAs, 2020. [129] J. Fang, L.-l. Li, J. Zhou, J. Xiao, H. Yu, C. Lv, J. Xue, and T.-S. Chua, “Abductive Ego-View Accident Video Understanding for Safe Driving Perception,” in Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition, 2024, pp. 22 030–22 040. [130] J. Zhang, K. Yang, and R. Stiefelhagen, “Exploring Event-Driven Dynamic Context for Accident Scene Segmentation,” IEEE Transactions on Intelligent Transportation Systems, vol. 23, no. 3, pp. 2606–2622, 2021. [131] T. Sun, M. Segu, J. Postels, Y. Wang, L. Van Gool, B. Schiele, F. Tombari, and F. Yu, “SHIFT: A Synthetic Driving Dataset for Continuous Multi-Task Domain Adaptation,” in Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition, 2022, pp. 21 371–21 382. [132] Y. Xia, D. Zhang, J. Kim, K. Nakayama, K. Zipser, and D. Whitney, “Predicting driver attention in critical situations,” in Computer Vision– ACCV 2018: 14th Asian Conference on Computer Vision, Perth, Australia, December 2–6, 2018, Revised Selected Papers, Part V 14. Springer, 2019, pp. 658–674. [133] B. Lin, Y. Ye, B. Zhu, J. Cui, M. Ning, P. Jin, and L. Yuan, “VideoLLaVA: Learning United Visual Representation by Alignment Before Projection,” Proceedings of the 2024 Conference on Empirical Methods in Natural Language Processing, pp. 5971–5984, 2024. [134] W. B. Knox, A. Allievi, H. Banzhaf, F. Schmitt, and P. Stone, “Reward (mis) design for autonomous driving,” Artificial Intelligence, vol. 316, p. 103829, 2023. [135] J. Guo, U. Kurup, and M. Shah, “Is It Safe to Drive? An Overview of Factors, Metrics, and Datasets for Driveability Assessment in Autonomous Driving,” IEEE Transactions on Intelligent Transportation Systems, vol. 21, no. 8, pp. 3135–3151, 2019.
+
+[136] J. Zhou, L. Wang, and X. Wang, “Scalable evaluation methods for autonomous vehicles,” Expert Systems with Applications, vol. 249, p. 123603, 2024.
+[137] R. Michelmore, M. Wicker, L. Laurenti, L. Cardelli, Y. Gal, and M. Kwiatkowska, “Uncertainty Quantification with Statistical Guarantees in End-to-End Autonomous Driving Control,” in 2020 IEEE International Conference on Robotics and Automation (ICRA). IEEE, 2020, pp. 7344–7350.
+[138] J. Grieser, M. Zhang, T. Warnecke, and A. Rausch, “Assuring the Safety of End-to-End Learning-Based Autonomous Driving through Runtime Monitoring,” in 2020 23rd Euromicro Conference on Digital System Design (DSD). IEEE, 2020, pp. 476–483.
+[139] S. Mohseni, N. Zarei, and E. D. Ragan, “A Multidisciplinary Survey and Framework for Design and Evaluation of Explainable AI Systems,” ACM Transactions on Interactive Intelligent Systems (TiiS), vol. 11, no. 3-4, pp. 1–45, 2021.
+[140] E. Kenny and J. Shah, “In Pursuit of Regulatable LLMs,” in NeurIPS 2023 Workshop on Regulatable ML, 2023.
+[141] A. Schieben, M. Wilbrink, C. Kettwich, R. Madigan, T. Louw, and N. Merat, “Designing the interaction of automated vehicles with other traffic participants: design considerations based on human needs and expectations,” Cognition, Technology & Work, vol. 21, pp. 69–85, 2019.
+[142] H. Shin, H. Chung, C. Park, and S. Jun, “Enhancing the Multi-User Experience in Fully Autonomous Vehicles Through Explainable AI Voice Agents,” International Journal of Human–Computer Interaction, pp. 1–15, 2024.
+[143] M. R. Endsley, “Toward a Theory of Situation Awareness in Dynamic Systems,” Human Factors, vol. 37, no. 1, pp. 32–64, 1995.
+[144] L. Sanneman and J. A. Shah, “The Situation Awareness Framework for Explainable AI (SAFE-AI) and Human Factors Considerations for XAI Systems,” International Journal of Human–Computer Interaction, vol. 38, no. 18-20, pp. 1772–1788, 2022.
+[145] M. R. Endsley, “Supporting Human-AI Teams: Transparency, explainability, and situation awareness,” Computers in Human Behavior, vol. 140, p. 107574, 2023.
+[146] G. P. Meyer and N. Thakurdesai, “Learning an Uncertainty-Aware Object Detector for Autonomous Driving,” in 2020 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS). IEEE, 2020, pp. 10 521–10 527.
+[147] L. Peng, H. Wang, and J. Li, “Uncertainty Evaluation of Object Detection Algorithms for Autonomous Vehicles,” Automotive Innovation, vol. 4, no. 3, pp. 241–252, 2021.
+[148] H. Pan, Z. Wang, W. Zhan, and M. Tomizuka, “Towards Better Performance and More Explainable Uncertainty for 3D Object Detection of Autonomous Vehicles,” in 2020 IEEE 23rd International Conference on Intelligent Transportation Systems (ITSC). IEEE, 2020, pp. 1–7.
+[149] S. Ling, Y. Wan, X. Jia, and N. Du, “Improving Explainable Objectinduced Model through Uncertainty for Automated Vehicles,” in Proceedings of the 2024 ACM/IEEE International Conference on HumanRobot Interaction, 2024, pp. 443–451.
+Shahin Atakishiyev is from the Mirzabayli village of Gabala, Azerbaijan. He received a PhD in Computing Science in September 2024 and an MSc in Software Engineering and Intelligent Systems in January 2018 from the University of Alberta, Canada. He obtained a BSc in Computer Engineering from Qafqaz University, Azerbaijan, in June 2015. During his doctoral study, Shahin built explainable artificial intelligence (XAI) approaches for autonomous vehicles under the supervision of Prof. Randy Goebel. His research interests include safe, ethical, humancentered, and explainable artificial intelligence applied to real-world problems.
+
+20
+Mohammad Salameh received the Ph.D. degree from the University of Alberta under the supervision of Dr. Greg Kondrak and Dr. Colin Cherry, with the main focus on statistical machine translation and sentiment analysis. He is currently a Principal Researcher at Huawei Technologies Canada Company Ltd and leading the neural architecture search group, focusing on gradient-based and reinforcement learning approaches. He co-organized Determining Sentiment Intensity in Tweets (SemEval2016) and Affects in Tweets (SemEval2018) shared tasks.
+R.G. (Randy) Goebel is currently a Professor of Computing Science in the Department of Computing Science at the University of Alberta and Fellow and co-founder of the Alberta Machine Intelligence Institute (Amii). He received the B.Sc. (Computer Science), M.Sc. (Computing Science), and Ph.D. (Computer Science) from the Universities of Regina, Alberta, and British Columbia, respectively.
+Professor Goebel’s theoretical work on abduction, hypothetical reasoning and belief revision is internationally well known; his recent research is focused on the formalization of visualization and explainable artificial intelligence (XAI), especially in applications in autonomous driving, legal reasoning, and precision health. He has worked on optimization, algorithm complexity, systems biology, natural language processing, and automated reasoning. Randy has previously held faculty appointments at the University of Waterloo, University of Tokyo, Multimedia University (Kuala Lumpur), Hokkaido University (Sapporo), visiting researcher engagements at National Institute of Informatics (Tokyo), DFKI (Germany), and NICTA (now Data61, Australia); he is actively involved in collaborative research projects in Canada, Japan, Germany, France, the UK, and China.
+

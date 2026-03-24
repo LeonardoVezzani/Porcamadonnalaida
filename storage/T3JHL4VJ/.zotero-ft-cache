@@ -1,0 +1,251 @@
+Towards Utilizing Touch-sensitive Physical Keyboards for Text Entry in Virtual Reality
+
+Alexander Otte*
+
+Tim Menzner †
+
+Travis Gesslein‡ Jens Grubert||
+
+Philipp Gagel§
+
+Daniel Schneider¶
+
+Coburg University of Applied Sciences and Arts, Germany
+
+Figure 1: View on the virtual text entry environment and the touch-sensitive physical keyboard. Left: A user typing on the physical keyboard. Middle: Touch state of a key. The respective virtual key is highlighted in green. Right: Pressed state of a key. The respective virtual key is highlighted in purple.
+
+ABSTRACT
+Text entry is a challenge for Virtual Reality (VR) applications. In the context of immersive VR Head-Mounted Displays, text entry has been investigated for standard physical keyboards as well as for various hand representations. Speciﬁcally, prior work has indicated that minimalistic ﬁngertip visualizations are an efﬁcient hand representation. However, they typically require external tracking systems.
+Touch-sensitive physical keyboards allow for on-surface interaction, with sensing integrated into the keyboard itself. However, they have not been thoroughly investigated within VR.
+Our work brings together the domains of VR text entry and touchsensitive physical keyboards. Speciﬁcally, we propose to utilize touch-sensitive physical keyboards for text entry as an alternative sensing mechanism for tracking user’s ﬁngertips and study its performance in a preliminary user study.
+Index Terms: H.5.2: [ User Interfaces - Input devices and strategies.]
+1 INTRODUCTION
+Text entry in Virtual Reality (VR) is an important feature for many tasks, such as note taking, messaging and annotation. The challenge of realizing efﬁcient and usable text entry systems is deemed crucial for realizing future virtual ofﬁce environments [6]. Existing consumer-grade immersive head-mounted display (HMD) VR systems, often rely on indirect control of a virtual pointer using handheld controllers or head or gaze direction. However, these methods
+*e-mail: alexander.otte@hs-coburg.de †e-mail: tim.menzner@stud.hs-coburg.de ‡e-mail: travis.gesslein@hs-coburg.de §e-mail: philipp.gagel@stud.hs-coburg.de ¶e-mail: daniel.schneider@hs-coburg.de ||e-mail: jens.grubert@hs-coburg.de
+
+are limited in performance and consequently mostly used to enter short texts, such as passwords or names. Further, they require some degree of training due to their unfamiliarity to some users, compared to standard desktop and touchscreen keyboards that users are already familiar and proﬁcient with.
+Hence, recently, several groups investigated the feasibility of utilizing standard keyboards for text entry in immersive HMD-based VR focusing on different hand representations, including no hand representations [29], minimalistic ﬁngertip rendering [7, 8], video see-through [2, 19] to full inverse kinematic hand models [?, 17]. In 2017, Logitech made a toolkit available which utilizes a blended camera view [2, 28]. However, apart from using no hand model (which results in unacceptable high error rates without auto-decoders [29]), all proposed techniques rely on the availability of external tracking systems integrated into the environment (e.g., using infrared-based outside-in tracking systems) or in the HMD (e.g., using cameras). As cameras or external hand tracking systems are not widely integrated into the majority of HMDs, this can potentially hinder the widespread use of text entry on physical keyboards.
+Our work extends these previous works by investigating if efﬁcient text entry in VR can be achieved through an alternative sensing modality. Speciﬁcally, we look at touch-sensitive keyboards through capacitive sensing, which allow to visualize a ﬁngertip on a physical key before a character has been entered. In fact, there is a large body of work on touch-sensitive keyboards using capacitive sensing that has been investigated outside of VR (e.g, [1, 10, 22, 25, 26]). It has been demonstrated that touch-sensitive keyboards have the potential to be commercialized (e.g., [4]).
+In this paper, we focus on utilizing touch-sensitive physical keyboards for efﬁcient text entry in VR as a tool for enabling portable virtual work environments [6]. We envision that future ofﬁce workers only need access to a laptop with integrated touch-sensing keyboard and trackpad as well as a untethered VR Head-Mounted Display (HMD) for working productively on the go. Speciﬁcally, we do not assume any tracking capability of the mobile HMD beyond 3 degrees of freedom rotation sensing. As a ﬁrst step towards realizing this vision it is crucial to understand if future mass-manufactured touch-sensitive physical keyboards lend themselves for efﬁcient text entry in VR.
+
+2019 IEEE Conference on Virtual Reality and 3D User Interfaces 23-27 March, Osaka, Japan 9A7u8t-h1o-r7iz2e8d1li-c1e3n7se7d-7u/s1e9l/i$m3it1e.d0t0o:©P2o0lit1e9cnIiEcoEdEi Torino. Downloaded on September 06,2024 at 08:34:03 UTC from IEEE Xplore. Restrictions apply.
+
+1729
+
+We are focusing on physical keyboards as research has shown that typing on those physical keyboards substantially outperforms text entry on multi-touch tablets, which could be considered an alternative text entry method [8].
+In this work, we built a physical keyboard with capacitive sensing, which allows to sense and visualize the user’s ﬁnger tip before a key has been pressed. This could be beneﬁcial for virtual ofﬁce work on the go.
+2 RELATED WORK
+Our work draws on the domain of text entry in VR, speciﬁcally typing on keyboards, as well on the domain of touch-sensitive physical keyboards.
+2.1 Text Entry in VR
+Text entry has been extensively researched (see [18, 31] for surveys and overviews). However, relatively few text entry methods have been proposed for VR.
+Prior work has investigated a variety of wearable gloves, where touching between the hand ﬁngers may represent different characters or words, e.g., [3, 13, 30]. Such devices enable a mobile, eyes-free text entry. However, most of them require a considerable learning effort, and may limit the user ability to use other input devices while interacting in VR, such as game controllers.
+The mainstream mobile phone touchscreen keyboard might be a good text entry option [5]. Recent work has investigated the feasibility of using multi-touch screens for text entry in VR, e.g., using a smartphone [16], a face-mounted display [9] or a multi-touch tablet [8]. Speciﬁcally, Grubert et al. [8] indicated a relatively low text entry performance using multi-touch tablets, Guggenheimer et al. [9] and Kim et al. [16] did not report standard text entry metrics.
+While we do not investigate this small type of touchscreen keyboard in this paper, we do believe it has potential.
+Recent research has investigated the feasibility of typing on a physical full-sized keyboard in VR.
+An obvious problem is the lack of visual feedback. Without visual feedback users’ typing performance degraded substantially. However, by blending video of the user’s hands into VR the adverse performance differential signiﬁcantly reduced [19].
+Fundamentally, there are three solution strategies for supporting keyboards in VR. First, by providing complete visual feedback by blending the user’s hands into VR. Second, by decoding (autocorrecting) the user’s typing to compensate for noise induced by the lack of feedback. Third, by investigating hybrid approaches, such as minimal visual feedback, which may or may not require a decoder to compensate for any noise induced by the method.
+Walker et al. [29] investigated typing on a physical keyboard with no visual feedback. They found that the character error rate (CER) was unacceptably high but could be reduced to an average 3.5% CER using an auto-correcting decoder.
+McGill et al. [19] investigated typing on a physical keyboard in Augmented Virtuality [20] with camera view on a physical keyboard.
+The closest work to ours is from Grubert et al. [7, 8]. In 2018, they investigated the performance of physical and touch keyboards and physical/virtual co-location for VR text entry. They proposed to use minimalistic ﬁngertip rendering as hand representation and indicated that this representation is as efﬁcient as a video-see through of the user’s physical hands [7]. Subsequently, similar studies have investigated further hand representations, such as semi-transparent hand models [17]. Besides, optical outside-in tracking systems with sub-millimiter accuracy such as Optitrack Prime series (e.g., in [7,8,17]), also commodity tracking devices such as the Leap Motion have been utilized [12] for hand tracking on physical keyboards.
+Our work extends these previous works by investigating if efﬁcient text entry in VR can be achieved through an alternative sensing modality. Speciﬁcally, we look at touch-sensitive keyboards through
+
+capacitive sensing, which allow to visualize a ﬁngertip on a physical key before a character has been entered.
+2.2 Touch-sensitive physical keyboards
+There have been several approaches in extending the basic input capabilities of physical keyboard beyond individual button presses. Speciﬁcally, embedding capacitive sensing into keyboards has been studied by various researchers. It lends itself to detect ﬁnger events on and slightly above keys and can be integrated into massmanufacturing processes. Habib et al. [10] and Tung et al. [26] proposed to use capacitive sensing embedded into a full physical keyboard to allow touchpad operation on the keyboard surface. Shi et al. developed microgestures on capacitive sensing keys [24, 25].
+Extending the idea of LCD-programmable keyboards [14], Block et al. extended the output capabilities of touch-sensitive, capacitive sensing keyboard by using a top-mounted projector [1].
+Our work utilizes capacitive sensing for detecting resting ﬁngers on individual keys, which notiﬁes a user of the selected key before a character is entered through a key press.
+W3 e dTeOveUloCpHe-dSaEcNuSsItTomIV-EbuKilEt kYeByOboAaRrdD wFhOiRchTcYanPIdNeGtecItNuVseRr touches on individual keys through capacitive sensing. A diagram portraying the basic principle of the keyboard is shown in Figure 2. Each key is coated with conductive electric paint that is connected to a speciﬁc digital pin on an external microcontroller via a copper wire on the underside of the keyboard. The conductive surface of each key together with the environment around the surface functions as a capacitor whose physical properties change when the environment around the key changes, for example when the user touches the key with a ﬁnger. In software, when the pin that is connected to a key is set to high via the internal pull up mechanism of the microcontroller, the time until the signal on the pin physically reaches high differs depending on the physical properties of the capacitive system between the key and its environment. Once at application startup, we measure a baseline time delay for the signal to reach high for each key when the capacitive system consists of the key and an empty air environment, by setting the pin to high and then continuously reading its value until it returns high as well. At runtime, we then continuously measure the time delay for the signal to reach a high value for each key, which changes when the user touches a key as an effect of the physical properties of the capacitor changing. If the relative difference of this time delay to the measured baseline delay reaches an empirically determined threshold of 50%, the key is assumed to be touched by the user.
+The microcontroller is connected to an external PC via a standard USB serial connection that is used for communication between the client application running the experiment software and the microcontroller that detects key touches. Each physical key on the keyboard is connected to a separate pin on the microcontroller, and when a key touch is recognized on each respective pin, a serial message is sent to the client application containing information about which key was touched.
+The keyboard uses two Arduino Mega 2560 Rev3 microcontrollers, due to the number of separate keys surpassing the number of pins available on a single microcontroller. They keyboard itself consists of a GK64 hot swappable PCB using a custom 60% keyboard layout, using Kailh BOX Pale Blue as mechanical switches for each key, Tai-Hao Carbon Keycap Set ISO-DE keycaps and a 5 KBDFans 60% case as a casing for the entire keyboard. Overall, the keyboard has 62 keys, with each alphanumeric key having dimensions of 12 x 14 mm (width x height).
+In VR, the respective key of a virtual keyboard is highlighted as the user touches the key (see Figure 1, middle and right).
+4 PRELIMINARY USER STUDY
+We investigated the performance when writing with the touchsensitive keyboard with a ﬁngertip visualization, that was found
+
+1730
+
+Authorized licensed use limited to: Politecnico di Torino. Downloaded on September 06,2024 at 08:34:03 UTC from IEEE Xplore. Restrictions apply.
+
+Figure 2: Left: Circuit diagram showing the function principle of the keyboard’s capacitive sensing scheme. Each of the microcontroller unit’s (MCU’s) binary pins is connected to one of the capacitors denoted as x1 through x62, where each capacitor consists of the key and its physical environment. The layout only shows the logical structure and does not represent the actual physical layout of the keyboard. Right: Overhead view of the actual physical keyboard as used in the experiments.
+
+the be an efﬁcient representation in VR text entry [7] in a controlled experiment. We used a within-subjects design with a single independent variable–VISUALIZATION–with two levels: highlighting of a touched key (CAPACITIVETOUCH), which made use of the capacitive sensing capability of the keyboard and ﬁngertip visualization through spheres (FINGERTRACKING), which made use of an external tracking system. FINGERTRACKING was employed as baseline. We recruited 6 participants (2 female, 4 male, mean age 27.7 years, sd = 3.7) from a university campus. All participants were familiar with QWERTZ desktop keyboard typing and QWERTZ touchscreen keyboard typing.
+4.1 Procedure and Task
+After welcoming, participants were asked to ﬁll out a demographic questionnaire. Thereafter, we conducted a calibration phase, in which participants entered text for 5 minutes for proﬁling reasons and in which retro-reﬂective markers where attached to the ﬁngernails.
+The order of the conditions was balanced across participants. In either condition, participants were shown a series of stimulus sentences. For an individual stimulus sentence, participants were asked to type it as quickly and as accurately as possible. Participants typed stimulus sentences for 15 minutes in each condition. Participants were allowed to use the backspace key to correct errors.
+The conditions were separated by a 5-minute break, in which participants ﬁlled out a the SSQ simulator questionnaire [15], the NASA TLX questionnaire [11], the IPQ [21] spatial presence questionnaire and the Flow-Short-Scale [23]. After the ﬁnal condition, participants were asked to ﬁll out a self-assessment questionnaire, which was followed by a semi-structured interview. The experiment was carried out in a 90-minute session.
+Stimulus sentences were drawn from the mobile email phrase set [27], which provides a set of text entry stimulus sentences that have been veriﬁed to be both externally valid and easy to memorize for participants. Participants were shown stimulus phrases randomly drawn from the set.
+An OptiTrack Prime 13 outside-in tracking system was used for spatial tracking of ﬁnger tips, the HMD, an external monitor and the keyboard. The monitor and keyboard were tracked for logging reasons. An Oculus Rift CV1 was used as HMD. The physical keyboard described in section 2.2 was used. The virtual environment was showing the virtual keyboard and a monitor resting on a desk. In line with previous work [7, 8], the phrases and the entered text were visualized both on the monitor and directly above the keyboard.
+
+4.2 Results The performance results are summarized in Figure 3.
+Figure 3: Left: Task completion time in word-per-minute. Right: Character Error rate. FT: FINGERTRACKING, CT: CAPACITIVETOUCH
+Statistical signiﬁcance tests for entry rate and error rate were carried out using paired, two-tailed t-tests with a signiﬁcance level of α = 0.05. The analysis where checked for appropriateness against the dataset, log transformed data was used for error rate. Subjective feedback was analyzed with non-parametric Wilcoxon signed-rank tests.
+Entry rate was measured in words-per-minute (wpm), with a word deﬁned as ﬁve consecutive characters, including spaces.The entry rate was 33.2 wpm (sd = 20.3) for FINGERTRACKING and 31.5 wpm (sd = 17.0) for CAPACITIVETOUCH. The difference in entry rate was not signiﬁcant (t(5) = 1.18, p = 0.293).
+Error rate was measured as character error rate (CER). CER is the minimum number of character-level insertion, deletion and substitution operations required to transform the response text into the stimulus text, divided by the number of characters in the stimulus text. The character error rate (CER) was 1.1% (sd = 0.07) for FINGERTRACKING and 1.5% (sd = 0.1) for CAPACITIVETOUCH. The difference in error rate was not signiﬁcant (t(5) = −0.31, p = 0.76). No signiﬁcant differences could be indicated for SSQ, NASA TLX, IPQ or the Flow-Short-Scale.
+5 DISCUSSION AND CONCLUSION Touch-sensitive physical keyboards allow for on-surface interaction, with sensing integrated into the keyboard itself.
+
+Authorized licensed use limited to: Politecnico di Torino. Downloaded on September 06,2024 at 08:34:03 UTC from IEEE Xplore. Restrictions apply.
+
+1731
+
+Our study indicates that writing on a touch-sensitive keyboard has the potential to be as efﬁcient as typing using ﬁngertip visualization, and, hence, external tracking or camera systems might not be needed to support text entry in VR, which could be beneﬁcial for virtual ofﬁce work on the go.
+However, the small number of participants do not allow to easily generalize those ﬁndings to the population. Also, it is unclear how typing proﬁciency could inﬂuence typing performance on a touchsensitive keyboard. Please note, that our keyboard was not using the standard 104-key layout due to lack of availability of compatible PCBs. Typing on this smaller keyboard could result in absolute performance differences compared to a larger keyboard, but for both conditions. Hence, the relative performance differences (or the lack thereof) can be seen as transferable to other keyboards.
+Our work is a ﬁrst step in making touch-sensitive keyboards available for VR text entry. If touch-sensitive keyboards will become commercially widely available they could become an efﬁcient tool for VR text entry. In future work, we want to thoroughly investigate the performance envelope of touch-sensitive physical keyboards.
+REFERENCES
+[1] F. Block, H. Gellersen, and N. Villar. Touch-display keyboards: transforming keyboards into interactive surfaces. In Proceedings of the SIGCHI Conference on Human Factors in Computing Systems, pp. 1145–1154. ACM, 2010.
+[2] S. Bovet, A. Kehoe, K. Crowley, N. Curran, M. Gutierrez, M. Meisser, D. O. Sullivan, and T. Rouvinez. Using traditional keyboards in vr: Steamvr developer kit and pilot game user study. In 2018 IEEE Games, Entertainment, Media Conference (GEM), pp. 1–9. IEEE, 2018.
+[3] D. A. Bowman, C. J. Rhoton, and M. S. Pinho. Text input techniques for immersive virtual environments: An empirical comparison. In Proceedings of the Human Factors and Ergonomics Society Annual Meeting, vol. 46, pp. 2154–2158. SAGE Publications, 2002. doi: 10.1. 1.459.7376
+[4] W. Fallot-Burghardt, M. Fjeld, C. Speirs, S. Ziegenspeck, H. Krueger, and T. La¨ubli. Touch&type: a novel pointing device for notebook computers. In Proceedings of the 4th Nordic conference on Humancomputer interaction: changing roles, pp. 465–468. ACM, 2006.
+[5] G. Gonza´lez, J. P. Molina, A. S. Garc´ıa, D. Mart´ınez, and P. Gonza´lez. Evaluation of text input techniques in immersive virtual environments. In New Trends on Human–Computer Interaction, pp. 109–118. Springer, 2009.
+[6] J. Grubert, E. Ofek, M. Pahud, and P. O. Kristensson. The ofﬁce of the future: Virtual, portable, and global. IEEE computer graphics and applications, 38(6):125–133, 2018.
+[7] J. Grubert, L. Witzani, E. Ofek, M. Pahud, M. Kranz, and P. O. Kristensson. Effects of hand representations for typing in virtual reality. In 2018 IEEE Conference on Virtual Reality and 3D User Interfaces (VR), pp. 151–158, March 2018. doi: 10.1109/VR.2018.8446250
+[8] J. Grubert, L. Witzani, E. Ofek, M. Pahud, M. Kranz, and P. O. Kristensson. Text entry in immersive head-mounted display-based virtual reality using standard keyboards. In 2018 IEEE Conference on Virtual Reality and 3D User Interfaces (VR), pp. 159–166, March 2018. doi: 10.1109/VR.2018.8446059
+[9] J. Gugenheimer, D. Dobbelstein, C. Winkler, G. Haas, and E. Rukzio. Facetouch: Enabling touch interaction in display ﬁxed uis for mobile virtual reality. In Proceedings of the 29th Annual Symposium on User Interface Software and Technology, pp. 49–60. ACM, 2016.
+[10] I. Habib, N. Berggren, E. Rehn, G. Josefsson, A. Kunz, and M. Fjeld. Dgts: Integrated typing and pointing. In IFIP Conference on HumanComputer Interaction, pp. 232–235. Springer, 2009.
+[11] S. G. Hart and L. E. Staveland. Development of nasa-tlx (task load index): Results of empirical and theoretical research. Advances in psychology, 52:139–183, 1988.
+[12] A. H. Hoppe, L. Otto, F. van de Camp, R. Stiefelhagen, and G. Unmu¨ßig. qvrty: Virtual keyboard with a haptic, real-world representation. In International Conference on Human-Computer Interaction, pp. 266–272. Springer, 2018.
+
+[13] Y.-T. Hsieh, A. Jylha¨, V. Orso, L. Gamberini, and G. Jacucci. Designing
+
+a willing-to-use-in-public hand gestural interaction technique for smart
+
+glasses. In Proceedings of the 2016 CHI Conference on Human Factors
+
+in Computing Systems, CHI ’16, pp. 4203–4215. ACM, New York, NY,
+
+USA, 2016. doi: 10.1145/2858036.2858436
+
+[14] I. U. T. Inc. A brief history of the lcd key technology. http://www.
+
+lcd-keys.com/english/history.htm. Last accessed 27.11.2018.
+
+[15] R. S. Kennedy, N. E. Lane, K. S. Berbaum, and M. G. Lilienthal.
+
+Simulator sickness questionnaire: An enhanced method for quantifying
+
+simulator sickness. The international journal of aviation psychology,
+
+3(3):203–220, 1993. doi: 10.1207/s15327108ijap0303 3
+
+[16] Y. R. Kim and G. J. Kim. Hovr-type: Smartphone as a typing interface
+
+in vr using hovering. In Proceedings of the 22nd ACM Conference on
+
+Virtual Reality Software and Technology, pp. 333–334. ACM, 2016.
+
+[17] P. Knierim, V. Schwind, A. M. Feit, F. Nieuwenhuizen, and N. Henze.
+
+Physical keyboards in virtual reality: Analysis of typing performance
+
+and effects of avatar hands. In Proceedings of the 2018 CHI Conference
+
+on Human Factors in Computing Systems, p. 345. ACM, 2018.
+
+[18] P. O. Kristensson. Next-generation text entry. Computer, 48(7):84–87,
+
+2015.
+
+[19] M. McGill, D. Boland, R. Murray-Smith, and S. Brewster. A dose of
+
+reality: overcoming usability challenges in vr head-mounted displays.
+
+In Proceedings of the 33rd Annual ACM Conference on Human Factors
+
+in Computing Systems, pp. 2143–2152. ACM, 2015. doi: 10.1145/
+
+2702123.2702382
+
+[20] P. Milgram and F. Kishino. A taxonomy of mixed reality visual displays.
+
+IEICE Transactions on Information and Systems, 77(12):1321–1329,
+
+1994.
+
+[21] H. Regenbrecht and T. Schubert. Real and illusory interactions enhance
+
+presence in virtual environments. Presence: Teleoperators and virtual
+
+environments, 11(4):425–434, 2002.
+
+[22] J. Rekimoto, T. Ishizawa, C. Schwesig, and H. Oba. Presense: in-
+
+teraction techniques for ﬁnger sensing input devices. In Proceedings
+
+of the 16th annual ACM symposium on User interface software and
+
+technology, pp. 203–212. ACM, 2003.
+
+[23] F. Rheinberg, R. Vollmeyer, and S. Engeser. Die erfassung des ﬂow-
+
+erlebens. na, 2003.
+
+[24] Y. Shi, T. Vega Ga´lvez, H. Zhang, and S. Nanayakkara. Gestakey:
+
+Get more done with just-a-key on a keyboard. In Adjunct Publication
+
+of the 30th Annual ACM Symposium on User Interface Software and
+
+Technology, pp. 73–75. ACM, 2017.
+
+[25] Y. Shi, H. Zhang, H. Rajapakse, N. T. Perera, T. Vega Ga´lvez, and
+
+S. Nanayakkara. Gestakey: Touch interaction on individual keycaps.
+
+In Proceedings of the 2018 CHI Conference on Human Factors in
+
+Computing Systems, p. 596. ACM, 2018.
+
+[26] Y.-C. Tung, T. Y. Cheng, N.-H. Yu, C. Wang, and M. Y. Chen. Flick-
+
+board: Enabling trackpad interaction with automatic mode switching
+
+on a capacitive-sensing keyboard. In Proceedings of the 33rd An-
+
+nual ACM Conference on Human Factors in Computing Systems, pp.
+
+1847–1850. ACM, 2015.
+
+[27] K. Vertanen and P. O. Kristensson. A versatile dataset for text entry
+
+evaluations based on genuine mobile emails. In Proceedings of the
+
+13th International Conference on Human Computer Interaction with
+
+Mobile Devices and Services, MobileHCI ’11, pp. 295–298. ACM,
+
+New York, NY, USA, 2011. doi: 10.1145/2037373.2037418
+
+[28] VIVE.
+
+Introducing the logitech bridge
+
+sdk.
+
+https://blog.vive.com/us/2017/11/02/
+
+introducing-the-logitech-bridge-sdk/. Last accessed
+
+27.11.2018.
+
+[29] J. Walker, B. Li, K. Vertanen, and S. Kuhl. Efﬁcient typing on a
+
+visually occluded physical keyboard. In Proceedings of the 2017 CHI
+
+Conference on Human Factors in Computing Systems, pp. 5457–5461.
+
+ACM, 2017.
+
+[30] C.-M. Wu, C.-W. Hsu, T.-K. Lee, and S. Smith. A virtual reality
+
+keyboard with realistic haptic feedback in a fully immersive virtual
+
+environment. Virtual Reality, 21(1):19–29, 2017.
+
+[31] S. Zhai, P.-O. Kristensson, and B. A. Smith. In search of effective
+
+text input interfaces for off the desktop computing. Interacting with
+
+computers, 17(3):229–250, 2004.
+
+1732
+
+Authorized licensed use limited to: Politecnico di Torino. Downloaded on September 06,2024 at 08:34:03 UTC from IEEE Xplore. Restrictions apply.
+

@@ -1,0 +1,352 @@
+2022 9th IEEE RAS/EMBS International Conference for Biomedical Robotics and Biomechatronics (BioRob) | 978-1-6654-5849-8/22/$31.00 ©2022 IEEE | DOI: 10.1109/BIOROB52689.2022.9925411
+
+Driving Simulator for Assessing Driving Skills of People with Multiple Sclerosis: a Pilot Study
+Camilla Pierella*, Paolo Romani*, Filippo Gandolfi, Jessica Podda, Antonino Massone, Andrea Tacchino, Giampaolo Brichetto, Andrea Canessa+, Serena Ricci+, and Maura Casadio+
+
+Abstract— Driving is a common activity with a significant impact on the quality of life since enables independence and fosters social activities. Nevertheless, driving is a rather complex task that requires different skills, such as physical abilities, proper judgement, risks perception / evaluation. Both these physical and cognitive abilities can be impaired after Multiple Sclerosis (MS) and can additionally be affected by the individual emotional state and disease progression. Driving simulators can be a good solution to assess and train driving skills of people with MS, but there are currently few studies focused on MS and driving ability. Moreover, they mostly aim at understanding driving performance impairments, mostly during monotonous highway drives. Here, we describe the framework of a new personalized driving simulator ADRIS 2.0, and the results of a first test on a group of unimpaired young adults and of a pilot test with three MS and sex and age-matched control subjects. Subjects trained with ADRIS 2.0 for a session of 30 minutes, driving through scenarios with different levels of difficulties. The system resulted easy to use and able to provide a realistic driving experience for all three groups of subjects. It also provided quantitative metrics that described MS drivers slower and prone to commit more infractions and collisions than control subjects. Thus, the developed simulator resulted well tolerated by all users, capable of detecting differences between control and MS subjects and its potential could be further exploited into the design of a personalized training of MS people.
+I. INTRODUCTION
+Driving is a common daily life activity fostering independence and contributing significantly to the quality of our life: most of us drive to work, to medical appointments, to shop and for leisure. However, driving is a complex activity, involving different sensory, motor, and cognitive abilities, that can be affected by MS [1]. There is evidence that 20% to 40% of drivers with MS fail fitness-to-drive assessment [1], [2] and have a greater chance of getting in a car accident than other drivers [3]. This is due to impairments in cognition, attention, visual information perception and processing, executive function, visuospatial ability, and visual acuity that interrupt driver information processing at several levels (e.g., perception, attention to a stimulus, interpretation of the
+
+situation on the road, formulation of a plan, execution of an action, corrective actions) [4]. In the relapsing remitting cases of MS there is the challenge of the unpredictability of their symptoms, that can appear suddenly, impairing the ability to drive, then disappearing and allowing people to drive again, until the following episode. Conversely, people with progressive forms of MS may experience a slow worsening of abilities that increasingly affects driving. Last but not least, the medications prescribed for some symptoms, can lead to drowsiness or decreased coordination and attention [5]. In summary, the complexity and the multi-factorial aspects of MS make each case unique and to be considered individually, with highly personalized assessment and training tools. Despite the importance of this problem and today’s technological advances, it is still difficult to find reliable and available solutions for driving skills assessment and training.
+A possible way to practice and assess driving is by using simulators [6]. In fact, VR-based systems represent an attractive option to consistently study re-learning processes by replicating situations that users usually experience while driving in the real world, albeit in a riskless environment [7]. With VR, one can create controlled, yet complex and dynamic environments and extend the capabilities that the real-world limits. In the context of neurorehabilitation, VR can be used to promote cognitive and motor functional recovery [8], [9], enhancing motor learning and retention, with tasks requiring planning, attention, information processing of stimuli in the virtual environment and sensory integration. Importantly, the performance obtained while using driving simulators could be a good predictor for patterns of actual driving, both in terms of successful driving, as well as indication of possible deficits [10], [11]. However, currently available driving simulators are not specifically designed or customized to assess and train people with MS. Another important main limitation of the currently available solutions is the lack of possibility to create and personalize scenarios with different levels of difficulty [12], [13]. Indeed, they mainly follow one-fits-all approach, or have limited personalization features, thus making them not suitable for addressing the very different needs of people with such a multifaceted pathology like MS. These findings suggest
+
+* indicates shared first authorship + indicates shared last authorship Research Erasmus+ KA220-SCH-BC3E99EA-RODEO, European Union’s Horizon 2020 research and innovation programme under the Marie Sklodowska-Curie grant agreement No 896892. C. Pierella and G. Brichetto are with the Department of Neurosciences, Rehabilitation, Ophthalmology, Genetics, and Maternal and Children’s Sciences (DINOGMI), University of Genova, 16126 Genoa, Italy (e-mail: camilla.pierella@edu.unige.it, giampaolo.brichetto@medicina.unige.it). C. Pierella, S. Ricci, P. Romani, A. Canessa, M. Casadio are with the Department Informatics, Bioengineering, Robotics and Systems Engineering (DIBRIS), University of Genoa, 16126 Genoa, Italy (e-mail:
+
+serena.ricci@edu.unige.it;
+
+s3896181@studenti.unige.it;
+
+andrea.canessa@unige.it; corresponding author phone: +390103536550 e-
+
+mail: maura.casadio@unige.it).
+
+S. Ricci is with the Simulation and Advanced Education Center (SimAv),
+
+University of Genova, 16132 Genoa, Italy.
+
+A. Tacchino, J. Podda, G Brichetto are with the Italian Multiple Sclerosis
+
+Foundation (FISM), 16149 Genoa, Italy (e-mail: andrea.tacchino@aism.it,
+
+jessica.podda@aism.it).
+
+A. Massone is with the S.C. Unità Spinale Unipolare, Santa Corona
+
+Hospital, ASL2 Savonese, 17027 Pietra Ligure, Italy (e-mail:
+
+a.massone@asl2.liguria.it)
+
+Authorized licensed use limited to: Politecnico di Torino. Downloaded on June 12,2024 at 13:21:06 UTC from IEEE Xplore. Restrictions apply.
+
+that the emerging body of literature is limited and primarily focused on understanding driving performance impairments, mostly during monotonous highway drives. Moreover, the training of driving abilities tailored on MS needs has received little to almost null attentions.
+This work has a technological and a scientific objective. The technological objective consisted in the development of an updated version of the Accesible DRIving Simulator ADRIS [14], [15] , making it highly personalized and easy to use by both people with MS and their therapists. The scientific aim consisted in pilot testing the new simulator and its usability for people with MS. To do so, we tested ADRIS 2.0 first with a group of 7 unimpaired young adults; then with a small cohort of MS subjects and age- and sex- matched control subjects, and identified an initial set of indicators capable to assess driving performance for MS in different environments.
+II. MATERIAL AND METHODS
+A. ADRIS 2.0
+The simulator is composed of three main parts: a PC, a driving controller (i.e., gaming steering wheel and pedals) and
+
+a computer screen. The system could be also used with an immersive virtual reality (VR) using a head mounted display, as well as it could be controlled with a joystick, allowing people with motor disability to drive.
+The software architecture is based on Unreal Engine. It includes a graphic interface, see Fig.1, easy to use by different users (i.e., MS people for training purposes, therapists for evaluations), an artificial intelligence (AI) managing the simulations, realistic sounds, and it supports the creation of customized scenarios. Within the simulator, it is possible to control several variables such as: traffic volume, weather and light conditions. Furthermore, it is possible to generate unexpected events either static (e.g. obstacles in the street, a broke down vehicle) or dynamic (e.g. pedestrians or riders suddenly crossing the street; vehicles running stops or red lights). Therefore, modifying light (from daylight to dark), weather (sunny, raining or foggy), and unexpected events, nine scenarios (Fig.1, bottom) with different environments and level of difficulty have been developed. An example of the urban environment, with traffic during daylight and the scenario in a highway at sunset are shown in Fig.2. At the end of the simulation (which can be stopped when the driver reaches a specific location, or a predetermined driving distance
+
+Figure 1. ADRIS 2.0 User Interface. The main menu (top) allows you to choose among the Free Driving menu (middle) where you can drive in 4 different maps; the Scenario Selection menu (bottom) where you can select among levels of different difficulties; - the Controls menu where you can choose the controllers used for driving, e.g., steering wheel and pedals; - Settings menu where you can fine tune the controller settings.
+
+Figure 2. Examples of two scenarios: urban scenario with traffic at daylight (A) and a highway scenario at sunset (B).
+or time), ADRIS 2.0 provides the following indexes: car trajectory, speed, driven distance, simulation duration, number of collisions, lane crossings, running red lights and stops.
+B. Subjects We first recruited a small group of unimpaired young
+adults, age: 29±5 years old, 4 F, to test the functionalities of the new version of the simulator (test 1), see Table I for more detailed information. All subjects did not have any known history of neurological disorders and had the driving license.
+
+Authorized licensed use limited to: Politecnico di Torino. Downloaded on June 12,2024 at 13:21:06 UTC from IEEE Xplore. Restrictions apply.
+
+Figure 3. Experimental protocol. Both groups of subjects started with the free drive (FD) task, then NCPDMPKCBRFC DMJJMU JC BGLE TCFGAJC RQI CVRRFC
+Fgirgouurpe o3f. sEuxbpjeecritms tehnattalinpitrioatlolycotle.sBteodthADgrRouISps2o.0f psuerbfjoercmtsesdtaarltle9d swceitnhatrhioesf(rleieghdtribvleue(FbDox)etsa)s,kw, hthileenthNeCPgDMroPKupCBofRFMCSDrMeJcJMruUitedJCfoBrGtLhEeTpCiFloGAt JtCestRpQeIrformCVeRd tthheregerosucepnoafrisousbojefcitnsctrheaatsienditdiailflfyictuelsttyed(SAcD1R,SIcS52.a0npdeSrfco7rmebdluaell b9osxceesn)a. rFioosr (bloigthhtgbrlouuepbso, xthees)d,rwivhiinlge tshime gurloatuopr oefxMpeSrimreecnrut ietneddefdorwthitehptihleotleteasdtipnegrfcoarrmtaesdk tahnrdeethseceqnuaersiotisononf ainircerecaosmedpldeitfiofinc.uEltyac(hSbceloncakriloas1t,eSdceanbaoruiot 55maninduStecse.nario 7 blue boxes). For both groups, the driving simulator experiment ended with
+the leading car task and the questionnaire completion. Each block lasted about 5 minutes.
+
+TABLE I. DEMOGRAPHIC INFORMATION OF THE YOUNG HEALTHY SUBJECTS RECRUITED IN THE FIRST EXPERIMENT M=MALE, F=FEMALE.
+
+Subject Age
+
+ID
+
+(yo)
+
+Sex
+
+Years with driving license
+
+Glasses user
+
+Car sickness
+
+S1
+
+32
+
+F
+
+>10
+
+No
+
+No
+
+S2
+
+26
+
+F
+
+<5
+
+Yes
+
+Yes
+
+S3
+
+27
+
+M
+
+<5
+
+Yes
+
+Yes
+
+S4
+
+38
+
+M
+
+>10
+
+Yes
+
+No
+
+S5
+
+24
+
+F
+
+<10
+
+No
+
+Yes
+
+S6
+
+24
+
+F
+
+<10
+
+No
+
+No
+
+S7
+
+31
+
+M
+
+>5 <10
+
+No
+
+No
+
+In a following pilot test (test 2), we enrolled three subjects with MS, demographic of MS and matched control subjects are in Table II and details on the condition of the MS subjects are in Table III. All MS subjects had had the driving license for more than ten years.
+TABLE II. DEMOGRAPHIC INFORMATION OF THE MS SUBJECTS AND THE MATCHED CONTROL SUBJECTS (C) RECRUITED IN THE SECOND EXPERIMENT.
+
+Subject Age
+
+ID
+
+(yo)
+
+Sex
+
+Years with driving license
+
+Glasses user
+
+Car sickness
+
+C1
+
+73
+
+M
+
+>10
+
+Yes
+
+No
+
+C2
+
+59
+
+F
+
+>10
+
+Yes
+
+No
+
+C3
+
+57
+
+F
+
+>10
+
+Yes
+
+No
+
+MS1
+
+72
+
+M
+
+>10
+
+No
+
+No
+
+MS2 57
+
+F
+
+<10
+
+Yes
+
+No
+
+MS3 54
+
+F
+
+>10
+
+Yes
+
+No
+
+TABLE III. DEMOGRAPHIC INFORMATION OF MS SUBJECTS. EDSS STANDS FOR EXPANDED DISABILITY STATUS SCALE; HADS FOR THE HOSPITAL ANXIETY AND DEPRESSION SCALE (HADS Y 8 PRESENCE OF ANXIETY AND MODERATE DEPRESSION); AND SDMT FOR THE SYMBOL DIGIT MODALITIES TEST (SDMT >34 NORMAL SPEED OF INFORMATION PROCESSING) . M = MALE, F = FEMALE.
+
+Subject Age
+
+ID
+
+(yo)
+
+MS1 72
+
+MS2 57
+
+MS3 54
+
+Sex
+
+MS duration
+(y)
+
+EDSS (0-10)
+
+M
+
+13
+
+6
+
+F
+
+29
+
+5
+
+F
+
+17
+
+6.5
+
+HADS SDMT
+
+26
+
+40
+
+19
+
+21
+
+22
+
+58
+
+C. Experimental Set-Up and Protocol
+In both tests, the one with young subjects and the pilot test with MS subjects and relative matched controls, subjects were required to use the single monitor version of the simulator ADRIS 2.0 as if they were driving a real car. Participants recruited in test 1 drove for about one hour while participants recruited in experiment 2 drove for 30 minutes to avoid fatigue for people with MS. Participants, using the pedals and/or steering wheels as controllers (all control subjects and two MS subjects used both, while one MS subject used steering wheel controls), freely drove for around 5 minutes on an open map to familiarize with the simulator (free drive, FD). Then, they performed a first session where they were asked to follow a leading vehicle, followed by nine sessions of different difficulties in terms of road (urban, motorway, rural), weather, light condition, and traffic volume, see Fig. 3. Each session/scenario was characterized by a main event, and the user had to follow the directions of the experimenter. In test 2 the experimental protocol was shorter as subjects drove through 3 out of the 9 scenarios. Specifically, the first scenario (characterized by low traffic, good weather and lights conditions) began with the driver at a road roundabout. During the driving, after a turn there was a garbage bin in the middle of the street. The user must avoid it, while other background vehicles could collide on it. The second session Scenario 3 , which started in an expressway, had medium traffic condition, good weather and sunset lights. While taking the first exit, a pedestrian passed through the street and the driver had to brake to avoid him. The third level Scenario 7 -, with high traffic and night lights conditions, tested the user on the ability to drive in a rural scenario and is characterized by a landslide suddenly falling. The experiment ended with another leading-vehicle session, equal to the initial one.
+
+Authorized licensed use limited to: Politecnico di Torino. Downloaded on June 12,2024 at 13:21:06 UTC from IEEE Xplore. Restrictions apply.
+
+At the end of the experiment, all participants filled out three questionnaires: Simulation Sickness Questionnaire (SSQ)[16]; NASA Task Load Index (NASA TLX)[17] and Igroup presence questionnaire (IPQ)[18].
+D. Data Analysis
+To analyze the performance, we extracted the following parameters: number of infractions (i.e., lane crossing, running red-light and running stop), number of collisions (e.g., with the leading car, static or dynamic obstacle), maximum speed, mean speed, and variability of the mean speed, considering only when the car was moving (i.e., speed > 3 Km/h). Speed variability indicates whether the driver maintained the same speed during the driving and is an indicator of how much the driver is at ease during the driving.
+III. RESULTS
+Test 1. In the SSQ all young adults participants rated general discomfort (median: 2 range 1-9) and motion sickness (nausea median: 2 range 1-8; stomach awareness median: 1 range: 1-7; vertigo median: 3 range: 1-8) as low, with exception of 2 subjects who reported higher levels of sickness. These 2 subjects also reported a higher level of eyestrain (median: 3 range: 2-8) and blurred vision (median: 2 range: 18). However, most of the participants did not report any vision related discomfort. In the NASA TLX survey they reported a low physical fatigue (median 2 range:1-4) and a moderate level of mental effort (median: 4 range 2-7). When we ask the participants which level of performance they reached, responses ranges from 2 to 9 (median: 5) suggesting that the self-assessment of driving performance was extremely subjective. Results of the IPQ questionnaire, showed that most of the participants defined the simulation coherent with the real experience (median: 6 range: 4-7) and perceived the virtual world with good fidelity with respect to the reality (median: 3 range: 3-7). They also reported a good immersion inside the virtual world (feeling of being surrounded median: 6 range: 47; sense of presence in virtual space median: 6 range: 5-7). 3 out of 7 subjects were highly captured by the virtual world while the rest reported a moderate feeling of fascination (median: 6 range: 3-9).
+As for the driving performance, the data collected with the simulator highlighted a low number of collisions and infractions (Collisions median: 1 range:0-4 ; Infractions median: 2 range: 1-5), see Fig. 4. For what concerns the speed, data show a low variability on the maximum and mean speed (Max Speed median: 93 Km/h range: 77-107 Km/h, Mean Speed median: 31 Km/h range: 29-32 Km/h). In particular, the low Mean Speed values could be explained by the high density of traffic lights and the increase of traffic density and adverse conditions through the levels.
+Test 2. Results of the second group of subjects, MS subjects and their matched control subjects, were also encouraging. From the SSQ questionnaire subjects reported no general discomfort (median: 1 range: 1-3), no physical fatigue (median: 1, range: 1-5). However, 2 out of 3 controls reported high levels of motion sickness symptoms mostly related to nausea. The NASA TLX survey reported moderate physical
+
+fatigue (median: 3 range: 1-9) and a moderate level of mental effort (median: 3,5 range: 2-8) and a low/moderate level of frustration (median: 3 range: 1-5). Finally, IPQ showed that participants were fascinated by the virtual experience (median: 8 range: 5-9), thus suggesting that also people with MS would be motivated and engaged in using the simulator.
+Figure 4. Test 1. Total number of collisions (blue) and infractions (orange) of group of xx young adults.
+Results concerning the second experiment revealed that overall, MS subjects committed more collisions and infractions than their controls (MS-Collisions median: 3 range:3-5; Control-Collision median: 1 range: 1-3; MSInfractions median: 7 range:5-7; Control-Infractions median: 3 range: 2-5) and tend to drive slower (MS-Max Speed median: 65Km/h range: 59-84Km/h; Control-Max Speed median: 80 Km/h range: 75-91Km/h), see Fig.5. Interestingly, the two groups do not show significant differences in terms of mean Speed (MS-Mean Speed median:28 Km/h range: 2333Km/h; Control-Mean Speed median 28 Km/h range:28-29 Km/h).
+Figure 5. Test 2. Total number of collisions (blue) and infractions (orange) of people with MS (MS1, MS2 MS3) and their control subjects (C1 C2 C3).
+IV. CONCLUSION Altogether, these preliminary results highlight several important points: (i) all the participants, including people with MS were overall fascinated by the Virtual Reality and felt immersed inside the virtual world during the driving; (ii) all the subjects show similar mean and variability of the speed, suggesting that the simulator simulates a real driving, thus causing realistic behaviors; (iii) all three MS subjects were
+
+Authorized licensed use limited to: Politecnico di Torino. Downloaded on June 12,2024 at 13:21:06 UTC from IEEE Xplore. Restrictions apply.
+
+able to use the simulator without effects of nausea or
+discomfort on the use of the VR, (iv) the two groups present
+differences in terms of collisions and infractions, thus
+supporting the idea that the simulator can be tested as tool for
+assessment and training of driving skills in people with MS.
+All these preliminary results proved that ADRIS 2.0 is a
+promising tool to train and assess driving skills of people with
+sensorimotor disability. In addition, testing the system with
+both people with MS and unimpaired individuals allowed us
+to identify future development which will further improve
+the usability of the simulator.
+REFERENCES
+[1] S. Krasniuk, S. Classen, S. A. Morrow, M. Tippett, M. Knott, and A. Akinwuntan, “Clinical Determinants of Fitness to Drive in Persons With Multiple Sclerosis: Systematic Review,” Arch. Phys. Med. Rehabil., vol. 100, no. 8, pp. 1534–1555, Aug. 2019, doi: 10.1016/J.APMR.2018.12.029.
+[2] A. E. Akinwuntan, D. Backus, J. Grayson, and H. Devos, “Validation of a short cognitive battery to screen for fitness-to-drive of people with multiple sclerosis,” Eur. J. Neurol., vol. 25, no. 10, pp. 1250– 1254, Oct. 2018, doi: 10.1111/ENE.13690.
+[3] H. Devos et al., “Determinants of On-Road Driving in Multiple Sclerosis,” Arch. Phys. Med. Rehabil., vol. 98, no. 7, pp. 13321338.e2, Jul. 2017, doi: 10.1016/J.APMR.2016.10.008.
+[4] E. Y. Uc and M. Rizzo, “Driving and neurodegenerative diseases,” Curr. Neurol. Neurosci. Reports 2008 85, vol. 8, no. 5, pp. 377–383, Oct. 2008, doi: 10.1007/S11910-008-0059-1.
+[5] L. L. Hill, V. L. Lauzon, E. L. Winbrock, G. Li, S. Chihuri, and K. C. Lee, “Depression, antidepressants and driving safety,” Inj. Epidemiol., vol. 4, no. 1, pp. 1–10, Dec. 2017, doi: 10.1186/S40621017-0107-X/TABLES/2.
+[6] K. N. Randall, J. B. Ryan, J. N. Stierle, S. M. Walters, and W. Bridges, “Evaluating and Enhancing Driving Skills for Individuals With Intellectual Disabilities Through Simulator Training:,” Focus Autism Other Dev. Disabl., vol. 36, no. 4, pp. 191–200, Jan. 2021, doi: 10.1177/1088357620985458.
+[7] Q. Hussain, W. K. M. Alhajyaseen, A. Pirdavani, N. Reinolsmann, K. Brijs, and T. Brijs, “Speed perception and actual speed in a driving simulator and real-world: A validation study,” Transp. Res. Part F Traffic Psychol. Behav., vol. 62, pp. 637–650, Apr. 2019, doi: 10.1016/J.TRF.2019.02.019.
+[8] D. Perez-Marcos, M. Bieler-Aeschlimann, and A. Serino, “Virtual reality as a vehicle to empower motor-cognitive neurorehabilitation,” Front. Psychol., vol. 9, no. OCT, p. 2120, Nov. 2018, doi: 10.3389/FPSYG.2018.02120/BIBTEX.
+[9] J. Gentle, D. Brady, N. Woodger, S. Croston, and H. C. Leonard, “Driving Skills of Individuals With and Without Developmental Coordination Disorder (DCD/Dyspraxia),” Front. Hum. Neurosci., vol. 15, p. 105, Mar. 2021, doi: 10.3389/FNHUM.2021.635649/BIBTEX.
+[10] L. Bruck, B. Haycok, and A. Emadi, “A Review of Driving Simulation Technology and Applications,” IEEE Open J. Veh. Technol., vol. 2, pp. 1–16, 2021, doi: 10.1109/OJVT.2020.3036582.
+[11] A. O. Caffò et al., “The drives for driving simulation: A scientometric analysis and a selective review of reviews on simulated driving research,” Front. Psychol., vol. 11, p. 917, 2020, doi: 10.3389/FPSYG.2020.00917/BIBTEX.
+[12] B. Dimech-Betancourt, P. E. Ross, J. L. Ponsford, J. L. Charlton, and R. J. Stolwyk, “The development of a simulator-based intervention to rehabilitate driving skills in people with acquired brain injury,” Disabil. Rehabil. Assist. Technol., vol. 16, no. 3, pp. 289–300, 2021, doi: 10.1080/17483107.2019.1673835/SUPPL_FILE/IIDT_A_1673835_ SM4467.DOCX.
+[13] S. Krasniuk, M. Knott, R. Bagajati, M. Azizderouei, R. Sultania, and L. Alvarez, “Utilizing driving simulators for persons with multiple sclerosis: A scoping review,” Transp. Res. Part F Traffic Psychol. Behav., vol. 85, pp. 103–118, Feb. 2022, doi:
+
+10.1016/J.TRF.2021.12.006. [14] F. Gandolfi et al., “An Open-Source, Wheelchair Accessible and
+Immersive Driving Simulator for Training People with Spinal Cord Injury,” Biosyst. Biorobotics, vol. 28, pp. 475–479, 2022, doi: 10.1007/978-3-030-70316-5_76. [15] S. Ricci et al., “ADRIS: The new open-source accessible driving simulator for training and evaluation of driving abilities,” Comput. Methods Programs Biomed., vol. 221, p. 106857, Jun. 2022, doi: 10.1016/J.CMPB.2022.106857. [16] R. S. Kennedy, N. E. Lane, K. S. Berbaum, and M. G. Lilienthal, “Simulator Sickness Questionnaire: An Enhanced Method for Quantifying Simulator Sickness,” https://doi.org/10.1207/s15327108ijap0303_3, vol. 3, no. 3, pp. 203– 220, 2009, doi: 10.1207/S15327108IJAP0303_3. [17] S. G. Hart and L. E. Staveland, “Development of NASA-TLX (Task Load Index): Results of Empirical and Theoretical Research,” Adv. Psychol., vol. 52, no. C, pp. 139–183, Jan. 1988, doi: 10.1016/S01664115(08)62386-9. [18] T. Schubert, F. Friedmann, and H. Regenbrecht, “Embodied Presence in Virtual Environments,” Vis. Represent. Interpret., pp. 269–278, 1999, doi: 10.1007/978-1-4471-0563-3_30.
+
+Authorized licensed use limited to: Politecnico di Torino. Downloaded on June 12,2024 at 13:21:06 UTC from IEEE Xplore. Restrictions apply.
+

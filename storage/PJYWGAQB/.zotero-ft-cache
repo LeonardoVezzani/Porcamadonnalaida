@@ -1,0 +1,292 @@
+Chiudi questa finestra di dialogo
+Questo sito web utilizza tecnologie come i cookie per abilitare le funzionalità essenziali del sito, nonché per analitici, personalizzazione e pubblicità mirata. Puoi accettare le impostazioni predefinite oppure modificare le impostazioni in qualunque momento. Puoi chiudere questo banner per continuare con solo i cookie essenziali politica sulla riservatezza
+
+Preferenze di archiviazione
+
+    Pubblicità mirata
+    Personalizzazione
+    Analitici
+
+Salva Accetta tutto Rifiuta tutto
+
+Chiudi le preferenze sui cookie
+Skip to Main Content
+Scheduled Maintenance: On Wednesday, 10 July, IEEE Xplore will undergo scheduled maintenance from 1:00-5:00 PM ET (1700-2100 UTC). During this time, there may be intermittent impact on performance. We apologize for any inconvenience.
+
+    IEEE.org
+    IEEE Xplore
+    IEEE SA
+    IEEE Spectrum
+    More Sites 
+
+        Donate 
+        Cart
+        Create Account
+        Personal Sign In 
+
+IEEE Xplore logo - Link to home
+
+    Browse
+    My Settings
+    Help
+
+Access provided by:
+Politecnico di Torino
+Sign Out Attention Authors
+IEEE logo - Link to IEEE main site homepage
+ADVANCED SEARCH
+Conferences > 2023 International Conference...
+Indoor Navigation with Augmented Reality
+Publisher: IEEE
+Cite This
+PDF
+Weijia Ye ; Ning He ; Jin Wang
+All Authors
+1
+Cites in
+Paper
+21
+Full
+Text Views
+
+    Alerts
+
+Abstract
+Document Sections
+
+    Introduction
+    1
+    Indoor Navigation System Framework and Description
+    2
+    Process of Build Application
+    3
+    Experimental Result
+    4
+    Conclusion
+
+Authors
+Figures
+References
+Citations
+Keywords
+Metrics
+Abstract:
+This paper introduces the idea of Indoor Navigation using Augmented Reality, we propose a QR code location position system using the augmented reality technique for indoor navigation. This system advice directions to the destination in the user's camera screen. QR codes will be installed at some locations in the building assuming any destination can be the starting point of the user. Users can scan a QR code to choose a destination. AR foundation takes live feed from the user's camera and does simultaneous localization and mapping to update the user's location. We use the A * algorithm to find the shortest path to the chosen destination and the directions to the destination are shown in user's camera screen by using some essential plugins like AR foundation. We point to developing the way between the start point location and end point in the simplest way possible so that the users can easily reach their destination by just opening the camera where the directions are shown as animations in their surroundings. We also can add some animate models so that we can see in real world, which help users feel more interactive and immersive.
+Published in: 2023 International Conference on Computer Science and Automation Technology (CSAT)
+Date of Conference: 06-08 October 2023
+Date Added to IEEE Xplore : 25 March 2024
+ISBN Information:
+DOI: 10.1109/CSAT61646.2023.00106
+Publisher: IEEE
+Conference Location: Shanghai, China
+Introduction
+
+With the need of human development, the outdoor navigation is developed firstly, when people traveling or drive the car from one place to another, for outdoor navigation, the GPS is enough to meet the people's needs. However, with the increasing development of technology, the building be built very complex, such as airport, the shopping mail, hospital and so on. Therefore, a good indoor navigate application is very useful for people's life. [1]
+
+Indoor navigation deals with navigation within buildings. Because GPS reception is normally nonexistent inside building, Wi-Fi or Bluetooth Beacons may be useful for indoor environment, but both are not providing accurate data to help make sure the right positions. [2] There has an accuracy of nearly 15 meters and require costly hardware installation. However, it is easily can see your surroundings. Therefore, we intend to develop an indoor navigation application using augmented reality.
+
+Our system has several distinct advantages over all other location positioning systems. First, it is an economical solution because the marker that identifies each location is a simply printed on paper, and the mobile PC and camera are general devices that can be implemented in software. Second, although our system has inferior performance than other systems such as GPS or sensor-based location positioning systems, it is not limited by signal propagation and multiple reflections. To increase performance, it adapts via an adaptive thresholding method to detect markers under illumination changes, and it uses the location model to reduce execution time during QR code matching.
+
+In this paper, we propose an application can capture the environment image, and get the data transfer to application, which we can get the accurate position and shows the shortest the destination between right now location to the end point by using augment reality, the navigation line will be showing in user's screen. This paper proposes an augmented reality app for smartphone that navigates a user to a desired area on the augmented reality frame-work AR foundation and ZXing, which help users feel more interactive and immersive. [3]
+
+In following paper, we will show the configuration of indoor navigation system. Describe every parts function. And generate the android app by unity test in real environment. These systems imitate is need serval QR maker install in environment, in the future research, we also continue use the camera to capture the image, but it is no need install any makers, the camera capture the environment image sent to our image algorithm to realize and calculate the real location points, in which we can know the shortest line between the user's location and destination.
+SECTION 1
+Indoor Navigation System Framework and Description
+1.1 Framework
+
+Our indoor navigation system consist of four parts, before the work starting, we need make sure the area where provide the space to navigate, and we can need build the real environment's model, there are two methods be provided, building the model by software, or scanning by laser, if you want to get more accurate model, using the 3dmax remodel is necessary. in this step, we need make sure the model coordinate is same as the real environment's coordinate, because we will augment the virtual things shown in real world. [4]
+
+Then, import the model to unity and set up the AR foundation environment, adding the AR camera and AR session in scene, under the AR camera, we can see the real world and virtual things at the same time. Using the A * algorithm to find the shortest line between the start location and target location.
+
+After finish make up the virtual things, we generate the android application in unity platform, and put it in mobile phone, when user open our application in mobile phone, our application will use the camera to capture the environment information such as QR code, after identify the code, the user's location will update, chose the target location, the augmented navigate line will show in user's phone, which will lead users to the destination by using augmented reality.
+Fig. 1. - Indoor navigation system framework
+Fig. 1.
+
+Indoor navigation system framework
+
+Show All
+
+1.2 System Process Description
+
+Users just need download our application in mobile phone, and wherever the user stand in indoor area, just need open the application and aim the camera at the QR code, the phone's camera will automatically capture the image and decode the QR code, then send the text to the remotely calculate server which will send back the information and update the user's location. Finally, users use the UI button in screen to choose the destination, the navigation line will show in screen, leading user to the destination with the augmented reality. The process shown in fig2 .
+Fig. 2. - Indoor navigation application process
+Fig. 2.
+
+Indoor navigation application process
+
+Show All
+
+SECTION 2
+Process of Build Application
+2.1 Create the Real Environment's 3d Model
+
+The first step in developing our application is to build the real environment's 3D model, we chose the apart of our working space. There are many methods to build the model, one choice is to use the 3D build tools, like blender or 3Dmax, the other one is our chosen, use the lidar tool to scan environment and get the environment's cloud point or others, then puts those data to 3D Max, rebuild and adding some materials for model make it more reality. [5]
+Fig. 3. - the left picture is real environment location model shown in C4D, and the right picture is the model import in unity
+Fig. 3.
+
+the left picture is real environment location model shown in C4D, and the right picture is the model import in unity
+
+Show All
+
+2.2 Set Up Environment in Unity
+
+Unity provides a workspace that combines tools with a design that makes game development intuitive. Both 2D and 3D development is possible in Unity.
+
+In the first step, we will get the model and then import this model in unity. To use the AR camera, we need import the AR foundation, which to provide augmented reality, our devices need to understand it. [6] AR foundation provides a variety of tools for understanding objects in the real environment. And to decode the code, we also need to import ZXing tool package. After setting up in unity, the next step, we need to create the NavMesh in location area and use the navigation algorithm to find the shortest way between the right now location and the destination.
+
+Using the unity's navigation tool, we can get the location area's NavMesh, which represents an area where the center of the user object can move, the process of creating a NavMesh from the level geometry is called NavMesh Baking. After baking, the process shown in left of fig4 . The process collects the Render Meshes and Terrains of all Game Objects which are marked as Navigation Static, and then processes them to create a navigation mesh that approximates the walkable surface of the level. In our application, the Nav Mesh is constructed based on the blueprint of the building and includes all the walls, desks, and other objects that the user can't pass through. This allows us to estimate only the area where the user can walk through.
+Fig. 4. - The left picture is the
+Fig. 4.
+
+The left picture is the
+
+Show All
+
+area baking and create the Navmesh in level, and the right picture is the navigation panel's agents set.
+2.3 A* Algorithm
+
+A* is an informed search algorithm, that is formulated in terms of weighted graphs: starting from a specific starting node of a graph, it aims to find a path to the given goal node having the smallest. It does this by maintaining a tree of path originating at the start node and extending those paths one edges at a time until its termination is satisfied.
+
+A * algorithm is one of the best and popular techniques used in pathfinding. At each iteration of its main loop, A * needs to determine which of its paths to extend it. It does so based on the cost if the path and an estimate of the cost required to extend the path all the way to the goal. It simple terms the algorithm can be expressed as:
+F = G + H (1)
+View Source Right-click on figure for MathML and additional features. \begin{equation*} F=G+H\tag{1}\end{equation*} Where, F is the parameter which is the sum of the other parameter G and H and is the least cost from one node to the next node. This parameter is responsible for helping us find the most optimal path from our source to destination.
+
+2.4 Qr Code Maker
+
+The process detects a QR code from an input image, we use the online QR code generator and create the four targets which is corresponding with the destination targets. When user use their mobile camera point the QR code, which is a 20*20cm marker, the code text will be sent to unity, and we use the ZXing tool which is specially for decode the QR code. The QR code text is same as the target's object name, when the text is matching, the target position will be update in application, the user's location will update same as QR code which they scan. [7]
+
+To improve test efficient, before we set up the application in mobile, we need test in unity firstly, the test process shown in fig5 , the left picture is starting state, we can clearly see the blue color sphere and four green color spheres in the 2D map. And when we get one of the QR code, the blue sphere's location has changed, just shown in right picture, which from the start point to the location which number is 2. When testing successful in unity, we use unity platform generate the application and set it up in mobile phone. The fig6 is the QR code in real world, user open the camera and scan the QR code the current location position will be update, and then chose the navigation location the shortest line will show in screen, the user follows it to final location. In the next part. we will show the AR navigation in real world. [8]
+Fig. 5. - The left picture we can see all targets and user's starting state, and the right picture shows the new user position after scan the QR code.
+Fig. 5.
+
+The left picture we can see all targets and user's starting state, and the right picture shows the new user position after scan the QR code.
+
+Show All
+Fig. 6. - Scan QR code to register your position.
+Fig. 6.
+
+Scan QR code to register your position.
+
+Show All
+
+2.5 Application Ui Interface Design
+
+When user download our application in their mobile for in- door navigation, there is an interface of application need to be designed. [9] In our application, we design two buttons, one camera view that is top view of location, like 2D map, we can see in fig7 , in this map, the blue color sphere represents the user, and green cube is targets destination. Uses can click the button to select the targets to navigate, the toggle line visibility button is determined the navigate line is visible or invisible.
+Fig. 7. - Top view of location and the interface of the application
+Fig. 7.
+
+Top view of location and the interface of the application
+
+Show All
+
+SECTION 3
+Experimental Result
+
+During the test, from the fig8 , the first picture is the starting state when we open the application which install in android mobile, and from the picture one's lower left corner, in the 2D map, the red represents the wrong location, then we scan the QR code in the middle picture, the wrong location be update, which position changed shown in the right picture's 2D map. In this step, we finish scan the QR code to help application know where user location is and reload user in right location. The next step we will test the interface of application and show AR navigation line in real world. [10]
+Fig. 8. - The first step of testing application, the process is by scanning the QR code to help application know where user location is.
+Fig. 8.
+
+The first step of testing application, the process is by scanning the QR code to help application know where user location is.
+
+Show All
+
+However, the algorithm will be update in further research, because, from the left picture, we clearly can know the navigation line is very close to obstacle, right now, we do not consider the obstacle's offset. Next. Considering all of that, the navigate line will be better.
+Fig. 8. - Application test in real environment
+Fig. 8.
+
+Application test in real environment
+
+Show All
+
+SECTION 4
+Conclusion
+
+Although our system is better than national system, in the previous we has mentioned this system do not build other auxiliary hard base station to help user location, we use the image matching, just need set up some QR code in each location, the camera capture the code and transform the position location to system, which help user know where are they and navigation them to the target location, under the AR camera, it is really immersive. Augmented reality is a highly immersive technology that allows users to feel like they are experiencing virtual objects in a real physical space. However, our system also has some limitation, first, our location area is not enough, there is impossible to calculate the cumulative error with increasing the route. second, QR code need to install many locations when the area is large, which is not convenient. In future research, we will be using the slam algorithm, we still use the camera capture image, then using the algorithm to realize the real environment to help user know the location.
+
+The result of this study indicates that the scanning the QR code to location with augmented reality based indoor navigation provided a user experience with high usability and deeply immersive. Future studies will focus to improving the accurate of location and do research in algorithm to capture the image to realize the environment. We not only can make our indoor navigate application better, but also can adding some animate just like model or other material shown in real world. Which will increasing immersive, and users also can be interactive with those models.
+ACKNOWLEDGMENT
+
+This work is supported by the Regional Innovation Cooperation in Sichuan Province: Research on key technologies of intelligent remote-control system of Xinjiang global airport and its Application Pilot. under Grant No.2023YFQ0059.
+
+Authors
+Figures
+References
+Citations
+Keywords
+Metrics
+   Back to Results   
+More Like This
+Navigation of Simultaneous Localization and Mapping by Fusing RGB-D Camera and IMU on UAV
+
+2019 CAA Symposium on Fault Detection, Supervision and Safety for Technical Processes (SAFEPROCESS)
+
+Published: 2019
+Simultaneous localization and mapping of a mobile robot with surveillance and flying cameras
+
+2018 SICE International Symposium on Control Systems (SICE ISCS)
+
+Published: 2018
+Show More
+References
+1.
+Rhuta Joshi, Anuja Hiwale, Shivani Birajdar and Renuka Gound, Indoor Navigation with Augmented Reality, Springer, 2020.
+Show in Context CrossRef View it on PoliTO catalogue Google Scholar
+2.
+Le Dortz N, F Gain and P Zetterberg, "WiFi fingerprint indoor positioning system using probability distribution comparison", IEEE ICASSP , pp. 25-30, March 2012.
+Show in Context View Article
+Google Scholar
+3.
+Aditya Anerao, Samridhi Pramanik, Hemraj Bobade and S.N Firame, "Location Based Augmented Reality Nav- igation Application", International Journal of Scientific Research in Computer Science , 2019.
+Show in Context CrossRef View it on PoliTO catalogue Google Scholar
+4.
+P. Verma, K. Agrawal and V. Sarasvathi, "Indoor Navigation Using Augmented Reality", Proceedings of the 2020 4th International Conference on Virtual and Augmented Reality Simulations , pp. 58-63, Feb. 2020.
+Show in Context CrossRef View it on PoliTO catalogue Google Scholar
+5.
+B.-C. Huang, J. Hsu, E. T.-H. Chu and H.-M. Wu, "ARBIN: Augmented Reality Based Indoor Navigation System", Sensors , vol. 20, no. 20, pp. 5890, Oct. 2020.
+Show in Context CrossRef View it on PoliTO catalogue Google Scholar
+6.
+D. N. Mohd Nizam, L. W. Shin, Z. H. A. Sani, P. Thamrongrat and N. Mohd Tuah, "An Indoor Navigation Support for the Student Halls of Residence using Augmented Reality: A Design Perspective", Pertanika J. Sci. Technol. , vol. 29, no. 4, Oct. 2021.
+Show in Context CrossRef View it on PoliTO catalogue Google Scholar
+7.
+G. Gerstweiler, "Guiding People in Complex Indoor Environments Using Augmented Reality", 2018 IEEE Conference on Virtual Reality and 3D User Interfaces (VR) , pp. 801-802, March 2018.
+Show in Context View Article
+Google Scholar
+8.
+Gaetano C. La Delfa, V. Catania, S. Monteleone, Juan F. De Paz and J. Bajo, Computer Vision Based Indoor Navigation: A Visual Markers Evaluation, Switzerland:Springer International Publishing, 2015.
+Show in Context CrossRef View it on PoliTO catalogue Google Scholar
+9.
+Gaetano C. La Delfa, V. Catania, S. Monteleone, Juan F. De Paz and J. Bajo, Computer Vision Based Indoor Navigation: A Visual Markers Evaluation, Switzerland:Springer International Publishing, 2015.
+Show in Context CrossRef View it on PoliTO catalogue Google Scholar
+10.
+QIN Yong-xu, LIU Jia-min, QIU Hui, YAN Bo and JIN Chang-xu, Campus Navigation System Based on Mobile Augmented Reality .
+Show in Context View Article
+Google Scholar
+View More
+IEEE Personal Account
+
+    Change username/password 
+
+Purchase Details
+
+    Payment Options
+    View Purchased Documents 
+
+Profile Information
+
+    Communications Preferences
+    Profession and Education
+    Technical interests 
+
+Need Help?
+
+    US & Canada: +1 800 678 4333
+    Worldwide: +1 732 981 0060
+    Contact & Support 
+
+Follow
+
+About IEEE Xplore | Contact Us | Help | Accessibility | Terms of Use | Nondiscrimination Policy | IEEE Ethics Reporting | Sitemap | IEEE Privacy Policy
+
+A not-for-profit organization, IEEE is the world's largest technical professional organization dedicated to advancing technology for the benefit of humanity.
+
+© Copyright 2024 IEEE - All rights reserved, including rights for text and data mining and training of artificial intelligence and similar technologies.

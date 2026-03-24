@@ -1,0 +1,406 @@
+Virtual Reality (2021) 25:945–959 https://doi.org/10.1007/s10055-021-00499-1
+ORIGINAL ARTICLE
+
+Promoting eco‑driving behavior through multisensory stimulation: a preliminary study on the use of visual and haptic feedback in a virtual reality driving simulator
+Andrea Pietra1 · Marina Vazquez Rull1 · Roberta Etzi2 · Alberto Gallace3,4 · Giulia Wally Scurati2 · Francesco Ferrise2  · Monica Bordegoni2
+Received: 29 November 2019 / Accepted: 4 January 2021 / Published online: 15 January 2021 © The Author(s) 2021
+Abstract This paper describes the design and preliminary test of a virtual reality driving simulator capable of conveying haptic and visual messages to promote eco-sustainable driving behavior. The driving simulator was implemented through the Unity game engine; a large street environment, including high-speed and urban sections, was created to examine different driving behaviors. The hardware setup included a gaming driving seat, equipped with a steering wheel and pedals; the virtual scenarios were displayed through an Oculus Rift headset to guarantee an immersive experience. Haptic stimulation (i.e., vibrations) was delivered to the driver through the accelerator pedal, while visual stimuli (i.e., icons and colors) were shown on a virtual head-up display. The sensory feedbacks were presented both alone and in combination, providing information about excessive acceleration and speed. Four different virtual scenarios, each one including a distracting element (i.e., navigator, rain, call, and traffic), were also created. Ten participants tested the simulator. Fuel consumption was evaluated by calculating a mean power index (MPI) in reference to the sensory feedback presentation; physiological reactions and responses to a usability survey were also collected. The results revealed that the haptic and visuo-haptic feedback were responsible for an MPI reduction, respectively, for 14% and 11% compared with a condition of no feedback presentation; while visual feedback alone resulted in an MPI increase of 11%. The efficacy of haptic feedback was also accompanied by a more relaxing physiological state of the users, compared with the visual stimulation. The system’s usability was adequate, although haptic stimuli were rated slightly more intrusive than the visual ones. Overall, these preliminary results highlight how promising the use of the haptic channel can be in communicating and guiding the driver toward a more eco-sustainable behavior.
+Keywords  Virtual reality · Eco-driving · Haptics · Multisensory
+
+* Francesco Ferrise francesco.ferrise@polimi.it
+1 School of Industrial and Information Engineering, Politecnico Di Milano, Milan, Italy
+2 Department of Mechanical Engineering, Politecnico Di Milano, Via Giuseppe La Masa, 1, 20156 Milan, Italy
+3 Mind and Behavior Technological Center ‑ MibTec, Università Milano-Bicocca, Milan, Italy
+4 Department of Psychology, Università Milano-Bicocca, Milan, Italy
+
+1 Introduction
+As widely acknowledged by several international scientists, the Earth is facing a historical period of dramatic climate change (e.g., Cook et al. 2016). Given the current situation, nations have come together to fix targets to be reached in the next years in terms of greenhouse gasses emission (United Nations Environment Programme—Emissions gap report 2018). Many are the sectors (energy, buildings, industry, land-use) contributing to the overall phenomenon and, among them, the transport sector plays an important role, accounting for 23% of the total C­ O2 emissions in 2010 (Climate Change 2014: Mitigation of Climate Change).
+However, a world with no cars would be unimaginable at the current stage of our technological development; this is the reason why new solutions to limit the detrimental effects
+1 3 Vol.:(0123456789)
+
+946
+
+Virtual Reality (2021) 25:945–959
+
+of emissions deriving from their usage must be found. A widespread measure consists of introducing increasingly strict regulations oriented at avoiding the circulation of the most polluting cars. Another possible way of cutting the private road transport sector’s emissions consists of modifying the way people behave when driving.
+The set of precautions oriented at energy saving while driving goes under the definition of eco-driving (Barkenbus 2010). Researchers have demonstrated that consistent energy consumption reduction can be achieved simply by avoiding those behaviors typical of an aggressive driving style, characterized by abrupt accelerations and decelerations or excessive speed (e.g., Manning 2009). This solution has a general validity for any road vehicle since it does not consider any particular power train’s technical features. One of the main challenges on this topic is to find the best way to communicate to drivers how to modify the driving style without increasing their level of stress, since this may lead them to ignore the eco-feedback system (Tulusan et al. 2011). Drivers’ stress can result from situations of congestion and time pressure, causing negative psychological (e.g., frustration, irritation) and physiological responses (e.g., blood pressure, heart rate), leading to low concentration, aggressive driving, and ultimately a higher risk of accidents (Hennessy and Wiesenthal 1999).
+Since the human visual system is heavily overloaded when driving, human–machine interaction experts are increasingly considering adopting the other sensory modalities to reach the eco-driving goal. Among these, the haptic channel is likely to guarantee a broader range of feasible applications (e.g., Gallace et al. 2007; Gallace and Spence 2014; Ho and Spence 2017). Here, we present the design and a preliminary test on a small sample of participants of a virtual reality driving simulator, capable of conveying visual and haptic messages aimed at suggesting an eco-sustainable driving style.
+2 Related work
+2.1 How to eco‑drive?
+The reduction in emissions deriving from the private transportation sector can be achieved by promoting ecologically sustainable driving behaviors. Huang et al. (2018) summarized factors influencing fuel saving in eco-driving technologies for sustainable road transport. These factors are described in the following.
+2.1.1 Driving speed
+While driving, a constant speed should be maintained. For instance, El Shawarby et al. (2005) found a considerable
+
+reduction in emissions per unit distance by maintaining the speed into the range between 60 and 90 km/h; while Wang et al. (2008) identified a narrower range of 50–70 km/h. Of course, these ranges are still pretty large: more specific values can be identified depending on engine type, vehicle mass, and many other factors. Moreover, the values are well below the highways’ current speed limits, so the observance of these limits would be limited to urban roads.
+2.1.2 Acceleration and deceleration
+From a fuel-saving perspective, it is generally recommended to avoid aggressive driving styles in favor of smoother ones. This can be achieved by keeping a reasonable safety distance to the car in front, anticipating traffic lights and unexpected events, avoiding unnecessary accelerations/decelerations, and sticking as much as possible to a target speed. Nevertheless, it is not always true that small accelerations are preferable. Several studies (e.g., Saerens and Van den Bulck 2013; Xia et al. 2013) reported that harsher accelerations to reach the target velocity in a shorter time could lead to fuel and emissions savings. Moreover, it is not easy to assess a universal model for any vehicle and situation. For instance, in their study regarding liquefied petrol gas (LPG) car consumption, Choi and Kim (2017) differentiated between accelerations starting from zero velocity and the ones occurring when the speed is not null, identifying different critical values for the two situations.
+2.1.3 Idling
+Defined as the act of remaining still in neutral gear, it should be avoided or minimized, being it a zero-fuel efficiency situation. Besides, while idling, a larger amount of pollutants are produced, like carbon oxides (CO), hydrocarbons (HC), nitrogen oxides ­(NOx), and particulate matter (PM). In the last few years, many vehicles integrated the “start and stop” functionality to automatize the switching on and off the engine, obtaining good results, especially when driving in an urban environment. It was estimated that this technology might allow a 20% C­ O2 saving for vehicles with no start and stop (Fonseca et al. 2011). This is also allowed by the fact that modern motors do not suffer from multiple ignitions and thus idling times above 10 s can be substituted by a turned off phase.
+2.1.4 Route choice
+Despite not being precisely an eco-driving tip, it massively influences consumption and emissions. Navigation systems available on the market suggest to users the shortest or the fastest route, but none considers the amount of fuel used to reach the destination. Ericsson et al. (2006) found that
+
+1 3
+
+Virtual Reality (2021) 25:945–959
+
+947
+
+in 46% of cases, suggested pathways were not the most environmentally sustainable and that an 8.2% saving could be achieved with a fuel-optimized navigator. Analogous results were also obtained by Zeng et al. (2016), who developed an eco-routing approach resulting in 11% ­CO2 emission reduction with a 10% travel time buffer (i.e., allowing a 10% increase in the travel time considering the shortest trip possible). The importance of route choice is strictly related to the road slope. This aspect was analyzed by Gallus et al. (2017), who also correlated the consumption with the acceleration values. Results showed that for acceleration values up to ± 0.1 m/s2, ­CO2 and ­NOx emissions have a linear dependence with road slope for urban, rural, and motorway conditions.
+2.1.5 Air conditioning
+The air-conditioner compressor might use up to 5–6 kW of power. Compared with medium-size cars, it is equivalent to drive steadily at 55 km/h approximately. This means that it is convenient to roll the windows down at low speed because the aerodynamic drag is not too high. Instead, the drag increases and turns the air conditioning on for higher velocities, resulting in lower consumption.
+2.1.6 Weight
+Extra loads should be reduced to a minimum, considering that 45 kg might bring a 1–2% rise of fuel use onto a smallsized vehicle. A similar increase derives from driving with under-inflated tires. 4% is the possible effect of a poorly tuned engine, and worse behaviors could be caused by a faulty oxygen sensor (up to 40% increase; Sivak and Brandon Schoettle 2012).
+Among these factors, in this study, we focus on acceleration and speed since these are the factors mostly related to the driving style itself. Other feedback and suggestion systems could be designed to improve car users’ habits and decisions (e.g., providing advice on the most ecologic way to achieve thermal and general comfort according to the situation).
+However, delivering information and stimuli to the driver effectively to change their behavior without provoking sensory and cognitive overload is not a simple task. In the following, we discuss which aspects to consider in designing a feedback system and interface for eco-driving.
+2.2 Eco‑driving and human–machine interaction
+When dealing with driving, we need to consider the profound changes affecting the way we interact with vehicles. The increasing amount of technology inside the car requires the driver and occupants to pay attention to many stimuli
+
+and increments the number of different actions we perform inside the cockpit, modifying our driving behavior. Moreover, new drivetrains are now spreading, like the hybrid and electric ones. While driving style always affects fuel or energy consumption, its influence may vary depending on the motor type (Thomas et al. 2017). Moreover, our driving behavior is also affected by the lack of engine noise in electric vehicles than traditional ones (Knowles et al. 2012).
+It is the duty of interface design (or ecological interface design—EID—see McIlroy and Stanton 2015) to study and develop new and more efficient interaction channels to deal with this complexity. As stated by McIlroy and Stanton (2017), “the challenge is to develop Human–Machine Interaction (HMI) design guidance that not only deals with the novelty and complexity inherent in modern, non-conventional drivetrain vehicles, but influences drivers to choose more energy-efficient driving behaviors.” HMI design’s progress increases the possibilities of interaction and information to be conveyed, allowing the examination of depth fields that have remained unexplored so far. The fact that a person’s driving style has a strong interconnection with energy consumption and emission is not something new: Evans already studied this correlation in (1978), observing a 14% fuel saving thanks to the adoption of gentler accelerations. Other experiments were conducted during the 1980s, confirmed the correlation between acceleration patterns and fuel consumption (Hooker 1988). In those first stages of ecodriving analyses, people were simply asked to drive economically, without any kind of feedback, and this was sufficient to achieve a considerable result. However, suggestions and requests can be sufficient to make people behave in a certain way during a test, but they are insufficient to establish a constant and durable habit over time or in any situation.
+For this reason, the feedback was introduced to create awareness and stimulate a specific behavior. Nevertheless, feedback should be carefully designed not to be misleading and head to an utterly undesired result. For this reason, HMI design must guarantee clear communication, accurately selecting the information to be sent, and the more appropriate channels to be used depending on the specific temporal and spatial context surrounding the vehicle itself. Users need to feel comfortable when using such a device otherwise, they are likely to ignore it or, if possible, turn it off. The stimulus must be perceived as advice, as something safe, non-contradictory, and not invasive during the driving task. Direct intervention support might be perceived as annoying or even dangerous if it requires a high portion of the driver’s attentional resources (Ho and Spence 2007; Spence and Ho 2008). The designed interfaces should thus adapt to the user’s driving style, nudging him/her toward the desired behavior, and still guaranteeing a high-quality driving experience. It is fundamental to select the proper sensory channel to deliver the feedback (without provoking
+
+1 3
+
+948
+
+Virtual Reality (2021) 25:945–959
+
+sensory overload) and manage a series of parameters (e.g., intensity, position, timing). Moreover, designers can use a combination of multiple ones, as discussed hereafter.
+2.3 Use of multisensory feedbacks to promote
+eco‑driving
+For decades, information about the car state (e.g., fuel availability) and, in some cases, about the driving style (e.g., abrupt accelerations) has been provided to the driver through visual stimuli. As a result, car dashboards have been filled with icons, whose meaning may also vary depending on color changings (e.g., green-to-red) sometimes. This large amount of information may generate a confusing and distracting effect on the driver instead of being informative or helpful. Since vision is highly overloaded when driving, the haptic channel can be considered a valid alternative (e.g., Gallace et al. 2011; Ho and Spence 2017; McIlroy and Stanton 2017). Furthermore, beyond being less saturated, the tactile system has some intrinsic features which can make it even more convenient than the visual one (e.g., Gallace 2012; Gallace and Spence 2014; Spence and Gallace 2008). For instance, haptic stimulation allows for private communication, as it can be perceived only by the driver.
+Moreover, it can take advantage of the body’s large surface, which comes in contact with the car equipment (e.g., the hands placed on the steering wheel, the feet laying on the pedals; Gallace et al. 2007; Spence and Gallace 2007). The idea of using the haptic channel already came out about ten years ago, with the development of the Nissan Eco Pedal (https​://www.nissa​n-globa​l.com/EN/TECHN​ OLOGY/​ OVERVI​ EW/eco_pedal.​ html). This system worked as a force-feedback device, then exerting a reaction force to oppose the gas pedal pushing when a certain angular threshold of the pedal itself is overcome. However, its diffusion was minimal, probably because of its cost (it was only mounted on a few expensive vehicles—Infinity Q60, QX50) and its low user-friendliness. From a human perspective, the interaction with pedals is strictly connected to a “safety sense” while driving, and this pedal-resistance exploited by force-feedback devices might be perceived as dangerous, eliciting in the driver the feeling of not being in complete control of the vehicle.
+In these years, research focusing on the use of tactile stimuli to promote eco-driving is increasing. For instance, Birrell et al. (2013) investigated the effects of a haptic accelerator on the user’s driving performance and cognitive workload. The haptic stimuli consisted of vibrotactile feedback, delivered when a throttle threshold of 50% was overcome. The study results showed that the haptic feedback induced a better use of the throttle, with the additional advantage of reducing the subjective workload compared with when testers were only asked to drive economically. McIlroy
+
+et al. (2017) assessed the effect of the presentation timing of vibrotactile stimuli delivered to the accelerator pedal about the coasting behavior when approaching stopping situations. They found that medium and long times (i.e., 8 s and 12 s before the situation) were more effective and more accepted by users than shorter (i.e., 4 s) time-to-event stimuli and as compared with baseline (no feedback).
+Other studies assessed the effect of multiple sensory feedback, in isolation or combination, to reduce fuel consumption. In Staubach et al.’s work (2014), an eco-driving support system composed of a visual display and a forcefeedback pedal was designed to deliver information regarding economical gear shifting and acceleration/deceleration behaviors. This system was shown to guarantee better results in terms of eco-driving performance than a condition with no support. However, the haptic system’s acceptance was not high, as the pedal’s counter pressure was considered too strong by some users. McIlroy et al. (2016) delivered unisensory visual, tactile, and auditory, as well as their combination when coasting. The results seem to suggest (despite not being statistically significant) that visual information alone is less effective in inducing eco-driving behaviors than when combined with auditory or haptic stimuli. Regarding the users’ acceptance of the system, the conditions, including auditory feedback, were always appreciated less than the others.
+This work aims to use an immersive VR simulation to compare different eco-driving feedback (visual, haptic, and visuo-haptic) and collect some preliminary data regarding their acceptability and effect additions to user’s stress. We hypothesized the use of haptic stimuli to be more effective than visual feedback alone, as found in the previous literature and discussed above. The goal is also to verify if haptic feedback alone is more effective than a multisensory one, including visual stimuli as well.
+Moreover, we aim at evaluating the usability and efficacy of the developed VR system as a testing tool. The use of HMDs for driving simulations is less common than desktop display or multiple screens setups, and it has been reported to cause more simulator sickness (Weidner et al. 2017; Cao et al. 2020). However, immersive systems (HMDs, CAVEs) increase the feeling of being in the virtual environment (i.e., sense of presence; e.g., Kilteni et al. 2012) and emotional arousal compared with non-immersive ones (Kim et al. 2014): This may be a relevant feature since users’ stress condition is fundamental to understand for the development of useful feedback. However, Cao et al. (2020) compared game driving simulations using HMDs and desktop displays, did not found a significant difference in engagement levels. Hence, more research is needed to investigate the use of HMDs to test eco-driving feedback in simulations: To the best of our knowledge, there is a lack of studies on this topic in the extant literature.
+
+1 3
+
+Virtual Reality (2021) 25:945–959
+
+949
+
+3 Methods
+
+3.1 Prototype development
+
+We customized an existing virtual reality (VR) driving simulator to deliver both visual and vibrotactile stimuli to communicate eco-driving tips. Visual feedbacks were delivered through the virtual reality environment and the vibrotactile ones through a haptic accelerator pedal. Our work differs from the others listed in the literature research as it offers an immersive VR experience through a head-mounted display (HMD) instead of using screens only. This setup is highly effective because it allows us to recreate an immersive and highly engaging driving experience to assess whether and how visual and haptic feedback, alone or in combination, impact eco-driving behavior, and thus on energy consumption.
+An Arduino Uno board is used to receive the telemetry information from the virtual scene and activate motors in the haptic pedal according to the adopted thresholds and consumption model, as explained in the following. Data are printed frame by frame onto a text file, which is post-processed with Matlab, to compare different testers.
+The functioning logical flow of the setup is illustrated in Fig. 1.
+3.2 Hardware and testing equipment
+The setup consists of a gaming seat Playseat REG00060, which hosts the Logitech G29 steering wheel and pedals (see Fig. 2). The pedals have been modified to transform the accelerator pedal into a haptic device able to deliver vibrotactile stimuli. Oculus Rift (OLED screen resolution: 2160 × 1200–1080 × 1200 per eye-; refresh rate: 90 Hz)
+
+Fig. 2  Experimental setup consisting of a driving seat, a steering wheel and pedals
+is used as virtual reality headset. The horizontal field of view reaches ­110◦, and the device features positional and rotational tracking up to 6 degrees of freedom. Integrated headphones provide a 3D audio experience to guarantee the maximum sense of presence. The hardware components are connected to an OMEN X computer by HP, featuring an Intel Core i7-7800X CPU, 16 GB of RAM, and a GeForce GTX GPU.
+The prototype was also designed to test users’ reactions related to stress (analyzed here in terms of increase in arousal responses by the autonomic nervous system). Therefore, it included equipment for measuring the physiological response of participants. We used a Procomp Infiniti 5 (Thought Technology) and Skin Conductance (SC) electrodes to be attached to the index and ring fingers of participants, as well as a plethysmograph sensor for blood volume pulse (BVP) to the medium finger.
+
+Fig. 1  Block scheme representing the logical flow of the driving simulator
+
+1 3
+
+950
+
+Virtual Reality (2021) 25:945–959
+
+3.3 Haptic pedal
+
+A device capable of delivering vibratory stimulation to the user’s right foot through the accelerator was designed to provide feedback on the driving style eco-friendliness. The casing of the device reproduces the original pedal’s external shape by Logitech and can host up to four vibration motors on the backside (Fig. 3). The pedal was 3D printed in CPE (co-polyester), using an FDM 3D printer Ultimaker 3. Vibrations are produced by four ERM (eccentric rotating mass) motors (Precision Microdrives, model 310–113). The small size allows us to allocate the motors inside the prototype efficiently. Control is achieved through an Arduino UNO R3 board. A linear descending and a square wave trend of vibration amplitude, associated with different situations within the simulation, was used as a vibratory pattern. The only variable that characterizes this pattern is the cycle time, meaning the time interval during which vibration amplitude decreases linearly from the maximum value down to zero. Figure 4 shows a detailed photograph of the device.
+3.4 Virtual reality environment
+A neutral-gender avatar in a driving pose, simulating the driver’s body, was designed to facilitate a sense of presence. The wrists’ position was slightly adjusted via script as a function of the angle of rotation of the wheel to improve the movement’s realism. In addition, to avoid excessively capturing subjects’ visual attention, a transparent texture was assigned to the skin.
+The VR environment was developed using Unity (unity. com). The 3D models of the objects used to develop the virtual environment (e.g., cars, buildings, and roads) were downloaded from the Unity Asset Store. The road network was created through a dedicated tool called EasyRoad3D V3, which works as an extension plug-in of Unity. A total of four different driving paths have been implemented. The four scenes include approximately the same number of different items (e.g., crossings, roundabouts, traffic lights, pedestrian crossing), arranged in a randomized order to ensure the path’s level of knowledge is the same for all the environments (see Fig. 5). In particular, at least a total of eight
+
+Fig. 4  Haptic accelerator pedal realized through an Arduino UNO R3 Board
+intersection elements (crossing or roundabouts) are present in each scenario, together with three traffic lights. The different paths are extrapolated from a unique larger map containing all of them, differing in the positioning of traffic signals that induce the user to choose a direction instead of another. All of them start precisely with the same highway section, conveying into the urban area. Route information is supplied by signals indicating the direction to Milan, guiding the user to specific roads. Four different distraction (examples in Fig. 6) events have been implemented (see Table 1) to increase the cognitive workload and approach a real-life driving experience. The presence of distractors is one element that distinguishes laboratory and real-life settings (Bock et al. 2019). Therefore, it can increase the ecological validity of an experiment.
+Moreover, an audio track consisting of a car engine’s sound was added to the simulation to provide more realism and was provided through the headphones included in the Oculus Rift device.
+3.5 Vehicle physics
+The car was equipped with an automatic gearbox. Vehicle physics was mainly based on the Unity Standard Assets’ embedded scripts, with some modifications, since the base
+
+Fig. 3  Renders of the gas pedal and overall pedals assembly
+
+1 3
+
+Virtual Reality (2021) 25:945–959
+
+951
+
+Fig. 5  The four different paths of each scenario
+
+Fig. 6  Examples of the distractors included in the scenarios: a navigator icon presented on the HUD; b dense traffic event; c adverse weather condition
+
+Table 1  List and explanation of the distractor elements implemented in the virtual simulator
+
+1st Distractor Navigation system It projects information onto the head-up display. Icons representing the kind of in-coming road intersection and the distance value are shown, combined with auditory advice (female voice) (Fig. 5a)
+
+2nd Distractor High traffic
+
+It hosts complex traffic events, like cars approaching a crossing or a roundabout simultaneously as the user (Fig. 5b)
+
+3rd Distractor Rain
+
+The sky is dark, the wind makes the leaves of trees move, and the rain noise is added (Fig. 5c)
+
+4th Distractor Call
+
+It consists of a hands-free phone call, simulating a telephone survey during which users are asked to respond to a series of questions regarding environmental issues
+
+controller script supplied by Unity Standard Assets is not meant for realistic car simulation.
+An aspect that was modified concerning the default script concerned the way the vehicle steered. In the first place, the car maximum steering angle had a constant value, and the actual steering angle, applied frame by frame during the simulation, was simply the maximum one multiplied by the input value coming from the steering wheel (a value ranging
+
+from − 1 to 1). However, the resulting behavior did not lead to a realistic driving experience. Moreover, it turned to keep the car on track into quite a challenging task. The maximum steering angle was felt as excessive while driving at high speed in the motorway path, determining abrupt maneuvers or even collisions with the guard rails. For this reason, it was decided to make the maximum angle vary with speed. After various trials, evaluating the comfort of each solution,
+
+1 3
+
+952
+
+Virtual Reality (2021) 25:945–959
+
+a parabolic relationship was established between the angle and the vehicle’s speed, with the following equation:
+st = − 0.0015 ⋅ v2 − 0.04 ⋅ v + 40
+The adoption of this model brought consistent improvements in terms of usability of the simulator, reducing the time needed to train testers before starting the experimental procedure.
+A further improvement regarded the displayed velocity value. Unity can directly calculate a rigid body’s speed via a script by calling the appropriate function; however, the editor is not based on a metric reference system, making it difficult to achieve a congruous dimensioning of the environment. This results in a displayed speed value not always following the actual user perception during the simulation: The perception of low velocities was realistic, higher speeds were perceived as excessively small. For these reasons, a simple test was performed: Speed was recorded making the car accelerate from zero to the maximum velocity onto a straight road, obtaining in this way the correlation already embedded into the CarController Standard Assets script; telemetry data were then imported into an Excel sheet in order to be manipulated to find a more suitable function. The original set of data exported from the test is represented in the solid blue line, approximated by the dotted one, which is a polynomial of the third order. The main objective was to increase the displayed value while driving at a relatively high speed. Hence, two different modified sets of data were created: The red line in Fig. 7 has the purpose of shifting the graph rightward, delaying the reaching of the maximum speed; the grey line is instead a scaled version of the original set. By averaging between the two modified curves, it was possible to obtain a final profile: the visualized speed is near the original one at low values but is increased for higher ones.
+
+3.6 Consumption model
+A simplified model describing vehicle consumption is needed to evaluate the effectiveness of the eco-driving assistance system. Although cars are equipped with different types of drivetrains, with various fuels and transmissions, it is possible to describe the vehicle’s motion as a material point under the action of different forces. We refer to a work that investigated the energy demand of an electric taxi fleet (Fraile-Ardanuy et al. 2018). In particular, we have the rolling resistance force acting on wheels, the aerodynamic drag force, the vehicle’s weight, and the inertia force. The following equations, respectively, describe the cited terms:
+Frr = R(Mcar + Mp)g cos( )
+Fa = ACd v2
+Fw = (Mcar + Mp)g sin( )
+Fi = 1.05(Mcar + Mp)a
+where R is the tire rolling resistance coefficient, Mcar is the vehicle mass, Mp is the mass of people inside the car, g is the gravitational acceleration, α is the road grade, A is the frontal area of the vehicle, Cd is the aerodynamic drag coefficient, ρ is the dry air density at 20 °C (1.2041 kg/m3), v is the car speed, and a is the acceleration. The overall tractive force to be overcome in order to make the vehicle move is the sum of these components:
+Ft = Frr + Fa + Fw + Fi
+that can then be multiplied by the velocity to obtain the tractive power Pt = Ft ·v [W]. The evaluation of consumption is thus translated into an evaluation of power demand during the driving path.
+Data are recorded, together with temporal and spatial references, and written into a text file useful for post-processing analyses.
+
+3.7 Visual stimuli
+
+Fig. 7  Speed profile analysis and modification. (Blue line: original data. Dot blue line: approximation. Grey line: scaled version of the original data set. Yellow line: average between red and grey line, red line is used to shift the graph rightward) (colour figure online)
+
+One of the most direct ways of sending a visual message to the user consists of using colors. Humans make a very fast association between colors and meaning, depending on the specific situation: We link colors to natural elements (red is the color of fire, green is the color of woods) but are also affected by other experiences, for instance, the familiarity with the concept of traffic lights, in which red and green stand for “stop” and “go” (Caivano 1998). In particular, red is the color that shows a stronger association in a context related to safety, representing danger or alert (Pravossoudovitch 2014). For these reasons, we used the color red for the visual stimuli. In particular, to be consistent with the types of haptic stimuli delivered through the pedal, two different feedbacks were implemented. A red icon of the gas
+
+1 3
+
+Virtual Reality (2021) 25:945–959
+
+953
+
+pedal standing as the visual equivalent of the pedal’s linear descending pattern (Fig. 8) and a white-to-red transition of the displayed speed to warn about the excessive velocity (Fig. 9).
+Visual stimuli were projected on a head-up display (HUD), defined as a transparent display placed where the drivers’ forward gaze is expected to be while driving. We preferred HUD to a traditional head-down display (HDD) since there are benefits related to the possibility of keeping a forward-looking visual field, leading to faster reaction times, improved task performance, and reduced cognitive workload (Merenda et al. 2018).
+4 User study
+4.1 Participants
+Ten participants (four females, mean age: 25.3 ± 2.86, age range: 22–32) completed the experiment. All the participants held a valid driving license; they all reported regular foot tactile sensitivity and normal or corrected-to-normal vision with contact lenses; seven out of ten users reported previous experience with VR systems. Regarding the driving frequency, five users reported to drive multiple times per week, four users every day, one user multiple times per month. The study was performed following the ethical standards laid down in the Declaration of Helsinki and received the University of Milano-Bicocca ethical committee’s approval. All the participants gave their informed consent before taking
+
+part in the study, and upon request, some of them received course credit as a reward for their participation.
+4.2 Procedure
+Upon their arrival, the participants were welcomed and showed the experimental setup described in the previous section. The experience began with a demo specifically realized for training purposes to familiarize them with the HMD display and the driving task (see Fig. 10). Here, the user could drive along a one-way road in the countryside, including both rectilinear and curvy roads, as well as hills. Only those who did not experience motion sickness in this phase and, only when considered sufficiently trained to go on with the experiment, showing confidence in using the system were tested. Four experimental conditions were presented: baseline (i.e., no sensory feedback), haptic feedback, visual feedback, and visuo-tactile feedback. Each condition was interrupted by the experimenter after 5 min, regardless of the position reached along the road path, to reduce fatigue and the negative consequences of wearing a VR headset. Each participant started with the baseline condition and then proceeded with the sensory conditions. The order of presentation of the sensory conditions was randomized across users. The distractor elements were randomly coupled with the sensory feedback for each participant to exclude any effect of their presentation. Their effect was, in fact, beyond
+
+Fig. 8  Accelerator pedal icon used as visual stimulus
+
+Fig. 10  Training scenario used to make the users practice before starting the experimental study
+
+Fig. 9  The color gradient of the HUD displayed speed
+
+1 3
+
+954
+
+Virtual Reality (2021) 25:945–959
+
+the scope of this paper. A 5 min-break after each condition was performed in order to avoid fatigue effects.
+Regarding the delivery of the visual, haptic, or both the feedback, two were the situations that triggered the stimuli; one referred to accelerations, the other referred to speed. According to the different eco-driving behaviors promoted, the threshold values changed from position to position inside the driving path. Each path was subdivided into four different sections: the highway, the ascending part of the bridge, the descending part of the bridge, and the urban area.
+1. While driving on the highway, it is fundamental to keep the vehicle speed as constant as possible. For this reason, a maximum value of acceleration was set to 1.5 m/ s2, beyond which warning feedback (being it haptic, visual, or both) was delivered. When driving at high speed, it is convenient to maintain the velocity value under a certain limit, which was set to 110 km/h.
+2. After the highway exit heading to Milan, a bridge is present, created to evaluate a situation with a road slope different from zero. It was decided not to supply any stimuli during the ascending phase, while the combination of road slope and throttle angle determined the exertion during the descending phase. In particular, if the throttle angle exceeded 30%, the stimulus was provided.
+3. The urban section of the path is mainly focused on acceleration. Traffic lights, roundabouts, and crossings are the most influencing factors determining the speed profile so that the only differences reside in the pedal’s use. It was decided to accept a maximum acceleration of 5 m/s2 for speed values under 30 km/h, to allow harsher accelerations when starting from zero velocity. Beyond 30 km/h, the maximum level of acceleration was 3 m/s2.
+At the end of the test, the users filled in a survey to evaluate the experience and the virtual environment (see Table 2 questions). Each question was answered through a visual analog scale (VAS) anchored by the labels “not at all” at the left extreme and “very much” at the right extreme. The questions were presented in Italian, and their order of presentation was randomized across participants. The physiological response was measured during each 5 min session.
+
+4.3 Data analysis
+A Matlab code was used to analyze the vehicle telemetry. According to the presented simplified consumption model, it was possible to calculate a power index parameter, whose value has no physical meaning because some constants were assigned with a unitary value. However, this aspect is entirely acceptable because this work aims not to assess a precise quantitative consumption estimate. Nevertheless, it is sufficient to demonstrate a qualitative correlation of speed and acceleration with the vehicle’s energy demand. Together with this power index (calculated for every time frame acquired), two parameters are computed: the mean power index and the mean speed over the entire simulation. The first one is an index of the overall energy required, while the second works like a normalized time parameter. One of the crucial questions to be demonstrated in eco-driving experiments is the little variance of travel-time with the exertion of stimuli. If no particular deviation of mean velocity concerning the stimuli-free condition is found, then it is possible to conclude that the human–machine communication did not influence the ride’s duration. In order to assess the effects of the different feedbacks on mean power index (MPI), a repeated measure analysis of variance (ANOVAs) with four levels (i.e., four feedback conditions) on nine users (technical issues occurred with one user) was performed.
+MPI was used as an index of overall energy required, while the mean speed was not considered in the analyses as depending on the specific road sections (i.e., urban vs. highway roads) and events (i.e., traffic lights, pedestrian crossings). As for the survey, the scale ratings were converted into scores ranging from 0 (not at all) and 100 (very much). A t test was conducted to compare the intrusiveness of the visual and haptic feedback presented (Q7 and Q8). Here, as well, data were available only for nine users. Raw physiological data were elaborated through the software Biograph Infiniti, coming with the Procomp 5 device. Heart rate (HR) and skin conductance level (SCL) were computed as indexes of physiological arousal in the 5 min temporal window. Only the data of eight users were available because of technical problems.
+
+Table 2  List of questions (Q1– Q8) presented to the users at
+
+Q1
+
+the end of the virtual driving
+
+Q2
+
+experience
+
+Q3
+
+Q4
+
+Q5 Q6 Q7 Q8
+
+How much did you feel present and involved in the virtual activity? How much did you feel as you were actually driving a car? Did you encounter any difficulties during the initial training? Do you think that the avatar hands on the steering wheel moved synchronously
+with your real hands? Do you think that the driving task was easy to be performed? Do you think that the VR experience was comfortable? Do you think that the visual stimuli (i.e., icons and colors) were intrusive? Do you think that the haptic stimuli (i.e., accelerator vibration) were intrusive?
+
+1 3
+
+Virtual Reality (2021) 25:945–959
+
+955
+
+5 Results
+Regarding the MPI, the feedback condition’s main effect was not significant [F(3, 24) = 1.06, p = 0.38]. However, the use of haptic stimuli induced a reduction in the MPI of 14%. The combination of visual and haptic feedback led to a reduction of 11%, compared with the baseline (see Fig. 11). By contrast, the presentation of visual stimuli consisted of an increase in the MPI of 11%.
+As shown in Fig. 12, the feeling of being present in the virtual environment (Q1) was pretty high (M = 75.33, SD = 11.20), meaning that the environment successfully allowed the users to feel involved as a part of the virtual environment. By contrast, the sense of agency (Q2) received lower ratings (M = 58.55, SD = 8.74; despite still higher than the middle point), indicating that more has to be done to offer a greater sense of being the agent of the own actions. Some incongruences in the spatial and temporal coincidence between the user’s real hands and the avatar’s hands likely played a role here, as suggested by the avatar synchronization question (Q3), which also reported relatively low evaluations (M = 48.33, SD = 24.89). Although the virtual steering wheel rotated synchronously with the real one, if the user misplaced or removed one of the hands from the real steering wheel, this behavior was not mirrored in the virtual environment. The training demo (Q4) was evaluated as only slightly difficult (M = 33.22, SD = 25.79), and the easiness of driving (Q5) received pretty good ratings as well (M = 61.55, SD = 15.50). The comfort of the VR experience (Q6) was not high (M = 52.66, SD = 15.17) and, combined with the
+
+large number of users who quit the experience before actually starting the experiment for experiencing motion sickness, it warns once more about the limitation of VR and the need to find some strategies to reduce these adverse effects. The questions about the intrusiveness of the sensory feedback used (Q7 and Q8) indicated that the colored icons (M = 19.77, SD = 15.61) were less intrusive than the pedal vibrations (M = 44.77, SD = 31.01). The t test revealed that this difference in intrusiveness is statistically significant [t(8) = 2.29, p = 0.05].
+The ANOVA revealed no HR differences among the different sensory feedback [F(3, 21) = 0.97, p = 0.42] (Fig. 13). The effect of the feedback condition for SCL was not significant as well [F(3, 21) = 1.99, p = 0.14] (Fig. 14). Hence, from a physiological point of view, the users did not react differently to the sensory feedback experienced.
+6 Discussion and conclusion
+This work presented the design process, development phase, and the conduction of a preliminary user test of a prototype realized to assess the effect of visual and haptic feedback on eco-driving behavior. Immersive VR through an HMD, combined with a setup composed of a driving seat, steering wheel, and pedals, has been adopted to offer the testers a realistic and emotionally involving experience. Driving performance metrics, usability questionnaires, and bodily responses were collected to obtain a comprehensive view of the user-machine interaction. Overall, the preliminary results, based on a small sample of participants, suggested that the prototype worked adequately and provided us with
+
+Mean power index
+
+1.00E+09 9.00E+08 8.00E+08 7.00E+08 6.00E+08 5.00E+08 4.00E+08 3.00E+08 2.00E+08 1.00E+08 0.00E+00
+
+Absent
+
+HapƟc
+
+Visual
+
+Visuo-HapƟc
+
+Fig. 11  Results of the Mean Power Index (MPI) about the different sensory feedback conditions Error bars represent the standard error of the mean
+
+1 3
+
+956
+
+Virtual Reality (2021) 25:945–959
+
+RaƟng scale (0: "not at all"; 100: "very much")
+
+100
+
+90
+
+80
+
+70
+
+60
+
+50
+
+40
+
+30
+
+20
+
+10
+
+0 Q1 - Sense of Q2 - Sense of Q3 - Avatar Q4 - Training Q5 - Driving
+
+presence
+
+agency synchrony diﬃculty easyness
+
+QuesƟons
+
+Q6 - VR Q7 - Visual Q8 - HapƟc comfort intrusiveness intrusiveness
+
+Fig. 12  Mean responses to the visual analog scales (VASs). Error bars represent the standard error of the mean
+
+Fig. 13  Mean Heart Rate (HR) in response to the different sensory conditions. Error bars represent the standard error of the mean
+
+Heart rate (beats/min)
+
+140 120 100
+80 60 40 20
+0 Absent
+
+HapƟc
+
+Visual
+
+Feedback
+
+Visuo-hapƟc
+
+valuable insights about the effectiveness of visual and haptic feedback, alone or paired, and how to proceed with further development projects. The data resulting from the energy consumption indicated the promising capacity of haptic messages delivered to the accelerator pedal to reduce fuel consumption. Despite not being statistically significant, the reduction of 14% in energy consumption as compared with the condition of no feedback can be considered as a good result and a great starting point for future improvements, as also showed by other research (e.g., McIlroy et al. 2016, 2017; McIlroy and Stanton 2017). Regardless the vibrotactile stimuli did not receive a large acceptance from users (differently from the more spread colored icons in cars),
+
+as they were judged as rather intrusive when driving. This result suggests that the haptic stimulation still guided users toward a specific action (e.g., depress the accelerator pedal). Moreover, this feeling might derive from the stimulation’s specific properties (e.g., intensity, frequency). A further study should examine whether this sense of intrusiveness can be reduced by changing the haptic stimulation quality and, consequently, the users’ perception.
+The combination of visual and haptic feedback had a positive effect on energy consumption and a reduction of 11% compared with the baseline (for a similar effect, see Staubach et al. 2014). The delivery of multisensory stimuli might be overloading for the user. However, sometimes the
+
+1 3
+
+Virtual Reality (2021) 25:945–959
+Fig. 14  Mean Skin Conductance Level (SCL) in response to the different sensory conditions. Error bars represent the standard error of the mean
+
+Skin Conductance Levle (uS)
+
+6 5 4 3 2 1 0
+Absent
+
+957
+
+HapƟc
+
+Visual
+
+Feedback
+
+Visuo-hapƟc
+
+redundancy of congruent information can more efficiently attract the driver’s attention as an effect of multisensory integration neural processes (e.g., Ho and Spence 2017; Stein 2012). By contrast, visual feedbacks in isolation not only did not elicit an improvement of eco-driving behavior, but they even increased by 11% of energy consumption. This result is not very surprising since vision is known to be burdened when driving, which is also why the spread of new studies in the automotive field focused on identifying alternative channels and new strategies to communicate with users intuitively.
+From a physiological point of view, the users’ cardiac and electrodermal activities were not influenced in a statistically different way by the sensory feedback conditions. Nevertheless, the mean HR recorded during the haptic condition was a bit lower than in the other cases (especially than in the visual one), letting us speculate about the possibility that feedbacks conveyed through touch are less bodily arousing, more relaxing, and less alerting (with a negative connotation, such as an anxiety response) than those communicated through the other sensory modalities.
+In general, the usability of the prototype can be defined as adequate as it emerges from the survey results. The users’ involvement was high thanks to the immersive VR experience offered; the driving task was relatively easy to accomplish and manageable. In particular, the users’ sense of presence was high. This is probably due to the introduction of the driver’s avatar and the synchronization of his/her hands’ movements on the steering wheel. This point is crucial as it provides suggestions on maximizing the users’ feelings of presence in the virtual environment within driving experience simulations. Improvements need to be done regarding the comfort of the VR experience (despite this is a common problem for those working with these systems) and the sense of agency, meant as the feeling of really being the person who is driving the car.
+
+To sum up, the present work has provided relevant preliminary insights about promoting eco-driving behavior through multisensory stimuli. In particular, the efficiency of haptic feedback in reaching this purpose has been demonstrated. This knowledge will be useful for further implementing eco-driving support systems in virtual driving simulators and real cars and the field of virtual games. Furthermore, this paper introduces and highlights the relevance of collecting the user’s physiological responses to investigate the cognitive (e.g., attention, engagement) and emotional (e.g., relax/stress) effects of newly designed interfaces objectively.
+This work’s limitations are related to the low number of participants and loss of data available due to technical issues occurring during the experiment. Additional studies will then need to be performed to confirm and further extend the findings reported here.
+In particular, it would be interesting to evaluate how acceptance of haptic stimuli is affected by users’ experience with vibro-tactile feedback and, eventually, exposure to it over time: a reason behind the fact that it was found obtrusive could be that users are not familiar with similar interfaces. This could be verified by repeating tests on several occasions (see also the ‘mere exposure effect’ in the psychological literature about individual preferences; Zajonc 2001) to understand if drivers can get used to the stimuli. Moreover, this procedure would allow us to assess if participants’ performance improves when eco-driving feedback is continuous. Finally, additional studies would make it possible to evaluate if the change in driving style persists when the feedback is removed, durably modifying users’ habits: This would mean that the use of similar systems and simulations would be valid for training purposes. This kind of solution could significantly benefit specific categories of drivers, for instance, professionals driving for several hours, especially if using heavy vehicles, as they have a major environmental impact than regular drivers.
+
+1 3
+
+958
+
+Virtual Reality (2021) 25:945–959
+
+Funding  Open Access funding provided by Politecnico di Milano.
+Open Access  This article is licensed under a Creative Commons Attribution 4.0 International License, which permits use, sharing, adaptation, distribution and reproduction in any medium or format, as long as you give appropriate credit to the original author(s) and the source, provide a link to the Creative Commons licence, and indicate if changes were made. The images or other third party material in this article are included in the article’s Creative Commons licence, unless indicated otherwise in a credit line to the material. If material is not included in the article’s Creative Commons licence and your intended use is not permitted by statutory regulation or exceeds the permitted use, you will need to obtain permission directly from the copyright holder. To view a copy of this licence, visit http://creat​iveco​mmons​.org/licen​ses/by/4.0/.
+References
+Barkenbus JN (2010) Eco-driving: an overlooked climate change initiative. Energy Policy 38(2):762–769
+Birrell SA, Young MS, Weldon AM (2013) Vibrotactile pedals: provision of haptic feedback to support economical driving. Ergonomics 56(2):282–292
+Bock O, Drescher U, Janouch C, Haeger M, van Winsum W, VoelckerRehage C (2019) An experimental paradigm for the assessment of realistic human multitasking. Virtual Real 23(1):61–70
+Caivano JL (1998) Color and semiotics: a two‐way street. Color Research and application: endorsed by inter‐society color council, the colour group (Great Britain), Canadian Society for Color, Color Science Association of Japan, Dutch Society for the Study of Color, The Swedish Colour Centre Foundation, Colour Society of Australia, Centre Français de la Couleur, 23(6):390–401
+Cao S, Nandakumar K, Babu R et al (2020) Game play in virtual reality driving simulation involving head-mounted display and comparison to desktop display. Virtual Real 24:503–513. https​://doi. org/10.1007/s1005​5-019-00412​-x
+Choi E, Kim E (2017) Critical aggressive acceleration values and models for fuel consumption when starting and driving a passenger car running on LPG. Int J Sustain Transp 11(6):395–405
+Climate Change (2014) Mitigation of Climate Change IPCC fifth assessment report, working group III. Chapter 8: Transport. https​ ://www.ipcc.ch/repor​t/ar5/wg3/. Last checked on October 31, 2019
+Cook J, Oreskes N, Doran PT, Anderegg WR, Verheggen B, Maibach EW, Nuccitelli D (2016) Consensus on consensus: a synthesis of consensus estimates on human-caused global warming. Environ Res Lett 11(4):048002
+El-Shawarby I, Ahn K, Rakha H (2005) Comparative field evaluation of vehicle cruise speed and acceleration level impacts on hot stabilized emissions. Transp Res Part D Trans Environ 10(1):13–30
+Ericsson E, Larsson H, Brundell-Freij K (2006) Optimizing route choice for lowest fuel consumption–potential effects of a new driver support tool. Transp Res Part C Emerg Technol 14(6):369–383
+Evans L (1978) Driver behavior effects on fuel consumption in urban driving. In: Proceedings of the human factors society annual meeting, vol 22, no. 1. Sage Publications, Los Angeles, pp 437–442
+Fonseca N, Casanova J, Valdes M (2011) Influence of the stop/start system on CO2 emissions of a diesel vehicle in urban traffic. Transp Res Part D Transp Environ 16(2):194–200
+Fraile-Ardanuy J, Castano-Solis S, Álvaro-Hermana R, Merino J, Castillo Á (2018) Using mobility information to perform a feasibility
+
+study and the evaluation of spatio-temporal energy demanded by an electric taxi fleet. Energy Convers Manag 157:59–70 Gallace A (2012) Living with touch: understanding tactile interactions. The Psychologist 25:3–5 Gallace A, Spence C (2014) In touch with the future: the sense of touch from cognitive neuroscience to virtual reality. OUP Oxford, Oxford Gallace A, Tan HZ, Spence C (2007) The body surface as a communication system: The state of art after 50 years of research. Presence Teleoper Virtual Environ 16:655–676 Gallace A, Ngo MK, Sulaitis J, Spence C (2011) Multisensory presence in virtual reality: possibilities and limitations. In: Ghinea G, Andres F, Gulliver S (eds) Multiple sensorial media advances and applications: new developments in mulsemedia. IGI Global, Berlin Gallus J, Kirchner U, Vogt R, Benter T (2017) Impact of driving style and road grade on gaseous exhaust emissions of passenger vehicles measured by a portable emission measurement system (PEMS). Transp Res Part D Transp Environ 52:215–226 Hennessy DA, Wiesenthal DL (1999) Traffic congestion, driver stress, and driver aggression. Aggress Behav Off J Int Soc Res Aggress 25(6):409–423 Ho C, Spence C (2017) The multisensory driver: Implications for ergonomic car interface design. CRC Press, London Hooker JN (1988) Optimal driving for single-vehicle fuel economy. Transp Res Part A General 22(3):183–201 Huang Y, Ng EC, Zhou JL, Surawski NC, Chan EF, Hong G (2018) Eco-driving technology for sustainable road transport: a review. Renew Sustain Energy Rev 93:596–609 Kilteni K, Groten R, Slater M (2012) The sense of embodiment in virtual reality. Presence Teleoper Virtual Environ 21(4):373–387 Kim K, Rosenthal MZ, Zielinski DJ, Brady R (2014) Effects of virtual environment platforms on emotional responses. Comput Methods Programs Biomed 113(3):882–893 Knowles M, Scott H, Baglee D (2012) The effect of driving style on electric vehicle performance, economy and perception. Int J Electr Hybrid Veh 4(3):228–247 Manning C (2009) Minnesota pollution control agency. The psychology of sustainable behavior: tips for empowering people to take environmentally positive action. Minnesota Pollution Control Agency McIlroy RC, Stanton NA (2015) Ecological interface design two decades on: whatever happened to the SRK taxonomy? IEEE Trans Hum Mach Syst 45(2):145–163 McIlroy RC, Stanton NA (2017) Eco-driving: from strategies to interfaces. CRC Press, London McIlroy RC, Stanton NA, Godwin L, Wood AP (2016) Encouraging eco-driving with visual, auditory, and vibrotactile stimuli. IEEE Trans Hum Mach Syst 47(5):661–672 McIlroy RC, Stanton NA, Godwin L (2017) Good vibrations: Using a haptic accelerator pedal to encourage eco-driving. Transp Res Part F Traffic Psychol Behav 46:34–46 Merenda C, Kim H, Tanous K, Gabbard JL, Feichtl B, Misu T, Suga C (2018) Augmented reality interface design approaches for goaldirected and stimulus-driven driving tasks. IEEE Trans Visual Comput Graphics 24(11):2875–2885 Pravossoudovitch K, Cury F, Young SG, Elliot AJ (2014) Is red the colour of danger? Testing an implicit red–danger association. Ergonomics 57(4):503–510 Saerens B, Van den Bulck E (2013) Calculation of the minimum-fuel driving control based on Pontryagin’s maximum principle. Transp Res Part D Trans Environ 24:89–97 Sivak M, Schoettle B (2012) Eco-driving: Strategic, tactical, and operational decisions of the driver that influence vehicle fuel economy. Transp Policy 22:96–99
+
+1 3
+
+Virtual Reality (2021) 25:945–959
+
+959
+
+Spence C, Gallace A (2007) Recent developments in the study of tactile attention. Can J Exp Psychol 61:196–207
+Spence C, Gallace A (2008) Making sense of touch. In: Chatterjee E (ed) Touch in Museums: policy and practice in object handling. Berg, Oxford, pp 21–40
+Spence C, Ho C (2008) Multisensory warning signals for event perception and safe driving. Theor Issues Ergon Sci 9(6):523–554
+Staubach M, Schebitz N, Köster F, Kuck D (2014) Evaluation of an eco-driving support system. Transp Res Part F Traffic Psychol Behav 27:11–21
+Stein BE (ed) (2012) The new handbook of multisensory processing. Mit Press, New York
+Thomas J, Huff S, West B, Chambon P (2017) Fuel consumption sensitivity of conventional and hybrid electric light-duty gasoline vehicles to driving style. SAE Int J Fuels Lubr 10(3):672–689
+Tulusan J, Soi L, Paefgen J, BrogleM, Staake T (2011) Eco-efficient feedback technologies: which eco-feedback types prefer drivers most? In: 2011 IEEE international symposium on a world of wireless, mobile and multimedia networks. IEEE, pp 1–8
+United Nations Environment Programme. Emissions gap report (2018) https​://www.unenv​ironm​ent.org/resou​rces/emiss​ions-gap-repor​ t-2018, Nov 2018. Last checked on September 10, 2019
+
+Wang H, Fu L, Zhou Y, Li H (2008) Modelling of the fuel consumption for passenger cars regarding driving characteristics. Transp Res Part D Transp Environ 13(7):479–482
+Weidner F, Hoesch A, Poeschl S, Broll W (2017) Comparing VR and non-VR driving simulations: an experimental user study. In: 2017 IEEE virtual reality (VR). IEEE, pp 281–282
+Xia H, Boriboonsomsin K, Barth M (2013) Dynamic eco-driving for signalized arterial corridors and its indirect network-wide energy/ emissions benefits. J Intell Transp Syst 17(1):31–41
+Zajonc RB (2001) Mere exposure: a gateway to the subliminal. Curr Direct Psychol Sci 10(6):224–228. https​://doi. org/10.1111/1467-8721.00154​
+Zeng W, Miwa T, Morikawa T (2016) Prediction of vehicle CO2 emission and its application to eco-routing navigation. Transp Res Part C Emerg Technol 68:194–214
+Publisher’s Note Springer Nature remains neutral with regard to jurisdictional claims in published maps and institutional affiliations.
+
+1 3
+

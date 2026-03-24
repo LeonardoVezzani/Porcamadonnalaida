@@ -1,0 +1,248 @@
+Navigating a Heavy Industry Environment Using Augmented Reality - A Comparison of Two Indoor
+Navigation Designs
+Alexander Arntz(B), Dustin Keßler, Nele Borgert, Nico Zengeler, Marc Jansen, Uwe Handmann, and Sabrina C. Eimler
+Institute of Computer Science, University of Applied Sciences Ruhr West, Bottrop, Germany
+{alexander.arntz,dustin.kessler,nele.borgert,nico.zengeler, marc.jansen,uwe.handmann,sabrina.eimler}@hs-ruhrwest.de
+Abstract. The fourth industrial revolution seeks to enhance and optimize industrial processes through digital systems. However, such systems need to meet special criteria for usability and task support, ensuring users’ acceptance and safety. This paper presents an approach to support employees in heavy industries with augmented reality based indoor navigation and instruction systems. An experimental study examined two diﬀerent user interface concepts (navigation path vs. navigation arrow) for augmented reality head-mounted-displays. In order to validate a prototypical augmented reality application that can be deployed in such production processes, a simulated industrial environment was created. Participants walked through the scenario and were instructed to work on representative tasks, while the wearable device oﬀered assistance and guidance. Users’ perception of the system and task performance were assessed. Results indicate a superior performance of the navigation path design, as it granted participants signiﬁcantly higher perceived support in the simulated working tasks. Nevertheless, the covered distance by the participants was signiﬁcantly shorter in navigation arrow condition compared to the navigation path condition. Considering that the navigation path design resulted in a higher perceived Support, renders this design approach more suitable for assisting personnel working at industrial workplaces.
+Keywords: Augmented reality · Heavy industry · Indoor navigation · Work support · HCI · Experimental study
+1 Introduction
+Heavy industries, especially metal manufacturing enterprises in Germany, are facing an ever-increasing competition on a global scale. In order to compete, local metal suppliers are in need to respond with cost eﬀective products oﬀering
+c Springer Nature Switzerland AG 2020 J. Y. C. Chen and G. Fragomeni (Eds.): HCII 2020, LNCS 12191, pp. 3–18, 2020. https://doi.org/10.1007/978-3-030-49698-2_1
+
+4
+
+A. Arntz et al.
+
+a high quality and variety. Thus, the optimization of production processes is a key factor in reaching this goal. A major element in the production process is the workforce [17]. At every point in the entire production chain and in various hierarchical levels, employees’ decisions have an impact on the success of the planning and the execution of the production [26]. The introduction of digital systems in production processes can aid to connect interoperable machines, sensory communication and employees, thus increasing eﬃciency [8,35]. Providing a system that supports employees in their actions by oﬀering secure, real-time and process-related data could help reducing ﬂawed decisions and shorten reaction times [27]. This can result in an overall improved production and contributes to economic success. The goal of this project is to deliver this data in a simple, reliable and intuitive way that automatically recognizes the context, the user’s role and permissions. At the same time, the system should provide information required in the current circumstance and avoid redundant data that might confuse the user [32]. For this purpose, the project DamokleS 4.0 developed a context model [18], which manages and sorts all data and sends it to a variety of mobile devices, on demand for the user. One of these mobile devices utilized in the architecture is an augmented reality head-mounted-display (HUD) [13]. Augmented reality provides an interface for embedding digital content, such as indoor navigation and context-based information, in an industrial application and allows to visualize data, i.e. navigation paths, directly into the ﬁeld of view (FOV) of the employees [17]. However, due to the various safety concerns in an industrial environment (heavy machinery and hazardous materials), it is necessary to evaluate how and in what way AR-support is most eﬀective in this kind of scenario [24]. For this purpose, an experimental setup was created that compares two AR-applications, each containing a distinct indoor navigation user interface and a set of tasks for the test participants to conduct. The project aimed at evaluating the eﬀectiveness of diﬀerent, hands-free navigational design approaches in AR to determine the beneﬁt and the possible ﬁeld of application of such technologies.
+
+2 Related Work
+While there are several AR-navigation approaches and diﬀerent projects researching the usage of AR for heavy industries, few combined the aspects of context-based instructions and indoor navigation in potentially hazardous environments [22]. A crucial factor is the position localization, as only a precise implementation can help to warn the user of potentially dangerous areas or, in the case of an emergency, guide the person to the nearest exit. Mobile solutions, whether on a smartphone or HMD, cannot rely on a GPS signal alone for a calculation of the user’s position, as signal strength will be diminished indoors, especially in an industrial environment [22]. Similar research projects used backpacks with additional hardware, such as a sophisticated GPS receiver, to improve results of the navigation, though the precision still highly depends on the structural components of the indoor environment [23]. Considering that
+
+Navigating a Heavy Industry Environment Using Augmented Reality
+
+5
+
+additional hardware carried by the personnel is inconvenient and cumbersome, other solutions were pursuit for this project [27]. Kim and Jun proposed a visionbased location algorithm for AR-based indoor navigation, which uses an image database of prerecorded images in order to estimate the current location of the user [19]. This requires external computation, which processes the live images and compares them to a database. Rehman and Cao presented a similar approach using a mobile framework, which did the comparison of live information and an image database on the device [29]. Both methods require a detailed image library, a consistent environment and a network connection. Due to the limited capabilities of current, mobile, AR-compatible cameras to cope with dim lit environments, these solutions were not found suitable for an industrial context. Omitting the image-based calculation by the AR-device, beacon-based navigation was evaluated as an external reference for location data, as prior research in this technology was promising. For this purpose, the experimental environment was outﬁtted with a set of beacon transmitters, which used a trilateration approach for location detection [10,33]. This technique is calculating the position based on the relative distance of three reference points. However, the structural composition of common industrial facilities caused too much interference, resulting in a constant signal instability. Even the usage of additional ﬁlters failed to deliver reliable data for positional location. A much more reliable solution was the utilization of a camera-based detection model that can track the movement of personnel and objects in real-time and calculate their position. In case of short network interruptions that hinder the information relay to the AR-device, a backup solution was implemented. Current AR-devices, such as the Microsoft HoloLens, make use of infrared cameras to create a virtual topography of the surroundings, which results in a precise position detection in 3-dimensional space, even in low light or changing environments [4].
+
+3 Research Questions
+With the technical aspects ﬁgured out, the question remained how to design the user interface (UI) of the AR-application, to eﬃciently assist users’ in their tasks within the production facilities, while securely directing them around. The ﬁrst objective was to design a UI that is displayed properly within the ﬁeld of view without occluding the perception of the user. The design of the AR-content is required to allow the user to focus equally on the virtual elements and the real environment. Prior research suggests that high contrast iconography is suitable for dim lit conditions [21]. Apart from the visual aspects, audio cues can be neglected due to the volume of noise in industrial areas [35].
+The next important aspect is the usability of the used AR-application. Despite the design of usability aspects and overall user-experience of ARhardware still being a challenge, AR brings the enormous beneﬁt of seamlessly integrating information into the real-world environment, enabling the coexistence of virtual content next to actual surroundings. This improves Ease of Use as the usage of metaphors that need to meet the expectation of a users mental
+
+6
+
+A. Arntz et al.
+
+model is diminished. In addition, an application or system containing a high Ease of Use is expected to generate greater acceptance by the user, thus contributing to the overall eﬀectiveness of the technology [20]. In order to validate the concept of an AR-based support and navigation application, a test scenario was created that compares two distinctive navigation designs. The ﬁrst being a representation of an arrow giving directions to the current way-point, while the second method consists of a 3D line which augments the users view with additional data regarding the optimal path. The concept of the ﬁrst design, containing the arrow, is to provide the user the freedom to choose the path desired while delivering an assistance on where to go next. In addition to this, displaying a constant visual indication towards the next point of interest helps the user to always maintain an overview of his surroundings. The second approach encourages the user to follow the optimal calculated path, which is displayed as a virtual line on top of the real-world environment. Those two techniques were chosen, as they resemble traditional navigation systems used in the automobile industry or smartphone based navigation applications. The user tasks, iconography and texts were identical in both applications. Based on the assumption that inexperienced participants will need more assistance while guiding through the scenario, it is expected that the path condition outperforms the arrow condition. Although more restrictive in movement, the path condition indicates a precise route for the user, thus reducing uncertainty in the process of ﬁnding the way. This is described in the following research questions:
+– RQ1: Is the distance of the covered path longer when using the navigation path design compared to the navigation arrow design?
+– RQ2: Is the time needed to navigate between two workstations longer when using the navigation path design compared to the navigation arrow design?
+– RQ3: Is the perceived Ease of Use better when using the path navigation design compared to the navigation arrow design?
+– RQ4: Is the perceived Support in the environmental tasks better when using the navigation path design compared to the navigation arrow design?
+4 The AR-Device
+Before developing the AR-application, decisions on the target platform were made. The current market oﬀers a variety of diﬀerent AR-devices, ranging from camera-based embedding of virtual content into a viewﬁnder to full spectrum holographic projections [3]. Most AR-headsets are based on the Android operational system, like the ODG series or Vuzix headsets [6]. Although these headsets feature a slim frame, which grants the advantage to be worn simultaneously with a helmet within an industrial environment, they lack the substantial hardware needed to render complex 3D objects. The HoloLens has a 40◦ ﬁeld of view and uses two see-through holographic lenses combined with two high dynamic light engines, allowing for a bright, high-resolution display of information [3]. A mobile Intel chip and 2 GB of random access memory in combination with 4 infrared sensors that capture the real environment allow for high-quality holograms and positioning them within the real world [4].
+
+Navigating a Heavy Industry Environment Using Augmented Reality
+
+7
+
+5 Method and Material
+
+In order to design the application, prior research was used as a guideline in order to design an eﬃcient system with no interfering variables [11]. Parts of the Microsoft guidelines for mixed reality design were also applied in combination with the ISO-9241 for ergonomics of human-computer interaction, covering aspects such as visual representations, auditory outputs and interactions with the system [2,5]. Principles described in the literature [31] were incorporated into the design process of the components such as fonts and icons, animations and the overall appearance of the application [7]. Colors were bright enough to be seen in an industrial environment with low light situations, while oﬀering enough contrast to support users with visual impairments or color-blindness. The color white was avoided in written text, as the HoloLens tends to produce strong chromatic aberration eﬀects during quick head movements, which might distract or confuse the user. Also, the type of font used in the application was an important factor in terms of readability. Serif fonts are more visually pleasing to some, but have the problem that when displayed in AR, the small ﬁeld of view of current AR-devices leads to a more compressed look of the letters and therefore makes them harder to read. In addition, certain icons are used as visual cues for the user to indicate additional functionalities (Fig. 1 and Fig. 2).
+
+5.1 Navigation Arrow Design
+The ﬁrst layout condition consisted mainly of a three dimensional arrow, resembling a compass pointing in the direction of the next target (Fig. 1). The arrow was programmed to point to the destination in a line of sight, instructing the user not on the direct path but merely the overall direction. The arrow was color-coded, hence the right direction colored the arrow green and any other direction red, with a smooth transition between the two states [11].
+
+5.2 Navigation Path Design
+The second navigation implementation contained a navigation route that, based on the user’s own body height, was displayed thirty centimeters below the eyes. The idea was to provide a navigation line that can easily be seen without obstructing the participants view. Projecting the path onto the ground level of the real environment would have positioned a large part of it outside of the rendering area of the HoloLens. The displayed line showed a direct path to the next target and hinted the way to the following objective, which is shown in Fig. 2.
+
+5.3 Trial Run
+A trial run was conducted to get ﬁrst insights about the application and test procedure as well as to detect aspects that need optimization before conducting
+
+8
+
+A. Arntz et al.
+
+Fig. 1. The design of the arrow navigation right next to the task icon, alerting the participants that a speciﬁc machine demands their attention (“distance 1.68 m”).
+
+Fig. 2. The navigation route showing the direct path to the next target. The line hints at the next direction, similar to turn-by-turn navigation found on applications such as Google Maps (“distance 4.39 m”).
+
+Navigating a Heavy Industry Environment Using Augmented Reality
+
+9
+
+the larger scale experiment. A total of ten participants took part in the test and were instructed to use both applications and compare their impressions. The participants were provided with microphones and instructed to complete the tasks while thinking-aloud. The test case with the AR-applications took about 3 min, with an average duration of M = 157 s (SD = 24). After completing each of the two scenarios, participants of the trial run were additionally interviewed by the supervisor and asked about their positive and negative impressions of both applications, as well as about major problems or additional thoughts. Participants were students and staﬀ from the University of Applied Sciences Ruhr West and did not receive any compensation for taking part in this research. After data collection, the voice recordings from the trial and the subsequent interviews were transcribed and analyzed. Half of the participants were male, the other half were female. Since a qualitative approach is applied for exploring the strength and weaknesses of the prototype, the comparably small number of participants was considered adequate [16]. This approach was useful to collect relevant aspects for both redesign and item generation for the actual in-depth study with the system [15]. The average age was M = 28.9 years (SD = 4.3). Some of the remarks were due to technical and hardware limitations of the currently available AR-technology, i.e. a small FOV or chromatic aberration during fast head movements. Only minor aspects were named regarding the application itself. These included the positioning of text labels and the size of the augmented content. These aspects were adjusted for the main experimental study.
+
+5.4 Test Procedure
+Before participants took part in the industrial scenario that was staged, they were asked to ﬁll out a pre-questionnaire. Apart from demographical questions, the survey asked participants about their previous experience with ARtechnologies, their technology acceptance and their overall well-being. The latter was done to determine negative physical eﬀects of the AR-application such as motion sickness. Then participants were outﬁtted with security clothing commonly found in industrial related workplaces in addition to the AR-glasses. The combination of the surroundings being enriched with loud sounds, several props acting as industrial machines and barriers deliberately structured as a maze and thus forcing the participants to follow the navigation to their respective tasks (Fig. 3), simulated a believable industrial setting. The ﬁrst task was designed to replicate the maintenance of machine, in which participants were guided through the necessary steps by the AR-application. At the end of the procedure of the ﬁrst task, the participants were guided to another location and were then instructed to log their actions into a console, which represented the second task. Afterwards the instruction was to follow the navigation to a simulated third station, while a simulated hot steel plate was encountered en route (Fig. 4). The ARapplication recognized this hazardous area and guided the user safely around it. Once the hazardous area was passed, a ﬁre alarm was triggered, which prompted the AR-application to notify the participants that an evacuation is necessary.
+
+10
+
+A. Arntz et al.
+
+Showing the route to the nearest exit, the AR-application assisted the participants in ﬁnding their way out (Fig. 5). Once complete, the scenario was stopped, and the supervisor helped the participant out of the security clothing and ARglasses. The participants were then asked to ﬁll out the second part of the questionnaire, that asked about positive and negative activation, ﬂow, immersion and augmented-reality-attitude [9]. Additionally, every task and the navigation between the tasks were assessed.
+
+Fig. 3. The test track in the simulated industrial environment, as described in [35]. The participants follow a calculated navigation route (blue) and complete a series of tasks, which is captured by ﬁve cameras (green). (Color ﬁgure online)
+5.5 Sample
+In total, 52 participants took part in the study. All of them were students from the University of Applied Sciences Ruhr West. The gender distribution of the participants was 67.3% male and 32.7% female. The assignment to the respective conditions was conducted at random with 26 participants for each condition. 5.7% of all participants reported to regularly use AR-devices. Most of the participants (76.9%) stated to wear an AR-device for the ﬁrst time.
+
+Navigating a Heavy Industry Environment Using Augmented Reality
+
+11
+
+Fig. 4. The hazardous area is indicated by a red box accompanied by a warning label (“hazardous area!, temperature: 260.51◦” and “distance 4.08 m”) signaling to participants avoid that area. (Color ﬁgure online)
+Fig. 5. The warning notiﬁcation (“Attention! Evacuation initiated. Follow the path to the exit!” and “distance 5.59 m”) that instructed the participants to follow the navigation to the nearest exit.
+
+12
+
+A. Arntz et al.
+
+5.6 Measurements
+The questionnaire used in the study contained multiple scales to evaluate the two conditions, i.e. Flow, Immersion and the Augmented Reality Applications Attitude Scale (ARAAS) [14]. Complementing to the survey, objective measurements such as the path length, based on positional data gathered either by the AR-device or the camera tracking, were evaluated as well. In order to rate the navigational design, self constructed scales were utilized in addition to established usability scales [25]. All items were rated on a 5 point Likert scale from 1 (totally disagree) to 5 (totally agree). For the evaluation of the research questions, sub-scales were used and validated with a reliability analysis. All four scales related to the covered route, each representing one task or sub-scenario, were divided into three sub-scales (Perception, Ease of Use and Support). The ﬁrst scale for example contained questions like “I could perceive the content on the display well.” or in case of the Ease of Use sub-scale: “The instructions provided by the device were understandable”. Support was covered with questions like: “The AR-application supported me in ﬁnding the right way”. All utilized sub-scales were deemed suﬃcient for this experiment in their reliability (Table 1).
+
+Table 1. Reliability, means and standard deviations to the sub-scales Perception, Ease of Use and Support in every four path evaluations.
+
+Primary route to the ﬁrst task
+
+(α) M SD
+
+Perception
+
+.83 4.15 0.76
+
+Ease of Use
+
+.84 4.36 0.72
+
+Support
+
+.90 4.25 0.75
+
+Primary route to the second task
+
+Perception
+
+.81 4.37 0.69
+
+Ease of Use
+
+.91 4.55 0.74
+
+Support
+
+.85 4.29 0.66
+
+Primary route along hazardous area
+
+Perception
+
+.89 4.27 0.82
+
+Ease of Use
+
+.93 4.60 0.74
+
+Support
+
+.91 4.36 0.65
+
+Primary route for evacuation
+
+Perception
+
+.86 3.18 0.52
+
+Ease of Use
+
+.94 4.62 0.72
+
+Support
+
+.84 4.27 0.93
+
+Navigating a Heavy Industry Environment Using Augmented Reality
+
+13
+
+6 Results
+
+This section contains the results of an exploratory data analysis of the experiment regarding the previously established research questions. The R programming language (R version 3.6.2; RStudio version 1.2.1335) was used for statistical analyses [28,30]. To jointly consider the relationship between the outcome variables of interest when comparing group diﬀerences, a Multivariate Analysis of Variance (MANOVA) was calculated. A robust model was conducted because both, the homogeneity of covariance matrices assumption and the multivariate normality assumption, were breached. Thus, the MANOVA was performed on the ranked data using Choi and Marden’s method [12], implemented in R using the cmanova() function [34]. There is a signiﬁcant main eﬀect of the type of design on outcome measures, H (16) = 45.74, p < .001. Separate univariate ANOVAs on the four outcome variables systematically addressed the research questions in follow-up analyses. From these test statistics, one can conclude the nature of the eﬀect found in the MANOVA. Figure 6 displays the error bar charts of the two navigation design groups across the found signiﬁcant dependent variables.
+
+(a) Across support situations
+
+(b) Across path length
+
+Fig. 6. Error bar chart of navigation design groups across outcome measures.
+
+RQ1: Is the distance of the covered path longer when using the navigation path design compared to the navigation arrow design?
+Using a ﬁrst ANOVA, diﬀerences in path length between the conditions were analyzed. The results show a signiﬁcant diﬀerence in path length between the
+
+14
+
+A. Arntz et al.
+
+navigation designs, F (1, 50) = 4.37, p < .05. The path length was signiﬁcantly longer for the navigation path design compared to the navigation arrow design.
+RQ2: Is the time needed to navigate between two workstations longer when using the navigation path design compared to the navigation arrow design?
+
+To examine the diﬀerence of path time between the navigation path and navigation arrow design another ANOVA was calculated. The results do not show any eﬀect. No diﬀerence between the path time in navigation path or navigation arrow design could be noticed, F (1, 50) = 0.028, p = .87.
+RQ3: Is the perceived Ease of Use better when using the path navigation design compared to the navigation arrow design?
+
+Results of a third ANOVA indicate no eﬀect between the designs regarding Ease of Use. However, there is a trend in group diﬀerences for speciﬁc path segments; in the hazardous area, F (1, 50) = 2.99, p = .09, and during evacuation, F (1, 50) = 3.61, p = .06. While results diﬀered slightly, the navigation path design outperformed the navigation arrow design.
+RQ4: Is the perceived Support in the environmental tasks better when using the navigation path design compared to the navigation arrow design?
+
+The perceived system Support is signiﬁcantly diﬀerent between the groups during the initial phase of the navigation leading to the ﬁrst task, F (1, 50) = 4.54, p < .05, and in the hazardous area, F (1, 50) = 5.50, p < .05. Further, a trend is visible in perceived Support diﬀerences for the ﬁrst path segment, F (1, 50) = 3.48, p = .07. In these situations, the navigation path design is rated more supportive than the navigation arrow design.
+
+6.1 Instructions in AR
+All participants successfully completed the ﬁrst task, namely matching the serial numbers of a workstation and connecting a plug to the correct socket. There were no remarks regarding the presentation of text and the general opinion was that it was useful, as participants had “no devices in the hands that would prevent them from completing the task”. The second task was partially completed. A ﬁnger scanner, where participants where supposed to identify themselves was positioned right next to the workstation, which was used to enter the previously acquired serial number. None of the participants were able to ﬁnd the scanner, though it was equipped with a big sign. Most of them thought, the scanner was to be found as a part of the workstation itself. Additional information regarding the location of the scanner are therefore required. Roughly half of the participants completed the input of the serial number into the workstation. Those who did not ﬁnish the task either were distracted by the overlapping of the projection
+
+Navigating a Heavy Industry Environment Using Augmented Reality
+
+15
+
+of the virtual serial number and the input mask of the workstation or did not have enough time to complete the task. In this case, the form of presentation of holographic data must be adjusted and should not be similar to task 1.
+
+6.2 Recommendations
+In the following part, a short overview over the most common positive and negative characteristics of each of the two layouts is presented. Participants mentioned that the navigation using the arrow allows for a big ﬁeld of view that is free from any kind of virtual display. As the arrow is relatively small and has a ﬁxed position, it is therefore easy to see the surroundings or to adjust the head position to clear the view. In addition, the color-coding of the arrow (green vs. red) gave a fast assessment of whether the current direction of gaze is correct or not. On the other hand, the 3D-model of the arrow was not always clearly interpreted as an arrow facing exactly forwards and could be mistaken for an arrow facing backwards. In addition, as the arrow did not show a precise route to the user, once someone headed oﬀ the correct path a direction might not be enough information to get to the destination successfully. Almost all of the participants mentioned that the advantage of the route layout is the precise presentation of an exact path on the ground, which helps to orientate oneself. Especially the display of upcoming way points was evaluated positively, as the path was more transparent for the participants compared to the arrow layout. The main negative aspect was the fact that the route often overlapped with a big part of the real environment, which made it diﬃcult to spot potential obstacles. Many participants suggested decreasing the thickness of the line while increasing its transparency to allow for a more detailed FOV. In addition, once the direction of gaze was facing away from the route augmentation, no indicator was available leading the user back to the current path. This forced the participants to look around until they found it again by themselves. The AR-devices analyzed the internal coordinates every 0.5 s and saved the current location. Locating the precise position and recording them is made possible by using the internal coordinate system of the AR-device. This data is important for future analyses, comparing the results and potential diﬀerences of the eﬀectiveness of both navigation layouts.
+
+7 Discussion
+The results indicate, that the path length is signiﬁcantly shorter in the arrow path design. Furthermore, participants rated the condition more favorably in terms of Perception, Ease of Use and Support. As these signiﬁcant diﬀerences manifest in every segment of the route, the overall tendencies of the data leans towards the navigation path design. This is especially important in time critical situations, i.e. emergency evacuations, where a shorter path length reduces potential harm on personnel. Although the diﬀerence in path length was signiﬁcant, the time to conduct all tasks was not. This can be argued that the staged
+
+16
+
+A. Arntz et al.
+
+industrial area provided insuﬃcient space and that a larger area or a more complex setting might have provided further diﬀerences. However, this experiment showed that the navigation path approach should be considered in case these systems will be deployed in a real industrial environment. Perception and Ease of Use indicate a signiﬁcant diﬀerence towards the navigation path design during the segments containing dangerous obstacles and the evacuation. One might argue that the navigation path design has a higher accommodation eﬀect, that allows users to handle the system information more easily, thus navigating more conﬁdently. Support during the tasks and navigation was perceived signiﬁcantly better during the ﬁrst stage and the evacuation process. This indicates that the navigation path design communicates its functionality more clearly for users on their ﬁrst contact with the application. This situation happened again during the evacuation, where participants felt signiﬁcantly more supported by the system. These results can be essential when establishing such a system in a real industrial context.
+
+8 Conclusion
+The results allow the conclusion that users beneﬁt from the arrow path design, especially when it comes to path length and navigation eﬃciency. However, this needs further exploration in future studies. The path navigation received higher acceptance with regard to visual accessibility, Ease of Use and the feeling of being supported, especially in moments of insecurity, i.e. in the presence of hazardous objects or during an evacuation. It might be that, especially in these situations, users need a clearer “long term” guidance rather than the near-ﬁeld micro-navigation support provided by the arrow. This might also explain why only minor or no diﬀerences occur between both designs with regard to the other measures. Further analyses are still running, including camera data and in-depth analyses of gender diﬀerences. Additional research is needed to cover more tasks, the result of trust in the system, especially in risk situations, and its application to real heavy industry environments.
+Acknowledgments. This work was part of the DamokleS 4.0 project funded by the European Regional Development Fund (ERDF) [1], the European Union (EU) and the federal state North Rhine Westphalia. The authors thank Mathias Grimm, Ziyaad Qasem and Vanessa Du¨mpel for their preparations regarding the setup and help with data collection, as well as all participants contributing to the study.
+
+References
+1. EU regional development fund. https://ec.europa.eu/regional policy/de/funding/ erdf. Accessed 20 Jan 2020
+2. HoloLens design principles. https://docs.microsoft.com/en-us/windows/mixedreality/design. Accessed 20 Jan 2020
+3. HoloLens product. https://docs.microsoft.com/en-us/windows/mixed-reality/ design. Accessed 20 Jan 2020
+
+Navigating a Heavy Industry Environment Using Augmented Reality
+
+17
+
+4. HoloLens spatial mapping. https://developer.microsoft.com/en-us/windows/ mixed-reality/spatial mapping in unity. Accessed 20 Jan 2020
+5. ISO 9241–2010. https://www.iso.org/standard/52075.html. Accessed 20 Jan 2020 6. Vuzix product. https://www.vuzix.com/. Accessed 20 Jan 2020 7. Proceedings of the 13th International Conference on Human Computer Interaction
+with Mobile Devices and Services (2011). https://doi.org/10.1145/2037373 8. IEEE International Conference on Emerging Technologies and Factory Automation
+(ETFA), 16–19 September 2014, Barcelona, Spain. IEEE, Piscataway (2014) 9. Azuma, R.T.: A survey of augmented reality. Presence Teleoperators Virtual Env-
+iron. 6(4), 355–385 (1997). https://doi.org/10.1162/pres.1997.6.4.355 10. Baek, S.H., Cha, S.H.: The trilateration-based BLE beacon system for ana-
+lyzing user-identiﬁed space usage of new ways of working oﬃces. Build. Environ. 149, 264–274 (2019). https://doi.org/10.1016/j.buildenv.2018.12.030, http:// www.sciencedirect.com/science/article/pii/S036013231830773X 11. Billinghurst, M., Grasset, R., Looser, J.: Designing augmented reality interfaces. ACM SIGGRAPH Comput. Graph. 39, 17–22 (2005). https://doi.org/10.1145/ 1057792.1057803 12. Choi, K., Marden, J.: An approach to multivariate rank tests in multivariate analysis of variance. J. Am. Stat. Assoc. 92(440), 1581–1590 (1997). https://doi.org/ 10.1080/01621459.1997.10473680 13. D¨orner, Ralf, Broll, Wolfgang, Grimm, Paul, Jung, Bernhard (eds.): Virtual und Augmented Reality (VR/AR). Springer, Heidelberg (2013). https://doi.org/10. 1007/978-3-642-28903-3 14. D´ıaz Noguera, M.D., Toledo Morales, P., Herv´as-G´omez, C.: Augmented reality applications attitude scale (araas): diagnosing the attitudes of future teachers. New Educ. Rev. 50, 215–226 (2017). https://doi.org/10.15804/tner.2017.50.4.17 15. Flick, U.: Qualitative Sozialforschung: Eine Einfu¨hrung, Rororo Rowohlts Enzyklop¨adie, vol. 55694. rowohlts enzyklop¨adie im Rowohlt Taschenbuch Verlag, Reinbek bei Hamburg, originalausgabe, 8. auﬂage edn., August 2017 16. Flick, U., von Kardorﬀ, E., Steinke, I. (eds.): Qualitative Forschung: Ein Handbuch, Rororo Rowohlts Enzyklop¨adie, vol. 55628. Rowohlts Enzyklop¨adie im Rowohlt Taschenbuch Verlag, Reinbek bei Hamburg, 12. auﬂage, originalausgabe edn. (2017) 17. Hermann, M., Pentek, T., Otto, B.: Design principles for industrie 4.0 scenarios: a literature review (2015). https://doi.org/10.13140/RG.2.2.29269.22248 18. Hermsen, K., et al.: Dynamic, adaptive and mobile system for context-based and intelligent support of employees in the steel industry contact data (2019) 19. Kim, J., Jun, H.: Vision-based location positioning using augmented reality for indoor navigation. IEEE Trans. Consum. Electron. 54(3), 954–962 (2008). https:// doi.org/10.1109/TCE.2008.4637573 20. Kruijﬀ, E., Swan, J.E., Feiner, S.: Perceptual issues in augmented reality revisited. In: H¨ollerer, T. (ed.) 9th IEEE International Symposium on Mixed and Augmented Reality (ISMAR), 2010. pp. 3–12. IEEE, Piscataway (2010). https://doi.org/10. 1109/ISMAR.2010.5643530 21. Mar´ın, E., Gonzalez Prieto, P., Maroto G´omez, M., Villegas, D.: Head-up displays in driving (2016) 22. Mulloni, A., Seichter, H., Schmalstieg, D.: Handheld augmented reality indoor navigation with activity-based instructions. In: Bylund, M. (ed.) Proceedings of the 13th International Conference on Human Computer Interaction with Mobile Devices and Services, p. 211. ACM, New York, NY (2011). https://doi.org/10. 1145/2037373.2037406
+
+18
+
+A. Arntz et al.
+
+23. Narzt, W., Pomberger, G., Ferscha, A., Kolb, D., Mu¨ller, R., Wieghardt, J., Ho¨rtner, H., Lindinger, C.: Augmented reality navigation systems. Univ. Access Inf. Soc. 4(3), 177–187 (2006). https://doi.org/10.1007/s10209-005-0017-5
+24. Paelke, V.: Augmented reality in the smart factory: supporting workers in an industry 4.0. environment. In: IEEE International Conference on Emerging Technologies and Factory Automation (ETFA), 2014, pp. 1–4. IEEE, Piscataway (2014). https://doi.org/10.1109/ETFA.2014.7005252
+25. Peres, S.C., Pham, T., Phillips, R.: Validation of the system usability scale (SUS). Proc. Hum. Factors Ergon. Soc. Annu. Meet. 57(1), 192–196 (2013). https://doi. org/10.1177/1541931213571043
+26. Pethig, F., Niggemann, O., Walter, A.: Towards industrie 4.0 compliant conﬁguration of condition monitoring services. In: 2017 IEEE 15th International Conference on Industrial Informatics (INDIN), pp. 271–276, July 2017. https://doi.org/ 10.1109/INDIN.2017.8104783
+27. Qasem, Z., Bons, J., Borgmann, C., Eimler, S., Jansen, M.: Dynamic, adaptive, and mobile system for context-based and intelligent support of employees in heavy industry. In: 2018 Sixth International Conference on Enterprise Systems (ES), pp. 90–95. IEEE (2018). https://doi.org/10.1109/ES.2018.00021
+28. R Core Team: A Language and Environment for Statistical Computing. R Foundation for Statistical Computing, Vienna, Austria (2014). http://www.R-project. org/
+29. Rehman, U., Cao, S.: Augmented-reality-based indoor navigation: a comparative analysis of handheld devices versus google glass. IEEE Trans. Hum. Mach. Syst., 1–12 (2016). https://doi.org/10.1109/THMS.2016.2620106
+30. RStudio Team: RStudio: Integrated Development Environment for R. RStudio Inc., Boston, MA (2018). http://www.rstudio.com/
+31. Salvendy, G.: Handbook of Human Factors and Ergonomics. Wiley, USA (2005) 32. Schmalsteig, D., H¨ollerer, T.: Augmented reality: principles and practice. In:
+ACM SIGGRAPH 2016 Courses, p. 1, July 2016. https://doi.org/10.1145/2897826. 2927365 33. Thomas, F., Ros, L.: Revisiting trilateration for robot localization. IEEE Trans. Robot. 21(1), 93–101 (2005). https://doi.org/10.1109/TRO.2004.833793 34. Wilcox, R.R.: Introduction to Robust Estimation and Hypothesis Testing, 3 edn. Elsevier/Academic Press, Amsterdam (2012). http://site.ebrary.com/lib/alltitles/ docDetail.action?docID=10521171 35. Zengeler, N., et al.: Person tracking in heavy industry environments with camera images. In: S-CUBE 2019–10th EAI International Conference on Sensor Systems and Software, November 2019
+

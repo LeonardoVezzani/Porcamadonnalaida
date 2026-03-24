@@ -1,0 +1,627 @@
+
+JavaScript is disabled on your browser. Please enable JavaScript to use all the features on this page. Skip to main content Skip to article
+Elsevier logo ScienceDirect
+
+    Journals & Books 
+
+    Search 
+
+Register Sign in
+
+    View  PDF
+    Download full issue 
+
+Outline
+
+    Highlights
+    Abstract
+    Keywords
+    1. Introduction
+    2. Background
+    3. Research framework
+    4. Implementation and experiments
+    5. Conclusion and future work
+    Acknowledgments
+    References 
+
+Show full outline
+Cited by (131)
+Figures (15)
+
+    Fig.1. Different types of AR markers for optical tracking [26]: (a) ID marker, (b)…
+    Fig.2. Proposed framework with paper focus emphasized
+    Fig.3. Examples of natural indoor markers: (a,b) exit signs, (c) fire distinguisher…
+    Fig.4. Research methodology
+    Fig.5. Software prototype architecture and its components
+    Fig.6. Experimental setup for marker detection performance tests: (a) map of…
+
+Show 9 more figures
+Tables (3)
+
+    Table 1
+    Table 2
+    Table 3 
+
+Elsevier
+Automation in Construction
+Volume 48 , December 2014, Pages 18-30
+Automation in Construction
+Natural markers for augmented reality-based indoor navigation and facility maintenance
+Author links open overlay panel Christian Koch a , Matthias Neges b 1 , Markus König a 2 , Michael Abramovici b 3
+Show more
+Add to Mendeley
+Share
+Cite
+https://doi.org/10.1016/j.autcon.2014.08.009 Get rights and content
+Highlights
+
+    •
+
+    Natural markers support AR-based indoor navigation and facility maintenance.
+    •
+
+    We evaluate the performance of natural markers for indoor navigation purposes.
+    •
+
+    We verify the practical potential based on case studies on the university campus.
+
+Abstract
+
+The longest phase in a facility's lifecycle is its maintenance period, during which operators perform activities to provide a comfortable living and working environment as well as to upkeep equipment to prevent functional failures. In current practice operators need a considerable amount of time to manually process dispersed and unformatted facility information to perform an actual task. Existing research approaches rely on expensive hardware infrastructure or use artificial, thus unesthetic Augmented Reality (AR) markers. In this paper we present a natural marker based AR framework that can digitally support facility maintenance (FM) operators when navigating to the FM item of interest and when actually performing the maintenance and repair actions. Marker detection performance experiments and case studies on our university campus indicate the feasibility and potential of natural markers for AR-based maintenance support.
+
+    Previous article in issue
+    Next article in issue 
+
+Keywords
+Augmented reality
+Facility maintenance
+Natural markers
+Performance study
+1. Introduction
+
+The longest period in the lifecycle of a building is the operation and maintenance (O&M) or facility management (FM) phase. In this phase, facility managers and operators perform activities to provide a comfortable living and working environment (e.g. pleasant temperatures) as well as to upkeep equipment to prevent functional failures. Since over 85% of the entire lifecycle costs are spent on facility management [1] , improvements to the maintenance procedure will significantly reduce the overall building lifecycle budget.
+
+Today's maintenance practice is characterized by dispersed and unformatted facility information that operators often need to manually browse, sort and select. Although software systems have recently been introduced, 50% of the on-site maintenance time is still spent on localizing inspection targets and navigating to them inside a facility [2] . Moreover, linked maintenance instructions are often multi-page documents, which sometimes are difficult to comprehend, in particular in case of emergencies.
+
+Although some recent research studies propose to use Building Information Modeling (BIM) by either integrating or linking work order information to them, not all necessary information is currently available in a digitally integrated and standardized model. Moreover, available Ultra-wide Band (UWB), Wireless Local Area Networks (WLAN), Radio Frequency Identification (RFID) and Global Positioning System (GPS) indoor navigation approaches have been validated, but they rely on a costly equipment infrastructure for tags and readers. Existing Augmented Reality (AR) based solutions use artificial markers for both navigation and maintenance instruction support. This kind of marker is tedious to install all over a facility and also has some esthetical issues.
+
+In this paper we propose a natural marker based Augmented Reality framework that can digitally support facility maintenance operators in performing their daily on-site maintenance jobs. Since 50% of the on-site maintenance time is still spent on localizing and navigating, and existing maintenance instructions are often multi-page, incomprehensible documents [2] , our framework supports operators when (1) navigating to the FM item of interest and when (2) actually performing the maintenance and repair action. The main contribution of this paper is to highlight the big potential of natural markers, such as exit signs, to enable AR-based facility maintenance support. The presented methodology is implemented as a prototype and has been successfully tested on the university's campus. The results indicate the feasibility and the potential of the proposed framework.
+2. Background
+2.1. Current practices
+
+In today's maintenance and repair practice facility operators need to gather and access dispersed and unformatted facility information in order to handle work orders [3] . Typically, this information is handed over from the building design and the construction phase and is available in form of 2D drawings, spreadsheets, bar charts, field reports and paper-based guidelines. Collected in so-called Facility Document Repositories, the facility handover data is physically space consuming and might occupy an entire room [4] . Recently, Computer-Aided Facility Management (CAFM) Systems for space management and Computerized Maintenance Management Systems (CMMS) for work order management have been introduced to digitally support operators in integrating preventive maintenance schedules and intervals, shop and installation drawings, cost control and documentation, device specifications and manuals, warranty information, replacement parts providers, as-is performance data, etc. [3] , [4] .
+
+However, in order to prepare an actual on-site maintenance job, operators need to identify the location of the maintenance item inside the building, the route towards it as well as relevant maintenance instruction manuals. According to Lee and Akin [2] , 50% of the on-site maintenance time is solely spent on localizing and navigating. Furthermore, linked maintenance instructions are often multi-page documents, which sometimes are difficult to comprehend, in particular in case of emergencies.
+2.2. Current research efforts
+
+In order to cope with current limitations and to improve building maintenance procedures, several research efforts have been undertaken.
+2.2.1. Providing FM-relevant information
+
+Building Information Modeling (BIM) is an up-to-date method involving the generation and management of a digital representation of the physical and functional characteristics of a facility during its entire lifecycle [4] . Although an increasing amount of maintenance-related information has been incorporated into BIM so far, not all data necessary to perform work orders is currently part of BIM solutions (e.g. manufacturer's maintenance instructions).
+
+Even if supported by BIM standards, such as the Industry Foundation Classes (IFC), the actual FM data still needs to be manually rekeyed into the building model multiple times based on the handover documents [4] . To automate this process, East et al. [4] have proposed an open-standard IFC-based Facility Management handover model view definition that is based on the Construction-Operations Building information exchange (COBie) format [5] . The advantage is that when the FM handover occurs, the relevant information captured during the design and construction phase can be directly transferred into tools supporting the long-term management and maintenance of the facility. COBie data can be stored in the common ISO STEP format, in the ifcXML format or as a spreadsheet (SpreadsheetML). The use of COBie has been successfully documented in several case studies [4] .
+
+In order to store and manage as-is building performance data, Radio Frequency Identification (RFID) based solutions have been proposed [6] , [7] , [8] . All these solutions share the same idea of using tags permanently attached to components under maintenance. Besides the capability of uniquely identifying facility components, the memory of the tags is employed during the life-cycle by different stakeholders for performance data and maintenance history storage and on-demand access. While Ko [7] has presented a general web-based RFID building maintenance system, Motamedi et al. [8] have focused on the role-based access to lifecycle information. Ergen et al. [6] have aimed at determining the technological feasibility of RFID by conducting a longevity test for about several months. However, the installed RFID tags are only used for data storage and exchange, but not for component positioning and indoor navigation. Moreover, due to their low storage capacity they cannot provide detailed maintenance instruction information.
+
+Akcamete et al. [3] have presented an approach to automatically link and visualize maintenance information in form of work orders with Building Information Models to enable spatio-temporal analysis for proactive maintenance decision making. Based on location and component identifiers (Global Unique Identifier — GUID) available in BIM, work orders are associated with building spaces and building elements. This allows querying type and location data of maintenance items and thus digitally supports activities such as FM data collection and item localization inside the facility under maintenance. Moreover, work order information can be visualized within a 3D environment using color maps and line charts. Asen et al. [9] have proposed a BIM-based visual analytics approach using an integration of BIM, COBie and CMMS to visualize FM data. However, indoor navigation and on-site maintenance instruction visualization are not considered.
+2.2.2. Indoor positioning and navigation
+
+The second important operator's activity concerns positioning and navigation. In addition to the location of the maintenance item (available in the BIM), it is necessary to know the operator's position inside the facility in order to support real-time indoor navigation. There is a vast amount of ongoing research in this area. For example, Khoury and Kamat [10] have evaluated three different wireless indoor position tracking technologies, in particular, Wireless Local Area Networks (WLAN), Ultra-Wide Band (UWB) and Indoor GPS positioning system. Indoor GPS has been identified as being superior in that study, since it could estimate a mobile user's location with relatively low uncertainty of 1 to 2  cm. Cheng et al. [11] have evaluated a commercially available Ultra Wideband (UWB) system for real-time mobile location tracking. Razavi and Moselhi [12] and Montaser and Moselhi [13] have presented a low cost location sensing solution for indoor facilities using passive Radio Frequency Identification (RFID) that have a mean error of 1–2  m for location identification. However, the main disadvantage of these technologies is the need for extra equipment installation and maintenance (both tags and readers), which involves a considerable cost factor. Moreover, only the location of the operator can be determined, his or her viewing direction is still not available.
+
+Besides the position, the operator's view orientation needs to be determined to provide both location-aware and viewing direction-aware guidance. Here, sensors such as the Inertial Measurement Unit (IMU), a combination of accelerometers and gyroscopes, and magnetic orientation sensors (e.g. a magnetic compass) are utilized. Khoury and Kamat [14] have used a solid-state magnetic field sensor, installed on the user's head, to track the user's dynamic viewpoint. This information was then processed to identify potential building objects in the user's field to retrieve contextual information. Although, the user's position uncertainty is documented, the orientation accuracy has not been presented nor validated. Irizarry et al. [15] have presented a mobile AR tool that uses the iPad's in-built IMU sensors to estimate the orientation of the device. However, moving around an indoor environment and re-positioning were not part of the presented experiment.
+
+Available AR-based indoor positioning methods usually need artificial markers to estimate the camera position and orientation. For example, Park et al. [16] have presented an AR-based field inspection scenario using artificial 2D markers within the frame of a BIM-based construction defect management system. Kuo et al. [17] have proposed an outside-in tracking approach that uses an infrared invisible marker mounted on the head of a potential operator. This infrared marker is detected and tracked from the outside to estimate the position and viewing direction of the operator. However, this approach assumes pre-installed infrared tracking devices all around the facility to be maintained.
+
+Once the location of the maintenance component (target) and the operator's position (starting point) are determined, appropriate routes have to be calculated. For this purpose, topological routing graphs are generated based on either derived 2D floor plans (e.g. [18] ) or 3D building geometry (e.g. [19] ). Subsequently, routing algorithms (e.g. Dijkstra, A*) are applied to calculate paths with minimal path costs. Knowing the current position and orientation as well as the route, navigation instructions are presented to the user. However, these instructions are usually point markers and arrows on 2D floor plans [19] .
+2.2.3. Performing the maintenance task
+
+Once the operator has reached the target, the third work order activity is the component maintenance. At this stage, the operator needs actual maintenance instructions and manuals. Shin and Duston [20] have particularly identified inspection tasks as potential and beneficial AR application areas. Lee and Akin [2] have proposed to employ Augmented Reality to superimpose equipment-specific data, such as textual maintenance information and geometry, onto a live video stream. This supports the field worker to better comprehend the on-site job. Even hidden parts of the equipment can be visualized in full scale. Hou et al. [21] have presented a study on how AR can provide workers with the means to implement correct assembly procedures with improved accuracy and reduced errors. However, the main disadvantage is that fiduciary (artificial) markers have to be pre-installed on the component of interest, which is tedious and unesthetic, thus preventing this approach from being practically efficient.
+
+In other industries, such as the mechanical engineering , Augmented Reality is used to support maintenance and repair tasks, for example on vehicle equipment such as engines (e.g. [22] ). Using a see-through Head Worn/Mounted Display (HWD/HMD), the mechanic's natural view is augmented with text, labels, arrows, and even animated sequences designed to facilitate task comprehension , localization, and execution. However, the major disadvantages of HMDs are the low display resolution and the separate uncomfortable head-mounted device.
+2.2.4. Augmented reality markers for optical tracking
+
+Wang et al. [23] have presented a review on Augmented Reality applications in the built environment. Besides the potential of AR, they have also highlighted that the “biggest single obstacle to building effective AR systems is the requirement of accurate, long-range sensors and trackers” and that the most commonly used tracking technology is optical tracking.
+
+In AR applications, optical marker tracking is essential to determine the position and viewing direction of the camera. Based on the nature of the tracking algorithms, several types of markers can be distinguished.
+
+    •
+
+    ID Markers are rectangular 2D markers used for simple AR applications. Since they have a fixed structure and distinctive black border they can be easily and very robustly detected and tracked ( Fig. 1 a). Using the inside pattern, a few hundred markers with different encoded information can be configured.
+        Download : Download full-size image 
+
+    Fig. 1 . Different types of AR markers for optical tracking [26] : (a) ID marker, (b) barcode marker, (c) QR code marker, (d) picture marker, (e) markerless (borderless) marker, (f) markerless 3D point map, and (g) CAD edge model.
+    •
+
+    Barcodes and Quick Response codes are optical machine-readable 2D representations of data items. While barcodes are well-known ( Fig. 1 b), Quick Response (QR) code markers are similar to ID markers as they consist of black square modules arranged in a square grid on a white background ( Fig. 1 c). Based on that, they can be read by imaging devices and interpreted to extract information from the patterns.
+    •
+
+    Picture Markers are somewhere in between ID markers and markerless tracking. Similar to ID markers they have a strong and distinctive rectangular border. In contrast, however, they can contain any arbitrary image (containing enough visual content) inside the boundary ( Fig. 1 d). Due to their distinctive border they can be detected faster than borderless markers.
+    •
+
+    Markerless is the (maybe misleading) term for 2D borderless markers that do not have an explicit rectangular boundary, but need to have moderately textured content. Based on 2D distinctive visual features (e.g. point descriptors) and advanced algorithms they can be robustly detected and tracked ( Fig. 1 e).
+    •
+
+    Markerless 3D tracking is one of the most advance optical tracking method that facilitates the detection and tracking of any real world object using a map of 3D distinctive features (e.g. point descriptors). However, the 3D object needs to have enough visual features and needs to be scanned from several perspectives in order to determine its distinctive visual features ( Fig. 1 f).
+    •
+
+    CAD edge model tracking is a very novel tracking method that uses a 3D CAD model for an edge-based pose initialization to enable an accurately scaled and localized augmentation. Once the pose is initialized, usually the tracking method is switched to Markerless 3D tracking. However, the CAD edge model has to be prepared carefully, and the user needs to initialize the very first pose manually ( Fig. 1 g).
+
+2.3. Problem statement and objectives
+
+Existing Augmented Reality (AR) based solutions typically use artificial markers for both navigation and maintenance instruction support [2] , [16] . This kind of marker is tedious to install all over a facility and also has some esthetical issues. From this perspective, the key idea of the proposed framework is to use existing natural markers, such as signage, to act as AR markers. Based on the literature review and to our best knowledge there is no equivalent research available that proposes to use natural markers for AR-based indoor navigation and maintenance actions within the context of facility maintenance activities. For this reason, the overall objective of this study is to test whether on-site natural markers, such as exit sign, have the potential to enable Augmented Reality based support for facility maintenance operators in performing their daily on-site maintenance jobs.
+
+As proposed by the authors, indoor natural markers such as exit signs, fire extinguisher location signs, and appliances' labels have the potential to support AR-based navigation and maintenance instructions [24] . However, small markers, changing lighting conditions, low detection frame rates and inaccuracies might prevent these markers from being practically employed within an AR context. Moreover, there is neither a study available on the actual performance of indoor natural markers nor a study on the application potential of such markers. For these reasons, the objectives of this paper are to design, conduct and evaluate several experiments and case studies
+
+    •
+
+    to determine the detection and tracking performance of indoor natural markers, and to give recommendations on what camera and marker configurations are the most practical within an AR framework, and
+    •
+
+    to illustrate the high potential of natural markers for AR-based indoor navigation and AR-based maintenance and repair actions to actually support on-site facility maintenance activities.
+
+3. Research framework
+
+The overall project framework combines with Building Information Modeling (BIM) and natural markers to support AR-based facility maintenance activities ( Fig. 2 ). By analogy with Ayer et al. [25] , the proposed FM maintenance workflow is comprised of three major activities: (1) Digital Work Order (DWO) Compilation (collecting relevant information), (2) AR-based Indoor Navigation (positioning and navigation), and (3) AR-based Maintenance Instructions (performing maintenance task). While the first activity is designed to run on a desktop computer, the latter two are dedicated to a mobile device, for example a mobile tablet PC ( Fig. 2 ). However, this paper's main focus is on the mobile applications part that supports indoor navigation and maintenance actions, as emphasized in Fig. 2 .
+
+    Download : Download full-size image 
+
+Fig. 2 . Proposed framework with paper focus emphasized.
+3.1. Natural indoor markers
+
+Usually, Augmented Reality (AR) applications require fiduciary, artificial markers. These markers are very distinctive images with known visual patterns and dimensions (e.g. Fig. 1 a). Based on computer vision algorithms, these markers are recognized in real-time and used as reference objects to superimpose virtual 3D content onto the camera's live view. Obviously, it is practically inefficient and unesthetic to install this kind of markers all over the indoor facility.
+
+In this paper, we propose to use natural markers that are already available on-site. Exit signs ( Fig. 3 a,b), for example, have great potential to act as markers, because
+
+    •
+
+    they are very distinctive due to their color and shapes,
+    •
+
+    they have an appropriate size (not too small), and
+    •
+
+    they are clearly visible (sometimes even illuminated) as they have to be in case of emergencies.
+
+    Download : Download full-size image 
+
+Fig. 3 . Examples of natural indoor markers: (a,b) exit signs, (c) fire distinguisher sign, (d) textual information sign, and (e) smoke detector ID tag.
+
+Other potential natural markers are, for example, position marks of fire extinguishers ( Fig. 3 c), signs with textual information hints ( Fig. 3 d), or device ID tags ( Fig. 3 e). Regarding the different kinds of AR markers and tracking methods introduced above, we propose the picture marker to be the most appropriate marker type. This is due to the fact that, for example, exit signs as well as fire distinguisher signs have a clear rectangular shape, a strong boundary and a distinctive inner visual content. In addition, the detection and tracking methods available for this kind of marker are technically mature and sophisticated.
+
+The authors are aware of the fact that exit signs, for example, are ubiquitous and the same within a building, preventing them from being used when trying to determine the absolute indoor position. However, they can advantageously be used when navigating, or consecutively re-positioning indoors based on a known initial position. For this reason, this paper is focused on AR-based navigation support rather than on AR-based absolute positioning. Moreover, it is obvious that there are not enough exit signs available indoors to guide the operator to each individual item of interest. Against this background, the objective here is to highlight the general potential of natural markers when guiding the operators to the room or area of interest, rather than to the exact location of the single item.
+3.2. Digital work order compilation
+
+Although the first FM maintenance activity is out of the scope of this paper ( Fig. 2 ), we still want to summarize what kind of information is available within the subsequent two activities. While the BIM can provide information on facility elements, spaces and natural markers (e.g. exit signs), such as type, location and geometry, additional FM data, such as maintenance schedules and manuals, are required to compile a digital work order (DWO). Since the main focus of this paper is dedicated to the next two activities, the content of a DWO is summarized, rather than presenting concepts on how to derive this information. Assuming the BIM provides all location information needed, available routing algorithms (e.g. [18] ) can generate navigation paths. Based on these paths, appropriate navigation instructions can then be prepared for the next activity ( Section 3.2 ). In general, a DWO contains the following information:
+
+    •
+
+    location information about the operator's starting point, the component to be maintained, and the natural markers (e.g. exit signs) along the navigation route;
+    •
+
+    navigation information in form of augmented guidance instructions (arrows, distances, virtual models, maps, etc.); and
+    •
+
+    maintenance information such as device manuals and augmented repair instructions (texts, charts, animation sequences, etc.).
+
+3.3. Augmented reality based indoor navigation
+
+The second activity addresses the problem of how to navigate indoors towards the maintenance component of interest. Knowing the operator's starting position, the navigation route, the target location as well as the positions of the natural markers, Augmented Reality is used to support on-site and real-time navigation.
+
+For this purpose, pre-defined natural markers (exit signs in this study) are recognized. After recognition, the marker's location within the camera image frame and its size are used to estimate the operator's position (distance to the marker) as well as the camera's field of view (orientation).
+
+The virtual navigation hints provided in the first activity ( Section 3.2 ) are organized in steps. Once the first marker is recognized, navigation instructions according to the first step are superimposed on the camera's live view as long as the marker is visible. These dynamic instructions are presented in form of the operator's position and orientation on a 2D map, target distances, superimposed direction arrows (2D and 3D), and a superimposed simplified 3D model highlighting the 3D target location if visible. Assuming that the operator strictly follows the suggested navigation path without large deviations, the next navigation step is automatically loaded when the next marker is recognized. If there is no marker recognized, for example if it is too small, the last instruction of the previous step is continuously presented to the user.
+
+In addition to the camera, the magnetic compass is used to improve the position and orientation estimation. In cases where markers are invisible, the compass provides orientation information. Moreover, the compass is utilized if the navigation route contains direction turns so that it helps automatically switching to the next navigation step. For example, after taking a left or right turn, the next navigation step is loaded and the next potential marker has to be recognized.
+3.4. Augmented reality based maintenance instructions
+
+After having reached the target component, the third activity addresses the problem of how to visually support the operator while he/she is maintaining or repairing a facility component. In line with the previous activity, pre-defined natural markers on or next to the device have to be recognized. Here, the authors propose to use ID tags or bar codes, which most of the modern devices have (e.g. Fig. 3 e), or a picture of a visually distinctive part of the device.
+
+Once the pre-defined and measured marker is recognized, relevant maintenance information available from the compiled DWO ( Section 3.2 ) is presented to the operator. This information contains simple text documents like device manuals and superimposed information such as animated repair instructions. Animated instruction sequences are presented step-wise to the operator so that he/she can easily comprehend and perform the maintenance task.
+3.5. Methodology to assess the potential of natural markers
+
+According to our objectives, the research methodology in this paper is depicted in Fig. 4 . Within an AR environment successful real-time marker detection and tracking are of significant importance. For this reason, the performance of natural marker detection is evaluated by means of performance metrics and respective performance tests. The following metrics are defined to actually measure the marker detection and tracking performance:
+
+    •
+
+    Detection rate : The detection rate is calculated for every single configuration using the formula given below. It is assumed that the number of frames with successful detection is equal to the number of frames with detected distances larger than zero. This value describes how many percent of all camera frames can be used for AR-based post-processing (pose estimation and augmentation). detection rate : = number of frames with successful detection number of all frames
+    •
+
+    Tracking quality : The tracking quality describes the certainty or likelihood of having detected and tracked a marker in terms of how good a frame region matches a pre-defined marker. Within the applied software framework it is a native value between 0.5 and 1.0, with 0.5 as minimum quality to detect and track at all, and 1.0 with (assumed) perfect tracking [26] . quality : = 0.5 , 1.0
+    •
+
+    Tracking frame rate : The current frame rate is determined as the number of processed frames per second. This value describes how fast the detection and tracking works, thus how often the pose estimation and augmentation can be updated.
+    •
+
+    Tracking robustness/precision : It is assumed that the person walks smoothly and continuously along the designed path at almost the same speed without any jumps in speed and position. Under this assumption the tracking robustness is determined as the relative deviation of the provided consecutive distance and angle values. Thus, it can somehow be understood as detection precision.
+
+    Download : Download full-size image 
+
+Fig. 4 . Research methodology.
+
+Based on the test result, the best marker type and camera settings are selected and applied in the subsequent case studies that illustrate the practical potential of natural markers for AR-based indoor navigation and AR-based maintenance and repair actions ( Fig. 4 ).
+4. Implementation and experiments
+4.1. Implementation
+
+In order to test and illustrate the potential of the proposed framework, the methodology was prototypically implemented. For this purpose, an iPad 2 (processor: 1 GHz dual-core A5, max. camera resolution: 1280 × 720 pixels) and the Augmented Reality framework “metaioSDK 4.1.2” [26] , including the picture marker tracking functionality, were utilized.
+
+Fig. 5 depicts the software architecture and its major components: the metaioSDK framework, the mobile Operating System (OS) framework, positioning and navigation components. The AR-based positioning component manages a list of all natural markers, such as exit signs and fire extinguisher signs. For each marker the name (id), the position (XY coordinates on a floor plan), the orientation (surface normal) and the link to the PNG file (marker image) is stored. The metaioSDK framework configuration file contains the PNG file names as well as the actual marker dimensions in millimeters. Using the video stream of the integrated camera, the metaioSDK framework automatically detects and tracks markers.
+
+    Download : Download full-size image 
+
+Fig. 5 . Software prototype architecture and its components.
+
+Once a marker is successfully detected the SDK delivers its name, distance and angles (horizontal and vertical). However, from an absolute positioning perspective several positions are possible, since several optically identical markers (e.g. exit sign turn left) are installed at different locations, resulting in several potential markers. Based on the user's current viewing direction provided by the integrated magnetic compass the number potential positions (potential markers) can be reduced using the known marker orientation. Finally, based on the currently loaded (expected) navigation step the most probable marker, thus the most probable position, is determined.
+
+Once the current user location is calculated the navigation component updates the graphical user interface based on the currently loaded navigation step. This update includes the position on the 2D map and 2D navigation arrows as well as superimposed 3D content, such as 3D navigation arrows, the 3D model including the 3D target item (if visible).
+4.2. Performance study on natural marker detection
+
+Since the key idea of this research is to use natural markers for AR-based indoor navigation and maintenance actions, it is critical to test the performance of several markers within an AR framework.
+4.2.1. Experimental setup
+
+In order to conduct the performance test we set up a controlled environment in one of our laboratories ( Fig. 6 a). As depicted in Fig. 6 two different scenarios were designed. While in scenario I a straight walk towards the marker was performed (about 1500 frames per setting), in scenario II a curved path with the viewing direction always towards the marker was investigated (about 4000 frames per setting). We distinguished these two scenarios because our objective was to independently determine the maximum possible marker distance to the user (scenario I) as well as the maximum possible marker angle relative to the user (scenario II). These two parameters play a significant role when assessing the marker potential for indoor navigation and maintenance applications.
+
+    Download : Download full-size image 
+
+Fig. 6 . Experimental setup for marker detection performance tests: (a) map of controlled environment in the lab, (b) experiment configurations.
+
+Moreover, we varied the type of the marker (exit sign, fire extinguisher sign, text sign), the size of the marker image template (width of 50, 100, and 300 pixels), and the camera resolution (192 × 144, 480 × 360, and 640 × 480 pixels) ( Fig. 6 b). The three markers have a natural size of 400 × 200, 210 × 210, and 300 × 160 mm, respectively. In addition, for the exit sign marker we conducted tests under artificial lighting conditions by switching on the ceiling light in the lab. To achieve representative results we ran the same test three times for each setting. Obviously, the operator's walking behavior and walking speed have a significant impact on the marker detection performance as a fast-moving or even oscillating device produces low-quality camera images (motion blur) resulting in low detection rates. To account for this, two people of different height and different weight were chosen to conduct the tests, assuming that they have different step frequencies.
+
+While running the test, the AR test application continuously recorded performance data (as defined in Section 3.5), such as the tracking quality, the frame rate, and in case of successful detection, the distance to the marker as well as the horizontal angle to the marker.
+4.2.2. Results
+4.2.2.1. Detection rate
+
+Table 1 depicts the marker detection rates for the diverse settings in scenario I. For example, the configuration “Exit 50/192” means that the marker type is the exit sign, the image marker size is 50 pixels, and the camera resolution is 192 × 144 pixels. It is clearly visible that the exit sign marker and the fire sign marker outperform the text sign marker. This is most likely due to the very narrow border of the text sign marker. For this reason we excluded the text sign marker as well as the camera resolution of 192 × 144 from all subsequent test settings. Moreover, under natural lighting conditions the configuration settings 50/480, 50/640, 300/480, and 300/640 performed best. Note the detection rate improvement under artificial lighting conditions for the exit sign marker.
+
+Table 1 . Detection rate [%] for scenario I (straight walk) depending on marker type, marker size and camera resolution. Note the values for artificial lighting in case of the exit sign marker.
+Marker size (width) [px]	50	50	50	100	100	100	300	300	300
+Exit sign/art. light	67.0/63.4	98.9/96.8	98.8/98.8	63.4/61.6	89.3/97.5	88.6/98.6	42.5/59.8	95.6/96.8	93.6/98.3
+Fire ext. sign	42.3	95.4	98.4	47.3	96.9	96.9	44.1	97.0	97.0
+Text sign	26.8	53.7	54.6	27.7	58.6	67.4	36.7	58.2	70.4
+Camera resol. [px]	192 × 144	480 × 360	640 × 480	192 × 144	480 × 360	640 × 480	192 × 144	480 × 360	640 × 480
+
+In analogy to scenario I, Table 2 summarizes the detection rates for scenario II. Note that the settings 50/480, 50/640, 300/480 and 300/640 outperform the other settings.
+
+Table 2 . Detection rate [%] for scenario II (curved walk) depending on marker type, marker size and camera resolution.
+Marker size (width) [px]	50	50	50	100	100	100	300	300	300
+Exit sign	64.14	92.43	95.36	66.99	77.41	77.96	61.39	94.83	93.58
+Fire ext. sign	21.65	86.95	89.59	23.70	85.27	89.93	33.04	85.63	90.59
+Camera resol. [px]	192 × 144	480 × 360	640 × 480	192 × 144	480 × 360	640 × 480	192 × 144	480 × 360	640 × 480
+4.2.2.2. Tracking quality
+
+Fig. 7 highlights the achieved tracking qualities for the exit sign marker and the fire sign marker, respectively, plotted with respect to the marker distance, depending on the marker size and the camera resolution. In case of the exit sign marker the settings 50/480 and 300/640 outperform the other settings. However, in case of the fire sign marker the settings 50/480, 100/640 and 100/480 are the best. These findings are both valid for the tracking quality and the achieved maximum marker distance, which is about 9.5 to 10 m.
+
+    Download : Download full-size image 
+
+Fig. 7 . Tracking quality for scenario I depending on marker distance.
+
+Fig. 8 depicts the achieved tracking quality for scenario II plotted with regard to the detected horizontal angle. Here, the exit sign marker outperforms the fire sign marker. Moreover, the settings 50–480 × 360 and 300–480 × 360 seem to be best. Note that the achievable angle is about 80 to 85°. However, it can be seen that the tracking quality decreases with increased marker distance and angle.
+
+    Download : Download full-size image 
+
+Fig. 8 . Tracking quality for scenario II depending on horizontal angle.
+4.2.2.3. Tracking frame rate
+
+In analogy to the quality, Fig. 9 highlights the achieved tracking frame rates (only for successful detection) for scenario I for the exit sign marker and the fire sign marker, respectively, plotted with respect to the marker distance, depending on the marker size and the camera resolution. In general it was found that the camera resolution has a much larger impact on the achieved frame rate than the marker size. Moreover, the frame rate increases while the marker distance decreases. However, all tested settings achieved a suitable average frame rate of 25 to 30 fps.
+
+    Download : Download full-size image 
+
+Fig. 9 . Tracking frame rate for scenario I depending on the marker distance.
+4.2.2.4. Tracking robustness/precision
+
+In Fig. 10 , the robustness of the marker tracking is depicted, both in terms of distance deviation and horizontal angle deviation plotted with regard to the marker distance. It is clearly visible that the exit sign marker outperforms the fire sign marker as the value corridors are much narrower. Moreover, the maximum distance errors and the angle errors for the exit sign marker are much smaller than the corresponding ones for the fire sign marker. However, the maximum errors are justifiable as they are about 50 cm in distance and 20° for the angle.
+
+    Download : Download full-size image 
+
+Fig. 10 . Tracking robustness for scenario I depending on the marker distance.
+
+Fig. 11 highlights the tracking robustness in terms of the detected horizontal angle plotted with regard to the frame number. Again, the exit sign marker outperforms the fire sign marker as it achieves a smaller amount of negative, thus wrong, angle estimations. However, note the achieved detected angle is almost 85°.
+
+    Download : Download full-size image 
+
+Fig. 11 . Tracking robustness for scenario II depending on the horizontal angle.
+4.2.2.5. Lighting conditions
+
+Fig. 12 highlights the result that both tracking quality and robustness benefit from artificial ceiling lighting. This is concluded because the tracking quality increases in average from below 0.65 to above 0.65, and the robustness corridor for both the distance and angle deviation is much narrower in case of artificial lighting. In addition, note the detection rate improvement depicted in Table 1 .
+
+    Download : Download full-size image 
+
+Fig. 12 . Influence of lighting condition on tracking quality and robustness for scenario I and exit sign marker.
+4.2.2.6. Discussion
+
+To conclude, the presented performance study reveals the high potential of natural markers for AR-based FM support under the following practical conditions:
+
+    •
+
+    the detection rate is larger than 95%,
+    •
+
+    the frame rate is 25 to 30 fps,
+    •
+
+    the marker distance is up to 10 m,
+    •
+
+    the marker is detected up to an angle of 85°,
+    •
+
+    and the maximum distance deviations and angle deviations are less than 50 cm and 20°, respectively.
+
+For example, according to the German regulations for “Safety and Health Protection Signage (ASR A1.3)” the allowed human recognition distance of the exit sign (400 mm by 200 mm) used in this study is 20 m. According to this, 10 m detection distance is practically suitable as the operator can turn around to re-orientate. Moreover, to support our results we need to mention that metaio [26] has recently published the SDK version 5.2 which is supposed to have improved detection and tracking algorithms. The presented results are summarized and commented in Table 3 .
+
+Table 3 . Summary of marker performance results.
+Metric	Value	Conclusion
+Best marker	Exit sign	Exit signs are ubiquitously available and very suitable to act as natural markers.
+Detection rate	95%	In only 5% of all camera frames the augmentation is lost, which is acceptable for practical applications.
+Max. distance [m]	10 ± 0.5	The achieved detection distance is suitable for practical applications since, for example in Germany, the respective real exit sign distance is 20 m.
+Max. angle [°]	85 ± 20	Exit signs can be detected at various viewing angles, which is practically relevant for indoor navigation purposes.
+Frame rate [fps]	25–30	This frame rate is suitable for real-time AR applications.
+
+Based on the presented results, it is finally recommended
+
+    •
+
+    to use natural markers that have a strong, distinctive border with high contrast to the background,
+    •
+
+    to have artificial lighting switched on, and
+    •
+
+    to use settings such as 50/480 or 300/640, depending on the desired tracking quality and frame rate.
+
+4.3. Case studies on navigation and maintenance
+4.3.1. Test environment
+
+After having determined the most appropriate marker and camera configuration, we conducted case studies to illustrate the potential application of natural markers for AR-based navigation and maintenance. According to the functionality of the metaioSDK framework [26] , 3D facility information was provided in form of OBJ files. Moreover, image markers were integrated as PNG files, which were referred to in specific configuration files. At this stage of the study, single navigation steps and instructions as well as the animation sequences were hard-coded (not yet automatically derived from the BIM). The experimental setup location was the 6th floor of the Civil Engineering Building on the Ruhr-University campus in Bochum. An extract of the floor plan and the location of exit signs are illustrated in Fig. 13 b. In our facility maintenance scenario the task was to maintain one defect smoke detector ( Fig. 13 a) located at position 4 on the floor plan ( Fig. 13 b) out of many intact smoke detectors on the same floor. It is assumed that the facility operator's starting point is at position 1. So the task was, first, to navigate the operator towards position 4 and, second, to support the maintenance action with augmented instructions
+
+    Download : Download full-size image 
+
+Fig. 13 . Experimental setup for navigation and maintenance tests: (a) smoke detector, (b) floor map.
+4.3.2. Results
+
+Fig. 14 presents screenshots of the iPad's user interface at location 1 indicating the walking direction by a 2D navigation arrow (bottom right). The dynamic extract of the 2D floor plan showing the current operator's position and orientation is depicted in Fig. 14 a and c (bottom left). Fig. 14 b shows the full-screen 2D map presenting a location overview to the operator. The location of an intact smoke detector is indicated by a green box on the left-hand side of the corridor ( Fig. 14 a,c). Moreover, the superimposed simplified 3D building model including the 3D navigation arrow is illustrated in Fig. 14 c.
+
+    Download : Download full-size image 
+
+Fig. 14 . Augmented view at position 1: (a) floor plan extract bottom left and 2D navigation error bottom right, (b) current position on full-screen 2D floor plan, (c) superimposed 3D model, 3D navigation arrow and intact smoke detector position (green box).
+
+Once the facility operator has almost reached position 2, a left turn navigation instruction as well as the location and the status of the intact smoke detector are superimposed ( Fig. 15 a). After having turned left, the next exit sign is detected, thus switching to the next navigation step. In this step, the location and the error code of the target smoke detector are indicated by a red box and by alphanumeric text, respectively ( Fig. 15 b). In the next step, the target smoke detector is recognized using the red ID tag marker and its 3D model is superimposed on the camera view ( Fig. 15 c). Having switched to the assembly mode, both alphanumeric instructions to first release the 4 screws with a slotted screwdriver and animated 3D instructions (blinking red arrows) guide the operator through the maintenance task.
+
+    Download : Download full-size image 
+
+Fig. 15 . Augmented life view: (a) at position 2 showing left turn instruction and intact smoke detector, (b) at position 3 with superimposed target smoke detector position (red box) and error code, (c) at position 4 with superimposed 3D detector model, (d) at position 4 with textual instructions (bottom) and superimposed 3D animated instructions (red arrows).
+4.3.3. Discussion
+
+The main goal of this type of experiment was to point out and to test the potential of natural markers, such as exit signs, to enable AR-based navigation and maintenance instructions. The prototype and preliminary results have indicated the feasibility and the practical potential of the proposed framework. In the future, we plan to employ experienced FM operators to get professional qualitative feedback on the application potential.
+
+However, in cases where no pre-defined natural markers are available in the camera live view, the distance between two markers is larger than 10 m and the same marker appears at multiple locations, the framework fails to determine the position and orientation of the operator's device. Unfortunately, in such a situation the augmentation is completely lost. These issues will be addressed in future work.
+5. Conclusion and future work
+
+The longest phase in a facility's lifecycle is its operation and maintenance period, during which facility operators perform activities to provide a comfortable living and working environment (e.g. pleasant temperature) as well as to upkeep equipment to prevent functional failures. In current practice operators need to manually process dispersed and unformatted facility information. Although software systems have recently been introduced, 50% of the on-site maintenance time is still spent on localizing inspection targets and navigating to it inside a building.
+
+In this paper we have proposed a natural marker based Augmented Reality framework that can digitally support facility maintenance operators when (1) navigating to the FM item of interest and when (2) actually performing the maintenance and repair action. Based on the presented framework, this paper has highlighted the results of a performance study of natural marker detection. The performance has been evaluated under different configurations, varying marker types, marker sizes, camera resolutions, and lighting conditions. Several metrics, namely detection rate, tracking quality, frame rates, and robustness have been defined to actually measure the detection performance.
+
+The main contribution of this paper was to point out and to test the potential of natural markers, such as exit signs, to enable AR-based navigation and maintenance instructions. The prototype and preliminary results have indicated the feasibility and the potential of proposed framework.
+
+In the future it is envisaged to focus on the first framework activity and to develop concepts to automatically compile Digital Work Orders based on BIM and FM-data. Moreover, additional potential markers will be identified and more case studies and tests will be conducted to further validate the proposed solution. To better support AR-based maintenance instructions it is planned to test the capability of CAD edge model based tracking, since detailed CAD models are already available for maintenance objects such as smoke detectors. Another important future goal is the improvement of the AR-based navigation support in cases where no marker is available or the same marker appears at multiple locations. To properly face this issue, it is envisaged to fuse Inertial Measurement Unit (IMU) data with visual live video feed.
+Acknowledgments
+
+The authors would like to thank Jens Neumann who contributed to this work in terms of preparing and running the experiments.
+References
+
+    [1]
+    E. Teichholz
+    Bridging the AEC/FM Technology Gap
+    IFMA Facility Manag. J., 2 (2004)
+    ( http://www.graphicsystems.biz/gsi/articles/Bridging%20the%20AEC_FM%20Gap_r2.pdf )
+    Google Scholar
+    [2]
+    S. Lee, O. Akin
+    Augmented reality-based computational fieldwork support for equipment operations and maintenance
+    Autom. Constr., 20 (2011), pp. 338-352
+    View PDF View article View in Scopus Google Scholar
+    [3]
+    A. Akcamete, X. Liu, B. Akinci, J.H. Garrett
+    Integrating and visualizing maintenance and repair work orders in BIM: lessons learned from a prototype
+    11th International Conference on Construction Applications of Virtual Reality, 2011, Weimar, Germany (2011)
+    Google Scholar
+    [4]
+    E.W. East, N. Nisbet, T. Liebich
+    The facility management handover model view
+    J. Comput. Civ. Eng., 27 (1) (2013), pp. 61-67
+    View in Scopus Google Scholar
+    [5]
+    E.W. East
+    Construction Operations Building Information Exchange (COBIE): means and methods
+    Building SMART Alliance Database Online (Mar 2012)
+    ( http://www.buildingsmartalliance.org/index.php/projects/cobie )
+    [6]
+    E. Ergen, B. Akinci, B. East, J. Kirby
+    Tracking components and maintenance history within a facility utilizing radio frequency identification technology
+    J. Comput. Civ. Eng., 22 (1) (2007), pp. 11-20
+    View in Scopus Google Scholar
+    [7]
+    C. Ko
+    RFID-based building maintenance system
+    Autom. Constr., 18 (3) (2009), pp. 275-284
+    View PDF View article View in Scopus Google Scholar
+    [8]
+    A. Motamedi, R. Saini, A. Hammad, B. Zhu
+    Role-based access to facility lifecycle information on RFID tags
+    Adv. Eng. Inform., 25 (3) (2011), pp. 559-568
+    View PDF View article View in Scopus Google Scholar
+    [9]
+    Y. Asen, A. Motamedi, A. Hammad
+    BIM-based visual analytics approach for facility management
+    Proc. of the 14th International Conference on Computing in Civil and Building Engineering (ICCCBE). 2012. Moscow. Russia (2012)
+    Google Scholar
+    [10]
+    H.M. Khoury, V.R. Kamat
+    Evaluation of position tracking technologies for user localization in indoor construction environments
+    Autom. Constr., 18 (4) (2009), pp. 444-457
+    View PDF View article View in Scopus Google Scholar
+    [11]
+    T. Cheng, V. Venugopal, J. Teizer, P.A. Vela
+    Performance evaluation of ultra wideband technology for construction resource location tracking in harsh environments
+    Autom. Constr., 20 (8) (2011), pp. 1173-1184
+    View PDF View article View in Scopus Google Scholar
+    [12]
+    S.N. Razavi, O. Moselhi
+    GPS-less indoor construction location sensing
+    Autom. Constr., 28 (2012), pp. 128-136
+    View PDF View article View in Scopus Google Scholar
+    [13]
+    A. Montaser, O. Moselhi
+    RFID indoor location identification for construction projects
+    Autom. Constr., 39 (1) (2014), pp. 167-179
+    View PDF View article View in Scopus Google Scholar
+    [14]
+    H.M. Khoury, V.R. Kamat
+    High-precision identification of contextual information in location-aware engineering applications
+    Adv. Eng. Inform., 23 (4) (2009), pp. 483-496
+    View PDF View article View in Scopus Google Scholar
+    [15]
+    J. Irizarry, M. Gheisari, G. Williams, B.N. Walker
+    InfoSPOT: a mobile augmented reality method for assessing building information through a situation awareness approach
+    Autom. Constr., 33 (2013), pp. 11-23
+    View PDF View article View in Scopus Google Scholar
+    [16]
+    C.-S. Park, D.-Y. Lee, O.-S. Kwon, X. Wang
+    A framework for proactive construction defect management using BIM, augmented reality and ontology-based collection template
+    Autom. Constr., 33 (2013), pp. 61-71
+    View PDF View article CrossRef View in Scopus Google Scholar
+    [17]
+    C. Kuo, T. Jeng, I. Yang
+    An invisible head marker tracking system for indoor mobile augmented reality
+    Autom. Constr., 33 (2013), pp. 104-115
+    View PDF View article View in Scopus Google Scholar
+    [18]
+    U. Rüppel, P. Abolghasemzadeh, K. Stübbe
+    BIM-based immersive indoor graph networks for emergency situations in buildings
+    International Conference on Computing in Civil and Building Engineering (ICCCBE), 2010, Nottingham, UK (2010)
+    Google Scholar
+    [19]
+    L.I. Yuan, H.E. Zizhang
+    3D indoor navigation: a framework of combining BIM with 3D GIS
+    Proc. of the 44th World Congress of the International Society of City and Regional Planners (ISOCARP), 2008, Dalian, China (2008)
+    Google Scholar
+    [20]
+    D.H. Shin, P.S. Dunston
+    Identification of application areas for augmented reality in industrial construction based on technology suitability
+    Autom. Constr., 17 (7) (2008), pp. 882-894
+    View PDF View article View in Scopus Google Scholar
+    [21]
+    L. Hou, X. Wang, M. Truijens
+    Using augmented reality to facilitate piping assembly: an experiment-based evaluation
+    J. Comput. Civ. Eng. (2014), 10.1061/(ASCE)CP.1943-5487.0000344
+    (Accepted Manuscript)
+    Google Scholar
+    [22]
+    S. Henderson, S. Feiner
+    Exploring the benefits of augmented reality documentation for maintenance and repair
+    IEEE Trans. Vis. Comput. Graph., 17 (10) (2001), pp. 1355-1368
+    Google Scholar
+    [23]
+    X. Wang, M.J. Kim, P.E.D. Love, S.-C. Kang
+    Augmented reality in built environment: classification and implications for future research
+    Autom. Constr., 32 (2013), pp. 1-13
+    View PDF View article Google Scholar
+    [24]
+    C. Koch, M. Neges, M. König, M. Abramovici
+    BIM-based augmented reality for facility maintenance using natural markers
+    Proceedings of the 19th International EG-ICE Workshop. 2012, Herrsching, Germany (2012)
+    Google Scholar
+    [25]
+    S.K. Ayer, J.I. Messner, C.J. Anumba
+    Determining the appropriate role for mixed reality technologies in facility management
+    Proc. of the 11th International Conference on Construction Applications of Virtual Reality, 2011, Weimar, Germany (2011)
+    Google Scholar
+    [26]
+    Metaio
+    Metaio Mobile SDK
+    http://www.metaio.com/software/mobile-sdk/ (May 2013)
+
+Cited by (131)
+
+    Key functions in BIM-based AR platforms
+    2023, Automation in Construction
+    Show abstract
+    Cognition-driven navigation assistive system for emergency indoor wayfinding (CogDNA): Proof of concept and evidence
+    2023, Safety Science
+    Show abstract
+    Discovering pathways to the improve maintainability of multifamily residential building remodeling projects: Importance applicability analysis
+    2023, Sustainable Cities and Society
+    Show abstract
+    BIM-based repair and maintenance for hospital work order management
+    2022, Automation in Construction
+    Show abstract
+    Game-like interactive environment using BIM-based virtual reality for the timber frame self-build housing sector
+    2022, Automation in Construction
+    Show abstract
+    A Digital Twin predictive maintenance framework of air handling units based on automatic fault detection and diagnostics
+    2022, Energy and Buildings
+    Show abstract
+
+View all citing articles on Scopus
+
+1
+
+    Tel.: + 49 234 32 22109.
+
+2
+
+    Tel.: + 49 234 32 23047.
+
+3
+
+    Tel.: + 49 234 32 27009.
+
+View Abstract
+Copyright © 2014 Elsevier B.V. All rights reserved.
+Recommended articles
+
+    Integrated scheduling of ready-mixed concrete production and delivery
+    Automation in Construction, Volume 48, 2014, pp. 31-43
+    Zhenyuan Liu , …, Menglei Li
+    View PDF
+    A new solid material for hydrogen storage
+    International Journal of Hydrogen Energy, Volume 40, Issue 33, 2015, pp. 10502-10507
+    Zheng Xueping , …, Luo Weihua
+    View PDF
+    A defect management system for reinforced concrete work utilizing BIM, image-matching and augmented reality
+    Automation in Construction, Volume 46, 2014, pp. 74-81
+    Oh-Seong Kwon , …, Chung-Rok Lim
+    View PDF
+
+Show 3 more articles
+Article Metrics
+Citations
+
+    Citation Indexes: 125
+    Patent Family Citations: 1 
+
+Captures
+
+    Exports-Saves: 10
+    Readers: 303 
+
+Social Media
+
+    Shares, Likes & Comments: 4 
+
+plumX logo
+View details
+Elsevier logo with wordmark
+
+    About ScienceDirect
+    Remote access
+    Shopping cart
+    Advertise
+    Contact and support
+    Terms and conditions
+    Privacy policy 
+
+We use cookies to help provide and enhance our service and tailor content and ads. By continuing you agree to the use of cookies .
+
+All content on this site: Copyright © 2023 Elsevier B.V., its licensors, and contributors. All rights are reserved, including those for text and data mining, AI training, and similar technologies. For all open access content, the Creative Commons licensing terms apply.
+RELX group home page
+Feedback 

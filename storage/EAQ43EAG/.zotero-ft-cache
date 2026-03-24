@@ -1,0 +1,181 @@
+Visual Longitudinal and Lateral Driving Assistance in the Head-Up Display of Cars
+
+Marcus To¨ nnis∗
+Technische Universita¨ t Mu¨ nchen Fakulta¨ t fu¨ r Informatik Boltzmannstraße 3
+85748 Garching b. Mu¨ nchen, Germany Tel/Fax: +49 89 289 17083 /-17059
+
+Christian Lange†
+Technische Universita¨ t Mu¨ nchen Fakulta¨ t fu¨ r Maschinenwesen Boltzmannstraße 15
+85747 Garching b. Mu¨ nchen, Germany Tel/Fax: +49 89 289 15428 /-15389
+
+Gudrun Klinker‡
+Technische Universita¨ t Mu¨ nchen Fakulta¨ t fu¨ r Informatik Boltzmannstraße 3
+85748 Garching b. Mu¨ nchen, Germany Tel/Fax: +49 89 289 18215 /-17059
+
+ABSTRACT
+Most car accidents occur due to longitudinal collisions or lane departure. We assume that the number of such accidents can be reduced, if the driver knows more precisely, where the car is heading and at which distance it can stop. To provide drivers with this kind of anticipation, we have developed two Augmented Reality based visualization schemes for longitudinal and lateral driver assistance in the Head-Up Display (HUD) of cars. One presentation scheme indicates the braking distance by a virtual bar on the road. The second scheme adds the visualization of a drive-path between the car and the bar, zoning the entire region that the car will pass before coming to a complete halt.
+We have tested both schemes in a driving simulator in comparison to a baseline without visual assistance. Our results show, among other ﬁndings, that the bar is preferred, that it supports driving performance and that it does not increase mental workload.
+Keywords: Augmented Reality, Mixed Reality, Head-Up Display, Usability, Advanced Driver Assistance Systems, Human Factors.
+Index Terms: H.1.2 [Models and Principles]: User/Machine Systems—Human Information Processing; H.5.2 [Information Interfaces and Presentation]: User Interfaces—Ergonomics;
+1 INTRODUCTION
+Statistics on accident counts reveal that many accidents are caused by human errors in longitudinal and lateral car control. Lateral accidents occur due to lane departure or collisions with lateral trafﬁc, while longitudinal collisions occur due to obstacles, upcoming trafﬁc or rear end collisions.
+This is a main issue addressed by current driver assistance systems. They give warnings of potentially upcoming collisions when a safe distance to the car in front is not kept. Also warnings for lane departure are presented to the driver. In general, these systems indicate their warnings as symbolic icons in secondary displays on the dashboard. Even if such systems do increase environmental awareness, they require the driver to take his attention off the road, turn to the in-car secondary display, focus on it, interpret the message and then react to it.
+Car driving involves three levels of cognitive work that all have to be performed continuously [11]. First, it requires drivers to have way-ﬁnding knowledge about the overall, complete route to the destination. Second, drivers have to navigate the car through the local environment. Third, they have to keep the car stabilized on the
+∗e-mail: toennis@in.tum.de †e-mail: lange@lfe.mw.tum.de ‡e-mail: klinker@in.tum.de
+
+street by use of the steering devices. Drivers act in a tight control cycle, in which they continuously perceive the environment, interpret the current situation and execute the most suitable action to control the car. Assistance systems with secondary displays are not integrated into this tight control loop. While looking at and reacting to a warning signal on a secondary display, drivers are taken out of the loop [3].
+In our investigations toward a general safety concept for car drivers, we try to keep drivers in the loop of the control circuit. Taking into account, that Augmented Reality (AR) enables visual presentation schemes from an egocentric point of view, we use the in-car control devices to control augmented objects that are embedded into the personal view of the driver. Such visual presentation schemes in the Head-Up Display (HUD) of the car indicate how drivers are maneuvering through the 3D environment, speciﬁcally, where their car is heading at the moment. We assume, that this kind of assistance is much less distractive than secondary displays, because it keeps drivers in the loop of the control circuit. This concept also allows for future integration of safe distance indication in platooning trafﬁc where the risk of rear-end collision is increased.
+We have developed two visualization schemes that present a car’s intrinsic status, that are lateral and longitudinal properties of car motion, in the HUD. The ﬁrst presentation scheme consists of a single bar shown in front of the car on the street. The second scheme extends the ﬁrst one by outlining the path that will be covered by the car, see Fig. 1. The bar indicates where the car would come to a halt, if the brakes were fully pressed. Depending on the steering angle, the bar turns left or right, according to the way the car will turn. The second presentation scheme shows the car’s drive-path. Here the right and left border of the bar are connected by polygons to the right and left front corner of the car. These lines surround the area, that will be covered by the car. The drive-path-based presentation is intended to better convey the alignment of the driving path with curves in the road. Both visualization schemes have been implemented and tested in a driving simulator.
+Figure 1: A screen-shot showing the braking bar and the drive-path
+
+978-1-4244-1750-6/07/$25.00 ©2007 IEEE
+Authorized licensed use limited to: Politecnico di Torino. Downloaded on March 27,2025 at 10:56:21 UTC from IEEE Xplore. Restrictions apply.
+
+2 RELATED WORK
+There are various warning systems for rear-end collisions and lateral way-control available and under research. But only few approaches explore visual in-the-loop assistance, that concurrently superimpose a vehicle’s road performance. In non-automotive domains, diverse approaches for that kind of assistance exist.
+Pathway predictors have been under research in several application areas, involving navigation on ships, cars and airplanes. Sullivan has investigated a pathway indicator for training surface transport of mid-sized vessels [10]. On-board a ship, steering is complicated, because it takes a long time for a ship to react perceptibly to steering changes. Here a path predictor on a secondary screen indicates where the ship will head in dependence to the current control stick adjustment. Usability tests with unexperienced as well as with experienced participants revealed that all participants were signiﬁcantly better in pursuing the correct path when using the path predictor. The test furthermore showed that some test subjects focused on the secondary display, neglecting surrounding trafﬁc.
+In the automotive sector, the MobilEye system [9] alarms car drivers to critical environmental settings and misleading courses. It uses a small secondary screen to show a stylized car on a symbolic road. The right and the left lane boundary as well as the car icon can blink when a lane departure or an upcoming rear collision is predicted. Citroe¨n distributes a lane departure warning system that notiﬁes drivers via vibrations in the left or right side of the driver’s seat when the car drifts to the left or right.
+Efforts to improve situational awareness [7] with course support are under research by, for instance, NASA. Randall et al. have tested vision enhancement systems in the HUD of airplanes [2]. The experimental data has shown that signiﬁcant improvements in situational awareness without concomitant increases in workload can be provided by the integration of synthetic and enhanced vision technologies. More speciﬁcally, pathway indications of a pilot’s course have been investigated by Kramer et al. [8]. They have compared different visualization schemes regarding the shape and appearance of a virtual ﬂight-tunnel and guidance metaphors. Results have indicated that the presence of a tunnel on a HUD has no effect on ﬂight path performance but that it does have a signiﬁcant effect on a pilot’s situational awareness and mental workload. A visualization scheme showing a dynamic tunnel with a follow-me aircraft guidance symbol produced the lowest workload and provided the highest situational awareness among the tunnel concepts evaluated.
+In the automotive sector, Assmann and Bubb [1, 4] have investigated a visual presentation scheme for longitudinal anticipation of the car’s speed. They have built a HUD and incorporated a doubleended tubular lamp such that the windshield combines the area in front of the car and the lamp as an indicator for braking distance. The faster the car drove, the farther away and the smaller the lamp appeared. Studies indicated that test participants felt safer when driving with the HUD. Measurements stated an improvement in safety for about 15 % and a prolongation of unsafe distances in platooning trafﬁc for 30 %.
+3 CONCEPTS
+Our concept is based on an integrated approach instead of requesting a driver to look onto a secondary display. It does not warn drivers about nearby critical situations, but it shows them where they are going. Drivers can stay in the loop of the control circuit and continuously perceive the actual state of the car. Our concept incorporates a predictor for the pathway, intended to improve driving performance directly and does not wait until a certain critical event, like a lane departure, has arisen. Drivers are no longer required to pull their attention away from the environmental settings to a secondary display. Rather, they can concentrate on surrounding trafﬁc.
+
+Our work uses ﬂight-tunnel-presentations [12] for lateral guidance in conjunction with a braking bar [1, 4] as an indicator of longitudinal distances. This concept allows for later alterations, e.g., in platooning trafﬁc.
+The braking bar assistance scheme is a ﬂat cube, 2 cm high, shown with the same width as the own car (see Fig. 2). It is 50 cm long such that the bar is visible, even when the car drives at high speed. Due to the thin layout, the bar does not occlude a large area in the ﬁeld of view of the driver.
+The bar is colored in bright green, known to be well suited to the presentation in HUDs – where dark colors are not visible. The color has good contrast to common gray scales on roads or unpaved brown country lanes.
+The bar is rendered perspectively such that its size becomes smaller, when speed increases. Turning the steering wheel causes the bar to rotate and move left or right – according to the curved path the car will take at the current turning radius. The lateral placement of the bar is computed according to the driving model of a single track. The bar, in addition, rotates around the vertical axis, so that it shows the stopping line of the car’s front at every point in time.
+Figure 2: A screen-shot showing the braking bar
+To support the estimation of curves and narrow road sections, we have explored the beneﬁt of visualizing the area through which the car will drive on its current trajectory. The drive-path indicator extends the braking bar presentation scheme by two additional sets of polygons that connect the bar to the car. Each corner of the car’s front side is connected to the corresponding corner of the bar. Each of the two polygons uses four vertices between the car and the bar to generate a rounded shape. Therefore the drive-path presentation scheme always indicates the area to be covered in the next seconds of driving. Figure 3 shows the bar and the drive-path in a light left curve where the car is left of the center of the own lane and started the curve, before the curve itself actually begins.
+4 EXPERIMENT The experiment has been conducted with 27 test participants. The mean age was 41.3 years with a standard deviation of 14.8. The participants’ gender was equally distributed between male (14 participants) and female (13 participants). None of the participants had taken part in a study of similar context before. All participants had normal or corrected to normal vision and held a valid driver’s license. The participants were paid 30 Euro for the two hour experiment. 4.1 Physical Setup The stationary driving simulator consists of a BMW E30 convertible, equipped with a steering wheel, gas and braking pedal to con-
+
+Authorized licensed use limited to: Politecnico di Torino. Downloaded on March 27,2025 at 10:56:21 UTC from IEEE Xplore. Restrictions apply.
+
+Figure 3: A screen-shot showing the braking bar and the drive-path in a light left curve. One can see the car actually is slightly too far to the left and starts the left curve too early
+trol the motion path of the car during the simulation. A rural landscape and simulated trafﬁc scenes are shown on a
+planar projection wall at a focal distance of 3.5 meters in front of the car driver. The simulation projects the scenery from a ﬁxed general driver’s head position in the car and covers a 40-degree visual ﬁeld of view.
+The presentation concept uses a HUD with a focal plane lying congruent to the real street surface – a so called conformal HUD. ADAS systems as in the stated concept do not want the driver’s eyes to refocus at different distances between the real world and augmented presentation schemes.Thus time needed to perceive the visually embedded assistance systems is reduced. Such a conformal HUD is easy to implement in a driving simulator: the software system just has to render the schemes onto the same projection wall. With this approach, no visual focus has to be obtained nor is any calibration of the vision system required. Humans of any body height will always see a view that is perfectly aligned with the driving simulator’s scenery. Furthermore, head movements do not alter alignment.
+4.2 Experimental Design
+Upon arriving at the driving simulator, the participants had to ﬁll out a demographic questionnaire. To familiarize themselves with the driving simulator, each participant drove for about 10 minutes, thereby experiencing the slightly different driving behavior of the simulated car.
+For the experimental trials, the participants drove the same rural road course as in a practice trial. In three trials they either saw no further information (baseline) or one of the two presentation schemes in the same rural road course. The order of the two concepts and the baseline was counterbalanced between participants. After completing the three experimental tasks, the drivers were interviewed about their subjective opinions.
+A within-subjects design was used, with all drivers using both presentation schemes and the baseline. The experiment was conducted in a single session.
+The independent variable in the experiment was the concept. Three different modes, no assistance, bar based scheme and bar and drive-path scheme were compared to one another.
+The dependent variables included driving performance and subjective measures. The driving performance measures were an indication of how well the driver could maintain proper speed (speed deviation and average speed difference) and lane position (lane deviation, lane departure time, time to line crossing).
+
+5 RESULTS
+All data was collected at a frequency of 40 Hz and analyzed. Signiﬁcances were computed for all results. First, ANOVA was used to compute, whether the results were globally signiﬁcant per measured variable. The signiﬁcance level used in all following statistics (objective and subjective measurements) is α = p = 0.05. Second, a pair-wise t-test comparison was computed to get the exact α −values.
+5.1 Objective Measurements
+5.1.1 Longitudinal Behavior
+The experimental design required drivers to adhere to trafﬁc rules. Regarding travel speed, not all measured values could be taken into account. We have discarded all speed measurements close to trafﬁc signs which enforced a speed change, since such dynamic driving action was not comparable between drivers.
+Based on the speed measurements that were selected for analysis, we computed the mean difference between the driven and the allowed speed. Results show that drivers drove faster with visual assistance than without it. In the baseline test drives, drivers were 5.06 km/h (std.dev: 7.02) too fast on average. With the bar assistance, they were 6.65 km/h (std.dev: 8.05) too fast. Participants drove 8.83 km/h (std.dev: 7.91) faster than allowed when they used the drive-path presentation scheme. Speciﬁcally the speed difference between driving with no assistance and driving with the assistance of the drive-path is signiﬁcant.
+The standard deviation of the driven speed indicates, to what extent speed varied. Interestingly, a larger degree of visual assistance correlates with higher oscillations. The baseline shows a range of 6.40 km/h (std.dev: 1.80), the bar assistance a range of 6.64 km/h (std.dev: 2.14) and the drive-path scheme spans 7.36 km/h (std.dev: 2.34). The drive-path scheme oscillates signiﬁcantly more than both other schemes.
+An analysis of the amount of time during which a real speeding violation (more than 10 km/h over speed limit) occurred did not produce signiﬁcant results.
+5.1.2 Lateral Behavior
+For the analysis of lateral performance, we ﬁrst calculated the lane deviation. The experiment recorded the offset to the perfect trajectory in the middle of the own lane. In all three test drives, participants tended to drive slightly left of the center of their own lane. This is consistent with results from other experiments. It assures the validity of the driving simulator environment.
+Without any assistance, participants were about 0.51 m (std.dev: 0.23) to the left of the central path. The bar assistance scheme helped people stay better in their own lane and minimized the offset down to 0.28 m (std.dev: 0.23). The additional drive-path again shrunk the offset to 0.15 m (std.dev: 0.20) off from the ground truth. All compared pairs show signiﬁcant differences.
+Regarding speed oscillation, the standard deviations of the lane deviation show that only the drive-path scheme (mean: 0.66 m, std.dev: 0.16) generates a signiﬁcantly higher oscillation in comparison to the bar assistance scheme (mean: 0.63 m, std.dev:0.18). Even though the test participants performed better when they stayed near the perfect trajectory, they generated more steering activity. The baseline had a mean value of 0.62 m (std.dev: 0.17).
+The lateral acceleration measurements were used to compute the Time to Line Crossing (TLC), an indicator for lane keeping behavior. All resulting mean values ranged between 11.20 s and 11.56 s and had no signiﬁcant impact on their pair-wise comparison.
+5.2 Subjective Measurements
+The personal opinions were measured according to the German school grade system, ranging from 1 (best) to 6 (worst). Here again, the signiﬁcance level used in all following statistics is α = p = 0.05.
+
+Authorized licensed use limited to: Politecnico di Torino. Downloaded on March 27,2025 at 10:56:21 UTC from IEEE Xplore. Restrictions apply.
+
+The NASA Task Load Index (NASA TLX, [6]) computes an overall workload index from a short questionnaire. The result is a value between 0 (no workload) and 100 (full workload). The analysis shows that the test subjects had less workload when they used the bar assistance scheme (mean: 27.87, std.dev: 15.76). Despite the existence of an additional visual presentation scheme, the test drivers had less workload to deal with. The workload for the drivepath and for the baseline ranged around 32 (baseline: mean: 31.71, std.dev: 24.95; drive-path: mean: 32.08; std.dev: 20.88). This is consistent with various other experiments where the overall workload index remains constant across similar tasks [5].
+Test participants also had to estimate their capability to maintain speed. They ranked the bar assistance scheme signiﬁcantly better for keeping speed than the drive-path and no scheme. The bar received a grade of 2.85 (std.dev: 1.06), while the drive-path was graded as 3.56 (std.dev: 1.28) and no assistance as 3.22 (std.dev: 1.31).
+To evaluate the overall driving quality, the participants were asked to grade their driving performance for the three assistance schemes. The bar scheme ranks at the top position with an average value of 2.63 (std.dev: 0.88) and is signiﬁcant in comparison to driving without any assistance (3.00, std.dev: 1.00). Driving with the drive-path resulted worst with a mean value of 3.04 (std.dev: 1.22).
+When asked how well they could concentrate on the task of driving the car, the participants answered that they could concentrate the less the more visual content was in their ﬁeld of view. Without any assistance, they could concentrate best with a grade of 2.19 (std.dev: 0.88). The bar presentation scheme reached second place with a grade of 2.33 (std.dev: 1.00) and the drive-path comes in last with a grade of 2.74 (std.dev: 1.35). The last result is signiﬁcant in comparison to driving with no assistance.
+Further subjective questions about Pleasure, Wish for Realization, Relaxation, Capability to Stay within a Lane and Feeling of Safety did not produce signiﬁcant differences.
+6 DISCUSSION
+Results show, that the test subjects drove faster with increasing visual assistance. Since driving simulators are safe environments, higher speeds could be expected, but the further increase shows, that the visual aid again raises a feeling of safety. Another fact in longitudinal behavior is found in the standard deviation of speed. The drive-path scheme oscillates signiﬁcantly more than both other schemes. Here the drivers seem to neglect their obligation to maintain proper speeds when they look at the animated presentation scheme of the drive-path.
+The lateral assistance appears useful for lane keeping behavior, because lane deviation decreases the higher the visual assistance is, but the drive-path scheme oscillates more than the pure bar scheme.
+Summarizing subjective measurements, test subjects judge an improved overall driving quality for the bar scheme in comparison to no assistance.
+Especially the ﬁndings, that the bar scheme does not increase overall workload, reduces lane deviation and does not increase oscillations in speed and lateral movement make this scheme interesting for further analysis. The facts, that visual assistance brings a (wrong) feeling of safety and that common design principles for visual aids in time-critical systems enforce presentation schemes to be as minimal and easy to perceive as possible let the drive-path scheme appear be the most interesting candidate for further extension to a platooning aid. Thus the bar scheme should be preferred to the drive-path scheme.
+7 CONCLUSION AND FUTURE WORK
+In this paper we have reported on a new approach for implicit driver assistance. We have developed two visual presentation schemes, a
+
+bar and a drive-path, to be presented in the windshield (HUD) of a car. Since visual output offers a means for immediate anticipation of the car’s trajectory and can thus enhance a driver’s diving performance, we have implemented a visual system that keeps the driver in the loop of the control circuit and tested it in a driving simulator.
+Objective and subjective results show that such visualization does not affect overall workload, yet it does worsen lane keeping behavior. Our results further support the general design principles that presentation schemes must be as minimal and easy to perceive as possible. Therefore and due to our results, the bar presentation scheme has been selected for further extension in future work. Three major directions have been identiﬁed:
+First, colors will be explored as a means to indicate a following distance to inform drivers of safe distances and critical approaches in platooning trafﬁc.
+Second, further usability tests will integrate analysis of eye movement behavior to determine whether effects of peripheral tunneling are introduced by such visual add-ons.
+Third, we would like to incorporate such visual assistance schemes into a real car. To this end, we need to build a HUD that can display visual content in an area of at least about a A3-sized sheet of paper in correct focal distance. This setup will enable long term studies on driver customization and will reveal lots of data about human factors of AR.
+
+ACKNOWLEDGMENTS
+We would like to thank BMW Forschung und Technik GmbH for funding research and for many valuable discussions on the human factors of visual perception and on regimentation of in-car visual systems.
+
+REFERENCES
+
+[1] E. Assmann. Untersuchung u¨ber den Einﬂuss einer Bremsweganzeige
+
+auf das Fahrverhalten. PhD thesis, TU Mu¨nchen, Ergonomics, 1985.
+
+[2] R. E. Bailey, . J. Kramer, , and L. J. Prinzel III. Crew and Display
+
+Concepts Evaluation for Synthetic / Enhanced Vision Systems. In
+
+SPIE – The Intl. Society for Optical Eng., NASA Langley Research
+
+Center, M/S 152, Hampton, VA 23681-0001, 2006. Vol 6226.
+
+[3] K. Brookhuis and D. de Waard. The consequences of automation for
+
+driver behaviour and acceptance. In Proceedings of the International
+
+Ergonomics Association (IEA), July 2006. CD-ROM.
+
+[4] H. Bubb. Untersuchung ber die Anzeige des Bremsweges im Kraft-
+
+fahrzeug. In Forschungsbericht aus der Wehrtechnik BMVg, FBWT -
+
+7, Technische Universtita¨t Mu¨nchen, Chair for Ergonomics, 1976.
+
+[5] Sandra G. Hart. NASA-Task Load Index (NASA-TLX); 20 Years
+
+Later. In 50th Annual Meeting of the Human Factors and Ergonomics
+
+Society, pages 904–908, October 2006.
+
+[6] Hart & Staveland. NASA Task Load Index (TLX), V1.0 Manual, 1988.
+
+[7] K. Harwood, B. Barnett, and C. D. Wickens. Situational Awareness: A
+
+Conceptual and Methodological Framework. Proc. of the 11th Symp.
+
+of Psychology in the Department of Defense, pages 316–320, 1988.
+
+[8] L. J. Kramer., L. J. Prinzel III, J. J. Arthur III, and R. E. Bailey. Path-
+
+way Design Effects on Synthetic Vision Head-up Displays. In SPIE –
+
+Intl Society for Optical Eng., pages 61–72, NASA Langley Research
+
+Center, Hampton, VA, USA, 2004. Volume 5424.
+
+[9] MobileEye.
+
+Assistance System Homepage.
+
+http://www.mobileye.com/.
+
+[10] Briana Sullivan, Colin Ware, and Plumlee Matthew. Predictive Dis-
+
+plays for Survey Vessels. In 50th Annual Meeting of the Human Fac-
+
+tors and Ergonomics Society, pages 2424–2428, October 2006.
+
+[11] M. To¨nnis, V. Broy, and G. Klinker. A Survey of Challenges Related
+
+to the Design of 3D User Interfaces for Car Drivers. In Proceedings of
+
+the 1st IEEE Symposium on 3D User Interfaces (3D UI), pages 127–
+
+134, March 2006.
+
+[12] M. To¨nnis, C. Lange, G. Klinker, and H. Bubb. Transfer of Flight-
+
+Tunnel-Presentations into the Head-Up Display of Cars. In Integrierte
+
+Sicherheit und Fahrerassistenzsysteme, Tagungsband Nr. 1960, pages
+
+613–624, VDI Wissensforum, Du¨sseldorf, Germany, 2006.
+
+Authorized licensed use limited to: Politecnico di Torino. Downloaded on March 27,2025 at 10:56:21 UTC from IEEE Xplore. Restrictions apply.
+
